@@ -17,7 +17,7 @@ export class Mser2SidenavComponent implements OnInit {
   }
 
   opcodesetup() {
-    this.opcodesetupComponent.opcodesetup();
-    debugger
+    // this.opcodesetupComponent.opcodesetup();
+    // debugger
   }
 }

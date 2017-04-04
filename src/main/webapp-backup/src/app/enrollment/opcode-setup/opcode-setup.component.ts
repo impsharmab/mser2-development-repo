@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet, Params, ActivatedRoute } from '@angular/router';
+import {AddOpCodeInterface} from './add-opcode.interface'
 
 import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service'
 
@@ -10,7 +11,8 @@ import { OpcodesetupService } from '../../mser2-services/enrollment-service/opco
   //providers:[OpcodesetupService]
 })
 export class OpcodeSetupComponent implements OnInit {
-  private opcodesetupData: any;
+   opcodesetupData: any;
+   public addopcInterface: AddOpCodeInterface;
 
   constructor(private opcodesetupService: OpcodesetupService, private router: Router) { }
 
@@ -34,6 +36,10 @@ export class OpcodeSetupComponent implements OnInit {
 
       }
     )
+  }
+
+  addOpCode(){
+
   }
 
 }
