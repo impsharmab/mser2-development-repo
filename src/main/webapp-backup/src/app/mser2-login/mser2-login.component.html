@@ -69,15 +69,16 @@
                         <p class="error" style="text-align: center;"></p>
                         <table class="inner-table" cellpadding="0" cellspacing="0" border="0">
                           <div>
+                            <p style="color:red">{{loginFailed}}</p>
                             <tr>
                               <th>Login ID:&nbsp;&nbsp;</th>
                               <td><input type="text" name="username" [(ngModel)]="user.username" #username="ngModel" placeholder="User ID"
-                                  class="inset-form-element " style="width:90%;" required minlength="5" maxlength="8" /></td>
+                                  class="inset-form-element " style="width:90%;" required /></td>
                             </tr>
                           </div>
-                          <!--<small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger">
-                                        Username is required (minimum 5 characters).
-                              </small>-->
+                          <small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger">
+                                        Please enter your Login id
+                              </small>
                           <div>
                             <tr>
                               <th>Password:&nbsp;&nbsp;</th>
@@ -86,9 +87,9 @@
                                   reverse="true" /></td>
                             </tr>
                           </div>
-                          <!--<small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
-                                        Password is required
-                            </small>-->
+                          <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+                                        Please enter your Password
+                          </small>
                           <tr>
                             <td colspan="2"><input type="submit" value="Enter" /></td>
                           </tr>
@@ -99,13 +100,15 @@
                     <div>
                       <b>Forgot Password?</b>
                       <br/>
-                      <a href="#" (click) ="resetPassword()">Click here</a> to reset Password!
+                      <a href="#" (click)="resetPassword()">Click here</a> to reset Password!
                       <br/>
                       <b>New Dealers...</b>
-                      <br/><a href="../../assets/pdf/MSER_Official_Program_Rules.pdf"  target="_blank">Click here</a>                      for the Program Rules! <br/>
+                      <br/><a href="../../assets/pdf/MSER_Official_Program_Rules.pdf" target="_blank">Click here</a> for
+                      the Program Rules! <br/>
 
                       <br/><a href="/mser/enrollment.do">Click here</a> to register your dealership! <br/> OR
-                      <br/><a href="../../assets/pdf/MSER_Enrollment_Form_FIAT.pdf" target="_blank">Click here</a>                      to access the enrollment form!
+                      <br/><a href="../../assets/pdf/MSER_Enrollment_Form_FIAT.pdf" target="_blank">Click here</a> to access
+                      the enrollment form!
                       <br/><b>FIAT Dealers...</b>
                       <br/><a href="/shared/imi-cms/MSER/docs/MSER Enrollment Form - FIAT.pdf" target="_blank">
                             Click here</a> to access the FIAT enrollment form!

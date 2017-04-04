@@ -25,8 +25,20 @@
     <link href="assets/assets/font-awesome.css" rel="stylesheet">
     <link href="assets/assets/simple-line-icons.css" rel="stylesheet">
 
+
+    <!--this is for form validation-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="assets/assets/bootstrap.js"></script>
+
     <!-- Main styles for this application -->
     <link href="assets/assets/style.css" rel="stylesheet">
+
+    <!-- Custom styles for this application -->
+    <link href="assets/_css/mopar-styles.css" rel="stylesheet">
+
+    <!-- Custom fonts for this application -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600" rel="stylesheet">
 
     <!-- Zozo Tabs css -->
     <!-- Examples CSS (Not needed) -->
@@ -35,15 +47,20 @@
     <!-- Zozo Tabs css -->
     <link href="assets/_css/zozo.tabs.min.css" rel="stylesheet" />
 
-    <!-- Zozo Tabs js -->
-    <!--<script src="assets/_js/jquery.min.js"></script>-->
-    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <!-- Bootstrap DataTables css -->
+    <link href="assets/assets/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+
+    <script src="assets/assets/jquery.dataTables.min.js"></script>
+    <script src="assets/assets/dataTables.bootstrap.min.js"></script>
+
     <!-- <script src="assets/jquery.js"></script> -->
     <script src="assets/_js/zozo.tabs.min.js"></script>
 
-
     <script src="assets/assets/tether.js"></script>
-    <script src="assets/assets/bootstrap.js"></script>
+
     <script src="assets/assets/pace.js"></script>
 
     <!-- Plugins and scripts required by all views -->
@@ -62,8 +79,14 @@
         }
     </style>
     <script>
-    
+
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+
 
 </head>
 

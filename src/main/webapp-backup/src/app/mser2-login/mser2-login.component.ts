@@ -11,7 +11,8 @@ import { User } from './mser2-user.interface';
 export class Mser2LoginComponent implements OnInit {
   public user: User;
   private userdata: any = {};
-
+  private loginFailed: string = "";
+ 
   constructor(private loginService: Mser2LoginServiceService, private router: Router) { }
 
   ngOnInit() {
@@ -35,7 +36,7 @@ export class Mser2LoginComponent implements OnInit {
         }
 
         else if (resUserData["token"] !== undefined) {
-          alert("user is not registered in database");
+          this.loginFailed = ("Login failed" + "<br>" + "Please provide valid SID/TID and password");
         }
 
         else {

@@ -18,6 +18,7 @@ import {Mser2LoginServiceService} from './mser2-services/mser2-login-service.ser
 import { ResetPasswordComponent } from './mser2-login/reset-password/reset-password.component';
 import { HomeComponent } from './home/home.component';
 import {MserModule} from './rootpage/mser-module/mser-module.module';
+import { OpcodeSetupComponent } from './enrollment/opcode-setup/opcode-setup.component';
 
 
 
@@ -26,6 +27,7 @@ import {MserModule} from './rootpage/mser-module/mser-module.module';
     AppComponent,
     ResetPasswordComponent,
     Mser2LoginComponent,
+    OpcodeSetupComponent,
    
  
    
