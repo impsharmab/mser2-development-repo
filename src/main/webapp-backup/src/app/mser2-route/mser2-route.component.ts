@@ -7,6 +7,8 @@ import { Mser2LoginComponent } from '../mser2-login/mser2-login.component';
 import { ResetPasswordComponent } from '../mser2-login/reset-password/reset-password.component'
 // import {HomeComponent} from "../home/home.component"
 
+import { OpcodeSetupComponent } from '../enrollment/opcode-setup/opcode-setup.component'
+
 const routes: Routes = [
     {
         path: '',
@@ -25,19 +27,16 @@ const routes: Routes = [
         path: "resetPassword",
         component: ResetPasswordComponent
     },
+    // {
+    //     path: "opcodesetup",
+    //     component: OpcodeSetupComponent
+    // }
     //  {
     //     path: "home",
     //     component: HomeComponent
     // },
     //,
-    // {
-    //     path: "myfcadashboard",
-    //     //component: RootPageComponent
-    // },
-    // {
-    //     path: "admin",
-    //     //component: AdminRootPageComponent
-    // }
+    
 ]
 
 @NgModule({

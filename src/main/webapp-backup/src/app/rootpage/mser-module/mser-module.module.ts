@@ -13,23 +13,33 @@ import { Mser2HeaderComponent } from '../../mser2-header/mser2-header.component'
 import { MserRoutingModule } from './../mser-routing/mser-routing.module';
 import { RootPageComponent } from '../rootpage.component';
 import { HomeComponent } from '../../home/home.component';
-import {PayoutchartComponent} from '../../payoutchart/payoutchart.component';
+import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
+
+import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component'
+import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service'
+
 @NgModule({
   imports: [
     CommonModule,
- BrowserModule,
+    BrowserModule,
     FormsModule,
     HttpModule,
     MserRoutingModule
   ],
- 
-  declarations: [  Mser2SidenavComponent,
+
+  declarations: [Mser2SidenavComponent,
     Mser2FooterComponent,
     Mser2ProfileComponent,
     Mser2BodyComponent,
     Mser2HeaderComponent,
-   RootPageComponent,
+    RootPageComponent,
     HomeComponent,
-    PayoutchartComponent]
+    PayoutchartComponent,
+    OpcodeSetupComponent
+
+  ],
+
+  providers:
+  [OpcodesetupService]
 })
 export class MserModule { }
