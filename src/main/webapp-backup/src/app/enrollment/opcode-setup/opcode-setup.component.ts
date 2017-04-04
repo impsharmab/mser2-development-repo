@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet, Params, ActivatedRoute } from '@angular/router';
 
 import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service'
 
@@ -9,17 +10,28 @@ import { OpcodesetupService } from '../../mser2-services/enrollment-service/opco
   //providers:[OpcodesetupService]
 })
 export class OpcodeSetupComponent implements OnInit {
-  private opcodesetupData: any = {};
+  private opcodesetupData: any;
 
-  constructor(private opcodesetupService: OpcodesetupService) { }
+  constructor(private opcodesetupService: OpcodesetupService, private router: Router) { }
 
   ngOnInit() {
+    this.opcodesetup();
   }
 
-  opcodesetup() {
+  private opcodesetup() {
+    //debugger
     this.opcodesetupService.getOpcodesetupResponse().subscribe(
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
+        // if (true) {
+        //   let url = ["opcodesetup"]
+        //   this.router.navigate(url);
+          //debugger
+          //alert(this.opcodesetupData.createdDate)
+          //console.log(this.opcodesetupData)
+        //}
+
+
       }
     )
   }

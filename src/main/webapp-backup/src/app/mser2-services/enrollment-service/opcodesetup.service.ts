@@ -3,13 +3,16 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import '../rxjs-operators';
 
+
 @Injectable()
 export class OpcodesetupService {
 
   constructor(private http: Http) { }
 
   getOpcodesetupResponse(): any {
-    var url = "./enrollments/getopcode";        
+    
+    var url = "./enrollments/getopcode";  
+    var url='http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';      
     return this.http.get(url)
       .map((response: Response) =>
         response.json())

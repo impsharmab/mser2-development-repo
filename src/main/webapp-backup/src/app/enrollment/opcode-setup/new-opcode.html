@@ -86,36 +86,21 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
+                                    <!--<tfoot>
+                                        <tr >
                                             <th>OpCode</th>
                                             <th>Date Added</th>
                                             
                                         </tr>
-                                    </tfoot>
+                                    </tfoot>-->
                                     <tbody>
-                                        <tr>
-                                            <td>101</td>
-                                            <td>11/22/2016</td>
-                                            
+                                        <tr *ngFor="let data of opcodesetupData">
+                                            <td>{{data.opCode}}</td>
+                                            <td>{{data.createdDate}}</td>  
+                                             <td>Delete</td>                                            
                                         </tr>
-                                        <tr>
-                                            <td>101</td>
-                                            <td>11/22/2016</td>
-                                        </tr>
-                                        <tr>
-                                            <td>116</td>
-                                            <td>11/22/2016</td>
-                                        </tr>
-                                        <tr>
-                                            <td>200</td>
-                                            <td>11/22/2016</td>
-                                        </tr>
-                                        
                                     </tbody>
                                 </table>
-
-
                             </div>
                         </div>
                     </div>

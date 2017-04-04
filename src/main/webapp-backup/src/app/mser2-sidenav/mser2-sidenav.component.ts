@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet, Params, ActivatedRoute } from '@angular/router';
+
 import { OpcodeSetupComponent } from '../enrollment/opcode-setup/opcode-setup.component'
 
 @Component({
@@ -8,13 +10,14 @@ import { OpcodeSetupComponent } from '../enrollment/opcode-setup/opcode-setup.co
 
 })
 export class Mser2SidenavComponent implements OnInit {
-
-  constructor() { }
+  private opcodesetupComponent: OpcodeSetupComponent;
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  // opcodesetup() {
-  //   this.opcodesetupComponent.opcodesetup();
-  // }
+  opcodesetup() {
+    this.opcodesetupComponent.opcodesetup();
+    debugger
+  }
 }
