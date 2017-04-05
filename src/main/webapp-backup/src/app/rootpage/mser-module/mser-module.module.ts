@@ -15,8 +15,12 @@ import { RootPageComponent } from '../rootpage.component';
 import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
 
-import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component'
-import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service'
+import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component';
+import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service';
+import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
+import { RecallRewardsRulesComponent } from '../../marketing/recall-rewards-rules/recall-rewards-rules.component';
+import { MarketingProgramComponent } from '../../marketing/marketing-program/marketing-program.component';
+import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
 
 @NgModule({
   imports: [
@@ -27,7 +31,8 @@ import { OpcodesetupService } from '../../mser2-services/enrollment-service/opco
     MserRoutingModule
   ],
 
-  declarations: [Mser2SidenavComponent,
+  declarations: [
+    Mser2SidenavComponent,
     Mser2FooterComponent,
     Mser2ProfileComponent,
     Mser2BodyComponent,
@@ -35,7 +40,11 @@ import { OpcodesetupService } from '../../mser2-services/enrollment-service/opco
     RootPageComponent,
     HomeComponent,
     PayoutchartComponent,
-    OpcodeSetupComponent
+    OpcodeSetupComponent,
+    MarketingHomeComponent,
+    RecallRewardsRulesComponent,
+    MarketingProgramComponent,
+    MarketingTrainingPresentationComponent   
 
   ],
 

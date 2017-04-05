@@ -8,7 +8,12 @@ import { RootPageComponent } from "../rootpage.component"
 
 import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
-import {OpcodeSetupComponent} from '../../enrollment/opcode-setup/opcode-setup.component'
+import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component';
+import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
+import { RecallRewardsRulesComponent } from '../../marketing/recall-rewards-rules/recall-rewards-rules.component';
+import { MarketingProgramComponent } from '../../marketing/marketing-program/marketing-program.component';
+import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
+
 
 const routes: Routes = [
 
@@ -28,7 +33,25 @@ const routes: Routes = [
             {
                 path: "opcodesetup",
                 component: OpcodeSetupComponent
+            },
+            {
+                path: "marketinghome",
+                component: MarketingHomeComponent
+            },
+            {
+                path: "recallrewardsrule",
+                component: RecallRewardsRulesComponent
+            },
+            {
+                path: "marketingprogram",
+                component: MarketingProgramComponent
+            },
+            {
+                path: "presentation",
+                component: MarketingTrainingPresentationComponent
             }
+
+
         ]
     }
 
