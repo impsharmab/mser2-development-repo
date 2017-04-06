@@ -25,7 +25,9 @@ import com.imperialm.imimserservices.services.UserServiceImpl;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.crypto.Mac;
 import javax.naming.AuthenticationException;
@@ -77,6 +79,29 @@ public class AuthenticationRestController {
         	dealerCode.add(item.getDealerCode());
         }
         
+        if(userCodes.size() == 0){
+        	List<String> territoryCheck = this.userPositionCodeRoleDAO.getUserTerritoyById(user.getUserId());
+        	if(territoryCheck.size() > 0){
+        		if(territoryCheck.get(0).equalsIgnoreCase("nat")){
+        			positionCode.add("90");
+        		}else if(territoryCheck.get(0).contains("-")){
+        			positionCode.add("97");
+        		}else if(territoryCheck.get(0).trim().length() == 2){
+        			positionCode.add("8D");
+        		}/*else{
+        			positionCode.add("01");
+        			dealerCode.add(user.getUserId());
+        		}*/
+        	}
+        }
+        
+        Set<String> p = new LinkedHashSet<>(positionCode);
+        Set<String> d = new LinkedHashSet<>(dealerCode);
+        positionCode.clear();
+        dealerCode.clear();
+        
+        positionCode.addAll(p);
+        dealerCode.addAll(d);
         
         JwtAuthenticationResponse response =new JwtAuthenticationResponse(token);
         response.setPositionCode(positionCode);

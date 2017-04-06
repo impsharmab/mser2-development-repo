@@ -4,6 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class Password {
-	private String password;
+public class OneItem {
+	private String key;
 }

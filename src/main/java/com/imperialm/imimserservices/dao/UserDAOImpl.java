@@ -45,12 +45,12 @@ public class UserDAOImpl {
 	
 	
 	@Transactional
-	public boolean setPassword(String id, String password, byte[] hash){
+	public boolean setPassword(String id, String password, String salt){
 		boolean result = false;
 		try {
-			final Query query = this.em.createNativeQuery("update Users set [HashPass] = ?0 , [Salt] = ?1 where userid = ?2");
-			query.setParameter(0, password);
-			query.setParameter(1, hash);
+			final Query query = this.em.createNativeQuery("update Users set [HashPass] = HASHBYTES('SHA2_512', cast(?0  as varchar(64))) , [Salt] = ?1 where userid = ?2");
+			query.setParameter(0, password + salt);
+			query.setParameter(1, salt);
 			query.setParameter(2, id);
 			if(query.executeUpdate() > 0){
 				result = true;

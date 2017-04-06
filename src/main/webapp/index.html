@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Mser2</title>
-    <base href="/imimserservices/">
-
+    <script>
+        document.write('<base href="' + document.location + '" />');
+    </script>
+    <!--<base href="/">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -23,10 +25,30 @@
     <link type="text/css" rel="stylesheet" href="./assets/_css/mser-login-content.css" />
     <!-- Icons -->
     <link href="assets/assets/font-awesome.css" rel="stylesheet">
-    <link href="assets/assets/simple-line-icons.css" rel="stylesheet">
+    <!--<link href="assets/assets/simple-line-icons.css" rel="stylesheet">-->
+
+    <!--this is for form validation-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">-->
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>-->
 
     <!-- Main styles for this application -->
     <link href="assets/assets/style.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this application -->
+    <link href="assets/_css/mopar-styles.css" rel="stylesheet">
+
+    <!-- Custom fonts for this application -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600" rel="stylesheet">
 
     <!-- Zozo Tabs css -->
     <!-- Examples CSS (Not needed) -->
@@ -37,6 +59,12 @@
 
     <!-- Zozo Tabs js -->
     <!--<script src="assets/_js/jquery.min.js"></script>-->
+    <!--<script src="https://code.jquery.com/jquery-1.9.1.min.js" integrity="sha256-wS9gmOZBqsqWxgIVgA8Y9WcQOa7PgSIX+rPA0VL2rbQ="
+        crossorigin="anonymous"></script>-->
+
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>-->
+
     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
     <!-- <script src="assets/jquery.js"></script> -->
     <script src="assets/_js/zozo.tabs.min.js"></script>
@@ -62,7 +90,7 @@
         }
     </style>
     <script>
-    
+
     </script>
 
 </head>

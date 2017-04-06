@@ -3,67 +3,12 @@
  */
 package com.imperialm.imimserservices.dto;
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * @author Dheerajr
- *
- */
-public class AttributeDTO implements Serializable {
-
-	private String name;
-	private String value;
-	private String type;
-	private int order;
-
-	public AttributeDTO() {
-	}
-
-	public AttributeDTO(final String name, final String value, final String type, final int order) {
-		super();
-		this.name = name;
-		this.value = value;
-		this.type = type;
-		this.order = order;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(final String name) {
-		this.name = name;
-	}
-
-	public String getValue() {
-		return this.value;
-	}
-
-	public void setValue(final String value) {
-		this.value = value;
-	}
-
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(final String type) {
-		this.type = type;
-	}
-
-	public int getOrder() {
-		return this.order;
-	}
-
-	public void setOrder(final int order) {
-		this.order = order;
-	}
-
+@Getter @Setter
+public class AttributeDTO {
+	private String name = "";
+	private Object value = "";
+	private String type = "";
 }

@@ -1,0 +1,171 @@
+/* Page Content */
+#main-content {
+/*    border:1px solid #548ec6;
+    border-collapse:separate;*/
+    padding-left:1em;
+    /*margin:0 1em 1em 0;*/
+/*    -moz-box-shadow:0 0 4px #555;
+    -webkit-box-shadow:0 0 4px #555;
+    box-shadow:0 0 4px #555;*/
+}
+.page-section {
+    color:#e65c00;
+    font-weight:bold;
+    padding-bottom:4px;
+    text-align:center;
+}
+/* form inset shadow (input, select) */
+.inset-form-element {
+    border:1px solid #c0c0c0;
+    -moz-box-shadow:0 0 10px #c6def6 inset;
+    -webkit-box-shadow:0 0 10px #c6def6 inset;
+    box-shadow:0 0 10px #c6def6 inset;
+    color:#000000;
+    font-size:1.1em;
+    margin:3px 0 0 0;
+    padding:3px 3px 4px 8px;
+}
+.inset-form-element:focus {
+    border:1px solid #0067b2;
+}
+#promotion-table {
+    width:863px;
+}
+#promotion-table td.promotion-title {
+    text-align:center;
+}
+#payout-table {
+    width:850px;
+}
+#payout-table td.gallery {
+}
+#gallery {
+    border-collapse:separate;   /* IE9 */
+    border:1px solid #000;
+    -moz-box-shadow:0 0 4px #555;
+    -webkit-box-shadow:0 0 4px #555;
+    box-shadow:0 0 4px #555;
+    width:400px;
+    height:400px;
+}
+/* ****************************** */
+/* round coners for table         */
+/* ****************************** */
+table.rounded {
+    background-color:#fefefe;
+    /* border-collapse: collapse; */
+    border-collapse:separate;   /* IE9 */
+    border: 0;
+    margin: 1em auto;
+    padding: 0;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
+    -moz-box-shadow:0 0 4px #555;
+    -webkit-box-shadow:0 0 4px #555;
+    box-shadow:0 0 4px #555;
+}
+table.rounded td {
+    vertical-align: top;
+    line-height:20px;
+    margin: 0;
+    padding: 0;
+}
+table.rounded h2 {
+    margin: 0 0 1em 0;
+}
+table.rounded .border-top-left {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-top-left.png);
+    background-repeat: no-repeat;
+    width:20px;
+    height:20px
+}
+table.rounded .border-top-right {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-top-right.png);
+    background-repeat: no-repeat;
+    width:20px;
+    height:20px
+}
+table.rounded .border-bottom-right {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-bottom-right.png);
+    background-repeat: no-repeat;
+    width:20px;
+    height:20px
+}
+table.rounded .border-bottom-left {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-bottom-left.png);
+    background-repeat: no-repeat;
+    width:20px;
+    height:20px
+}
+table.rounded .border-top {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-top.png);
+    background-repeat: repeat-x;
+    height:20px
+}
+table.rounded .border-left {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-left.png);
+    background-repeat: repeat-y;
+    width:20px;
+}
+table.rounded .border-right {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-right.png);
+    background-repeat: repeat-y;
+    width:20px;
+}
+table.rounded .border-bottom {
+    background-image: url(/shared/imi-cms/MSER/images/webImages/gui/rounded/border-bottom.png);
+    background-repeat: repeat-x;
+    height:20px
+}
+table.rounded .inner-table {
+    margin:0 auto;
+}
+table.rounded .inner-table td {
+    padding:4px;
+}
+/* ****************************** */
+.listbox0 {
+    background-color: #e0e0e0;
+}
+.listbox1 {
+    background-color: white;
+}
+.important {
+    color: red;
+}
+#message {
+    color:red;
+    font-weight:bold;
+    padding:1em;
+}
+.main-content {
+    margin:2em;
+}
+/* ******************************** */
+/* BU Maintenance - Progress Chart  */
+/* ******************************** */
+#progress {
+}
+
+#progress ul {
+    list-style-type: none;
+    margin-left: 1em;
+    padding: 0;
+}
+
+#progress li {
+    padding: 0 0 0 35px;
+    margin: 0;
+    line-height: 30px;
+}
+
+#progress li.true {
+    background: transparent url(/shared/imi-cms/MSER/images/webImages/gui/icon/blue-check.png) no-repeat;
+    background-position: 0 5px;
+}
+
+#progress li.false {
+    background: transparent url(/shared/imi-cms/MSER/images/webImages/gui/icon/blue-x.png) no-repeat;
+    background-position: 0 5px;
+}

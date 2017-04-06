@@ -6,7 +6,7 @@ import { Mser2LoginServiceService } from '../../mser2-services/mser2-login-servi
 
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
+  templateUrl: './new-resetpassword.html',
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
         this.resetPasswordData = (resetPasswordData)
       }
     )
-    debugger
+    //debugger
   }
 
   private cancel() {
