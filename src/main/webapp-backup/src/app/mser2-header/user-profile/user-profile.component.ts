@@ -6,7 +6,7 @@ import { UserProfileTextMessageOptionInterface } from './userProfile-textMessage
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
+  templateUrl: './new-userprofile.html',
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {

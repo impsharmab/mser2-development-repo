@@ -8,7 +8,7 @@ import { DealerRegisterService } from '../../mser2-services/dealer-register-serv
 
 @Component({
   selector: 'dealer-register-component',
-  templateUrl: './dealer-register.component.html',
+  templateUrl: './new-dealer-register.html',
   styleUrls: ['./dealer-register.component.css']
 })
 export class DealerRegisterComponent implements OnInit {

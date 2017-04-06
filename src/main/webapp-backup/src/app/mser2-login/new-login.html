@@ -9,7 +9,7 @@
 
     <nav class="navMenu">
         <div class="menuItem">
-            <span class="menuTarget " data-target="contactUs">Contact Us</span>
+            <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
         </div>
         <div class="menuItem">
             <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
@@ -64,7 +64,7 @@
 
                                     <a class="resetLink" style="color:blue;text-decoration:underline;">Reset password</a>
                                     <br />
-                                    <a class="" style="color:blue;text-decoration:underline;">Register Your Dealership</a>
+                                    <a class="" style="color:blue;text-decoration:underline;" (click)="dealerregister()">Register Your Dealership</a>
                                 </form>
                                 <!--<div id="updateProgramsModal" class="modal fade" role="dialog">
                                     <div class="modal-dialog">-->

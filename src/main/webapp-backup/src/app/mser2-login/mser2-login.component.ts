@@ -27,19 +27,19 @@ export class Mser2LoginComponent implements OnInit {
   private login(username: string, password: string) {
     // debugger
     // alert(username)
-    if (username.trim() === "" && password.trim() === "") {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = "Please enter you valid SID/TID and Password";
-      return;
-    } else if (username.trim() === "" && password.trim() !== null) {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your valid SID or TID'
-      return;
-    } else if (username.trim() !== null && password.trim() === "") {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your valid Password'
-      return;
-    }
+    // if (username.trim() === "" && password.trim() === "") {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = "Please enter you valid SID/TID and Password";
+    //   return;
+    // } else if (username.trim() === "" && password.trim() !== null) {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = 'Please enter your valid SID or TID'
+    //   return;
+    // } else if (username.trim() !== null && password.trim() === "") {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = 'Please enter your valid Password'
+    //   return;
+    // }
     this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
@@ -74,8 +74,8 @@ export class Mser2LoginComponent implements OnInit {
     let url = ["resetPassword"]
     this.router.navigate(url);
   }
-  mserEnrollment() {
-    let url = ["mserenrollment"]
+  dealerregister() {
+    let url = ["dealerregister"]
     this.router.navigate(url);
   }
 }

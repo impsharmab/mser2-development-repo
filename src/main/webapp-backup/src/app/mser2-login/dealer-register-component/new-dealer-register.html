@@ -1,0 +1,504 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+    <a class="navbar-brand" href="#"></a>
+
+    <form class="hide-me form-inline float-left b-r-1 px-2 hidden-md-down">
+        <i class="fa fa-search"></i>
+        <input class="form-control" placeholder="Search..." type="text">
+    </form>
+
+    <nav class="navMenu">
+        <div class="menuItem">
+            <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
+        </div>
+        <div class="menuItem">
+            <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
+        </div>
+    </nav>
+
+
+</header>
+<!-- Main content -->
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Program Registration Request
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+
+                                <form class="pageForm">
+                                    <label>SID</label>
+                                    <input type="text" id="loginID" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <br />
+                                    <label>Dealer Code</label>
+                                    <input type="text" id="dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <br />
+                                    <label>Manager Email</label>
+                                    <input type="text" id="dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <br />
+
+
+                                    <button type="button" class="btn btn-info btn-sm">Cancel</button>
+                                    <button type="button" class="btn btn-info btn-sm">Request Enrollment</button>
+
+
+                                </form>
+
+                                <div id="updateProgramsModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Login Failed</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Please provide a valid SID or TID, and password.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+
+<aside class="aside-menu">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab"><i class="icon-list"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#messages" role="tab"><i class="icon-speech"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#settings" role="tab"><i class="icon-settings"></i></a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="timeline" role="tabpanel">
+            <!--
+            <div class="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
+                <small><b>Today</b>
+                </small>
+            </div>
+            <hr class="transparent mx-1 my-0">
+            <div class="callout callout-warning m-0 py-1">
+                <div class="avatar float-right">
+                    <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                </div>
+                <div>Meeting with
+                    <strong>Lucas</strong>
+                </div>
+                <small class="text-muted mr-1"><i class="icon-calendar"></i>&nbsp; 1 - 3pm</small>
+                <small class="text-muted"><i class="icon-location-pin"></i>&nbsp; Palo Alto, CA</small>
+            </div>
+            <hr class="mx-1 my-0">
+            <div class="callout callout-info m-0 py-1">
+                <div class="avatar float-right">
+                    <img src="assets/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                </div>
+                <div>Skype with
+                    <strong>Megan</strong>
+                </div>
+                <small class="text-muted mr-1"><i class="icon-calendar"></i>&nbsp; 4 - 5pm</small>
+                <small class="text-muted"><i class="icon-social-skype"></i>&nbsp; On-line</small>
+            </div>
+            <hr class="transparent mx-1 my-0">
+            <div class="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
+                <small><b>Tomorrow</b>
+                </small>
+            </div>
+            <hr class="transparent mx-1 my-0">
+            <div class="callout callout-danger m-0 py-1">
+                <div>New UI Project -
+                    <strong>deadline</strong>
+                </div>
+                <small class="text-muted mr-1"><i class="icon-calendar"></i>&nbsp; 10 - 11pm</small>
+                <small class="text-muted"><i class="icon-home"></i>&nbsp; creativeLabs HQ</small>
+                <div class="avatars-stack mt-h">
+                    <div class="avatar avatar-xs">
+                        <img src="assets/2.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/3.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                </div>
+            </div>
+            <hr class="mx-1 my-0">
+            <div class="callout callout-success m-0 py-1">
+                <div>
+                    <strong>#10 Startups.Garden</strong>Meetup</div>
+                <small class="text-muted mr-1"><i class="icon-calendar"></i>&nbsp; 1 - 3pm</small>
+                <small class="text-muted"><i class="icon-location-pin"></i>&nbsp; Palo Alto, CA</small>
+            </div>
+            <hr class="mx-1 my-0">
+            <div class="callout callout-primary m-0 py-1">
+                <div>
+                    <strong>Team meeting</strong>
+                </div>
+                <small class="text-muted mr-1"><i class="icon-calendar"></i>&nbsp; 4 - 6pm</small>
+                <small class="text-muted"><i class="icon-home"></i>&nbsp; creativeLabs HQ</small>
+                <div class="avatars-stack mt-h">
+                    <div class="avatar avatar-xs">
+                        <img src="assets/2.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/3.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                    <div class="avatar avatar-xs">
+                        <img src="assets/8.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    </div>
+                </div>
+            </div>
+            <hr class="mx-1 my-0">
+            -->
+        </div>
+        <div class="tab-pane p-1" id="messages" role="tabpanel">
+            <div class="message">
+                <div class="py-1 pb-3 mr-1 float-left">
+                    <div class="avatar">
+                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <span class="avatar-status badge-success"></span>
+                    </div>
+                </div>
+                <div>
+                    <small class="text-muted">Lukasz Holeczek</small>
+                    <small class="text-muted float-right mt-q">1:52 PM</small>
+                </div>
+                <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+            </div>
+            <hr>
+            <div class="message">
+                <div class="py-1 pb-3 mr-1 float-left">
+                    <div class="avatar">
+                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <span class="avatar-status badge-success"></span>
+                    </div>
+                </div>
+                <div>
+                    <small class="text-muted">Lukasz Holeczek</small>
+                    <small class="text-muted float-right mt-q">1:52 PM</small>
+                </div>
+                <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+            </div>
+            <hr>
+            <div class="message">
+                <div class="py-1 pb-3 mr-1 float-left">
+                    <div class="avatar">
+                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <span class="avatar-status badge-success"></span>
+                    </div>
+                </div>
+                <div>
+                    <small class="text-muted">Lukasz Holeczek</small>
+                    <small class="text-muted float-right mt-q">1:52 PM</small>
+                </div>
+                <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+            </div>
+            <hr>
+            <div class="message">
+                <div class="py-1 pb-3 mr-1 float-left">
+                    <div class="avatar">
+                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <span class="avatar-status badge-success"></span>
+                    </div>
+                </div>
+                <div>
+                    <small class="text-muted">Lukasz Holeczek</small>
+                    <small class="text-muted float-right mt-q">1:52 PM</small>
+                </div>
+                <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+            </div>
+            <hr>
+            <div class="message">
+                <div class="py-1 pb-3 mr-1 float-left">
+                    <div class="avatar">
+                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <span class="avatar-status badge-success"></span>
+                    </div>
+                </div>
+                <div>
+                    <small class="text-muted">Lukasz Holeczek</small>
+                    <small class="text-muted float-right mt-q">1:52 PM</small>
+                </div>
+                <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
+                <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+            </div>
+        </div>
+        <div class="tab-pane p-1" id="settings" role="tabpanel">
+            <h6>Settings</h6>
+
+            <div class="aside-options">
+                <div class="clearfix mt-2">
+                    <small>
+              <b>Option 1</b>
+            </small>
+                    <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+              <input class="switch-input" checked="checked" type="checkbox">
+              <span class="switch-label" data-on="On" data-off="Off"></span>
+              <span class="switch-handle"></span>
+            </label>
+                </div>
+                <div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+                </div>
+            </div>
+
+            <div class="aside-options">
+                <div class="clearfix mt-1">
+                    <small>
+              <b>Option 2</b>
+            </small>
+                    <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+              <input class="switch-input" type="checkbox">
+              <span class="switch-label" data-on="On" data-off="Off"></span>
+              <span class="switch-handle"></span>
+            </label>
+                </div>
+                <div>
+                    <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
+                </div>
+            </div>
+
+            <div class="aside-options">
+                <div class="clearfix mt-1">
+                    <small>
+              <b>Option 3</b>
+            </small>
+                    <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+              <input class="switch-input" type="checkbox">
+              <span class="switch-label" data-on="On" data-off="Off"></span>
+              <span class="switch-handle"></span>
+            </label>
+                </div>
+            </div>
+
+            <div class="aside-options">
+                <div class="clearfix mt-1">
+                    <small>
+              <b>Option 4</b>
+            </small>
+                    <label class="switch switch-text switch-pill switch-success switch-sm float-right">
+              <input class="switch-input" checked="checked" type="checkbox">
+              <span class="switch-label" data-on="On" data-off="Off"></span>
+              <span class="switch-handle"></span>
+            </label>
+                </div>
+            </div>
+
+            <hr>
+            <h6>System Utilization</h6>
+
+            <div class="text-uppercase mb-q mt-2">
+                <small>
+            <b>CPU Usage</b>
+          </small>
+            </div>
+            <div class="progress progress-xs">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small class="text-muted">348 Processes. 1/4 Cores.</small>
+
+            <div class="text-uppercase mb-q mt-h">
+                <small>
+            <b>Memory Usage</b>
+          </small>
+            </div>
+            <div class="progress progress-xs">
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small class="text-muted">11444GB/16384MB</small>
+
+            <div class="text-uppercase mb-q mt-h">
+                <small>
+            <b>SSD 1 Usage</b>
+          </small>
+            </div>
+            <div class="progress progress-xs">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small class="text-muted">243GB/256GB</small>
+
+            <div class="text-uppercase mb-q mt-h">
+                <small>
+            <b>SSD 2 Usage</b>
+          </small>
+            </div>
+            <div class="progress progress-xs">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small class="text-muted">25GB/256GB</small>
+        </div>
+    </div>
+</aside>
+
+
+
+<footer class="app-footer">
+    <div class="row">
+
+
+        <div class="col-sm-0 col-md-1 col-lg-1">
+            <a href="#"></a>
+        </div>
+
+
+
+        <div class="col-sm-9 col-md-9 col-lg-9">
+            <ul class="footer-links">
+                <li class="footer-item">
+                    <a class="footer-link" href="#">Top Tech</a>
+                </li>
+                <li class="footer-item">
+                    <a class="footer-link" href="#">Top Advisor</a>
+                </li>
+                <li class="footer-item">
+                    <a class="footer-link" href="#">Rewarding Excellence</a>
+                </li>
+                <li class="footer-item">
+                    <a class="footer-link" href="#">Dealer Bulletins</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-3 col-md-2 col-lg-2">
+            <span class="float-right">
+          <a href="#">MSER 2017</a>
+        </span>
+
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap and necessary plugins -->
+<!-- <script src="assets/jquery.js"></script> -->
+
+
+<script src="assets/tether.js"></script>
+<script src="assets/bootstrap.js"></script>
+<script src="assets/pace.js"></script>
+
+<!-- Plugins and scripts required by all views -->
+<script src="assets/Chart.js"></script>
+
+
+<!-- GenesisUI main scripts -->
+
+<script src="assets/app.js"></script>
+
+<script src="assets/toastr.js"></script>
+
+
+
+<!-- Plugins and scripts required by this views
+
+      <script src="assets/gauge.js"></script>
+      <script src="assets/moment.js"></script>
+      <script src="assets/daterangepicker.js"></script>
+  -->
+<!-- Custom scripts required by this view -->
+<!--  <script src="assets/main.js"></script> -->
+
+<script>
+    jQuery(document).ready(function ($) {
+        /* jQuery activation and setting options for parent tabs with id selector*/
+        $("#tabbed-nav").zozoTabs({
+            rounded: false,
+            multiline: true,
+            theme: "white",
+            size: "medium",
+            responsive: true,
+            animation: {
+                effects: "slideH",
+                easing: "easeInOutCirc",
+                type: "jquery"
+            },
+            defaultTab: "tab2",
+            orientation: "vertical"
+        });
+
+        /* jQuery activation and setting options for nested tabs with class selector*/
+        $(".nested-tabs").zozoTabs({
+
+            position: "top-left",
+            theme: "red",
+            style: "underlined",
+            rounded: false,
+            shadows: false,
+            defaultTab: "tab1",
+            animation: {
+                easing: "easeInOutCirc",
+                effects: "slideV"
+            },
+            size: "medium"
+        });
+    });
+
+</script>

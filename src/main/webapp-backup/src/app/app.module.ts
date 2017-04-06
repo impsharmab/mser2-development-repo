@@ -25,7 +25,8 @@ import { UserProfileComponent } from './mser2-header/user-profile/user-profile.c
 import { UserProfileService } from './mser2-services/user-profile-service/user-profile.service';
 import { OpcodeSetupComponent } from './enrollment/opcode-setup/opcode-setup.component';
 import { EnrollmentReportComponent } from './enrollment/enrollment-report/enrollment-report.component';
-import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintenance/enrollment-maintenance.component'
+import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintenance/enrollment-maintenance.component';
+//import { ContactUsComponent } from './mser2-header/contact-us/contact-us/contact-us.component'
 
 
 @NgModule({
@@ -34,10 +35,11 @@ import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintena
     ResetPasswordComponent,
     Mser2LoginComponent,
     DealerRegisterComponent,
-    UserProfileComponent,
-    OpcodeSetupComponent,
+    //UserProfileComponent,
+   // OpcodeSetupComponent,
     EnrollmentReportComponent,
-    EnrollmentMaintenanceComponent
+    EnrollmentMaintenanceComponent,
+    //ContactUsComponent
   ],
   imports: [
     BrowserModule,

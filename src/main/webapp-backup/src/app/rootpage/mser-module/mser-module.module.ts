@@ -14,6 +14,9 @@ import { MserRoutingModule } from './../mser-routing/mser-routing.module';
 import { RootPageComponent } from '../rootpage.component';
 import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
+import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component';
+import { UserProfileComponent } from '../../mser2-header/user-profile/user-profile.component';
+import { ContactUsComponent } from '../../mser2-header/contact-us/contact-us.component'
 
 @NgModule({
   imports: [
@@ -32,7 +35,10 @@ import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
     Mser2HeaderComponent,
     RootPageComponent,
     HomeComponent,
-    PayoutchartComponent
+    PayoutchartComponent,
+    OpcodeSetupComponent,
+    UserProfileComponent,
+    ContactUsComponent
   ]
 })
 export class MserModule { }

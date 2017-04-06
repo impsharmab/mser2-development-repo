@@ -9,7 +9,9 @@ import { RootPageComponent } from "../rootpage.component"
 import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
 import { UserProfileComponent } from '../../mser2-header/user-profile/user-profile.component'
-import {OpcodeSetupComponent} from '../../enrollment/opcode-setup/opcode-setup.component'
+import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component'
+import { ContactUsComponent } from '../../mser2-header/contact-us/contact-us.component'
+
 
 const routes: Routes = [
 
@@ -33,6 +35,11 @@ const routes: Routes = [
             {
                 path: "opcodesetup",
                 component: OpcodeSetupComponent
+            },
+            {
+                path: "contactus",
+                component: ContactUsComponent
+
             },
 
         ]

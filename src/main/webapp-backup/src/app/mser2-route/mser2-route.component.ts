@@ -26,7 +26,7 @@ const routes: Routes = [
         component: ResetPasswordComponent
     },
     {
-        path: "mserenrollment",
+        path: "dealerregister",
         component: DealerRegisterComponent
     },
     //  {

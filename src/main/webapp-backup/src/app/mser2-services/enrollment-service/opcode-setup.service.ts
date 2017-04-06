@@ -8,13 +8,10 @@ export class OpcodeSetupService {
 
   constructor(private http: Http) { }
 
-  findOpCode(opCode): any {
-    var url = "";
-    var body = { "opCode": opCode };
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post(url, body, { headers: headers })
+  getOpcodesetupResponse(): any {    
+    var url = "./enrollments/getopcode";  
+    var url='http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';      
+    return this.http.get(url)
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
