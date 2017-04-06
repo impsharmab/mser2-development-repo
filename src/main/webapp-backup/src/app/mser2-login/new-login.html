@@ -7,14 +7,14 @@
         <input class="form-control" placeholder="Search..." type="text">
     </form>
 
-    <nav class="navMenu">
+    <!--<nav class="navMenu">
         <div class="menuItem">
             <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
         </div>
         <div class="menuItem">
             <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
         </div>
-    </nav>
+    </nav>-->
 
 
 </header>
@@ -60,11 +60,15 @@
                                     <label>Password</label>
                                     <input type="password" name="password" id="password" [(ngModel)]="user.password" #password="ngModel" />
 
-                                    <button type="submit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#updateProgramsModal">Enter</button>
+                                    <button style="cursor: pointer"type="submit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#updateProgramsModal">Enter</button>
 
-                                    <a class="resetLink" style="color:blue;text-decoration:underline;" (click)="resetPassword()">Reset password</a>
+                                    <a href="#" class="resetLink" style="color:blue;text-decoration:underline;" (click)="resetPassword()">Reset password</a>
                                     <br />
-                                    <a class="" style="color:blue;text-decoration:underline;" (click)="dealerregister()">Register Your Dealership</a>
+                                    <a href="#" class="" style="color:blue;text-decoration:underline;" (click)="dealerregister()">Register Your Dealership</a>
+                                    <br/><br/>
+                                    <a href="./assets/pdf/MSER_Enrollment_Form.pdf" class="resetLink" style="color:blue;text-decoration:underline;" target="_blank" >Enrollment Form</a>
+                                    <br />
+                                    <a href="./assets/pdf/FIAT.pdf" class="" style="color:blue;text-decoration:underline;" target="_blank">FIAT Enrollment Form</a>
                                 </form>
                                 <!--<div id="updateProgramsModal" class="modal fade" role="dialog">
                                     <div class="modal-dialog">-->
