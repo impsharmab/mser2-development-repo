@@ -5,14 +5,16 @@ import { User } from './mser2-user.interface';
 
 @Component({
   selector: 'app-mser2-login',
-  templateUrl: './mser2-login.component.html',
+  // templateUrl: './mser2-login.component.html',
+  templateUrl: './new-login.html',
   styleUrls: ['./mser2-login.component.css']
 })
 export class Mser2LoginComponent implements OnInit {
   public user: User;
   private userdata: any = {};
+  private errorMessage: string = "";
   private loginFailed: string = "";
- 
+
   constructor(private loginService: Mser2LoginServiceService, private router: Router) { }
 
   ngOnInit() {
@@ -23,7 +25,21 @@ export class Mser2LoginComponent implements OnInit {
   }
 
   private login(username: string, password: string) {
-    //alert(username)
+    // debugger
+    // alert(username)
+    if (username.trim() === "" && password.trim() === "") {
+      this.loginFailed = "Login Failed";
+      this.errorMessage = "Please enter you valid SID/TID and Password";
+      return;
+    } else if (username.trim() === "" && password.trim() !== null) {
+      this.loginFailed = "Login Failed";
+      this.errorMessage = 'Please enter your valid SID or TID'
+      return;
+    } else if (username.trim() !== null && password.trim() === "") {
+      this.loginFailed = "Login Failed";
+      this.errorMessage = 'Please enter your valid Password'
+      return;
+    }
     this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
@@ -33,10 +49,15 @@ export class Mser2LoginComponent implements OnInit {
 
           let url = ["mserHomepage"]
           this.router.navigate(url);
+          //debugger
         }
 
-        else if (resUserData["token"] !== undefined) {
-          this.loginFailed = ("Login failed" + "<br>" + "Please provide valid SID/TID and password");
+        else if (resUserData["token"] == undefined) {
+          // debugger
+          alert("No records found Please try with valid SID/TID and Password");
+          this.loginFailed = "Login Failed";
+          this.errorMessage = 'Invalid User';
+          return;
         }
 
         else {
@@ -53,5 +74,8 @@ export class Mser2LoginComponent implements OnInit {
     let url = ["resetPassword"]
     this.router.navigate(url);
   }
-
+  mserEnrollment() {
+    let url = ["mserenrollment"]
+    this.router.navigate(url);
+  }
 }

@@ -1,45 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet, Params, ActivatedRoute } from '@angular/router';
-import {AddOpCodeInterface} from './add-opcode.interface'
+import { AddOpCode } from './add-opcode.interface';
 
-import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service'
+import { OpcodeSetupService } from '../../mser2-services/enrollment-service/opcode-setup.service';
 
 @Component({
   selector: 'app-opcode-setup',
-  templateUrl: './new-opcode.html',
-  styleUrls: ['./opcode-setup.component.css'],
-  //providers:[OpcodesetupService]
+  templateUrl: './opcode-setup.component.html',
+  styleUrls: ['./opcode-setup.component.css']
 })
 export class OpcodeSetupComponent implements OnInit {
-   opcodesetupData: any;
-   public addopcInterface: AddOpCodeInterface;
-
-  constructor(private opcodesetupService: OpcodesetupService, private router: Router) { }
+  public addOpCode: AddOpCode;
+  private opcode: "";
+  constructor(private opcodeSetupService: OpcodeSetupService) { }
 
   ngOnInit() {
-    this.opcodesetup();
+    this.addOpCode = {
+      opCode: ""
+    }
   }
 
-  private opcodesetup() {
-    //debugger
-    this.opcodesetupService.getOpcodesetupResponse().subscribe(
-      (opcodesetupData) => {
-        this.opcodesetupData = (opcodesetupData)
-        // if (true) {
-        //   let url = ["opcodesetup"]
-        //   this.router.navigate(url);
-          //debugger
-          //alert(this.opcodesetupData.createdDate)
-          //console.log(this.opcodesetupData)
-        //}
-
-
+  private findOpCode(opCode: string) {
+    this.opcodeSetupService.findOpCode(this.addOpCode.opCode).subscribe(
+      (opcode) => {
+        this.opcode = (opcode)
       }
     )
   }
-
-  addOpCode(){
-
-  }
-
 }

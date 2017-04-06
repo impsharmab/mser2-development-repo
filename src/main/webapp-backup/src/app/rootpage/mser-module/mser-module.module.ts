@@ -15,13 +15,6 @@ import { RootPageComponent } from '../rootpage.component';
 import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
 
-import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component';
-import { OpcodesetupService } from '../../mser2-services/enrollment-service/opcodesetup.service';
-import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
-import { RecallRewardsRulesComponent } from '../../marketing/recall-rewards-rules/recall-rewards-rules.component';
-import { MarketingProgramComponent } from '../../marketing/marketing-program/marketing-program.component';
-import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -39,16 +32,7 @@ import { MarketingTrainingPresentationComponent } from '../../marketing/marketin
     Mser2HeaderComponent,
     RootPageComponent,
     HomeComponent,
-    PayoutchartComponent,
-    OpcodeSetupComponent,
-    MarketingHomeComponent,
-    RecallRewardsRulesComponent,
-    MarketingProgramComponent,
-    MarketingTrainingPresentationComponent   
-
-  ],
-
-  providers:
-  [OpcodesetupService]
+    PayoutchartComponent
+  ]
 })
 export class MserModule { }

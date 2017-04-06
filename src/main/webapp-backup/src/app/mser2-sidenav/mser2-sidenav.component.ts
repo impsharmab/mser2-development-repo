@@ -1,32 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet, Params, ActivatedRoute } from '@angular/router';
-
-import { OpcodeSetupComponent } from '../enrollment/opcode-setup/opcode-setup.component';
-// import 'https://code.jquery.com/jquery-1.12.4.min.js';
-// import '../assets/assets/jquery.dataTables.min.js';
-// import '../assets/assets/dataTables.bootstrap.min.js';
-// import '../assets/_js/zozo.tabs.min.js';
+declare var $:any;
 
 @Component({
   selector: 'app-mser2-sidenav',
-  templateUrl: './mser2-sidenav.component.html',
-  // styleUrls: [
-  //   './mser2-sidenav.component.css', 
-  // '../assets/_css/zozo.tabs.min.css', 
-  // '../assets/assets/dataTables.bootstrap.min.css'
-  
-  // ],
+  // templateUrl: './mser2-sidenav.component.html',
+  templateUrl: './mrth-sidenav.html',
+  styleUrls: ['./mser2-sidenav.component.css'],
 
 })
 export class Mser2SidenavComponent implements OnInit {
-  private opcodesetupComponent: OpcodeSetupComponent;
-  constructor(private router: Router) { }
+
+  constructor() { }
 
   ngOnInit() {
+  this.executeJQueryCode();
   }
 
-  opcodesetup() {
-    // this.opcodesetupComponent.opcodesetup();
-    // debugger
+private executeJQueryCode(){
+ $.navigation = $('nav > ul.nav');
+
+	$.panelIconOpened = 'icon-arrow-up';
+	$.panelIconClosed = 'icon-arrow-down';
+
+	//Default colours
+	$.brandPrimary =  '#20a8d8';
+	$.brandSuccess =  '#4dbd74';
+	$.brandInfo =     '#63c2de';
+	$.brandWarning =  '#f8cb00';
+	$.brandDanger =   '#f86c6b';
+
+	$.grayDark =      '#2a2c36';
+	$.gray =          '#55595c';
+	$.grayLight =     '#818a91';
+	$.grayLighter =   '#d1d4d7';
+	$.grayLightest =  '#f8f9fa';
+ // Add class .active to current link
+  $.navigation.find('a').each(function(){
+
+    var cUrl = String(window.location).split('?')[0];
+
+    if (cUrl.substr(cUrl.length - 1) == '#') {
+      cUrl = cUrl.slice(0,-1);
+    }
+
+    if ($($(this))[0].href==cUrl) {
+      $(this).addClass('active');
+
+      $(this).parents('ul').add(this).each(function(){
+        $(this).parent().addClass('open');
+      });
+    }
+  });
+
+  // Dropdown Menu
+  $.navigation.on('click', 'a', function(e){
+
+    if ($.ajaxLoad) {
+      e.preventDefault();
+    }
+
+    if ($(this).hasClass('nav-dropdown-toggle')) {
+      $(this).parent().toggleClass('open');
+      resizeBroadcast();
+    }
+     });
+  function resizeBroadcast() {
+
+    var timesRun = 0;
+    var interval = setInterval(function(){
+      timesRun += 1;
+      if(timesRun === 5){
+        clearInterval(interval);
+      }
+      window.dispatchEvent(new Event('resize'));
+    }, 62.5);
   }
+}
 }

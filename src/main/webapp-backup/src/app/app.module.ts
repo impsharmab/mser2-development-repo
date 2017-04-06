@@ -18,16 +18,27 @@ import { Mser2LoginServiceService } from './mser2-services/mser2-login-service.s
 import { ResetPasswordComponent } from './mser2-login/reset-password/reset-password.component';
 import { HomeComponent } from './home/home.component';
 import { MserModule } from './rootpage/mser-module/mser-module.module';
-import { OpcodeSetupComponent } from './enrollment/opcode-setup/opcode-setup.component';
-import { OpcodesetupService } from './mser2-services/enrollment-service/opcodesetup.service';
-import { MarketingTrainingPresentationComponent } from './marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
-//import { MarketingProgramComponent } from './marketing/marketing-program/marketing-program.component';
-//import { RecallRewardsRulesComponent } from './marketing/recall-rewards-rules/recall-rewards-rules.component';
-//import { MarketingHomeComponent } from './marketing/marketing-home/marketing-home.component';
+import { DealerRegisterComponent } from './mser2-login/dealer-register-component/dealer-register.component';
+import { DealerRegisterService } from './mser2-services/dealer-register-service/dealer-register.service';
+import { UserProfileComponent } from './mser2-header/user-profile/user-profile.component';
 
+import { UserProfileService } from './mser2-services/user-profile-service/user-profile.service';
+import { OpcodeSetupComponent } from './enrollment/opcode-setup/opcode-setup.component';
+import { EnrollmentReportComponent } from './enrollment/enrollment-report/enrollment-report.component';
+import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintenance/enrollment-maintenance.component'
 
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    ResetPasswordComponent,
+    Mser2LoginComponent,
+    DealerRegisterComponent,
+    UserProfileComponent,
+    OpcodeSetupComponent,
+    EnrollmentReportComponent,
+    EnrollmentMaintenanceComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -35,19 +46,11 @@ import { MarketingTrainingPresentationComponent } from './marketing/marketing-tr
     AppRoutingModule,
     MserModule
   ],
-  declarations: [
-    AppComponent,
-    ResetPasswordComponent,
-    Mser2LoginComponent,
-   //MarketingTrainingPresentationComponent,
-    //MarketingProgramComponent,
-    //RecallRewardsRulesComponent,
-    // MarketingHomeComponent,
-    //OpcodeSetupComponent
-
+  providers: [
+    Mser2LoginServiceService,
+    DealerRegisterService,
+    UserProfileService
   ],
-
-  providers: [Mser2LoginServiceService, OpcodesetupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

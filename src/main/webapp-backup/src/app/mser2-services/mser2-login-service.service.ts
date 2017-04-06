@@ -19,16 +19,29 @@ export class Mser2LoginServiceService {
   }
 
   getLoginResponse(username, password): any {
-  //  var url = "./login/token/";
-   var url = "../assets/json-responses/login-response.json";
+   // debugger
+    var url = "./login/token/";
+    //var url = "../assets/json-responses/login-response.json";
     var body = { "username": username, "password": password };
     var headers = new Headers();
-    headers.append('Content-Type', 'application/json');    
-    //return this.http.post(url, body, { headers: headers })
-    return this.http.get(url)    
-      .map((response: Response) =>      
-        response.json())        
-      .catch(this.handleError);      
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(url, body, { headers: headers })
+    //return this.http.get(url)
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
+
+  resetPassword(userId: string, emailId: string) {
+    var url = "";
+    var body = { "userId": userId, "emailId": emailId };
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(url, body, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
   }
 
   private handleError(error: Response | any) {

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class=" js no-flexbox canvas canvastext webgl touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Nested Tabs | Zozo Tabs</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="Description" content="Nested and multiple instance tabs on the same page. Also all animation is supported with nested tabs and can have different options and themes">       
+        <meta name="keywords" content="nested tabs, multiple instance, multiple level, more then one">
+        <meta name="author" content="Farid Hayati"> 
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-title" content="Zozo Tabs">
+        <link rel="canonical" href="http://zozoui.com/tabs/nested/">
+        
+        <!-- facebook -->
+        <meta name="og:title" content="Nested Tabs | Zozo Tabs">
+        <meta name="og:site_name" content="Zozo UI">
+        <meta name="og:url" content="http://zozoui.com/tabs/nested/">
+        <meta name="og:description" content="Nested and multiple instance tabs on the same page. Also all animation is supported with nested tabs and can have different options and themes">        
+        <meta name="og:image" content="http://zozoui.com/img/zozo-tabs-jquery-tabs-plugin-thumb.png">
+
+        <!-- twitter -->
+        <meta name="Twitter:card" content="summary">
+        <meta name="Twitter:site" content="@zozoui">
+        <meta name="Twitter:creator" content="@zozoui">
+        <meta name="Twitter:title" content="Nested Tabs | Zozo Tabs">
+        <meta name="Twitter:url" content="http://zozoui.com/tabs/nested/">
+        <meta name="Twitter:description" content="Nested and multiple instance tabs on the same page. Also all animation is supported with nested tabs and can have different options and themes">
+        <meta name="Twitter:image" content="http://zozoui.com/img/zozo-tabs-jquery-tabs-plugin-thumb.png">
+        
+        <!-- Google+ -->
+        <meta itemprop="name" content="Nested Tabs | Zozo Tabs">
+        <meta itemprop="description" content="Nested and multiple instance tabs on the same page. Also all animation is supported with nested tabs and can have different options and themes">
+        <meta itemprop="image" content="http://zozoui.com/img/zozo-tabs-jquery-tabs-plugin-thumb.png">
+        
+        <link rel="publisher" href="http://plus.google.com/101523111550453173471/">
+                
+        <!--[if lt IE 9]><script src="http://zozoui.com/js/libs/html5.js"></script><![endif]-->
+        
+        <!-- fonts 
+        <link href="Nested%20Tabs%20_%20Zozo%20Tabs_files/css.css" rel="stylesheet" type="text/css">
+        <link href="Nested%20Tabs%20_%20Zozo%20Tabs_files/css_002.css" rel="stylesheet" type="text/css">
+-->
+        <!-- styles -->
+        <link href="Nested%20Tabs%20_%20Zozo%20Tabs_files/styles.css" rel="stylesheet" type="text/css">                             
+        <link href="Nested%20Tabs%20_%20Zozo%20Tabs_files/font-awesome.css" rel="stylesheet">                
+        <!--[if IE 7]><link rel="stylesheet" href="http://zozoui.com/css/font-awesome-ie7.css"><![endif]-->
+        <!--
+        <script src="Nested%20Tabs%20_%20Zozo%20Tabs_files/cbgapi.loaded_1" async=""></script>
+		<script src="Nested%20Tabs%20_%20Zozo%20Tabs_files/cbgapi.loaded_0" async=""></script>
+       
+		<script type="text/javascript" async="" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/plusone.js" gapi_processed="true"></script>
+		<script type="text/javascript" async="" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/ga.js"></script>
+		<script id="twitter-wjs" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/widgets.js"></script>
+		 -->
+		<script src="Nested%20Tabs%20_%20Zozo%20Tabs_files/modernizr-2.js"></script>
+        <!--[if lt IE 9]><script src="http://zozoui.com/js/libs/respond-IE.js"></script><![endif]-->
+
+        <!--     -->
+    <script type="text/javascript" charset="utf-8" async="" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/button.js"></script>
+	
+	
+	<style type="text/css" id="ki-y_z-y1"></style>
+	<style type="text/css" id="ki-y_z-yz"></style>
+    
+    
+    </head>
+    <body data-spy="scroll" data-target=".navbar" data-offset="22" class="red  demo tabs landing hideHeader: ">       
+     <!-- Header
+        ================================================== -->
+   
+    <div id="page-content">
+      <div class="rules2 cf2 hidden-sm"></div><div class="f-page" role="main">
+<style>
+    .z-tabs .z-tabs {
+        padding: 5px 0;
+    }
+
+    .z-tabs .z-tabs.vertical > .z-container > .z-content > .z-content-inner,
+    .z-tabs .z-tabs.horizontal > .z-container > .z-content .z-content-inner {
+        padding: 1em;
+    }
+</style>
+<section class="f-section f-gray f-border-top  f-bottom-60" id="section-nested">
+ 
+    <div class="f-content container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div id="demo-nested" class="tabbed-nav hover contained medium z-icons-dark z-shadows z-bordered z-multiline z-tabs top horizontal top-left white" data-options="{&quot;multiline&quot;:true, &quot;defaultTab&quot;: &quot;tab4&quot;, &quot;theme&quot;: &quot;white&quot;,&quot;orientation&quot;: &quot;vertical&quot;, &quot;position&quot;: &quot;top-left&quot;, &quot;size&quot;: &quot;medium&quot;}"><ul class="z-tabs-nav z-tabs-mobile" style="display: none;"><li><a class="z-link" style="text-align: left;"><span class="z-title">Docs<span>Step-by-step Guide</span></span><span class="z-arrow"></span></a></li></ul><i class="z-dropdown-arrow"></i><ul class="z-tabs-nav z-tabs-desktop">
+                        <li class="z-tab z-first" data-link="tab1" style=""><a class="z-link">Overview<span>New Features in Zozo Tab</span></a></li>
+                        <li class="z-tab" data-link="tab2" style=""><a class="z-link">Subscribe<span>New Releases and Updates</span></a></li>
+                        <li class="z-tab" data-link="tab3" style=""><a class="z-link">Templates<span>More than 35 Templates</span></a></li>
+                        <li class="z-tab z-active" data-link="tab4" style=""><a class="z-link">Docs<span>Step-by-step Guide</span></a></li>
+                        <li class="z-tab z-last" data-link="tab5" style=""><a class="z-link">Purchase<span>Get Zozo Tabs Now!</span></a></li>
+                    </ul>
+                    
+                    
+
+                    
+                <div class="z-container" style="">
+                       
+                        <div class="z-content" style="">
+                            <div class="z-content-inner">                                   
+                                 <h4>New Features in Zozo Tabs 6.5 (18 March 2014)</h4>
+<p>ZOZO TABS 6.5 - jQuery Tabs Plugin comes with some awesome new 
+features to the table including Flat Theme Pack Extension, enhanced core
+ css and themes, more intelligent responsive feature.</p>
+<ul class="z-icons">
+	<li><i class="icon-ok">&nbsp;</i>Added: Flat Theme Pack Extension which includes 20 flat themes in dark and light and in 3 styles (contained, clean, pills)</li>
+	<li><i class="icon-ok">&nbsp;</i>Added: plenty of more templates/examples</li>
+	<li><i class="icon-ok">&nbsp;</i>Added: option disabled (data-disabled can be added to tab to disable it on page load)</li>
+	<li><i class="icon-ok">&nbsp;</i>Added: public methods (disable and enable tabs)</li>
+	<li><i class="icon-ok">&nbsp;</i>Added: load event to adjust content heigh/width when tabs contains image/video</li>
+	<li><i class="icon-ok">&nbsp;</i>Improved: 25% lighter CSS and cleaner (well-organized and well-structured code)</li>
+    <li><i class="icon-ok">&nbsp;</i>Improved: IE10 (Windows 8) touch compatibility</li>
+	<li><i class="icon-ok">&nbsp;</i>Improved: Responsive stacking feature (more intelligent)</li>
+	<li><i class="icon-ok">&nbsp;</i>Improved: Documentation</li>
+	<li><i class="icon-ok">&nbsp;</i>Support for Font Awesome Icons</li>
+	<li><i class="icon-ok">&nbsp;</i>Fixed: conflict between zozo accordion and and tabs</li>
+	<li><i class="icon-ok">&nbsp;</i>Tested and compatible with all major 
+desktop browsers including IE7, IE8, IE9, IE10, Chrome, Firefox, Safari,
+ Opera) and mobile browsers. We have tested it on iPad, iPhone (IOS), 
+Samsung Galaxy S3, Samsung Note 2 (Android). Opera Mini and Chrome 
+Mobile.</li>
+</ul>                            </div>
+                        </div>
+
+                        <div class="z-content" style="display: none; position: absolute; left: -324.2px; top: 0px;">
+                            <div class="z-content-inner">
+                                <h4>Keep in touch</h4>
+<p>Stay up to date with our new releases, updates, sneak peeks &amp; 
+exclusive deals by signing up to our newsletter. We don't do spam.</p>
+<section class="row   subscribe f-social" style="border-width: 0; padding-top: 40px; padding-bottom: 0px; margin: 0;">
+    <div class="col-md-4 col z-compact subscribe">
+        <div class="f-form">
+            <form action="http://zozoui.us6.list-manage.com/subscribe/post?u=253462bb5ef89cc678b5e7d52&amp;id=884030857f" method="post" id="Form1" name="mc-embedded-subscribe-form" class="form-inline validate1" target="_blank" style="text-align: left;">
+                <div>
+                    <input class="input-text m-wrap m-ctrl-large required name" name="FNAME" id="mce-FNAME" size="25" placeholder="Name" required="required" tabindex="600" type="text">
+                    <input class="input-text m-wrap m-ctrl-large required" size="25" name="EMAIL" id="mce-EMAIL" placeholder="Email" required="required" tabindex="601" type="email">
+                    <input class="btn red" value="Get Free Updates" name="subscribe" id="mc-embedded-subscribe" type="submit">
+                </div>
+                <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display: none"></div>
+                    <div class="response" id="mce-success-response" style="display: none"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <section class="col-md-8 social">
+        <div class="row ">
+            <div class="col-md-4 ">
+                <a data-track="Footer: Share - Twitter" href="http://www.twitter.com/zozoui" target="_blank" class="well twitter"><span class="icon brand twitter"><i class="icon-twitter"></i></span>
+                    <div>
+                        <div class="s-title">Follow Us</div>
+                        <span class="count">174 followers</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 ">
+                <a data-track="Footer: Share - Facebook" href="http://www.facebook.com/pages/Zozo-UI/454240371295483" target="_blank" class="well facebook"><span class="icon brand facebook"><i class="icon-facebook"></i></span>
+                    <div>
+                        <div class="s-title">Friend Us</div>
+                        <span class="count">1.5k likes</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 ">
+                <a data-track="Footer: Share - Facebook" href="https://plus.google.com/101523111550453173471/" target="_blank" class="well gplus"><span class="icon brand facebook"><i class="icon-google-plus"></i></span>
+                    <div>
+                        <div class="s-title">Google+</div>
+                        <span class="count">31
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</section>
+                            </div>
+                        </div>
+
+                        <div class="z-content" style="">
+                            <div class="z-content-inner">
+                                <h4 class="align-cente" style="font-size: 14px; font-weight: normal;">
+    <br>
+    There are more then 35 templates/examples. <a href="http://zozoui.com/tabs/templates" title="View All Templates">View All Templates <i class="icon-double-angle-right">&nbsp;</i></a>
+</h4>
+<section class="clearfix">
+    <div class="row z-red z-demo-thumbnails" style="margin-bottom: 5px;">   
+        <div class="project zoom media-box col-md-3"><a href="http://zozoui.com/tabs/ajax-content" class="thumbnail" title="Example: AJAX Content "> <img alt="Animation" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/ajax.jpg"><b class="project-name">AJAX Content</b></a><div class="mask"><h3 class="title"><br>AJAX Content</h3><a href="http://zozoui.com/tabs/ajax-content" class="ico full" title="Example: AJAX Content "></a></div></div>        <div class="project zoom media-box col-md-3"><a href="http://zozoui.com/tabs/sizes" class="thumbnail" title="Example: Tab Sizes "> <img alt="Animation" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/sizes.jpg"><b class="project-name">Tab Sizes</b></a><div class="mask"><h3 class="title"><br>Tab Sizes</h3><a href="http://zozoui.com/tabs/sizes" class="ico full" title="Example: Tab Sizes "></a></div></div>        <div class="project zoom media-box col-md-3"><a href="http://zozoui.com/tabs/nested" class="thumbnail" title="Example: Nested Tabs "> <img alt="Animation" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/nested.jpg"><b class="project-name">Nested Tabs</b></a><div class="mask"><h3 class="title"><br>Nested Tabs</h3><a href="http://zozoui.com/tabs/nested" class="ico full" title="Example: Nested Tabs "></a></div></div>        <div class="project zoom media-box col-md-3"><a href="http://zozoui.com/tabs/clean" class="thumbnail" title="Example: Clean Tabs "> <img alt="Animation" src="Nested%20Tabs%20_%20Zozo%20Tabs_files/clean.jpg"><b class="project-name">Clean Tabs</b></a><div class="mask"><h3 class="title"><br>Clean Tabs</h3><a href="http://zozoui.com/tabs/clean" class="ico full" title="Example: Clean Tabs "></a></div></div>    </div>
+</section>
+                            </div>
+                        </div>
+
+
+                        <div class="doc z-content z-active" style="display: block; position: relative; left: 0px;"><div class="z-content-inner">
+                            <div id="demo-nested-02" class="tabbed-nav hover underlined medium z-icons-dark z-shadows z-bordered z-tabs top m-red horizontal top-left red" data-options="{&quot;deeplinking&quot;: true, &quot;style&quot;:&quot;underlined&quot;, &quot;defaultTab&quot;: &quot;config&quot;, &quot;theme&quot;: &quot;red&quot;,&quot;orientation&quot;: &quot;horizontal&quot;, &quot;size&quot;: &quot;medium&quot;}"><ul class="z-tabs-nav z-tabs-mobile" style="display: none;"><li><a class="z-link" style="text-align: left;"><span class="z-title">Options</span><span class="z-arrow"></span></a></li></ul><i class="z-dropdown-arrow"></i><ul class="z-tabs-nav z-tabs-desktop">
+                                    <li data-link="setting-started" class="z-tab z-first" style=""><a class="z-link">Getting Started</a></li>
+                                    <li data-link="config" class="z-tab z-active" style=""><a class="z-link">Options</a></li>
+                                    <li data-link="methods" class="z-tab" style=""><a class="z-link">Methods</a></li>
+                                    <li data-link="events" class="z-tab" style=""><a class="z-link">Events</a></li>
+                                    <li data-link="tutorials" class="z-tab" style=""><a class="z-link">Tutorials</a></li>
+                                    <li data-link="blog" class="z-tab z-last" style=""><a class="z-link">Blog</a></li>
+                                </ul>
+                                
+
+                                
+                            <div class="z-container" style="">
+                                    <div class="z-content" style=""><div class="z-content-inner">
+                                        <h4>Getting Started</h4>
+                                        <p>The following default options
+ are provided by the plugin. They can be overridden and customized by 
+passing options object to the initialization of the pluqin and by using 
+HTML5 data attributes on the container element.</p>
+                                    </div></div>
+                                    <div class="z-content z-active" style="display: block; position: relative; left: 0px;"><div class="z-content-inner">
+                                        <h4>Options</h4>
+                                        <p>Zozo Tabs comes with complete API. Check it out at zozoui.com</p>
+                                    </div></div>
+
+                                    <div class="z-content" style=""><div class="z-content-inner">
+                                        <h4>Methods</h4>
+                                        <p>Zozo Tabs comes with complete API. Check it out at zozoui.com</p>
+                                    </div></div>
+                                    <div class="z-content" style=""><div class="z-content-inner">
+                                        <h4>Events</h4>
+                                        <p>Zozo Tabs comes with complete API. Check it out at zozoui.com</p>
+                                    </div></div>
+
+                                    <div class="z-content" style=""><div class="z-content-inner">
+                                        <h4>Tutorials</h4>
+                                        <p>Zozo Tabs comes with complete API. Check it out at zozoui.com</p>
+                                    </div></div>
+
+                                    <div class="z-content" style="display: none; position: absolute; left: 276px; top: 0px;"><div class="z-content-inner">
+                                        <h4>Blog</h4>
+                                        <p>Zozo Tabs comes with complete API. Check it out at zozoui.com</p>
+                                    </div></div>
+
+
+                                </div></div>
+                        </div></div>
+                       
+                        <div class="z-content" style=""><div class="z-content-inner">
+                            <h4>Purchase</h4>
+                            <p><a href="http://codecanyon.net/item/zozo-tabs/3327836?ref=ZozoUI">Get Zozo Tabs from CodeCanyon.net</a></p>
+                        </div></div>
+                    </div></div>
+
+            </div>
+        </div>
+   
+
+
+           </div>
+</section>
+        </div>
+    </div>
+  
+      <!-- Footer
+      ================================================== -->
+ 
+
+         
+         
+        <script src="Nested%20Tabs%20_%20Zozo%20Tabs_files/jquery.js"></script>
+         
+        
+         
+        
+        <!--  <script src="Nested%20Tabs%20_%20Zozo%20Tabs_files/google-analytics.js"></script>                   -->        
+        <script>var _kiq = _kiq || [];</script>
+        
+         <!--
+        <script src="Nested%20Tabs%20_%20Zozo%20Tabs_files/8SM.js" async="true"></script>
+     
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-35669820-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        
+        -->
+        <script>
+            (function () {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+        </script>
+    
+
+</body></html>
