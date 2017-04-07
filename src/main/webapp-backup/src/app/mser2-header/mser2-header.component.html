@@ -3,7 +3,7 @@
     <a class="navbar-brand"></a>
     <ul class="nav navbar-nav hidden-md-down b-r-1">
         <li class="nav-item">
-            <a class="nav-link navbar-toggler sidebar-toggler" >☰</a>
+            <a class="nav-link navbar-toggler sidebar-toggler" style="cursor: pointer">☰</a>
         </li>
 
     </ul>
@@ -20,7 +20,7 @@
             <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
         </div>
         <div class="menuItem">
-            <img src="src/app/mser2-header/retweet.png" alt="Smiley face" width="35" height="32">
+            <img src="./assets/retweet.png" alt="Smiley face" width="35" height="32" style="cursor: pointer">
             <!--<img src="./retweet.png">
             <span class="menuTarget currentPage" data-target="fcaRewards"></span>-->
         </div>
@@ -173,21 +173,15 @@
                 <p>Hello, Heather!</p>
                 <p>Van Aandel-Flikemma Motor Sales (X543G)</p>
             </div>
-            <a class="nav-link nav-pill avatar" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
-                <img src="../../assets/assets/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+            <a class="nav-link nav-pill avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <img src="./assets/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                 <span class="badge badge-pill badge-danger">9</span>
             </a>
-
-
-
             <div class="dropdown-menu dropdown-menu-right">
-
-                
                 <div class="dropdown-header text-center">
-                  <strong>Account</strong>
+                    <strong>Account</strong>
                 </div>
-
-                <a class="dropdown-item" ><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
+                <a class="dropdown-item"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
                 <!-- <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a> -->
                 <!--  <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a> -->
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a> -->
@@ -202,7 +196,7 @@
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
                 <div class="divider"></div>
                 <!--  <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-                <a href="#" class="dropdown-item"  (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+                <a href="#" class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
             </div>
         </li>
 

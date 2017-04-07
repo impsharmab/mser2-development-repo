@@ -20,14 +20,14 @@ export class Mser2LoginServiceService {
 
   getLoginResponse(username, password): any {
     // debugger
-    var url = "./login/token/";
-    var url = "../assets/json-responses/login-response.json";
+   // var url = "./login/token/";
+     var url = "../assets/json-responses/login-response.json";
     var body = { "username": username, "password": password };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    //return this.http.post(url, body, { headers: headers })
-    return this.http.get(url)
+  //  return this.http.post(url, body, { headers: headers })
+  return this.http.get(url)
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);

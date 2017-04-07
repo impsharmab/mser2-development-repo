@@ -8,13 +8,72 @@ Fonts:
     
 
 */
+
+/* START Login Page*/
+.resetLink{
+}
+/*END Login Page*/
+
+/* START Form Styles*/
+
+.contact-list {
+  margin:0;
+  padding:0;
+  list-style-type:none;
+  list-style-image:none;
+}
+
+.contact-list li {
+padding:5px;  
+  
+}
+
+.form-btns{
+  margin-top:15px;
+}
+.pageForm .dropdown-toggle{
+  width:200px;
+
+}
+
+.dropdown ul.dropdown-menu {
+}
+.dropdown ul.dropdown-menu li{
+  padding: 5px 10px;
+}
+.dropdown ul.dropdown-menu li:hover {
+  background-color:  rgb(152, 198, 247);
+  color:#333;
+  transition-property: background color;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+}
+  .dropdown ul.dropdown-menu li:hover a {
+  color:#333;
+  }
+.dropdown ul.dropdown-menu li a:hover{
+  text-decoration:none;
+  color:#333;
+
+}
+.pageForm{
+  margin-bottom:25px;
+}
+.pageForm label {
+  width:200px;
+}
+/*END Form Styles*/
+
+.inline {
+  display:inline-block !important ;
+}
 .btn {
     font-family: "Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1;
     display: block;
-    width: 100%;
-    padding: 17px 16px 15px 16px;
+    width: auto;
+    padding: 5px 15px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #fff;
@@ -23,7 +82,7 @@ Fonts:
     -khtml-border-radius: 34px;
     -moz-border-radius: 34px;
     border-radius: 34px;
-    margin-bottom: 24px;
+    margin-bottom: 10px;
     transition-property: background color;
     transition-duration: 300ms;
     transition-timing-function: ease-out;
@@ -94,6 +153,10 @@ h2 {
     padding-right: 24px;
     background: #f5f7fa;
     margin: 0;
+}
+
+.heading-line h2 {
+  text-transform:uppercase;
 }
 .heading-line::after {
     content: '';
