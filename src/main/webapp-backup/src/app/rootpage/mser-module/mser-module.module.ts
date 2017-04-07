@@ -16,7 +16,8 @@ import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
 import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component';
 import { UserProfileComponent } from '../../mser2-header/user-profile/user-profile.component';
-import { ContactUsComponent } from '../../mser2-header/contact-us/contact-us.component'
+import { ContactUsComponent } from '../../mser2-header/contact-us/contact-us.component';
+import { OpcodeSetupService} from '../../mser2-services/opcode-setup.service';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { ContactUsComponent } from '../../mser2-header/contact-us/contact-us.com
     OpcodeSetupComponent,
     UserProfileComponent,
     ContactUsComponent
-  ]
+  ],
+  providers:[OpcodeSetupService]
 })
 export class MserModule { }

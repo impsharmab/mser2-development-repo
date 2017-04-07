@@ -9,8 +9,10 @@ export class OpcodeSetupService {
   constructor(private http: Http) { }
 
   getOpcodesetupResponse(): any {    
-    var url = "./enrollments/getopcode";  
-    var url='http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';      
+    //var url = "./enrollments/getopcode";  
+
+    var url='http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';   
+   // var url='./opcode-response.json';      
     return this.http.get(url)
       .map((response: Response) =>
         response.json())

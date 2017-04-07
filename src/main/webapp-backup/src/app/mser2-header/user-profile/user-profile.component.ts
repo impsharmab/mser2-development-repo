@@ -15,7 +15,6 @@ export class UserProfileComponent implements OnInit {
   public textMsgOption: UserProfileTextMessageOptionInterface;
   private profileChangeData = {}
   constructor(private userProfileService: UserProfileService) {
-
   }
 
   ngOnInit() {

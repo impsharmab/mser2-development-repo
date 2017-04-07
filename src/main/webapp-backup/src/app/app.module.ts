@@ -26,6 +26,7 @@ import { UserProfileService } from './mser2-services/user-profile-service/user-p
 import { OpcodeSetupComponent } from './enrollment/opcode-setup/opcode-setup.component';
 import { EnrollmentReportComponent } from './enrollment/enrollment-report/enrollment-report.component';
 import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintenance/enrollment-maintenance.component';
+import { OpcodeSetupService} from './mser2-services/enrollment-service/opcode-setup.service'
 //import { ContactUsComponent } from './mser2-header/contact-us/contact-us/contact-us.component'
 
 
@@ -51,7 +52,9 @@ import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintena
   providers: [
     Mser2LoginServiceService,
     DealerRegisterService,
-    UserProfileService
+    UserProfileService,
+    OpcodeSetupService
+
   ],
   bootstrap: [AppComponent]
 })

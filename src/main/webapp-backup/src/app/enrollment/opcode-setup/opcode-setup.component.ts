@@ -8,7 +8,7 @@ import { OpcodeSetupService } from '../../mser2-services/enrollment-service/opco
   selector: 'app-opcode-setup',
   templateUrl: './new-opcode.html',
   styleUrls: ['./opcode-setup.component.css'],
-  //providers:[OpcodesetupService]
+  // providers:[OpcodesetupService]
 })
 export class OpcodeSetupComponent implements OnInit {
   opcodesetupData: any;
@@ -32,8 +32,6 @@ export class OpcodeSetupComponent implements OnInit {
         //alert(this.opcodesetupData.createdDate)
         //console.log(this.opcodesetupData)
         //}
-
-
       }
     )
   }
