@@ -14,7 +14,7 @@
 
     <nav class="navMenu">
         <div class="menuItem">
-            <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
+            <span class="menuTarget " data-target="contactUs" routerLink="contactus" >Contact Us</span>
         </div>
         <div class="menuItem">
             <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
@@ -170,7 +170,7 @@
         <li class="nav-item dropdown">
 
             <div class="salutation">
-                <p>Hello, Heather!</p>
+                <p>Hello, {{data.name}}!</p>
                 <p>Van Aandel-Flikemma Motor Sales (X543G)</p>
             </div>
             <a class="nav-link nav-pill avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -189,14 +189,14 @@
                 <div class="dropdown-header text-center">
                     <strong>Settings</strong>
                 </div>
-
-                <a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user"></i> Profile</a>
+                <a class="dropdown-item" (click)="getUserProfileData()" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
+                <!--<a class="dropdown-item" (click)="getUserProfileData()" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>-->
                 <!-- <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a> -->
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a> -->
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
                 <div class="divider"></div>
                 <!--  <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-                <a href="#" class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+                <a  class="dropdown-item" (click)="logout()"><i class="fa fa-lock" style="cursor: pointer"></i> Logout</a>
             </div>
         </li>
 

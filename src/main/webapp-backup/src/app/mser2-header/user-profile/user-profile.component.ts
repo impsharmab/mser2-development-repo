@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserProfileChangeInformationInterface } from './userProfile-changeInformation.interface';
 import { UserProfileService } from '../../mser2-services/user-profile-service/user-profile.service';
 import { UserChangePasswordInterface } from './userProfile-changePassword.interface';
@@ -10,19 +10,24 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  @Input() userProfileData: any;
   public profileChange: UserProfileChangeInformationInterface;
   public passwordChange: UserChangePasswordInterface;
   public textMsgOption: UserProfileTextMessageOptionInterface;
   private profileChangeData = {}
+  private optIn: string = "";
+  private optOut: string = "";
   constructor(private userProfileService: UserProfileService) {
   }
 
   ngOnInit() {
+    this.userProfileData = JSON.parse(sessionStorage.getItem("UserProfileData"))
     this.profileChange = {
       name: "",
       email: "",
       optIn: false,
-      optOut: false
+      optOut: false,
+      sendMail: ""
     }
     this.passwordChange = {
       newPassword: "",
@@ -36,38 +41,32 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  private updateUserProfile(name: string, email: string, optIn: boolean, optOut: boolean) {
-    if (optIn) {
-      var x = this.profileChange.optIn;
-      var y = x.toString();
-      y = "y";
+  private updateUserProfile() {
+    if (this.profileChange.optIn) {
+      this.profileChange.sendMail = "Y"
     } else {
-      var x = this.profileChange.optOut;
-      var y = x.toString();
-      y = "n";
+      this.profileChange.sendMail = "N"
     }
-
     this.userProfileService.updateUserProfile(
-    
       this.profileChange.name,
       this.profileChange.email,
-      this.profileChange.optIn,
-      this.profileChange.optOut).subscribe(
+      this.profileChange.sendMail
+    ).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
       }
       )
-    
+
   }
 
-  private changeUserPassword(newPassword: string, confirmPassword: string) {
-    this.userProfileService.changeUserPassword(this.passwordChange.newPassword,
-      this.passwordChange.confirmPassword).subscribe(
+  private changeUserPassword() {
+    debugger
+    this.userProfileService.changeUserPassword(this.passwordChange.newPassword).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
       }
-      )
-     
+    )
+
   }
 
   private textMessageOption(sid: string, mobileNumber: string, agreeTermsAndCondition: boolean) {

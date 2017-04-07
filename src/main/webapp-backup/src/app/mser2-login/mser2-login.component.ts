@@ -70,7 +70,7 @@ export class Mser2LoginComponent implements OnInit {
       }
     )
   }
-  resetPassword() {
+  private resetPassword() {
     let url = ["resetPassword"]
     this.router.navigate(url);
   }

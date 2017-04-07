@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-declare var $: any;
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+
+import { UserProfileService } from '../mser2-services/user-profile-service/user-profile.service'
+
+declare var $: any;
 
 @Component({
   selector: 'app-mser2-header',
@@ -8,10 +11,12 @@ import { Router, RouterOutlet } from '@angular/router';
   styleUrls: ['./mser2-header.component.css']
 })
 export class Mser2HeaderComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  @Input() data: any;
+  private userProfileData: any = {};
+  constructor(private router: Router, private userProfileService: UserProfileService) { }
 
   ngOnInit() {
+    this.data = JSON.parse(sessionStorage.getItem("CurrentUser"))
     /*****
     * CONFIGURATION
     */
@@ -123,6 +128,18 @@ export class Mser2HeaderComponent implements OnInit {
     }
   }
 
+  private getUserProfileData() {
+    debugger
+    this.userProfileService.getUserProfileData().subscribe(
+      (resUserProfileData) => {
+        this.userProfileData = (resUserProfileData)
+        this.userProfileService.setUserProfileData(this.userProfileData)
+        // let url = ["userprofile"]
+        // this.router.navigate(url);
+
+      }
+    )
+  }
   logout() {
     let url = ["login"]
     this.router.navigate(url);

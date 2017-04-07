@@ -48,14 +48,14 @@
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-6 col-lg-6">
 
-                                <form class="pageForm">
+                                <form class="pageForm" #userprofile="ngForm" novalidate (ngSubmit)="updateUserProfile()"> 
                                     <h5>Change Your Information</h5>
 
                                     <label>Name</label>
-                                    <input type="text" id="nameInput" />
+                                    <input type="text"  id="name" name="name" [(ngModel)]="profileChange.name" value="{{userProfileData.name}}"/>
                                     <br />
                                     <label>Email</label>
-                                    <input type="text" id="emailInput" />
+                                    <input type="text" id="email" name="email" [(ngModel)]="profileChange.email" value="{{userProfileData.email}}" />
                                     <br />
                                     <p>
                                         Please update your email address and choose to "Opt-In" to receive future MSER emails or "Opt-Out" so you will not receive
@@ -67,19 +67,19 @@
                                     <label>Opt Type:</label>
                                     <ul class="contact-list">
                                         <li>
-                                            <input type="checkbox" /> Opt-In
+                                            <input type="checkbox" id="optIn" name="optType" [(ngModel)]="profileChange.optIn"/> Opt-In
                                         </li>
                                         <li>
-                                            <input type="checkbox" /> Opt-Out
+                                            <input type="checkbox" id="optOut" name="optType" [(ngModel)]="profileChange.optOut" /> Opt-Out
                                         </li>
                                     </ul>
                                     <br />
 
-                                    <button type="button" class="btn btn-info btn-sm">Update</button>
+                                    <button type="submit" class="btn btn-info btn-sm">Update</button>
 
                                 </form>
 
-                                <form class="pageForm">
+                                <form class="pageForm" #passwordChangeForm ="ngForm" novalidate (ngSubmit)="changeUserPassword()">
                                     <h5>Change Your Password</h5>
                                     <ul>
                                         <li>Passwords must contain letters and numbers</li>
@@ -88,12 +88,12 @@
                                     </ul>
 
                                     <label>New Password</label>
-                                    <input type="text" id="nameInput" />
+                                    <input type="password" id="passwordInput" name="passwordInput" [(ngModel)]="passwordChange.newPassword" value ="{{passwordChange.newPassword}}"/>
                                     <br />
                                     <label>Confirm New Password</label>
-                                    <input type="text" id="emailInput" />
+                                    <input type="password" id="emailInput" />
                                     <br />
-                                    <button type="button" class="btn btn-info btn-sm">Change</button>
+                                    <button type="submit" class="btn btn-info btn-sm">Change</button>
                                 </form>
 
                             </div>
@@ -429,7 +429,7 @@
 
 
 
-<footer class="app-footer">
+<!--<footer class="app-footer">
     <div class="row">
 
 
@@ -463,7 +463,7 @@
 
         </div>
     </div>
-</footer>
+</footer>-->
 
 <!-- Bootstrap and necessary plugins -->
 <!-- <script src="assets/jquery.js"></script> -->

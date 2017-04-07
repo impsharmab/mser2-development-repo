@@ -25,7 +25,7 @@ export class ResetPasswordComponent implements OnInit {
   private resetPassword(userId: string, emailId: string) {
     this.loginService.resetPassword(this.resetpassword.userId, this.resetpassword.emailId).subscribe(
       (resetPasswordData) => {
-        this.resetPasswordData = (resetPasswordData)
+        this.resetPasswordData = (resetPasswordData) 
       }
     )
     //debugger
