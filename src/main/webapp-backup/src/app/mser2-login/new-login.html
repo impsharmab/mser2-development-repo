@@ -52,7 +52,7 @@
 
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                <form class="pageForm" #f="ngForm" novalidate (ngSubmit)="login(user.username, user.password)">
+                                <form class="pageForm" #f="ngForm" novalidate (ngSubmit)="login()">
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{loginFailed}} <br> {{errorMessage}}</p>
                                     <label>SID or TID</label>
                                     <input type="text" name="username" id="username" [(ngModel)]="user.username" #username="ngModel" />

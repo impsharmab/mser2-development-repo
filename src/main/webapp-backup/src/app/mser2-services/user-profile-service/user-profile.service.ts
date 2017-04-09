@@ -14,10 +14,10 @@ export class UserProfileService {
     sessionStorage.removeItem('UserProfileData');
     sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
   }
-  updateUserProfile(name: string, email: string, sendMail?: string): any {
-    debugger
-    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+  updateUserProfile(name: string, email: string, sendMail?: string): any {      
     var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
+    
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "name": name, "email": email, "sendMail": sendMail };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -34,6 +34,7 @@ export class UserProfileService {
 
   changeUserPassword(newPassword: string): any {
     var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password/";
+    
     var body = { "item": newPassword };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -61,6 +62,7 @@ export class UserProfileService {
     debugger
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var getUserProfileDataServiceUrl: string = "http://172.25.32.162/imimserservices/UserProfile/Profile";
+    var getUserProfileDataServiceUrl="./src/app/mser2-services/user-profile-service/updateUserProfile.json"
     //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    
     var headers = new Headers();
     headers.append('Authorization', validToken);

@@ -20,7 +20,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private userProfileService: UserProfileService) {
   }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.userProfileData = JSON.parse(sessionStorage.getItem("UserProfileData"))
     this.profileChange = {
       name: "",

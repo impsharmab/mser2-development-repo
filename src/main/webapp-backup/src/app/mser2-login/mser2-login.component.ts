@@ -24,18 +24,16 @@ export class Mser2LoginComponent implements OnInit {
     }
   }
 
-  private login(username: string, password: string) {
-    // debugger
-    // alert(username)
-    if (username.trim() === "" && password.trim() === "") {
+  private login() {
+    if (this.user.username.trim() === "" && this.user.password.trim() === "") {
       this.loginFailed = "Login Failed";
       this.errorMessage = "Please enter you valid SID/TID and Password";
       return;
-    } else if (username.trim() === "" && password.trim() !== null) {
+    } else if (this.user.username.trim() === "" && this.user.password.trim() !== null) {
       this.loginFailed = "Login Failed";
       this.errorMessage = 'Please enter your valid SID or TID'
       return;
-    } else if (username.trim() !== null && password.trim() === "") {
+    } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
       this.loginFailed = "Login Failed";
       this.errorMessage = 'Please enter your valid Password'
       return;
@@ -43,30 +41,21 @@ export class Mser2LoginComponent implements OnInit {
     this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
-        // alert(resUserData["userID"]);
         if (resUserData["token"].length > 0) {
           this.loginService.setUserdata(this.userdata);
 
           let url = ["mserHomepage"]
           this.router.navigate(url);
-          //debugger
         }
-
-        else if (resUserData["token"] == undefined) {
-          // debugger
-          alert("No records found Please try with valid SID/TID and Password");
-          this.loginFailed = "Login Failed";
-          this.errorMessage = 'Invalid User';
-          return;
-        }
-
         else {
-          alert("invalid user");
 
-          //alert(resUserData.error)
         }
         // var msg = JSON.parse(resUserData["error"])["error"];
         // alert(msg);
+      },
+      (error) => {
+        this.loginFailed = "Login Failed";
+        this.errorMessage = "Please enter your valid SID/TID and password";
       }
     )
   }

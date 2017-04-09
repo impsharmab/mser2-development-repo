@@ -134,7 +134,7 @@ public class EnrollmentsController {
 		    	 return ResponseEntity.status(500).body("Failed to check Token");
 			}
 			
-			return laborOpsDAO.deleteOpCodeById(Integer.parseInt(id.getKey()));
+			return laborOpsDAO.deleteOpCodeById(Integer.parseInt(id.getItem()));
 			
 	    }
 	    

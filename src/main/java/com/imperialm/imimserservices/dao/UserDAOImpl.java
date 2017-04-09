@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.imperialm.imimserservices.dto.UsersDTO;
+import com.imperialm.imimserservices.model.TwoStringItems;
 
 @Repository
 public class UserDAOImpl {
@@ -32,6 +33,25 @@ public class UserDAOImpl {
 			query.setParameter(1, user.getEmail());
 			query.setParameter(2, user.getUserId());
 			query.setParameter(3, user.getSendEmail());
+			if(query.executeUpdate() > 0){
+				result = true;
+			}
+		} catch (final NoResultException ex) {
+			logger.info("result in else " + result);
+		} catch (final Exception ex) {
+			logger.error("error occured in setProfile", ex);
+		}
+		return result;
+	}
+	
+	@Transactional
+	public boolean setTextAlert(TwoStringItems object, String userId){
+		boolean result = false;
+		try {
+			final Query query = this.em.createNativeQuery("update Users set [PhoneNumber] = ?0 , [SendText] = ?1 where userid = ?2");
+			query.setParameter(0, object.getItem1());
+			query.setParameter(1, object.getItem2());
+			query.setParameter(2, userId);
 			if(query.executeUpdate() > 0){
 				result = true;
 			}

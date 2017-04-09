@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.imperialm.imimserservices.dao.DealerPersonnelPositionsDAO;
 import com.imperialm.imimserservices.dao.UserPositionCodeRoleDAO;
 import com.imperialm.imimserservices.dao.UserProgramRolesDAO;
 import com.imperialm.imimserservices.dto.UserDetailsImpl;
@@ -44,6 +45,9 @@ public class AuthenticationRestController {
     
     @Autowired
     private UserPositionCodeRoleDAO userPositionCodeRoleDAO;
+    
+    @Autowired
+    private DealerPersonnelPositionsDAO dealerPersonnelPositionsDAO;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -103,9 +107,15 @@ public class AuthenticationRestController {
         positionCode.addAll(p);
         dealerCode.addAll(d);
         
+        List<Integer> roles = new ArrayList<Integer>();
+        for(String pc: positionCode){
+        	roles.add(dealerPersonnelPositionsDAO.getRoleByPositionCode(pc));
+        }
+        
         JwtAuthenticationResponse response =new JwtAuthenticationResponse(token);
         response.setPositionCode(positionCode);
         response.setDealerCode(dealerCode);
+        response.setRoles(roles);
         response.setName(user.getUsername());
         if(user.getUserId().toLowerCase().equals("dave")){
         	response.setAdmin(true);

@@ -3,7 +3,8 @@ package com.imperialm.imimserservices.model;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-public class OneItem {
-	private String item;
+@Setter @Getter
+public class TwoStringItems {
+	private String item1;
+	private String item2;
 }

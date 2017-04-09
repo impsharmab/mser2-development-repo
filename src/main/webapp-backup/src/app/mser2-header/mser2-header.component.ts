@@ -17,6 +17,7 @@ export class Mser2HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"))
+    this.getUserProfileData();
     /*****
     * CONFIGURATION
     */
@@ -129,11 +130,12 @@ export class Mser2HeaderComponent implements OnInit {
   }
 
   private getUserProfileData() {
-    debugger
+    //debugger
     this.userProfileService.getUserProfileData().subscribe(
       (resUserProfileData) => {
         this.userProfileData = (resUserProfileData)
         this.userProfileService.setUserProfileData(this.userProfileData)
+        //debugger
         // let url = ["userprofile"]
         // this.router.navigate(url);
 

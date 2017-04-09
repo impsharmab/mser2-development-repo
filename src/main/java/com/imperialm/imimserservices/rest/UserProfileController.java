@@ -3,16 +3,10 @@
  */
 package com.imperialm.imimserservices.rest;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -33,6 +27,7 @@ import com.imperialm.imimserservices.dao.UserPositionCodeRoleDAO;
 import com.imperialm.imimserservices.dto.UserDetailsImpl;
 import com.imperialm.imimserservices.dto.UsersDTO;
 import com.imperialm.imimserservices.model.OneItem;
+import com.imperialm.imimserservices.model.TwoStringItems;
 import com.imperialm.imimserservices.model.UserIdEmail;
 import com.imperialm.imimserservices.model.UserProfile;
 import com.imperialm.imimserservices.security.JwtTokenUtil;
@@ -40,10 +35,7 @@ import com.imperialm.imimserservices.services.UserProfileServiceImpl;
 import com.imperialm.imimserservices.services.UserServiceImpl;
 import com.imperialm.imimserservices.util.EmailHandler;
 
-/**
- * @author Dheerajr
- *
- */
+
 @RestController
 public class UserProfileController {
 	
@@ -61,14 +53,14 @@ public class UserProfileController {
 	@Autowired
 	private UserServiceImpl userDetailsService;
 	    
-	@Autowired
+	/*@Autowired
 	private UserPositionCodeRoleDAO userPositionCodeRoleDAO;
 	    
 	@Autowired
 	private DealerPersonnelPositionsDAO dealerPersonnelPositionsDAO;
 	
 	@Autowired
-	private UserProfileServiceImpl userprofileService;
+	private UserProfileServiceImpl userprofileService;*/
 	
 	@Autowired
     private EmailHandler emailHandler;
@@ -138,7 +130,7 @@ public class UserProfileController {
 			return profile;
 		}
 		
-		return "No profile Found";
+		return ResponseEntity.status(500).body("No Profile Found");
 		
 	}
 	
@@ -162,12 +154,12 @@ public class UserProfileController {
 	    	 return ResponseEntity.status(500).body("Failed to check Token");
 		}
 		
-		if(password.getKey().isEmpty() || password.getKey().contains(" ")){
+		if(password.getItem().isEmpty() || password.getItem().contains(" ")){
 			return false;
 		}
 	
 		String salt = UUID.randomUUID().toString().toUpperCase();
-		return userDAOImpl.setPassword(user.getUserId(), password.getKey(), salt);
+		return userDAOImpl.setPassword(user.getUserId(), password.getItem(), salt);
 		
 	}
 	
@@ -211,26 +203,28 @@ public class UserProfileController {
 		}
 	}
 	
-	
-
-	 public String get_SHA_512_SecurePassword(String passwordToHash, String   salt){
-	    	String generatedPassword = null;
-	    	    try {
-	    	         MessageDigest md = MessageDigest.getInstance("SHA-512");
-	    	         passwordToHash= passwordToHash + salt;
-	    	         md.update(passwordToHash.getBytes("UTF-8"));
-	    	         byte[] bytes = md.digest();
-	    	         StringBuilder sb = new StringBuilder();
-	    	         for(int i=0; i< bytes.length ;i++){
-	    	            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-	    	         }
-	    	         generatedPassword = sb.toString();
-	    	        } 
-	    	       catch (Exception e){
-	    	        return null;
-	    	       }
-	    	    return generatedPassword;
-	    	}
+	@RequestMapping(value = "/UserProfile/TextAlerts", method = RequestMethod.POST)
+	public @ResponseBody Object setTextAlerts(@RequestBody TwoStringItems object ,HttpServletRequest request) {
+		
+		
+		UserDetailsImpl user = null;
+		//get token extract user info and use for the calls
+		try{
+		 String token = request.getHeader(tokenHeader);
+	     String username = jwtTokenUtil.getUsernameFromToken(token);
+	     user = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
+	     if(!jwtTokenUtil.validateToken(token, user)){
+	    	 //token is expired/invalid token
+	    	 return ResponseEntity.status(500).body("Invalid Token");
+	     }
+		}catch(Exception e){
+			//token is expired/invalid token
+	    	 return ResponseEntity.status(500).body("Failed to check Token");
+		}
+		
+		return userDAOImpl.setTextAlert(object, user.getUserId());
+		
+	}
 	
 
 }

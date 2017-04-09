@@ -24,11 +24,15 @@ public class JwtAuthenticationResponse implements Serializable {
     
     @Getter @Setter
     private List<String> dealerCode;
+    
+    @Getter @Setter
+    private List<Integer> roles;
 
     public JwtAuthenticationResponse(String token) {
         this.token = token;
         this.positionCode = new ArrayList<String>();
         this.dealerCode = new ArrayList<String>();
+        this.roles = new ArrayList<Integer>();
     }
 
     public String getToken() {

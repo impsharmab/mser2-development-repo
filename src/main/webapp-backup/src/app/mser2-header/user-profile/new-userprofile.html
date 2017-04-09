@@ -48,16 +48,17 @@
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-6 col-lg-6">
 
-                                <form class="pageForm" #userprofile="ngForm" novalidate (ngSubmit)="updateUserProfile()"> 
+                                <form class="pageForm" #userprofile="ngForm" novalidate (ngSubmit)="updateUserProfile()">
                                     <h5>Change Your Information</h5>
 
                                     <label>Name</label>
-                                    <input type="text"  id="name" name="name" [(ngModel)]="profileChange.name" value="{{userProfileData.name}}"/>
+                                    <!--<input type="text"  id="name" name="name" [(ngModel)]="profileChange.name" value="{{userProfileData.name}}"/>-->
+                                    <input type="text" id="name" name="name" value="{{userProfileData.name}}" [(ngModel)]="userProfileData.name"  />
                                     <br />
                                     <label>Email</label>
-                                    <input type="text" id="email" name="email" [(ngModel)]="profileChange.email" value="{{userProfileData.email}}" />
+                                    <input type="text" id="email" name="email" value="{{userProfileData.email}}" [(ngModel)]="userProfileData.name"  />
                                     <br />
-                                    <p>
+                                     <p>
                                         Please update your email address and choose to "Opt-In" to receive future MSER emails or "Opt-Out" so you will not receive
                                         any future emails from MSER.
 
@@ -67,10 +68,10 @@
                                     <label>Opt Type:</label>
                                     <ul class="contact-list">
                                         <li>
-                                            <input type="checkbox" id="optIn" name="optType" [(ngModel)]="profileChange.optIn"/> Opt-In
+                                            <input type="checkbox" id="optIn" name="optType" [(ngModel)]="profileChange.optIn" />                                            Opt-In
                                         </li>
                                         <li>
-                                            <input type="checkbox" id="optOut" name="optType" [(ngModel)]="profileChange.optOut" /> Opt-Out
+                                            <input type="checkbox" id="optOut" name="optType" [(ngModel)]="profileChange.optOut" />                                            Opt-Out
                                         </li>
                                     </ul>
                                     <br />
@@ -79,7 +80,7 @@
 
                                 </form>
 
-                                <form class="pageForm" #passwordChangeForm ="ngForm" novalidate (ngSubmit)="changeUserPassword()">
+                                <form class="pageForm" #passwordChangeForm="ngForm" novalidate (ngSubmit)="changeUserPassword()">
                                     <h5>Change Your Password</h5>
                                     <ul>
                                         <li>Passwords must contain letters and numbers</li>
@@ -88,7 +89,8 @@
                                     </ul>
 
                                     <label>New Password</label>
-                                    <input type="password" id="passwordInput" name="passwordInput" [(ngModel)]="passwordChange.newPassword" value ="{{passwordChange.newPassword}}"/>
+                                    <input type="password" id="passwordInput" name="passwordInput" [(ngModel)]="passwordChange.newPassword" value="{{passwordChange.newPassword}}"
+                                    />
                                     <br />
                                     <label>Confirm New Password</label>
                                     <input type="password" id="emailInput" />
