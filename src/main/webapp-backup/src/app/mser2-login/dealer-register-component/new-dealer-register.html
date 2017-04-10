@@ -54,22 +54,22 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
 
 
-                                <form class="pageForm">
+                                <form class="pageForm" #dealerform="ngForm" novalidate (ngSubmit)="registerDealership()">
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSID}} <br> {{errorDealerCode}} <br> {{errorDealerEmail}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;" *ngIf="invalidCreds">Thank you for your interest in the Mopar Service Excellence Rewards program. However,
+                                        your sID is not authorized to approve enrollment into MSER. <br/> Please contact
+                                        your dealer principal or authorized representative.</p>
                                     <label>SID</label>
-                                    <input type="text" id="loginID" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <input type="text" id="dealerSID" name="dealerSID"  [(ngModel)]="registerDealer.dealerSID" pattern="[A-Z]{3}[0-9]{4}"/>
                                     <br />
                                     <label>Dealer Code</label>
-                                    <input type="text" id="dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <input type="text" id="dealerCode" name="dealerCode"  [(ngModel)]="registerDealer.dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
                                     <br />
                                     <label>Manager Email</label>
-                                    <input type="text" id="dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <input type="email" name="email" id="dealerPrincipalEmail"  [(ngModel)]="registerDealer.dealerPrincipalEmail" pattern="[A-Z]{3}[0-9]{4}" />
                                     <br />
-
-
                                     <button type="button" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>
-                                    <button type="button" class="btn btn-info btn-sm">Request Enrollment</button>
-
-
+                                    <button type="submit" class="btn btn-info btn-sm">Request Enrollment</button>
                                 </form>
 
                                 <div id="updateProgramsModal" class="modal fade" role="dialog">
@@ -115,8 +115,8 @@
         </li>
     </ul>-->
 
-    <!-- Tab panes -->
-    <!--<div class="tab-content">
+<!-- Tab panes -->
+<!--<div class="tab-content">
         <div class="tab-pane active" id="timeline" role="tabpanel">
             <!--
             <div class="callout m-0 py-h text-muted text-center bg-faded text-uppercase">
@@ -215,7 +215,7 @@
             </div>
             <hr class="mx-1 my-0">
             -->
-        <!--</div>
+<!--</div>
         <div class="tab-pane p-1" id="messages" role="tabpanel">
             <div class="message">
                 <div class="py-1 pb-3 mr-1 float-left">

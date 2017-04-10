@@ -11,8 +11,8 @@ export class DealerRegisterService {
   }
 
 
-  postMserEnrollmentData(dealerSID: string, dealerCode: string, dealerPrincipalEmail: string): any {
-    var url = "";
+  registerDealership(dealerSID: string, dealerCode: string, dealerPrincipalEmail: string): any {
+    var url = "./url";
     var body = { "dealerSID": dealerSID, "dealerCode": dealerCode, "dealerPrincipalEmail": dealerPrincipalEmail };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

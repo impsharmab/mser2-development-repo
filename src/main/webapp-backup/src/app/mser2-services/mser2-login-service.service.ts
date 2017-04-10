@@ -21,25 +21,25 @@ export class Mser2LoginServiceService {
   getLoginResponse(username, password): any {
     // debugger
     var url = "./login/token/";
-    // var url = "https://test.myfcarewards.com/imimserservices/login/token/"
-    var url = "../assets/json-responses/login-response.json";
+     var url = "https://test.myfcarewards.com/imimserservices/login/token/"
+    //var url = "../assets/json-responses/login-response.json";
     var body = { "username": username, "password": password };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Headers', 'Content-Type');
-    headers.append('Access-Control-Allow-Methods', 'POST');
-    headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
+    // headers.append('Access-Control-Allow-Headers', 'Content-Type');
+    // headers.append('Access-Control-Allow-Methods', 'POST');
+    // headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
 
-    // return this.http.post(url, body, { headers: headers })
-    return this.http.get(url)
+     return this.http.post(url, body, { headers: headers })
+    //return this.http.get(url)
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
   }
 
   resetPassword(userId: string, emailId: string) {
-    var url = "";
-    var body = { "userId": userId, "emailId": emailId };
+    var url = "/UserProfile/ResetPassword";
+    var body = { "userId": userId, "email": emailId };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(url, body, { headers: headers })

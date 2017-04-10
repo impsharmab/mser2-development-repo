@@ -12,30 +12,50 @@ import { DealerRegisterService } from '../../mser2-services/dealer-register-serv
   styleUrls: ['./dealer-register.component.css']
 })
 export class DealerRegisterComponent implements OnInit {
-  public mserEnrollmentFormInterface: DealerRegisterFormInterface;
+  public registerDealer: DealerRegisterFormInterface;
   private mserEnrollmentFormData = {}
-  constructor(private mserEnrollmentService: DealerRegisterService, private http: Http, private router: Router ) { }
+  private errorSID: string = "";
+  private errorDealerCode: string = "";
+  private errorDealerEmail: string = "";
+  private invalidCreds: boolean = false;
+  constructor(private mserEnrollmentService: DealerRegisterService, private http: Http, private router: Router) { }
 
   ngOnInit() {
-    this.mserEnrollmentFormInterface = {
+    this.registerDealer = {
       dealerSID: "",
       dealerCode: "",
       dealerPrincipalEmail: ""
     }
   }
-  private postMserEnrollmentData(dealerSID: string, dealerCode: string, dealerPrincipalEmail: string) {
-    this.mserEnrollmentService.postMserEnrollmentData(this.mserEnrollmentFormInterface.dealerSID,
-      this.mserEnrollmentFormInterface.dealerCode, this.mserEnrollmentFormInterface.dealerPrincipalEmail).subscribe(
+  private registerDealership() {
+    if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
+      this.errorSID = "SID is required.";
+      this.errorDealerCode = "DealerCode is required.";
+      this.errorDealerEmail = "Email is required";
+      return;
+    } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
+      this.errorSID = "SID is required.";
+      return;
+    } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
+      this.errorDealerCode = "DealerCode is required.";
+      return;
+    }
+    this.mserEnrollmentService.registerDealership(this.registerDealer.dealerSID,
+      this.registerDealer.dealerCode, this.registerDealer.dealerPrincipalEmail).subscribe(
       (responseMserEnrollmentData) => {
         this.mserEnrollmentFormData = (responseMserEnrollmentData)
       },
       error => {
         console.error('Error posting postMserEnrollmentData: ', error);
+      },
+      (error) => {
+        this.invalidCreds = true;
       }
+
       )
   }
 
-  cancel(){
+  cancel() {
     let url = ["login"]
     this.router.navigate(url);
   }
