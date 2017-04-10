@@ -82,12 +82,12 @@
 
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                <br>
+                                <br> 
                                 <div class="container">
-                                    <form class="form-inline">
+                                    <form class="form-inline" #addopcodeForm="ngForm" novalidate (ngSubmit)="addOpCode()">
                                         <div class="form-group">
                                             <label for="email">Add OpCode:</label>
-                                            <input type="text" class="form-control" id="opcode" placeholder="Enter opcode" style="margin: 10px">
+                                            <input type="text" class="form-control" id="opcode" name="opcode" [(ngModel)]="addopcInterface.opCode" placeholder="Enter opcode" style="margin: 10px">
                                         </div>
                                         <button type="submit" class="" style="margin: 10px">Add</button>
                                     </form>

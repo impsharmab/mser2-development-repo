@@ -11,43 +11,55 @@ import { OpcodeSetupService } from '../../mser2-services/enrollment-service/opco
   // providers:[OpcodesetupService]
 })
 export class OpcodeSetupComponent implements OnInit {
+  private currentuser: any = {};
+  private dealercode: string = "";
   opcodesetupData: any;
   public addopcInterface: AddOpCodeInterface;
-  private date: Date;
+  private id: number = 0;
+  private date: string="2017-03-10";
+  private source: string = "";
+  private createdBy: string = "";
 
   constructor(private opcodesetupService: OpcodeSetupService, private router: Router) {
-    this.date = new Date();
+    //this.date = new Date();
   }
 
   ngOnInit() {
-    this.addopcInterface.dealerCode=JSON.parse(sessionStorage.getItem("CurrentUser").dealerCode[0])
+    this.currentuser = JSON.parse(sessionStorage.getItem("CurrentUser"))
+    this.dealercode = this.currentuser.dealerCode[0];
+
     this.opcodesetup();
     this.addopcInterface = {
       "iD": 0,
       "dealerCode": "",
       "opCode": "",
       "source": "",
-      "createdDate": this.date,
+      "createdDate": new Date,
       "createdBy": ""
     }
   }
 
   private opcodesetup() {
     //debugger
-    this.opcodesetupService.getOpcodesetupResponse(this.addopcInterface.dealerCode).subscribe(
+    this.opcodesetupService.getOpcodesetupResponse(this.dealercode).subscribe(
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
+        this.source = this.opcodesetupData[0].source;
+        this.source = this.opcodesetupData[0].source;
+        this.createdBy = this.opcodesetupData[0].createdBy
+        // this.dealercode = this.opcodesetupData.;
       }
     )
   }
 
   addOpCode() {
-    this.opcodesetupService.addOpCode(this.addopcInterface.iD,
-      this.addopcInterface.dealerCode,
+    debugger
+    this.opcodesetupService.addOpCode(this.id,
+      this.dealercode,
       this.addopcInterface.opCode,
-      this.addopcInterface.source,
-      this.addopcInterface.createdDate,
-      this.addopcInterface.createdBy)
+      this.source,
+      this.date,
+      this.createdBy)
 
   }
 
