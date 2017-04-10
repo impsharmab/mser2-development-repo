@@ -48,11 +48,12 @@ export class UserProfileService {
       .catch(this.handleError);
   }
 
-  textMessageOption(sid: string, mobileNumber: string): any {
+  textMessageOption(mobileNumber: string, aggree:string): any {
+    debugger
     var url = "https://test.myfcarewards.com/imimserservices/UserProfile/TextAlerts";
-    var url = "/";
+    //var url = "/";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var body = { "sid": sid, "mobileNumber": mobileNumber };
+    var body = { "item1": mobileNumber, "item2": aggree };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);

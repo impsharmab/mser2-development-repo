@@ -23,7 +23,8 @@ export class ContactUsComponent implements OnInit {
     this.textMsgOption = {
       sid: "",
       mobileNumber: "",
-      agreeTermsAndCondition: false
+      agreeTermsAndCondition: false,
+      agree: ""
     }
   }
 
@@ -43,8 +44,14 @@ export class ContactUsComponent implements OnInit {
       this.errorMobileNumber = "Please provide a valid number";
       return;
     }
-    this.userProfileService.textMessageOption(this.textMsgOption.sid,
-      this.textMsgOption.mobileNumber).subscribe(
+    if (this.textMsgOption.agreeTermsAndCondition) {
+      this.textMsgOption.agree = "Y"
+    } else {
+      this.textMsgOption.agree = "N"
+    }
+    this.userProfileService.textMessageOption(
+      this.textMsgOption.mobileNumber,
+      this.textMsgOption.agree, ).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
         this.successPasswordChangedMessage = "Your password has been successfully changed.";
