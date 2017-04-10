@@ -14,13 +14,19 @@ export class UserProfileComponent implements OnInit {
   public profileChange: UserProfileChangeInformationInterface;
   public passwordChange: UserChangePasswordInterface;
   public textMsgOption: UserProfileTextMessageOptionInterface;
-  private profileChangeData = {}
+  private profileChangeData: any = {}
   private optIn: string = "";
   private optOut: string = "";
+  private successUpdateUserProfile: string = "";
+  private confirmPasswordMessage: string = "";
+  private errorAgreeTermsAndCondition: string = "";
+  private errorSID: string = "";
+  private errorMobileNumber: string = "";
+  private successPasswordChangedMessage: string = "";
+
   constructor(private userProfileService: UserProfileService) {
   }
-
-  ngOnInit() { 
+  ngOnInit() {
     this.userProfileData = JSON.parse(sessionStorage.getItem("UserProfileData"))
     this.profileChange = {
       name: "",
@@ -54,27 +60,49 @@ export class UserProfileComponent implements OnInit {
     ).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
-      }
-      )
+        this.successUpdateUserProfile = "Your profile settings are updated";
+      },
+      // (error) => {
+      //   this.loginFailed = "Login Failed";
+      //   this.errorMessage = "Please enter your valid SID/TID and password";
+      // }
+    )
 
   }
 
   private changeUserPassword() {
-    debugger
+    if (this.passwordChange.newPassword.trim() !== this.passwordChange.confirmPassword.trim()) {
+      this.confirmPasswordMessage = "The confirmation does not match the password you entered";
+      return;
+    }
     this.userProfileService.changeUserPassword(this.passwordChange.newPassword).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
       }
     )
-
   }
 
-  private textMessageOption(sid: string, mobileNumber: string, agreeTermsAndCondition: boolean) {
+  private textMessageOption() {
+    debugger
+    if (!this.textMsgOption.agreeTermsAndCondition) {
+      this.errorAgreeTermsAndCondition = "You must accept the terms of service";
+      return;
+    } else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber === "") {
+      this.errorSID = "You must provide your SID.";
+      this.errorMobileNumber = "Please provide a valid number";
+      return;
+    } else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber !== "") {
+      this.errorSID = "You must provide your SID.";
+      return;
+    } else if (this.textMsgOption.sid.trim() !== "" && this.textMsgOption.mobileNumber === "") {
+      this.errorMobileNumber = "Please provide a valid number";
+      return;
+    }
     this.userProfileService.textMessageOption(this.textMsgOption.sid,
-      this.textMsgOption.mobileNumber,
-      this.textMsgOption.agreeTermsAndCondition).subscribe(
+      this.textMsgOption.mobileNumber).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
+        this.successPasswordChangedMessage = "Your password has been successfully changed.";
       }
       )
   }

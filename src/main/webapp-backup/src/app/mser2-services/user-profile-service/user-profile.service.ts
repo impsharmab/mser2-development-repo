@@ -14,9 +14,10 @@ export class UserProfileService {
     sessionStorage.removeItem('UserProfileData');
     sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
   }
-  updateUserProfile(name: string, email: string, sendMail?: string): any {      
+  updateUserProfile(name: string, email: string, sendMail?: string): any {
+    debugger
     var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
-    
+    //var url="/"
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "name": name, "email": email, "sendMail": sendMail };
     var headers = new Headers();
@@ -33,23 +34,28 @@ export class UserProfileService {
   }
 
   changeUserPassword(newPassword: string): any {
-    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password/";
-    
+    debugger
+
+    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item": newPassword };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
+    headers.append('Authorization', validToken);
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
   }
 
-  textMessageOption(sid: string, mobileNumber: string, agreeTermsAndCondition: boolean): any {
-    var url = "";
-    var body = { "sid": sid, "mobileNumber": mobileNumber, "agreeTermsAndCondition": agreeTermsAndCondition };
+  textMessageOption(sid: string, mobileNumber: string): any {
+    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/TextAlerts";
+    var url = "/";
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var body = { "sid": sid, "mobileNumber": mobileNumber };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
 
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
@@ -58,11 +64,10 @@ export class UserProfileService {
 
   }
 
-  getUserProfileData() {
-    debugger
+  getUserProfileData() {  
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var getUserProfileDataServiceUrl: string = "http://172.25.32.162/imimserservices/UserProfile/Profile";
-    var getUserProfileDataServiceUrl="./src/app/mser2-services/user-profile-service/updateUserProfile.json"
+    var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json"
     //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    
     var headers = new Headers();
     headers.append('Authorization', validToken);

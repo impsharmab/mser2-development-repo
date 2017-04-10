@@ -15,6 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   private errorUserID: string = "";
   private errorEmailID: string = "";
   private invalidCreds: boolean = false;
+  private successResetPasswordMessage: string = "";
 
   constructor(private router: Router, private loginService: Mser2LoginServiceService) { }
 
@@ -42,10 +43,11 @@ export class ResetPasswordComponent implements OnInit {
     this.loginService.resetPassword(this.resetpassword.userId, this.resetpassword.emailId).subscribe(
       (resetPasswordData) => {
         this.resetPasswordData = (resetPasswordData)
+        this.successResetPasswordMessage = "Please check your email for new UserID and Password";
       },
       (error) => {
         this.invalidCreds = true;
-       //this.errorMessage = "Please enter your valid SID/TID and password";
+        //this.errorMessage = "Please enter your valid SID/TID and password";
       }
     )
     //debugger

@@ -25,19 +25,19 @@ export class Mser2LoginComponent implements OnInit {
   }
 
   private login() {
-    if (this.user.username.trim() === "" && this.user.password.trim() === "") {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = "Please enter you valid SID/TID and Password";
-      return;
-    } else if (this.user.username.trim() === "" && this.user.password.trim() !== null) {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your valid SID or TID'
-      return;
-    } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your valid Password'
-      return;
-    }
+    // if (this.user.username.trim() === "" && this.user.password.trim() === "") {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = "Please enter you valid SID/TID and Password";
+    //   return;
+    // } else if (this.user.username.trim() === "" && this.user.password.trim() !== null) {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = 'Please enter your valid SID or TID'
+    //   return;
+    // } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = 'Please enter your valid Password'
+    //   return;
+    // }
     this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
@@ -53,10 +53,13 @@ export class Mser2LoginComponent implements OnInit {
         // var msg = JSON.parse(resUserData["error"])["error"];
         // alert(msg);
       },
-      (error) => {
-        this.loginFailed = "Login Failed";
-        this.errorMessage = "Please enter your valid SID/TID and password";
-      }
+      // (error) => {
+      //   this.loginFailed = "Login Failed";
+      //   this.errorMessage = "Please enter your valid SID/TID and password";
+      // },
+      // (success) => {
+      //   alert("success")
+      // }
     )
   }
   private resetPassword() {
