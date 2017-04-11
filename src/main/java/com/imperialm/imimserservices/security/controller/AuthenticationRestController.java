@@ -117,6 +117,7 @@ public class AuthenticationRestController {
         response.setDealerCode(dealerCode);
         response.setRoles(roles);
         response.setName(user.getUsername());
+        response.setUserId(user.getUserId());
         if(user.getUserId().toLowerCase().equals("dave")){
         	response.setAdmin(true);
         }

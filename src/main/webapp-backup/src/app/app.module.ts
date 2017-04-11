@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
+import { NgbModal, NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { Mser2SidenavComponent } from './mser2-sidenav/mser2-sidenav.component';
@@ -26,36 +28,45 @@ import { UserProfileService } from './mser2-services/user-profile-service/user-p
 import { OpcodeSetupComponent } from './enrollment/opcode-setup/opcode-setup.component';
 import { EnrollmentReportComponent } from './enrollment/enrollment-report/enrollment-report.component';
 import { EnrollmentMaintenanceComponent } from './enrollment/enrollment-maintenance/enrollment-maintenance.component';
-import { OpcodeSetupService} from './mser2-services/enrollment-service/opcode-setup.service'
+import { OpcodeSetupService } from './mser2-services/enrollment-service/opcode-setup.service';
+import { DealercodeModalComponent } from './mser2-header/dealercode-modal/dealercode-modal.component';
+import { DealercodePositioncodeService } from './mser2-services/dealercode-positioncode-service/dealercode-positioncode.service'
 //import { ContactUsComponent } from './mser2-header/contact-us/contact-us/contact-us.component'
 
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    MserModule,
+    AppRoutingModule,
+    MserModule,
+    CommonModule,
+    NgbModule.forRoot()
+  ],
   declarations: [
     AppComponent,
     ResetPasswordComponent,
     Mser2LoginComponent,
     DealerRegisterComponent,
     //UserProfileComponent,
-   // OpcodeSetupComponent,
+    // OpcodeSetupComponent,
     EnrollmentReportComponent,
     EnrollmentMaintenanceComponent,
+    //DealercodeModalComponent,
     //ContactUsComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    AppRoutingModule,
-    MserModule
   ],
   providers: [
     Mser2LoginServiceService,
     DealerRegisterService,
     UserProfileService,
-    OpcodeSetupService
+    OpcodeSetupService,
+    DealercodePositioncodeService
 
   ],
+  // exports: [DealercodeModalComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

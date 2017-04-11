@@ -19,6 +19,9 @@ import { UserProfileComponent } from '../../mser2-header/user-profile/user-profi
 import { ContactUsComponent } from '../../mser2-header/contact-us/contact-us.component';
 import { OpcodeSetupService} from '../../mser2-services/opcode-setup.service';
 
+import { DealercodeModalComponent } from '../../mser2-header/dealercode-modal/dealercode-modal.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +42,8 @@ import { OpcodeSetupService} from '../../mser2-services/opcode-setup.service';
     PayoutchartComponent,
     OpcodeSetupComponent,
     UserProfileComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    DealercodeModalComponent
   ],
   providers:[OpcodeSetupService]
 })

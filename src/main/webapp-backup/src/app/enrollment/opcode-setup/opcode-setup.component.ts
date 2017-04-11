@@ -15,23 +15,34 @@ declare var $: any;
 export class OpcodeSetupComponent implements OnInit {
 
   private currentuser: any = {};
+  private selectedCodeData: any = {};
+  private addOpcodeResponse: any;
+
   private dealercode: string = "";
   opcodesetupData: any;
   public addopcInterface: AddOpCodeInterface;
   private id: number = 0;
-  private date: string="2017-03-10";
-  private source: string = "";
+  private date: string = "";
+  private source: string = "TDLR";
   private createdBy: string = "";
 
   constructor(private opcodesetupService: OpcodeSetupService, private router: Router) {
     //this.date = new Date();
+
   }
 
   ngOnInit() {
     this.currentuser = JSON.parse(sessionStorage.getItem("CurrentUser"))
-    this.dealercode = this.currentuser.dealerCode[0];
+    //this.dealercode = this.currentuser.dealerCode[0];
+    this.selectedCodeData = JSON.parse(sessionStorage.getItem("selectedCodeData"));
+    this.dealercode = this.selectedCodeData.selectedDealerCode;
+    this.createdBy = this.currentuser.userId;
+    var d = new Date;
+    this.date = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
+    // alert(this.date)
 
     this.opcodesetup();
+
     this.addopcInterface = {
       "iD": 0,
       "dealerCode": "",
@@ -39,7 +50,7 @@ export class OpcodeSetupComponent implements OnInit {
       "source": "",
       "createdDate": new Date,
       "createdBy": ""
-    }    
+    }
     /*****
     * CONFIGURATION
     */
@@ -153,13 +164,10 @@ export class OpcodeSetupComponent implements OnInit {
 
   private opcodesetup() {
     //debugger
-    this.opcodesetupService.getOpcodesetupResponse(this.dealercode).subscribe(
+    this.opcodesetupService.getOpcodesetupResponse(this.selectedCodeData.selectedDealerCode).subscribe(
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
-        this.source = this.opcodesetupData[0].source;
-        this.source = this.opcodesetupData[0].source;
-        this.createdBy = this.opcodesetupData[0].createdBy
-        // this.dealercode = this.opcodesetupData.;
+        // this.source = this.opcodesetupData[0].source;
       }
     )
   }
@@ -171,8 +179,15 @@ export class OpcodeSetupComponent implements OnInit {
       this.addopcInterface.opCode,
       this.source,
       this.date,
-      this.createdBy)
-
+      this.createdBy).subscribe(
+      (addOpcodeResponse) => {
+        this.addOpcodeResponse = (addOpcodeResponse)
+        this.opcodesetup();
+      },
+      (error) => {
+        alert("Opcode was not added...")
+      }
+      )
   }
 
 }

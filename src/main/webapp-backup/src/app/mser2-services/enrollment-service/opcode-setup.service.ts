@@ -9,8 +9,8 @@ export class OpcodeSetupService {
   constructor(private http: Http) { }
 
    getOpcodesetupResponse(dealerCode: string): any {
-   // var url = "https://test.myfcarewards.com/imimserservices/enrollments/getopcode/" + dealerCode;
-    var url = "./enrollments/getopcode/" + dealerCode;
+    var url = "https://test.myfcarewards.com/imimserservices/enrollments/getopcode/" + dealerCode;
+   // var url = "./enrollments/getopcode/" + dealerCode;
 
     // var url = 'http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';
 
@@ -34,7 +34,7 @@ export class OpcodeSetupService {
     createdBy: string): any {
     debugger;
 
-    var url = '/enrollments/addopcode';
+    var url = 'https://test.myfcarewards.com/imimserservices/enrollments/addopcode';
     // var url='./opcode-response.json';      
 
     var body = {

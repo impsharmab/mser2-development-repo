@@ -60,16 +60,20 @@
                                         your sID is not authorized to approve enrollment into MSER. <br/> Please contact
                                         your dealer principal or authorized representative.</p>
                                     <label>SID</label>
-                                    <input type="text" id="dealerSID" name="dealerSID"  [(ngModel)]="registerDealer.dealerSID" pattern="[A-Z]{3}[0-9]{4}"/>
+                                    <input type="text" id="dealerSID" name="dealerSID" [(ngModel)]="registerDealer.dealerSID" pattern="[A-Z]{3}[0-9]{4}" />
                                     <br />
                                     <label>Dealer Code</label>
-                                    <input type="text" id="dealerCode" name="dealerCode"  [(ngModel)]="registerDealer.dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <input type="text" id="dealerCode" name="dealerCode" [(ngModel)]="registerDealer.dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
                                     <br />
                                     <label>Manager Email</label>
-                                    <input type="email" name="email" id="dealerPrincipalEmail"  [(ngModel)]="registerDealer.dealerPrincipalEmail" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <input type="email" name="email" id="dealerPrincipalEmail" [(ngModel)]="registerDealer.dealerPrincipalEmail" pattern="[A-Z]{3}[0-9]{4}"
+                                    />
                                     <br />
                                     <button type="button" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>
-                                    <button type="submit" class="btn btn-info btn-sm">Request Enrollment</button>
+                                    <!--<button type="submit" class="btn btn-info btn-sm">Request Enrollment</button>-->
+                                    <button type="submit" class="btn btn-info btn-sm">
+                                <a href="mailto:info@moparser.com?subject=Request Enrollment &body= Dealer SID: {{registerDealer.dealerSID}}%0D%0ADealer Code: {{registerDealer.dealerCode}}%0D%0ADealer Principal Email: {{registerDealer.dealerPrincipalEmail}}"
+                                    >Request Enrollment</a></button>
                                 </form>
 
                                 <div id="updateProgramsModal" class="modal fade" role="dialog">

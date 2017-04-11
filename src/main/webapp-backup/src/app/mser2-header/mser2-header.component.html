@@ -1,3 +1,20 @@
+<template ngbModalContainer></template>
+
+<template #dealercodeModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title"> </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <!--<dealercode-modal></dealercode-modal>-->
+        <dealercode-modal (onSubmit)="positionCodeSubmit(c)" (onCancel)="c()"></dealercode-modal>
+    </div>
+    <div class="modal-footer">
+    </div>
+</template>
+
 <header class="app-header navbar">
     <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
     <a class="navbar-brand"></a>
@@ -14,15 +31,18 @@
 
     <nav class="navMenu">
         <div class="menuItem">
-            <span class="menuTarget " data-target="contactUs" routerLink="contactus" >Contact Us</span>
+            <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
         </div>
         <div class="menuItem">
             <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
         </div>
         <div class="menuItem">
-            <img src="./assets/retweet.png" alt="Smiley face" width="35" height="32" style="cursor: pointer">
-            <!--<img src="./retweet.png">
-            <span class="menuTarget currentPage" data-target="fcaRewards"></span>-->
+            <!--<a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownPositionCode()" style="cursor:pointer">
+                <span><img src="./assets/retweet.png" alt="Swith Dealer Code" width="35" height="32" style="cursor: pointer"></span></a>-->
+
+            <a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownDealerCode()" style="cursor:pointer">
+                <span><img src="./assets/retweet.png" alt="Swith Dealer Code" width="35" height="32" style="cursor: pointer"></span></a>
+
         </div>
     </nav>
 
@@ -196,7 +216,7 @@
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
                 <div class="divider"></div>
                 <!--  <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-                <a  class="dropdown-item" (click)="logout()"><i class="fa fa-lock" style="cursor: pointer"></i> Logout</a>
+                <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock" style="cursor: pointer"></i> Logout</a>
             </div>
         </li>
 

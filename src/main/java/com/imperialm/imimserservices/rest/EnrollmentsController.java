@@ -108,7 +108,7 @@ public class EnrollmentsController {
 		    	 return ResponseEntity.status(500).body("Failed to check Token");
 			}
 			
-			return laborOpsDAO.updateOpCodeById(LaborOpsDTO);
+			return laborOpsDAO.addOpCodeByDealerCode(LaborOpsDTO);
 			
 	    }
 	    

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter,TemplateRef } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
-import { UserProfileService } from '../mser2-services/user-profile-service/user-profile.service'
+import { UserProfileService } from '../mser2-services/user-profile-service/user-profile.service';
+import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare var $: any;
 
@@ -12,12 +13,18 @@ declare var $: any;
 })
 export class Mser2HeaderComponent implements OnInit {
   @Input() data: any;
-  private userProfileData: any = {};
-  constructor(private router: Router, private userProfileService: UserProfileService) { }
+  @ViewChild("dealercodeModal") private dealercodeModal: NgbModalRef;
+  @Output("onProfileChange") profileChange = new EventEmitter<any>();
+ 
+  private poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
+  private delcodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerCode;
+  private userProfileData: any = {};  
+  constructor(private router: Router, private userProfileService: UserProfileService, private modalService: NgbModal) { }
 
   ngOnInit() {
+    //debugger
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"))
-    this.getUserProfileData();
+    // this.getUserProfileData();
     /*****
     * CONFIGURATION
     */
@@ -142,6 +149,20 @@ export class Mser2HeaderComponent implements OnInit {
       }
     )
   }
+  private positionCodeCancel() {
+    this.dealercodeModal.close();
+  }
+  private positionCodeSubmit(c: any) {
+    // alert("1");	
+    c();
+    this.profileChange.emit("")
+  }
+  private dropdownDealerCode() {
+   // alert(this.poscodes + "" + this.delcodes)
+    //    alert()
+    this.modalService.open(this.dealercodeModal, { windowClass: 'dealercode' });
+  }
+
   logout() {
     let url = ["login"]
     this.router.navigate(url);

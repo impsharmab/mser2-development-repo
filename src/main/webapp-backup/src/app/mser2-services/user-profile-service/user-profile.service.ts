@@ -35,8 +35,8 @@ export class UserProfileService {
   changeUserPassword(newPassword: string): any {
     debugger
 
-    //var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
-    var url = "./UserProfile/Password";
+    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
+   // var url = "./UserProfile/Password";
     
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item": newPassword };
@@ -68,8 +68,8 @@ export class UserProfileService {
 
   getUserProfileData() {  
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var getUserProfileDataServiceUrl: string = "http://172.25.32.162/imimserservices/UserProfile/Profile";
-    var getUserProfileDataServiceUrl: string = "./UserProfile/Profile";
+    var getUserProfileDataServiceUrl: string = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
+   // var getUserProfileDataServiceUrl: string = "./UserProfile/Profile";
     
     //var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json"
     //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    

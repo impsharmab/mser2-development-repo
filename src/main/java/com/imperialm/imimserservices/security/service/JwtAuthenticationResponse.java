@@ -27,6 +27,9 @@ public class JwtAuthenticationResponse implements Serializable {
     
     @Getter @Setter
     private List<Integer> roles;
+    
+    @Getter @Setter
+    private String userId;
 
     public JwtAuthenticationResponse(String token) {
         this.token = token;

@@ -25,24 +25,35 @@ export class Mser2LoginComponent implements OnInit {
   }
 
   private login() {
-    if (this.user.username.trim() === "" && this.user.password.trim() === "") {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = "Please enter you valid SID/TID and Password";
-      return;
-    } else if (this.user.username.trim() === "" && this.user.password.trim() !== null) {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your valid SID or TID'
-      return;
-    } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
-      this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your valid Password'
-      return;
-    }
+    // if (this.user.username.trim() === "" && this.user.password.trim() === "") {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = "Please enter your valid SID/TID and Password";
+    //   return;
+    // } else if (this.user.username.trim() === "" && this.user.password.trim() !== null) {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = 'Please enter your valid SID or TID'
+    //   return;
+    // } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
+    //   this.loginFailed = "Login Failed";
+    //   this.errorMessage = 'Please enter your valid Password'
+    //   return;
+    // }
+    debugger
     this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
+      
       (resUserData) => {
         this.userdata = (resUserData)
         if (resUserData["token"].length > 0) {
           this.loginService.setUserdata(this.userdata);
+          this.loginService.setUserRole(this.userdata.roles);
+          var poscodes: any = this.userdata.positionCode;
+          var delcodes: any = this.userdata.dealerCode;
+          sessionStorage.setItem("selectedCodeData", JSON.stringify(
+            {
+              "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
+              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0
+            }))
+
 
           let url = ["mserHomepage"]
           this.router.navigate(url);
