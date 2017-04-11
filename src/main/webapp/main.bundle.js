@@ -38,7 +38,125 @@ webpackJsonp([1,4],{
 
 /***/ }),
 
-/***/ 196:
+/***/ 133:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rxjs_operators__ = __webpack_require__(132);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProfileService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var UserProfileService = (function () {
+    function UserProfileService(http) {
+        this.http = http;
+        this.userProfileData = {};
+    }
+    UserProfileService.prototype.setUserProfileData = function (userProfileData) {
+        this.userProfileData = userProfileData;
+        sessionStorage.setItem("UserProfileData", "");
+        sessionStorage.removeItem('UserProfileData');
+        sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
+    };
+    UserProfileService.prototype.updateUserProfile = function (name, email, sendMail) {
+        debugger;
+        //var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
+        var url = "./UserProfile/Profile";
+        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var body = { "name": name, "email": email, "sendMail": sendMail };
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        // headers.append("Cache-Control", "no-cache");
+        // headers.append("Cache-Control", "no-store");
+        return this.http.post(url, body, { headers: headers })
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    UserProfileService.prototype.changeUserPassword = function (newPassword) {
+        debugger;
+        //var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
+        var url = "./UserProfile/Password";
+        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var body = { "item": newPassword };
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(url, body, { headers: headers })
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    UserProfileService.prototype.textMessageOption = function (mobileNumber, aggree) {
+        //debugger
+        var url = "https://test.myfcarewards.com/imimserservices/UserProfile/TextAlerts";
+        var url = "./UserProfile/TextAlerts";
+        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var body = { "item1": mobileNumber, "item2": aggree };
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(url, body, { headers: headers })
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    UserProfileService.prototype.getUserProfileData = function () {
+        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var getUserProfileDataServiceUrl = "http://172.25.32.162/imimserservices/UserProfile/Profile";
+        var getUserProfileDataServiceUrl = "./UserProfile/Profile";
+        //var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json"
+        //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Authorization', validToken);
+        // headers.append("Cache-Control", "no-cache");
+        // headers.append("Cache-Control", "no-store");
+        return this.http.get(getUserProfileDataServiceUrl, { headers: headers })
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    UserProfileService.prototype.handleError = function (error) {
+        var errMsg = "";
+        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Response */]) {
+            var body = error.json() || '';
+            var err = body.error || JSON.stringify(body);
+            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
+        }
+        else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw(errMsg);
+    };
+    UserProfileService = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === 'function' && _a) || Object])
+    ], UserProfileService);
+    return UserProfileService;
+    var _a;
+}());
+//# sourceMappingURL=user-profile.service.js.map
+
+/***/ }),
+
+/***/ 197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79,9 +197,9 @@ var Mser2LoginServiceService = (function () {
         // debugger
         var url = "./login/token/";
         // var url = "https://test.myfcarewards.com/imimserservices/login/token/"
-        //var url = "../assets/json-responses/login-response.json";
+        // var url = "../assets/json-responses/login-response.json";
         var body = { "username": username, "password": password };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
         // headers.append('Access-Control-Allow-Headers', 'Content-Type');
         // headers.append('Access-Control-Allow-Methods', 'POST');
@@ -93,9 +211,10 @@ var Mser2LoginServiceService = (function () {
             .catch(this.handleError);
     };
     Mser2LoginServiceService.prototype.resetPassword = function (userId, emailId) {
-        var url = "/UserProfile/ResetPassword";
+        // var url = "https://test.myfcarewards.com/imimserservices/UserProfile/ResetPassword";
+        var url = "./UserProfile/ResetPassword";
         var body = { "userId": userId, "email": emailId };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
         return this.http.post(url, body, { headers: headers })
             .map(function (response) {
@@ -105,7 +224,7 @@ var Mser2LoginServiceService = (function () {
     };
     Mser2LoginServiceService.prototype.handleError = function (error) {
         var errMsg = "";
-        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Response */]) {
+        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Response */]) {
             var body = error.json() || '';
             var err = body.error || JSON.stringify(body);
             errMsg = error.status + " - " + (error.statusText || '') + " " + err;
@@ -117,120 +236,12 @@ var Mser2LoginServiceService = (function () {
     };
     Mser2LoginServiceService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === 'function' && _a) || Object])
     ], Mser2LoginServiceService);
     return Mser2LoginServiceService;
     var _a;
 }());
 //# sourceMappingURL=mser2-login-service.service.js.map
-
-/***/ }),
-
-/***/ 197:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rxjs_operators__ = __webpack_require__(132);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProfileService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var UserProfileService = (function () {
-    function UserProfileService(http) {
-        this.http = http;
-        this.userProfileData = {};
-    }
-    UserProfileService.prototype.setUserProfileData = function (userProfileData) {
-        this.userProfileData = userProfileData;
-        sessionStorage.setItem("UserProfileData", "");
-        sessionStorage.removeItem('UserProfileData');
-        sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
-    };
-    UserProfileService.prototype.updateUserProfile = function (name, email, sendMail) {
-        var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
-        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        var body = { "name": name, "email": email, "sendMail": sendMail };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', validToken);
-        // headers.append("Cache-Control", "no-cache");
-        // headers.append("Cache-Control", "no-store");
-        return this.http.post(url, body, { headers: headers })
-            .map(function (response) {
-            return response.json();
-        })
-            .catch(this.handleError);
-    };
-    UserProfileService.prototype.changeUserPassword = function (newPassword) {
-        var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password/";
-        var body = { "item": newPassword };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(url, body, { headers: headers })
-            .map(function (response) {
-            return response.json();
-        })
-            .catch(this.handleError);
-    };
-    UserProfileService.prototype.textMessageOption = function (sid, mobileNumber, agreeTermsAndCondition) {
-        var url = "";
-        var body = { "sid": sid, "mobileNumber": mobileNumber, "agreeTermsAndCondition": agreeTermsAndCondition };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post(url, body, { headers: headers })
-            .map(function (response) {
-            return response.json();
-        })
-            .catch(this.handleError);
-    };
-    UserProfileService.prototype.getUserProfileData = function () {
-        debugger;
-        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        var getUserProfileDataServiceUrl = "http://172.25.32.162/imimserservices/UserProfile/Profile";
-        var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json";
-        //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
-        headers.append('Authorization', validToken);
-        // headers.append("Cache-Control", "no-cache");
-        // headers.append("Cache-Control", "no-store");
-        return this.http.get(getUserProfileDataServiceUrl, { headers: headers })
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
-    };
-    UserProfileService.prototype.handleError = function (error) {
-        var errMsg = "";
-        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Response */]) {
-            var body = error.json() || '';
-            var err = body.error || JSON.stringify(body);
-            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
-        }
-        else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw(errMsg);
-    };
-    UserProfileService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object])
-    ], UserProfileService);
-    return UserProfileService;
-    var _a;
-}());
-//# sourceMappingURL=user-profile.service.js.map
 
 /***/ }),
 
@@ -255,29 +266,129 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var OpcodeSetupComponent = (function () {
-    //public addopcInterface: AddOpCodeInterface;
     function OpcodeSetupComponent(opcodesetupService, router) {
         this.opcodesetupService = opcodesetupService;
         this.router = router;
+        this.currentuser = {};
+        this.dealercode = "";
+        this.id = 0;
+        this.date = "2017-03-10";
+        this.source = "";
+        this.createdBy = "";
+        //this.date = new Date();
     }
     OpcodeSetupComponent.prototype.ngOnInit = function () {
+        this.currentuser = JSON.parse(sessionStorage.getItem("CurrentUser"));
+        this.dealercode = this.currentuser.dealerCode[0];
         this.opcodesetup();
+        this.addopcInterface = {
+            "iD": 0,
+            "dealerCode": "",
+            "opCode": "",
+            "source": "",
+            "createdDate": new Date,
+            "createdBy": ""
+        };
+        /*****
+        * CONFIGURATION
+        */
+        //Main navigation
+        $.navigation = $('nav > ul.nav');
+        $.panelIconOpened = 'icon-arrow-up';
+        $.panelIconClosed = 'icon-arrow-down';
+        //Default colours
+        $.brandPrimary = '#20a8d8';
+        $.brandSuccess = '#4dbd74';
+        $.brandInfo = '#63c2de';
+        $.brandWarning = '#f8cb00';
+        $.brandDanger = '#f86c6b';
+        $.grayDark = '#2a2c36';
+        $.gray = '#55595c';
+        $.grayLight = '#818a91';
+        $.grayLighter = '#d1d4d7';
+        $.grayLightest = '#f8f9fa';
+        'use strict';
+        /****
+        * MAIN NAVIGATION
+        */
+        function resizeBroadcast() {
+            var timesRun = 0;
+            var interval = setInterval(function () {
+                timesRun += 1;
+                if (timesRun === 5) {
+                    clearInterval(interval);
+                }
+                window.dispatchEvent(new Event('resize'));
+            }, 62.5);
+        }
+        // Add class .active to current link
+        /* ---------- Main Menu Open/Close, Min/Full ---------- */
+        $('.navbar-toggler').click(function () {
+            if ($(this).hasClass('sidebar-toggler')) {
+                $('body').toggleClass('sidebar-hidden');
+                resizeBroadcast();
+            }
+            if ($(this).hasClass('aside-menu-toggler')) {
+                $('body').toggleClass('aside-menu-hidden');
+                resizeBroadcast();
+            }
+            if ($(this).hasClass('mobile-sidebar-toggler')) {
+                $('body').toggleClass('sidebar-mobile-show');
+                resizeBroadcast();
+            }
+        });
+        $('.sidebar-close').click(function () {
+            $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
+        });
+        /* ---------- Disable moving to top ---------- */
+        $('a[href="#"][data-top!=true]').click(function (e) {
+            e.preventDefault();
+        });
+        /****
+        * CARDS ACTIONS
+        */
+        $(document).on('click', '.card-actions a', function (e) {
+            e.preventDefault();
+            if ($(this).hasClass('btn-close')) {
+                $(this).parent().parent().parent().fadeOut();
+            }
+            else if ($(this).hasClass('btn-minimize')) {
+                var $target = $(this).parent().parent().next('.card-block');
+                if (!$(this).hasClass('collapsed')) {
+                    $('i', $(this)).removeClass($.panelIconOpened).addClass($.panelIconClosed);
+                }
+                else {
+                    $('i', $(this)).removeClass($.panelIconClosed).addClass($.panelIconOpened);
+                }
+            }
+            else if ($(this).hasClass('btn-setting')) {
+                $('#myModal').modal('show');
+            }
+        });
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        function init(url) {
+            /* ---------- Tooltip ---------- */
+            $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement": "bottom", delay: { show: 400, hide: 200 } });
+            /* ---------- Popover ---------- */
+            $('[rel="popover"],[data-rel="popover"],[data-toggle="popover"]').popover();
+        }
     };
     OpcodeSetupComponent.prototype.opcodesetup = function () {
         var _this = this;
         //debugger
-        this.opcodesetupService.getOpcodesetupResponse().subscribe(function (opcodesetupData) {
+        this.opcodesetupService.getOpcodesetupResponse(this.dealercode).subscribe(function (opcodesetupData) {
             _this.opcodesetupData = (opcodesetupData);
-            // if (true) {
-            //   let url = ["opcodesetup"]
-            //   this.router.navigate(url);
-            //debugger
-            //alert(this.opcodesetupData.createdDate)
-            //console.log(this.opcodesetupData)
-            //}
+            _this.source = _this.opcodesetupData[0].source;
+            _this.source = _this.opcodesetupData[0].source;
+            _this.createdBy = _this.opcodesetupData[0].createdBy;
+            // this.dealercode = this.opcodesetupData.;
         });
     };
     OpcodeSetupComponent.prototype.addOpCode = function () {
+        debugger;
+        this.opcodesetupService.addOpCode(this.id, this.dealercode, this.addopcInterface.opCode, this.source, this.date, this.createdBy);
     };
     OpcodeSetupComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Q" /* Component */])({
@@ -334,6 +445,7 @@ var HomeComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(133);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactUsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -345,10 +457,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var ContactUsComponent = (function () {
-    function ContactUsComponent() {
+    function ContactUsComponent(userProfileService) {
+        this.userProfileService = userProfileService;
+        this.errorAgreeTermsAndCondition = "";
+        this.errorSID = "";
+        this.errorMobileNumber = "";
+        this.successPasswordChangedMessage = "";
+        this.profileChangeData = {};
     }
     ContactUsComponent.prototype.ngOnInit = function () {
+        this.textMsgOption = {
+            sid: "",
+            mobileNumber: "",
+            agreeTermsAndCondition: false,
+            agree: ""
+        };
+    };
+    ContactUsComponent.prototype.textMessageOption = function () {
+        var _this = this;
+        debugger;
+        if (!this.textMsgOption.agreeTermsAndCondition) {
+            this.errorAgreeTermsAndCondition = "You must accept the terms of service";
+            return;
+        }
+        else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber === "") {
+            this.errorSID = "You must provide your SID.";
+            this.errorMobileNumber = "Please provide a valid number";
+            return;
+        }
+        else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber !== "") {
+            this.errorSID = "You must provide your SID.";
+            return;
+        }
+        else if (this.textMsgOption.sid.trim() !== "" && this.textMsgOption.mobileNumber === "") {
+            this.errorMobileNumber = "Please provide a valid number";
+            return;
+        }
+        if (this.textMsgOption.agreeTermsAndCondition) {
+            this.textMsgOption.agree = "Y";
+        }
+        else {
+            this.textMsgOption.agree = "N";
+        }
+        this.userProfileService.textMessageOption(this.textMsgOption.mobileNumber, this.textMsgOption.agree).subscribe(function (profileChangeData) {
+            _this.profileChangeData = (profileChangeData);
+            _this.successPasswordChangedMessage = "Your password has been successfully changed.";
+        });
     };
     ContactUsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Q" /* Component */])({
@@ -356,9 +512,10 @@ var ContactUsComponent = (function () {
             template: __webpack_require__(557),
             styles: [__webpack_require__(540)]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__mser2_services_user_profile_service_user_profile_service__["a" /* UserProfileService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__mser2_services_user_profile_service_user_profile_service__["a" /* UserProfileService */]) === 'function' && _a) || Object])
     ], ContactUsComponent);
     return ContactUsComponent;
+    var _a;
 }());
 //# sourceMappingURL=contact-us.component.js.map
 
@@ -369,7 +526,7 @@ var ContactUsComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(133);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProfileComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -388,6 +545,12 @@ var UserProfileComponent = (function () {
         this.profileChangeData = {};
         this.optIn = "";
         this.optOut = "";
+        this.successUpdateUserProfile = "";
+        this.confirmPasswordMessage = "";
+        this.errorAgreeTermsAndCondition = "";
+        this.errorSID = "";
+        this.errorMobileNumber = "";
+        this.successPasswordChangedMessage = "";
     }
     UserProfileComponent.prototype.ngOnInit = function () {
         this.userProfileData = JSON.parse(sessionStorage.getItem("UserProfileData"));
@@ -405,7 +568,8 @@ var UserProfileComponent = (function () {
         this.textMsgOption = {
             sid: "",
             mobileNumber: "",
-            agreeTermsAndCondition: false
+            agreeTermsAndCondition: false,
+            agree: ""
         };
     };
     UserProfileComponent.prototype.updateUserProfile = function () {
@@ -418,18 +582,47 @@ var UserProfileComponent = (function () {
         }
         this.userProfileService.updateUserProfile(this.profileChange.name, this.profileChange.email, this.profileChange.sendMail).subscribe(function (profileChangeData) {
             _this.profileChangeData = (profileChangeData);
+            _this.successUpdateUserProfile = "Your profile settings are updated";
         });
     };
     UserProfileComponent.prototype.changeUserPassword = function () {
         var _this = this;
-        debugger;
+        if (this.passwordChange.newPassword.trim() !== this.passwordChange.confirmPassword.trim()) {
+            this.confirmPasswordMessage = "The confirmation does not match the password you entered";
+            return;
+        }
         this.userProfileService.changeUserPassword(this.passwordChange.newPassword).subscribe(function (profileChangeData) {
             _this.profileChangeData = (profileChangeData);
+            _this.successPasswordChangedMessage = "Your password has been successfully changed.";
         });
     };
-    UserProfileComponent.prototype.textMessageOption = function (sid, mobileNumber, agreeTermsAndCondition) {
+    UserProfileComponent.prototype.textMessageOption = function () {
         var _this = this;
-        this.userProfileService.textMessageOption(this.textMsgOption.sid, this.textMsgOption.mobileNumber, this.textMsgOption.agreeTermsAndCondition).subscribe(function (profileChangeData) {
+        debugger;
+        if (!this.textMsgOption.agreeTermsAndCondition) {
+            this.errorAgreeTermsAndCondition = "You must accept the terms of service";
+            return;
+        }
+        else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber === "") {
+            this.errorSID = "You must provide your SID.";
+            this.errorMobileNumber = "Please provide a valid number";
+            return;
+        }
+        else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber !== "") {
+            this.errorSID = "You must provide your SID.";
+            return;
+        }
+        else if (this.textMsgOption.sid.trim() !== "" && this.textMsgOption.mobileNumber === "") {
+            this.errorMobileNumber = "Please provide a valid number";
+            return;
+        }
+        if (this.textMsgOption.agreeTermsAndCondition) {
+            this.textMsgOption.agree = "Y";
+        }
+        else {
+            this.textMsgOption.agree = "N";
+        }
+        this.userProfileService.textMessageOption(this.textMsgOption.mobileNumber, this.textMsgOption.agree).subscribe(function (profileChangeData) {
             _this.profileChangeData = (profileChangeData);
         });
     };
@@ -533,7 +726,7 @@ var DealerRegisterComponent = (function () {
             template: __webpack_require__(560),
             styles: [__webpack_require__(543)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__mser2_services_dealer_register_service_dealer_register_service__["a" /* DealerRegisterService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__mser2_services_dealer_register_service_dealer_register_service__["a" /* DealerRegisterService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__mser2_services_dealer_register_service_dealer_register_service__["a" /* DealerRegisterService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__mser2_services_dealer_register_service_dealer_register_service__["a" /* DealerRegisterService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* Http */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _c) || Object])
     ], DealerRegisterComponent);
     return DealerRegisterComponent;
     var _a, _b, _c;
@@ -548,7 +741,7 @@ var DealerRegisterComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mser2_services_mser2_login_service_service__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mser2_services_mser2_login_service_service__ = __webpack_require__(197);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mser2LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -639,7 +832,7 @@ var Mser2LoginComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mser2_services_mser2_login_service_service__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mser2_services_mser2_login_service_service__ = __webpack_require__(197);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResetPasswordComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -660,6 +853,7 @@ var ResetPasswordComponent = (function () {
         this.errorUserID = "";
         this.errorEmailID = "";
         this.invalidCreds = false;
+        this.successResetPasswordMessage = "";
     }
     ResetPasswordComponent.prototype.ngOnInit = function () {
         this.resetpassword = {
@@ -686,6 +880,7 @@ var ResetPasswordComponent = (function () {
         }
         this.loginService.resetPassword(this.resetpassword.userId, this.resetpassword.emailId).subscribe(function (resetPasswordData) {
             _this.resetPasswordData = (resetPasswordData);
+            _this.successResetPasswordMessage = "Please check your email for new UserID and Password";
         }, function (error) {
             _this.invalidCreds = true;
             //this.errorMessage = "Please enter your valid SID/TID and password";
@@ -741,7 +936,7 @@ var DealerRegisterService = (function () {
     DealerRegisterService.prototype.registerDealership = function (dealerSID, dealerCode, dealerPrincipalEmail) {
         var url = "./url";
         var body = { "dealerSID": dealerSID, "dealerCode": dealerCode, "dealerPrincipalEmail": dealerPrincipalEmail };
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Headers */]();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
         return this.http.post(url, body, { headers: headers })
             .map(function (response) { return response.json(); })
@@ -749,7 +944,7 @@ var DealerRegisterService = (function () {
     };
     DealerRegisterService.prototype.handleError = function (error) {
         var errMsg = "";
-        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Response */]) {
+        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Response */]) {
             var body = error.json() || '';
             var err = body.error || JSON.stringify(body);
             errMsg = error.status + " - " + (error.statusText || '') + " " + err;
@@ -761,7 +956,7 @@ var DealerRegisterService = (function () {
     };
     DealerRegisterService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === 'function' && _a) || Object])
     ], DealerRegisterService);
     return DealerRegisterService;
     var _a;
@@ -797,11 +992,41 @@ var OpcodeSetupService = (function () {
     function OpcodeSetupService(http) {
         this.http = http;
     }
-    OpcodeSetupService.prototype.getOpcodesetupResponse = function () {
-        //var url = "./enrollments/getopcode";  
-        var url = 'http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';
+    OpcodeSetupService.prototype.getOpcodesetupResponse = function (dealerCode) {
+        // var url = "https://test.myfcarewards.com/imimserservices/enrollments/getopcode/" + dealerCode;
+        var url = "./enrollments/getopcode/" + dealerCode;
+        // var url = 'http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';
+        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.get(url, { headers: headers })
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    OpcodeSetupService.prototype.addOpCode = function (id, dealercode, opcode, source, createdDate, createdBy) {
+        debugger;
+        var url = '/enrollments/addopcode';
         // var url='./opcode-response.json';      
-        return this.http.get(url)
+        var body = {
+            "iD": id,
+            "dealerCode": dealercode,
+            "opCode": opcode,
+            "source": source,
+            "createdDate": createdDate,
+            "createdBy": createdBy
+        };
+        var validToken = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        // headers.append('Access-Control-Allow-Headers', 'Content-Type');
+        // headers.append('Access-Control-Allow-Methods', 'POST');
+        // headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
+        // return this.http.get(url)
+        return this.http.post(url, body, { headers: headers })
             .map(function (response) {
             return response.json();
         })
@@ -809,7 +1034,7 @@ var OpcodeSetupService = (function () {
     };
     OpcodeSetupService.prototype.handleError = function (error) {
         var errMsg = "";
-        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Response */]) {
+        if (error instanceof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Response */]) {
             var body = error.json() || '';
             var err = body.error || JSON.stringify(body);
             errMsg = error.status + " - " + (error.statusText || '') + " " + err;
@@ -821,7 +1046,7 @@ var OpcodeSetupService = (function () {
     };
     OpcodeSetupService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* Http */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === 'function' && _a) || Object])
     ], OpcodeSetupService);
     return OpcodeSetupService;
     var _a;
@@ -926,7 +1151,7 @@ var RootPageComponent = (function () {
             selector: '',
             template: __webpack_require__(566),
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* Http */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* Http */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* Http */]) === 'function' && _b) || Object])
     ], RootPageComponent);
     return RootPageComponent;
     var _a, _b;
@@ -1015,12 +1240,12 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(466);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mser2_login_mser2_login_component__ = __webpack_require__(314);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mser2_route_mser2_route_component__ = __webpack_require__(474);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mser2_services_mser2_login_service_service__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mser2_services_mser2_login_service_service__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mser2_login_reset_password_reset_password_component__ = __webpack_require__(315);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__rootpage_mser_module_mser_module_module__ = __webpack_require__(477);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__mser2_login_dealer_register_component_dealer_register_component__ = __webpack_require__(313);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__mser2_services_dealer_register_service_dealer_register_service__ = __webpack_require__(316);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(133);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__enrollment_enrollment_report_enrollment_report_component__ = __webpack_require__(469);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__enrollment_enrollment_maintenance_enrollment_maintenance_component__ = __webpack_require__(468);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__mser2_services_enrollment_service_opcode_setup_service__ = __webpack_require__(317);
@@ -1235,7 +1460,7 @@ var Mser2FooterComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mser2_services_user_profile_service_user_profile_service__ = __webpack_require__(133);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mser2HeaderComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2078,7 +2303,7 @@ module.exports = "<p>\n  enrollment-report works!\n</p>\n"
 /***/ 553:
 /***/ (function(module, exports) {
 
-module.exports = "<main class=\"main\">\r\n    <!-- Bootstrap DataTables css -->\r\n    <!--<link href=\"../../../assets/assets/dataTables.bootstrap.min.css\" rel=\"stylesheet\" />\r\n    <script src=\"https://code.jquery.com/jquery-1.12.4.min.js\"\r\n          integrity=\"sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=\"\r\n          crossorigin=\"anonymous\"></script>\r\n\r\n    <script src=\"../../../assets/assets/jquery.dataTables.min.js\"></script>\r\n    <script src=\"../../../assets/assets/dataTables.bootstrap.min.js\"></script>-->\r\n    <script type=\"text/javascript\">\r\n        $(document).ready(function () {\r\n            $('#dataTable').DataTable();\r\n        });\r\n    </script>\r\n    <!-- Page Title -->\r\n    <div class=\"page-title\">\r\n        <div class=\"pageTitle\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-sm-12 col-md-12\">\r\n                        <h1 class=\"heading-xl\">\r\n                            Vehicle Inspection Labor Operation Code Maintenance\r\n                        </h1>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Breadcrumb -->\r\n    <ol class=\"breadcrumb mb-0\">\r\n        <!--<li class=\"breadcrumb-item\">Home</li>-->\r\n        <li class=\"breadcrumb-item\"></li>\r\n        <li class=\"breadcrumb-item active\">\r\n            <!--<a href=\"#\"></a>-->\r\n        </li>\r\n    </ol>\r\n\r\n    <a name=\"payoutchart\"></a>\r\n\r\n    <a name=\"dashboard\"></a>\r\n    <div class=\"container m-t-md body-container\">\r\n        <!-- First row -->\r\n\r\n        <div class=\"row m-t-md\">\r\n            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n\r\n                <article class=\"card animated fadeInUp\">\r\n\r\n                    <div class=\"card-block\">\r\n                        <div class=\"introHeading\">\r\n                            <h1></h1>\r\n                        </div>\r\n                        <div class=\"report-content\" style=\"width: 90%;padding-left: 4%\">\r\n                            <p>\r\n                                To qualify for Rewards, Repair Orders must contain one of the following inspection labor op codes:\r\n                            </p>\r\n                            <ul class=\"tight\">\r\n                                <li>90 (General Inspection)\r\n                                    <li>9016 (16 Point Inspection)\r\n                                        <li>9023 (23 Point Inspection)\r\n                                            <li>9020 (Safety Check)\r\n                                                <li>9025 (Seasonal Vehicle Inspection)\r\n                            </ul>\r\n                            <p>\r\n                                In addition, the dealership may also use alternative inspection labor op codes.\r\n                                <!--<span class=\"important\">If you added\r\n                        alternative inspection labor op codes for the 2010 Service Excellence\r\n                        program, they have been automatically carried over to 2011.</span>-->\r\n                                Enter any additional alternative inspection labor op codes below. These alternative labor ops must be active for inspection\r\n                                in your business system in order to earn rewards.\r\n                            </p>\r\n                            <p>\r\n\r\n                            </p>\r\n                        </div>\r\n\r\n                        <div class=\"heading-line\">\r\n                            <!--<h2>ONE OF MANY</h2>-->\r\n                        </div>\r\n\r\n                        <div class=\"content-row row\">\r\n                            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n                                <br>\r\n                                <div class=\"container\">\r\n                                    <form class=\"form-inline\">\r\n                                        <div class=\"form-group\">\r\n                                            <label for=\"email\">Add OpCode:</label>\r\n                                            <input type=\"text\" class=\"form-control\" id=\"opcode\" placeholder=\"Enter opcode\" style=\"margin: 10px\">\r\n                                        </div>\r\n                                        <button type=\"submit\" class=\"\" style=\"margin: 10px\">Add</button>\r\n                                    </form>\r\n                                </div>\r\n                                <hr>\r\n                                <table id=\"dataTable\" class=\"table table-striped table-bordered\" cellspacing=\"0\" width=\"100%\">\r\n                                    <thead>\r\n                                        <tr>\r\n                                            <th>OpCode</th>\r\n                                            <th>Date Added</th>\r\n                                            \r\n                                        </tr>\r\n                                    </thead>\r\n                                    <!--<tfoot>\r\n                                        <tr >\r\n                                            <th>OpCode</th>\r\n                                            <th>Date Added</th>\r\n                                            \r\n                                        </tr>\r\n                                    </tfoot>-->\r\n                                    <tbody>\r\n                                        <tr *ngFor=\"let data of opcodesetupData\">\r\n                                            <td>{{data.opCode}}</td>\r\n                                            <td>{{data.createdDate}}</td>\r\n                                            \r\n                                        </tr>\r\n                                    </tbody>\r\n                                </table>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </article>\r\n            </div>\r\n\r\n        </div>\r\n        <!-- .end FIRST row -->\r\n    </div>\r\n    <style>\r\n        .form-control {\r\n            display: initial !important;\r\n        }\r\n    </style>\r\n</main>"
+module.exports = "<main class=\"main\">\r\n    <!-- Bootstrap DataTables css -->\r\n    <!--<link href=\"../../../assets/assets/dataTables.bootstrap.min.css\" rel=\"stylesheet\" />\r\n    <script src=\"https://code.jquery.com/jquery-1.12.4.min.js\"\r\n          integrity=\"sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=\"\r\n          crossorigin=\"anonymous\"></script>\r\n\r\n    <script src=\"../../../assets/assets/jquery.dataTables.min.js\"></script>\r\n    <script src=\"../../../assets/assets/dataTables.bootstrap.min.js\"></script>-->\r\n    <!--<link href=\"../../../assets/assets/dataTables.bootstrap.min.css\" rel=\"stylesheet\" />\r\n\r\n    <script src=\"https://code.jquery.com/jquery-1.12.4.min.js\" integrity=\"sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=\"\r\n        crossorigin=\"anonymous\"></script>\r\n\r\n    <script src=\"../../../assets/assets/jquery.dataTables.min.js\"></script>\r\n    <script src=\"../../../assets/assets/dataTables.bootstrap.min.js\"></script>\r\n    <link href=\"../../../assets/assets/dataTables.bootstrap.min.css\" rel=\"stylesheet\" />-->\r\n    <!--<style>\r\n    .z-tabs > .z-container > .z-content.z-content-pad > .z-content-inner {\r\n      padding-top: 10px;\r\n    }\r\n  </style>\r\n\r\n    <script type=\"text/javascript\">\r\n        $(document).ready(function () {\r\n            $('#dataTable').DataTable();\r\n        });\r\n    </script>\r\n    <!-- Page Title -->\r\n    <div class=\"page-title\">\r\n        <div class=\"pageTitle\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n                    <div class=\"col-sm-12 col-md-12\">\r\n                        <h1 class=\"heading-xl\">\r\n                            Vehicle Inspection Labor Operation Code Maintenance\r\n                        </h1>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div> \r\n    </div>\r\n\r\n    <!-- Breadcrumb -->\r\n    <ol class=\"breadcrumb mb-0\">\r\n        <!--<li class=\"breadcrumb-item\">Home</li>-->\r\n        <li class=\"breadcrumb-item\"></li>\r\n        <li class=\"breadcrumb-item active\">\r\n            <!--<a href=\"#\"></a>-->\r\n        </li>\r\n    </ol>\r\n\r\n    <a name=\"payoutchart\"></a>\r\n\r\n    <a name=\"dashboard\"></a>\r\n    <div class=\"container m-t-md body-container\">\r\n        <!-- First row -->\r\n\r\n        <div class=\"row m-t-md\">\r\n            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n\r\n                <article class=\"card animated fadeInUp\">\r\n\r\n                    <div class=\"card-block\">\r\n                        <div class=\"introHeading\">\r\n                            <h1></h1>\r\n                        </div>\r\n                        <div class=\"report-content\" style=\"width: 90%;padding-left: 4%\">\r\n                            <p>\r\n                                To qualify for Rewards, Repair Orders must contain one of the following inspection labor op codes:\r\n                            </p>\r\n                            <ul class=\"tight\">\r\n                                <li>90 (General Inspection)\r\n                                    <li>9016 (16 Point Inspection)\r\n                                        <li>9023 (23 Point Inspection)\r\n                                            <li>9020 (Safety Check)\r\n                                                <li>9025 (Seasonal Vehicle Inspection)\r\n                            </ul>\r\n                            <p>\r\n                                In addition, the dealership may also use alternative inspection labor op codes.\r\n                                <!--<span class=\"important\">If you added\r\n                        alternative inspection labor op codes for the 2010 Service Excellence\r\n                        program, they have been automatically carried over to 2011.</span>-->\r\n                                Enter any additional alternative inspection labor op codes below. These alternative labor ops must be active for inspection\r\n                                in your business system in order to earn rewards.\r\n                            </p>\r\n                            <p>\r\n\r\n                            </p>\r\n                        </div>\r\n\r\n                        <div class=\"heading-line\">\r\n                            <!--<h2>ONE OF MANY</h2>-->\r\n                        </div>\r\n\r\n                        <div class=\"content-row row\">\r\n                            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n                                <br> \r\n                                <div class=\"container\">\r\n                                    <form class=\"form-inline\" #addopcodeForm=\"ngForm\" novalidate (ngSubmit)=\"addOpCode()\">\r\n                                        <div class=\"form-group\">\r\n                                            <label for=\"email\">Add OpCode:</label>\r\n                                            <input type=\"text\" class=\"form-control\" id=\"opcode\" name=\"opcode\" [(ngModel)]=\"addopcInterface.opCode\" placeholder=\"Enter opcode\" style=\"margin: 10px\">\r\n                                        </div>\r\n                                        <button type=\"submit\" class=\"\" style=\"margin: 10px\">Add</button>\r\n                                    </form>\r\n                                </div>\r\n                                <hr>\r\n                                <table id=\"dataTable\" class=\"table table-striped table-bordered\" cellspacing=\"0\" width=\"100%\">\r\n                                    <thead>\r\n                                        <tr>\r\n                                            <th>OpCode</th>\r\n                                            <th>Date Added</th>\r\n                                            \r\n                                        </tr>\r\n                                    </thead>\r\n                                    <!--<tfoot>\r\n                                        <tr >\r\n                                            <th>OpCode</th>\r\n                                            <th>Date Added</th>\r\n                                            \r\n                                        </tr>\r\n                                    </tfoot>-->\r\n                                    <tbody>\r\n                                        <tr *ngFor=\"let data of opcodesetupData\">\r\n                                            <td>{{data.opCode}}</td>\r\n                                            <td>{{data.createdDate}}</td>\r\n                                            \r\n                                        </tr>\r\n                                    </tbody>\r\n                                </table>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </article>\r\n            </div>\r\n\r\n        </div>\r\n        <!-- .end FIRST row -->\r\n    </div>\r\n    <style>\r\n        .form-control {\r\n            display: initial !important;\r\n        }\r\n    </style>\r\n</main>"
 
 /***/ }),
 
@@ -2106,7 +2331,7 @@ module.exports = "<footer class=\"app-footer\">\n    <a href=\"#\"></a>\n    <sp
 /***/ 557:
 /***/ (function(module, exports) {
 
-module.exports = "<main class=\"main\">\n\n  <!-- Page Title -->\n  <div class=\"page-title\">\n    <div class=\"pageTitle\">\n      <div class=\"container\">\n        <div class=\"row\">\n\n          <div class=\"col-sm-12 col-md-12\">\n\n\n\n            <h1 class=\"heading-xl\">\n\n            </h1>\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- Breadcrumb -->\n  <ol class=\"breadcrumb mb-0\">\n    <li class=\"breadcrumb-item active\"><a href=\"#\">Contact Us</a></li>\n  </ol>\n\n  <a name=\"payoutchart\"></a>\n\n  <a name=\"dashboard\"></a>\n  <div class=\"container m-t-md body-container\">\n    <!-- First row -->\n\n    <div class=\"row m-t-md\">\n      <div class=\"col-sm-12 col-md-12 col-lg-12\">\n\n        <article class=\"card animated fadeInUp\">\n\n          <div class=\"card-block\">\n            <!--<div class=\"introHeading\">\n                  <h1>Admin Dashboard</h1>\n                </div>-->\n            <div class=\"heading-line\">\n              <h2>Contact Us</h2>\n            </div>\n\n            <div class=\"content-row row\">\n              <div class=\"col-sm-12 col-md-6 col-lg-6\">\n\n                <form class=\"pageForm\">\n\n                  <ul class=\"contact-list\">\n                    <li><a href=\"info@moparser.com\"><i class=\"fa fa-envelope-o\"></i> info@moparser.com </a></li>\n                    <li><i class=\"fa fa-phone\"></i> xxx-xxx-xxxx</li>\n                    <li><i class=\"fa fa-fax\"></i> 844-673-7329 (844-MSER-FAX)</li>\n                    <li><i class=\"fa fa-building\"></i> xxxxxxxxxxx</li>\n                  </ul>\n\n                </form>\n              </div>\n\n              <div class=\"col-sm-12 col-md-6 col-lg-6\">\n                <form class=\"pageForm\">\n                  <h5>Sign up to receive text messages</h5>\n\n                  <label>Enter your SID</label>\n                  <input type=\"text\" id=\"sidEntry\" />\n                  <br />\n                  <label>Enter your mobile number</label>\n                  <input type=\"text\" id=\"mobileNumber\" />\n                  <br />\n\n                  <p><input type=\"checkbox\" /> I would like to receive text messages, and agree to the <a href=\"#\">Terms of Service </a>                    &amp; <a href=\"#\">Privacy Policy</a></p>\n\n                  <button type=\"button\" class=\"btn btn-info btn-sm\">Sign Me Up!</button>\n                </form>\n\n              </div>\n\n            </div>\n          </div>\n        </article>\n      </div>\n\n    </div>\n    <!-- .end FIRST row -->\n  </div>\n</main>\n\n<!--<aside class=\"aside-menu\">\n  <ul class=\"nav nav-tabs\" role=\"tablist\">\n    <li class=\"nav-item\">\n      <a class=\"nav-link active\" data-toggle=\"tab\" href=\"#timeline\" role=\"tab\"><i class=\"icon-list\"></i></a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"tab\" href=\"#messages\" role=\"tab\"><i class=\"icon-speech\"></i></a>\n    </li>\n    <li class=\"nav-item\">\n      <a class=\"nav-link\" data-toggle=\"tab\" href=\"#settings\" role=\"tab\"><i class=\"icon-settings\"></i></a>\n    </li>\n  </ul>-->\n\n  <!-- Tab panes -->\n  <!--<div class=\"tab-content\">\n    <div class=\"tab-pane active\" id=\"timeline\" role=\"tabpanel\">-->\n      <!--\n            <div class=\"callout m-0 py-h text-muted text-center bg-faded text-uppercase\">\n                <small><b>Today</b>\n                </small>\n            </div>\n            <hr class=\"transparent mx-1 my-0\">\n            <div class=\"callout callout-warning m-0 py-1\">\n                <div class=\"avatar float-right\">\n                    <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                </div>\n                <div>Meeting with\n                    <strong>Lucas</strong>\n                </div>\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 1 - 3pm</small>\n                <small class=\"text-muted\"><i class=\"icon-location-pin\"></i>&nbsp; Palo Alto, CA</small>\n            </div>\n            <hr class=\"mx-1 my-0\">\n            <div class=\"callout callout-info m-0 py-1\">\n                <div class=\"avatar float-right\">\n                    <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                </div>\n                <div>Skype with\n                    <strong>Megan</strong>\n                </div>\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 4 - 5pm</small>\n                <small class=\"text-muted\"><i class=\"icon-social-skype\"></i>&nbsp; On-line</small>\n            </div>\n            <hr class=\"transparent mx-1 my-0\">\n            <div class=\"callout m-0 py-h text-muted text-center bg-faded text-uppercase\">\n                <small><b>Tomorrow</b>\n                </small>\n            </div>\n            <hr class=\"transparent mx-1 my-0\">\n            <div class=\"callout callout-danger m-0 py-1\">\n                <div>New UI Project -\n                    <strong>deadline</strong>\n                </div>\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 10 - 11pm</small>\n                <small class=\"text-muted\"><i class=\"icon-home\"></i>&nbsp; creativeLabs HQ</small>\n                <div class=\"avatars-stack mt-h\">\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/2.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/3.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/5.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                </div>\n            </div>\n            <hr class=\"mx-1 my-0\">\n            <div class=\"callout callout-success m-0 py-1\">\n                <div>\n                    <strong>#10 Startups.Garden</strong>Meetup</div>\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 1 - 3pm</small>\n                <small class=\"text-muted\"><i class=\"icon-location-pin\"></i>&nbsp; Palo Alto, CA</small>\n            </div>\n            <hr class=\"mx-1 my-0\">\n            <div class=\"callout callout-primary m-0 py-1\">\n                <div>\n                    <strong>Team meeting</strong>\n                </div>\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 4 - 6pm</small>\n                <small class=\"text-muted\"><i class=\"icon-home\"></i>&nbsp; creativeLabs HQ</small>\n                <div class=\"avatars-stack mt-h\">\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/2.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/3.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/5.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                    <div class=\"avatar avatar-xs\">\n                        <img src=\"assets/8.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n                    </div>\n                </div>\n            </div>\n            <hr class=\"mx-1 my-0\">\n            -->\n    <!--</div>\n    <div class=\"tab-pane p-1\" id=\"messages\" role=\"tabpanel\">\n      <div class=\"message\">\n        <div class=\"py-1 pb-3 mr-1 float-left\">\n          <div class=\"avatar\">\n            <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n            <span class=\"avatar-status badge-success\"></span>\n          </div>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lukasz Holeczek</small>\n          <small class=\"text-muted float-right mt-q\">1:52 PM</small>\n        </div>\n        <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\n      </div>\n      <hr>\n      <div class=\"message\">\n        <div class=\"py-1 pb-3 mr-1 float-left\">\n          <div class=\"avatar\">\n            <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n            <span class=\"avatar-status badge-success\"></span>\n          </div>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lukasz Holeczek</small>\n          <small class=\"text-muted float-right mt-q\">1:52 PM</small>\n        </div>\n        <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\n      </div>\n      <hr>\n      <div class=\"message\">\n        <div class=\"py-1 pb-3 mr-1 float-left\">\n          <div class=\"avatar\">\n            <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n            <span class=\"avatar-status badge-success\"></span>\n          </div>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lukasz Holeczek</small>\n          <small class=\"text-muted float-right mt-q\">1:52 PM</small>\n        </div>\n        <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\n      </div>\n      <hr>\n      <div class=\"message\">\n        <div class=\"py-1 pb-3 mr-1 float-left\">\n          <div class=\"avatar\">\n            <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n            <span class=\"avatar-status badge-success\"></span>\n          </div>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lukasz Holeczek</small>\n          <small class=\"text-muted float-right mt-q\">1:52 PM</small>\n        </div>\n        <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\n      </div>\n      <hr>\n      <div class=\"message\">\n        <div class=\"py-1 pb-3 mr-1 float-left\">\n          <div class=\"avatar\">\n            <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\n            <span class=\"avatar-status badge-success\"></span>\n          </div>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lukasz Holeczek</small>\n          <small class=\"text-muted float-right mt-q\">1:52 PM</small>\n        </div>\n        <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\n        <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\n      </div>\n    </div>\n    <div class=\"tab-pane p-1\" id=\"settings\" role=\"tabpanel\">\n      <h6>Settings</h6>\n\n      <div class=\"aside-options\">\n        <div class=\"clearfix mt-2\">\n          <small>\n              <b>Option 1</b>\n            </small>\n          <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\n              <input class=\"switch-input\" checked=\"checked\" type=\"checkbox\">\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\n              <span class=\"switch-handle\"></span>\n            </label>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>\n        </div>\n      </div>\n\n      <div class=\"aside-options\">\n        <div class=\"clearfix mt-1\">\n          <small>\n              <b>Option 2</b>\n            </small>\n          <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\n              <input class=\"switch-input\" type=\"checkbox\">\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\n              <span class=\"switch-handle\"></span>\n            </label>\n        </div>\n        <div>\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>\n        </div>\n      </div>\n\n      <div class=\"aside-options\">\n        <div class=\"clearfix mt-1\">\n          <small>\n              <b>Option 3</b>\n            </small>\n          <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\n              <input class=\"switch-input\" type=\"checkbox\">\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\n              <span class=\"switch-handle\"></span>\n            </label>\n        </div>\n      </div>\n\n      <div class=\"aside-options\">\n        <div class=\"clearfix mt-1\">\n          <small>\n              <b>Option 4</b>\n            </small>\n          <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\n              <input class=\"switch-input\" checked=\"checked\" type=\"checkbox\">\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\n              <span class=\"switch-handle\"></span>\n            </label>\n        </div>\n      </div>\n\n      <hr>\n      <h6>System Utilization</h6>\n\n      <div class=\"text-uppercase mb-q mt-2\">\n        <small>\n            <b>CPU Usage</b>\n          </small>\n      </div>\n      <div class=\"progress progress-xs\">\n        <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n      </div>\n      <small class=\"text-muted\">348 Processes. 1/4 Cores.</small>\n\n      <div class=\"text-uppercase mb-q mt-h\">\n        <small>\n            <b>Memory Usage</b>\n          </small>\n      </div>\n      <div class=\"progress progress-xs\">\n        <div class=\"progress-bar bg-warning\" role=\"progressbar\" style=\"width: 70%\" aria-valuenow=\"70\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n      </div>\n      <small class=\"text-muted\">11444GB/16384MB</small>\n\n      <div class=\"text-uppercase mb-q mt-h\">\n        <small>\n            <b>SSD 1 Usage</b>\n          </small>\n      </div>\n      <div class=\"progress progress-xs\">\n        <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: 95%\" aria-valuenow=\"95\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n      </div>\n      <small class=\"text-muted\">243GB/256GB</small>\n\n      <div class=\"text-uppercase mb-q mt-h\">\n        <small>\n            <b>SSD 2 Usage</b>\n          </small>\n      </div>\n      <div class=\"progress progress-xs\">\n        <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: 10%\" aria-valuenow=\"10\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\n      </div>\n      <small class=\"text-muted\">25GB/256GB</small>\n    </div>\n  </div>\n</aside>-->\n\n\n\n<!--<footer class=\"app-footer\">\n  <div class=\"row\">\n\n\n    <div class=\"col-sm-0 col-md-1 col-lg-1\">\n      <a href=\"#\"></a>\n    </div>\n\n\n\n    <div class=\"col-sm-9 col-md-9 col-lg-9\">\n      <ul class=\"footer-links\">\n        <li class=\"footer-item\">\n          <a class=\"footer-link\" href=\"#\">Top Tech</a>\n        </li>\n        <li class=\"footer-item\">\n          <a class=\"footer-link\" href=\"#\">Top Advisor</a>\n        </li>\n        <li class=\"footer-item\">\n          <a class=\"footer-link\" href=\"#\">Rewarding Excellence</a>\n        </li>\n        <li class=\"footer-item\">\n          <a class=\"footer-link\" href=\"#\">Dealer Bulletins</a>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-3 col-md-2 col-lg-2\">\n      <span class=\"float-right\">\n          <a href=\"#\">MSER 2017</a>\n        </span>\n\n    </div>\n  </div>\n</footer>-->\n\n<!-- Bootstrap and necessary plugins -->\n<!-- <script src=\"assets/jquery.js\"></script> -->\n\n\n<script src=\"assets/tether.js\"></script>\n<script src=\"assets/bootstrap.js\"></script>\n<script src=\"assets/pace.js\"></script>\n\n<!-- Plugins and scripts required by all views -->\n<script src=\"assets/Chart.js\"></script>\n\n\n<!-- GenesisUI main scripts -->\n\n<script src=\"assets/app.js\"></script>\n\n<script src=\"assets/toastr.js\"></script>\n\n\n\n<!-- Plugins and scripts required by this views\n\n      <script src=\"assets/gauge.js\"></script>\n      <script src=\"assets/moment.js\"></script>\n      <script src=\"assets/daterangepicker.js\"></script>\n  -->\n<!-- Custom scripts required by this view -->\n<!--  <script src=\"assets/main.js\"></script> -->\n\n<script>\n  jQuery(document).ready(function ($) {\n    /* jQuery activation and setting options for parent tabs with id selector*/\n    $(\"#tabbed-nav\").zozoTabs({\n      rounded: false,\n      multiline: true,\n      theme: \"white\",\n      size: \"medium\",\n      responsive: true,\n      animation: {\n        effects: \"slideH\",\n        easing: \"easeInOutCirc\",\n        type: \"jquery\"\n      },\n      defaultTab: \"tab2\",\n      orientation: \"vertical\"\n    });\n\n    /* jQuery activation and setting options for nested tabs with class selector*/\n    $(\".nested-tabs\").zozoTabs({\n\n      position: \"top-left\",\n      theme: \"red\",\n      style: \"underlined\",\n      rounded: false,\n      shadows: false,\n      defaultTab: \"tab1\",\n      animation: {\n        easing: \"easeInOutCirc\",\n        effects: \"slideV\"\n      },\n      size: \"medium\"\n    });\n  });\n\n</script>"
+module.exports = "<main class=\"main\">\n\n  <!-- Page Title -->\n  <div class=\"page-title\">\n    <div class=\"pageTitle\">\n      <div class=\"container\">\n        <div class=\"row\">\n\n          <div class=\"col-sm-12 col-md-12\">\n\n\n\n            <h1 class=\"heading-xl\">\n\n            </h1>\n          </div>\n\n        </div>\n      </div>\n    </div>\n  </div>\n\n  <!-- Breadcrumb -->\n  <ol class=\"breadcrumb mb-0\">\n    <li class=\"breadcrumb-item active\"><a href=\"#\">Contact Us</a></li>\n  </ol>\n\n  <a name=\"payoutchart\"></a>\n\n  <a name=\"dashboard\"></a>\n  <div class=\"container m-t-md body-container\">\n    <!-- First row -->\n\n    <div class=\"row m-t-md\">\n      <div class=\"col-sm-12 col-md-12 col-lg-12\">\n\n        <article class=\"card animated fadeInUp\">\n\n          <div class=\"card-block\">\n            <!--<div class=\"introHeading\">\n                  <h1>Admin Dashboard</h1>\n                </div>-->\n            <div class=\"heading-line\">\n              <h2>Contact Us</h2>\n            </div>\n\n            <div class=\"content-row row\">\n              <div class=\"col-sm-12 col-md-6 col-lg-6\">\n\n                <form class=\"pageForm\">\n\n                  <ul class=\"contact-list\">\n                    <li><a href=\"info@moparser.com\"><i class=\"fa fa-envelope-o\"></i> info@moparser.com </a></li>\n                    <li><i class=\"fa fa-phone\"></i> xxx-xxx-xxxx</li>\n                    <li><i class=\"fa fa-fax\"></i> 844-673-7329 (844-MSER-FAX)</li>\n                    <li><i class=\"fa fa-building\"></i> xxxxxxxxxxx</li>\n                  </ul>\n\n                </form>\n              </div>\n\n              <div class=\"col-sm-12 col-md-6 col-lg-6\">\n                <form class=\"pageForm\" #textMsgOptionForm=\"ngForm\" novalidate (ngSubmit)=\"textMessageOption()\">\n                  <h5>Sign up to receive text messages</h5>\n                  <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{errorAgreeTermsAndCondition}} <br> {{errorSID}} <br> {{errorMobileNumber}}</p>\n\n                  <label>Enter your SID</label>\n                  <input type=\"text\" id=\"sidEntry\" name=\"sidEntry\" [(ngModel)]=\"textMsgOption.sid\" />\n                  <br />\n                  <label>Enter your mobile number</label>\n                  <input type=\"text\" id=\"mobileNumber\" name=\"mobileNumber\" [(ngModel)]=\"textMsgOption.mobileNumber\" />\n                  <br />\n\n                  <p><input type=\"checkbox\" id=\"agree\" name=\"agree\" [(ngModel)]=\"textMsgOption.agreeTermsAndCondition\" /> I\n                    would like to receive text messages, and agree to the <a href=\"#\">Terms of Service </a> &amp; <a href=\"#\">Privacy Policy</a></p>\n\n                  <button type=\"submit\" class=\"btn btn-info btn-sm\">Sign Me Up!</button>\n                </form>\n\n              </div>\n\n              <!--<form class=\"pageForm\" #textMsgOptionForm=\"ngForm\" novalidate (ngSubmit)=\"textMessageOption()\">\n                                    <h5>Sign up to receive text messages</h5>\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{errorAgreeTermsAndCondition}} <br> {{errorSID}} <br> {{errorMobileNumber}}</p>\n\n                                    <label>Enter your SID</label>\n                                    <input type=\"text\" id=\"sidEntry\" name=\"sidEntry\" [(ngModel)]=\"textMsgOption.sid\"/>\n                                    <br />\n                                    <label>Enter your mobile number</label>\n                                    <input type=\"text\" id=\"mobileNumber\" name=\"mobileNumber\" [(ngModel)]=\"textMsgOption.mobileNumber\"/>\n                                    <br />\n\n                                    <p><input type=\"checkbox\" id=\"agree\" name=\"agree\" [(ngModel)]=\"textMsgOption.agreeTermsAndCondition\"/> I would like to receive text messages, and agree to the\n                                        <a href=\"#\">Terms of Service </a> &amp; <a href=\"#\">Privacy Policy</a></p>\n\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Sign Me Up!</button>\n                                </form>-->\n\n            </div>\n          </div>\n        </article>\n      </div>\n\n    </div>\n    <!-- .end FIRST row -->\n  </div>\n</main>"
 
 /***/ }),
 
@@ -2120,7 +2345,7 @@ module.exports = "<header class=\"app-header navbar\">\n    <button class=\"navb
 /***/ 559:
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Main content -->\r\n<main class=\"main\">\r\n\r\n    <!-- Page Title -->\r\n    <div class=\"page-title\">\r\n        <div class=\"pageTitle\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n\r\n                    <div class=\"col-sm-12 col-md-12\">\r\n\r\n\r\n\r\n                        <h1 class=\"heading-xl\">\r\n\r\n                        </h1>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Breadcrumb -->\r\n    <ol class=\"breadcrumb mb-0\">\r\n        <li class=\"breadcrumb-item active\"><a href=\"#\">User Profile</a></li>\r\n    </ol>\r\n\r\n    <a name=\"payoutchart\"></a>\r\n\r\n    <a name=\"dashboard\"></a>\r\n    <div class=\"container m-t-md body-container\">\r\n        <!-- First row -->\r\n\r\n        <div class=\"row m-t-md\">\r\n            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n\r\n                <article class=\"card animated fadeInUp\">\r\n\r\n                    <div class=\"card-block\">\r\n                        <!--<div class=\"introHeading\">\r\n        <h1>Admin Dashboard</h1>\r\n      </div>-->\r\n                        <div class=\"heading-line\">\r\n                            <h2>User Profile</h2>\r\n                        </div>\r\n\r\n                        <div class=\"content-row row\">\r\n                            <div class=\"col-sm-12 col-md-6 col-lg-6\">\r\n\r\n                                <form class=\"pageForm\" #userprofile=\"ngForm\" novalidate (ngSubmit)=\"updateUserProfile()\">\r\n                                    <h5>Change Your Information</h5>\r\n\r\n                                    <label>Name</label>\r\n                                    <!--<input type=\"text\"  id=\"name\" name=\"name\" [(ngModel)]=\"profileChange.name\" value=\"{{userProfileData.name}}\"/>-->\r\n                                    <input type=\"text\" id=\"name\" name=\"name\" value=\"\" [(ngModel)]=\"profileChange.name\"  />\r\n                                    <br />\r\n                                    <label>Email</label>\r\n                                    <input type=\"text\" id=\"email\" name=\"email\" value=\"\" [(ngModel)]=\"profileChange.name\"  />\r\n                                    <br />\r\n                                     <p>\r\n                                        Please update your email address and choose to \"Opt-In\" to receive future MSER emails or \"Opt-Out\" so you will not receive\r\n                                        any future emails from MSER.\r\n\r\n                                        <span style=\"text-decoration:underline;font-weight:bold;\">MSER will use this email to contact you on MSER program updates only.</span>                                        This email will not be shared.\r\n                                    </p>\r\n\r\n                                    <label>Opt Type:</label>\r\n                                    <ul class=\"contact-list\">\r\n                                        <li>\r\n                                            <input type=\"checkbox\" id=\"optIn\" name=\"optType\" [(ngModel)]=\"profileChange.optIn\" />                                            Opt-In\r\n                                        </li>\r\n                                        <li>\r\n                                            <input type=\"checkbox\" id=\"optOut\" name=\"optType\" [(ngModel)]=\"profileChange.optOut\" />                                            Opt-Out\r\n                                        </li>\r\n                                    </ul>\r\n                                    <br />\r\n\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Update</button>\r\n\r\n                                </form>\r\n\r\n                                <form class=\"pageForm\" #passwordChangeForm=\"ngForm\" novalidate (ngSubmit)=\"changeUserPassword()\">\r\n                                    <h5>Change Your Password</h5>\r\n                                    <ul>\r\n                                        <li>Passwords must contain letters and numbers</li>\r\n                                        <li>Passwords must be at least 6 characters</li>\r\n                                        <li>Passwords must not match your User ID</li>\r\n                                    </ul>\r\n\r\n                                    <label>New Password</label>\r\n                                    <input type=\"password\" id=\"passwordInput\" name=\"passwordInput\" [(ngModel)]=\"passwordChange.newPassword\" value=\"{{passwordChange.newPassword}}\"\r\n                                    />\r\n                                    <br />\r\n                                    <label>Confirm New Password</label>\r\n                                    <input type=\"password\" id=\"emailInput\" />\r\n                                    <br />\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Change</button>\r\n                                </form>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-sm-12 col-md-6 col-lg-6\">\r\n                                <form class=\"pageForm\">\r\n                                    <h5>Sign up to receive text messages</h5>\r\n\r\n                                    <label>Enter your SID</label>\r\n                                    <input type=\"text\" id=\"sidEntry\" />\r\n                                    <br />\r\n                                    <label>Enter your mobile number</label>\r\n                                    <input type=\"text\" id=\"mobileNumber\" />\r\n                                    <br />\r\n\r\n                                    <p><input type=\"checkbox\" /> I would like to receive text messages, and agree to the\r\n                                        <a href=\"#\">Terms of Service </a> &amp; <a href=\"#\">Privacy Policy</a></p>\r\n\r\n                                    <button type=\"button\" class=\"btn btn-info btn-sm\">Sign Me Up!</button>\r\n                                </form>\r\n\r\n                            </div>\r\n\r\n\r\n                        </div>\r\n                    </div>\r\n                </article>\r\n            </div>\r\n\r\n        </div>\r\n        <!-- .end FIRST row -->\r\n    </div>\r\n</main>\r\n\r\n<aside class=\"aside-menu\">\r\n    <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n        <li class=\"nav-item\">\r\n            <a class=\"nav-link active\" data-toggle=\"tab\" href=\"#timeline\" role=\"tab\"><i class=\"icon-list\"></i></a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            <a class=\"nav-link\" data-toggle=\"tab\" href=\"#messages\" role=\"tab\"><i class=\"icon-speech\"></i></a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            <a class=\"nav-link\" data-toggle=\"tab\" href=\"#settings\" role=\"tab\"><i class=\"icon-settings\"></i></a>\r\n        </li>\r\n    </ul>\r\n\r\n    <!-- Tab panes -->\r\n    <div class=\"tab-content\">\r\n        <div class=\"tab-pane active\" id=\"timeline\" role=\"tabpanel\">\r\n            <!--\r\n            <div class=\"callout m-0 py-h text-muted text-center bg-faded text-uppercase\">\r\n                <small><b>Today</b>\r\n                </small>\r\n            </div>\r\n            <hr class=\"transparent mx-1 my-0\">\r\n            <div class=\"callout callout-warning m-0 py-1\">\r\n                <div class=\"avatar float-right\">\r\n                    <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                </div>\r\n                <div>Meeting with\r\n                    <strong>Lucas</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 1 - 3pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-location-pin\"></i>&nbsp; Palo Alto, CA</small>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            <div class=\"callout callout-info m-0 py-1\">\r\n                <div class=\"avatar float-right\">\r\n                    <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                </div>\r\n                <div>Skype with\r\n                    <strong>Megan</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 4 - 5pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-social-skype\"></i>&nbsp; On-line</small>\r\n            </div>\r\n            <hr class=\"transparent mx-1 my-0\">\r\n            <div class=\"callout m-0 py-h text-muted text-center bg-faded text-uppercase\">\r\n                <small><b>Tomorrow</b>\r\n                </small>\r\n            </div>\r\n            <hr class=\"transparent mx-1 my-0\">\r\n            <div class=\"callout callout-danger m-0 py-1\">\r\n                <div>New UI Project -\r\n                    <strong>deadline</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 10 - 11pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-home\"></i>&nbsp; creativeLabs HQ</small>\r\n                <div class=\"avatars-stack mt-h\">\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/2.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/3.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/5.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            <div class=\"callout callout-success m-0 py-1\">\r\n                <div>\r\n                    <strong>#10 Startups.Garden</strong>Meetup</div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 1 - 3pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-location-pin\"></i>&nbsp; Palo Alto, CA</small>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            <div class=\"callout callout-primary m-0 py-1\">\r\n                <div>\r\n                    <strong>Team meeting</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 4 - 6pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-home\"></i>&nbsp; creativeLabs HQ</small>\r\n                <div class=\"avatars-stack mt-h\">\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/2.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/3.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/5.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/8.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            -->\r\n        </div>\r\n        <div class=\"tab-pane p-1\" id=\"messages\" role=\"tabpanel\">\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n        </div>\r\n        <div class=\"tab-pane p-1\" id=\"settings\" role=\"tabpanel\">\r\n            <h6>Settings</h6>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-2\">\r\n                    <small>\r\n              <b>Option 1</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" checked=\"checked\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-1\">\r\n                    <small>\r\n              <b>Option 2</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-1\">\r\n                    <small>\r\n              <b>Option 3</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-1\">\r\n                    <small>\r\n              <b>Option 4</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" checked=\"checked\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n            </div>\r\n\r\n            <hr>\r\n            <h6>System Utilization</h6>\r\n\r\n            <div class=\"text-uppercase mb-q mt-2\">\r\n                <small>\r\n            <b>CPU Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">348 Processes. 1/4 Cores.</small>\r\n\r\n            <div class=\"text-uppercase mb-q mt-h\">\r\n                <small>\r\n            <b>Memory Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-warning\" role=\"progressbar\" style=\"width: 70%\" aria-valuenow=\"70\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">11444GB/16384MB</small>\r\n\r\n            <div class=\"text-uppercase mb-q mt-h\">\r\n                <small>\r\n            <b>SSD 1 Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: 95%\" aria-valuenow=\"95\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">243GB/256GB</small>\r\n\r\n            <div class=\"text-uppercase mb-q mt-h\">\r\n                <small>\r\n            <b>SSD 2 Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: 10%\" aria-valuenow=\"10\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">25GB/256GB</small>\r\n        </div>\r\n    </div>\r\n</aside>\r\n\r\n\r\n\r\n\r\n\r\n<!--<footer class=\"app-footer\">\r\n    <div class=\"row\">\r\n\r\n\r\n        <div class=\"col-sm-0 col-md-1 col-lg-1\">\r\n            <a href=\"#\"></a>\r\n        </div>\r\n\r\n\r\n\r\n        <div class=\"col-sm-9 col-md-9 col-lg-9\">\r\n            <ul class=\"footer-links\">\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Top Tech</a>\r\n                </li>\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Top Advisor</a>\r\n                </li>\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Rewarding Excellence</a>\r\n                </li>\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Dealer Bulletins</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n\r\n        <div class=\"col-sm-3 col-md-2 col-lg-2\">\r\n            <span class=\"float-right\">\r\n          <a href=\"#\">MSER 2017</a>\r\n        </span>\r\n\r\n        </div>\r\n    </div>\r\n</footer>-->\r\n\r\n<!-- Bootstrap and necessary plugins -->\r\n<!-- <script src=\"assets/jquery.js\"></script> -->\r\n\r\n\r\n<script src=\"assets/tether.js\"></script>\r\n<script src=\"assets/bootstrap.js\"></script>\r\n<script src=\"assets/pace.js\"></script>\r\n\r\n<!-- Plugins and scripts required by all views -->\r\n<script src=\"assets/Chart.js\"></script>\r\n\r\n\r\n<!-- GenesisUI main scripts -->\r\n\r\n<script src=\"assets/app.js\"></script>\r\n\r\n<script src=\"assets/toastr.js\"></script>\r\n\r\n\r\n\r\n<!-- Plugins and scripts required by this views\r\n\r\n      <script src=\"assets/gauge.js\"></script>\r\n      <script src=\"assets/moment.js\"></script>\r\n      <script src=\"assets/daterangepicker.js\"></script>\r\n  -->\r\n<!-- Custom scripts required by this view -->\r\n<!--  <script src=\"assets/main.js\"></script> -->\r\n\r\n<script>\r\n    jQuery(document).ready(function ($) {\r\n        /* jQuery activation and setting options for parent tabs with id selector*/\r\n        $(\"#tabbed-nav\").zozoTabs({\r\n            rounded: false,\r\n            multiline: true,\r\n            theme: \"white\",\r\n            size: \"medium\",\r\n            responsive: true,\r\n            animation: {\r\n                effects: \"slideH\",\r\n                easing: \"easeInOutCirc\",\r\n                type: \"jquery\"\r\n            },\r\n            defaultTab: \"tab2\",\r\n            orientation: \"vertical\"\r\n        });\r\n\r\n        /* jQuery activation and setting options for nested tabs with class selector*/\r\n        $(\".nested-tabs\").zozoTabs({\r\n\r\n            position: \"top-left\",\r\n            theme: \"red\",\r\n            style: \"underlined\",\r\n            rounded: false,\r\n            shadows: false,\r\n            defaultTab: \"tab1\",\r\n            animation: {\r\n                easing: \"easeInOutCirc\",\r\n                effects: \"slideV\"\r\n            },\r\n            size: \"medium\"\r\n        });\r\n    });\r\n\r\n</script>\r\n\r\n<div class=\"daterangepicker dropdown-menu ltr opensleft\">\r\n    <div class=\"calendar left\">\r\n        <div class=\"daterangepicker_input\"><input class=\"input-mini form-control\" name=\"daterangepicker_start\" type=\"text\"><i class=\"fa fa-calendar glyphicon glyphicon-calendar\"></i>\r\n            <div class=\"calendar-time\" style=\"display: none;\">\r\n                <div></div><i class=\"fa fa-clock-o glyphicon glyphicon-time\"></i></div>\r\n        </div>\r\n        <div class=\"calendar-table\"></div>\r\n    </div>\r\n    <div class=\"calendar right\">\r\n        <div class=\"daterangepicker_input\"><input class=\"input-mini form-control\" name=\"daterangepicker_end\" type=\"text\"><i class=\"fa fa-calendar glyphicon glyphicon-calendar\"></i>\r\n            <div class=\"calendar-time\" style=\"display: none;\">\r\n                <div></div><i class=\"fa fa-clock-o glyphicon glyphicon-time\"></i></div>\r\n        </div>\r\n        <div class=\"calendar-table\"></div>\r\n    </div>\r\n    <div class=\"ranges\">\r\n        <ul>\r\n            <li data-range-key=\"Today\">Today</li>\r\n            <li data-range-key=\"Yesterday\">Yesterday</li>\r\n            <li data-range-key=\"Last 7 Days\">Last 7 Days</li>\r\n            <li data-range-key=\"Last 30 Days\">Last 30 Days</li>\r\n            <li data-range-key=\"This Month\">This Month</li>\r\n            <li data-range-key=\"Last Month\">Last Month</li>\r\n            <li data-range-key=\"Custom Range\">Custom Range</li>\r\n        </ul>\r\n        <div class=\"range_inputs\"><button class=\"applyBtn btn btn-sm btn-success\" disabled=\"disabled\" type=\"button\">Apply</button> <button class=\"cancelBtn btn btn-sm btn-default\"\r\n                type=\"button\">Cancel</button></div>\r\n    </div>\r\n</div>"
+module.exports = "<!-- Main content -->\r\n<main class=\"main\">\r\n\r\n    <!-- Page Title -->\r\n    <div class=\"page-title\">\r\n        <div class=\"pageTitle\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n\r\n                    <div class=\"col-sm-12 col-md-12\">\r\n\r\n\r\n\r\n                        <h1 class=\"heading-xl\">\r\n\r\n                        </h1>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Breadcrumb -->\r\n    <ol class=\"breadcrumb mb-0\">\r\n        <li class=\"breadcrumb-item active\"><a href=\"#\">User Profile</a></li>\r\n    </ol>\r\n\r\n    <a name=\"payoutchart\"></a>\r\n\r\n    <a name=\"dashboard\"></a>\r\n    <div class=\"container m-t-md body-container\">\r\n        <!-- First row -->\r\n\r\n        <div class=\"row m-t-md\">\r\n            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n\r\n                <article class=\"card animated fadeInUp\">\r\n\r\n                    <div class=\"card-block\">\r\n                        <!--<div class=\"introHeading\">\r\n        <h1>Admin Dashboard</h1>\r\n      </div>-->\r\n                        <div class=\"heading-line\">\r\n                            <h2>User Profile</h2>\r\n                        </div>\r\n\r\n                        <div class=\"content-row row\">\r\n                            <div class=\"col-sm-12 col-md-6 col-lg-6\">\r\n\r\n                                <form class=\"pageForm\" #userprofile=\"ngForm\" novalidate (ngSubmit)=\"updateUserProfile()\">\r\n                                    <h5>Change Your Information</h5>\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{successUpdateUserProfile}}</p>\r\n                                    <label>Name</label>\r\n                                    <!--<input type=\"text\"  id=\"name\" name=\"name\" [(ngModel)]=\"profileChange.name\" value=\"{{userProfileData.name}}\"/>-->\r\n                                    <!--<input type=\"text\" id=\"name\" name=\"name\" value=\"\" [(ngModel)]=\"profileChange.name\" />\r\n                                    -->\r\n                                    <input type=\"text\" id=\"name\" name=\"name\" value=\"\" [(ngModel)]=\"profileChange.name\" />\r\n                                    <br />\r\n                                    <label>Email</label>\r\n                                    <input type=\"text\" id=\"email\" name=\"email\" value=\"\" [(ngModel)]=\"profileChange.email\" />\r\n                                    <br />\r\n                                    <p>\r\n                                        Please update your email address and choose to \"Opt-In\" to receive future MSER emails or \"Opt-Out\" so you will not receive\r\n                                        any future emails from MSER.\r\n\r\n                                        <span style=\"text-decoration:underline;font-weight:bold;\">MSER will use this email to contact you on MSER program updates only.</span>                                        This email will not be shared.\r\n                                    </p>\r\n\r\n                                    <label>Opt Type:</label>\r\n                                    <ul class=\"contact-list\">\r\n                                        <li>\r\n                                            <input type=\"checkbox\" id=\"optIn\" name=\"optType\" [(ngModel)]=\"profileChange.optIn\" />                                            Opt-In\r\n                                        </li>\r\n                                        <li>\r\n                                            <input type=\"checkbox\" id=\"optOut\" name=\"optType\" [(ngModel)]=\"profileChange.optOut\" />                                            Opt-Out\r\n                                        </li>\r\n                                    </ul>\r\n                                    <br />\r\n\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Update</button>\r\n\r\n                                </form>\r\n\r\n                                <form class=\"pageForm\" #passwordChangeForm=\"ngForm\" novalidate (ngSubmit)=\"changeUserPassword()\">\r\n                                    <h5>Change Your Password</h5>\r\n                                    <ul>\r\n                                        <li>Passwords must contain letters and numbers</li>\r\n                                        <li>Passwords must be at least 6 characters</li>\r\n                                        <li>Passwords must not match your User ID</li>\r\n                                    </ul>\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{confirmPasswordMessage}}</p>\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{successPasswordChangedMessage}}</p>\r\n                                    <label>New Password</label>\r\n                                    <input type=\"password\" id=\"passwordInput\" name=\"passwordInput\" [(ngModel)]=\"passwordChange.newPassword\" value=\"\" />\r\n                                    <br />\r\n                                    <label>Confirm New Password</label>\r\n                                    <input type=\"password\" id=\"confirmPasswordInput\" name=\"confirmPasswordInput\" [(ngModel)]=\"passwordChange.confirmPassword\"\r\n                                        value=\"\" />\r\n                                    <br />\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Change</button>\r\n                                </form>\r\n\r\n                            </div>\r\n\r\n                            <div class=\"col-sm-12 col-md-6 col-lg-6\">\r\n                                <form class=\"pageForm\" #textMsgOptionForm=\"ngForm\" novalidate (ngSubmit)=\"textMessageOption()\">\r\n                                    <h5>Sign up to receive text messages</h5>\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{errorAgreeTermsAndCondition}} <br> {{errorSID}} <br> {{errorMobileNumber}}</p>\r\n\r\n                                    <label>Enter your SID</label>\r\n                                    <input type=\"text\" id=\"sidEntry\" name=\"sidEntry\" [(ngModel)]=\"textMsgOption.sid\"/>\r\n                                    <br />\r\n                                    <label>Enter your mobile number</label>\r\n                                    <input type=\"text\" id=\"mobileNumber\" name=\"mobileNumber\" [(ngModel)]=\"textMsgOption.mobileNumber\"/>\r\n                                    <br />\r\n\r\n                                    <p><input type=\"checkbox\" id=\"agree\" name=\"agree\" [(ngModel)]=\"textMsgOption.agreeTermsAndCondition\"/> I would like to receive text messages, and agree to the\r\n                                        <a href=\"#\">Terms of Service </a> &amp; <a href=\"#\">Privacy Policy</a></p>\r\n\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Sign Me Up!</button>\r\n                                </form>\r\n\r\n                            </div>\r\n\r\n\r\n                        </div>\r\n                    </div>\r\n                </article>\r\n            </div>\r\n\r\n        </div>\r\n        <!-- .end FIRST row -->\r\n    </div>\r\n</main>\r\n\r\n<aside class=\"aside-menu\">\r\n    <ul class=\"nav nav-tabs\" role=\"tablist\">\r\n        <li class=\"nav-item\">\r\n            <a class=\"nav-link active\" data-toggle=\"tab\" href=\"#timeline\" role=\"tab\"><i class=\"icon-list\"></i></a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            <a class=\"nav-link\" data-toggle=\"tab\" href=\"#messages\" role=\"tab\"><i class=\"icon-speech\"></i></a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            <a class=\"nav-link\" data-toggle=\"tab\" href=\"#settings\" role=\"tab\"><i class=\"icon-settings\"></i></a>\r\n        </li>\r\n    </ul>\r\n\r\n    <!-- Tab panes -->\r\n    <div class=\"tab-content\">\r\n        <div class=\"tab-pane active\" id=\"timeline\" role=\"tabpanel\">\r\n            <!--\r\n            <div class=\"callout m-0 py-h text-muted text-center bg-faded text-uppercase\">\r\n                <small><b>Today</b>\r\n                </small>\r\n            </div>\r\n            <hr class=\"transparent mx-1 my-0\">\r\n            <div class=\"callout callout-warning m-0 py-1\">\r\n                <div class=\"avatar float-right\">\r\n                    <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                </div>\r\n                <div>Meeting with\r\n                    <strong>Lucas</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 1 - 3pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-location-pin\"></i>&nbsp; Palo Alto, CA</small>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            <div class=\"callout callout-info m-0 py-1\">\r\n                <div class=\"avatar float-right\">\r\n                    <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                </div>\r\n                <div>Skype with\r\n                    <strong>Megan</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 4 - 5pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-social-skype\"></i>&nbsp; On-line</small>\r\n            </div>\r\n            <hr class=\"transparent mx-1 my-0\">\r\n            <div class=\"callout m-0 py-h text-muted text-center bg-faded text-uppercase\">\r\n                <small><b>Tomorrow</b>\r\n                </small>\r\n            </div>\r\n            <hr class=\"transparent mx-1 my-0\">\r\n            <div class=\"callout callout-danger m-0 py-1\">\r\n                <div>New UI Project -\r\n                    <strong>deadline</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 10 - 11pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-home\"></i>&nbsp; creativeLabs HQ</small>\r\n                <div class=\"avatars-stack mt-h\">\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/2.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/3.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/5.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            <div class=\"callout callout-success m-0 py-1\">\r\n                <div>\r\n                    <strong>#10 Startups.Garden</strong>Meetup</div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 1 - 3pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-location-pin\"></i>&nbsp; Palo Alto, CA</small>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            <div class=\"callout callout-primary m-0 py-1\">\r\n                <div>\r\n                    <strong>Team meeting</strong>\r\n                </div>\r\n                <small class=\"text-muted mr-1\"><i class=\"icon-calendar\"></i>&nbsp; 4 - 6pm</small>\r\n                <small class=\"text-muted\"><i class=\"icon-home\"></i>&nbsp; creativeLabs HQ</small>\r\n                <div class=\"avatars-stack mt-h\">\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/2.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/3.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/4.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/5.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/6.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                    <div class=\"avatar avatar-xs\">\r\n                        <img src=\"assets/8.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <hr class=\"mx-1 my-0\">\r\n            -->\r\n        </div>\r\n        <div class=\"tab-pane p-1\" id=\"messages\" role=\"tabpanel\">\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n            <hr>\r\n            <div class=\"message\">\r\n                <div class=\"py-1 pb-3 mr-1 float-left\">\r\n                    <div class=\"avatar\">\r\n                        <img src=\"assets/7.jpg\" class=\"img-avatar\" alt=\"admin@bootstrapmaster.com\">\r\n                        <span class=\"avatar-status badge-success\"></span>\r\n                    </div>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lukasz Holeczek</small>\r\n                    <small class=\"text-muted float-right mt-q\">1:52 PM</small>\r\n                </div>\r\n                <div class=\"text-truncate font-weight-bold\">Lorem ipsum dolor sit amet</div>\r\n                <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>\r\n            </div>\r\n        </div>\r\n        <div class=\"tab-pane p-1\" id=\"settings\" role=\"tabpanel\">\r\n            <h6>Settings</h6>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-2\">\r\n                    <small>\r\n              <b>Option 1</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" checked=\"checked\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-1\">\r\n                    <small>\r\n              <b>Option 2</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n                <div>\r\n                    <small class=\"text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-1\">\r\n                    <small>\r\n              <b>Option 3</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"aside-options\">\r\n                <div class=\"clearfix mt-1\">\r\n                    <small>\r\n              <b>Option 4</b>\r\n            </small>\r\n                    <label class=\"switch switch-text switch-pill switch-success switch-sm float-right\">\r\n              <input class=\"switch-input\" checked=\"checked\" type=\"checkbox\">\r\n              <span class=\"switch-label\" data-on=\"On\" data-off=\"Off\"></span>\r\n              <span class=\"switch-handle\"></span>\r\n            </label>\r\n                </div>\r\n            </div>\r\n\r\n            <hr>\r\n            <h6>System Utilization</h6>\r\n\r\n            <div class=\"text-uppercase mb-q mt-2\">\r\n                <small>\r\n            <b>CPU Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">348 Processes. 1/4 Cores.</small>\r\n\r\n            <div class=\"text-uppercase mb-q mt-h\">\r\n                <small>\r\n            <b>Memory Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-warning\" role=\"progressbar\" style=\"width: 70%\" aria-valuenow=\"70\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">11444GB/16384MB</small>\r\n\r\n            <div class=\"text-uppercase mb-q mt-h\">\r\n                <small>\r\n            <b>SSD 1 Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: 95%\" aria-valuenow=\"95\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">243GB/256GB</small>\r\n\r\n            <div class=\"text-uppercase mb-q mt-h\">\r\n                <small>\r\n            <b>SSD 2 Usage</b>\r\n          </small>\r\n            </div>\r\n            <div class=\"progress progress-xs\">\r\n                <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: 10%\" aria-valuenow=\"10\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n            </div>\r\n            <small class=\"text-muted\">25GB/256GB</small>\r\n        </div>\r\n    </div>\r\n</aside>\r\n\r\n\r\n\r\n\r\n\r\n<!--<footer class=\"app-footer\">\r\n    <div class=\"row\">\r\n\r\n\r\n        <div class=\"col-sm-0 col-md-1 col-lg-1\">\r\n            <a href=\"#\"></a>\r\n        </div>\r\n\r\n\r\n\r\n        <div class=\"col-sm-9 col-md-9 col-lg-9\">\r\n            <ul class=\"footer-links\">\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Top Tech</a>\r\n                </li>\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Top Advisor</a>\r\n                </li>\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Rewarding Excellence</a>\r\n                </li>\r\n                <li class=\"footer-item\">\r\n                    <a class=\"footer-link\" href=\"#\">Dealer Bulletins</a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n\r\n        <div class=\"col-sm-3 col-md-2 col-lg-2\">\r\n            <span class=\"float-right\">\r\n          <a href=\"#\">MSER 2017</a>\r\n        </span>\r\n\r\n        </div>\r\n    </div>\r\n</footer>-->\r\n\r\n<!-- Bootstrap and necessary plugins -->\r\n<!-- <script src=\"assets/jquery.js\"></script> -->\r\n\r\n\r\n<script src=\"assets/tether.js\"></script>\r\n<script src=\"assets/bootstrap.js\"></script>\r\n<script src=\"assets/pace.js\"></script>\r\n\r\n<!-- Plugins and scripts required by all views -->\r\n<script src=\"assets/Chart.js\"></script>\r\n\r\n\r\n<!-- GenesisUI main scripts -->\r\n\r\n<script src=\"assets/app.js\"></script>\r\n\r\n<script src=\"assets/toastr.js\"></script>\r\n\r\n\r\n\r\n<!-- Plugins and scripts required by this views\r\n\r\n      <script src=\"assets/gauge.js\"></script>\r\n      <script src=\"assets/moment.js\"></script>\r\n      <script src=\"assets/daterangepicker.js\"></script>\r\n  -->\r\n<!-- Custom scripts required by this view -->\r\n<!--  <script src=\"assets/main.js\"></script> -->\r\n\r\n<script>\r\n    jQuery(document).ready(function ($) {\r\n        /* jQuery activation and setting options for parent tabs with id selector*/\r\n        $(\"#tabbed-nav\").zozoTabs({\r\n            rounded: false,\r\n            multiline: true,\r\n            theme: \"white\",\r\n            size: \"medium\",\r\n            responsive: true,\r\n            animation: {\r\n                effects: \"slideH\",\r\n                easing: \"easeInOutCirc\",\r\n                type: \"jquery\"\r\n            },\r\n            defaultTab: \"tab2\",\r\n            orientation: \"vertical\"\r\n        });\r\n\r\n        /* jQuery activation and setting options for nested tabs with class selector*/\r\n        $(\".nested-tabs\").zozoTabs({\r\n\r\n            position: \"top-left\",\r\n            theme: \"red\",\r\n            style: \"underlined\",\r\n            rounded: false,\r\n            shadows: false,\r\n            defaultTab: \"tab1\",\r\n            animation: {\r\n                easing: \"easeInOutCirc\",\r\n                effects: \"slideV\"\r\n            },\r\n            size: \"medium\"\r\n        });\r\n    });\r\n\r\n</script>\r\n\r\n<div class=\"daterangepicker dropdown-menu ltr opensleft\">\r\n    <div class=\"calendar left\">\r\n        <div class=\"daterangepicker_input\"><input class=\"input-mini form-control\" name=\"daterangepicker_start\" type=\"text\"><i class=\"fa fa-calendar glyphicon glyphicon-calendar\"></i>\r\n            <div class=\"calendar-time\" style=\"display: none;\">\r\n                <div></div><i class=\"fa fa-clock-o glyphicon glyphicon-time\"></i></div>\r\n        </div>\r\n        <div class=\"calendar-table\"></div>\r\n    </div>\r\n    <div class=\"calendar right\">\r\n        <div class=\"daterangepicker_input\"><input class=\"input-mini form-control\" name=\"daterangepicker_end\" type=\"text\"><i class=\"fa fa-calendar glyphicon glyphicon-calendar\"></i>\r\n            <div class=\"calendar-time\" style=\"display: none;\">\r\n                <div></div><i class=\"fa fa-clock-o glyphicon glyphicon-time\"></i></div>\r\n        </div>\r\n        <div class=\"calendar-table\"></div>\r\n    </div>\r\n    <div class=\"ranges\">\r\n        <ul>\r\n            <li data-range-key=\"Today\">Today</li>\r\n            <li data-range-key=\"Yesterday\">Yesterday</li>\r\n            <li data-range-key=\"Last 7 Days\">Last 7 Days</li>\r\n            <li data-range-key=\"Last 30 Days\">Last 30 Days</li>\r\n            <li data-range-key=\"This Month\">This Month</li>\r\n            <li data-range-key=\"Last Month\">Last Month</li>\r\n            <li data-range-key=\"Custom Range\">Custom Range</li>\r\n        </ul>\r\n        <div class=\"range_inputs\"><button class=\"applyBtn btn btn-sm btn-success\" disabled=\"disabled\" type=\"button\">Apply</button> <button class=\"cancelBtn btn btn-sm btn-default\"\r\n                type=\"button\">Cancel</button></div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -2141,7 +2366,7 @@ module.exports = "<header class=\"app-header navbar\">\r\n    <button class=\"na
 /***/ 562:
 /***/ (function(module, exports) {
 
-module.exports = "<header class=\"app-header navbar\">\r\n    <button class=\"navbar-toggler mobile-sidebar-toggler hidden-lg-up\" type=\"button\">☰</button>\r\n    <a class=\"navbar-brand\" href=\"#\"></a>\r\n\r\n    <form class=\"hide-me form-inline float-left b-r-1 px-2 hidden-md-down\">\r\n        <i class=\"fa fa-search\"></i>\r\n        <input class=\"form-control\" placeholder=\"Search...\" type=\"text\">\r\n    </form>\r\n\r\n    <!--<nav class=\"navMenu\">\r\n        <div class=\"menuItem\">\r\n            <span class=\"menuTarget \" data-target=\"contactUs\" routerLink=\"contactus\">Contact Us</span>\r\n        </div>\r\n        <div class=\"menuItem\">\r\n            <span class=\"menuTarget currentPage\" data-target=\"fcaRewards\">FCA Rewards Dashboard</span>\r\n        </div>\r\n    </nav>-->\r\n\r\n\r\n</header>\r\n\r\n<!-- Main content -->\r\n<main class=\"main\">\r\n\r\n    <!-- Page Title -->\r\n    <div class=\"page-title\">\r\n        <div class=\"pageTitle\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n\r\n                    <div class=\"col-sm-12 col-md-12\">\r\n                        <h1 class=\"heading-xl\">\r\n                            Reset Password\r\n                        </h1>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <a name=\"dashboard\"></a>\r\n    <div class=\"container m-t-md body-container\"> \r\n        <!-- First row -->\r\n        <div class=\"row m-t-md\">\r\n            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n\r\n                <article class=\"card animated fadeInUp\">\r\n \r\n                    <div class=\"card-block\">\r\n\r\n                        <div class=\"content-row row\">\r\n                            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n                                <form class=\"pageForm\" #f=\"ngForm\" novalidate (ngSubmit)=\"resetPassword()\">\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{errorUserID}} <br> {{errorEmailID}}</p>\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\" *ngIf=\"invalidCreds\" >The email address and password entered do not match. <br/> Please try again or contact Program Headquarters <br/>  at (866)909-MSER(6737) for assistance</p>\r\n                                    <label>User ID</label>\r\n                                    <input type=\"text\" name=\"userId\" id=\"userId\" [(ngModel)]=\"resetpassword.userId\"  />\r\n                                    <br />\r\n                                    <label>Email ID</label>\r\n                                    <input type=\"email\" name=\"emailId\" id=\"emailId\" [(ngModel)]=\"resetpassword.emailId\"  />                             \r\n                                    <button type=\"button\" class=\"btn btn-info btn-sm\" (click)=\"cancel()\">Cancel</button>\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Submit</button>\r\n                                </form>\r\n                                <!--<div id=\"updateProgramsModal\" class=\"modal fade\" role=\"dialog\">\r\n                                    <div class=\"modal-dialog\">-->\r\n\r\n                                <!-- Modal content-->\r\n                                <!--<div class=\"modal-content\">\r\n                                            <div class=\"modal-header\">\r\n                                                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                                                <h4 class=\"modal-title\">Login Failed</h4>\r\n                                            </div>\r\n                                            <div class=\"modal-body\">\r\n                                                <p>Please provide a valid SID or TID, and password.</p>\r\n                                            </div>\r\n                                            <div class=\"modal-footer\">\r\n                                                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>-->\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </article>\r\n            </div>\r\n        </div>\r\n        <!-- .end FIRST row -->\r\n    </div>\r\n</main>"
+module.exports = "<header class=\"app-header navbar\">\r\n    <button class=\"navbar-toggler mobile-sidebar-toggler hidden-lg-up\" type=\"button\">☰</button>\r\n    <a class=\"navbar-brand\" href=\"#\"></a>\r\n\r\n    <form class=\"hide-me form-inline float-left b-r-1 px-2 hidden-md-down\">\r\n        <i class=\"fa fa-search\"></i>\r\n        <input class=\"form-control\" placeholder=\"Search...\" type=\"text\">\r\n    </form>\r\n\r\n    <!--<nav class=\"navMenu\">\r\n        <div class=\"menuItem\">\r\n            <span class=\"menuTarget \" data-target=\"contactUs\" routerLink=\"contactus\">Contact Us</span>\r\n        </div>\r\n        <div class=\"menuItem\">\r\n            <span class=\"menuTarget currentPage\" data-target=\"fcaRewards\">FCA Rewards Dashboard</span>\r\n        </div>\r\n    </nav>-->\r\n\r\n\r\n</header>\r\n\r\n<!-- Main content -->\r\n<main class=\"main\">\r\n\r\n    <!-- Page Title -->\r\n    <div class=\"page-title\">\r\n        <div class=\"pageTitle\">\r\n            <div class=\"container\">\r\n                <div class=\"row\">\r\n\r\n                    <div class=\"col-sm-12 col-md-12\">\r\n                        <h1 class=\"heading-xl\">\r\n                            Reset Password\r\n                        </h1>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <a name=\"dashboard\"></a>\r\n    <div class=\"container m-t-md body-container\">\r\n        <!-- First row -->\r\n        <div class=\"row m-t-md\">\r\n            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n\r\n                <article class=\"card animated fadeInUp\">\r\n\r\n                    <div class=\"card-block\">\r\n\r\n                        <div class=\"content-row row\">\r\n                            <div class=\"col-sm-12 col-md-12 col-lg-12\">\r\n                                <form class=\"pageForm\" #f=\"ngForm\" novalidate (ngSubmit)=\"resetPassword()\">\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{errorUserID}} <br> {{errorEmailID}}</p>\r\n                                    <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\" *ngIf=\"invalidCreds\">The email address and password entered do not match. <br/> Please try again or contact\r\n                                        Program Headquarters <br/> at (866)909-MSER(6737) for assistance</p>\r\n                                      <p style=\"color: red; margin-bottom: auto; margin-left: 205px;\">{{successResetPasswordMessage}}</p> \r\n                                    <label>User ID</label>\r\n                                    <input type=\"text\" name=\"userId\" id=\"userId\" [(ngModel)]=\"resetpassword.userId\" />\r\n                                    <br />\r\n                                    <label>Email ID</label>\r\n                                    <input type=\"email\" name=\"emailId\" id=\"emailId\" [(ngModel)]=\"resetpassword.emailId\" />\r\n                                    <button type=\"button\" class=\"btn btn-info btn-sm\" (click)=\"cancel()\">Cancel</button>\r\n                                    <button type=\"submit\" class=\"btn btn-info btn-sm\">Submit</button>\r\n                                </form>\r\n                                <!--<div id=\"updateProgramsModal\" class=\"modal fade\" role=\"dialog\">\r\n                                    <div class=\"modal-dialog\">-->\r\n\r\n                                <!-- Modal content-->\r\n                                <!--<div class=\"modal-content\">\r\n                                            <div class=\"modal-header\">\r\n                                                <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\r\n                                                <h4 class=\"modal-title\">Login Failed</h4>\r\n                                            </div>\r\n                                            <div class=\"modal-body\">\r\n                                                <p>Please provide a valid SID or TID, and password.</p>\r\n                                            </div>\r\n                                            <div class=\"modal-footer\">\r\n                                                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>-->\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </article>\r\n            </div>\r\n        </div>\r\n        <!-- .end FIRST row -->\r\n    </div>\r\n</main>"
 
 /***/ }),
 

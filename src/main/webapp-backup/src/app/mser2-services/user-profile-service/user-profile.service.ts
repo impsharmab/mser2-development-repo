@@ -16,8 +16,8 @@ export class UserProfileService {
   }
   updateUserProfile(name: string, email: string, sendMail?: string): any {
     debugger
-    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
-    //var url="/"
+    //var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
+    var url="./UserProfile/Profile"
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "name": name, "email": email, "sendMail": sendMail };
     var headers = new Headers();
@@ -30,13 +30,14 @@ export class UserProfileService {
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
-
   }
 
   changeUserPassword(newPassword: string): any {
     debugger
 
-    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
+    //var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
+    var url = "./UserProfile/Password";
+    
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item": newPassword };
     var headers = new Headers();
@@ -49,9 +50,9 @@ export class UserProfileService {
   }
 
   textMessageOption(mobileNumber: string, aggree:string): any {
-    debugger
+    //debugger
     var url = "https://test.myfcarewards.com/imimserservices/UserProfile/TextAlerts";
-    //var url = "/";
+    var url = "./UserProfile/TextAlerts";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item1": mobileNumber, "item2": aggree };
     var headers = new Headers();
@@ -68,7 +69,9 @@ export class UserProfileService {
   getUserProfileData() {  
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var getUserProfileDataServiceUrl: string = "http://172.25.32.162/imimserservices/UserProfile/Profile";
-    var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json"
+    var getUserProfileDataServiceUrl: string = "./UserProfile/Profile";
+    
+    //var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json"
     //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    
     var headers = new Headers();
     headers.append('Authorization', validToken);

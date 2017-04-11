@@ -49,6 +49,7 @@ export class UserProfileComponent implements OnInit {
 
 
   private updateUserProfile() {
+    
     if (this.profileChange.optIn) {
       this.profileChange.sendMail = "Y"
     } else {

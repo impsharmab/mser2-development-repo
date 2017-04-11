@@ -20,8 +20,8 @@ export class Mser2LoginServiceService {
 
   getLoginResponse(username, password): any {
     // debugger
-    //var url = "./login/token/";
-     var url = "https://test.myfcarewards.com/imimserservices/login/token/"
+    var url = "./login/token/";
+    // var url = "https://test.myfcarewards.com/imimserservices/login/token/"
    // var url = "../assets/json-responses/login-response.json";
     var body = { "username": username, "password": password };
     var headers = new Headers();
@@ -38,7 +38,9 @@ export class Mser2LoginServiceService {
   }
 
   resetPassword(userId: string, emailId: string) {
-    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/ResetPassword";
+   // var url = "https://test.myfcarewards.com/imimserservices/UserProfile/ResetPassword";
+    var url = "./UserProfile/ResetPassword";
+    
     var body = { "userId": userId, "email": emailId };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

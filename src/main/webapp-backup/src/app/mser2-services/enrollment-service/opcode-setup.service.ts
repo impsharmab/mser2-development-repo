@@ -8,11 +8,12 @@ export class OpcodeSetupService {
 
   constructor(private http: Http) { }
 
-  getOpcodesetupResponse(dealerCode: string): any {
-    var url = "https://test.myfcarewards.com/imimserservices/enrollments/getopcode/" + dealerCode;
+   getOpcodesetupResponse(dealerCode: string): any {
+   // var url = "https://test.myfcarewards.com/imimserservices/enrollments/getopcode/" + dealerCode;
+    var url = "./enrollments/getopcode/" + dealerCode;
 
     // var url = 'http://localhost:4200/src/app/mser2-services/enrollment-service/opcode-response.json';
-    // var url='./opcode-response.json';      
+
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
 
     var headers = new Headers();
@@ -25,13 +26,13 @@ export class OpcodeSetupService {
 
   }
 
-  addOpCode(id: number,
+   addOpCode(id: number,
     dealercode: string,
     opcode: string,
     source: string,
     createdDate: string,
     createdBy: string): any {
-      debugger;
+    debugger;
 
     var url = '/enrollments/addopcode';
     // var url='./opcode-response.json';      
