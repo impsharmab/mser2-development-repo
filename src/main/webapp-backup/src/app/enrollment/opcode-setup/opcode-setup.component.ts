@@ -17,7 +17,6 @@ export class OpcodeSetupComponent implements OnInit {
   private currentuser: any = {};
   private selectedCodeData: any = {};
   private addOpcodeResponse: any;
-
   private dealercode: string = "";
   opcodesetupData: any;
   public addopcInterface: AddOpCodeInterface;
