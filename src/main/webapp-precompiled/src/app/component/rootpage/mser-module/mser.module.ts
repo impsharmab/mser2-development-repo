@@ -18,6 +18,7 @@ import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup
 import { UserProfileComponent } from '../../header/user-profile/user-profile.component';
 import { ContactUsComponent } from '../../header/contact-us/contact-us.component';
 import { DealercodeModalComponent } from '../../header/dealercode-modal/dealercode-modal.component';
+import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
 
 import { OpcodeSetupService } from '../../../services/opcode-setup/opcode-setup.service';
 
@@ -44,8 +45,9 @@ import { OpcodeSetupService } from '../../../services/opcode-setup/opcode-setup.
     OpcodeSetupComponent,
     UserProfileComponent,
     ContactUsComponent,
-    DealercodeModalComponent
+    DealercodeModalComponent,
+   // MarketingHomeComponent
   ],
-  providers: [OpcodeSetupService]
+  providers: [OpcodeSetupService] 
 })
 export class MserModule { }

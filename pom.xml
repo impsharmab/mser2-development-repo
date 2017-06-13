@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.imperialm</groupId>
-	<artifactId>imimserservices</artifactId>
+	<artifactId>mser2</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 
-	<name>imimserservices</name>
+	<name>mser2</name>
 	<description>Imperial MSER2.0</description>
 
 	<parent>

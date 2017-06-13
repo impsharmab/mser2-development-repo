@@ -7,9 +7,9 @@ import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-
 declare var $: any;
 
 @Component({
-  selector: 'header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'] 
 })
 export class HeaderComponent implements OnInit {
   @Input() data: any;

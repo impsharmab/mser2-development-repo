@@ -8,28 +8,27 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './component/sidenav/sidenav.component';
-import { FooterComponent } from './component/footer/footer.component';
+//import { FooterComponent } from './component/footer/footer.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { BodyComponent } from './component/body/body.component';
-import { HeaderComponent } from './component/header/header.component';
+//import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';
 import { AppRoutingModule } from './route/route.component';
 // import { RootPageComponent } from './rootpage/rootpage.component';
-
-import { LoginService } from './services/login-service/login.service';
+import { OpcodeSetupComponent } from './component/enrollment/opcode-setup/opcode-setup.component';
+import { EnrollmentReportComponent } from './component/enrollment/enrollment-report/enrollment-report.component';
+import { EnrollmentMaintenanceComponent } from './component/enrollment/enrollment-maintenance/enrollment-maintenance.component';
 import { ResetPasswordComponent } from './component/login/reset-password/reset-password.component';
 import { HomeComponent } from './component/home/home.component';
 import { MserModule } from './component/rootpage/mser-module/mser.module';
 import { DealerRegisterComponent } from './component/login/dealer-register-component/dealer-register.component';
 import { DealerRegisterService } from './services/dealer-register-service/dealer-register.service';
 import { UserProfileComponent } from './component/header/user-profile/user-profile.component';
-
-import { UserProfileService } from './services/user-profile-service/user-profile.service';
-import { OpcodeSetupComponent } from './component/enrollment/opcode-setup/opcode-setup.component';
-import { EnrollmentReportComponent } from './component/enrollment/enrollment-report/enrollment-report.component';
-import { EnrollmentMaintenanceComponent } from './component/enrollment/enrollment-maintenance/enrollment-maintenance.component';
-import { OpcodeSetupService } from './services/enrollment-service/opcode-setup.service';
 import { DealercodeModalComponent } from './component/header/dealercode-modal/dealercode-modal.component';
+
+import { LoginService } from './services/login-service/login.service';
+import { UserProfileService } from './services/user-profile-service/user-profile.service';
+import { OpcodeSetupService } from './services/enrollment-service/opcode-setup.service';
 import { DealercodePositioncodeService } from './services/dealercode-positioncode-service/dealercode-positioncode.service'
 //import { ContactUsComponent } from './header/contact-us/contact-us/contact-us.component'
 

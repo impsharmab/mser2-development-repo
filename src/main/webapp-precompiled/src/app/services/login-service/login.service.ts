@@ -51,8 +51,8 @@ export class LoginService {
 
   getLoginResponse(username, password): any {
     // debugger
-    //var url = "./login/token/";
-    var url = "https://test.myfcarewards.com/imimserservices/login/token/"
+    var url = "./login/token/";
+    //var url = "https://test.myfcarewards.com/mser2/login/token/"
     //var url = "../assets/json-responses/login-response.json";
     var body = { "username": username, "password": password };
     var headers = new Headers();
@@ -62,7 +62,7 @@ export class LoginService {
     // headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
 
     return this.http.post(url, body, { headers: headers })
-      //return this.http.get(url)
+      //return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);

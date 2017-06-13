@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
         // alert(msg);
       },
       (error) => {
+        alert("error in login...")
         this.loginFailed = "Login Failed";
         this.errorMessage = "Please enter your valid SID/TID and password";
       }
