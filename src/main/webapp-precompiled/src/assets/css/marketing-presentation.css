@@ -1,0 +1,54 @@
+    #playlist {
+        overflow-y:auto;
+        overflow-x:hidden;
+        border:1px solid #ccc;
+        background-color:#efefef;
+        /*        padding:0px 15px 0px 5px;*/
+        height:400px;
+        float:left;
+        width: 100% !important;
+    }
+
+    #playlist a {
+        display:block;
+        width: 85%;
+        height: 54px;
+        padding:5px;
+        background-color:#fff;
+        border:1px solid #ccc;
+        font:11px "bitstream vera sans", "lucida grande",verdana;
+        text-decoration:none;
+        margin:9px 0px 0px 10px;
+        color:#666;
+    }
+
+    #playlist a:hover {
+        background-color:#ffc;
+    }
+
+    #playlist a.progress {
+        background-color:#efefef;
+    }
+
+    #playlist a.playing {
+        border:1px solid #666;
+        background-color:#ffc;
+    }
+
+    #playlist a.paused {
+        border:1px solid #666;
+        background-color:#ffc;
+    }
+
+    #playlist a img {
+        border:0;
+        float:left;
+        margin-right:10px;
+        width : 50px;
+        height: 50px;
+    }
+
+    #playlist a strong {
+        color:#000;
+        padding-bottom:5px;
+    }

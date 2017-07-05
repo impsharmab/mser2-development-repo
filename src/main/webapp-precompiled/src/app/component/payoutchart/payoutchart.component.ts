@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 declare var $;
 @Component({
   selector: 'app-payoutchart',
-  templateUrl: './payoutchart.component.html',
-  styleUrls: ['./payoutchart.component.css']
+  templateUrl: './payoutchart.component-matt.html',
+  styleUrls: ['./payoutchart.component.css'] 
 })
 export class PayoutchartComponent implements OnInit {
 

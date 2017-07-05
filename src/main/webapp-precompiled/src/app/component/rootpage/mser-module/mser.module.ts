@@ -19,8 +19,16 @@ import { UserProfileComponent } from '../../header/user-profile/user-profile.com
 import { ContactUsComponent } from '../../header/contact-us/contact-us.component';
 import { DealercodeModalComponent } from '../../header/dealercode-modal/dealercode-modal.component';
 import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
+import { OpcodeTableComponent } from '../../enrollment/opcode-setup/opcode-datatable';
+import { CMSComponent } from '../../cms/cms.component';
+import { PartsLookupComponent } from '../../parts-lookup/parts-lookup.component';
+import { EnrollmentMaintenanceComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance.component';
+import { EnrollmentMaintenanceTableComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance-datatable';
+import { PayoutRedistributionComponent } from '../../enrollment/payout-redistribution/payout-redistribution';
+import { MVPComponent } from '../../mvp/mvp.component';
 
 import { OpcodeSetupService } from '../../../services/opcode-setup/opcode-setup.service';
+import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 
 
 
@@ -43,11 +51,18 @@ import { OpcodeSetupService } from '../../../services/opcode-setup/opcode-setup.
     HomeComponent,
     PayoutchartComponent,
     OpcodeSetupComponent,
+    OpcodeTableComponent,
     UserProfileComponent,
     ContactUsComponent,
     DealercodeModalComponent,
-   // MarketingHomeComponent
+    CMSComponent,
+    PartsLookupComponent,
+    EnrollmentMaintenanceComponent,
+    EnrollmentMaintenanceTableComponent,
+    PayoutRedistributionComponent,
+    MVPComponent
+    // MarketingHomeComponent
   ],
-  providers: [OpcodeSetupService] 
+  providers: [OpcodeSetupService, EnrollmentMaintenanceService]
 })
 export class MserModule { }

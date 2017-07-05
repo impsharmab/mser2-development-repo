@@ -31,7 +31,6 @@ import com.imperialm.imimserservices.model.TwoStringItems;
 import com.imperialm.imimserservices.model.UserIdEmail;
 import com.imperialm.imimserservices.model.UserProfile;
 import com.imperialm.imimserservices.security.JwtTokenUtil;
-import com.imperialm.imimserservices.services.UserProfileServiceImpl;
 import com.imperialm.imimserservices.services.UserServiceImpl;
 import com.imperialm.imimserservices.util.EmailHandler;
 

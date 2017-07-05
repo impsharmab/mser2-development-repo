@@ -3,50 +3,47 @@
  */
 package com.imperialm.imimserservices.config;
 
-import javax.annotation.Resource;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.imperialm.imimserservices.security.JwtAuthenticationEntryPoint;
 import com.imperialm.imimserservices.security.JwtAuthenticationTokenFilter;
 import com.imperialm.imimserservices.security.JwtDaoAuthenticationProvider;
-import com.imperialm.imimserservices.services.UserService;
 import com.imperialm.imimserservices.services.UserServiceImpl;
 
-/**
- * @author Dheerajr
- *
- */
+
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.imperialm.imimserservices")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class IMIServiceSecutiryConfig extends WebSecurityConfigurerAdapter {
+	
+private static Logger logger = LoggerFactory.getLogger(IMIServiceSecutiryConfig.class);
+	
+	@Value("${spring.cache.defaultmaxcacheentries}")
+	private int CACHEMAX;
+	
+	@Value("${spring.cache.defaultcachetime}")
+	private int CACHETIME;
 	
 	@Autowired
 	private UserServiceImpl userService;
@@ -56,16 +53,12 @@ public class IMIServiceSecutiryConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
    
+	
     @Autowired
     private AuthenticationEntryPoint unauthorizedHandler = new JwtAuthenticationEntryPoint();
-
     
 
-   /* @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }*/
+    
     
     @Bean @Qualifier("JwtAuthenticationTokenFilter")
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
@@ -106,6 +99,10 @@ public class IMIServiceSecutiryConfig extends WebSecurityConfigurerAdapter {
 		.logout().permitAll();
 	}*/
 	
+	/*@Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/*");
+    }*/
 	
 	@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -138,8 +135,6 @@ public class IMIServiceSecutiryConfig extends WebSecurityConfigurerAdapter {
         // disable page caching
         httpSecurity.headers().cacheControl();
     }
-	
-
     
 	
 	

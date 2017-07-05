@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.imperialm.imimserservices.dto.UserInfoDTO;
-import com.imperialm.imimserservices.util.IMIServicesUtil;
 
 @Repository
 public class UserInfoDAOImpl implements UserInfoDAO {
@@ -23,6 +22,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserInfoDTO> getUserInfo(String userId) {
 		List<UserInfoDTO> result = new ArrayList<UserInfoDTO>();
@@ -35,7 +35,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		} catch (final NoResultException ex) {
 			logger.info("result in else " + result);
 		} catch (final Exception ex) {
-			logger.error("error occured in getExpertPointsEarned", ex);
+			logger.error("error occured in getUserInfo", ex);
 		}
 		return result;
 	}

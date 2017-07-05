@@ -1,0 +1,136 @@
+
+
+
+.dealercode .modal-dialog{
+    margin: 30px auto;
+    max-width: none;
+    max-height: none;
+    width: 40%;
+    height: 20%;
+}
+
+/* Graphs for Payout Chart */
+
+.graph{
+  box-sizing: border-box;
+  display: flex;
+  margin: 25px 25px 25px 0;
+  width:calc(100% - 35px);
+}
+
+.graph.graph-list{
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding:0;
+}
+
+.graph-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 3px;
+  position: relative;
+  width:100%;
+}
+
+.graph-item:nth-child(2n){
+  background: rgb(240,240,240);
+}
+
+.graph-item:nth-child(2n+1){
+  background: rgba(149, 206, 255,.6);
+}
+
+.graph-item.service-override, .legend.service-override{
+  background-color: rgb(0,155,0);
+  color: rgb(255,255,255);
+}
+
+.graph-item.magneti-marelli, .legend.magneti-marelli{
+  background-color: rgb(155,0,155);
+  color: rgb(255,255,255);
+}
+
+.graph-item-subject{
+}
+
+.graph-item-figure{
+  padding-left: 10px;
+}
+
+.graph-item-info {
+  color: #025aa5;
+  font-size: 20px;
+  position: absolute;
+  right: -22px;
+}
+
+.disclaimer {
+  padding: 5px;
+}
+
+.disclaimer.graph-disclaimer {
+  background: #025fb1;
+  color: rgb(255,255,255);
+  text-transform: uppercase;
+}
+
+.legend{
+  display: inline-block;
+  height: 20px;
+  width: 10px;
+}
+
+.legend.qualifying-part-number{
+  color: #025aa5;
+  font-size: 20px;
+}
+
+.visible-print{
+  display: none;
+}
+
+
+@media print {
+  body{
+    background: rgb(255,255,255);
+  }
+  header.app-header{
+    position: absolute !important;
+  }
+  .visible-print{
+    display: block;
+  }
+.z-content-pad.z-content{
+  dispplay: block !important;
+}
+
+  header.navbar .navbar-brand {
+    background-position-x: 1rem;
+  }
+  .z-tabs > ul, .z-tabs > ul > li > a, .z-tabs > .z-container {
+    border: none !important;
+  }
+  .sidebar-fixed .sidebar .sidebar-nav,
+  .navMenu .menuItem,
+  .navbar-toggler.mobile-sidebar-toggler,
+  app-footer,
+  .z-tabs-nav{
+    display: none !important;
+  }
+  .sidebar-fixed .main {
+    margin: 0;
+  }
+  /* this resets the first character in each line from being misaligned with the rest of the word/sentence */
+  a::first-letter,
+  p::first-letter,
+  div::first-letter,
+  blockquote::first-letter,
+  li::first-letter{
+    vertical-align: text-top;
+        margin-top: 0;
+        padding-top: 0;
+        line-height: initial;
+}

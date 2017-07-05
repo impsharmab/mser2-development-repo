@@ -34,7 +34,7 @@
             <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
         </div>
         <div class="menuItem">
-            <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
+            <span class="menuTarget currentPage" data-target="fcaRewards" (click)='openSSOSite("https://test.myfcarewards.com/login?token=")'>FCA Rewards Dashboard</span>
         </div>
         <div class="menuItem">
             <!--<a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownPositionCode()" style="cursor:pointer">
@@ -189,34 +189,35 @@
 
         <li class="nav-item dropdown">
 
-            <div class="salutation">
-                <p>Hello, {{data.name}}!</p>
-                <p>Van Aandel-Flikemma Motor Sales (X543G)</p>
+            <div class="salutation"> 
+                <p>Welcome, {{data.name}}!</p>
+                <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
             </div>
             <a class="nav-link nav-pill avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <img src="./assets/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="badge badge-pill badge-danger">9</span>
+                <!--<img src="./assets/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" style="background-color:#0068b3">-->
+                <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 3em"></i>
+                <!--<span class="badge badge-pill badge-danger"></span>-->
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header text-center">
+                <!--<div class="dropdown-header text-center">
                     <strong>Account</strong>
-                </div>
-                <a class="dropdown-item"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>
+                </div>-->
+                <!--<a class="dropdown-item"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>-->
                 <!-- <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a> -->
                 <!--  <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a> -->
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a> -->
 
-                <div class="dropdown-header text-center">
+                <!--<div class="dropdown-header text-center">
                     <strong>Settings</strong>
-                </div>
-                <a class="dropdown-item" (click)="getUserProfileData()" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
+                </div>-->
+                <a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
                 <!--<a class="dropdown-item" (click)="getUserProfileData()" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>-->
                 <!-- <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a> -->
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a> -->
                 <!--   <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
                 <div class="divider"></div>
                 <!--  <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-                <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock" style="cursor: pointer"></i> Logout</a>
+                <a class="dropdown-item" style="cursor: pointer" (click)="logout()"><i class="fa fa-lock" ></i> Logout</a>
             </div>
         </li>
 

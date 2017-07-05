@@ -88,8 +88,9 @@ public class LaborOpsDTOImpl implements LaborOpsDAO {
 	@Transactional
 	public boolean deleteOpCodeById(int id) {
 		boolean result = false;
+		//ADD UPDATE DATE AND USER
 		try {
-			final Query query = this.em.createNativeQuery("update LaborOps set [DelFlag] = 'Y'  LaborOps where [ID] = ?0");
+			final Query query = this.em.createNativeQuery("update LaborOps set [DelFlag] = 'Y' where [ID] = ?0");
 			query.setParameter(0, id);
 			if(query.executeUpdate() > 0){
 				result = true;

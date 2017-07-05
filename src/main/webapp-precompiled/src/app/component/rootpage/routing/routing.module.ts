@@ -4,14 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
-import { RootPageComponent } from "../rootpage.component"
+import { RootPageComponent } from "../rootpage.component";
 
 import { HomeComponent } from '../../home/home.component';
 import { PayoutchartComponent } from '../../payoutchart/payoutchart.component';
 import { UserProfileComponent } from '../../header/user-profile/user-profile.component'
 import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup.component'
-import { ContactUsComponent } from '../../header/contact-us/contact-us.component'
-
+import { ContactUsComponent } from '../../header/contact-us/contact-us.component';
+import { CMSComponent } from '../../cms/cms.component';
+import { PartsLookupComponent } from '../../parts-lookup/parts-lookup.component';
+import { EnrollmentMaintenanceComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance.component';
+import { PayoutRedistributionComponent } from '../../enrollment/payout-redistribution/payout-redistribution';
+import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
+import { MVPComponent } from '../../mvp/mvp.component';
 
 const routes: Routes = [
 
@@ -41,6 +46,46 @@ const routes: Routes = [
                 component: ContactUsComponent
 
             },
+            {
+                path: "cmsrouter",
+                component: CMSComponent
+
+            },
+            {
+                path: "partslookuppage",
+                component: PartsLookupComponent
+
+            },
+            {
+                path: "enrollmentmaintenance",
+                component: EnrollmentMaintenanceComponent
+
+            },
+            {
+                path: "payoutedistribution",
+                component: PayoutRedistributionComponent
+
+            },
+            {
+                path: "marketingtrainingpresentation",
+                component: MarketingTrainingPresentationComponent
+
+            },
+
+            {
+                path: "mvp",
+                component: MVPComponent
+
+            },
+
+
+
+
+
+
+
+
+
 
         ]
     }

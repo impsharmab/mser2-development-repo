@@ -16,22 +16,28 @@
         <li class="nav-item nav-dropdown">
           <a class="nav-link nav-dropdown-toggle" style="cursor: pointer"><i class="icon-user-following"></i> Enrollment </a>
           <ul class="nav-dropdown-items">
+            <li class="nav-item"><a class="nav-link" routerLink="enrollmentmaintenance"><i class="icon-puzzle"></i>Enrollment Maintenance</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="opcodesetup"><i class="icon-puzzle"></i>OP Code Setup</a></li>
-            <li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>MSER Rules</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="payoutedistribution"><i class="icon-puzzle"></i>Payout ReDistribution</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mserRules', 'pdf':'false'}]"><i class="icon-puzzle"></i>MSER Rules</a></li>
             <li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>Enrollment Report</a></li>
             <li class="nav-item"><a class="nav-link" href="./assets/pdf/MSER_Enrollment_Form.pdf" target="_blank"><i class="icon-puzzle"></i>Enrollment Form</a></li>
+            <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'MSER_Enrollment_Form.pdf', 'pdf':'true'}]" target="_blank"><i class="icon-puzzle"></i>Enrollment Form</a></li>-->
           </ul>
         </li>
         <li class="nav-item nav-dropdown">
           <a class="nav-link nav-dropdown-toggle" style="cursor: pointer"><i class="icon-star"></i>Marketing</a>
           <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link" routerLink="marketinghome"><i class="icon-puzzle"></i>Home</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="recallrewardsrule"><i class="icon-puzzle"></i>Recall Reward Rules</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="marketingprogram"><i class="icon-puzzle"></i>Marketing Programs</a></li>
-            <li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>Training</a></li>
-            <li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>Presentations</a></li>
-            <li class="nav-item"><a class="nav-link" href="./assets/pdf/Service-Lane.pdf" target="_blank"><i class="icon-puzzle"></i>Service Lane Sales Training</a></li>
-            <li class="nav-item"><a class="nav-link" href="./assets/pdf/Parts-Counter-StepxStep.pdf" target="_blank"><i class="icon-puzzle"></i>Parts Counter Set up</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'homeMaintenanceRebates', 'pdf':'false'}]"><i class="icon-puzzle"></i>Home</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'recallRewards', 'pdf':'false'}]"><i class="icon-puzzle"></i>Recall Reward Rules</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'MarketingPrograms', 'pdf':'false'}]"><i class="icon-puzzle"></i>Marketing Programs</a></li>
+            <!--<li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>Training</a></li>-->
+            <li class="nav-item"><a class="nav-link" routerLink="marketingtrainingpresentation"><i class="icon-puzzle"></i>Training > Presentations</a></li>
+            <li class="nav-item"><a class="nav-link" href="./assets/pdf/Service-Lane.pdf" target="_blank"><i class="icon-puzzle"></i>Training > Service Lane Sales Training</a></li>
+            <li class="nav-item"><a class="nav-link" href="./assets/pdf/Parts-Counter-StepxStep.pdf" target="_blank"><i class="icon-puzzle"></i>Training > Parts Counter Set up</a></li>
+            <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'Full_Deck_v2.pdf', 'pdf':'true'}]" target="_blank"><i class="icon-puzzle"></i>Service Lane Sales Training</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'Final Parts Counter StepxStep.pdf', 'pdf':'true'}]" target="_blank"><i class="icon-puzzle"></i>Parts Counter Set up</a></li>
+          -->
           </ul>
         </li>
         <li class="nav-item nav-dropdown">
@@ -47,12 +53,22 @@
             <li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>Parts Counter</a></li>
           </ul>
         </li>
+        <li class="nav-item"><a class="nav-link" routerLink="partslookuppage"><i class="icon-badge"></i>Parts Lookup</a></li>
         <li class="nav-item"><a class="nav-link"><i class="icon-badge"></i>MSER</a></li>
         <li class="nav-item"><a class="nav-link"><i class="icon-graph"></i>BC Reports</a></li>
         <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>BOOST</a></li>
         <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>Parts</a></li>
-        <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>Accessories</a></li>
-        <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>MVP</a></li>
+        <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>Upfits</a></li>
+        <!--<li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>MVP</a></li>-->
+        <li class="nav-item nav-dropdown">
+          <a class="nav-link nav-dropdown-toggle" style="cursor: pointer"><i class="icon-star"></i>MVP</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item"><a class="nav-link"><i class="icon-puzzle"></i>Home</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]"><i class="icon-puzzle"></i>MVP Rules</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]"><i class="icon-puzzle"></i>Change Approval Settings</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="mvp"><i class="icon-puzzle"></i>Videos</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>Express Lane</a></li>
         <li class="nav-item"><a class="nav-link"><i class="icon-doc"></i>Parts Counter</a></li>
         <li class="nav-item"></li>

@@ -6,13 +6,9 @@
         <div class="pageTitle">
             <div class="container">
                 <div class="row">
-
                     <div class="col-sm-12 col-md-12">
-
-
-
                         <h1 class="heading-xl">
-
+                            Update User Profile Page
                         </h1>
                     </div>
 
@@ -23,7 +19,7 @@
 
     <!-- Breadcrumb -->
     <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item active"><a href="#">User Profile</a></li>
+        <!--<li class="breadcrumb-item active"><a href="#">User Profile</a></li>-->
     </ol>
 
     <a name="payoutchart"></a>
@@ -42,22 +38,24 @@
         <h1>Admin Dashboard</h1>
       </div>-->
                         <div class="heading-line">
-                            <h2>User Profile</h2>
+                            <!--<h2>User Profile</h2>-->
                         </div>
 
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-6 col-lg-6">
 
-                                <form class="pageForm" #userprofile="ngForm" novalidate (ngSubmit)="updateUserProfile()">
+                                <form class="pageForm">
                                     <h5>Change Your Information</h5>
+
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorProfileChangeMessage}}</p>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successUpdateUserProfile}}</p>
-                                    <label>Name</label>
+                                    <label>Name:</label>
                                     <!--<input type="text"  id="name" name="name" [(ngModel)]="profileChange.name" value="{{userProfileData.name}}"/>-->
                                     <!--<input type="text" id="name" name="name" value="" [(ngModel)]="profileChange.name" />
                                     -->
-                                    <input type="text" id="name" name="name" value="" [(ngModel)]="profileChange.name" />
+                                    <input type="text" id="name1" name="name1" value="" [(ngModel)]="profileChange.name" />
                                     <br />
-                                    <label>Email</label>
+                                    <label>Email:</label>
                                     <input type="text" id="email" name="email" value="" [(ngModel)]="profileChange.email" />
                                     <br />
                                     <p>
@@ -70,19 +68,19 @@
                                     <label>Opt Type:</label>
                                     <ul class="contact-list">
                                         <li>
-                                            <input type="checkbox" id="optIn" name="optType" [(ngModel)]="profileChange.optIn" />                                            Opt-In
+                                            <input type="radio" id="optIn" name="optIn" value="Y" [(ngModel)]="userProfileData.sendMail" />                                            Opt-In
                                         </li>
                                         <li>
-                                            <input type="checkbox" id="optOut" name="optType" [(ngModel)]="profileChange.optOut" />                                            Opt-Out
+                                            <input type="radio" id="optOut" name="optOut"  value="N" [(ngModel)]="userProfileData.sendMail" />                                            Opt-Out
                                         </li>
                                     </ul>
                                     <br />
 
-                                    <button type="submit" class="btn btn-info btn-sm">Update</button>
+                                    <button type="button" class="btn btn-info btn-sm" (click)="updateUserProfile()">Update</button>
 
                                 </form>
 
-                                <form class="pageForm" #passwordChangeForm="ngForm" novalidate (ngSubmit)="changeUserPassword()">
+                                <!--<form class="pageForm" #passwordChangeForm="ngForm" novalidate (ngSubmit)="changeUserPassword()">
                                     <h5>Change Your Password</h5>
                                     <ul>
                                         <li>Passwords must contain letters and numbers</li>
@@ -91,6 +89,7 @@
                                     </ul>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{confirmPasswordMessage}}</p>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successPasswordChangedMessage}}</p>
+                                    <p *ngFor="let error of errorsPasswordMessage"style="color: red; margin-bottom: auto; margin-left: 205px;">{{error}}</p>
                                     <label>New Password</label>
                                     <input type="password" id="passwordInput" name="passwordInput" [(ngModel)]="passwordChange.newPassword" value="" />
                                     <br />
@@ -99,24 +98,29 @@
                                         value="" />
                                     <br />
                                     <button type="submit" class="btn btn-info btn-sm">Change</button>
-                                </form>
+                                </form>-->
 
                             </div>
 
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <form class="pageForm" #textMsgOptionForm="ngForm" novalidate (ngSubmit)="textMessageOption()">
-                                    <h5>Sign up to receive text messages</h5>
+                                    <h5>Sign up to Receive Text Messages</h5>
+                                    <br>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorAgreeTermsAndCondition}} <br> {{errorSID}} <br> {{errorMobileNumber}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successTextMessageOption}} </p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSuccessTextMessageOption}} </p>
 
-                                    <label>Enter your SID</label>
-                                    <input type="text" id="sidEntry" name="sidEntry" [(ngModel)]="textMsgOption.sid"/>
+                                    <label>Enter your SID/TID: </label>
+                                    <input type="text" id="sidEntry" name="sidEntry" minlength="7" maxlength="7" [(ngModel)]="textMsgOption.sid" />
                                     <br />
-                                    <label>Enter your mobile number</label>
-                                    <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="textMsgOption.mobileNumber"/>
+                                    <label>Enter your mobile number: </label>
+                                    <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="textMsgOption.mobileNumber" />
                                     <br />
 
-                                    <p><input type="checkbox" id="agree" name="agree" [(ngModel)]="textMsgOption.agreeTermsAndCondition"/> I would like to receive text messages, and agree to the
-                                        <a href="#">Terms of Service </a> &amp; <a href="#">Privacy Policy</a></p>
+                                    <p><input type="checkbox" id="agree" name="agree" [(ngModel)]="textMsgOption.agreeTermsAndCondition"
+                                        /> I would like to receive text messages, and agree to the
+                                        <a href="//bit.ly/1RsweNh" target="_blank">Terms of Service </a> &amp; <a href="//bit.ly/1RsweNh"
+                                            target="_blank">Privacy Policy</a></p>
 
                                     <button type="submit" class="btn btn-info btn-sm">Sign Me Up!</button>
                                 </form>
@@ -252,7 +256,7 @@
             <div class="message">
                 <div class="py-1 pb-3 mr-1 float-left">
                     <div class="avatar">
-                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="assets/img/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                         <span class="avatar-status badge-success"></span>
                     </div>
                 </div>
@@ -267,7 +271,7 @@
             <div class="message">
                 <div class="py-1 pb-3 mr-1 float-left">
                     <div class="avatar">
-                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="assets/img/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                         <span class="avatar-status badge-success"></span>
                     </div>
                 </div>
@@ -282,7 +286,7 @@
             <div class="message">
                 <div class="py-1 pb-3 mr-1 float-left">
                     <div class="avatar">
-                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="assets/img/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                         <span class="avatar-status badge-success"></span>
                     </div>
                 </div>
@@ -297,7 +301,7 @@
             <div class="message">
                 <div class="py-1 pb-3 mr-1 float-left">
                     <div class="avatar">
-                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="assets/img/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                         <span class="avatar-status badge-success"></span>
                     </div>
                 </div>
@@ -312,7 +316,7 @@
             <div class="message">
                 <div class="py-1 pb-3 mr-1 float-left">
                     <div class="avatar">
-                        <img src="assets/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                        <img src="assets/img/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
                         <span class="avatar-status badge-success"></span>
                     </div>
                 </div>

@@ -65,11 +65,10 @@ public class JpaConfiguration {
 	 */
 	private Properties jpaProperties() {
 		final Properties properties = new Properties();
-		// properties.put("hibernate.dialect",
-		// environment.getRequiredProperty("hibernate.dialect"));
 		// properties.put("hibernate.hbm2ddl.auto",
 		// environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
 		properties.put("hibernate.show_sql", this.environment.getRequiredProperty("spring.jpa.show-sql"));
+		properties.put("hibernate.dialect", this.environment.getRequiredProperty("spring.jpa.hibernate.dialect"));
 		return properties;
 	}
 

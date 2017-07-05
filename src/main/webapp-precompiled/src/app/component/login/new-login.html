@@ -27,7 +27,6 @@
         <div class="pageTitle">
             <div class="container">
                 <div class="row">
-
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
                             Login
@@ -54,15 +53,17 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <form class="pageForm" #f="ngForm" novalidate (ngSubmit)="login()">
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{loginFailed}} <br> {{errorMessage}}</p>
-                                    <label>SID or TID</label>
-                                    <input type="text" name="username" id="username" [(ngModel)]="user.username" #username="ngModel" />
+                                    <br>
+                                    <label>SID/TID: *</label>
+                                    <input type="text" name="username" id="username" [(ngModel)]="user.username" #username="ngModel" required minlength="7" maxlength="7"
+                                    />
                                     <br />
-                                    <label>Password</label>
+                                    <label>Password: *</label>
                                     <input type="password" name="password" id="password" [(ngModel)]="user.password" #password="ngModel" />
 
                                     <button style="cursor: pointer" type="submit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#updateProgramsModal">Enter</button>
 
-                                    <a class="resetLink" style="color:blue;text-decoration:underline; cursor: pointer" (click)="resetPassword()">Reset Password</a>
+                                    <!--<a class="resetLink" style="color:blue;text-decoration:underline; cursor: pointer" (click)="resetPassword()">Reset Password</a>-->
                                     <br />
                                     <a class="" style="color:blue;text-decoration:underline; cursor: pointer" (click)="dealerregister()">Register Your Dealership</a>
                                     <br/><br/>

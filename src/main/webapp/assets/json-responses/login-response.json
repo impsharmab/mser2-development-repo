@@ -2,11 +2,13 @@
   "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTODYwMTNCIiwiZXhwIjoxNDk1MTMzMTk1LCJpYXQiOjE0OTQ1MjgzOTV9.qZTNAUBYrsF1Thtq7s5N82u2DLKhcxNhr-e0yx38P9VcRYu-1HXxyRvVb3oCZ7B2Xy_E7zQCbPbt0ZrGNX-YOA",
   "name": "Christopher Baker",
   "positionCode": [
-    "01"
+    "01",
+    "5"
   ],
   "dealerCode": [
     "26550",
     "69038"
   ],
+  "roles": [],
   "admin": false
 }

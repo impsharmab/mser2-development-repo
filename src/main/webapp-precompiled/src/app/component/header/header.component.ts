@@ -1,25 +1,26 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter,TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
-import { UserProfileService } from '../../services/user-profile-service/user-profile.service';
 import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileService } from '../../services/user-profile-service/user-profile.service';
 
 declare var $: any;
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'] 
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
   @Input() data: any;
   @ViewChild("dealercodeModal") private dealercodeModal: NgbModalRef;
   @Output("onProfileChange") profileChange = new EventEmitter<any>();
- 
+
   private poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
   private delcodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerCode;
-  private userProfileData: any = {};  
-  constructor(private router: Router, private userProfileService: UserProfileService, private modalService: NgbModal) { }
+  private userProfileData: any = {};
+  constructor(private router: Router, private userProfileService: UserProfileService, private modalService: NgbModal, private cookieService: CookieService) { }
 
   ngOnInit() {
     //debugger
@@ -136,18 +137,25 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  private getUserProfileData() {
-    //debugger
-    this.userProfileService.getUserProfileData().subscribe(
-      (resUserProfileData) => {
-        this.userProfileData = (resUserProfileData)
-        this.userProfileService.setUserProfileData(this.userProfileData)
-        //debugger
-        // let url = ["userprofile"]
-        // this.router.navigate(url);
+  // private getUserProfileData() {
 
-      }
-    )
+  //   this.userProfileService.getUserProfileData().subscribe(
+  //     (resUserProfileData) => {
+  //       this.userProfileData = (resUserProfileData)
+  //       this.userProfileService.setUserProfileData(this.userProfileData)
+
+
+  //     }
+  //   )
+  // }
+
+  private openSSOSite(url: any) {
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var positioncodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
+    var dealerlcodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+
+    window.open(url + validToken + "&positioncode=" + positioncodes + "&dealercode=" + dealerlcodes, "_self")
+
   }
   private positionCodeCancel() {
     this.dealercodeModal.close();
@@ -158,12 +166,16 @@ export class HeaderComponent implements OnInit {
     this.profileChange.emit("")
   }
   private dropdownDealerCode() {
-   // alert(this.poscodes + "" + this.delcodes)
+    // alert(this.poscodes + "" + this.delcodes)
     //    alert()
     this.modalService.open(this.dealercodeModal, { windowClass: 'dealercode' });
   }
 
   logout() {
+    sessionStorage.removeItem('CurrentUser');
+    sessionStorage.removeItem('selectedCodeData');
+    sessionStorage.clear();
+    this.cookieService.removeAll();
     let url = ["login"]
     this.router.navigate(url);
   }

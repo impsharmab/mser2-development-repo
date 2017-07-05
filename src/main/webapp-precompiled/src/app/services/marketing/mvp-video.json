@@ -1,0 +1,35 @@
+[
+    {
+        "videoName": "MVP Essential Care Product Line",
+        "filePath": "mp4:MSP15-4-MVP",
+        "createdDate": "2014-08-07",
+        "videoImageName": "/shared/imi-cms/MSER/images/webImages/moparIcon.png",
+        "videoTitle": "MVP Essential Care Product Line",
+        "seqno": 11,
+        "ipadFilePath": "MSERReporting.mp4",
+        "program": null,
+        "status": "N"
+    },
+    {
+        "videoName": "MVP Service Lane",
+        "filePath": "mp4:MSP2-FYI-MVPServiceLane",
+        "createdDate": "2014-08-07",
+        "videoImageName": "/shared/imi-cms/MSER/images/webImages/moparIcon.png",
+        "videoTitle": "MVP Service Lane",
+        "seqno": 11,
+        "ipadFilePath": "MSERReporting.mp4",
+        "program": null,
+        "status": "N"
+    },
+    {
+        "videoName": "Single Sign-on",
+        "filePath": "mp4:MSP2-FYI-SingleSign-on",
+        "createdDate": "2014-08-07",
+        "videoImageName": "/shared/imi-cms/MSER/images/webImages/moparIcon.png",
+        "videoTitle": "Single Sign-on",
+        "seqno": 11,
+        "ipadFilePath": "MSERReporting.mp4",
+        "program": null,
+        "status": "N"
+    }
+]

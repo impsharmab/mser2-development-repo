@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,6 +23,7 @@ public class DealerPersonnelPositionsDAOImpl implements DealerPersonnelPositions
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Cacheable(value="getRoleByPositionCode")
 	public int getRoleByPositionCode(String positionCode) {
 		int result = 0;
 		try {
@@ -33,6 +35,76 @@ public class DealerPersonnelPositionsDAOImpl implements DealerPersonnelPositions
 			logger.info("result in else " + result);
 		} catch (final Exception ex) {
 			logger.error("error occured in getRoleByPositionCode", ex);
+		}
+		return result;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Cacheable(value="checkPositionCode")
+	public boolean checkPositionCode(String positionCode) {
+		try {
+			final Query query = this.em.createNativeQuery(CHECK_POSITIONCODE);
+			query.setParameter(0, positionCode);
+			List<String> rows = (List<String>) query.getResultList();
+			if(rows.size() > 0){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (final Exception ex) {
+			logger.error("error occured in checkPositionCode", ex);
+			return false;
+		}
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Cacheable(value="getAllPositionCodes")
+	public List<String> getAllPositionCodes() {
+		List<String> result = new ArrayList<String>();
+		try {
+			final Query query = this.em.createNativeQuery(POSITIONCODES);
+			List<String> rows = (List<String>) query.getResultList();
+			result = rows;
+		} catch (final Exception ex) {
+			logger.error("error occured in getAllPositionCodes", ex);
+		}
+		return result;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean isValidDealer(String dealerCode) {
+		try {
+			final Query query = this.em.createNativeQuery(CHECK_DEALERCODE);
+			query.setParameter(0, dealerCode);
+			List<String> rows = (List<String>) query.getResultList();
+			if(rows.size() > 0){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (final Exception ex) {
+			logger.error("error occured in isValidDealer", ex);
+			return false;
+		}
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getDealerPricipal(String dealerCode) {
+		List<String> result = new ArrayList<String>();
+		try {
+			final Query query = this.em.createNativeQuery(GET_DEALER_PRINCIPAL);
+			query.setParameter(0, dealerCode);
+			result = (List<String>) query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getDealerPricipal", ex);
 		}
 		return result;
 	}

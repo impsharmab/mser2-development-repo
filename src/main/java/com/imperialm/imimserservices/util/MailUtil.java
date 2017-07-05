@@ -5,6 +5,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 import org.apache.commons.mail.DefaultAuthenticator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,10 +15,19 @@ public class MailUtil
 {
   public Properties props = new Properties();
   public boolean PROPERTIES_SET = false;
-  private String smtpHost =  "smtp.office365.com";
-  private String smtpPort =  "587";
-  private String exchangeUser =  "smtpuser@imperialm.com";
-  private String exchangePassword =  "imi.smtp";
+  
+  @Value("${email.smtphost}")
+  private String smtpHost;
+  
+  @Value("${email.smtpport}")
+  private String smtpPort;
+  
+  @Value("${email.exchangeuser}")
+  private String exchangeUser;
+  
+  @Value("${email.exchangepassword}")
+  private String exchangePassword;
+  
   private String emailSubjectPrefix = "";
 
     /** Logger for this class and subclasses */

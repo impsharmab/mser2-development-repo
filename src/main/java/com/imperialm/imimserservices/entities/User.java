@@ -4,11 +4,9 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.persistence.GenerationType;
 
 @Entity
 @Table(name="Users", indexes = {@Index(columnList = "userId", unique=true), @Index(columnList = "email", unique=true)})
@@ -45,6 +43,14 @@ public class User {
 	public void setSalt(String salt) {
 		Salt = salt;
 	}
+	
+	public String getDelFlag() {
+		return Salt;
+	}
+	public void setDelFlag(String delFlag) {
+		this.delFlag = delFlag;
+	}
+	
 	@Id
 	@Column(nullable = false, name="UserId")
 	private String userId;
@@ -58,7 +64,9 @@ public class User {
 	private String CreatedBy;
 	private String UpdatedDate;
 	private String UpdatedBy;
-	private char DelFlag;
+	
+	@Column(nullable = false, name="DelFlag")
+	private String delFlag;
 	
 	@Column(nullable = false)
 	private String HashPass;

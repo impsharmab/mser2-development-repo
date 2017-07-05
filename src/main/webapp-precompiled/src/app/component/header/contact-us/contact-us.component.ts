@@ -28,19 +28,42 @@ export class ContactUsComponent implements OnInit {
     }
   }
 
+  private validateMobileNumber(mobileNumber) {
+    var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    //alert(mobileNumber.match(phoneno));
+    if (mobileNumber.match(phoneno)) {
+      //alert("match");
+      this.errorMobileNumber = "";
+      return true;
+    }
+    else {
+      //alert("did not match");
+      this.errorMobileNumber = "Please provide a valid Mobile Number";
+      return false;
+    }
+  }
+
   private textMessageOption() {
-    debugger
     if (!this.textMsgOption.agreeTermsAndCondition) {
       this.errorAgreeTermsAndCondition = "You must accept the terms of service";
       return;
     } else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber === "") {
+      this.errorAgreeTermsAndCondition = "";
       this.errorSID = "You must provide your SID.";
       this.errorMobileNumber = "Please provide a valid number";
       return;
     } else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber !== "") {
+      this.errorAgreeTermsAndCondition = "";
       this.errorSID = "You must provide your SID.";
+      this.errorMobileNumber = "";
+      return;
+    } else if (!this.validateMobileNumber(this.textMsgOption.mobileNumber)) {
+      this.errorAgreeTermsAndCondition = "";
+      this.errorSID = "";
       return;
     } else if (this.textMsgOption.sid.trim() !== "" && this.textMsgOption.mobileNumber === "") {
+      this.errorAgreeTermsAndCondition = "";
+      this.errorSID = "";
       this.errorMobileNumber = "Please provide a valid number";
       return;
     }
@@ -54,7 +77,16 @@ export class ContactUsComponent implements OnInit {
       this.textMsgOption.agree, ).subscribe(
       (profileChangeData) => {
         this.profileChangeData = (profileChangeData)
-        this.successPasswordChangedMessage = "Your password has been successfully changed.";
+        this.errorAgreeTermsAndCondition = "";
+        this.errorSID = "";
+        this.errorMobileNumber = "";
+        this.successPasswordChangedMessage = "Successfully updated Text Message Option.";
+      },
+      (error) => {
+        this.errorAgreeTermsAndCondition = "";
+        this.errorSID = "";
+        this.errorMobileNumber = "";
+        this.successPasswordChangedMessage = "Error in updating Text Message Option. ";
       }
       )
   }

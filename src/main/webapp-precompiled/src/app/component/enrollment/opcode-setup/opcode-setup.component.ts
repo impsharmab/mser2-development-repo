@@ -24,6 +24,19 @@ export class OpcodeSetupComponent implements OnInit {
   private date: string = "";
   private source: string = "TDLR";
   private createdBy: string = "";
+  private successOpcodeSetupMessage: string = "";
+  private errorOpcodeSetupMessage: string = "";
+  private bannerColumnHeaders: any = [
+    { "data": "opCode", "title": "Op Code" },
+    { "data": "createdDate", "title": "Created Date" },
+    {
+      "className": 'details-control',
+      "orderable": false,
+      "data": null,
+      "title": "Delete",
+      "defaultContent": '<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-close"></i></button>'
+    }
+  ]
 
   constructor(private opcodesetupService: OpcodeSetupService, private router: Router) {
     //this.date = new Date();
@@ -40,6 +53,9 @@ export class OpcodeSetupComponent implements OnInit {
     this.date = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
     // alert(this.date)
 
+    $(document).ready(function () {
+      $('#dataTable').DataTable();
+    });
     this.opcodesetup();
 
     this.addopcInterface = {
@@ -121,8 +137,6 @@ export class OpcodeSetupComponent implements OnInit {
       e.preventDefault();
     });
 
-
-
     /****
     * CARDS ACTIONS
     */
@@ -162,7 +176,6 @@ export class OpcodeSetupComponent implements OnInit {
   }
 
   private opcodesetup() {
-    //debugger
     this.opcodesetupService.getOpcodesetupResponse(this.selectedCodeData.selectedDealerCode).subscribe(
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
@@ -171,8 +184,11 @@ export class OpcodeSetupComponent implements OnInit {
     )
   }
 
-  addOpCode() {
-    debugger
+  private addOpCode() {
+    if (this.addopcInterface.opCode === "") {
+      this.successOpcodeSetupMessage = "Please enter Op Code";
+      return;
+    }
     this.opcodesetupService.addOpCode(this.id,
       this.dealercode,
       this.addopcInterface.opCode,
@@ -180,13 +196,28 @@ export class OpcodeSetupComponent implements OnInit {
       this.date,
       this.createdBy).subscribe(
       (addOpcodeResponse) => {
-        this.addOpcodeResponse = (addOpcodeResponse)
+        this.addOpcodeResponse = (addOpcodeResponse);
+        this.successOpcodeSetupMessage = "Successfully added new OpCode.";
         this.opcodesetup();
       },
       (error) => {
-        alert("Opcode was not added...")
+        this.errorOpcodeSetupMessage = "Error in adding Op Code.";
       }
       )
+  }
+
+  private deleteOpCode(iD) {
+  //  alert(iD);
+    this.opcodesetupService.deleteOpCode(iD).subscribe(
+      (addOpcodeResponse) => {
+        this.addOpcodeResponse = (addOpcodeResponse)
+       // alert("Opcode is successfully deleted...");
+        this.opcodesetup();
+      },
+      (error) => {       
+       // alert("Opcode was not deleted...");
+      }
+    )
   }
 
 }

@@ -7,11 +7,8 @@
         <div class="row">
 
           <div class="col-sm-12 col-md-12">
-
-
-
             <h1 class="heading-xl">
-
+              Contact Us
             </h1>
           </div>
 
@@ -22,7 +19,7 @@
 
   <!-- Breadcrumb -->
   <ol class="breadcrumb mb-0">
-    <li class="breadcrumb-item active"><a href="#">Contact Us</a></li>
+    <!--<li class="breadcrumb-item active"><a href="#">Contact Us</a></li>-->
   </ol>
 
   <a name="payoutchart"></a>
@@ -41,7 +38,7 @@
                   <h1>Admin Dashboard</h1>
                 </div>-->
             <div class="heading-line">
-              <h2>Contact Us</h2>
+              <!--<h2>Contact Us</h2>-->
             </div>
 
             <div class="content-row row">
@@ -50,10 +47,13 @@
                 <form class="pageForm">
 
                   <ul class="contact-list">
-                    <li><a href="info@moparser.com"><i class="fa fa-envelope-o"></i> info@moparser.com </a></li>
-                    <li><i class="fa fa-phone"></i> xxx-xxx-xxxx</li>
+                    <li><i class="fa fa-envelope-o"></i> <a href="mailto:info@moparser.com" style="text-decoration: underline;"> info@moparser.com </a></li>
+
+                    <li><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:8669096737" style="text-decoration: underline;"> (866)-909-MSER(6737)</a></li>
                     <li><i class="fa fa-fax"></i> 844-673-7329 (844-MSER-FAX)</li>
-                    <li><i class="fa fa-building"></i> xxxxxxxxxxx</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i> 21238 Bridge Street <br> Southfield, MI, 48033
+                    </li>
+
                   </ul>
 
                 </form>
@@ -61,18 +61,20 @@
 
               <div class="col-sm-12 col-md-6 col-lg-6">
                 <form class="pageForm" #textMsgOptionForm="ngForm" novalidate (ngSubmit)="textMessageOption()">
-                  <h5>Sign up to receive text messages</h5>
+                  <h5>Sign up to Receive Text Messages</h5>
+                  <br>
                   <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorAgreeTermsAndCondition}} <br> {{errorSID}} <br> {{errorMobileNumber}}</p>
+                  <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successPasswordChangedMessage}} </p>
 
-                  <label>Enter your SID</label>
-                  <input type="text" id="sidEntry" name="sidEntry" [(ngModel)]="textMsgOption.sid" />
+                  <label>Enter your SID/TID:</label>
+                  <input type="text" id="sidEntry" minlength="7" maxlength="7" name="sidEntry" [(ngModel)]="textMsgOption.sid" />
                   <br />
-                  <label>Enter your mobile number</label>
+                  <label>Enter your mobile number:</label>
                   <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="textMsgOption.mobileNumber" />
                   <br />
 
                   <p><input type="checkbox" id="agree" name="agree" [(ngModel)]="textMsgOption.agreeTermsAndCondition" /> I
-                    would like to receive text messages, and agree to the <a href="#">Terms of Service </a> &amp; <a href="#">Privacy Policy</a></p>
+                    would like to receive text messages, and agree to the <a href="//bit.ly/1RsweNh" target="_blank">Terms of Service </a> &amp; <a href="//bit.ly/1RsweNh"  target="_blank">Privacy Policy</a></p>
 
                   <button type="submit" class="btn btn-info btn-sm">Sign Me Up!</button>
                 </form>

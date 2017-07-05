@@ -6,21 +6,21 @@ import './../rxjs-operators';
 @Injectable()
 export class DealerRegisterService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http) { 
 
-  }
+  } 
 
 
   registerDealership(dealerSID: string, dealerCode: string, dealerPrincipalEmail: string): any {
-    var url = "./url";
-    var body = { "dealerSID": dealerSID, "dealerCode": dealerCode, "dealerPrincipalEmail": dealerPrincipalEmail };
+    var registerDealershipUrl = "https://test.myfcarewards.com/mser2/Registration/dealerRegistration";
+   // var registerDealershipUrl = "./Registration/dealerRegistration";
+
+    var body = { "sid": dealerSID, "dealerCode": dealerCode, "email": dealerPrincipalEmail };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post(url, body, { headers: headers })
-      .map((response: Response) => response.json())
-      .catch(this.handleError);
-
+    return this.http.post(registerDealershipUrl, body, { headers: headers })
+      .map((response: Response) => response.text());
   }
   private handleError(error: Response | any) {
     let errMsg: string = "";

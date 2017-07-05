@@ -14,10 +14,9 @@ export class UserProfileService {
     sessionStorage.removeItem('UserProfileData');
     sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
   }
-  updateUserProfile(name: string, email: string, sendMail?: string): any {
-    debugger
-    //var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
-    var url="./UserProfile/Profile"
+  updateUserProfile(name: string, email: string, sendMail?: string): any {    
+    var url = "https://test.myfcarewards.com/mser2/UserProfile/Profile";
+    //var url="./UserProfile/Profile"
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "name": name, "email": email, "sendMail": sendMail };
     var headers = new Headers();
@@ -33,9 +32,7 @@ export class UserProfileService {
   }
 
   changeUserPassword(newPassword: string): any {
-    debugger
-
-    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/Password";
+     var url = "https://test.myfcarewards.com/mser2/UserProfile/Password";
    // var url = "./UserProfile/Password";
     
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
@@ -49,9 +46,8 @@ export class UserProfileService {
       .catch(this.handleError);
   }
 
-  textMessageOption(mobileNumber: string, aggree:string): any {
-    //debugger
-    var url = "https://test.myfcarewards.com/imimserservices/UserProfile/TextAlerts";
+  textMessageOption(mobileNumber: string, aggree:string): any {    
+    //var url = "https://test.myfcarewards.com/mser2/UserProfile/TextAlerts";
     var url = "./UserProfile/TextAlerts";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item1": mobileNumber, "item2": aggree };
@@ -68,11 +64,8 @@ export class UserProfileService {
 
   getUserProfileData() {  
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var getUserProfileDataServiceUrl: string = "https://test.myfcarewards.com/imimserservices/UserProfile/Profile";
-   // var getUserProfileDataServiceUrl: string = "./UserProfile/Profile";
-    
-    //var getUserProfileDataServiceUrl = "./src/app/mser2-services/user-profile-service/updateUserProfile.json"
-    //var getUserProfileDataServiceUrl: string = "UserProfile/Profile";    
+    var getUserProfileDataServiceUrl: string = "https://test.myfcarewards.com/mser2/UserProfile/Profile";
+  
     var headers = new Headers();
     headers.append('Authorization', validToken);
     // headers.append("Cache-Control", "no-cache");

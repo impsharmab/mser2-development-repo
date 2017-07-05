@@ -1,0 +1,151 @@
+<main class="main">
+    <div id="main-content" style="height: 470px;padding-left: 3%">
+        <style type="text/css">
+            .selectedVideo {
+                border: 1px solid black !important;
+                background-image: url("/shared/imi-cms/MSER/images/webImages/back_images.jpg") !important;
+            }
+
+            .selectedVideo:hover {
+                background-color: transparent !important;
+            }
+        </style>
+
+        <!--<h4 align="center" style="padding-left: 200px; margin-top: 40px">${videoTitle}</h4>-->
+        <h4 align="center" style="padding-left: 200px; margin-top: 40px">{{selectedVideoName}}</h4>
+        <table style="width: 95%; height:auto; background-color: #EEE; border-collapse: collapse;">
+            <tr>
+                <td style="width: 260px;">
+                    <div id="playlist">
+
+
+                        <!--<c:forEach items="${videos}" var="video" varStatus="x">
+                            <a href="playVideo.do?filePath=${video.filePath}&&videoTitle=${video.videoTitle}&&page=${program}" id="${fn:replace(fn:substring(video.filePath,4, fn:length(video.filePath)),'.','')}">
+                            <img src="${video.videoImageName}" alt="videos"/>
+                            <strong style="font-size: 11px;">${video.videoName}</strong>
+                        </a>
+                        </c:forEach>-->
+
+
+
+                        <a *ngFor="let video of videoLists" style="cursor: pointer">
+                            <img src="{{video.videoImageName}}" alt="videos"/>
+                            <strong style="font-size: 11px;" (click)="selectVideo(video.videoName, video.filePath)">{{video.videoName}} </strong>
+                        </a>
+                    </div>
+                </td>
+
+                <td style="vertical-align: middle;">
+
+                    <!--<c:choose>
+                    <c:when test="${fn:containsIgnoreCase(filePath, '.ppt')}">-->
+                   
+                    <!--</c:when> 
+                    <c:otherwise>-->
+                    <div >
+                        <!--<a id="player" href="mp4:MSP15-4-MVP" style="width:640px; height: 360px; display: block; margin: auto;"></a>-->
+                        <a id="player" href={{selectedFilePath}} style="width:640px; height: 360px; display: block; margin: auto;">
+                            <object width="100%" height="100%" id="player_api" name="player_api" 
+                                data="https://www.moparser.com/mser/themes/mser/flash/player.Container-3.2.16.swf" 
+                                type="application/x-shockwave-flash"><param name="allowfullscreen" value="true">
+                                <param name="allowscriptaccess" value="always"><param name="quality" value="high">
+                                <param name="bgcolor" value="#000000"><param name="wmode" value="opaque">
+                                <param name="flashvars" value="config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;}]}">
+                            </object>
+                        </a>
+                    </div>
+                    <!--</c:otherwise>
+                </c:choose>-->
+
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selVideo = '${fn:replace(fn:substring(filePath,4, fn:length(filePath)), "."," ")}';
+            $('#' + selVideo).attr('class', 'selectedVideo');
+            $('#' + selVideo).focus();
+            $f("player", "https://www.moparser.com/mser/themes/mser/flash/player.Container-3.2.16.swf", {
+                clip: {
+                    provider: 'rtmp',
+                    baseUrl: '',
+                    onStart: function () {
+                        var videoName = $('#player').attr("href");
+                        var d = new Date();
+                        var starttime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
+                        s = starttime;
+                    }
+                },
+                plugins: {
+                    rtmp: {
+                        url: 'https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf',
+
+                        // Replace STREAMING-DISTRIBUTION-DOMAIN-NAME with the domain name of your
+                        // CloudFront streaming distribution, for example, s5c39gqb8ow64r.cloudfront.net.
+                        netConnectionUrl: 'rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st'
+                    }
+                }
+
+            })//.playlist("#playlist");
+        })
+    </script>
+    <style type="text/css" scoped>
+        #playlist {
+            overflow-y: auto;
+            overflow-x: hidden;
+            border: 1px solid #ccc;
+            background-color: #efefef;
+            /*        padding:0px 15px 0px 5px;*/
+            height: 400px;
+            float: left;
+            width: 100% !important;
+        }
+
+        #playlist a {
+            display: block;
+            width: 85%;
+            height: 54px;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            font: 11px "bitstream vera sans", "lucida grande", verdana;
+            text-decoration: none;
+            margin: 9px 0px 0px 10px;
+            color: #666;
+        }
+
+        #playlist a:hover {
+            background-color: #ffc;
+        }
+
+        #playlist a.progress {
+            background-color: #efefef;
+        }
+
+        #playlist a.playing {
+            border: 1px solid #666;
+            background-color: #ffc;
+        }
+
+        #playlist a.paused {
+            border: 1px solid #666;
+            background-color: #ffc;
+        }
+
+        #playlist a img {
+            border: 0;
+            float: left;
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+        }
+
+        #playlist a strong {
+            color: #000;
+            padding-bottom: 5px;
+        }
+    </style>
+</main>

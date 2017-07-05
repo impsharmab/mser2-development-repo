@@ -29,7 +29,7 @@
 
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            Program Registration Request
+                            Program Registration Request Page
                         </h1>
                     </div>
 
@@ -54,26 +54,32 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
 
 
-                                <form class="pageForm" #dealerform="ngForm" novalidate (ngSubmit)="registerDealership()">
+                                <form class="pageForm">
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSID}} <br> {{errorDealerCode}} <br> {{errorDealerEmail}}</p>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;" *ngIf="invalidCreds">Thank you for your interest in the Mopar Service Excellence Rewards program. However,
-                                        your sID is not authorized to approve enrollment into MSER. <br/> Please contact
+                                        your SID is not authorized to approve enrollment into MSER. <br/> Please contact
                                         your dealer principal or authorized representative.</p>
-                                    <label>SID</label>
-                                    <input type="text" id="dealerSID" name="dealerSID" [(ngModel)]="registerDealer.dealerSID" pattern="[A-Z]{3}[0-9]{4}" />
+                                        <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successDealerRegisterMessage}}</p>
+                                        <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorDealerRegistrationMessage}}</p> 
+                                        <br>                                       
+                                    <label>SID: *</label>
+                                    <input type="text" id="dealerSID" name="dealerSID"   maxlength="7" [(ngModel)]="registerDealer.dealerSID"  />
                                     <br />
-                                    <label>Dealer Code</label>
-                                    <input type="text" id="dealerCode" name="dealerCode" [(ngModel)]="registerDealer.dealerCode" pattern="[A-Z]{3}[0-9]{4}" />
+                                    <label>Dealer Code: *</label>
+                                    <input type="text" id="dealerCode" name="dealerCode"   maxlength="5" [(ngModel)]="registerDealer.dealerCode" />
                                     <br />
-                                    <label>Manager Email</label>
-                                    <input type="email" name="email" id="dealerPrincipalEmail" [(ngModel)]="registerDealer.dealerPrincipalEmail" pattern="[A-Z]{3}[0-9]{4}"
+                                    <label>Manager Email: *</label>
+                                    <input type="text" name="dealerPrincipalEmail" id="dealerPrincipalEmail" [(ngModel)]="registerDealer.dealerPrincipalEmail"
                                     />
                                     <br />
-                                    <button type="button" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>
+                                    <button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>
                                     <!--<button type="submit" class="btn btn-info btn-sm">Request Enrollment</button>-->
-                                    <button type="submit" class="btn btn-info btn-sm">
-                                <a href="mailto:info@moparser.com?subject=Request Enrollment &body= Dealer SID: {{registerDealer.dealerSID}}%0D%0ADealer Code: {{registerDealer.dealerCode}}%0D%0ADealer Principal Email: {{registerDealer.dealerPrincipalEmail}}"
-                                    >Request Enrollment</a></button>
+                                    <button type="submit" style="cursor: pointer" class="btn btn-info btn-sm" (click)= "registerDealership()">
+
+                                <!--<a href="mailto:info@moparser.com?subject=Request Enrollment &body= Dealer SID: {{registerDealer.dealerSID}}%0D%0ADealer Code: {{registerDealer.dealerCode}}%0D%0ADealer Principal Email: {{registerDealer.dealerPrincipalEmail}}"
+                                    >Request Enrollment</a>-->
+                                    
+                                    Request Enrollment</button>
                                 </form>
 
                                 <div id="updateProgramsModal" class="modal fade" role="dialog">
@@ -445,19 +451,6 @@
 <!-- <script src="assets/jquery.js"></script> -->
 
 
-<script src="assets/tether.js"></script>
-<script src="assets/bootstrap.js"></script>
-<script src="assets/pace.js"></script>
-
-<!-- Plugins and scripts required by all views -->
-<script src="assets/Chart.js"></script>
-
-
-<!-- GenesisUI main scripts -->
-
-<script src="assets/app.js"></script>
-
-<script src="assets/toastr.js"></script>
 
 
 

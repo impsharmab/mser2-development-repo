@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/http';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
@@ -7,13 +9,15 @@ import './../rxjs-operators';
 export class LoginService {
   private userdata = {};
   private role: string = "";
-  constructor(private http: Http) { }
+  constructor(private http: Http, private cookieService: CookieService) { }
 
   setUserdata(userdata: any) {
     this.userdata = userdata;
     sessionStorage.setItem("CurrentUser", "");
     sessionStorage.removeItem('CurrentUser');
+    sessionStorage.removeItem('selectedCodeData');
     sessionStorage.setItem("CurrentUser", JSON.stringify(userdata));
+    this.cookieService.put("token", (userdata.token));
   }
   getUserdata() {
     return this.userdata;
@@ -49,11 +53,49 @@ export class LoginService {
     return this.role;
   }
 
+  setUserData(userdata: any) {
+    sessionStorage.setItem("CurrentUser", "");
+    sessionStorage.removeItem('CurrentUser');
+    sessionStorage.removeItem('selectedCodeData');
+    sessionStorage.setItem("CurrentUser", JSON.stringify(userdata));
+    this.cookieService.put("token", (userdata.token));
+  }
+
+  getUsersData() {
+    return this.userdata;
+  }
+
+  getSSOLoginResponse(ssotoken, ssodealercode, ssopositioncode): any {
+    var url = "./login/token/" + ssotoken + "/" + ssodealercode + "/" + ssopositioncode;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append("Cache-Control", "no-cache");
+    // headers.append("Cache-Control", "no-store");
+    return this.http.get(url)
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError); 
+  }
+
+  getRefreshLoginResponse(token) {
+    var url = "https://test.myfcarewards.com/mser2/login/tokenrefresh/";
+    // var url = "./login/tokenrefresh/";
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', token);
+    headers.append("Cache-Control", "no-cache");
+    //  headers.append("Cache-Control", "no-store");
+    return this.http.get(url, { headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError)
+  }
+
   getLoginResponse(username, password): any {
-    // debugger
     var url = "./login/token/";
-    //var url = "https://test.myfcarewards.com/mser2/login/token/"
-    //var url = "../assets/json-responses/login-response.json";
+    var url = "https://test.myfcarewards.com/mser2/login/token/"
+    // var url = "../assets/json-responses/login-response.json";
     var body = { "username": username, "password": password };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -62,7 +104,7 @@ export class LoginService {
     // headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
 
     return this.http.post(url, body, { headers: headers })
-      //return this.http.get(url, { headers })
+      //  return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
