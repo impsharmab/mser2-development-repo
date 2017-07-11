@@ -63,13 +63,13 @@
                                         <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorDealerRegistrationMessage}}</p> 
                                         <br>                                       
                                     <label>SID: *</label>
-                                    <input type="text" id="dealerSID" name="dealerSID"   maxlength="7" [(ngModel)]="registerDealer.dealerSID"  />
+                                    <input type="text" size="25" id="dealerSID" name="dealerSID"   maxlength="7" [(ngModel)]="registerDealer.dealerSID"  />
                                     <br />
                                     <label>Dealer Code: *</label>
-                                    <input type="text" id="dealerCode" name="dealerCode"   maxlength="5" [(ngModel)]="registerDealer.dealerCode" />
+                                    <input type="text" size="25" id="dealerCode" name="dealerCode"   maxlength="5" [(ngModel)]="registerDealer.dealerCode" />
                                     <br />
                                     <label>Manager Email: *</label>
-                                    <input type="text" name="dealerPrincipalEmail" id="dealerPrincipalEmail" [(ngModel)]="registerDealer.dealerPrincipalEmail"
+                                    <input type="text" size="25" name="dealerPrincipalEmail" id="dealerPrincipalEmail" [(ngModel)]="registerDealer.dealerPrincipalEmail"
                                     />
                                     <br />
                                     <button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>

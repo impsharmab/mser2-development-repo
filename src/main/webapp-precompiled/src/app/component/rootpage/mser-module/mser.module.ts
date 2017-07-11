@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
-import { ProfileComponent } from '../../profile/profile.component';
+
 import { BodyComponent } from '../../body/body.component';
 import { HeaderComponent } from '../../header/header.component';
 import { RoutingModule } from './../routing/routing.module';
@@ -26,8 +26,12 @@ import { EnrollmentMaintenanceComponent } from '../../enrollment/enrollment-main
 import { EnrollmentMaintenanceTableComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance-datatable';
 import { PayoutRedistributionComponent } from '../../enrollment/payout-redistribution/payout-redistribution';
 import { MVPComponent } from '../../mvp/mvp.component';
+import { PartsCounterComponent } from '../../parts-counter/parts-counter.component';
+import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
+import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
+import {InactiveOpcodeTableComponent} from '../../enrollment/opcode-setup/inactive-opcode.datatable';
 
-import { OpcodeSetupService } from '../../../services/opcode-setup/opcode-setup.service';
+import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 
 
@@ -44,7 +48,7 @@ import { EnrollmentMaintenanceService } from '../../../services/enrollment-servi
   declarations: [
     SidenavComponent,
     FooterComponent,
-    ProfileComponent,
+    
     BodyComponent,
     HeaderComponent,
     RootPageComponent,
@@ -60,7 +64,11 @@ import { EnrollmentMaintenanceService } from '../../../services/enrollment-servi
     EnrollmentMaintenanceComponent,
     EnrollmentMaintenanceTableComponent,
     PayoutRedistributionComponent,
-    MVPComponent
+    MVPComponent,
+    PartsCounterComponent,
+    AdminPayoutComponent,
+    UconnectComponent,
+    InactiveOpcodeTableComponent
     // MarketingHomeComponent
   ],
   providers: [OpcodeSetupService, EnrollmentMaintenanceService]

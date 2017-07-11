@@ -9,7 +9,25 @@ export class OpcodeSetupService {
   constructor(private http: Http) { }
 
   getOpcodesetupResponse(dealerCode: string): any {
-    var url = "https://test.myfcarewards.com/mser2/enrollments/getopcode/" + dealerCode;
+    var url = "https://test.myfcarewards.com/mser2/enrollments/getopcode/" + dealerCode; 
+    // var url = "./enrollments/getopcode/" + dealerCode;
+
+    // var url = 'http://localhost:4200/src/app/services/enrollment-service/opcode-response.json';
+
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+    return this.http.get(url, { headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+
+  }
+
+  getInactiveOpcodesetupResponse(dealerCode: string): any {
+    var url = "https://test.myfcarewards.com/mser2/enrollments/getopcode/inactive/" + dealerCode; 
     // var url = "./enrollments/getopcode/" + dealerCode;
 
     // var url = 'http://localhost:4200/src/app/services/enrollment-service/opcode-response.json';
@@ -60,8 +78,24 @@ export class OpcodeSetupService {
       .catch(this.handleError);
 
   }
-  deleteOpCode(id: number): any {
+  deactivateOpCode(id: number): any {
     var deleteOpCodeUrl = 'https://test.myfcarewards.com/mser2/enrollments/deleteopcode/' + id;
+    // var deleteOpCodeUrl = './enrollments/deleteopcode';
+
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+    // headers.append('Access-Control-Allow-Headers', 'Content-Type');    
+    return this.http.delete(deleteOpCodeUrl, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+    // .catch(this.handleError);
+
+  }
+  activateOpCode(id: number): any {
+    var deleteOpCodeUrl = 'https://test.myfcarewards.com/mser2/enrollments/activateopcode/' + id;
+
     // var deleteOpCodeUrl = './enrollments/deleteopcode';
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   

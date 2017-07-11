@@ -62,7 +62,7 @@ export class UserProfileService {
 
   }
 
-  getUserProfileData() {  
+  getUserProfileData() {   
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var getUserProfileDataServiceUrl: string = "https://test.myfcarewards.com/mser2/UserProfile/Profile";
   

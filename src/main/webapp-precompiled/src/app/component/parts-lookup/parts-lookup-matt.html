@@ -1,0 +1,141 @@
+<main class="main">
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Eligible Parts Lookup
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <!--<li class="breadcrumb-item">Home</li>-->
+        <!--<li class="breadcrumb-item"><a href="/mserHomepage/home">Home</a></li>
+        <li class="breadcrumb-item active">
+            Eligible Parts Lookup
+           
+        </li>-->
+    </ol>
+
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <!--<h1>Eligible Parts Lookup</h1>-->
+
+                <h3>Part Categories</h3>
+
+                <p>Enter a full or partial part number (at least 3 characters) to see if a part is eligible for rewards.
+                </p>
+
+                <div class="row">
+
+                    <div class="form-group col-md-3">
+                        <label for="partNumber">Part Number:</label>
+                        <input type="text" class="form-control" id="partNumber" name="partNumber">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <input type="button" class="btn btn-primary" value="Verify Part">
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-md-6 ">
+                        <label for="partCategory">Part Category:</label>
+                        <select class="form-control" id="partCategory">
+                    <option >option1</option>
+                    <option >option2</option>
+                  </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="bonusPartCategory">Bonus Part Category:</label>
+                        <select class="form-control" id="bonusPartCategory">
+                    <option >option</option>
+                  </select>
+                    </div>
+
+                </div>
+
+
+
+
+                <!--<article class="card animated fadeInUp">
+
+                    <div class="card-block">
+                        <div class="introHeading">
+                            <h1></h1>
+                        </div>
+                        <div class="report-content container" style="width: 90%;padding-left: 4%">
+                            <h3>
+                                Part Categories
+                            </h3>
+
+                            <hr>
+                            <h6>Enter a full or partial part number (at least 3 characters) to see if a part is eligible for
+                                rewards.
+                            </h6>
+                            <form>
+                                <div class="form-group">
+                                    Part Number: <input type="text" name="partNumber">
+                                    <input type="button" class="btn btn-primary" value="Verify Part">
+                                </div>
+                            </form>
+                            <hr>0
+                            <div class="form-group">
+                                Part Category :
+                                <select class="form-control col-sm-6" [(ngModel)]="code.selectedPositionCode" (change)="selectPositionCode(code.selectedPositionCode)"
+                                    [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let pcode of pcode" [ngValue]="pcode" >{{pcode}}</option>
+
+      </select> Bonus Part Category :
+                                <select class="form-control col-sm-2" [(ngModel)]="code.selectedPositionCode" (change)="selectPositionCode(code.selectedPositionCode)"
+                                    [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let pcode of pcode" [ngValue]="pcode" >{{pcode}} </option>
+
+
+      </select>
+                                <br>
+                                <p class=" col-sm-6"></p>
+                                <p class=" col-sm-2">fdsfgsdg</p>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="heading-line">
+
+                        </div>
+
+
+                    </div>
+                </article>-->
+            </div>
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+
+
+    <style>
+        .form-control {
+            display: initial !important;
+        }
+
+        .my-container {
+            width: 200px;
+        }
+
+        #myselect {
+            width: 100%;
+        }
+    </style>
+</main>

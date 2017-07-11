@@ -32,19 +32,14 @@
             <tr>
                 <td style="width: 260px;">
                     <div id="playlist">
-
-
                         <!--<c:forEach items="${videos}" var="video" varStatus="x">
                             <a href="playVideo.do?filePath=${video.filePath}&&videoTitle=${video.videoTitle}&&page=${program}" id="${fn:replace(fn:substring(video.filePath,4, fn:length(video.filePath)),'.','')}">
                             <img src="${video.videoImageName}" alt="videos"/>
                             <strong style="font-size: 11px;">${video.videoName}</strong>
                         </a>
                         </c:forEach>-->
-
-
-
                         <a *ngFor="let video of videoLists" style="cursor: pointer">
-                            <img src="{{video.videoImageName}}" alt="videos"/>
+                            <img src="/mser2{{video.videoImageName}}" alt="videos"/> 
                             <strong style="font-size: 11px;" (click)="selectVideo(video.videoName, video.filePath)">{{video.videoName}} </strong>
                         </a>
                     </div>
@@ -68,6 +63,8 @@
                                 <param name="allowscriptaccess" value="always"><param name="quality" value="high">
                                 <param name="bgcolor" value="#000000"><param name="wmode" value="opaque">
                                 <param name="flashvars" value="config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;}]}">
+                                
+                                <!--<param name="flashvars" [value]="returnValue()">-->
                             </object>
                         </a>
                     </div>

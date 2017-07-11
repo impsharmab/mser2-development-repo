@@ -18,7 +18,13 @@ export class OpcodeSetupComponent implements OnInit {
   private selectedCodeData: any = {};
   private addOpcodeResponse: any;
   private dealercode: string = "";
+  private activeopcode: any = true;
+  private inactiveopcode: any = false;
+  private activateOpCodeResponse: any = {};
+  private activetable: any = true;
+  private inactivetable = false;
   opcodesetupData: any;
+  inactiveOpcodesetupData: any;
   public addopcInterface: AddOpCodeInterface;
   private id: number = 0;
   private date: string = "";
@@ -26,15 +32,26 @@ export class OpcodeSetupComponent implements OnInit {
   private createdBy: string = "";
   private successOpcodeSetupMessage: string = "";
   private errorOpcodeSetupMessage: string = "";
-  private bannerColumnHeaders: any = [
+  private activeOpcodeHeaders: any = [
     { "data": "opCode", "title": "Op Code" },
     { "data": "createdDate", "title": "Created Date" },
     {
       "className": 'details-control',
       "orderable": false,
       "data": null,
-      "title": "Delete",
-      "defaultContent": '<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-close"></i></button>'
+      "title": "Active",
+      "defaultContent": '<button type="button" class="btn btn-primary btn-sm" >Deactivate</button>'
+    }
+  ]
+  private inactiveOpcodeHeaders: any = [
+    { "data": "opCode", "title": "Inactive Op Code" },
+    { "data": "createdDate", "title": "Updated Date" },
+    {
+      "className": 'details-control',
+      "orderable": false,
+      "data": null,
+      "title": "InActive",
+      "defaultContent": '<button type="button" class="btn btn-primary btn-sm" >Activate</button>'
     }
   ]
 
@@ -57,6 +74,7 @@ export class OpcodeSetupComponent implements OnInit {
       $('#dataTable').DataTable();
     });
     this.opcodesetup();
+    this.getInactiveOpcodesetupData();
 
     this.addopcInterface = {
       "iD": 0,
@@ -175,10 +193,20 @@ export class OpcodeSetupComponent implements OnInit {
     }
   }
 
+
   private opcodesetup() {
     this.opcodesetupService.getOpcodesetupResponse(this.selectedCodeData.selectedDealerCode).subscribe(
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
+        // this.source = this.opcodesetupData[0].source;
+      }
+    )
+  }
+
+  private getInactiveOpcodesetupData() {
+    this.opcodesetupService.getInactiveOpcodesetupResponse(this.selectedCodeData.selectedDealerCode).subscribe(
+      (inactiveOpcodesetupData) => {
+        this.inactiveOpcodesetupData = (inactiveOpcodesetupData)
         // this.source = this.opcodesetupData[0].source;
       }
     )
@@ -198,26 +226,79 @@ export class OpcodeSetupComponent implements OnInit {
       (addOpcodeResponse) => {
         this.addOpcodeResponse = (addOpcodeResponse);
         this.successOpcodeSetupMessage = "Successfully added new OpCode.";
+        this.errorOpcodeSetupMessage = "";
         this.opcodesetup();
       },
       (error) => {
+        this.successOpcodeSetupMessage = "";
         this.errorOpcodeSetupMessage = "Error in adding Op Code.";
       }
       )
   }
 
-  private deleteOpCode(iD) {
-  //  alert(iD);
-    this.opcodesetupService.deleteOpCode(iD).subscribe(
+  private inactivateOpCode(iD) {
+    this.opcodesetupService.deactivateOpCode(iD).subscribe(
       (addOpcodeResponse) => {
         this.addOpcodeResponse = (addOpcodeResponse)
-       // alert("Opcode is successfully deleted...");
+        // alert("Opcode is successfully deleted...");
         this.opcodesetup();
+        this.getInactiveOpcodesetupData();
       },
-      (error) => {       
-       // alert("Opcode was not deleted...");
+      (error) => {
+        // alert("Opcode was not deleted...");
       }
     )
   }
 
+  private activateOpCode(iD) {
+    this.opcodesetupService.activateOpCode(iD).subscribe(
+      (activateOpCodeResponse) => {
+        this.activateOpCodeResponse = (activateOpCodeResponse)
+        // alert("Opcode is successfully deleted...");
+        this.opcodesetup();
+        this.getInactiveOpcodesetupData();
+      },
+      (error) => {
+        // alert("Opcode was not deleted...");
+      }
+    )
+  }
+
+  switchOpcodeTable() {
+    if (this.activeopcode) {
+      this.activeopcode = false;
+      this.inactiveopcode = true;
+    } else if (!this.activeopcode) {
+      this.activeopcode = true;
+      this.inactiveopcode = false;
+    }
+  }
+  switchOpcodeTable1() {
+    this.activeopcode = true;
+    this.inactiveopcode = false;
+    // this.activetable = true;
+    // this.inactivetable = false;
+    // this.inactiveOpcodesetupData = this.opcodesetupData;
+    // this.inactiveOpcodeHeaders = this.activeOpcodeHeaders;
+
+  }
+  switchOpcodeTable2() {
+
+    this.activeopcode = false;
+    this.inactiveopcode = true;
+    // this.activetable = false;
+    // this.inactivetable = true;
+    // this.opcodesetupData = this.inactiveOpcodesetupData;
+    // this.activeOpcodeHeaders = this.inactiveOpcodeHeaders;
+  }
+  switchOpcodeStatus(id) {
+    if (this.activetable) {
+      this.inactivateOpCode(id);
+      this.opcodesetup();
+
+    } else if (this.inactivetable) {
+      this.activateOpCode(id);
+      this.getInactiveOpcodesetupData();
+    }
+  }
 }

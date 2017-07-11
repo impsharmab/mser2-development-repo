@@ -1,0 +1,91 @@
+<main class="main">
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Reward Distribution
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!--<opcodedatatable [tableData]="opcodesetupData" [columnsHeader]="bannerColumnHeaders" (ClickOnCell)="deleteOpCode($event.id)"></opcodedatatable>-->
+    <div class="container">
+        <h4 style="text-align: center;">Please distribute 100% of your accumulated rewards.</h4>
+        <br>
+        <table class="table table-bordered table-striped" style="width: 50%">
+            <thead>
+                <tr>
+                    <th style="width: 60%; background-color: #b3dfff">Dealership Details</th>
+                    <th style="width: 20%; background-color: #b3dfff">Reward Amount</th>
+                        <th style="width: 20%; background-color: #b3dfff">Distributed Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 60%;">BOB BAKER CHRYSLER JEEP - 26550</td>
+                    <td style="width: 20%;">$142.20</td>
+                    <td style="width: 20%;">$0.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <table class="table table-bordered table-striped" style="width: 50%">
+            <thead>
+                <tr>
+                    <th style="width: 90%; background-color: #b3dfff">Participants</th>
+                    <th style="width: 10%; background-color: #b3dfff">Distributed Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 90%"><select class="form-control" id="partCategory">
+                    <option >option1 </option>
+                    <option >option2</option>
+                  </select></td>
+                    <td style="width: 10%"><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><select class="form-control" id="partCategory">
+                    <option >option1</option>
+                    <option >option2</option>
+                  </select></td>
+
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td><select class="form-control" id="partCategory">
+                    <option >option1</option>
+                    <option >option2</option>
+                  </select></td>
+
+                    <td><input type="text"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        .table>tbody>tr>td {
+            vertical-align: middle;
+        }
+
+        .th {
+            color: #b3dfff
+        }
+
+        .table {
+            border-radius: 5px;
+            width: 50%;
+            margin: 0px auto;
+            float: none;
+        }
+    </style>
+
+</main>

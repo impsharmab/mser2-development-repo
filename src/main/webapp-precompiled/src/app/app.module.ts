@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './component/sidenav/sidenav.component';
 //import { FooterComponent } from './component/footer/footer.component';
-import { ProfileComponent } from './component/profile/profile.component';
+
 import { BodyComponent } from './component/body/body.component';
 //import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';

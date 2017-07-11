@@ -92,6 +92,30 @@
   display: none;
 }
 
+/* Payout Chart Admin */
+#program-groups-select{
+  width:30%;
+}
+#program-groups-active{
+  width:10%;
+}
+#program-groups-program{
+  width:20%;
+}
+#program-groups-start-date{
+  width:15%;
+}
+#program-groups-end-date{
+  width:15%;
+}
+#program-groups-modify{
+  width:10%;
+}
+
+.modify-icon {
+  font-size: 20px;
+}
+
 
 @media print {
   body{

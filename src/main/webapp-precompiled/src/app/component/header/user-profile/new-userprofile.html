@@ -46,33 +46,32 @@
 
                                 <form class="pageForm">
                                     <h5>Change Your Information</h5>
-
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorProfileChangeMessage}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{emptyNameMessage}}</p>                                    
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successUpdateUserProfile}}</p>
+                                    <br>
                                     <label>Name:</label>
                                     <!--<input type="text"  id="name" name="name" [(ngModel)]="profileChange.name" value="{{userProfileData.name}}"/>-->
                                     <!--<input type="text" id="name" name="name" value="" [(ngModel)]="profileChange.name" />
                                     -->
-                                    <input type="text" id="name1" name="name1" value="" [(ngModel)]="profileChange.name" />
+                                    <input type="text" size="25" id="name1" name="name1" value="" [(ngModel)]="profileChange.name" />
                                     <br />
                                     <label>Email:</label>
-                                    <input type="text" id="email" name="email" value="" [(ngModel)]="profileChange.email" />
+                                    <input type="text" size="25" id="email" name="email" value="" [(ngModel)]="profileChange.email" />
                                     <br />
                                     <p>
-                                        Please update your email address and choose to "Opt-In" to receive future MSER emails or "Opt-Out" so you will not receive
-                                        any future emails from MSER.
+                                        Please update your email address and choose to "Opt-In" to receive future MSER emails.
 
-                                        <span style="text-decoration:underline;font-weight:bold;">MSER will use this email to contact you on MSER program updates only.</span>                                        This email will not be shared.
-                                    </p>
+                                        <span style="text-decoration:underline;font-weight:bold;">MSER will use this email to contact you on MSER program updates only.</span>This email will not be shared.</p>
 
                                     <label>Opt Type:</label>
                                     <ul class="contact-list">
                                         <li>
-                                            <input type="radio" id="optIn" name="optIn" value="Y" [(ngModel)]="userProfileData.sendMail" />                                            Opt-In
+                                            <input type="checkbox" id="optIn" name="optIn" value="" [(ngModel)]="userProfileData.sendMail" />Opt-In
                                         </li>
-                                        <li>
-                                            <input type="radio" id="optOut" name="optOut"  value="N" [(ngModel)]="userProfileData.sendMail" />                                            Opt-Out
-                                        </li>
+                                        <!--<li>
+                                            <input type="radio" id="optOut" name="optOut" value="N" [(ngModel)]="userProfileData.sendMail" />Opt-Out
+                                        </li>-->
                                     </ul>
                                     <br />
 
@@ -105,11 +104,13 @@
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <form class="pageForm" #textMsgOptionForm="ngForm" novalidate (ngSubmit)="textMessageOption()">
                                     <h5>Sign up to Receive Text Messages</h5>
-                                    <br>
-                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorAgreeTermsAndCondition}} <br> {{errorSID}} <br> {{errorMobileNumber}}</p>
+                                   
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorAgreeTermsAndCondition}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSID}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorMobileNumber}}</p>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successTextMessageOption}} </p>
                                     <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSuccessTextMessageOption}} </p>
-
+                                    <br>
                                     <label>Enter your SID/TID: </label>
                                     <input type="text" id="sidEntry" name="sidEntry" minlength="7" maxlength="7" [(ngModel)]="textMsgOption.sid" />
                                     <br />

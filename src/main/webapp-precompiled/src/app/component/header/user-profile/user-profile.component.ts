@@ -15,6 +15,7 @@ export class UserProfileComponent implements OnInit {
   private errorProfileChangeMessage: string = "";
   private errorsPasswordMessage: any = [];
   public userProfileData: any = { name: "", email: "", sendMail: null };
+  private emptyNameMessage: string = "";
   //public profileChange: UserProfileChangeInformationInterface;
   public profileChange: any = {
     name: "",
@@ -67,6 +68,7 @@ export class UserProfileComponent implements OnInit {
       optIn: false,
       optOut: false,
       sendMail: this.userProfileData.sendMail
+
     }
     /*if (this.userProfileData.sendMail === "Y") {
       this.profileChange.optIn = true;
@@ -79,8 +81,7 @@ export class UserProfileComponent implements OnInit {
       this.profileChange.optOut = true;
       this.profileChange.optIn = false;
     }*/
-    console.log(this.profileChange.optIn);
-    console.log(this.profileChange.optOut);
+
     // this.passwordChange = {
     //   newPassword: "",
     //   confirmPassword: ""
@@ -132,6 +133,15 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getUserProfileData().subscribe(
       (resUserProfileData) => {
         self.userProfileData = (resUserProfileData)
+        if (self.userProfileData != undefined) {
+          if (self.userProfileData.sendMail == null) {
+            self.userProfileData.sendMail = false;
+          } else if (self.userProfileData.sendMail == "N") {
+            self.userProfileData.sendMail = false;
+          }
+        }
+
+        console.log(self.userProfileData);
         self.continueInit();
         // this.userProfileService.setUserProfileData(this.userProfileData)
         //debugger
@@ -143,14 +153,27 @@ export class UserProfileComponent implements OnInit {
   }
   private updateUserProfile() {
     this.profileChange.sendMail = this.userProfileData.sendMail;
-    if (this.profileChange.sendMail===null) {
+
+    if (this.profileChange.sendMail == null) {
       this.profileChange.sendMail = "N"
+    }else if (this.profileChange.sendMail == false) {
+      this.profileChange.sendMail = "N"
+    }else if (this.profileChange.sendMail == true) {
+      this.profileChange.sendMail = "Y"
     }
-    if (this.profileChange.email == "") {
+
+    if (this.profileChange.email == "" && this.profileChange.name == "") {
+      this.emptyNameMessage = "Name is required.";
+      this.errorProfileChangeMessage = "Email is required.";
+      this.successUpdateUserProfile = "";
+      return;
+    } else if (this.profileChange.email == "" && this.profileChange.name != "") {
+      this.emptyNameMessage = "";
       this.errorProfileChangeMessage = "Email is required.";
       this.successUpdateUserProfile = "";
       return;
     }
+
     else if (!this.validateEmail(this.profileChange.email)) {
       this.errorProfileChangeMessage = "Please enter a valid email id.";
       this.successUpdateUserProfile = "";

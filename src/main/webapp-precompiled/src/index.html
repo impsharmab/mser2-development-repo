@@ -9,7 +9,7 @@
     </script>-->
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!--<link rel="icon" type="image/x-icon" href="favicon.ico">-->
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,14 +50,14 @@
     <link href="https://editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet" />
 
     <!-- .... for the video plugins -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
     <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min.js"></script>
-    
+
     <script type="text/javascript" src="assets/js/flowplayer-3.2.12.min.js"></script>
     <script type="text/javascript" src="assets/js/flowplayer.playlist-3.2.10.js"></script>
     <!--<script type="text/javascript" src="assets/js/flowplayer.ipad-3.2.12.js"></script>-->
     <link href="assets/css/marketing-presentation.css" rel="stylesheet" />
-    
+
 
     <script src="./assets/js/dataTables.bootstrap.min.js"></script>
 
@@ -77,6 +77,15 @@
         .z-tabs>.z-container>.z-content.z-content-pad>.z-content-inner {
             padding-top: 10px;
         }
+
+        .refreshGlyphImg {
+            width: 75px;
+            height: 75px;
+            position: fixed;
+            /* or absolute */
+            top: 50%;
+            left: 50%;
+        }
     </style>
     <script>
 
@@ -85,7 +94,11 @@
 </head>
 
 <body>
-    <app-root>Loading...</app-root>
+    <app-root>
+        <div style="display: flex; justify-content: center;">
+            <img class="refreshGlyphImg" src="assets/img/spinner/spinner1.gif" />
+        </div>
+    </app-root>
 </body>
 
 </html>

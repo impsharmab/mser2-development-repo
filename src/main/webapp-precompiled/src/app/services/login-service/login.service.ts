@@ -69,12 +69,12 @@ export class LoginService {
     var url = "./login/token/" + ssotoken + "/" + ssodealercode + "/" + ssopositioncode;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    headers.append("Cache-Control", "no-cache");
+    //headers.append("Cache-Control", "no-cache");
     // headers.append("Cache-Control", "no-store");
     return this.http.get(url)
       .map((response: Response) =>
         response.json())
-      .catch(this.handleError); 
+      .catch(this.handleError);
   }
 
   getRefreshLoginResponse(token) {
@@ -84,7 +84,7 @@ export class LoginService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', token);
-    headers.append("Cache-Control", "no-cache");
+    //headers.append("Cache-Control", "no-cache");
     //  headers.append("Cache-Control", "no-store");
     return this.http.get(url, { headers })
       .map((response: Response) =>

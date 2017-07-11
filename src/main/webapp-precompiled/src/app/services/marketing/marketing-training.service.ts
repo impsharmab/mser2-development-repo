@@ -8,8 +8,9 @@ export class MarketingTrainingService {
 
   constructor(private http: Http) { }
 
-  getMVPVideoLists(): any {
-    var url = "./src/app/services/marketing/mvp-video.json";
+  getMVPVideoLists(program): any {
+    //var url = "./src/app/services/marketing/mvp-video.json";
+    var url = "https://test.myfcarewards.com/mser2/services/files/Video/"+program;
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};
@@ -25,8 +26,8 @@ export class MarketingTrainingService {
       .catch(this.handleError);
   }
 
-  getVideoLists(): any {
-    var url = "https://test.myfcarewards.com/mser2/services/files/Video/";
+  getVideoLists(program:string): any {
+    var url = "https://test.myfcarewards.com/mser2/services/files/Video/"+program;
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};

@@ -17,6 +17,9 @@ import { EnrollmentMaintenanceComponent } from '../../enrollment/enrollment-main
 import { PayoutRedistributionComponent } from '../../enrollment/payout-redistribution/payout-redistribution';
 import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
 import { MVPComponent } from '../../mvp/mvp.component';
+import { PartsCounterComponent } from '../../parts-counter/parts-counter.component';
+import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
+import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 
 const routes: Routes = [
 
@@ -77,15 +80,21 @@ const routes: Routes = [
                 component: MVPComponent
 
             },
+            {
+                path: "partsCounterRewardsDistribution",
+                component: PartsCounterComponent
 
+            },
+            {
+                path: "adminpayout",
+                component: AdminPayoutComponent
 
+            },
+            {
+                path: "uconnectvideos",
+                component: UconnectComponent
 
-
-
-
-
-
-
+            },
 
         ]
     }
