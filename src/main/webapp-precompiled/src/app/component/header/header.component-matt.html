@@ -1,0 +1,76 @@
+<template ngbModalContainer></template>
+
+<template #dealercodeModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title"> </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <!--<dealercode-modal></dealercode-modal>-->
+        <dealercode-modal (onSubmit)="positionCodeSubmit(c)" (onCancel)="c()"></dealercode-modal>
+    </div>
+    <div class="modal-footer">
+    </div>
+</template>
+
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+    <a class="navbar-brand"></a>
+    <ul class="nav navbar-nav hidden-md-down b-r-1">
+        <li class="nav-item">
+            <a class="nav-link navbar-toggler sidebar-toggler" style="cursor: pointer">☰</a>
+        </li>
+
+    </ul>
+    <form class="hide-me form-inline float-left b-r-1 px-2 hidden-md-down">
+        <i class="fa fa-search"></i>
+        <input class="form-control" placeholder="Search..." type="text">
+    </form>
+
+    <nav class="navMenu">
+        <div class="menuItem">
+            <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
+        </div>
+        <div class="menuItem">
+            <span class="menuTarget currentPage" data-target="fcaRewards" (click)='openSSOSite("https://test.myfcarewards.com/login?token=")'>FCA Rewards Dashboard</span>
+        </div>
+    </nav>
+
+    <ul class="nav navbar-nav ml-auto">
+
+
+        <li class="nav-item refresh-button-container">
+          <a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownDealerCode()" style="cursor:pointer">
+            <span>
+              <i class="refresh-button fa fa-retweet"></i>
+            </span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+            <div class="salutation">
+                <div>
+                  <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="welcome-message">Welcome, {{data.name}} <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right user-options">
+                    <a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
+                    <div class="divider"></div>
+                      <a class="dropdown-item" style="cursor: pointer" (click)="logout()"><i class="fa fa-lock" ></i> Logout</a>
+                  </div>
+
+                </div>
+                <div>
+                  {{data.dealerName[0]}} - ({{data.dealerCode[0]}})
+                </div>
+                <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
+            </div>
+        </li>
+
+        <!-- <li class="nav-item hidden-md-down">
+          <a class="nav-link navbar-toggler aside-menu-toggler" href="#">☰</a>
+        </li>-->
+
+    </ul>
+</header>

@@ -20,6 +20,8 @@ import { MVPComponent } from '../../mvp/mvp.component';
 import { PartsCounterComponent } from '../../parts-counter/parts-counter.component';
 import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
+import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
+import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
 
 const routes: Routes = [
 
@@ -59,11 +61,17 @@ const routes: Routes = [
                 component: PartsLookupComponent
 
             },
+            // {
+            //     path: "enrollmentmaintenance",
+            //     component: EnrollmentMaintenanceComponent
+
+            // },
             {
                 path: "enrollmentmaintenance",
-                component: EnrollmentMaintenanceComponent
+                component: EnrollmentComponent
 
             },
+
             {
                 path: "payoutedistribution",
                 component: PayoutRedistributionComponent
@@ -93,6 +101,12 @@ const routes: Routes = [
             {
                 path: "uconnectvideos",
                 component: UconnectComponent
+
+            },
+
+            {
+                path: "dealerteam",
+                component: DealerTeamComponent
 
             },
 

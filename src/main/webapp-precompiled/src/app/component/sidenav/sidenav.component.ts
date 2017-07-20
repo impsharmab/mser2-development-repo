@@ -6,7 +6,7 @@ declare var $: any;
 @Component({
   selector: 'sidenav',
   // templateUrl: './mser2-sidenav.component.html',
-  templateUrl: './mrth-sidenav.html',
+  templateUrl: './mrth-sidenav-matt.html',
   styleUrls: ['./sidenav.component.css'],
 
 })
@@ -73,7 +73,8 @@ export class SidenavComponent implements OnInit {
         //           }
 
         //           resizeBroadcast();
-        $(this).parent().toggleClass('open'); +
+        $(this).parent().toggleClass('open');
+        $(this).parent().siblings('li').removeClass('open').addClass('closed');
           resizeBroadcast();
 
       }

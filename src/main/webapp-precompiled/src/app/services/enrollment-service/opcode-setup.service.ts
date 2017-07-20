@@ -62,7 +62,9 @@ export class OpcodeSetupService {
       "opCode": opcode,
       "source": source,
       "createdDate": createdDate,
-      "createdBy": createdBy
+      "createdBy": createdBy,
+      "updatedBy":source,
+      "updatedDate":createdDate
     };
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
@@ -84,10 +86,10 @@ export class OpcodeSetupService {
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
     var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+   // headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
     // headers.append('Access-Control-Allow-Headers', 'Content-Type');    
-    return this.http.delete(deleteOpCodeUrl, { headers: headers })
+    return this.http.get(deleteOpCodeUrl, { headers })
       .map((response: Response) =>
         response.json())
     // .catch(this.handleError);
@@ -100,10 +102,10 @@ export class OpcodeSetupService {
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
     var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+   // headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
     // headers.append('Access-Control-Allow-Headers', 'Content-Type');    
-    return this.http.delete(deleteOpCodeUrl, { headers: headers })
+    return this.http.get(deleteOpCodeUrl, { headers})
       .map((response: Response) =>
         response.json())
     // .catch(this.handleError);

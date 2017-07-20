@@ -74,12 +74,14 @@ export class LoginComponent implements OnInit {
           this.loginService.setUserData(this.userdata);
           var poscodes: any = this.userdata.positionCode;
           var delcodes: any = this.userdata.dealerCode;
+          var delnames: any = this.userdata.dealerName;
           // var userid: any = this.userdata.userId;
           // ga('set', 'userId', userid);
           sessionStorage.setItem("selectedCodeData", JSON.stringify(
             {
               "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
-              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0
+              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
+              "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
             }))
 
           let url = ["mserHomepage"]
@@ -113,13 +115,15 @@ export class LoginComponent implements OnInit {
                 this.loginService.setUserData(this.refreshTokenData);
                 var poscodes: any = this.refreshTokenData.positionCode;
                 var delcodes: any = this.refreshTokenData.dealerCode;
+                var delnames: any = this.userdata.dealerName;
               }
               // var userid: any = this.refreshTokenData.userId;
               // ga('set', 'userId', userid);
               sessionStorage.setItem("selectedCodeData", JSON.stringify(
                 {
                   "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
-                  "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0
+                  "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
+                  "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
                 }))
               let url = ["mserHomepage"]
               this.router.navigate(url);
@@ -158,10 +162,13 @@ export class LoginComponent implements OnInit {
           this.loginService.setUserRole(this.userdata.roles);
           var poscodes: any = this.userdata.positionCode;
           var delcodes: any = this.userdata.dealerCode;
+          var delnames: any = this.userdata.dealerName;
+          
           sessionStorage.setItem("selectedCodeData", JSON.stringify(
             {
               "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
-              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0
+              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
+              "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
             }))
           let url = ["mserHomepage"]
           this.router.navigate(url);

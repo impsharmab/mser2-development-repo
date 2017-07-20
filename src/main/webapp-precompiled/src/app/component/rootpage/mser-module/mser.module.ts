@@ -4,6 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePickerModule } from 'ng2-datepicker';
+import { DialogModule, InputTextModule, DataTableModule, MultiSelectModule, SharedModule } from 'primeng/primeng';
+// import { MultiSelectModule } from '../../multiselect/multiselect';
+// import { DataTableModule } from '../../ngprime-datatable/datatable';
+// import { DialogModule } from '../../dialog/dialog';
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
@@ -29,26 +35,37 @@ import { MVPComponent } from '../../mvp/mvp.component';
 import { PartsCounterComponent } from '../../parts-counter/parts-counter.component';
 import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
-import {InactiveOpcodeTableComponent} from '../../enrollment/opcode-setup/inactive-opcode.datatable';
+import { InactiveOpcodeTableComponent } from '../../enrollment/opcode-setup/inactive-opcode.datatable';
+import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
+import { DealerTeamTableComponent } from '../../express-lane/dealer-team/dealer-team-datatable.component';
+import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
-
+import { DealerTeamService } from '../../../services/express-lane/dealer-team/dealer-team.service';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,
-    RoutingModule
+    RoutingModule,
+    DataTableModule,
+    DialogModule,
+    DatePickerModule,
+    MultiSelectModule,
+    InputTextModule,
+    SharedModule
   ],
 
   declarations: [
     SidenavComponent,
     FooterComponent,
-    
+    // DataTableModule,
+
     BodyComponent,
     HeaderComponent,
     RootPageComponent,
@@ -68,9 +85,12 @@ import { EnrollmentMaintenanceService } from '../../../services/enrollment-servi
     PartsCounterComponent,
     AdminPayoutComponent,
     UconnectComponent,
-    InactiveOpcodeTableComponent
+    InactiveOpcodeTableComponent,
+    DealerTeamComponent,
+    DealerTeamTableComponent,
+    EnrollmentComponent
     // MarketingHomeComponent
   ],
-  providers: [OpcodeSetupService, EnrollmentMaintenanceService]
+  providers: [OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService]
 })
 export class MserModule { }

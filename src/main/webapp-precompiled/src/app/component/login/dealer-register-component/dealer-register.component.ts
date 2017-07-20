@@ -36,50 +36,58 @@ export class DealerRegisterComponent implements OnInit {
 
   private registerDealership() {
     if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
-      this.errorSID = "SID is required.";
-      this.errorDealerCode = "DealerCode is required.";
-      this.errorDealerEmail = "Email is required";
+      this.errorSID = "SID is Required.";
+      this.errorDealerCode = "Dealer Code is Required.";
+      this.errorDealerEmail = "Email is Required";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() !== null && this.validateEmail(this.registerDealer.dealerPrincipalEmail.trim())) {
-      this.errorSID = "SID is required.";
-      this.errorDealerCode = "DealerCode is required.";
+      this.errorSID = "SID is Required.";
+      this.errorDealerCode = "Dealer Code is Required.";
       this.errorDealerEmail = "";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() === "") {
-      this.errorSID = "SID is required.";
+      this.errorSID = "SID is Required.";
       this.errorDealerCode = "";
-      this.errorDealerEmail = "Email is required.";
+      this.errorDealerEmail = "Email is Required.";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
       this.errorSID = "";
-      this.errorDealerCode = "Dealer Code is required.";
-      this.errorDealerEmail = "Email is required.";
+      this.errorDealerCode = "Dealer Code is Required.";
+      this.errorDealerEmail = "Email is Required.";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
-      this.errorSID = "SID is required.";
+      this.errorSID = "SID is Required.";
       this.errorDealerCode = "";
       this.errorDealerEmail = "";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
-      this.errorSID = "SID is required.";
+      this.errorSID = "SID is Required.";
       this.errorDealerCode = "";
       this.errorDealerEmail = "";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
       this.errorSID = "";
-      this.errorDealerCode = "DealerCode is required.";
+      this.errorDealerCode = "Dealer Code is Required.";
       this.errorDealerEmail = "";
+      this.errorDealerRegistrationMessage = "";
       return;
-    }
-    else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() !== "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
+    } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() !== "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
       this.errorSID = "";
       this.errorDealerCode = "";
-      this.errorDealerEmail = "Email is required.";
+      this.errorDealerEmail = "Email is Required.";
+      this.errorDealerRegistrationMessage = "";
       return;
     } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null && !this.validateEmail(this.registerDealer.dealerPrincipalEmail.trim())) {
       this.errorSID = "";
       this.errorDealerCode = "";
-      this.errorDealerEmail = "Please enter the valid email.";
+      this.errorDealerEmail = "Please enter the valid Email.";
+      this.errorDealerRegistrationMessage = "";
       return;
     }
 
@@ -97,10 +105,11 @@ export class DealerRegisterComponent implements OnInit {
 
         let loginPageUrl = ["/login"];
         this.router.navigate(loginPageUrl);
-        
-        // this.errorSID = "";
-        // this.errorDealerCode = "";
-        // this.errorDealerEmail = "";
+
+        this.errorSID = "";
+        this.errorDealerCode = "";
+        this.errorDealerEmail = "";
+        this.errorDealerRegistrationMessage = "";
         // var body = "mailto:info@moparser.com?subject=Request Enrollment &body= Dealer SID:"
         // var dealerSid = this.registerDealer.dealerSID;
         // var dealerCode = "%0D%0A Dealer Code: " + this.registerDealer.dealerCode;

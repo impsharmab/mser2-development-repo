@@ -25,10 +25,12 @@ export class OpcodeSetupComponent implements OnInit {
   private inactivetable = false;
   opcodesetupData: any;
   inactiveOpcodesetupData: any;
+  private switchstatusmessage: string = "";
+  private tableName: string = "InActive Table";
   public addopcInterface: AddOpCodeInterface;
   private id: number = 0;
   private date: string = "";
-  private source: string = "TDLR";
+  private source: string = "user";
   private createdBy: string = "";
   private successOpcodeSetupMessage: string = "";
   private errorOpcodeSetupMessage: string = "";
@@ -45,7 +47,7 @@ export class OpcodeSetupComponent implements OnInit {
   ]
   private inactiveOpcodeHeaders: any = [
     { "data": "opCode", "title": "Inactive Op Code" },
-    { "data": "createdDate", "title": "Updated Date" },
+    { "data": "updatedDate", "title": "Updated Date" },
     {
       "className": 'details-control',
       "orderable": false,
@@ -61,7 +63,7 @@ export class OpcodeSetupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentuser = JSON.parse(sessionStorage.getItem("CurrentUser"))
+    this.currentuser = JSON.parse(sessionStorage.getItem("CurrentUser"));
     //this.dealercode = this.currentuser.dealerCode[0];
     this.selectedCodeData = JSON.parse(sessionStorage.getItem("selectedCodeData"));
     this.dealercode = this.selectedCodeData.selectedDealerCode;
@@ -74,7 +76,7 @@ export class OpcodeSetupComponent implements OnInit {
       $('#dataTable').DataTable();
     });
     this.opcodesetup();
-    this.getInactiveOpcodesetupData();
+    // this.getInactiveOpcodesetupData();
 
     this.addopcInterface = {
       "iD": 0,
@@ -199,6 +201,9 @@ export class OpcodeSetupComponent implements OnInit {
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
         // this.source = this.opcodesetupData[0].source;
+      },
+      (error) => {
+        alert("error in getting active Op Code data");
       }
     )
   }
@@ -208,6 +213,9 @@ export class OpcodeSetupComponent implements OnInit {
       (inactiveOpcodesetupData) => {
         this.inactiveOpcodesetupData = (inactiveOpcodesetupData)
         // this.source = this.opcodesetupData[0].source;
+      },
+      (error) => {
+        alert("error in getting Inactive Op Code data");
       }
     )
   }
@@ -242,10 +250,11 @@ export class OpcodeSetupComponent implements OnInit {
         this.addOpcodeResponse = (addOpcodeResponse)
         // alert("Opcode is successfully deleted...");
         this.opcodesetup();
-        this.getInactiveOpcodesetupData();
+        // this.getInactiveOpcodesetupData();
+        this.switchstatusmessage = "Successfully Deactivated Op Code.";
       },
       (error) => {
-        // alert("Opcode was not deleted...");
+        alert("Opcode was not Deactivated.");
       }
     )
   }
@@ -255,22 +264,31 @@ export class OpcodeSetupComponent implements OnInit {
       (activateOpCodeResponse) => {
         this.activateOpCodeResponse = (activateOpCodeResponse)
         // alert("Opcode is successfully deleted...");
-        this.opcodesetup();
+        // this.opcodesetup();
         this.getInactiveOpcodesetupData();
+        this.switchstatusmessage = "Successfully Activated Op Code.";
       },
       (error) => {
-        // alert("Opcode was not deleted...");
+        alert("Opcode was not Activated.");
       }
     )
   }
 
   switchOpcodeTable() {
     if (this.activeopcode) {
+      this.tableName = "Active Table";
+      this.switchstatusmessage = "";
       this.activeopcode = false;
       this.inactiveopcode = true;
+
+      this.getInactiveOpcodesetupData();
     } else if (!this.activeopcode) {
+      this.tableName = "InActive Table";
+      this.switchstatusmessage = "";
       this.activeopcode = true;
       this.inactiveopcode = false;
+      this.opcodesetup();
+
     }
   }
   switchOpcodeTable1() {
@@ -291,14 +309,14 @@ export class OpcodeSetupComponent implements OnInit {
     // this.opcodesetupData = this.inactiveOpcodesetupData;
     // this.activeOpcodeHeaders = this.inactiveOpcodeHeaders;
   }
-  switchOpcodeStatus(id) {
-    if (this.activetable) {
-      this.inactivateOpCode(id);
-      this.opcodesetup();
+  // switchOpcodeStatus(id) {
+  //   if (this.activetable) {
+  //     this.inactivateOpCode(id);
+  //     this.opcodesetup();
 
-    } else if (this.inactivetable) {
-      this.activateOpCode(id);
-      this.getInactiveOpcodesetupData();
-    }
-  }
+  //   } else if (this.inactivetable) {
+  //     this.activateOpCode(id);
+  //     this.getInactiveOpcodesetupData();
+  //   }
+  // }
 }

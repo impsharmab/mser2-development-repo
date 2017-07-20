@@ -47,6 +47,7 @@ $(document).ready(function($){
   });
 
   // Dropdown Menu
+/*
   $.navigation.on('click', 'a', function(e){
 
     if ($.ajaxLoad) {
@@ -58,7 +59,9 @@ $(document).ready(function($){
       resizeBroadcast();
     }
 
+
   });
+*/
 
   function resizeBroadcast() {
 
@@ -73,6 +76,7 @@ $(document).ready(function($){
   }
 
   /* ---------- Main Menu Open/Close, Min/Full ---------- */
+/*
   $('.navbar-toggler').click(function(){
 
     if ($(this).hasClass('sidebar-toggler')) {
@@ -91,7 +95,7 @@ $(document).ready(function($){
     }
 
   });
-
+*/
   $('.sidebar-close').click(function(){
     $('body').toggleClass('sidebar-opened').parent().toggleClass('sidebar-opened');
   });

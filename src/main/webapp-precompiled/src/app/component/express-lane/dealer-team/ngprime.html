@@ -1,0 +1,139 @@
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Express Lane Team Set-up
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+
+    <!-- <form>
+        <p-multiSelect [options]="cities"></p-multiSelect>
+    </form> -->
+    <div class="col-sm-12 col-md-6">
+        <div>
+            <P style="color: red; font-weight: bold;">{{successAddingTeamMessage}}</P>
+            <P style="color: red; font-weight: bold;">{{errorAddingTeamMessage}}</P>
+        </div>
+        <div class="box">
+            <!-- <p style="color: red; margin-bottom: auto; margin-left: 205;">{{imageUploadMessage}}</p>
+            <h6>Add Dealer Team Identifiers</h6>
+            <button type="button" class="" style="margin: 10px" (click)="addTeam()">Add Team</button> -->
+            <div class="container">
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        <h6>Add Dealer Team Identifiers</h6>
+                    </div>
+                    <button type="button" class="btn btn-primary" style="margin-left: auto; float:right" (click)="addTeam(addTeamData)"><i class="fa fa-plus" aria-hidden="true"></i>  Add Team</button>
+
+                    <!-- <div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:right" (click)="addTeam(addTeamData)" label="Add"></button></div> -->
+                </form>
+            </div>
+            <hr>
+            <div class="ui-widget-header" style="padding:4px 4px;border-bottom: 0 none; float: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input #gb type="text" pInputText size="25" placeholder="Search">
+            </div>
+
+            <p-dataTable [value]="dealerTeamData" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true"
+                [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]" [globalFilter]="gb">
+                <p-column field="teamName" header="Team Name" [sortable]="true"></p-column>
+                <p-column field="teamID" header="Dealer Team ID" [sortable]="true"></p-column>
+                <p-column field="createdDate" header="Created Date" [sortable]="true"></p-column>
+
+                <!-- <p-column> -->
+
+                <!-- <p-multiSelect [options]="cities"></p-multiSelect> -->
+                <!-- <p-column header="Column Type">
+                        <template pTemplate type="header">
+                            <p-multiSelect [options]="cities" ></p-multiSelect>
+                        </template>
+                    </p-column> -->
+
+                <!-- </p-column> -->
+                <!-- <p-column field="color" header="Color"></p-column>  -->
+            </p-dataTable>
+
+            <p-dialog header="Edit/Delete Team Data" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+                <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="vin">Team Name</label></div>
+                        <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="newDealerTeamData.name" /></div>
+                    </div>
+                </div>
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                        <!-- <button type="button" pButton icon="fa-close" (click)="deleteTeamName(newDealerTeamData.id)" label="Delete"></button>
+                        <button type="button" pButton icon="fa-check" (click)="saveTeamName()" label="Save"></button> -->
+                        <button type="button" class="btn btn-primary" (click)="editTeamName(newDealerTeamData.name, newDealerTeamData.id)"> <i class="icon-edit" aria-hidden="true"></i> Edit</button>
+                        <button type="button" class="btn btn-primary" (click)="deleteTeamName(newDealerTeamData.groupTeamId)"> <i class="icon-remove-sign" aria-hidden="true"></i> Delete</button>
+                    </div>
+                </p-footer>
+            </p-dialog>
+
+            <p-dialog header="Add New Team" [(visible)]="displayAddTeamDialog" [responsive]="true" showEffect="fade" [modal]="true">
+                <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+                    <p style="color: red;">{{emptyNameMessage}}</p>
+                    <p style="color: red;">{{emptyIDMessage}}</p>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="vin">Team Name</label></div>
+                        <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="newDealerTeamData.name" /></div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"><label for="vin">Dealer Team ID</label></div>
+                        <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="newDealerTeamData.id" /></div>
+                    </div>
+                </div>
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                        <button type="button" class="btn btn-primary" (click)="saveNewTeamData(data)"> <i class="icon-edit"></i> Save</button>
+                        <button type="button" class="btn btn-primary" (click)="cancel()"> <i class="icon-remove-sign"></i> Cancel</button>
+                    </div>
+                </p-footer>
+            </p-dialog>
+
+        </div>
+    </div>
+    <ng-template #addteammodal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Team</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        <div class="modal-body">
+            <p style="color: red;">{{emptyNameMessage}}</p>
+            <p style="color: red;">{{emptyIDMessage}}</p>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Team Name</label>
+                <div class="col-6">
+                    <input size="10" class="form-control" type="text" [(ngModel)]="newDealerTeamData.name" id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Dealer Team ID</label>
+                <div class="col-6">
+                    <input size="10" class="form-control" type="text" [(ngModel)]="newDealerTeamData.id" id="example-text-input">
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="saveNewTeamData(c)">Save</button>
+            <button type="button" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
+        </div>
+    </ng-template>
+</main>

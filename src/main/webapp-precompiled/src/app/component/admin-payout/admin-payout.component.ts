@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgModule } from '@angular/cor
 import { RouterModule, Router, ActivatedRoute, } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { DomSanitizer, BrowserModule } from '@angular/platform-browser';
+import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 
 //import { SafeHtml } from './safeHtml.pipe';
 
@@ -16,7 +17,11 @@ import { CMSService } from '../../services/cms-service/cms-service';
 })
 
 export class AdminPayoutComponent implements OnInit {
-    constructor() { }
+    date: DateModel;
+    options: DatePickerOptions;
+    constructor() {
+        this.options = new DatePickerOptions();
+    }
     ngOnInit() {
 
     }

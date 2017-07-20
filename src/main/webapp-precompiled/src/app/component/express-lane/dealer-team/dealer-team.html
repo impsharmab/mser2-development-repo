@@ -1,0 +1,83 @@
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Dealer Team Name
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <!--<li class="breadcrumb-item">Home</li>-->
+        <li class="breadcrumb-item"></li>
+        <li class="breadcrumb-item active">
+            <!--<a href="#"></a>-->
+        </li>
+    </ol>
+
+
+    <div class="col-sm-12 col-md-6">
+        <div class="box">
+            <!-- <p style="color: red; margin-bottom: auto; margin-left: 205;">{{imageUploadMessage}}</p>
+            <h6>Add Dealer Team Identifiers</h6>
+            <button type="button" class="" style="margin: 10px" (click)="addTeam()">Add Team</button> -->
+            <div class="container">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <P style="color: red;">{{successAddingTeamMessage}}</P>
+                        <P style="color: red;" >{{errorAddingTeamMessage}}</P>
+                        <h6>Add Dealer Team Identifiers</h6>
+                    </div>
+                    <button type="button" class="" style="margin: 10px" (click)="addTeam(addTeamData)">Add Team</button>
+
+                </form>
+
+
+            </div>
+            <hr>
+
+            <dealerteamdatatable [tableData]="dealerTeamData" [columnsHeader]="dealerTeamHeaders" (ClickOnCell)="deleteTeamName($event.groupTeamID);"></dealerteamdatatable>
+        </div>
+    </div>
+
+    <ng-template #addteammodal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Team</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        <div class="modal-body">
+            <p style="color: red;" >{{emptyNameMessage}}</p>
+            <p style="color: red;">{{emptyIDMessage}}</p>
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Team Name</label>
+                <div class="col-6">
+                    <input size="10" class="form-control" type="text" [(ngModel)]="newDealerTeamData.name" id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Dealer Team ID</label>
+                <div class="col-6">
+                    <input size="10" class="form-control" type="text" [(ngModel)]="newDealerTeamData.id" id="example-text-input">
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="saveNewTeamData(c)">Save</button>
+            <button type="button" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
+        </div>
+    </ng-template>
+</main>

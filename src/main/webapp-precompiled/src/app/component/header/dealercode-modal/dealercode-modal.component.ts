@@ -16,7 +16,8 @@ export class DealercodeModalComponent implements OnInit {
   private code: Code;
   private pcode: any = [];
   private dcode: any = [];
-  private codeData: any = { "selectedPositionCode": "", "selectedDealerCode": "" };
+  private codeData: any = { "selectedPositionCode": "", "selectedDealerCode": "", "selectedDealerName": "" };
+  private dealerNamesFromSession: any = [];
   //private codeData: any = { };
 
   private poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
@@ -26,9 +27,12 @@ export class DealercodeModalComponent implements OnInit {
 
   ngOnInit() {
     //debugger
+    this.dealerNamesFromSession = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerName;
+    console.log(this.dealerNamesFromSession);
     this.code = {
       selectedPositionCode: '',
-      selectedDealerCode: ''
+      selectedDealerCode: '',
+      selectedDealerName: ''
     }
 
     this.code = this.positionCodeService.getCodeData()
@@ -47,7 +51,36 @@ export class DealercodeModalComponent implements OnInit {
     this.cancelEvent.emit("");
   }
 
+  private arr = [
+    { "a": "s" },
+    { "d": "c" }
+  ]
+
+  private dcindex: any = 0;
+  private dnindex: any = 0;
   private selectDealerCode(delcode?: any) {
+    var indexOfSelectedDealerCode = this.dcode.indexOf(delcode);
+    this.code.selectedDealerName = this.dealerNamesFromSession[indexOfSelectedDealerCode];
+    //alert(indexOfSelectedDealerCode);
+    // for (var dcindex in this.dcode) {
+    //   console.log(dcindex + ":" + this.dcode[dcindex]);
+    //   this.dcindex = dcindex;
+    // }
+
+    // for (var dnindex in this.dealerNamesFromSession) {
+    //   console.log(dnindex + ":" + this.dealerNamesFromSession[dnindex]);
+    //   this.dnindex = dnindex;
+    // }
+
+    //     for (var i = 0; i < this.dcode.length; i++) {
+    // if(this.)
+    //     }
+
+    // while(){
+
+    // }
+
+
     this.positionCodeService.setCodeData(this.code);
 
   }

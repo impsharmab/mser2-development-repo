@@ -1,6 +1,6 @@
-import { Component, OnInit ,ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-enrollment-maintenance',
@@ -9,15 +9,15 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class EnrollmentMaintenanceComponent implements OnInit {
   private employeeMaintenanceData: any;
-   private newParticipantData:any = {"participantID":"","dmsID":"","myPersonnelDMSID":"","name":"","email":"","enrolledRole":"","enrollmentUpdatedDate":""}
-  private participantData:any = {"participantID":"","dmsID":"","myPersonnelDMSID":"","name":"","email":"","enrolledRole":"","enrollmentUpdatedDate":""}
-  @ViewChild('content') content:any;
+  private newParticipantData: any = { "participantID": "", "dmsID": "", "myPersonnelDMSID": "", "name": "", "email": "", "enrolledRole": "", "enrollmentUpdatedDate": "" }
+  private participantData: any = { "participantID": "", "dmsID": "", "myPersonnelDMSID": "", "name": "", "email": "", "enrolledRole": "", "enrollmentUpdatedDate": "" }
+  @ViewChild('content') content: any;
   private employeeMaintenanceHeaders: any = [
     {
       "className": 'details-control',
       "orderable": false,
       "data": "participantID",
-      "title": "Participant ID",
+      "title": "Participant ID", 
       "defaultContent": '<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-close"></i></button>'
     },
     { "data": "dmsID", "title": "DMS ID" },
@@ -28,7 +28,7 @@ export class EnrollmentMaintenanceComponent implements OnInit {
 
 
   ]
-  constructor(private enrollmentMaintenanceService: EnrollmentMaintenanceService,private modalService: NgbModal) { }
+  constructor(private enrollmentMaintenanceService: EnrollmentMaintenanceService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getEnrollmentMaintenanceData();
@@ -37,18 +37,18 @@ export class EnrollmentMaintenanceComponent implements OnInit {
     debugger;
     this.enrollmentMaintenanceService.getEnrollmentMaintenanceData().subscribe(
       (employeeMaintenanceData) => {
-      this.employeeMaintenanceData = employeeMaintenanceData
-      //https://editor.datatables.net/examples/inline-editing/simple
+        this.employeeMaintenanceData = employeeMaintenanceData
+        //https://editor.datatables.net/examples/inline-editing/simple
       }
     )
   }
-  public clickOnOpCode(data:any){
+  public clickOnOpCode(data: any) {
     // alert()
-this.participantData =data;
-     this.modalService.open(this.content).result.then((result) => {
+    this.participantData = data;
+    this.modalService.open(this.content).result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-     // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 } 

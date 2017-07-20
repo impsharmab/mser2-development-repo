@@ -9,7 +9,7 @@ declare var $: any;
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  templateUrl: './header.component-matt.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
@@ -20,11 +20,24 @@ export class HeaderComponent implements OnInit {
   private poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
   private delcodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerCode;
   private userProfileData: any = {};
+  private displayDealerCode: any = false;
+  // private selectedDealerName: string = "";
+  // private selectedDealerCode: string = "";
+  selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+  selectedDealerName = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   constructor(private router: Router, private userProfileService: UserProfileService, private modalService: NgbModal, private cookieService: CookieService) { }
 
   ngOnInit() {
     //debugger
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"))
+    // this.selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    // this.selectedDealerName = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
+
+    var role = JSON.parse(sessionStorage.getItem("UserRole"));
+
+    if (role != undefined && role == "Dealer") {
+      this.displayDealerCode = true;
+    }
     // this.getUserProfileData();
     /*****
     * CONFIGURATION
@@ -135,11 +148,11 @@ export class HeaderComponent implements OnInit {
       $('[rel="popover"],[data-rel="popover"],[data-toggle="popover"]').popover();
 
     }
+    
   }
+    // private getUserProfileData() {
 
-  // private getUserProfileData() {
-
-  //   this.userProfileService.getUserProfileData().subscribe(
+  //   this.userProfileService.getUserProfileData().subscribe( 
   //     (resUserProfileData) => {
   //       this.userProfileData = (resUserProfileData)
   //       this.userProfileService.setUserProfileData(this.userProfileData)
@@ -147,7 +160,7 @@ export class HeaderComponent implements OnInit {
 
   //     }
   //   )
-  // }
+  // } 
 
   private openSSOSite(url: any) {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;

@@ -72,7 +72,6 @@
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <br>
                                 <div class="container">
-
                                     <form class="form-inline">
                                         <div class="form-group">
                                             <p style="color: red;">{{successOpcodeSetupMessage}}</p>
@@ -80,18 +79,24 @@
                                             <label for="email">Add OpCode:</label>
                                             <input type="text" class="form-control" id="opcode" name="opcode" [(ngModel)]="addopcInterface.opCode" placeholder="Enter opcode"
                                                 style="margin: 10px">
+
                                         </div>
                                         <button type="button" class="" style="margin: 10px" (click)="addOpCode()">Add</button>
+
                                     </form>
+                                </div>
+                                <div>
+                                    <button style="float: right" type="button" class="btn btn-primary btn-sm" (click)="switchOpcodeTable()">{{tableName}}</button>
+                                    <br>
                                 </div>
                                 <hr>
 
-                                <button type="button" class="btn btn-primary btn-sm" (click)="switchOpcodeTable()">Switch Table</button>
-                                <!--<button type="button" class="btn btn-primary btn-sm" (click)="switchOpcodeTable2()">switch inactive Table</button>-->
-
+                                <p style="color:red;">{{switchstatusmessage}}</p>
+                                
                                 <opcodedatatable *ngIf="activeopcode" [tableData]="opcodesetupData" [columnsHeader]="activeOpcodeHeaders" (ClickOnCell)="inactivateOpCode($event.id)"></opcodedatatable>
 
-                                <inactiveopcodedatatable *ngIf="inactiveopcode" [tableData]="inactiveOpcodesetupData" [columnsHeader]="inactiveOpcodeHeaders" (ClickOnCell)="activateOpCode($event.id)"></inactiveopcodedatatable>
+                                <inactiveopcodedatatable *ngIf="inactiveopcode" [tableData]="inactiveOpcodesetupData" [columnsHeader]="inactiveOpcodeHeaders"
+                                    (ClickOnCell)="activateOpCode($event.id)"></inactiveopcodedatatable>
 
                                 <!--<opcodedatatable [hidden]="inactiveopcode" [tableData]="inactiveOpcodesetupData" [columnsHeader]="InactiveOpcodeHeaders" (ClickOnCell)="deleteOpCode($event.id)"></opcodedatatable>-->
 

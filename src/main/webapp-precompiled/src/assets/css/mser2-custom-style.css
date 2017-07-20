@@ -11,6 +11,11 @@
 
 /* Graphs for Payout Chart */
 
+.payout-chart-heading{
+  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.66em;
+}
+
 .graph{
   box-sizing: border-box;
   display: flex;
@@ -53,11 +58,19 @@
   color: rgb(255,255,255);
 }
 
+.graph-item.rebate-form, .legend.rebate-form{
+  background-color: rgb(0,0,0);
+  color: rgb(255,255,255);
+}
+
 .graph-item-subject{
+  width: 90%;
 }
 
 .graph-item-figure{
   padding-left: 10px;
+  text-align: right;
+  width:10%;
 }
 
 .graph-item-info {
@@ -85,7 +98,97 @@
 
 .legend.qualifying-part-number{
   color: #025aa5;
+  display: inline;
   font-size: 20px;
+}
+
+.modal .part-numbers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.modal .part-numbers li {
+  float: left;
+  padding: 0 5px;
+}
+
+.modal .btn.btn-secondary{
+  color: rgb(56, 64, 66);
+  background-color: rgb(230, 230, 230);
+  border-color: rgb(173, 173, 173);
+}
+
+.payout-chart-home {
+  color: rgb(255,255,255);
+  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+}
+
+.payout-chart-home .home-logo{
+  position: absolute;
+  top:5%;
+  left:5%;
+  width: 40%;
+}
+
+.payout-chart-home-content{
+  position:absolute;
+  top: 15%;
+  left: 45%;
+  width: 45%;
+  text-shadow: 3px 3px 3px rgba(0,0,0,.2), -3px 3px 3px rgba(0,0,0,.2), 3px -3px 3px rgba(0,0,0,.2);
+}
+
+.payout-chart-home .payout-chart-heading {
+  font-size: 4.66em;
+  margin-bottom: .02em;
+}
+
+.payout-chart-home .payout-chart-subheading{
+  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.33em;
+  margin-bottom: .86em;
+}
+
+.payout-chart-home ul{
+  list-style: none;
+  margin: 2em 0 0;
+  padding:0;
+}
+
+.payout-chart-home li {
+  font-family: "TitlingGothicFB Narrow Medium";
+  font-size: 1.8em;
+  letter-spacing: 1.2px;
+  margin: 0 0 .66em 0;
+  text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}
+
+.top-tech{
+  position: relative;
+}
+.top-tech-logo{
+  position: absolute;
+  top: 159px;
+  left: 75px;
+  z-index: 9999;
+}
+.top-tech-technician {
+  position: relative;
+  top:0;
+  left:0;
+  z-index: 999;
+}
+.top-tech-content{
+    position: absolute;
+    top:0;
+    left:298px;
+
+}
+
+.background-image{
+  width: 100%;
 }
 
 .visible-print{
