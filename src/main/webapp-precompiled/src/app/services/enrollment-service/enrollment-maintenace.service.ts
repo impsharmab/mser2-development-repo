@@ -5,27 +5,26 @@ import './../rxjs-operators';
 
 @Injectable()
 export class EnrollmentMaintenanceService {
+  // private baseUrl = "https://test.myfcarewards.com/mser/";
+  private baseUrl = "./";
 
   constructor(private http: Http) { }
 
   getEnrollmentMaintenanceData(): any {
-    // //var url = "https://test.myfcarewards.com/mser2/enrollments/getopcode/" + dealerCode;
-    //  var url = "./enrollments/getopcode/" + dealerCode;
-
+    // //var url = this.baseUrl+"enrollments/getopcode/" + dealerCode;
     var url = '../assets/json-responses/enrollment-maintenance.json';
-
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
+
     return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
 
   }
- 
+
   private handleError(error: Response | any) {
     let errMsg: string = "";
     if (error instanceof Response) {

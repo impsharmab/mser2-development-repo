@@ -6,7 +6,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from 'ng2-datepicker';
-import { DialogModule, InputTextModule, DataTableModule, MultiSelectModule, SharedModule } from 'primeng/primeng';
+import { DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule, TabViewModule, SharedModule } from 'primeng/primeng';
 // import { MultiSelectModule } from '../../multiselect/multiselect';
 // import { DataTableModule } from '../../ngprime-datatable/datatable';
 // import { DialogModule } from '../../dialog/dialog';
@@ -58,6 +58,8 @@ import { DealerTeamService } from '../../../services/express-lane/dealer-team/de
     DatePickerModule,
     MultiSelectModule,
     InputTextModule,
+    DataListModule,
+    TabViewModule,
     SharedModule
   ],
 

@@ -16,8 +16,8 @@
           <a class="nav-link nav-dropdown-toggle" style="cursor: pointer">Enrollment </a>
           <ul class="nav-dropdown-items">
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mserRules', 'pdf':'false'}]">MSER Rules</a></li>
-            <li class="nav-item"><a class="nav-link" href="./shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a></li>
-            <li class="nav-item"><a class="nav-link" href="./shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a></li>
+            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a></li>
             <li class="nav-item"><a class="nav-link">Enrollment Report</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="opcodesetup">OP Code Setup</a></li>
@@ -37,7 +37,7 @@
               <ul class="">
                 <li class="nav-item"><a class="nav-link grandchild-link" routerLink="marketingtrainingpresentation">Videos & Presentations</a></li>
                 <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Full_Deck_v2.pdf" target="_blank">Service Lane Sales Training</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li>
+                <!-- <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li> -->
               </ul>
             </li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'Full_Deck_v2.pdf', 'pdf':'true'}]" target="_blank">Service Lane Sales Training</a></li>
@@ -89,8 +89,8 @@
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'partsCounterRules', 'pdf':'false'}]">Rules</a></li>
             <!--<li class="nav-item"><a class="nav-link" routerLink="partsCounterRewardsDistribution">Rewards Distribution</a></li>-->
             <!--<li class="nav-item"><a class="nav-link">Rewards Re-Distribution</a></li>-->
-            <li class="nav-item"><a class="nav-link" href="./shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li>
-            <li class="nav-item"><a class="nav-link">Rejected Invoice Details</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li>
+            <!-- <li class="nav-item"><a class="nav-link">Rejected Invoice Details</a></li> -->
 
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="mvp">Videos</a></li>-->
@@ -112,12 +112,23 @@
           <a class="nav-link nav-dropdown-toggle" style="cursor: pointer">UConnect</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectHomePage', 'pdf':'false'}]">Home</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">Rules > SM Incentive Program Rules</a></li>
+
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#">Rules</a>
+              <ul class="">
+                <li class="nav-item"><a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">SM Incentive Program Rules</a></li>
+                <li class="nav-item"><a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectServiceRules', 'pdf':'false'}]">Service Program Rule</a></li>
+                <li class="nav-item"><a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Sales Program Rule</a></li>
+                <!-- <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li> -->
+              </ul>
+            </li>
+
+            <!-- <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">Rules > SM Incentive Program Rules</a></li>
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectServiceRules', 'pdf':'false'}]">Rules > Service Program Rule</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Rules > Sales Program Rule</a></li>
+            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Rules > Sales Program Rule</a></li> -->
             <li class="nav-item"><a class="nav-link">Reports</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="uconnectvideos">Videos & Presentations</a></li>
-            <li class="nav-item"><a class="nav-link" href="./shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process</a></li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Sirius XM Activation > Rule</a></li>
             <li class="nav-item"><a class="nav-link" >Sirius XM Activation > Report</a></li>-->
           </ul>
@@ -145,8 +156,8 @@
         <li class="nav-item nav-dropdown">
           <a class="nav-link nav-dropdown-toggle" style="cursor: pointer">Excellence Card</a>
           <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link" href="./shared/imi-cms/MSER/webDocs/ExcellenceCardIssuanceSchedule.pdf" target="_blank">2016 Excellence Card Issuance Schedule</a></li>
-            <li class="nav-item"><a class="nav-link" href="./shared/imi-cms/MSER/webDocs/VISA%20CAROUSEL%20LINK.pdf" target="_blank">Excellence Card Information</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/ExcellenceCardIssuanceSchedule.pdf" target="_blank">2016 Excellence Card Issuance Schedule</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/VISA%20CAROUSEL%20LINK.pdf" target="_blank">Excellence Card Information</a></li>
           </ul>
         </li>
 

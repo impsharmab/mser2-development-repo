@@ -1,5 +1,5 @@
 <main class="main">
-    
+
     <!-- Page Title -->
     <div class="page-title">
         <div class="pageTitle">
@@ -41,9 +41,20 @@
                         <div class="content-row row">
                             <div class="container ">
                                 <!-- <h:form id="actorsTableForm"> -->
-                                <p-dataTable [value]="enrollmentData" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true"
+                                <p-dataTable [value]="enrollmentDataResponse" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true"
                                     [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]" [globalFilter]="gb" resizableColumns="true"
-                                    [responsive]="true" [tableStyle]="{'width':'auto'}">
+                                    [responsive]="true" [tableStyle]="{'width':'auto'}" rowIndexVar="index">
+                                    <p-column styleClass="col-button">
+                                        <ng-template pTemplate="header">
+                                            Activity
+                                        </ng-template>
+                                        <ng-template let-car="rowData" pTemplate="body">
+                                            <button *ngIf="showEditButton" type="button" (click)="showEditEnrollmentDialogue($event)"><i class="icon-edit" aria-hidden="true">EDIT</i></button>
+                                            <button *ngIf="showCancelButton" type="button"><i class="icon-edit" aria-hidden="true">CANCEL</i></button>
+                                            <button *ngIf="showSaveButton" type="button"><i class="icon-edit" aria-hidden="true">SAVE</i></button>
+
+                                        </ng-template>
+                                    </p-column>
                                     <p-column field="sid" header="Participant"></p-column>
                                     <p-column field="name" header="Participant Name"></p-column>
                                     <!-- <p-column styleClass="col-button">
@@ -106,18 +117,11 @@
                                     </p-column> -->
 
                                     <p-column field="pcManager" header="Parts Counter Manager"></p-column>
-                                    <p-column field="elManager" header="Express Lane Manager"></p-column>
+                                    <p-column field="delManager" header="Express Lane Manager"></p-column>
                                     <p-column field="urManager" header="Used Recon Manager"></p-column>
                                     <p-column field="urParticipant" header="Used Recon Participant"></p-column>
 
-                                    <p-column styleClass="col-button">
-                                        <ng-template pTemplate="header">
-                                            Activity
-                                        </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            <button type="button" (click)="showEditEnrollmentDialogue()"><i class="icon-edit" aria-hidden="true">EDIT</i></button>
-                                        </ng-template>
-                                    </p-column>
+
 
                                 </p-dataTable>
                                 <!-- </h:form> -->
@@ -138,74 +142,167 @@
         <!-- .end FIRST row -->
     </div>
 
-    <p-dialog header="Edit Enrollment Data" [(visible)]="displayEnrollmentDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{'width':'3000px'}" >
+    <p-dialog header="Edit Enrollment Data" [responsive]="true" showEffect="fade" [modal]="true" [style]="{'width':'3000px'}">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-scrollable">
+                    <!-- <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Content</th>
+
+                    </tr>
+                </thead> -->
+                    <tbody>
+                        <tr>
+                            <td>Participant</td>
+                            <td>S86013B</td>
+                        </tr>
+                        <tr>
+                            <td>Participant Name Participant name</td>
+                            <td>Participant Name Participant Name</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>DMS ID</td>
+                            <td>1325</td>
+                        </tr>
+                        <tr>
+                            <td>Last</td>
+                            <td>1325</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
             <div class="ui-grid-row">
-                <div  class="ui-grid-row-6"><label for="vin">Participant</label></div>
-                <div  class="ui-grid-col-6"><input align="right" pInputText id="teamName" /></div>
+                <div  class="ui-grid-col-4"><label for="vin">Participant</label></div>
+                <div  class="ui-grid-col-8"><input align="right" pInputText id="sid" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Participant Name</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Participant Name</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="name" /></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="vin">DMS ID</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="dmsid" /></div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="vin">My Personnel DMS ID</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">DMS ID</label></div>
+                <div class="ui-grid-col-4"><label for="vin">My Personnel Positions</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">My Personnel DMS ID</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Mopar Parts</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">My Personnel Positions</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Magnetti Marelli</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Mopar Parts</label></div>
+                <div class="ui-grid-col-4"><label for="vin">MVP</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Magnetti Marelli</label></div>
+                <div class="ui-grid-col-4"><label for="vin">wiAdvisor MVP</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">MVP</label></div>
+                <div class="ui-grid-col-4"><label for="vin">wiAdvisor Tires Data</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">wiAdvisor MVP</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Parts Counter Manager</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">wiAdvisor Tires Data</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Express Lane Manager</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Parts Counter Manager</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Used Recon Manager</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
             <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Express Lane Manager</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Used Recon Manager</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-row-4"><label for="vin">Used Recon Participant</label></div>
+                <div class="ui-grid-col-4"><label for="vin">Used Recon Participant</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
             </div>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <!-- <button type="button" pButton icon="fa-close" (click)="deleteTeamName(newDealerTeamData.id)" label="Delete"></button>
-                        <button type="button" pButton icon="fa-check" (click)="saveTeamName()" label="Save"></button> -->
                 <button type="button" class="btn btn-primary" (click)="editTeamName(newDealerTeamData.name, newDealerTeamData.id)"> <i class="icon-edit" aria-hidden="true"></i> Update </button>
-                <!-- <button type="button" class="btn btn-primary" (click)="deleteTeamName(newDealerTeamData.groupTeamId)"> <i class="icon-remove-sign" aria-hidden="true"></i> Delete</button> -->
+                
             </div>
-        </p-footer>
+        </p-footer> -->
     </p-dialog>
+
+
     <style type="text/css">
         .minWidth {
             min-width: 300px;

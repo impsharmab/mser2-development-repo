@@ -2,15 +2,39 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
+import { EnrollmentInterface } from './enrollment.interface';
 @Component({
     selector: 'app-enrollment',
     templateUrl: './new-enrollment.html'
     //   styleUrls: ['./enrollment-maintenance.component.css']
 })
 export class EnrollmentComponent implements OnInit {
+
     private displayEnrollmentDialog: boolean;
+    private showEditButton: boolean = true;;
+    private showCancelButton: boolean = false;
+    private showSaveButton: boolean = false;
+    private selectedRowSid: string = "";
     private moparPartsData: any = [{ "pc1": "Service Advisor (13)" }, { "pc2": "Service Advisor (13)" }];
-    private enrollmentData: any = [
+    private enrollmentData: EnrollmentInterface = {
+        "sid": "",
+        "name": "",
+        "dmsId": "",
+        "myPersonnelDmsId": "",
+        "myPersonnelPositions": [],
+        "moparPartsData": [],
+        "magnetiMarelliData": [],
+        "mvpData": [],
+        "wiAdvisorMVPData": [],
+        "wiAdvisorTiresData": [],
+        "posCodeOverrides": [],
+        "pcManager": "",
+        "elManager": "",
+        "urManager": "",
+        "urParticipant": ""
+    };
+
+    private enrollmentDataResponse: any = [
         {
             "sid": "S1234", "name": "James Watt", "dmsId": "2547", "myPersonnelDmsId": "145", "myPersonnelPositions": ["45", "2", "2"],
             "moparPartsData": ["13", "23"], "magnetiMarelliData": ["23, 13"], "mvpData": ["23, 13"], "wiAdvisorMVPData": ["23, 13"], "wiAdvisorTiresData": ["11", "65"],
@@ -46,11 +70,19 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    private showEditEnrollmentDialogue() {
-        this.displayEnrollmentDialog = true;
+    private showEditEnrollmentDialogue(event) {
+        console.log(event);
+        console.log();
+
+        this.showEditButton = false;
+        this.showSaveButton = true;
+        this.showCancelButton = true;
+        //        this.displayEnrollmentDialog = true;
     }
 
-    private onRowSelect() {
+    private onRowSelect(event) {
+        this.selectedRowSid = event.data.sid;
+        console.log(event);
 
     }
 

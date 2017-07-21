@@ -5,6 +5,8 @@ import './../rxjs-operators';
 
 @Injectable()
 export class UserProfileService {
+  // private baseUrl = "https://test.myfcarewards.com/mser/";
+  private baseUrl = "./";
   private userProfileData: any = {};
   constructor(private http: Http) { }
 
@@ -14,17 +16,14 @@ export class UserProfileService {
     sessionStorage.removeItem('UserProfileData');
     sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
   }
-  updateUserProfile(name: string, email: string, sendMail?: string): any {    
-    var url = "https://test.myfcarewards.com/mser2/UserProfile/Profile";
-    //var url="./UserProfile/Profile"
+  updateUserProfile(name: string, email: string, sendMail?: string): any {
+    var url = this.baseUrl + "UserProfile/Profile";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "name": name, "email": email, "sendMail": sendMail };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-    // headers.append("Cache-Control", "no-cache");
-    // headers.append("Cache-Control", "no-store");
-
+   
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())
@@ -32,23 +31,21 @@ export class UserProfileService {
   }
 
   changeUserPassword(newPassword: string): any {
-     var url = "https://test.myfcarewards.com/mser2/UserProfile/Password";
-   // var url = "./UserProfile/Password";
-    
+    var url = this.baseUrl + "UserProfile/Password";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item": newPassword };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
+
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
   }
 
-  textMessageOption(mobileNumber: string, aggree:string): any {    
-    //var url = "https://test.myfcarewards.com/mser2/UserProfile/TextAlerts";
-    var url = "./UserProfile/TextAlerts";
+  textMessageOption(mobileNumber: string, aggree: string): any {
+    var url = this.baseUrl + "UserProfile/TextAlerts";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item1": mobileNumber, "item2": aggree };
     var headers = new Headers();
@@ -62,14 +59,12 @@ export class UserProfileService {
 
   }
 
-  getUserProfileData() {   
+  getUserProfileData() {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var getUserProfileDataServiceUrl: string = "https://test.myfcarewards.com/mser2/UserProfile/Profile";
-  
+    var getUserProfileDataServiceUrl: string = this.baseUrl + "UserProfile/Profile";
     var headers = new Headers();
     headers.append('Authorization', validToken);
-    // headers.append("Cache-Control", "no-cache");
-    // headers.append("Cache-Control", "no-store");
+   
     return this.http.get(getUserProfileDataServiceUrl, { headers })
       .map((response: Response) => response.json())
       .catch(this.handleError);

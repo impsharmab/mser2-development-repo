@@ -5,20 +5,18 @@ import './../rxjs-operators';
 
 @Injectable()
 export class OpcodeSetupService {
+  // private baseUrl = "https://test.myfcarewards.com/mser/";
+  private baseUrl = "./";
 
   constructor(private http: Http) { }
 
   getOpcodesetupResponse(dealerCode: string): any {
-    var url = "https://test.myfcarewards.com/mser2/enrollments/getopcode/" + dealerCode; 
-    // var url = "./enrollments/getopcode/" + dealerCode;
-
-    // var url = 'http://localhost:4200/src/app/services/enrollment-service/opcode-response.json';
-
+    var url = this.baseUrl + "enrollments/getopcode/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
+   
     return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
@@ -27,13 +25,8 @@ export class OpcodeSetupService {
   }
 
   getInactiveOpcodesetupResponse(dealerCode: string): any {
-    var url = "https://test.myfcarewards.com/mser2/enrollments/getopcode/inactive/" + dealerCode; 
-    // var url = "./enrollments/getopcode/" + dealerCode;
-
-    // var url = 'http://localhost:4200/src/app/services/enrollment-service/opcode-response.json';
-
+    var url = this.baseUrl + "enrollments/getopcode/inactive/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
@@ -44,36 +37,17 @@ export class OpcodeSetupService {
 
   }
 
-  addOpCode(id: number,
-    dealercode: string,
-    opcode: string,
-    source: string,
-    createdDate: string,
-    createdBy: string): any {
-    debugger;
-
-    var url = 'https://test.myfcarewards.com/mser2/enrollments/addopcode';
-    // var url = './enrollments/addopcode';
-    // var url='./opcode-response.json';      
-
+  addOpCode(id: number, dealercode: string, opcode: string, source: string, createdDate: string, createdBy: string): any {
+    var url = this.baseUrl + 'enrollments/addopcode';
     var body = {
-      "iD": id,
-      "dealerCode": dealercode,
-      "opCode": opcode,
-      "source": source,
-      "createdDate": createdDate,
-      "createdBy": createdBy,
-      "updatedBy":source,
-      "updatedDate":createdDate
+      "iD": id, "dealerCode": dealercode, "opCode": opcode, "source": source, "createdDate": createdDate,
+      "createdBy": createdBy, "updatedBy": source, "updatedDate": createdDate
     };
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-    // headers.append('Access-Control-Allow-Headers', 'Content-Type');
-    // headers.append('Access-Control-Allow-Methods', 'POST');
-    // headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
-    // return this.http.get(url)
+    
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())
@@ -81,14 +55,12 @@ export class OpcodeSetupService {
 
   }
   deactivateOpCode(id: number): any {
-    var deleteOpCodeUrl = 'https://test.myfcarewards.com/mser2/enrollments/deleteopcode/' + id;
-    // var deleteOpCodeUrl = './enrollments/deleteopcode';
-
-    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
+    var deleteOpCodeUrl = this.baseUrl + 'enrollments/deleteopcode/' + id;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
-   // headers.append('Content-Type', 'application/json');
+    // headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-    // headers.append('Access-Control-Allow-Headers', 'Content-Type');    
+   
     return this.http.get(deleteOpCodeUrl, { headers })
       .map((response: Response) =>
         response.json())
@@ -96,16 +68,13 @@ export class OpcodeSetupService {
 
   }
   activateOpCode(id: number): any {
-    var deleteOpCodeUrl = 'https://test.myfcarewards.com/mser2/enrollments/activateopcode/' + id;
-
-    // var deleteOpCodeUrl = './enrollments/deleteopcode';
-
-    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
+    var deleteOpCodeUrl = this.baseUrl + 'enrollments/activateopcode/' + id;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
-   // headers.append('Content-Type', 'application/json');
+    // headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-    // headers.append('Access-Control-Allow-Headers', 'Content-Type');    
-    return this.http.get(deleteOpCodeUrl, { headers})
+   
+    return this.http.get(deleteOpCodeUrl, { headers })
       .map((response: Response) =>
         response.json())
     // .catch(this.handleError);

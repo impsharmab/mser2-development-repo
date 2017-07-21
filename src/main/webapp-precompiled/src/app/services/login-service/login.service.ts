@@ -7,6 +7,8 @@ import './../rxjs-operators';
 
 @Injectable()
 export class LoginService {
+   private baseUrl = "https://test.myfcarewards.com/mser/";
+  //private baseUrl = "./";
   private userdata = {};
   private role: string = "";
   constructor(private http: Http, private cookieService: CookieService) { }
@@ -69,8 +71,8 @@ export class LoginService {
     var url = "./login/token/" + ssotoken + "/" + ssodealercode + "/" + ssopositioncode;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    //headers.append("Cache-Control", "no-cache");
-    // headers.append("Cache-Control", "no-store");
+    headers.append("Cache-Control", "no-cache");
+    headers.append("Cache-Control", "no-store");
     return this.http.get(url)
       .map((response: Response) =>
         response.json())
@@ -78,14 +80,10 @@ export class LoginService {
   }
 
   getRefreshLoginResponse(token) {
-    var url = "https://test.myfcarewards.com/mser2/login/tokenrefresh/";
-    // var url = "./login/tokenrefresh/";
-
+    var url = this.baseUrl + "login/tokenrefresh/";
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', token);
-    //headers.append("Cache-Control", "no-cache");
-    //  headers.append("Cache-Control", "no-store");
     return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
@@ -93,27 +91,19 @@ export class LoginService {
   }
 
   getLoginResponse(username, password): any {
-    var url = "./login/token/";
-    var url = "https://test.myfcarewards.com/mser2/login/token/"
-    // var url = "../assets/json-responses/login-response.json";
+    var url = this.baseUrl + "login/token/";
     var body = { "username": username, "password": password };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    // headers.append('Access-Control-Allow-Headers', 'Content-Type');
-    // headers.append('Access-Control-Allow-Methods', 'POST');
-    // headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
-
+    
     return this.http.post(url, body, { headers: headers })
-      //  return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleError);
   }
 
   resetPassword(userId: string, emailId: string) {
-    // var url = "https://test.myfcarewards.com/imimserservices/UserProfile/ResetPassword";
-    var url = "./UserProfile/ResetPassword";
-
+    var url = this.baseUrl + "UserProfile/ResetPassword";
     var body = { "userId": userId, "email": emailId };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

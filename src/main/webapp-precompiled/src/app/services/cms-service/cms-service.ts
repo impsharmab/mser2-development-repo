@@ -5,13 +5,14 @@ import './../rxjs-operators';
 
 @Injectable()
 export class CMSService {
+     private baseUrl = "https://test.myfcarewards.com/mser/";
+   // private baseUrl = "./";
 
     constructor(private http: Http) {
-
     }
+
     getCmsContent(page: string): any {
-        var getCmsContentUrl = "./content/" + page;
-        var getCmsContentUrl = "https://test.myfcarewards.com/mser2/content/" + page;
+        var getCmsContentUrl = this.baseUrl + "content/" + page;
 
         return this.http.get(getCmsContentUrl)
             .map((response: Response) => response.text())
@@ -20,8 +21,7 @@ export class CMSService {
     }
 
     getCmsPDF(page: string): any {
-        var getCmsContentUrl = "./shared/imi-cms/MSER/webDocs/" + page;
-        var getCmsContentUrl = "https://test.myfcarewards.com/mser2/shared/imi-cms/MSER/webDocs/" + page;
+        var getCmsContentUrl = this.baseUrl + "shared/imi-cms/MSER/webDocs/" + page;
 
         return this.http.get(getCmsContentUrl)
             .map((response: Response) => response.text())

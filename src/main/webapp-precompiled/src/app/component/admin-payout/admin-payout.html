@@ -3,119 +3,1479 @@
         <div class="pageTitle">
             <div class="container">
                 <div class="row">
-
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            Payout Chart Admin
+                            Payout Chart Database Engine Admin
                         </h1>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <div class="container m-t-md">
-
         <div class="row m-t-md">
             <div class="col-xs-12 col-md-12">
-                <h3>Select Payout Month</h3>
-                <div class="row">
-                    <div class="form-group col-xs-12 col-md-4">
-                        <label for="payout-month">Select Month</label>
-                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                        <select id="payout-month" class="form-control" name="payoutMonth">
-              <option>JUL-17</option>
-            </select>
-                    </div>
 
-                </div>
 
-                <h3>Select Program</h3>
-                <table id="program-groups" class="table table-bordered table-striped" role="grid">
-                    <thead>
-                        <tr>
-                            <th id="program-groups-select" scope="col" role="columnheader">Select Program Group</th>
-                            <th id="program-groups-active" scope="col" role="columnheader">Active?</th>
-                            <th id="program-groups-group" scope="col" role="columnheader">Program Group</th>
-                            <th id="program-groups-start-date" scope="col" role="columnheader">Effective Start Date</th>
-                            <th id="program-groups-end-date" scope="col" role="columnheader">Effective End Date</th>
-                            <th id="program-groups-modify" scope="col" role="columnheader">Modify</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td headers="program-groups-select" role="gridcell">
-                                <div class="form-group">
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> Express Lane</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> Magneti Marelli</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> Mopar Accessories</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> Mopar Parts & Engines</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> Parts Counter</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> wiAdvisor</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> FIAT</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> Tires</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> UConnect</label>
-                                    <label class="checkbox-inline"><input type="checkbox" value="" /> wiAdvisor Tire</label>
+                <p-tabView [activeIndex]="index">
+                    <p-tabPanel header="Step 1" [disabled]="true">
+                        
+                        <div class="admin-utility-bar">
+                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
+                        </div>
+
+                        <div class="group-payout-month">
+                            <h3>Select Payout Month</h3>
+                            <div class="row">
+                                <div class="form-group col-xs-12 col-md-4">
+                                    <label for="payout-month">Select Month</label>
+                                    <select id="payout-month" class="form-control" name="payoutMonth">
+                                <option>JUL-17</option>
+                            </select>
                                 </div>
-                            </td>
-                            <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
-                            <td headers="program-groups-group" role="gridcell">Magnetti Marelli</td>
-                            <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
-                            <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
-                            <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-pencil"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td headers="program-groups-select" role="gridcell"></td>
-                            <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
-                            <td headers="program-groups-group" role="gridcell">Express Lane</td>
-                            <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
-                            <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
-                            <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-pencil"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td headers="program-groups-select" role="gridcell"></td>
-                            <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
-                            <td headers="program-groups-group" role="gridcell"></td>
-                            <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
-                            <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
-                            <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-pencil"></i></a></td>
-                        </tr>
+                            </div>
 
-                    </tbody>
-                </table>
-                <div>
-                    <input id="" class="btn btn-primary pull-right" type="submit" value="Next" />
-                </div>
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="month-copy">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description"> Would you like to copy the Payout Chart information from a previous month?</span>
+                            </label>
 
-                <h3>Select Category</h3>
-                <table id="" class="table table-bordered table-striped" role="grid">
-                    <thead>
-                        <tr>
-                            <th id="" scope="col" role="columnheader">Select Category</th>
-                            <th id="" scope="col" role="columnheader">Program Group</th>
-                            <th id="" scope="col" role="columnheader">Category</th>
-                            <th id="" scope="col" role="columnheader">Category Description</th>
-                            <th id="" scope="col" role="columnheader">Start Date</th>
-                            <th id="" scope="col" role="columnheader">End Date</th>
-                            <th id="" scope="col" role="columnheader">Additional Info</th>
-                            <th id="" scope="col" role="columnheader">Image?</th>
-                            <th id="" scope="col" role="columnheader">Modify</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                            <td headers="" role="gridcell"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <div class="row" id="copy-month-selector" style="display:none;">
+                                <div class="form-group col-xs-12 col-md-4">
+                                    <label for="payout-month">Select Month to Copy</label>
+                                    <select id="payout-month" class="form-control" name="payoutMonth">
+                                        <option>JUL-17</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Step 2" [disabled]="true">
+                        <div class="admin-utility-bar">
+                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
+                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
+                        </div>
+
+                        <!-- Select Program Group-->
+                        <h3>Select Program Group</h3>
+
+                        <table id="program-groups" class="table table-bordered table-striped" role="grid">
+                            <thead>
+                                <tr>
+                                    <th id="program-groups-active" scope="col" role="columnheader">Select</th>
+                                    <th id="program-groups-group" scope="col" role="columnheader">Program Group</th>
+                                    <th id="program-groups-start-date" scope="col" role="columnheader">Effective Start Date</th>
+                                    <th id="program-groups-end-date" scope="col" role="columnheader">Effective End Date</th>
+                                    <th id="program-groups-modify" scope="col" role="columnheader">Delete Row</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-select" role="gridcell">Express Lane</td>
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
+                                    <td headers="program-groups-select" role="gridcell">Mopar Accessories</td>
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-select" role="gridcell">Mopar Parts & Engines</td>
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-select" role="gridcell">Parts Counter</td>
+
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-select" role="gridcell">wiAdvisor</td>
+
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
+                                    <td headers="program-groups-select" role="gridcell">FIAT</td>
+
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
+                                    <td headers="program-groups-select" role="gridcell">Tires</td>
+
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
+                                    <td headers="program-groups-select" role="gridcell">UConnect</td>
+
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
+                                    <td headers="program-groups-select" role="gridcell">wiAdvisor Tire</td>
+
+                                    <td headers="program-groups-start-date" role="gridcell">1/1/2017</td>
+                                    <td headers="program-groups-end-date" role="gridcell">12/31/2017</td>
+                                    <td headers="program-groups-modify" role="gridcell"><a class="modify-icon" href="#"><i class="fa fa-remove"></i></a></td>
+                                </tr>
+
+
+
+
+
+                            </tbody>
+                        </table>
+
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Step 3" [disabled]="true">
+                        
+                        <div class="admin-utility-bar">
+                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
+                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
+                        </div>
+
+                        <!-- Select Category-->
+                        <h3>Select Category</h3>
+
+                        <ng-template #addCategory let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add a Category</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form>
+                                    <label>
+                                Program Group
+                            </label>
+                                    <select id="payout-month" class="form-control" name="rewardPosition">
+                                        <option>Express Lane</option>
+                                        <option>Magneti Marelli</option>
+                                        <option>Mopar Accessories</option>
+                                        <option>Mopar Parts &amp; Engines</option>
+                                        <option>Mopar Vehicle Protection</option>
+                                        <option>Parts Counter</option>
+                                        <option>wiAdvisor</option>
+                                        <option>FIAT</option>
+                                        <option>UConnect</option>
+                                        <option>Tires</option>
+                                        <option>wiAdvisor Tire</option>
+                                    </select>
+
+                                    <label>
+                                    Category
+                                </label>
+                                    <input class="input-category-name" type="text" class="form-control" name="msg" placeholder="Category" value="">
+
+                                    <label>
+                                    Category Description
+                                </label>
+                                    <input class="input-category-desc" type="text" class="form-control" name="msg" placeholder="Category Description" value="">
+
+                                    <div>
+                                        <label>
+                                    Start Date
+                                </label>
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </div>
+                                    <div>
+                                        <label>
+                                    End Date
+                                </label>
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="c('Add click')">Add</button>
+                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                            </div>
+                        </ng-template>
+
+                        <div>
+                            <input id="" class="btn btn-primary" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)" />
+
+                        </div>
+                        <table id="" class="table table-bordered table-striped" role="grid">
+                            <thead>
+                                <tr>
+                                    <th id="" scope="col" role="columnheader">Select Category</th>
+                                    <th id="" scope="col" role="columnheader"></th>
+                                    <th id="" scope="col" role="columnheader">Program Group</th>
+                                    <th id="" scope="col" role="columnheader">Category</th>
+                                    <th id="" scope="col" role="columnheader">Category Description</th>
+                                    <th id="" scope="col" role="columnheader">Start Date</th>
+                                    <th id="" scope="col" role="columnheader">End Date</th>
+                                    <th id="" scope="col" role="columnheader">Additional Information on Final Payout Chart</th>
+                                    <th id="" scope="col" role="columnheader">Any Image to Display</th>
+                                    <th id="" scope="col" role="columnheader">Modify</th>
+                                    <th id="" scope="col" role="columnheader">Amend Plan Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr class="row-program-group">
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell" class="program-group-collapse group-mopar"><i class="fa fa-minus"></i></td>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell" colspan="8"></td>
+
+                                </tr>
+
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Transmissions and T-Cases">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">BRKE</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="MSER OE Brake Pad Kits">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">FLCLR</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Fuel System Cleaner (#05019625AB)">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">MENG</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Mopar Engines">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">MOPAC</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Mopar AC Compressors">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">N45</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="MSER RECALL - N45">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">N46</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="MSER RECALL - N46">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">POTHOLE</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Pot Hole Promo">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">RAMSHOCK</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="RAM Shock And Struts ($5 for set of 2)">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-category group-mopar">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">RR</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Rain Repellent (#68194881AA)">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                                <tr class="row-program-group">
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell" class="program-group-collapse group-magneti"><i class="fa fa-minus"></i></td>
+                                    <td headers="" role="gridcell">Magneti Marelli</td>
+                                    <td headers="" role="gridcell" colspan="8"></td>
+
+                                </tr>
+                                <tr class="row-category group-magneti">
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+
+                                    <td headers="" role="gridcell">MM_BK</td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Magneti Marelli Brake Pad Kit">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" class="btn btn-primary" type="submit" value="Browse" />
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a href="#">Amend Plan Code</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Step 4" [disabled]="true">
+                        <div class="admin-utility-bar">
+                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
+                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
+                        </div>
+
+                        <!-- Add Rewards by Position/ Value -->
+                        <h3>Add Rewards by Position/ Value</h3>
+                        <div>
+                            <input id="" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
+                        </div>
+                        <ng-template #addReward let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add a Reward</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <label>
+                                Program Group
+                            </label>
+                                    <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Express Lane</option>
+                                    <option>Magneti Marelli</option>
+                                    <option>Mopar Accessories</option>
+                                    <option>Mopar Parts &amp; Engines</option>
+                                    <option>Mopar Vehicle Protection</option>
+                                    <option>Parts Counter</option>
+                                    <option>wiAdvisor</option>
+                                    <option>FIAT</option>
+                                    <option>UConnect</option>
+                                    <option>Tires</option>
+                                    <option>wiAdvisor Tire</option>
+                                </select>
+
+                                    <label>
+                                    Category
+                                </label>
+                                    <select id="add-reward-category" class="form-control" name="">
+                                    <option>MSER OE Brake Pad Kits (BRKE)</option>
+                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                                    <option>Mopar Engines (MENG)</option>
+                                    <option>Mopar AC Compressors (MOPAC)</option>
+                                    <option>MSER RECALL - N45 (N45)</option>
+                                    <option>MSER RECALL - N46 (N46)</option>
+                                    <option>Pot Hole Promo (POTHOLE)</option>
+                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                                    <option>Rain Repellent (#68194881AA) (RR)</option>
+                                    <option>Transmissions and T-Cases (T_CASES)</option>
+                                </select>
+
+                                    <label>
+                                    Position
+                                </label>
+                                    <select id="add-reward-category" class="form-control" name="">
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+
+                                    <label>
+                                    Reward Amount
+                                </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
+
+                                    <label>
+                                    Reward Type
+                                </label>
+                                    <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+
+                                    <label>
+                                    Labor Type
+                                </label>
+                                    <select id="payout-month" class="form-control" name="laborType">
+                                                                      
+                                    <option>Customer (C)</option>
+                                    <option>Internal (I)</option>  
+                                    <option>Warranty (W)</option>  
+                                </select>
+
+                                    <label>
+                                    Quantity
+                                </label>
+                                    <select id="quantity" class="form-control" name="quantity">           
+                                    <option>Set</option>
+                                    <option>Individual</option>   
+                                </select>
+
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="c('Add click')">Add</button>
+                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                            </div>
+                        </ng-template>
+
+                        <table id="" class="table table-bordered table-striped" role="grid">
+                            <thead>
+                                <tr>
+                                    <th id="" scope="col" role="columnheader"></th>
+                                    <th id="" scope="col" role="columnheader">Program Group</th>
+                                    <th id="" scope="col" role="columnheader">Category</th>
+                                    <th id="" scope="col" role="columnheader">Position</th>
+                                    <th id="" scope="col" role="columnheader">Reward Amount</th>
+                                    <th id="" scope="col" role="columnheader">Reward Type</th>
+                                    <th id="" scope="col" role="columnheader">Labor Type</th>
+                                    <th id="" scope="col" role="columnheader">Quantity</th>
+                                    <th id="" scope="col" role="columnheader">Modify</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell" colspan="7"></td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Advisor (13)</option>
+                                    <option>Service Technician (23)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>Customer (C)</option>
+                                    <option>I</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Individual</option>
+                                    <option>Set</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>Customer (C)</option>
+                                    <option>I</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Individual</option>
+                                    <option>Set</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Advisor (13)</option>
+                                    <option>Service Technician (23)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>I</option>                                    
+                                    <option>Customer (C)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Individual</option>
+                                    <option>Set</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>I</option>                                    
+                                    <option>Customer (C)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Individual</option>
+                                    <option>Set</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                    
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$10.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Percent</option>
+                                    <option>Dollar</option>
+                                    
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>Customer (C)</option>
+                                    <option>I</option>                                    
+                                    
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Individual</option>
+                                    <option>Set</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Manager (09)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$10.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Percent</option>
+                                    <option>Dollar</option>
+                                    
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>Customer (C)</option>
+                                    <option>I</option>                                    
+                                    
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Individual</option>
+                                    <option>Set</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
+                                    <td headers="" role="gridcell">Magneti Marelli</td>
+                                    <td headers="" role="gridcell" colspan="7"></td>
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
+                                    <td headers="" role="gridcell">MM_BK</td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Advisor (13)</option>
+                                    <option>Service Technician (23)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$2.00">
+                                        </form>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>Customer (C)</option>
+                                    <option>I</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Set</option>
+                                    <option>Individual</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$2.00">
+                                        </form>
+
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>Customer (C)</option>
+                                    <option>I</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Set</option>
+                                    <option>Individual</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Advisor (13)</option>
+                                    <option>Service Technician (23)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$1.00">
+                                        </form>
+
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>I</option>
+                                    <option>Customer (C)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Set</option>
+                                    <option>Individual</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell"></td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Service Technician (23)</option>
+                                    <option>Service Advisor (13)</option>
+                                    <option>Parts Manager (08)</option>
+                                    <option>Service Manager (09)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <form>
+                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$1.00">
+                                        </form>
+
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardType">
+                                    <option>Dollar</option>
+                                    <option>Percent</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="laborType">
+                                    <option>I</option>
+                                    <option>Customer (C)</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <select id="payout-month" class="form-control" name="rewardQuantity">
+                                    <option>Set</option>
+                                    <option>Individual</option>
+                                </select>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <a class="modify-icon" href="#">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Step 5" [disabled]="true">
+                        
+                        <div class="admin-utility-bar">
+                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
+                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
+                        </div>
+
+                        <!-- Part Number by Category -->
+                        <h3>Part Number by Category</h3>
+
+                        <form id="part-number-category-form-quick-add">
+                            <label>Program Group</label>
+                            <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Express Lane</option>
+                                    <option>Magneti Marelli</option>
+                                    <option>Mopar Accessories</option>
+                                    <option>Mopar Parts &amp; Engines</option>
+                                    <option>Mopar Vehicle Protection</option>
+                                    <option>Parts Counter</option>
+                                    <option>wiAdvisor</option>
+                                    <option>FIAT</option>
+                                    <option>UConnect</option>
+                                    <option>Tires</option>
+                                    <option>wiAdvisor Tire</option>
+                                </select>
+                            <label>Category</label>
+                            <select id="add-reward-category" class="form-control" name="">
+                                    <option>MSER OE Brake Pad Kits (BRKE)</option>
+                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                                    <option>Mopar Engines (MENG)</option>
+                                    <option>Mopar AC Compressors (MOPAC)</option>
+                                    <option>MSER RECALL - N45 (N45)</option>
+                                    <option>MSER RECALL - N46 (N46)</option>
+                                    <option>Pot Hole Promo (POTHOLE)</option>
+                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                                    <option>Rain Repellent (#68194881AA) (RR)</option>
+                                    <option>Transmissions and T-Cases (T_CASES)</option>
+                                </select>
+
+                            <label>Month</label>
+                            <!-- <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker> -->
+                        </form>
+
+                        <div>
+                            <input id="" class="btn btn-primary" type="submit" value="Add a Part Number" (click)="openPartNumberModal(addPartNumber)"
+                            />
+                        </div>
+
+                        <form>
+                            <label for="exampleInputFile">Upload</label>
+                            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <small id="fileHelp" class="form-text">Please upload the part list with these columns (File Format: Excel): Program Group, Category, Part Number, Part Description, Manufacturer, Start Date, End Date.</small>
+
+                        </form>
+
+                        <ng-template #addPartNumber let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add a Part Number</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                    <span aria-hidden="true">Close</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <label>
+                                Program Group
+                            </label>
+                                    <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Express Lane</option>
+                                    <option>Magneti Marelli</option>
+                                    <option>Mopar Accessories</option>
+                                    <option>Mopar Parts &amp; Engines</option>
+                                    <option>Mopar Vehicle Protection</option>
+                                    <option>Parts Counter</option>
+                                    <option>wiAdvisor</option>
+                                    <option>FIAT</option>
+                                    <option>UConnect</option>
+                                    <option>Tires</option>
+                                    <option>wiAdvisor Tire</option>
+                                </select>
+
+                                    <label>
+                                    Category
+                                </label>
+                                    <select id="add-reward-category" class="form-control" name="">
+                                    <option>MSER OE Brake Pad Kits (BRKE)</option>
+                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                                    <option>Mopar Engines (MENG)</option>
+                                    <option>Mopar AC Compressors (MOPAC)</option>
+                                    <option>MSER RECALL - N45 (N45)</option>
+                                    <option>MSER RECALL - N46 (N46)</option>
+                                    <option>Pot Hole Promo (POTHOLE)</option>
+                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                                    <option>Rain Repellent (#68194881AA) (RR)</option>
+                                    <option>Transmissions and T-Cases (T_CASES)</option>
+                                </select>
+
+
+                                    <label>
+                                    Part Number
+                            </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Part Number" value="">
+
+                                    <label>
+                                    Part Description
+                                </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
+
+                                    <label>
+                                    Manufacturer
+                                </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
+
+                                    <label>
+                                    Start Date
+                                </label>
+                                    <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+
+                                    <label>
+                                    End Date
+                                </label>
+                                    <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="c('Add click')">Add</button>
+                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                            </div>
+                        </ng-template>
+
+                        <table id="" class="table table-bordered table-striped" role="grid">
+                            <thead>
+                                <tr>
+                                    <th id="" scope="col" role="columnheader">Program Group</th>
+                                    <th id="" scope="col" role="columnheader">Category</th>
+                                    <th id="" scope="col" role="columnheader">Part Number</th>
+                                    <th id="" scope="col" role="columnheader">Part Description</th>
+                                    <th id="" scope="col" role="columnheader">Manufacturer</th>
+                                    <th id="" scope="col" role="columnheader">Start Date</th>
+                                    <th id="" scope="col" role="columnheader">End Date</th>
+                                    <th id="" scope="col" role="columnheader">Modify</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                                <tr>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">00APD220RM</td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Part Description" value="FRONT DISC BRAKE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Manufacturer" value="OE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <i class="fa fa-pencil"></i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">00APD221RM</td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Part Description" value="FRONT DISC BRAKE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Manufacturer" value="OE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <i class="fa fa-pencil"></i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">00APD269RM</td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Part Description" value="FRONT DISC BRAKE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Manufacturer" value="OE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <i class="fa fa-pencil"></i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">00APD367RM</td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Part Description" value="FRONT DISC BRAKE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Manufacturer" value="OE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <i class="fa fa-pencil"></i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
+                                    <td headers="" role="gridcell">T_CASES</td>
+                                    <td headers="" role="gridcell">00APD369RM</td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Part Description" value="FRONT DISC BRAKE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <input id="" type="text" class="form-control" name="" placeholder="Manufacturer" value="OE">
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                                    </td>
+                                    <td headers="" role="gridcell">
+                                        <i class="fa fa-pencil"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Step 6" [disabled]="true">
+                        <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
+
+                        <p>Save Screen and recap of work (placeholder)
+                            <p>
+                    </p-tabPanel>
+                </p-tabView>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                 <!-- Zozo Tabs Start-->

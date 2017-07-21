@@ -1,0 +1,95 @@
+/*Admin Payout Chart Styles*/
+
+.group-payout-month {
+    /* border:solid 1px black;
+    padding: 25px; */
+}
+
+.admin-utility-bar {
+    width:100%;
+    padding:5px 10px;
+    background:transparent;
+    border-bottom:solid 2px #666;
+    margin-bottom:10px;
+}
+
+
+table#program-groups.table tbody tr td:last-child {
+    text-align:center;
+    vertical-align:middle;
+}
+
+.category-by-program-parent-group {
+
+}
+
+#part-number-category-form-quick-add {
+
+    width:500px;
+
+}
+
+.ui-tabview-nav {
+    list-style-type:none;
+    list-style-image:none;
+    display:inline-block;
+    margin-top:20px;
+    margin-bottom:-2px;
+    padding-left:0;
+
+}
+.ui-tabview-nav li {
+    z-index:1;
+    display:inline-block;
+    padding:20px 25px;
+    font-size:18px;
+    font-weight:normal;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    border-top:solid 1px #DADADA;
+    border-right:solid 1px #DADADA;
+    border-left:solid 1px #DADADA;
+    background-color:rgb(0, 104, 179);
+    color:#FFF;
+}
+
+.ui-tabview-nav li a {
+    color:#FFF;
+    cursor:default;
+}
+.ui-tabview-title {display:inline-block;}
+
+.ui-tabview-selected {
+
+}
+
+.ui-tabview-nav li.ui-state-active {
+    background:rgb(242, 244, 248);
+    
+}
+.ui-tabview-nav li.ui-state-active a {
+    
+    color:#333;
+}
+
+
+.ui-state-active a {
+    color:#FFF;
+    font-weight:bold;
+}
+
+.ui-tabview-panel {
+    padding:20px;
+    border:solid 1px #DADADA;
+    z-index:999;
+}
+
+.show-this{
+    display:block !important;
+}
+
+input.datepicker-input {
+    width:80% !important;
+    padding: 0.5rem 0.75rem;
+}
