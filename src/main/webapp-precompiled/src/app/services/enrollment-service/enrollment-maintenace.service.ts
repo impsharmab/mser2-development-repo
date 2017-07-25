@@ -10,6 +10,19 @@ export class EnrollmentMaintenanceService {
 
   constructor(private http: Http) { }
 
+  getEnrollmentData(dealerCode) {
+    var url = 'https://test.myfcarewards.com/mser/enrollments/getDealerEnrollements/' + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.get(url, { headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
+
   getEnrollmentMaintenanceData(): any {
     // //var url = this.baseUrl+"enrollments/getopcode/" + dealerCode;
     var url = '../assets/json-responses/enrollment-maintenance.json';

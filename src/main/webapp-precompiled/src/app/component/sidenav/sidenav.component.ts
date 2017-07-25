@@ -6,7 +6,7 @@ declare var $: any;
 @Component({
   selector: 'sidenav',
   // templateUrl: './mser2-sidenav.component.html',
-  templateUrl: './mrth-sidenav-matt.html',
+  templateUrl: './sidenav.html',
   styleUrls: ['./sidenav.component.css'],
 
 })

@@ -62,7 +62,7 @@
 
                 </div>
                 <div>
-                  {{data.dealerName[0]}} - ({{data.dealerCode[0]}})
+                  <p *ngIf="displayDealerCode">{{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</p>
                 </div>
                 <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
             </div>

@@ -6,7 +6,7 @@
 
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            MVP Videos
+                           Videos & Presentaions
                         </h1>
                     </div>
 
@@ -39,7 +39,7 @@
                         </a>
                         </c:forEach>-->
                         <a *ngFor="let video of videoLists" style="cursor: pointer">
-                            <img src="/mser2{{video.videoImageName}}" alt="videos"/> 
+                            <img src="/mser{{video.videoImageName}}" alt="videos"/> 
                             <strong style="font-size: 11px;" (click)="selectVideo(video.videoName, video.filePath)">{{video.videoName}} </strong>
                         </a>
                     </div>

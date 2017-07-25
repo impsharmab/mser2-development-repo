@@ -60,7 +60,7 @@ export class DealercodeModalComponent implements OnInit {
   private dnindex: any = 0;
   private selectDealerCode(delcode?: any) {
     var indexOfSelectedDealerCode = this.dcode.indexOf(delcode);
-    this.code.selectedDealerName = this.dealerNamesFromSession[indexOfSelectedDealerCode];
+    this.code.selectedDealerName = this.dealerNamesFromSession[indexOfSelectedDealerCode]; 
     //alert(indexOfSelectedDealerCode);
     // for (var dcindex in this.dcode) {
     //   console.log(dcindex + ":" + this.dcode[dcindex]);

@@ -5,8 +5,8 @@ import './../rxjs-operators';
 
 @Injectable()
 export class OpcodeSetupService {
-  // private baseUrl = "https://test.myfcarewards.com/mser/";
-  private baseUrl = "./";
+  private baseUrl = "https://test.myfcarewards.com/mser/";
+  //private baseUrl = "./";
 
   constructor(private http: Http) { }
 
@@ -16,7 +16,7 @@ export class OpcodeSetupService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-   
+
     return this.http.get(url, { headers })
       .map((response: Response) =>
         response.json())
@@ -47,7 +47,7 @@ export class OpcodeSetupService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-    
+
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())
@@ -60,7 +60,7 @@ export class OpcodeSetupService {
     var headers = new Headers();
     // headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-   
+
     return this.http.get(deleteOpCodeUrl, { headers })
       .map((response: Response) =>
         response.json())
@@ -73,7 +73,7 @@ export class OpcodeSetupService {
     var headers = new Headers();
     // headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
-   
+
     return this.http.get(deleteOpCodeUrl, { headers })
       .map((response: Response) =>
         response.json())

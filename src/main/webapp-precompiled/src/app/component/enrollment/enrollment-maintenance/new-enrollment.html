@@ -1,5 +1,4 @@
 <main class="main">
-
     <!-- Page Title -->
     <div class="page-title">
         <div class="pageTitle">
@@ -8,7 +7,7 @@
 
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            Employee Maintenance for ....
+                            Employee Maintenance for- <span> {{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</span>
                         </h1>
                     </div>
 
@@ -24,103 +23,128 @@
     <a name="dashboard"></a>
     <div class="container m-t-md body-container">
         <!-- First row -->
-
         <div class="row m-t-md">
             <div class="col-sm-12 col-md-12 col-lg-12">
-
                 <article class="card animated fadeInUp">
-
                     <div class="card-block">
-                        <!--<div class="introHeading">
-                  <h1>Admin Dashboard</h1>
-                </div>-->
                         <div class="heading-line">
                             <h2> </h2>
                         </div>
-
                         <div class="content-row row">
                             <div class="container ">
-                                <!-- <h:form id="actorsTableForm"> -->
-                                <p-dataTable [value]="enrollmentDataResponse" selectionMode="single" (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true"
-                                    [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]" [globalFilter]="gb" resizableColumns="true"
-                                    [responsive]="true" [tableStyle]="{'width':'auto'}" rowIndexVar="index">
+                                <p-dataTable [value]="enrollmentDataResponse" [editable]="enableEditable" (onRowSelect)="onRowSelect($event)" [rows]="10"
+                                    [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]" [globalFilter]="gb"
+                                    resizableColumns="true" [responsive]="true" [tableStyle]="{'width':'auto'}">
                                     <p-column styleClass="col-button">
                                         <ng-template pTemplate="header">
                                             Activity
                                         </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            <button *ngIf="showEditButton" type="button" (click)="showEditEnrollmentDialogue($event)"><i class="icon-edit" aria-hidden="true">EDIT</i></button>
-                                            <button *ngIf="showCancelButton" type="button"><i class="icon-edit" aria-hidden="true">CANCEL</i></button>
-                                            <button *ngIf="showSaveButton" type="button"><i class="icon-edit" aria-hidden="true">SAVE</i></button>
+                                        <ng-template pTemplate="body" let-data="rowData">
+                                            <span #editButton> <button  type="button" (click)="edit(data.sid,editButton, cancelButton, saveButton )">
+                                                <i class="icon-edit" aria-hidden="true"></i>EDIT</button></span>
 
+                                            <span #cancelButton style="display: none"> <button  type="button" (click)="cancel(data.sid, editButton, cancelButton, saveButton)">
+                                                <i class="icon-edit" aria-hidden="true" >CANCEL</i></button></span>
+
+                                            <span #saveButton style="display: none"> <button  type="button" (click)="save(data.sid, editButton, cancelButton, saveButton)">
+                                                <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span>
                                         </ng-template>
                                     </p-column>
                                     <p-column field="sid" header="Participant"></p-column>
                                     <p-column field="name" header="Participant Name"></p-column>
-                                    <!-- <p-column styleClass="col-button">
-                                        <ng-template pTemplate="header">
-                                            DMS ID
-                                        </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            <input type="text"  size="5" />
-                                        </ng-template>
-                                    </p-column> -->
-                                    <p-column field="dmsId" header="DMS ID"></p-column>
-                                    <p-column field="myPersonnelDmsId" header="Mypersonnel DMS ID"></p-column>
-                                    <p-column field="myPersonnelPositions" header="Mypersonnel Positions"></p-column>
-                                    <p-column field="moparPartsData" header="Mopar Parts"></p-column>
-                                    <p-column field="magnetiMarelliData" header="Magnetti Marelli"></p-column>
-                                    <p-column field="mvpData" header="MVP"></p-column>
-                                    <p-column field="wiAdvisorMVPData" header="wiAdvisor MVP"></p-column>
-                                    <p-column field="wiAdvisorTiresData" header="wiAdvisor Tires Data"></p-column>
-                                    <!-- <p-column field="posCodeOverrides" header="PositionCode Overrides"></p-column>
-                                    <p-column field="posCodeOverrides" header="PositionCode Overrides"></p-column> -->
-                                    <!-- <p-column>
-                                        <ng-template pTemplate="header">
-                                            Mopar Parts
-                                        </ng-template>
-                                        <ng-template let-data="moparPartsData" pTemplate="body">
-                                            {{moparPartsData[data]}}
+                                    <p-column *ngIf="!enableEditable" field="dmsid" header="DMS ID" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">DMS ID</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <input type="text" pInputText placeholder="DMS ID">
                                         </ng-template>
                                     </p-column>
-                                    <p-column>
-                                        <ng-template pTemplate="header">
-                                            Magneti Marelli
-                                        </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            {{moparPartsData}}
-                                        </ng-template>
-                                    </p-column>
-                                    <p-column>
-                                        <ng-template pTemplate="header">
-                                            MVP
-                                        </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            {{moparPartsData}}
+                                    <p-column field="myPersonalDMSID" header="Mypersonnel DMS ID"></p-column>
+                                    <p-column field="positionCodes" header="Mypersonnel Positions"></p-column>
+                                    <p-column *ngIf="!enableEditable" field="overriddenpositionCodes" header="Position Codes Overrides" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Position Codes Overrides</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <p-column>
-                                        <ng-template pTemplate="header">
-                                            wiAdvisor MVP
-                                        </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            {{moparPartsData}}
+                                    <p-column *ngIf="!enableEditable" field="mser" header="Mopar Parts" [editable]="enableEditable" [style]="{'overflow':'visible'}"></p-column>
+                                    <p-column *ngIf="enableEditable"  [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Mopar Parts</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]= "data.mser" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="ng-template" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <p-column>
-                                        <ng-template pTemplate="header">
-                                            wiAdvisor Tires
+                                    <p-column *ngIf="!enableEditable" field="mas" header="Mopar Accessories" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Mopar Accessories</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
-                                        <ng-template let-car="rowData" pTemplate="body">
-                                            {{moparPartsData}}
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="mm" header="Magnetti Marelli" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Magnetti Marelli</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
-                                    </p-column> -->
-
-                                    <p-column field="pcManager" header="Parts Counter Manager"></p-column>
-                                    <p-column field="delManager" header="Express Lane Manager"></p-column>
-                                    <p-column field="urManager" header="Used Recon Manager"></p-column>
-                                    <p-column field="urParticipant" header="Used Recon Participant"></p-column>
-
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="mvp" header="MVP" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">MVP</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="wiMvp" header="wiAdvisor MVP" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">wiAdvisor MVP</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="wiTires" header="wiAdvisor Tires Data" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">wiAdvisor Tires Data</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="ucon" header="Uconnect" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Uconnect</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="pc" header="Parts Counter Manager" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Parts Counter Manager</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="el" header="Express Lane Manager" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Express Lane Manager</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="usedRecon" header="Used Recon Manager" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Used Recon Manager</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column *ngIf="!enableEditable" field="usedReconP" header="Used Recon Participant" [editable]="enableEditable"></p-column>
+                                    <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Used Recon Participant</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
 
 
                                 </p-dataTable>
@@ -141,166 +165,6 @@
         </div>
         <!-- .end FIRST row -->
     </div>
-
-    <p-dialog header="Edit Enrollment Data" [responsive]="true" showEffect="fade" [modal]="true" [style]="{'width':'3000px'}">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover table-scrollable">
-                    <!-- <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Content</th>
-
-                    </tr>
-                </thead> -->
-                    <tbody>
-                        <tr>
-                            <td>Participant</td>
-                            <td>S86013B</td>
-                        </tr>
-                        <tr>
-                            <td>Participant Name Participant name</td>
-                            <td>Participant Name Participant Name</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>DMS ID</td>
-                            <td>1325</td>
-                        </tr>
-                        <tr>
-                            <td>Last</td>
-                            <td>1325</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <!-- <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
-            <div class="ui-grid-row">
-                <div  class="ui-grid-col-4"><label for="vin">Participant</label></div>
-                <div  class="ui-grid-col-8"><input align="right" pInputText id="sid" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Participant Name</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="name" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">DMS ID</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="dmsid" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">My Personnel DMS ID</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">My Personnel Positions</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Mopar Parts</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Magnetti Marelli</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">MVP</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">wiAdvisor MVP</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">wiAdvisor Tires Data</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Parts Counter Manager</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Express Lane Manager</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Used Recon Manager</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Used Recon Participant</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" /></div>
-            </div>
-        </div>
-        <p-footer>
-            <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" class="btn btn-primary" (click)="editTeamName(newDealerTeamData.name, newDealerTeamData.id)"> <i class="icon-edit" aria-hidden="true"></i> Update </button>
-                
-            </div>
-        </p-footer> -->
-    </p-dialog>
 
 
     <style type="text/css">

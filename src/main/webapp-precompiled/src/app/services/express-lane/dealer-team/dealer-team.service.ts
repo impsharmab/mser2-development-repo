@@ -5,8 +5,8 @@ import './../../rxjs-operators';
 
 @Injectable()
 export class DealerTeamService {
-    // private baseUrl = "https://test.myfcarewards.com/mser/";
-    private baseUrl = "./";
+    private baseUrl = "https://test.myfcarewards.com/mser/";
+    //private baseUrl = "./";
 
     constructor(private http: Http) { }
 
@@ -69,7 +69,7 @@ export class DealerTeamService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-      
+
         return this.http.post(url, body, { headers: headers })
             .map((response: Response) =>
                 response.json())
@@ -83,7 +83,7 @@ export class DealerTeamService {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-        
+
         return this.http.post(url, body, { headers: headers })
             .map((response: Response) =>
                 response.json())
@@ -110,7 +110,7 @@ export class DealerTeamService {
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Authorization', validToken);
-       
+
         return this.http.get(getUserProfileDataServiceUrl, { headers })
             .map((response: Response) => response.json())
             .catch(this.handleError);

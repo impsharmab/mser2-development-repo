@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
   private displayDealerCode: any = false;
   // private selectedDealerName: string = "";
   // private selectedDealerCode: string = "";
-  selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-  selectedDealerName = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
+  // selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+  // selectedDealerName = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   constructor(private router: Router, private userProfileService: UserProfileService, private modalService: NgbModal, private cookieService: CookieService) { }
 
   ngOnInit() {
@@ -148,9 +148,18 @@ export class HeaderComponent implements OnInit {
       $('[rel="popover"],[data-rel="popover"],[data-toggle="popover"]').popover();
 
     }
-    
+
   }
-    // private getUserProfileData() {
+
+  private getSelectedDealerCode() {
+    return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+  }
+
+  private getSelectedDealerName() {
+    return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
+  }
+
+  // private getUserProfileData() {
 
   //   this.userProfileService.getUserProfileData().subscribe( 
   //     (resUserProfileData) => {

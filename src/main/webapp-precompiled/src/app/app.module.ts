@@ -8,13 +8,9 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './component/sidenav/sidenav.component';
-//import { FooterComponent } from './component/footer/footer.component';
-
 import { BodyComponent } from './component/body/body.component';
-//import { HeaderComponent } from './component/header/header.component';
 import { LoginComponent } from './component/login/login.component';
 import { AppRoutingModule } from './route/route.component';
-// import { RootPageComponent } from './rootpage/rootpage.component';
 import { OpcodeSetupComponent } from './component/enrollment/opcode-setup/opcode-setup.component';
 import { EnrollmentReportComponent } from './component/enrollment/enrollment-report/enrollment-report.component';
 import { EnrollmentMaintenanceComponent } from './component/enrollment/enrollment-maintenance/enrollment-maintenance.component';
@@ -36,9 +32,6 @@ import { CMSService } from './services/cms-service/cms-service';
 import { MarketingTrainingService } from './services/marketing/marketing-training.service';
 
 
-//import { ContactUsComponent } from './header/contact-us/contact-us/contact-us.component'
-
-
 export function cookieServiceFactory() { return new CookieService(); }
 @NgModule({
   imports: [
@@ -49,7 +42,6 @@ export function cookieServiceFactory() { return new CookieService(); }
     AppRoutingModule,
     MserModule,
     CommonModule,
-    // MainPipe,
     NgbModule.forRoot()
 
   ],
@@ -58,13 +50,8 @@ export function cookieServiceFactory() { return new CookieService(); }
     ResetPasswordComponent,
     LoginComponent,
     DealerRegisterComponent,
-    //UserProfileComponent,
-    // OpcodeSetupComponent,
     EnrollmentReportComponent,
     MarketingTrainingPresentationComponent,
-    //SafeHtml
-    //DealercodeModalComponent,
-    //ContactUsComponent
   ],
   providers: [
     LoginService,
@@ -77,7 +64,6 @@ export function cookieServiceFactory() { return new CookieService(); }
     { provide: CookieService, useFactory: cookieServiceFactory }
 
   ],
-  // exports: [DealercodeModalComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

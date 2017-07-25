@@ -53,7 +53,7 @@
             <div class="salutation">
                 <p>Welcome, {{data.name}}</p>
                 <br>
-                <p *ngIf="displayDealerCode">{{selectedDealerName}} - ({{selectedDealerCode}})</p>
+                <p *ngIf="displayDealerCode">{{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</p>
                 <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
             </div>
             <a class="nav-link nav-pill avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
