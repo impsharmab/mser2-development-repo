@@ -51,15 +51,14 @@
                                                 <li>9025 (Seasonal Vehicle Inspection)
                             </ul>
                             <p>
-                                In addition, the dealership may also use alternative inspection labor op codes.
-                                
-                                Enter any additional alternative inspection labor op codes below. These alternative labor ops must be active for inspection
-                                in your business system in order to earn rewards.
+                                In addition, the dealership may also use alternative inspection labor op codes. Enter any additional alternative inspection
+                                labor op codes below. These alternative labor ops must be active for inspection in your business
+                                system in order to earn rewards.
                             </p>
                         </div>
 
                         <div class="heading-line">
-                            
+
                         </div>
 
                         <div class="content-row row">
@@ -86,6 +85,10 @@
                                 <div>
                                     <p style="color:red;">{{switchstatusmessage}}</p>
                                 </div>
+                                <div  class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input #gb type="text" pInputText size="50" placeholder="Search">
+                                </div>
 
                                 <p-dataTable #activetable [value]="opcodesetupData" *ngIf="activeopcode" selectionMode="single" (onRowSelect)="onRowSelect($event)"
                                     [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]" [globalFilter]="gb">
@@ -102,7 +105,11 @@
                                         </template>
                                     </p-column>
                                 </p-dataTable>
-                                
+
+                                <!-- <div *ngIf="inactiveopcode" class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                    <input #gb2 type="text" pInputText size="50" placeholder="Search">
+                                </div> -->
                                 <p-dataTable #inactivetable [value]="inactiveOpcodesetupData" *ngIf="inactiveopcode" selectionMode="single" (onRowSelect)="onRowSelect($event)"
                                     [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]" [globalFilter]="gb">
                                     <p-header>

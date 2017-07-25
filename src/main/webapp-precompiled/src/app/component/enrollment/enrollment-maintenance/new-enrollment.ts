@@ -16,6 +16,7 @@ export class EnrollmentComponent implements OnInit {
     private showEditButton: boolean = true;;
     private showCancelButton: boolean = false;
     private showSaveButton: boolean = false;
+    private positionCodesResponse: any = [];
     private selectedRowSid: string = "";
     private moparPartsData: any = [{ "pc1": "Service Advisor (13)" }, { "pc2": "Service Advisor (13)" }];
     private enrollmentData: EnrollmentInterface = {
@@ -71,22 +72,65 @@ export class EnrollmentComponent implements OnInit {
 
     ngOnInit() {
         this.getEnrollmentData();
+        this.getPositionCodes();
     }
 
+    private mserData: any = [];
+    private constructSelectItem(index): any {
+        var dataArray: SelectItem[];
+        var optionArray: SelectItem[];
+        var overrideOptionArray: SelectItem[];
+        dataArray = [];
+        optionArray = [];
+        overrideOptionArray = [];
+        for (var i = 0; i < this.enrollmentDataResponse[index].mser.length; i++) {
+            dataArray.push({ label: this.enrollmentDataResponse[i].mser, value: this.enrollmentDataResponse[i].mser });
+        }
+        for (var i = 0; i < this.enrollmentDataResponse[index].positionCodes.length; i++) {
+            optionArray.push({ label: this.enrollmentDataResponse[index].positionCodes[i], value: this.enrollmentDataResponse[index].positionCodes[i] });
+        }
+        for (var i = 0; i < this.enrollmentDataResponse[index].overriddenpositionCodes.length; i++) {
+            optionArray.push({ label: this.enrollmentDataResponse[index].overriddenpositionCodes[i], value: this.enrollmentDataResponse[index].overriddenpositionCodes[i] });
+        }
+        for (var i = 0; i < this.positionCodesResponse.length; i++) {
+            overrideOptionArray.push({ label: this.positionCodesResponse[i].item1, value: (this.positionCodesResponse[i].item1=this.positionCodesResponse[i].item2) });
+        }
+        this.enrollmentDataResponse[index].options = optionArray;
+        this.enrollmentDataResponse[index].optionsOverrides = overrideOptionArray;
+        // return this.mserData.push(dataArray);
+
+    }
     private getEnrollmentData() {
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
-                //alert("success");
-                // this.opcodesetup();
-                // this.getInactiveOpcodesetupData();
-                // this.switchstatusmessage = "Successfully Activated Op Code.";
+                this.constructEnrollmentData();
             },
             (error) => {
-                //alert("error");
+
             }
         )
+    }
+    private getPositionCodes() {
+        this.enrollmentService.getPositionCodes().subscribe(
+            (positionCodesResponse) => {
+                this.positionCodesResponse = (positionCodesResponse)
+
+            },
+            (error) => {
+
+            }
+        )
+    }
+    private newEnrollmentData: any = [];
+
+    private constructEnrollmentData() {
+        for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
+            this.constructSelectItem(i);
+        }
+
+
     }
 
     private onRowSelect(event) {
