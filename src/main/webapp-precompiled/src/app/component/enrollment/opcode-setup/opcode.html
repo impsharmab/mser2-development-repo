@@ -100,9 +100,9 @@
                                     <p-column field="opCode" header="Op Code" [sortable]="true"></p-column>
                                     <p-column field="createdDate" header="Created Date" [sortable]="true"></p-column>
                                     <p-column header="Action">
-                                        <template pTemplate type="header" let-file="rowData">
+                                        <ng-template pTemplate type="header" let-file="rowData">
                                             <button type="button" class="btn btn-primary btn-sm" (click)="inactivateOpCode(file.id)">Deactivate</button>
-                                        </template>
+                                        </ng-template>
                                     </p-column>
                                 </p-dataTable>
 
@@ -121,9 +121,9 @@
                                     <p-column field="opCode" header="Op Code" [sortable]="true"></p-column>
                                     <p-column field="updatedDate" header="Updated Date" [sortable]="true"></p-column>
                                     <p-column header="Action">
-                                        <template pTemplate type="header" let-file="rowData">
+                                        <ng-template pTemplate type="header" let-file="rowData">
                                             <button type="button" class="btn btn-primary btn-sm" (click)="activateOpCode(file.id)">Activate</button>
-                                        </template>
+                                        </ng-template>
                                     </p-column>
                                 </p-dataTable>
                             </div>

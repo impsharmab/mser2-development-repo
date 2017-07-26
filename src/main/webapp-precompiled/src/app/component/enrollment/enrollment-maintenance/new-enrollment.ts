@@ -18,54 +18,19 @@ export class EnrollmentComponent implements OnInit {
     private showSaveButton: boolean = false;
     private positionCodesResponse: any = [];
     private selectedRowSid: string = "";
+    private mserElligiblepc: SelectItem[] = [{ label: "01", value: "01" }, { label: "13", value: "13" }, { label: "23", value: "23" }, { label: "2A", value: "2A" }, { label: "08", value: "08" }, { label: "20", value: "20" }];
+    private mmElligiblepc: any = ["01", "13", "23", "2A", "08", "09", "ES", "ET"];
+    private mserOptions: any = [{ label: "", value: "" }]
+
     private moparPartsData: any = [{ "pc1": "Service Advisor (13)" }, { "pc2": "Service Advisor (13)" }];
     private enrollmentData: EnrollmentInterface = {
-        "sid": "",
-        "name": "",
-        "dmsId": "",
-        "myPersonnelDmsId": "",
-        "myPersonnelPositions": [],
-        "moparPartsData": [],
-        "magnetiMarelliData": [],
-        "mvpData": [],
-        "wiAdvisorMVPData": [],
-        "wiAdvisorTiresData": [],
-        "posCodeOverrides": [],
-        "pcManager": "",
-        "elManager": "",
-        "urManager": "",
-        "urParticipant": ""
+        "sid": "", "name": "", "dmsId": "", "myPersonnelDmsId": "", "myPersonnelPositions": [],
+        "moparPartsData": [], "magnetiMarelliData": [], "mvpData": [], "wiAdvisorMVPData": [],
+        "wiAdvisorTiresData": [], "posCodeOverrides": [], "pcManager": "", "elManager": "",
+        "urManager": "", "urParticipant": ""
     };
 
     private enrollmentDataResponse: any;
-    // [
-    //     {
-    //         "sid": "S1234", "name": "James Watt", "dmsId": "2547", "myPersonnelDmsId": "145", "myPersonnelPositions": ["45", "2", "2"],
-    //         "moparPartsData": ["13", "23"], "magnetiMarelliData": ["23, 13"], "mvpData": ["23, 13"], "wiAdvisorMVPData": ["23, 13"],
-    //         "wiAdvisorTiresData": ["11", "65"],
-    //         "posCodeOverrides": ["4", "5", "1"], "pcManager": "23", "elManager": "13", "urManager": "11", "urParticipant": "13"
-    //     },
-    //     {
-    //         "sid": "S2452", "name": "Holiday Steff", "dmsId": "879", "myPersonnelDmsId": "214", "myPersonnelPositions": ["11", "87", "25"],
-    //         "moparPartsData": ["13", "23"], "magnetiMarelliData": ["23, 13"], "mvpData": ["23, 13"], "wiAdvisorMVPData": ["23, 13"],
-    //         "wiAdvisorTiresData": ["11", "65"],
-    //         "posCodeOverrides": ["10", "20", "21"], "pcManager": "23", "elManager": "23", "urManager": "8", "urParticipant": "13"
-    //     },
-    //     {
-    //         "sid": "S3895", "name": "John Voight", "dmsId": "489", "myPersonnelDmsId": "802", "myPersonnelPositions": ["23", "24", "5"],
-    //         "moparPartsData": ["13", "23"], "magnetiMarelliData": ["23, 13"], "mvpData": ["23, 13"], "wiAdvisorMVPData": ["23, 13"],
-    //         "wiAdvisorTiresData": ["11", "65"],
-    //         "posCodeOverrides": ["40", "50", "41"], "pcManager": "23", "elManager": "13", "urManager": "18", "urParticipant": "15"
-    //     },
-    //     {
-    //         "sid": "S9851", "name": "Logan Wright", "dmsId": "89", "myPersonnelDmsId": "142", "myPersonnelPositions": ["68", "7", "11"],
-    //         "moparPartsData": ["13", "23"], "magnetiMarelliData": ["23, 13"], "mvpData": ["23, 13"], "wiAdvisorMVPData": ["23, 13"],
-    //         "wiAdvisorTiresData": ["11", "65"],
-    //         "posCodeOverrides": ["4", "15", "1"], "pcManager": "23", "elManager": "19", "urManager": "11", "urParticipant": "13"
-    //     },
-
-    // ];
-
     cities: any = [{ label: 'New York', value: 'New York' }, { label: 'Rome', value: 'Rome' }];
 
     constructor(private enrollmentService: EnrollmentMaintenanceService) { }
@@ -73,8 +38,24 @@ export class EnrollmentComponent implements OnInit {
     ngOnInit() {
         this.getEnrollmentData();
         this.getPositionCodes();
-    }
 
+        // for (var i = 0; i < this.mserElligiblepc.length; i++) {
+        //     this.mserElligiblepc.push({ label: this.mserElligiblepc[i], value: this.mserElligiblepc[i] });
+        // }
+    }
+    private getMatch(a, b) {
+        var matches: SelectItem[];
+        for (var i = 0; i < a.length; i++) {
+            for (var e = 0; e < b.length; e++) {
+                if (a[i] === b[e]) {
+                    matches.push(a[i]);
+                }
+            }
+        }
+
+        this.mserOptions.push(matches);
+
+    }
     private mserData: any = [];
     private constructSelectItem(index): any {
         var dataArray: SelectItem[];
@@ -93,8 +74,11 @@ export class EnrollmentComponent implements OnInit {
             optionArray.push({ label: this.enrollmentDataResponse[index].overriddenpositionCodes[i], value: this.enrollmentDataResponse[index].overriddenpositionCodes[i] });
         }
         for (var i = 0; i < this.positionCodesResponse.length; i++) {
-            overrideOptionArray.push({ label: this.positionCodesResponse[i].item1, value: (this.positionCodesResponse[i].item1=this.positionCodesResponse[i].item2) });
+            overrideOptionArray.push({ label: this.positionCodesResponse[i].item1, value: (this.positionCodesResponse[i].item1) });
         }
+
+        this.getMatch(optionArray, this.mserElligiblepc);
+        this.enrollmentDataResponse[index].mserOptions = this.mserOptions;
         this.enrollmentDataResponse[index].options = optionArray;
         this.enrollmentDataResponse[index].optionsOverrides = overrideOptionArray;
         // return this.mserData.push(dataArray);

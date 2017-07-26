@@ -1,6 +1,6 @@
-<template ngbModalContainer></template>
+<!-- <template ngbModalContainer></template> -->
 
-<template #dealercodeModal let-c="close" let-d="dismiss">
+<ng-template #dealercodeModal let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title"> </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -13,7 +13,7 @@
     </div>
     <div class="modal-footer">
     </div>
-</template>
+</ng-template>
 
 <header class="app-header navbar">
     <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
@@ -42,7 +42,7 @@
 
 
         <li class="nav-item refresh-button-container">
-          <a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownDealerCode()" style="cursor:pointer">
+            <a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownDealerCode()" style="cursor:pointer">
             <span>
               <i class="refresh-button fa fa-retweet"></i>
             </span>
@@ -51,18 +51,18 @@
         <li class="nav-item dropdown">
             <div class="salutation">
                 <div>
-                  <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span class="welcome-message">Welcome, {{data.name}} <i class="fa fa-caret-down" aria-hidden="true"></i></span>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right user-options">
-                    <a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
-                    <div class="divider"></div>
-                      <a class="dropdown-item" style="cursor: pointer" (click)="logout()"><i class="fa fa-lock" ></i> Logout</a>
-                  </div>
+                    <div class="dropdown-menu dropdown-menu-right user-options">
+                        <a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
+                        <div class="divider"></div>
+                        <a class="dropdown-item" style="cursor: pointer" (click)="logout()"><i class="fa fa-lock" ></i> Logout</a>
+                    </div>
 
                 </div>
                 <div>
-                  <p *ngIf="displayDealerCode">{{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</p>
+                    <p *ngIf="displayDealerCode">{{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</p>
                 </div>
                 <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
             </div>
