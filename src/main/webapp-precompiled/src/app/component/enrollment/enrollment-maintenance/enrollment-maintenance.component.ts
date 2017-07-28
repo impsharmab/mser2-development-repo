@@ -34,13 +34,13 @@ export class EnrollmentMaintenanceComponent implements OnInit {
     this.getEnrollmentMaintenanceData();
   }
   private getEnrollmentMaintenanceData() {
-    debugger;
-    this.enrollmentMaintenanceService.getEnrollmentMaintenanceData().subscribe(
-      (employeeMaintenanceData) => {
-        this.employeeMaintenanceData = employeeMaintenanceData
-        //https://editor.datatables.net/examples/inline-editing/simple
-      }
-    )
+    // debugger;
+    // this.enrollmentMaintenanceService.getEnrollmentMaintenanceData().subscribe(
+    //   (employeeMaintenanceData) => {
+    //     this.employeeMaintenanceData = employeeMaintenanceData
+    //     //https://editor.datatables.net/examples/inline-editing/simple
+    //   }
+    // )
   }
   public clickOnOpCode(data: any) {
     // alert()
