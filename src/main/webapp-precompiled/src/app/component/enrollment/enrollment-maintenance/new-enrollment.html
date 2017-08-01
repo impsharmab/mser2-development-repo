@@ -50,7 +50,7 @@
                                             <span #cancelButton style="display: none"> <button  type="button" (click)="cancel(data.sid, editButton, cancelButton, saveButton)">
                                                 <i class="icon-edit" aria-hidden="true" >CANCEL</i></button></span>
 
-                                            <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data.sid, editButton, cancelButton, saveButton, ri)">
+                                            <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
                                                 <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span>
                                         </ng-template>
                                     </p-column>
@@ -70,25 +70,26 @@
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible', 'width':'150px' }">
                                         <ng-template pTemplate="header">Position Codes Overrides</ng-template>
                                         <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
-                                            <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" (onChange)="selectedPCOverrides(data.overriddenpositionCodes, index)"
+                                            <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" (onChange)="selectedPCOverrides(data.overriddenpositionCodes, ri)"
                                                 [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                     <p-column *ngIf="!enableEditable">
+                                    <p-column *ngIf="!enableEditable">
                                         <ng-template pTemplate="header">Mopar Parts</ng-template>
                                         <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
-                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [disabled]=true [scrollHeight]="200" [appendTo]="ng-template"
-                                                [style]="{'width':'250px', 'color':'#000'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [disabled]=true [scrollHeight]="200"
+                                                [appendTo]="ng-template" [style]="{'width':'250px', 'color':'#000'}"></p-multiSelect>
                                         </ng-template>
-                                    </p-column> 
-                                    <!-- <p-column *ngIf="!enableEditable"  field="mser" header="Mopar Parts"></p-column> -->
+                                    </p-column>
+
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Mopar Parts</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [scrollHeight]="200" [appendTo]="ng-template" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [scrollHeight]="200" [appendTo]="ng-template"
+                                                [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <!-- <p-column *ngIf="!enableEditable" field="mas" header="Mopar Accessories" [editable]="enableEditable"></p-column> -->
+
                                     <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Mopar Accessories</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
@@ -102,7 +103,6 @@
                                             <p-multiSelect [options]="data.upFitsOptions" [(ngModel)]="data.mas" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <!-- <p-column *ngIf="!enableEditable" field="data.options" header="Magnetti Marelli" [editable]="enableEditable"></p-column> -->
                                     <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Magnetti Marelli</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
@@ -115,40 +115,46 @@
                                             <p-multiSelect [options]="data.mmOptions" [(ngModel)]="data.mm" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <!-- <p-column *ngIf="!enableEditable" field="mvp" header="MVP" [editable]="enableEditable"></p-column> -->
                                     <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">MVP</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.options" [(ngModel)]="data.mvp" [disabled]=true [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mvpOptions" [(ngModel)]="data.mvp" [disabled]=true [scrollHeight]="200" [appendTo]="body"
+                                                [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">MVP</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.options" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mvpOptions" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <!-- <p-column *ngIf="!enableEditable" field="wiMvp" header="wiAdvisor MVP" [editable]="enableEditable"></p-column> -->
                                     <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">wiAdvisor MVP</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.options" [(ngModel)]="data.wiMvp" [disabled]=true [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.wiAdvMVPOptions" [(ngModel)]="data.wiMvp" [disabled]=true [scrollHeight]="200" [appendTo]="body"
+                                                [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">wiAdvisor MVP</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.options" [(ngModel)]="data.wiMvp" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.wiAdvMVPOptions" [(ngModel)]="data.wiMvp" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <p-column *ngIf="!enableEditable" field="wiTires" header="wiAdvisor Tires" [editable]="enableEditable"></p-column>
+                                    <!-- <p-column *ngIf="!enableEditable" field="wiTires" header="wiAdvisor Tires" [editable]="enableEditable"></p-column> -->
+                                    <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">wiAdvisor Tires</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="data.wiAdvTireOptions" [(ngModel)]="data.wiTires" [disabled]=true [scrollHeight]="200" [appendTo]="body"
+                                                [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">wiAdvisor Tires</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.options" [(ngModel)]="data.wiTires" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.wiAdvTireOptions" [(ngModel)]="data.wiTires" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <!-- <p-column *ngIf="!enableEditable" field="ucon" header="Uconnect" [editable]="enableEditable"></p-column> -->
                                     <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Uconnect Sales</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
@@ -175,33 +181,57 @@
                                             <p-multiSelect [options]="data.uconServiceOptions" [(ngModel)]="data.ucon" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-                                    <p-column *ngIf="!enableEditable" field="pc" header="Parts Counter Manager" [editable]="enableEditable"></p-column>
-
+                                    <!-- <p-column *ngIf="!enableEditable" field="pc" header="Parts Counter Manager" [editable]="enableEditable"></p-column> -->
+                                    <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Parts Counter Manager</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-dropdown [options]="data.pcMOptions" [(ngModel)]="data.pc" [disabled]=true placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Parts Counter Manager</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
                                             <p-dropdown [options]="data.pcMOptions" [(ngModel)]="data.pc" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
                                         </ng-template>
                                     </p-column>
-                                    <p-column *ngIf="!enableEditable" field="el" header="Express Lane Manager" [editable]="enableEditable"></p-column>
+                                    <!-- <p-column *ngIf="!enableEditable" field="el" header="Express Lane Manager" [editable]="enableEditable"></p-column> -->
+                                    <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Express Lane Manager</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-dropdown [options]="data.elMOptions" [(ngModel)]="selectedCity" [disabled]=true placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Express Lane Manager</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                            <p-dropdown [options]="data.elMOptions" [(ngModel)]="selectedCity" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
                                         </ng-template>
                                     </p-column>
-                                    <p-column *ngIf="!enableEditable" field="usedRecon" header="Used Recon Manager" [editable]="enableEditable"></p-column>
+                                    <!-- <p-column *ngIf="!enableEditable" field="usedRecon" header="Used Recon Manager" [editable]="enableEditable"></p-column> -->
+                                    <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Used Recon Manager</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-dropdown [options]="data.uvmEnrOptions" [(ngModel)]="selectedCity" [disabled]=true placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Used Recon Manager</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                            <p-dropdown [options]="data.uvmEnrOptions" [(ngModel)]="selectedCity" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
                                         </ng-template>
                                     </p-column>
-                                    <p-column *ngIf="!enableEditable" field="usedReconP" header="Used Recon Participant" [editable]="enableEditable"></p-column>
+                                    <!-- <p-column *ngIf="!enableEditable" field="usedReconP" header="Used Recon Participant" [editable]="enableEditable"></p-column> -->
+                                    <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Used Recon Participant</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <p-multiSelect [options]="data.uvmPartOptions" [(ngModel)]="selectedCars" [disabled]=true [scrollHeight]="200" [appendTo]="body"
+                                                [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Used Recon Participant</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="cities" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.uvmPartOptions" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
                                     <p-column *ngIf="!enableEditable" [style]="{'overflow':'visible'}">
@@ -217,12 +247,8 @@
                                             <p-multiSelect [options]="data.warrantyAdmOptions" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-
-
-
-
                                 </p-dataTable>
-                                <!-- </h:form> -->
+
 
                             </div>
 

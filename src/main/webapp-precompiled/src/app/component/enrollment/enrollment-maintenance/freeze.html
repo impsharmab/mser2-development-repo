@@ -1,18 +1,4 @@
 <main class="main">
-    <style type="text/css">
-        .minWidth {
-            min-width: 300px;
-        }
-
-        .minWidth2 {
-            min-width: 20%;
-        }
-
-        .ui-datatable .ui-datatable-frozen-view .ui-datatable-data>tr>td,
-        .ui-datatable .ui-datatable-unfrozen-view .ui-datatable-data>tr>td {
-            height: 24px;
-        }
-    </style>
     <!-- Page Title -->
     <div class="page-title">
         <div class="pageTitle">
@@ -50,37 +36,44 @@
                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                     <input #gb type="text" pInputText size="50" placeholder="Global Filter">
                                 </div>
-
-                                <p-dataTable [value]="cars" scrollable="true" scrollHeight="10000px" frozenWidth="390px" unfrozenWidth="1000px"
-                                    [editable]="enableEditable" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]"
-                                    [globalFilter]="gb" resizableColumns="true" [responsive]="true"  [style]="{'margin-top':'30px'}">
-                                   
-                                    <!-- <p-column styleClass="col-button" [style]="{'width':'150px','height':'50px'}" frozen="true">
+                                <p-dataTable [value]="enrollmentDataResponse" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]"
+                                    [globalFilter]="gb" rowIndexVar="index" [editable]="enableEditable" [responsive]="true" [tableStyle]="{'width':'auto'}">
+                                    <p-column styleClass="col-button" [style]="{'width':'150px'}">
                                         <ng-template pTemplate="header">
                                             Activity
                                         </ng-template>
-                                        <ng-template pTemplate="body" let-data="rowData">
+                                        <ng-template pTemplate="body" let-data="rowData" let-ri="rowIndex">
                                             <span #editButton> <button  type="button" (click)="edit(data.sid,editButton, cancelButton, saveButton )">
                                                 <i class="icon-edit" aria-hidden="true"></i>EDIT</button></span>
 
                                             <span #cancelButton style="display: none"> <button  type="button" (click)="cancel(data.sid, editButton, cancelButton, saveButton)">
                                                 <i class="icon-edit" aria-hidden="true" >CANCEL</i></button></span>
 
-                                            <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data.sid, editButton, cancelButton, saveButton)">
+                                            <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data, data.sid, editButton, cancelButton, saveButton, ri)">
                                                 <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span>
                                         </ng-template>
                                     </p-column>
-                                    <p-column field="sid" header="Participant" [style]="{'width':'90px'}" frozen="true"></p-column>
-                                    <p-column field="name" header="Participant Name" [style]="{'width':'150px'}" frozen="true"></p-column>
-                                    <p-column field="sid" header="Vin" [style]="{'width':'250px', 'height':'50px'}"></p-column> -->
-                                     <p-column field="vin" header="Vin" [style]="{'width':'250px'}" frozen="true"></p-column>
-                                    <p-column field="year" header="Year" [style]="{'width':'250px', 'height':'50px'}"></p-column>
-                                    <p-column field="brand" header="Brand" [style]="{'width':'250px', 'height':'50px'}"></p-column>
-                                    <p-column field="color" header="Color" [style]="{'width':'250px','height':'50px'}"></p-column>
-                                    <p-column field="year" header="Year" [style]="{'width':'250px', 'height':'25px'}"></p-column>
-                                    <p-column field="brand" header="Brand" [style]="{'width':'250px', 'height':'25px'}"></p-column>
-                                    <p-column field="color" header="Color" [style]="{'width':'250px', 'height':'25px'}"></p-column> 
+                                    <p-column field="sid" header="SID" [style]="{'width':'100px'}"></p-column>
+                                    <p-column field="name" header="Name" [style]="{'width':'150px'}"></p-column>
+                                    <p-column field="myPersonalDMSID" header="My Personal DMS ID" [style]="{'width':'100px'}"></p-column>
+                                    <p-column [style]="{'width':'80px' }" [editable]="enableEditable">
+                                        <ng-template pTemplate="header">DMS ID</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            <input type="text" size="10" pInputText [(ngModel)]="dat" [disabled]=!enableEditable>
+                                        </ng-template>
+                                    </p-column>                                    
+                                    <p-column [style]="{'overflow':'visible', 'width':'150px', 'display':'none' }" [editable]="enableEditable">
+                                        <ng-template pTemplate="header">Position Codes Overrides</ng-template>
+                                        <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
+                                            <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" (onChange)="selectedPCOverrides(data.overriddenpositionCodes, ri)"
+                                                [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}" [disabled]=!enableEditable></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+
+                                    <p-column field="mser" header="Mopar Parts"></p-column>
+
                                 </p-dataTable>
+
 
                             </div>
 
@@ -106,11 +99,6 @@
 
         .minWidth2 {
             min-width: 20%;
-        }
-
-        .ui-datatable .ui-datatable-frozen-view .ui-datatable-data>tr>td,
-        .ui-datatable .ui-datatable-unfrozen-view .ui-datatable-data>tr>td {
-            height: 24px;
         }
     </style>
 </main>

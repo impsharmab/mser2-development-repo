@@ -40,55 +40,16 @@ export class EnrollmentMaintenanceService {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     var body = {
-      // "dealerCode": enrollmentDataResponse.dealerCode, "myPersonalDMSID": enrollmentDataResponse.myPersonalDMSID,
-      // "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email, "positionCodes": enrollmentDataResponse.positionCodes,
-      // "overriddenpositionCodes": enrollmentDataResponse.overriddenpositionCodes, "mser": enrollmentDataResponse.mser,
-      // "mas": enrollmentDataResponse.mas, "mm": enrollmentDataResponse.mm, "mvp": enrollmentDataResponse.mvp,
-      // "wiMvp": enrollmentDataResponse.wiMvp, "wiTires": enrollmentDataResponse.wiTires,
-      // "pc": enrollmentDataResponse.pc, "el": enrollmentDataResponse.el, "usedRecon": enrollmentDataResponse.usedRecon,
-      // "usedReconP": enrollmentDataResponse.usedReconP, "sid": enrollmentDataResponse.sid, "dmsid": enrollmentDataResponse.dmsid,
-      // "ucon": enrollmentDataResponse.ucon
-          
-        
-        "dealerCode": "26550",
-        "myPersonalDMSID": "660",
-        "name": "Kevin Oakley",
-        "email": "",
-        "positionCodes": [
-            "13",
-            "27",
-            "29",
-            "09"
-        ],
-        "overriddenpositionCodes": [
-            "18","01"
-        ],
-        "mser": [
-            "13",
-            "18",
-            "WP"
-        ],
-        "mas": [
-            "13",
-            "18  "
-        ],
-        "mm": [
-            "13",
-            "18"
-        ],
-        "mvp": [],
-        "wiMvp": [],
-        "wiTires": [],
-        "pc": "",
-        "el": "18",
-        "usedRecon": "",
-        "usedReconP": [],
-        "sid": "S16399B",
-        "dmsid": "660",
-        "ucon": []
-    
+      "dealerCode": enrollmentDataResponse.dealerCode, "myPersonalDMSID": enrollmentDataResponse.myPersonalDMSID,
+      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email, "positionCodes": enrollmentDataResponse.positionCodes,
+      "overriddenpositionCodes": enrollmentDataResponse.overriddenpositionCodes, "mser": enrollmentDataResponse.mser,
+      "mas": enrollmentDataResponse.mas, "mm": enrollmentDataResponse.mm, "mvp": enrollmentDataResponse.mvp,
+      "wiMvp": enrollmentDataResponse.wiMvp, "wiTires": enrollmentDataResponse.wiTires,
+      "pc": enrollmentDataResponse.pc, "el": enrollmentDataResponse.el, "usedRecon": enrollmentDataResponse.usedRecon,
+      "usedReconP": enrollmentDataResponse.usedReconP, "sid": enrollmentDataResponse.sid, "dmsid": enrollmentDataResponse.dmsid,
+      "ucon": enrollmentDataResponse.ucon
     };
-    console.log("body" + ": "+body);
+    console.log("body" + ": " + body);
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
 

@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router, private userProfileService: UserProfileService, private modalService: NgbModal, private cookieService: CookieService) { }
 
   ngOnInit() {
+    // this.getSelectedDealerCode();
+    // this.getSelectedDealerName();
     //debugger
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"))
     // this.selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
