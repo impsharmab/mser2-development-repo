@@ -3,14 +3,25 @@ import { EnrollmentMaintenanceService } from '../../../services/enrollment-servi
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
 
+import { state, trigger, style, animate, transition, } from '@angular/animations';
+import { DataTable } from 'primeng/primeng';
+
 import { EnrollmentInterface } from './enrollment.interface';
 @Component({
     selector: 'app-enrollment',
-    templateUrl: './new-enrollment.html'
+    templateUrl: './new-enrollment.html',
+    animations: [trigger('slideInOut', [
+        state('true', style({ width: '0px', })),
+        state('false', style({ width: '*', display: "block" })),
+        transition('1 => 0', animate('500ms ease-in')),
+        transition('0 => 1', animate('400ms ease-out'))
+    ])]
     //   styleUrls: ['./enrollment-maintenance.component.css']
 })
 export class EnrollmentComponent implements OnInit {
-
+    selectedCars;
+    selectedCity;
+    private displayAddNewUserDialog: boolean = false;
     private displayEnrollmentDialog: boolean;
     private enableEditable: boolean = false;
     private showEditButton: boolean = true;;
@@ -21,7 +32,7 @@ export class EnrollmentComponent implements OnInit {
     private dat: any = "";
     private saveEnrollmentMaintenanceDataResponse: any;
     // private mserElligiblepc: SelectItem[] = [{ label: "01", value: "01" }, { label: "13", value: "13" }, { label: "23", value: "23" }, { label: "2A", value: "2A" }, { label: "08", value: "08" }, { label: "20", value: "20" }];
-    private mserElligiblepc: any = ["01", "13", "23", "2A", "08", "09", "ES", "ET", "20"];
+    private mserElligiblepc: any = ["01", "13", "23", "2A", "08", "09", "ES", "ET"];
     private mmElligiblepc: any = ["01", "13", "23", "2A", "08", "09", "ES", "ET"];
     private upFitsElligpc: any = ["01", "13", "23", "2A", "08", "09", "ES", "ET"];
     private tiresElligpc: any = ["13", "23", "2A", "08", "09"];
@@ -110,10 +121,10 @@ export class EnrollmentComponent implements OnInit {
                     // this.enrollmentDataResponse[i].preselectedMserOptions = this.preselectedSelectItem(this.enrollmentDataResponse[i].mser, i);
                     // console.log(this.preselectedSelectItem(this.enrollmentDataResponse[i].mser, i));
                     // console.log(this.enrollmentDataResponse[i].preselectedMserOptions);
+                    this.enrollmentDataResponse[i].selectedMserOptions = [];
                 }
             },
             (error) => {
-
             }
         )
     }
@@ -317,7 +328,7 @@ export class EnrollmentComponent implements OnInit {
         // this.enrollmentDataResponse[index].uvmEnrOptions = uvmEnrOptions;
         //this.enrollmentDataResponse[index].uvmPartOptions = uvmPartOptions;
         this.enrollmentDataResponse[index].warrantyAdmOptions = warrantyAdmOptions;
-        //console.log(this.namingPositionCode(mserOptions, index));
+
     }
 
     private namingPositionCode(data, index) {
@@ -375,7 +386,7 @@ export class EnrollmentComponent implements OnInit {
         // var uvmPartOptions = this.enrollmentDataResponse[index].uvmPartOptions;
         var warrantyAdmOptions = this.enrollmentDataResponse[index].warrantyAdmOptions;
         if (data.length == 0) {
-            this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptions, "label");
+            this.enrollmentDataResponse[index].mserOptions = this.getMatch(this.removeDuplicates(mserOptions, "label"),index);
             this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptions, "label");
             this.enrollmentDataResponse[index].upFitsOptions = this.removeDuplicates(upFitsOptions, "label");
             this.enrollmentDataResponse[index].tiresOptions = this.removeDuplicates(tiresOptions, "label");
@@ -411,7 +422,7 @@ export class EnrollmentComponent implements OnInit {
                 warrantyAdmOptions.push({ label: data[i], value: data[i] });
 
             }
-            this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptions, "label");
+            this.enrollmentDataResponse[index].mserOptions = this.getMatch(this.removeDuplicates(mserOptions, "label"), index);
             this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptions, "label");
             this.enrollmentDataResponse[index].upFitsOptions = this.removeDuplicates(upFitsOptions, "label");
             this.enrollmentDataResponse[index].tiresOptions = this.removeDuplicates(tiresOptions, "label");
@@ -443,6 +454,7 @@ export class EnrollmentComponent implements OnInit {
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";
         this.enableEditable = false;
+        this.getEnrollmentData();
     }
     private returnItem1(data, index): any {
         var item1 = [];
@@ -460,14 +472,28 @@ export class EnrollmentComponent implements OnInit {
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";
         this.enableEditable = false;
-        this.returnItem1(data.mserOptions, index);        
+        this.returnItem1(data.mserOptions, index);
         this.enrollmentService.saveEnrollmentMaintenanceData(data).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
+                this.getEnrollmentData();
             },
             (error) => {
 
             }
         )
     }
+
+    private addNewUserTeam(addTeamData: any) {
+
+        this.displayAddNewUserDialog = true;
+    }
+    private cancelNewUserData(data) {
+
+    }
+
+    private saveNewUserData(data) {
+
+    }
+
 } 

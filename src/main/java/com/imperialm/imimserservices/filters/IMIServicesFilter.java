@@ -13,28 +13,21 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-/**
- * @author Dheerajr
- *
- */
-
 public class IMIServicesFilter implements Filter {
-	private static Logger logger = LoggerFactory.getLogger(IMIServicesFilter.class);
+	//private static Logger logger = LoggerFactory.getLogger(IMIServicesFilter.class);
 
 	@Override
 	public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
 			throws IOException, ServletException {
-		logger.info("Filtering on...........................................................");
+		//logger.info("Filtering on...........................................................");
 		final HttpServletResponse response = (HttpServletResponse) res;
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Access-Control-Allow-Headers",
-				"X-Requested-With, Content-Type, Authorization, Origin, Accept, Access-Control-Request-Method, Access-Control-Request-Headers");
+				"X-Requested-With, Content-Type, Authorization, Origin, Accept, Access-Control-Request-Method, Access-Control-Request-Headers, Cache-Control");
 		chain.doFilter(req, response);
 	}
 

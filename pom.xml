@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.imperialm</groupId>
-	<artifactId>mser2</artifactId>
+	<artifactId>mser</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
 
-	<name>mser2</name>
+	<name>mser</name>
 	<description>Imperial MSER2.0</description>
 
 	<parent>
@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
+		<start-class>com.imperialm.imimserservices.IMIServicesApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -97,84 +98,89 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.16.12</version>
 			<scope>provided</scope>
-		</dependency>	
-		
-		<dependency>  
-    		<groupId>io.jsonwebtoken</groupId>
-    		<artifactId>jjwt</artifactId>
-    		<version>0.7.0</version>
-		</dependency>  
-		
-		<dependency>
-		    <groupId>joda-time</groupId>
-    		<artifactId>joda-time</artifactId>
-    		<version>2.9.7</version>
 		</dependency>
-		
-		<dependency>
-   			<groupId>commons-fileupload</groupId>
-   			<artifactId>commons-fileupload</artifactId>
-   			<version>1.2.1</version> <!-- makesure correct version here -->
-		</dependency>
-		
-		<dependency>
-		     <groupId>org.opensaml</groupId>
-     		<artifactId>opensaml</artifactId>
-		     <version>2.6.4</version>
-		</dependency>
-		
-		<dependency>
-    	<groupId>javax.mail</groupId>
-	    <artifactId>mail</artifactId>
-    	<version>1.5.0-b01</version>
-		</dependency>
-		
-		<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-email</artifactId>
-    <version>1.4</version>
-</dependency>
 
-	
-	<dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-        	<version>1.19</version>
-        </dependency>
-		
-	<dependency>
-    	<groupId>com.auth0</groupId>
-    	<artifactId>java-jwt</artifactId>
-    	<version>3.1.0</version>
-	</dependency>
-	
-<dependency>
-    <groupId>com.microsoft.sqlserver</groupId>
-    <artifactId>mssql-jdbc</artifactId>
-    <version>6.1.0.jre7</version>
-</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.9.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version> <!-- makesure correct version here -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.opensaml</groupId>
+			<artifactId>opensaml</artifactId>
+			<version>2.6.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.5.0-b01</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 
-<dependency>
-    <groupId>com.google.guava</groupId>
-    <artifactId>guava</artifactId>
-    <version>21.0</version>
-</dependency>
-	
-	<dependency>
-    <groupId>com.imi.cms</groupId>
-    <artifactId>com.imi.cms.util</artifactId>
-    <version>1.0</version>
-    <scope>system</scope>
-    <systemPath>${project.basedir}/src/main/resources/imi-cms-token-validator-v1.jar</systemPath>
-</dependency>
-	
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.19</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.1.0.jre7</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>21.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.imi.cms</groupId>
+			<artifactId>com.imi.cms.util</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/imi-cms-token-validator-v1.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.1.3</version>
+		</dependency>
 
 
 	</dependencies>
@@ -184,6 +190,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
 			</plugin>
 		</plugins>
 		<finalName>${project.artifactId}</finalName>

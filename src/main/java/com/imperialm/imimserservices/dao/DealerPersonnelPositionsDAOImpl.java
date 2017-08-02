@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import com.imperialm.imimserservices.model.TwoStringItems;
+
 @Repository
 public class DealerPersonnelPositionsDAOImpl implements DealerPersonnelPositionsDAO{
 	
@@ -67,8 +69,7 @@ public class DealerPersonnelPositionsDAOImpl implements DealerPersonnelPositions
 		List<String> result = new ArrayList<String>();
 		try {
 			final Query query = this.em.createNativeQuery(POSITIONCODES);
-			List<String> rows = (List<String>) query.getResultList();
-			result = rows;
+			result = (List<String>) query.getResultList();
 		} catch (final Exception ex) {
 			logger.error("error occured in getAllPositionCodes", ex);
 		}
@@ -105,6 +106,41 @@ public class DealerPersonnelPositionsDAOImpl implements DealerPersonnelPositions
 			result = (List<String>) query.getResultList();
 		} catch (final Exception ex) {
 			logger.error("error occured in getDealerPricipal", ex);
+		}
+		return result;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean isRegistrationEligiable(String sid, String dealerCode) {
+		try {
+			final Query query = this.em.createNativeQuery(REGISTRATION_DEALER_CHECK);
+			query
+			.setParameter(0, sid);
+			query.setParameter(1, dealerCode);
+			List<String> rows = (List<String>) query.getResultList();
+			if(rows.size() > 0){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (final Exception ex) {
+			logger.error("error occured in isRegistrationEligiable", ex);
+			return false;
+		}
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TwoStringItems> getAllPositionCodesWithNames() {
+		List<TwoStringItems> result = new ArrayList<TwoStringItems>();
+		try {
+			final Query query = this.em.createNativeQuery(POSITIONCODES_WITH_NAMES, TwoStringItems.class);
+			result = query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getAllPositionCodesWithNames", ex);
 		}
 		return result;
 	}

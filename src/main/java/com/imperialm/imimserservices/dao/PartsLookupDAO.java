@@ -19,7 +19,7 @@ import com.imperialm.imimserservices.dto.PartsLookupDTO;
 @Repository
 public class PartsLookupDAO {
 
-	private static Logger logger = LoggerFactory.getLogger(LaborOpsDTOImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(LaborOpsDAOImpl.class);
 
 	@PersistenceContext
 	private EntityManager em;

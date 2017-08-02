@@ -18,7 +18,7 @@ import com.imperialm.imimserservices.dto.TileDTO;
 @Repository
 public class MSERTilesDAOImpl {
 
-	private static Logger logger = LoggerFactory.getLogger(LaborOpsDTOImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(LaborOpsDAOImpl.class);
 
 	@PersistenceContext
 	private EntityManager em;

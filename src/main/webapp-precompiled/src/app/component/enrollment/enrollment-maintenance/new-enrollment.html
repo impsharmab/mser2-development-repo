@@ -32,6 +32,13 @@
                         </div>
                         <div class="content-row row">
                             <div class="container ">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <!-- <h6>Add Dealer Team Identifiers</h6> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary" style="margin-left: auto; float:left" (click)="addNewUserTeam(addTeamData)"><i class="fa fa-plus" aria-hidden="true"></i>  Add New User</button>
+
+                                </form>
                                 <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                     <input #gb type="text" pInputText size="50" placeholder="Global Filter">
@@ -77,16 +84,15 @@
                                     <p-column *ngIf="!enableEditable">
                                         <ng-template pTemplate="header">Mopar Parts</ng-template>
                                         <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
-                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [disabled]=true [scrollHeight]="200"
-                                                [appendTo]="ng-template" [style]="{'width':'250px', 'color':'#000'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [disabled]=true [scrollHeight]="200" [appendTo]="ng-template"
+                                                [style]="{'width':'250px', 'color':'#000'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
                                     <p-column *ngIf="enableEditable" [style]="{'overflow':'visible'}">
                                         <ng-template pTemplate="header">Mopar Parts</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [scrollHeight]="200" [appendTo]="ng-template"
-                                                [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [scrollHeight]="200" [appendTo]="ng-template" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -253,7 +259,7 @@
                             </div>
 
                             <div class="col-sm-12 col-md-6 col-lg-6">
-
+                                <!-- <h1>Test</h1> -->
 
                             </div>
 
@@ -266,7 +272,32 @@
         <!-- .end FIRST row -->
     </div>
 
-
+    <p-dialog header="Add New User" [(visible)]="displayAddNewUserDialog" [responsive]="true" showEffect="fade" [modal]="true">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+            <p style="color: red;">{{emptyNameMessage}}</p>
+            <p style="color: red;">{{emptyIDMessage}}</p>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="vin">SID</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="name" /></div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="vin">User Name</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="id" /></div>
+            </div>
+            <br>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="vin">Email</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="email" /></div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" class="btn btn-primary" (click)="saveNewUserData(data)"> <i class="icon-edit"></i> Save</button>
+                <button type="button" class="btn btn-primary" (click)="cancelNewUserData(data)"> <i class="icon-remove-sign"></i> Cancel</button>
+            </div>
+        </p-footer>
+    </p-dialog>
     <style type="text/css">
         .minWidth {
             min-width: 300px;
@@ -277,3 +308,6 @@
         }
     </style>
 </main>
+<div *ngIf="false">
+    <dealer-team></dealer-team>
+</div>

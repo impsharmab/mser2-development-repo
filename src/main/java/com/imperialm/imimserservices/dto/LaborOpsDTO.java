@@ -13,12 +13,12 @@ import lombok.Setter;
 public class LaborOpsDTO implements Serializable{
 
 	@Id private int iD;
-	@Id private String dealerCode;
-	@Id private String opCode;
-	@Id private String source;
-	@Id private Date createdDate;
-	@Id private String createdBy;
-	/*@Id private Date updatedDate;
-	@Id private String updatedBy;
-	@Id private String delFlag;*/
+	private String dealerCode;
+	private String opCode;
+	private String source;
+	private Date createdDate;
+	private String createdBy;
+	private Date updatedDate;
+	private String updatedBy;
+	//private String delFlag;
 }

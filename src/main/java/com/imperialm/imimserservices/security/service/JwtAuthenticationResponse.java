@@ -11,6 +11,7 @@ public class JwtAuthenticationResponse implements Serializable {
 
     private static final long serialVersionUID = 1250166508152483573L;
 
+    @Getter
     private final String token;
     
     @Getter @Setter
@@ -26,6 +27,12 @@ public class JwtAuthenticationResponse implements Serializable {
     private List<String> dealerCode;
     
     @Getter @Setter
+    private List<String> dealerName;
+    
+    @Getter @Setter
+    private List<Boolean> mserEnrollment;
+    
+    @Getter @Setter
     private List<Integer> roles;
     
     @Getter @Setter
@@ -36,9 +43,7 @@ public class JwtAuthenticationResponse implements Serializable {
         this.positionCode = new ArrayList<String>();
         this.dealerCode = new ArrayList<String>();
         this.roles = new ArrayList<Integer>();
-    }
-
-    public String getToken() {
-        return this.token;
+        this.dealerName = new ArrayList<String>();
+        this.mserEnrollment = new ArrayList<Boolean>();
     }
 }

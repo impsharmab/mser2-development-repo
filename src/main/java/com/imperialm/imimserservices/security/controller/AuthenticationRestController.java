@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imperialm.imimserservices.dao.DealerPersonnelPositionsDAO;
+import com.imperialm.imimserservices.dao.GroupSIDEnrollmentsDAO;
 import com.imperialm.imimserservices.dao.UserPositionCodeRoleDAO;
 import com.imperialm.imimserservices.dto.TIDUsersDTO;
 import com.imperialm.imimserservices.dto.UserDetailsImpl;
@@ -62,6 +63,16 @@ public class AuthenticationRestController {
 	private DealerPersonnelPositionsDAO DealerPersonnelPositionsDAO;
 	
 	
+	@Autowired
+	private GroupSIDEnrollmentsDAO GroupSIDEnrollmentsDAO;
+	
+	@Autowired
+	private com.imperialm.imimserservices.dao.DealerInfoDAO DealerInfoDAO;
+	
+	@Autowired
+	private com.imperialm.imimserservices.dao.ProgramEnrollmentsDAO ProgramEnrollmentsDAO;
+	
+	
 	
 	private static Logger logger = LoggerFactory.getLogger(AuthenticationRestController.class);
 
@@ -82,6 +93,7 @@ public class AuthenticationRestController {
         	throw new AuthenticationException("Failed to login");
         }*/
 		final String token = jwtTokenUtil.generateToken(user);
+		
 		logger.info("User Id: " + user.getUserId() + ", signed in!");
 		return finalizeToken(token,user, null , null);
 	}
@@ -126,6 +138,9 @@ public class AuthenticationRestController {
 		List<UserPositionCodeRoleDTO> userCodes = userPositionCodeRoleDAO.getDealerCodePCRoleBySid(user.getUserId());
 		List<String> positionCode = new ArrayList<String>();
 		List<String> dealerCode = new ArrayList<String>();
+		List<String> dealerName = new ArrayList<String>();
+		List<Integer> userRoles = new ArrayList<Integer>();
+		List<Boolean> mserEnrollment = new ArrayList<Boolean>();
 
 		if(!(tokenPositionCode == null || tokenPositionCode.isEmpty() || tokenPositionCode.equalsIgnoreCase("undefined"))){
 			positionCode.add(tokenPositionCode);
@@ -163,17 +178,29 @@ public class AuthenticationRestController {
 			}
 		}
 
-		Set<String> p = new LinkedHashSet<>(positionCode);
+		/*Set<String> p = new LinkedHashSet<>(positionCode);
 		Set<String> d = new LinkedHashSet<>(dealerCode);
 		positionCode.clear();
 		dealerCode.clear();
 
 		positionCode.addAll(p);
-		dealerCode.addAll(d);
+		dealerCode.addAll(d);*/
+		
+		for(String dc: dealerCode){
+			dealerName.add(DealerInfoDAO.getDealershipName(dc));
+			mserEnrollment.add(ProgramEnrollmentsDAO.isDealershipEnrolled(dc));
+		}
 
+		for(String pc: positionCode){
+			userRoles.add(DealerPersonnelPositionsDAO.getRoleByPositionCode(pc));
+		}
+		
 		JwtAuthenticationResponse response =new JwtAuthenticationResponse(token);
 		response.setPositionCode(positionCode);
+		response.setRoles(userRoles);
 		response.setDealerCode(dealerCode);
+		response.setDealerName(dealerName);
+		response.setMserEnrollment(mserEnrollment);
 		response.setName(user.getUsername());
 		response.setUserId(jwtTokenUtil.getUsernameFromToken(token));
 		if(UserProgramRolesDAO.isAdmin(user.getUserId().trim())){
