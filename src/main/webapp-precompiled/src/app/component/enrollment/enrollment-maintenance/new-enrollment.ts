@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, TemplateRef, OnDestroy } from '@angular/core';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
@@ -21,6 +21,10 @@ import { EnrollmentInterface } from './enrollment.interface';
 export class EnrollmentComponent implements OnInit {
     selectedCars;
     selectedCity;
+    @ViewChild('tidd') table: TemplateRef<any>;
+    private selectedpc: string = "";
+    private notenrolledDataResponse: any = [];
+    private notenrolledsidOptions: SelectItem[] = [];
     private displayAddNewUserDialog: boolean = false;
     private displayEnrollmentDialog: boolean;
     private enableEditable: boolean = false;
@@ -65,6 +69,7 @@ export class EnrollmentComponent implements OnInit {
     private uvmEnrOptions: SelectItem[] = [];
     private uvmPartOptions: SelectItem[] = [];
     private warrantyAdmOptions: SelectItem[] = [];
+    private option = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
     private cars = [{ "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }, { "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }]
 
 
@@ -84,7 +89,7 @@ export class EnrollmentComponent implements OnInit {
     }];
     cities: any = [{ label: 'New York', value: 'New York' }, { label: 'Rome', value: 'Rome' }];
 
-    constructor(private enrollmentService: EnrollmentMaintenanceService) { }
+    constructor(private enrollmentService: EnrollmentMaintenanceService, private changeDetector: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.getSelectedDealerCode();
@@ -116,17 +121,42 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
-                for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
-                    this.constructSelectItem(i);
-                    // this.enrollmentDataResponse[i].preselectedMserOptions = this.preselectedSelectItem(this.enrollmentDataResponse[i].mser, i);
-                    // console.log(this.preselectedSelectItem(this.enrollmentDataResponse[i].mser, i));
-                    // console.log(this.enrollmentDataResponse[i].preselectedMserOptions);
-                    this.enrollmentDataResponse[i].selectedMserOptions = [];
-                }
+                this.somthing();
             },
             (error) => {
             }
         )
+    }
+
+    private somthing() {
+        for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
+            this.constructSelectItem(i);
+        }
+    }
+    private getNotEnrolledData() {
+        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        this.enrollmentService.getNotEnrolledData(dealerCode).subscribe(
+            (notenrolledDataResponse) => {
+                this.notenrolledDataResponse = (notenrolledDataResponse)
+                // for (var j = 0; j < this.notenrolledDataResponse.length; j++) {
+                this.constructNotenrolledSIDSelect();
+                // }
+            },
+            (error) => {
+            }
+        )
+    }
+
+    private constructNotenrolledSIDSelect() {
+        var notenrolledsid: SelectItem[];
+        notenrolledsid = [];
+        for (var k = 0; k < this.notenrolledDataResponse.length; k++) {
+            notenrolledsid.push({ label: this.notenrolledDataResponse[k].sid, value: this.notenrolledDataResponse[k].sid });
+        }
+        this.notenrolledsidOptions = notenrolledsid;
+        // console.log(this.notenrolledsid);
+        // console.log(notenrolledsid);
+
     }
 
     private constructSelectItem(index): any {
@@ -484,16 +514,39 @@ export class EnrollmentComponent implements OnInit {
         )
     }
 
-    private addNewUserTeam(addTeamData: any) {
-
+    private addNewUser(addTeamData: any) {
+        this.getNotEnrolledData();
+        this.selectedpc = "";
         this.displayAddNewUserDialog = true;
     }
-    private cancelNewUserData(data) {
 
+    private onChange(event, ri) {
+        console.log(event.data);
+    }
+    private addNewUserData(data) {
+        var notenrolledsidOptions = []
+        var newlyAddedUser = {};
+        this.displayAddNewUserDialog = false;
+        for (var l = 0; l < this.notenrolledsidOptions.length; l++) {
+            notenrolledsidOptions.push(this.notenrolledsidOptions[l].label)
+        }
+        var index = notenrolledsidOptions.indexOf(data);
+        console.log(this.enrollmentDataResponse[0]);
+        newlyAddedUser = this.notenrolledDataResponse[index];
+        this.enrollmentDataResponse.unshift(newlyAddedUser);
+        console.log(this.enrollmentDataResponse[0]);
+
+        this.somthing();
+        /*this.changeDetector.detectChanges();
+
+        //var newarr = {... this.enrollmentDataResponse};
+        this.enrollmentDataResponse = {... this.enrollmentDataResponse};
+        */
+      
     }
 
-    private saveNewUserData(data) {
-
+    private cancelNewUserDataDialogue(data) {
+        this.displayAddNewUserDialog = false;
     }
 
 } 
