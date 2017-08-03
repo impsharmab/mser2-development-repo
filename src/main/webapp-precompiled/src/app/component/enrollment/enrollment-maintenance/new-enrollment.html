@@ -272,24 +272,21 @@
         <!-- .end FIRST row -->
     </div>
 
-    <p-dialog header="Add New User" [(visible)]="displayAddNewUserDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    <p-dialog header="Add New User"  [(visible)]="displayAddNewUserDialog" [responsive]="true"
+        showEffect="fade" [modal]="true">
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
             <p style="color: red;">{{emptyNameMessage}}</p>
             <p style="color: red;">{{emptyIDMessage}}</p>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="vin">SID</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="name" /></div>
+                <div class="ui-grid-col-8">
+                    <!-- <input pInputText id="teamName" [(ngModel)]="name" /> -->
+                    <p-dropdown [options]="cars" [(ngModel)]="selectedCity" placeholder="Select" [style]="{'width':'100px'}"></p-dropdown>
+
+                </div>
+
             </div>
-            <br>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">User Name</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="id" /></div>
-            </div>
-            <br>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="vin">Email</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="teamName" [(ngModel)]="email" /></div>
-            </div>
+
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">

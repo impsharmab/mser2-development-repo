@@ -6,6 +6,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from 'ng2-datepicker';
+import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule
@@ -43,7 +44,8 @@ import { DealerTeamService } from '../../../services/express-lane/dealer-team/de
 @NgModule({
   imports: [
     CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule, DialogModule,
-    DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule, ButtonModule, DropdownModule, SharedModule
+    DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule, ButtonModule, DropdownModule, SharedModule,
+    //PdfmakeModule
   ],
 
   declarations: [

@@ -386,7 +386,7 @@ export class EnrollmentComponent implements OnInit {
         // var uvmPartOptions = this.enrollmentDataResponse[index].uvmPartOptions;
         var warrantyAdmOptions = this.enrollmentDataResponse[index].warrantyAdmOptions;
         if (data.length == 0) {
-            this.enrollmentDataResponse[index].mserOptions = this.getMatch(this.removeDuplicates(mserOptions, "label"),index);
+            this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptions, "label");
             this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptions, "label");
             this.enrollmentDataResponse[index].upFitsOptions = this.removeDuplicates(upFitsOptions, "label");
             this.enrollmentDataResponse[index].tiresOptions = this.removeDuplicates(tiresOptions, "label");
@@ -422,7 +422,7 @@ export class EnrollmentComponent implements OnInit {
                 warrantyAdmOptions.push({ label: data[i], value: data[i] });
 
             }
-            this.enrollmentDataResponse[index].mserOptions = this.getMatch(this.removeDuplicates(mserOptions, "label"), index);
+            this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptions, "label");
             this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptions, "label");
             this.enrollmentDataResponse[index].upFitsOptions = this.removeDuplicates(upFitsOptions, "label");
             this.enrollmentDataResponse[index].tiresOptions = this.removeDuplicates(tiresOptions, "label");
