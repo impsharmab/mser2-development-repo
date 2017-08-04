@@ -30,6 +30,7 @@ import { DealercodePositioncodeService } from './services/dealercode-positioncod
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { CMSService } from './services/cms-service/cms-service';
 import { MarketingTrainingService } from './services/marketing/marketing-training.service';
+import { PdfmakeModule } from 'ng-pdf-make';
 
 
 export function cookieServiceFactory() { return new CookieService(); }
@@ -42,6 +43,7 @@ export function cookieServiceFactory() { return new CookieService(); }
     AppRoutingModule,
     MserModule,
     CommonModule,
+    // PdfmakeModule,
     NgbModule.forRoot()
 
   ],

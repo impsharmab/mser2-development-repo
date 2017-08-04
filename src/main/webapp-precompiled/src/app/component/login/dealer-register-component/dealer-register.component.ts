@@ -2,17 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+import { SelectItem } from 'primeng/primeng';
 
 import { DealerRegisterFormInterface } from './dealer-register.interface'
 import { DealerRegisterService } from '../../../services/dealer-register-service/dealer-register.service';
 
 @Component({
   selector: 'dealer-register-component',
-  templateUrl: './new-dealer-register.html',
+  // templateUrl: './new-dealer-register.html',
+  templateUrl: './dealer-register-wizard.html',
   styleUrls: ['./dealer-register.component.css']
 })
 export class DealerRegisterComponent implements OnInit {
   public registerDealer: DealerRegisterFormInterface;
+  selectedValues: string[] = ['val1', 'val2'];
+  value: boolean;
+  date: DateModel;
+  private val;
+  options: DatePickerOptions;
+  private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
+
   private mserEnrollmentFormData = {}
   private errorSID: string = "";
   private errorDealerCode: string = "";
@@ -20,7 +31,12 @@ export class DealerRegisterComponent implements OnInit {
   private invalidCreds: boolean = false;
   private successDealerRegisterMessage: string = "";
   private errorDealerRegistrationMessage: string = "";
-  constructor(private mserEnrollmentService: DealerRegisterService, private http: Http, private router: Router) { }
+
+  constructor(private mserEnrollmentService: DealerRegisterService,
+    private http: Http,
+    private router: Router) {
+    this.options = new DatePickerOptions();
+  }
 
   ngOnInit() {
     this.registerDealer = {

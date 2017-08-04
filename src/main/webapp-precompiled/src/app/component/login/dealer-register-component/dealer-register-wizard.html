@@ -1,0 +1,133 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+    <a class="navbar-brand" href="#"></a>
+
+    <form class="hide-me form-inline float-left b-r-1 px-2 hidden-md-down">
+        <i class="fa fa-search"></i>
+        <input class="form-control" placeholder="Search..." type="text">
+    </form>
+
+    <!--<nav class="navMenu">
+        <div class="menuItem">
+            <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
+        </div>
+        <div class="menuItem">
+            <span class="menuTarget currentPage" data-target="fcaRewards">FCA Rewards Dashboard</span>
+        </div>
+    </nav>-->
+
+
+</header>
+<!-- Main content -->
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Program Registration Request Page
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+
+                        <div class="content-row row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>
+                                <form #f="ngForm" >
+                                    <fieldset>
+                                        <legend>2017 Enrollment Form:</legend>
+                                        <h6>I have read and agree with these Program Rules and allow my dealership personnel
+                                            to participate in these rewards programs.</h6>
+                                        <p> Put a check in the box below: </p>
+                                        <input type="checkbox" name="vehicle" value="Bike"> Yes, I agree to the enrollment
+                                        fee and allow my dealership personnel to participate in the Mopar Service Excellence
+                                        Rewards Program.
+                                        <br><br>
+
+                                        <div class="form-group">
+                                            <label for="name">Dealer Code</label>
+                                            <input type="text" class="form-control" id="name" size="5">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">SID *</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Dealership Name</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Dealership Principal Name</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Email Address</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Phone Number</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Dealer Principal Signature (or person listed on paragraph 2 of Dealer
+                                                                Agreement): Type OK to signature</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="data">Date</label>
+
+                                            <input type="text" class="form-control" name="date" id="date">
+                                            <ng2-datepicker [options]="options" name="date" id="date" value="date"></ng2-datepicker>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Dealer Principal Signature (or person listed on paragraph 2 of Dealer
+                                                                Agreement): Type OK to signature</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+                                        <div class="form-group">
+                                            <p-dropdown name="we" id="we" value="val" [options]="option" [(ngModel)]="registerDealer.dealerSID" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                           
+                                            <!-- <p-dropdown [options]="option" placeholder="Select" [style]="{'width':'250px'}" (onChange)="onChange($event, ri)" filter="filter"
+                                                name="ms" id="managersid"></p-dropdown> -->
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Phone Number</label>
+                                            <input type="text" class="form-control" id="alterEgo">
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </fieldset>
+                                </form>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>

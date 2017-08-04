@@ -21,7 +21,8 @@ import { EnrollmentInterface } from './enrollment.interface';
 export class EnrollmentComponent implements OnInit {
     selectedCars;
     selectedCity;
-    @ViewChild('tidd') table: TemplateRef<any>;
+    private expressLaneDealerData: any;
+    private isExpresslaneDealer: boolean = false;
     private selectedpc: string = "";
     private notenrolledDataResponse: any = [];
     private notenrolledsidOptions: SelectItem[] = [];
@@ -96,6 +97,7 @@ export class EnrollmentComponent implements OnInit {
         this.getSelectedDealerName();
         this.getPositionCodes();
         this.getEnrollmentData();
+        this.getExpresslaneDealer();
 
     }
     private getSelectedDealerCode() {
@@ -542,11 +544,36 @@ export class EnrollmentComponent implements OnInit {
         //var newarr = {... this.enrollmentDataResponse};
         this.enrollmentDataResponse = {... this.enrollmentDataResponse};
         */
-      
+
     }
 
     private cancelNewUserDataDialogue(data) {
         this.displayAddNewUserDialog = false;
+    }
+
+    private getExpresslaneDealer() {
+        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
+            (expressLaneDealerData) => {
+                this.expressLaneDealerData = (expressLaneDealerData)
+                this.isExpresslaneDealer = true;
+            },
+            (error) => {
+                this.isExpresslaneDealer = false;
+            }
+        )
+    }
+    private openDealerTeamTable: boolean = false;
+    private dealerTeamButton: string = "YES";
+    private openDealerTeam() {
+        if (this.dealerTeamButton === 'YES') {
+            this.openDealerTeamTable = true;
+            this.dealerTeamButton = "NO";
+        } else {
+            this.openDealerTeamTable = false;
+            this.dealerTeamButton = "YES";
+        }
+
     }
 
 } 
