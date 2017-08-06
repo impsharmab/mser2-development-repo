@@ -68,7 +68,7 @@ export class EnrollmentMaintenanceService {
     return this.http.post(url, body, { headers })
       .map((response: Response) =>
         response.json())
-      .catch(this.handleError);
+      .catch(this.customHandleError);
 
   }
 
@@ -86,10 +86,30 @@ export class EnrollmentMaintenanceService {
   }
   private handleError(error: Response | any) {
     let errMsg: string = "";
+    if (error.status === 500) {
+      alert(error._body);
+
+    }
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    return Observable.throw(errMsg);
+  }
+
+  private customHandleError(error: Response | any) {
+     let errMsg: string = "";
+    // if (error.status === 500) {
+    //   alert(error._body);
+      
+    // }
+    if (error instanceof Response) {
+      // const body = error.json() || '';
+      // const err = body.error || JSON.stringify(body);
+      errMsg = `${error.text() || ''}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

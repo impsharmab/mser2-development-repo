@@ -9,16 +9,12 @@ import { DataTable } from 'primeng/primeng';
 import { EnrollmentInterface } from './enrollment.interface';
 @Component({
     selector: 'app-enrollment',
-    templateUrl: './new-enrollment.html',
-    animations: [trigger('slideInOut', [
-        state('true', style({ width: '0px', })),
-        state('false', style({ width: '*', display: "block" })),
-        transition('1 => 0', animate('500ms ease-in')),
-        transition('0 => 1', animate('400ms ease-out'))
-    ])]
+    templateUrl: './freeze.html'
     //   styleUrls: ['./enrollment-maintenance.component.css']
 })
 export class EnrollmentComponent implements OnInit {
+    isCollapsed = true;
+    @ViewChild("datatable") dataTable: DataTable;
     selectedCars;
     selectedCity;
     private expressLaneDealerData: any;
@@ -474,18 +470,27 @@ export class EnrollmentComponent implements OnInit {
 
 
     }
-    private edit(sid, editButton, cancelButton, saveButton) {
+    private onEditInitE(event: any) {
+        if (!event.data.isEditableR) {
+            setTimeout(() => {
+                this.dataTable.closeCell();
+            }, 10);
+        }
+    }
+    private edit(rowData, editButton, cancelButton, saveButton) {
         editButton.style["display"] = "none";
         cancelButton.style["display"] = "block";
         saveButton.style["display"] = "block";
+        rowData.isEditableR = true;
         this.enableEditable = true;
     }
 
-    private cancel(sid, editButton, cancelButton, saveButton) {
+    private cancel(rowData, editButton, cancelButton, saveButton) {
         editButton.style["display"] = "block";
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";
         this.enableEditable = false;
+        rowData.isEditableR = false;
         this.getEnrollmentData();
     }
     private returnItem1(data, index): any {
@@ -499,19 +504,25 @@ export class EnrollmentComponent implements OnInit {
         }
         return item1;
     }
-    private saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, index) {
+    private msg: string = "";
+    private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
         editButton.style["display"] = "block";
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";
         this.enableEditable = false;
-        this.returnItem1(data.mserOptions, index);
-        this.enrollmentService.saveEnrollmentMaintenanceData(data).subscribe(
+        rowData.isEditableR = false;
+        this.returnItem1(rowData.mserOptions, index);
+        this.enrollmentService.saveEnrollmentMaintenanceData(rowData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
                 this.getEnrollmentData();
             },
             (error) => {
+                setTimeout(() => {
+                    this.msg = error;
+                }, 1000)
 
+                // alert(error)
             }
         )
     }

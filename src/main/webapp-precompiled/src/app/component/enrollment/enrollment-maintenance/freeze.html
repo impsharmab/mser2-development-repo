@@ -32,53 +32,196 @@
                         </div>
                         <div class="content-row row">
                             <div class="container ">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <!-- <h6>Add Dealer Team Identifiers</h6> -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary" style="margin-left: auto; float:left" (click)="addNewUser(addUserData)"><i class="fa fa-plus" aria-hidden="true"></i>  Add New User</button>
+
+                                </form>
+                                <p style="color:red">{{msg}}</p>
                                 <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                     <input #gb type="text" pInputText size="50" placeholder="Global Filter">
                                 </div>
-                                <p-dataTable [value]="enrollmentDataResponse" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]"
-                                    [globalFilter]="gb" rowIndexVar="index" [editable]="enableEditable" [responsive]="true" [tableStyle]="{'width':'auto'}">
-                                    <p-column styleClass="col-button" [style]="{'width':'150px'}">
+                                <p-dataTable #datatable [immutable]=false [value]="enrollmentDataResponse" [editable]="true" (onEditInit)="onEditInitE($event)"
+                                    (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]"
+                                    [globalFilter]="gb" resizableColumns="true" [responsive]="true" [tableStyle]="{'width':'auto'}"
+                                    rowIndexVar="index">
+                                    <p-column styleClass="col-button" [style]="{'width':'150px'}" frozen="true">
                                         <ng-template pTemplate="header">
                                             Activity
                                         </ng-template>
                                         <ng-template pTemplate="body" let-data="rowData" let-ri="rowIndex">
-                                            <span #editButton> <button  type="button" (click)="edit(data.sid,editButton, cancelButton, saveButton )">
+                                            <span #editButton> <button  type="button" (click)="edit(data, editButton, cancelButton, saveButton )">
                                                 <i class="icon-edit" aria-hidden="true"></i>EDIT</button></span>
 
-                                            <span #cancelButton style="display: none"> <button  type="button" (click)="cancel(data.sid, editButton, cancelButton, saveButton)">
+                                            <span #cancelButton style="display: none"> <button  type="button" (click)="cancel(data, editButton, cancelButton, saveButton)">
                                                 <i class="icon-edit" aria-hidden="true" >CANCEL</i></button></span>
 
-                                            <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data, data.sid, editButton, cancelButton, saveButton, ri)">
+                                            <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
                                                 <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span>
                                         </ng-template>
                                     </p-column>
-                                    <p-column field="sid" header="SID" [style]="{'width':'100px'}"></p-column>
-                                    <p-column field="name" header="Name" [style]="{'width':'150px'}"></p-column>
-                                    <p-column field="myPersonalDMSID" header="My Personal DMS ID" [style]="{'width':'100px'}"></p-column>
-                                    <p-column [style]="{'width':'80px' }" [editable]="enableEditable">
+                                    <p-column field="sid" header="Participant" [style]="{'width':'150px'}"></p-column>
+                                    <p-column field="name" header="Participant Name" [style]="{'width':'150px'}"></p-column>
+                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'150px' }">
                                         <ng-template pTemplate="header">DMS ID</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
-                                            <input type="text" size="10" pInputText [(ngModel)]="dat" [disabled]=!enableEditable>
+                                            {{data.dmsid}}                                            
                                         </ng-template>
-                                    </p-column>                                    
-                                    <p-column [style]="{'overflow':'visible', 'width':'150px', 'display':'none' }" [editable]="enableEditable">
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <input type="text" pInputText placeholder="DMS ID" [(ngModel)]="data.dmsid">
+                                        </ng-template>
+
+                                    </p-column>
+                                    <p-column field="myPersonalDMSID" header="Mypersonnel DMS ID" [style]="{'width':'150px'}"></p-column>
+                                    <p-column field="positionCodes" header="Mypersonnel Positions" [style]="{'width':'150px'}"></p-column>
+
+                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'150px' }">
                                         <ng-template pTemplate="header">Position Codes Overrides</ng-template>
-                                        <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="body">
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.overriddenpositionCodes}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="editor">
                                             <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" (onChange)="selectedPCOverrides(data.overriddenpositionCodes, ri)"
-                                                [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}" [disabled]=!enableEditable></p-multiSelect>
+                                                [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
-
-                                    <p-column field="mser" header="Mopar Parts"></p-column>
-
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Mopar Parts</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.mser}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [scrollHeight]="200" [appendTo]="ng-template" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Mopar Accessories</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.mas}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.upFitsOptions" [(ngModel)]="data.mas" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Magnetti Marelli</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.mm}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.mmOptions" [(ngModel)]="data.mm" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">MVP</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body" [style]="{'width':'250px'}">
+                                            {{data.mvp}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.mvpOptions" [(ngModel)]="data.mvp" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">wiAdvisor MVP</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.wiMvp}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.wiAdvMVPOptions" [(ngModel)]="data.wiMvp" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">wiAdvisor Tires</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.wiTires}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.wiAdvTireOptions" [(ngModel)]="data.wiTires" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Uconnect Sales</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.ucon}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.uconSalesOptions" [(ngModel)]="data.ucon" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Uconnect Service</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.ucon}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.uconServiceOptions" [(ngModel)]="data.ucon" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Parts Counter Manager</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.pc}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-dropdown [options]="data.pcMOptions" [(ngModel)]="data.pc" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Express Lane Manager</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.el}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-dropdown [options]="data.elMOptions" [(ngModel)]="data.el" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Used Recon Manager</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.usedRecon}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-dropdown [options]="data.uvmEnrOptions" [(ngModel)]="data.usedRecon" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Used Recon Participant</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.usedReconP}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.uvmPartOptions" [(ngModel)]="data.usedReconP" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    
+                                    <p-column [editable]="true" [style]="{'overflow':'visible'}">
+                                        <ng-template pTemplate="header">Warranty Admin</ng-template>
+                                         <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.mm}}                                            
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.warrantyAdmOptions" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column> 
                                 </p-dataTable>
 
 
                             </div>
 
                             <div class="col-sm-12 col-md-6 col-lg-6">
-
+                                <!-- <h1>Test</h1> -->
 
                             </div>
 
@@ -91,7 +234,29 @@
         <!-- .end FIRST row -->
     </div>
 
+    <p-dialog header="Add New User " [(visible)]="displayAddNewUserDialog" showEffect="fade" [modal]="true" [style]="{'width':'500px !important', 'height':'45222px !important'}">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+            <p style="color: red;">{{emptyNameMessage}}</p>
+            <p style="color: red;">{{emptyIDMessage}}</p>
 
+            <div class="ui-grid-row">
+                SID:
+                <p-dropdown [options]="notenrolledsidOptions" [(ngModel)]="selectedpc" placeholder="Select" [style]="{'width':'250px'}" (onChange)="onChange($event, ri)"
+                    filter="filter"></p-dropdown>
+            </div>
+            <div class="ui-grid-row">
+                <!-- <div class="ui-grid-col-4"><label for="vin">User Name</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="userName" [(ngModel)]="userName" /></div> -->
+            </div>
+
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" class="btn btn-primary" (click)="addNewUserData(selectedpc)"> <i class="icon-edit"></i> Add</button>
+                <button type="button" class="btn btn-primary" (click)="cancelNewUserDataDialogue(data)"> <i class="icon-remove-sign"></i> Cancel</button>
+            </div>
+        </p-footer>
+    </p-dialog>
     <style type="text/css">
         .minWidth {
             min-width: 300px;
@@ -101,4 +266,18 @@
             min-width: 20%;
         }
     </style>
+    <div *ngIf="isExpresslaneDealer ">
+        <div>
+            <p></p>
+            Would you like to set up Express Lane Teams?<button type="button" class="btn btn-primary" (click)="openDealerTeam()"> <i class="icon-edit"></i> {{dealerTeamButton}} </button>
+        </div>
+        <br><br>
+
+    </div>
 </main>
+
+<div *ngIf="openDealerTeamTable">
+    <dealer-team></dealer-team>
+</div>
+<br><br>
+<br><br>
