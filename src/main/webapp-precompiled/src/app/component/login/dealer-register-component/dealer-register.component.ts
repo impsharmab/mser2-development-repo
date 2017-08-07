@@ -6,7 +6,8 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectItem } from 'primeng/primeng';
 
-import { DealerRegisterFormInterface } from './dealer-register.interface'
+import { DealerRegisterFormInterface } from './dealer-register.interface';
+import { DealerEnrollmentFormInterface } from './dealer-enrollment.interface';
 import { DealerRegisterService } from '../../../services/dealer-register-service/dealer-register.service';
 
 @Component({
@@ -20,10 +21,16 @@ export class DealerRegisterComponent implements OnInit {
   selectedValues: string[] = ['val1', 'val2'];
   value: boolean;
   date: DateModel;
-  private val;
   options: DatePickerOptions;
-  private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
+  submitted = false;
 
+  private val;
+  private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
+  private dealerEnrollment: DealerEnrollmentFormInterface = {
+    aggrement: false, dealerCode: "", sid: "", dealershipName: "", dealerPrincipalName: "", dealerPrincipalEmail: "", phone: "",
+    signature: "", date: "", selectedManager: "", managerEmail: "",
+    isPartsCounter: false, isUsedRecon: false, isExpressLane: false
+  };
   private mserEnrollmentFormData = {}
   private errorSID: string = "";
   private errorDealerCode: string = "";
@@ -50,117 +57,27 @@ export class DealerRegisterComponent implements OnInit {
     return re.test(email);
   }
 
-  private registerDealership() {
-    if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
-      this.errorSID = "SID is Required.";
-      this.errorDealerCode = "Dealer Code is Required.";
-      this.errorDealerEmail = "Email is Required";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() !== null && this.validateEmail(this.registerDealer.dealerPrincipalEmail.trim())) {
-      this.errorSID = "SID is Required.";
-      this.errorDealerCode = "Dealer Code is Required.";
-      this.errorDealerEmail = "";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() === "") {
-      this.errorSID = "SID is Required.";
-      this.errorDealerCode = "";
-      this.errorDealerEmail = "Email is Required.";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
-      this.errorSID = "";
-      this.errorDealerCode = "Dealer Code is Required.";
-      this.errorDealerEmail = "Email is Required.";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
-      this.errorSID = "SID is Required.";
-      this.errorDealerCode = "";
-      this.errorDealerEmail = "";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() === "" && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
-      this.errorSID = "SID is Required.";
-      this.errorDealerCode = "";
-      this.errorDealerEmail = "";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() === "" && this.registerDealer.dealerPrincipalEmail.trim() !== null) {
-      this.errorSID = "";
-      this.errorDealerCode = "Dealer Code is Required.";
-      this.errorDealerEmail = "";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() !== "" && this.registerDealer.dealerPrincipalEmail.trim() === "") {
-      this.errorSID = "";
-      this.errorDealerCode = "";
-      this.errorDealerEmail = "Email is Required.";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    } else if (this.registerDealer.dealerSID.trim() !== null && this.registerDealer.dealerCode.trim() !== null && this.registerDealer.dealerPrincipalEmail.trim() !== null && !this.validateEmail(this.registerDealer.dealerPrincipalEmail.trim())) {
-      this.errorSID = "";
-      this.errorDealerCode = "";
-      this.errorDealerEmail = "Please enter the valid Email.";
-      this.errorDealerRegistrationMessage = "";
-      return;
-    }
 
-    // if (this.validateEmail(this.registerDealer.dealerPrincipalEmail)) {
-    //   alert(true)
-    //   return;
-    // } else {
-    //   alert(false)
-    // }
-    this.mserEnrollmentService.registerDealership(this.registerDealer.dealerSID.trim(),
-      this.registerDealer.dealerCode.trim(), this.registerDealer.dealerPrincipalEmail.trim())
-      .subscribe(
-      (responseMserEnrollmentData) => {
-        this.mserEnrollmentFormData = (responseMserEnrollmentData)
+  private dealerEnrollmentAggrement(agrrement) {
+    this.dealerEnrollment.aggrement = true;
+  }
+  private dealerEnrollmentPCCheckBox() {
+    this.dealerEnrollment.isPartsCounter = true;
+  }
+  private dealerEnrollmentUsedReconCheckBox() {
+    this.dealerEnrollment.isUsedRecon = true;
+  }
+  private dealerEnrollmentExpressLaneCheckBox() {
+    this.dealerEnrollment.isExpressLane = true;
+  }
+  private dealerEnrollmentElligibleManagers(){
 
-        let loginPageUrl = ["/login"];
-        this.router.navigate(loginPageUrl);
-
-        this.errorSID = "";
-        this.errorDealerCode = "";
-        this.errorDealerEmail = "";
-        this.errorDealerRegistrationMessage = "";
-        // var body = "mailto:info@moparser.com?subject=Request Enrollment &body= Dealer SID:"
-        // var dealerSid = this.registerDealer.dealerSID;
-        // var dealerCode = "%0D%0A Dealer Code: " + this.registerDealer.dealerCode;
-        // var dealerPrincipalEmail = "%0D%0A Dealer Principal Email: " + this.registerDealer.dealerPrincipalEmail;
-        // var url = body.concat(dealerSid, dealerSid, dealerCode, dealerPrincipalEmail)
-        // location.href = (url);
-      },
-
-      (error: any) => {
-        console.log(error.status);
-        // alert(error._body);
-        if (error.status === 500) {
-          this.errorSID = "";
-          this.errorDealerCode = "";
-          this.errorDealerEmail = "";
-          this.errorDealerRegistrationMessage = error._body;
-        } else {
-          this.errorSID = "";
-          this.errorDealerCode = "";
-          this.errorDealerEmail = "";
-          this.invalidCreds = true;
-        }
-
-      }
-
-      )
-    // this.errorSID = "";
-    // this.errorDealerCode = "";
-    // this.errorDealerEmail = "";
-    // var body = "mailto:info@moparser.com?subject=Request Enrollment &body= Dealer SID:"
-    // var dealerSid = this.registerDealer.dealerSID;
-    // var dealerCode = "%0D%0A Dealer Code: " + this.registerDealer.dealerCode;
-    // var dealerPrincipalEmail = "%0D%0A Dealer Principal Email: " + this.registerDealer.dealerPrincipalEmail;
-    // var url = body.concat(dealerSid, dealerSid, dealerCode, dealerPrincipalEmail)
-    // location.href = (url);
+  }
+  private saveDealerEnrollmentForm() {
+    this.submitted = true;
+    alert(this.dealerEnrollment.date);
+    alert(this.dealerEnrollment.date["formatted"]);
+    
   }
   cancel() {
     let url = ["login"]

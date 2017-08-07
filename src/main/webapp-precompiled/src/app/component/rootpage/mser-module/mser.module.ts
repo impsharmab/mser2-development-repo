@@ -10,7 +10,7 @@ import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule
-} from 'primeng/primeng';
+} from 'primeng/primeng'; 
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';

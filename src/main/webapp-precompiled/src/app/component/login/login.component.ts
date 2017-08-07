@@ -194,4 +194,8 @@ export class LoginComponent implements OnInit {
     let url = ["dealerregister"]
     this.router.navigate(url);
   }
+  fiatEnrollment() {
+    let url = ["fiatenrollment"]
+    this.router.navigate(url);
+  }
 }

@@ -5,6 +5,11 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
 import { NgbModal, NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import {
+  DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
+  TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule
+} from 'primeng/primeng';
+import { DatePickerModule } from 'ng2-datepicker';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './component/sidenav/sidenav.component';
@@ -22,6 +27,7 @@ import { DealerRegisterService } from './services/dealer-register-service/dealer
 import { UserProfileComponent } from './component/header/user-profile/user-profile.component';
 import { DealercodeModalComponent } from './component/header/dealercode-modal/dealercode-modal.component';
 import { MarketingTrainingPresentationComponent } from './component/marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
+import { FiatEnrollmentComponent } from './component/login/fiat-enrollment/fiat-enrollment';
 
 import { LoginService } from './services/login-service/login.service';
 import { UserProfileService } from './services/user-profile-service/user-profile.service';
@@ -36,34 +42,20 @@ import { PdfmakeModule } from 'ng-pdf-make';
 export function cookieServiceFactory() { return new CookieService(); }
 @NgModule({
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    MserModule,
-    AppRoutingModule,
-    MserModule,
-    CommonModule,
+    BrowserModule, FormsModule, HttpModule, MserModule, AppRoutingModule, MserModule, CommonModule, DialogModule, InputTextModule,
+    DataTableModule, MultiSelectModule, DataListModule, TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule,
+    DatePickerModule,
     // PdfmakeModule,
     NgbModule.forRoot()
 
   ],
   declarations: [
-    AppComponent,
-    ResetPasswordComponent,
-    LoginComponent,
-    DealerRegisterComponent,
-    EnrollmentReportComponent,
-    MarketingTrainingPresentationComponent,
+    AppComponent, ResetPasswordComponent, LoginComponent, DealerRegisterComponent, EnrollmentReportComponent,
+    MarketingTrainingPresentationComponent, FiatEnrollmentComponent
   ],
   providers: [
-    LoginService,
-    DealerRegisterService,
-    UserProfileService,
-    OpcodeSetupService,
-    DealercodePositioncodeService,
-    CMSService,
-    MarketingTrainingService,
-    { provide: CookieService, useFactory: cookieServiceFactory }
+    LoginService, DealerRegisterService, UserProfileService, OpcodeSetupService, DealercodePositioncodeService, CMSService,
+    MarketingTrainingService, { provide: CookieService, useFactory: cookieServiceFactory }
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

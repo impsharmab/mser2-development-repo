@@ -5,7 +5,8 @@ import { LoginComponent } from '../component/login/login.component';
 // import { RootPageComponent } from '../rootpage/rootpage.component';
 import { ResetPasswordComponent } from '../component/login/reset-password/reset-password.component'
 // import {HomeComponent} from "../home/home.component"
-import { DealerRegisterComponent } from '../component/login/dealer-register-component/dealer-register.component'
+import { DealerRegisterComponent } from '../component/login/dealer-register-component/dealer-register.component';
+import { FiatEnrollmentComponent } from '../component/login/fiat-enrollment/fiat-enrollment';
 
 const routes: Routes = [
     {
@@ -28,6 +29,10 @@ const routes: Routes = [
     {
         path: "dealerregister",
         component: DealerRegisterComponent
+    },
+    {
+        path: "fiatenrollment",
+        component: FiatEnrollmentComponent
     },
     //  {
     //     path: "home",

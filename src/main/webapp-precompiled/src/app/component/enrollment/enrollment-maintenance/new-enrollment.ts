@@ -474,7 +474,7 @@ export class EnrollmentComponent implements OnInit {
         if (!event.data.isEditableR) {
             setTimeout(() => {
                 this.dataTable.closeCell();
-            }, 10);
+            }, 1);
         }
     }
     private edit(rowData, editButton, cancelButton, saveButton) {
@@ -491,7 +491,7 @@ export class EnrollmentComponent implements OnInit {
         saveButton.style["display"] = "none";
         this.enableEditable = false;
         rowData.isEditableR = false;
-        this.getEnrollmentData();
+       // this.getEnrollmentData();
     }
     private returnItem1(data, index): any {
         var item1 = [];
