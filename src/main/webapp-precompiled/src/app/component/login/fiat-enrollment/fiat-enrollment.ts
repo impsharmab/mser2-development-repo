@@ -20,10 +20,13 @@ export class FiatEnrollmentComponent implements OnInit {
         signature: "", date: "", selectedManager: "", managerEmail: "",
         isPartsCounter: false, isUsedRecon: false, isExpressLane: false
     };
-    constructor() { }
+    constructor(private router: Router) { }
 
     ngOnInit() {
 
     }
-
+    cancel() {
+        let url = ["login"]
+        this.router.navigate(url);
+    }
 }

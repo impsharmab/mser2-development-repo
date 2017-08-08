@@ -2,7 +2,7 @@
     <div [innerHTML]="cmsContentObject"></div>
 </main>-->
 <main class="main">
-    <!--style scoped>
+    <style scoped>
         /* Template Structure */
 
         html {}
@@ -253,18 +253,18 @@
         .button:hover {
             border-color: black;
         }
-    </style-->
+    </style>
     <!--<link type="text/css" href="http://uat.imperialmarketing.com/mser/themes/mser/css/main.css" rel="stylesheet" />
     <link type="text/css" href="http://uat.imperialmarketing.com/mser/themes/mser/css/content.css" rel="stylesheet" />-->
-    <table id="main-container-table">
+    <table id="main-container-table" cellpadding="0">
         <tbody>
             <tr>
                 <td>
-                    <table id="content-table">
+                    <table id="content-table" cellpadding="0">
                         <tbody>
                             <tr>
-                                <td id="content">
-                                    <div id="main-content" [innerHTML]="cmsContentObject">
+                                <td id="content" style="width:90%">
+                                    <div id="main-content" style="width: 96%; padding-left: 2em" [innerHTML]="cmsContentObject">
                                         <!--<div [innerHTML]="cmsContentObject"></div>-->
                                     </div>
                                 </td>

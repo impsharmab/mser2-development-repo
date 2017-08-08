@@ -53,20 +53,26 @@
                                         <!-- <input type="checkbox" name="aggrement" id="aggrement"> Yes, I agree to the enrollment
                                         fee and allow my dealership personnel to participate in the Mopar Service Excellence
                                         Rewards Program. -->
+                                        <div [hidden]="booleanSelectCheckBox" class="alert alert-danger">
+                                                Selection in checkbox is rewuired
+                                            </div>
                                         <p-checkbox name="aggrement" value="aggrement" label="Yes, I agree to the enrollment
-                                        fee and allow my dealership personnel to participate in the '\t' Mopar Service Excellence
-                                        Rewards Program."  (onChange)="dealerEnrollmentAggrement()"></p-checkbox>
+                                        fee and allow my dealership personnel to participate in the Mopar Service Excellence
+                                        Rewards Program." (onChange)="dealerEnrollmentAggrement()" required ></p-checkbox>
                                         <br><br>
 
                                         <div class="form-group">
                                             <label for="dealercode">Dealer Code</label>
-                                            <input type="text" class="form-control" id="dealercode" name="dealercode" [(ngModel)]="dealerEnrollment.dealerCode" size="5"
-                                                style="width: 30%">
+                                            <input type="text" class="form-control" id="dealercode" name="dealercode" required [(ngModel)]="dealerEnrollment.dealerCode" minlength="5"
+                                                maxlength="5" style="width: 30%" pattern="[0-9]{5}" #dealercode="ngModel">
+                                            <div [hidden]="dealercode.valid || dealercode.pristine" class="alert alert-danger">
+                                                Valid Dealercode is required
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="sid">SID *</label>
                                             <input type="text" class="form-control" id="sid" required [(ngModel)]="dealerEnrollment.sid" name="sid" minlength="7" maxlength="7"
-                                                style="width: 30%" pattern="[A-Za-z]{7}" #sid="ngModel">
+                                                style="width: 30%" pattern="[A-Za-z0-9]{7}" #sid="ngModel">
                                             <div [hidden]="sid.valid || sid.pristine" class="alert alert-danger">
                                                 Valid SID is required
                                             </div>
@@ -74,41 +80,67 @@
 
                                         <div class="form-group">
                                             <label for="dealershipname">Dealership Name</label>
-                                            <input type="text" class="form-control" id="dealershipname" name="dealershipname" [(ngModel)]="dealerEnrollment.dealershipName">
+                                            <input type="text" class="form-control" id="dealershipname" name="dealershipname" required [(ngModel)]="dealerEnrollment.dealershipName"
+                                                pattern="[A-Za-z].{3,}" #dealershipname="ngModel">
+                                            <div [hidden]="dealershipname.valid || dealershipname.pristine" class="alert alert-danger">
+                                                Dealership Name is required
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="dealershipprincipalname">Dealership Principal Name</label>
-                                            <input type="text" class="form-control" id="dealershipprincipalname" name="dealershipprincipalname" [(ngModel)]="dealerEnrollment.dealerPrincipalName">
+                                            <input type="text" class="form-control" id="dealershipprincipalname" name="dealershipprincipalname" required [(ngModel)]="dealerEnrollment.dealerPrincipalName"
+                                                pattern="[A-Za-z].{3,}" #dealershipprincipalname="ngModel">
+                                            <div [hidden]="dealershipprincipalname.valid || dealershipprincipalname.pristine" class="alert alert-danger">
+                                                Dealer Principal Name is required
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email Address</label>
-                                            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="dealerEnrollment.dealerPrincipalEmail">
+                                            <input type="email" class="form-control" id="email" name="email" required [(ngModel)]="dealerEnrollment.dealerPrincipalEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                                #email="ngModel">
+                                            <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                                                Valid email is required.
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="phone">Phone Number</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="dealerEnrollment.phone">
+                                            <input type="text" class="form-control" id="phone" name="phone" required [(ngModel)]="dealerEnrollment.phone" pattern="[0-9]{10}"
+                                                #phone="ngModel" minlength="10" maxlength="10">
+                                            <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
+                                                Valid phone number is required.
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="signature">Dealer Principal Signature (or person listed on paragraph 2 of Dealer
                                                                 Agreement): Type OK to signature</label>
-                                            <input type="text" class="form-control" id="signature" name="signature" [(ngModel)]="dealerEnrollment.signature">
+                                            <input type="text" class="form-control" id="signature" name="signature" required [(ngModel)]="dealerEnrollment.signature" pattern="[OKok]{2}"
+                                                #signature="ngModel" minlength="2" maxlength="2">
+                                            <div [hidden]="signature.valid || signature.pristine" class="alert alert-danger">
+                                                Signature is required.
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="date">Date</label>
                                             <ng2-datepicker [options]="options" [(ngModel)]="dealerEnrollment.date" name="date" id="date" value="date"></ng2-datepicker>
                                         </div>
                                         <div class="form-group">
-                                            <label for="alterEgo">Eligible Parts Manager or Service Manager: </label>
+                                            <label for="elligiblemanager">Eligible Parts Manager or Service Manager: </label>
                                             <!-- <input type="text" class="form-control" id="alterEgo"> -->
-                                            <p-dropdown [options]="option" name="elligiblemanagers" [(ngModel)]="dealerEnrollment.selectedManager" placeholder="Select a Manager" filter="filter"
-                                                [style]="{'width':'59%'}" (onChange)="dealerEnrollmentElligibleManagers(dealerEnrollment.selectedManager)" ></p-dropdown>
+                                            <p-dropdown [options]="option" name="elligiblemanagers" required [(ngModel)]="dealerEnrollment.selectedManager" placeholder="Select a Manager"
+                                                filter="filter" [style]="{'width':'59%'}" #elligiblemanager="ngModel" (onChange)="dealerEnrollmentElligibleManagers(dealerEnrollment.selectedManager)"></p-dropdown>
+                                            <div [hidden]="elligiblemanager.valid || elligiblemanager.pristine" class="alert alert-danger">
+                                                Select the Manager.
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="manageremail">Manager Email </label>
-                                            <input type="text" class="form-control" id="manageremail" name="manageremail" [(ngModel)]="dealerEnrollment.managerEmail">
+                                            <input type="email" class="form-control" id="manageremail" name="manageremail" required [(ngModel)]="dealerEnrollment.managerEmail"
+                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #manageremail="ngModel">
+                                            <div [hidden]="manageremail.valid || manageremail.pristine" class="alert alert-danger">
+                                                Valid email is required.
+                                            </div>
                                         </div>
                                         <div class="form-group">
-
                                             <p-checkbox name="group1" value="Parts Counter" label="Yes, I will enroll in
                                             Parts Counter." (onChange)="dealerEnrollmentPCCheckBox()"></p-checkbox>
                                         </div>

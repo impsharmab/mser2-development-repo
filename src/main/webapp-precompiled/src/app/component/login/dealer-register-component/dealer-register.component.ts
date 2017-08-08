@@ -23,6 +23,7 @@ export class DealerRegisterComponent implements OnInit {
   date: DateModel;
   options: DatePickerOptions;
   submitted = false;
+  booleanSelectCheckBox = false;
 
   private val;
   private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
@@ -60,6 +61,7 @@ export class DealerRegisterComponent implements OnInit {
 
   private dealerEnrollmentAggrement(agrrement) {
     this.dealerEnrollment.aggrement = true;
+    this.booleanSelectCheckBox = true;
   }
   private dealerEnrollmentPCCheckBox() {
     this.dealerEnrollment.isPartsCounter = true;
@@ -70,14 +72,14 @@ export class DealerRegisterComponent implements OnInit {
   private dealerEnrollmentExpressLaneCheckBox() {
     this.dealerEnrollment.isExpressLane = true;
   }
-  private dealerEnrollmentElligibleManagers(){
+  private dealerEnrollmentElligibleManagers() {
 
   }
   private saveDealerEnrollmentForm() {
     this.submitted = true;
     alert(this.dealerEnrollment.date);
     alert(this.dealerEnrollment.date["formatted"]);
-    
+
   }
   cancel() {
     let url = ["login"]

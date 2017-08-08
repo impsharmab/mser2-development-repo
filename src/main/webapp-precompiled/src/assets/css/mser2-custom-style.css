@@ -1,35 +1,113 @@
-
-
-
-.dealercode .modal-dialog{
-    margin: 30px auto;
-    max-width: none;
-    max-height: none;
-    width: 40%;
-    height: 20%;
+/* Begin @fontface declarations */
+@font-face {
+  font-family: 'biro_script_reducedregular';
+  src: url('../fonts/biro/biro_script_reduced-webfont.eot');
+  src: url('../fonts/biro/biro_script_reduced-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/biro/biro_script_reduced-webfont.woff2') format('woff2'),
+       url('../fonts/biro/biro_script_reduced-webfont.woff') format('woff'),
+       url('../fonts/biro/biro_script_reduced-webfont.ttf') format('truetype'),
+       url('../fonts/biro/biro_script_reduced-webfont.svg#biro_script_reducedregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'biro_script_plus_flatregular';
+  src: url('../fonts/biro/biroscriptplusflat-webfont.eot');
+  src: url('../fonts/biro/biroscriptplusflat-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/biro/biroscriptplusflat-webfont.woff2') format('woff2'),
+       url('../fonts/biro/biroscriptplusflat-webfont.woff') format('woff'),
+       url('../fonts/biro/biroscriptplusflat-webfont.ttf') format('truetype'),
+       url('../fonts/biro/biroscriptplusflat-webfont.svg#biro_script_plus_flatregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* Graphs for Payout Chart */
+@font-face {
+  font-family: 'TitlingGothicFB LightNarrow';
+  src: url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.eot');
+  src: url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.eot?#iefix') format("embedded-opentype"),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.woff2') format('woff2'),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.woff') format('woff'),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.ttf') format('truetype'),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.svg#TitlingGothicFB-LightNarrow') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: 'TitlingGothicFB Narrow Medium';
+  src: url('../fonts/titling-gothic/TitlingGothicFBNar-Med.eot');
+  src: url('../fonts/titling-gothic/TitlingGothicFBNar-Med.eot?#iefix') format("embedded-opentype"),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.woff2') format('woff2'),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.woff') format('woff'),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.ttf') format('truetype'),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.svg#TitlingGothicFBNar-Med') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TitlingGothicFB StandardComp';
+  src: url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.eot');
+  src: url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.eot?#iefix') format("embedded-opentype"),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.woff2') format('woff2'),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.woff') format('woff'),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.ttf') format('truetype'),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.svg#TitlingGothicFB-StandardComp_1') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* End @fontface declarations */
+
+
+/* Begin links within a nested link collection */
+.sidebar ul.nav li.nav-item.nav-dropdown.open a.nav-link:hover,.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open .nav-link:hover {
+  background-color: rgb(30, 134, 209) !important;
+}
+.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open .nav-link {
+  background-color: rgb(30, 134, 209) !important;
+}
+.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link {
+  background-color: rgb(60, 164, 239) !important;
+  padding-left: 3rem;
+}
+.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link:hover {
+  background-color: rgb(76, 180, 255) !important;
+}
+.sidebar ul.nav li.nav-item a.nav-link.active {
+  background: rgba(255,255,255,.25) !important;
+}
+.sidebar ul.nav ul.nav-dropdown-items a.nav-link {
+    padding-left: 2rem;
+}
+.nav-item.nav-dropdown.open{
+  border-bottom: 1px solid rgb(206,206,206);
+}
+.nav-item.nav-dropdown.open .nav-dropdown-toggle {
+  border-top: 1px solid rgb(206,206,206);
+  border-bottom: 1px solid rgb(206,206,206);
+  font-weight: bold;
+}
+/* End nested links collection */
+
+
+/* Begin Graphs for Payout Chart */
 .payout-chart-heading{
   font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 2.66em;
 }
-
 .graph{
   box-sizing: border-box;
   display: flex;
   margin: 25px 25px 25px 0;
   width:calc(100% - 35px);
 }
-
 .graph.graph-list{
   display: flex;
   flex-direction: column;
   list-style: none;
   padding:0;
 }
-
 .graph-item{
   display: flex;
   flex-direction: row;
@@ -39,99 +117,81 @@
   position: relative;
   width:100%;
 }
-
 .graph-item:nth-child(2n){
   background: rgb(240,240,240);
 }
-
 .graph-item:nth-child(2n+1){
   background: rgba(149, 206, 255,.6);
 }
-
 .graph-item.service-override, .legend.service-override{
   background-color: rgb(0,155,0);
   color: rgb(255,255,255);
 }
-
 .graph-item.magneti-marelli, .legend.magneti-marelli{
   background-color: rgb(155,0,155);
   color: rgb(255,255,255);
 }
-
 .graph-item.rebate-form, .legend.rebate-form{
   background-color: rgb(0,0,0);
   color: rgb(255,255,255);
 }
-
 .graph-item-subject{
   width: 90%;
 }
-
 .graph-item-figure{
   padding-left: 10px;
   text-align: right;
   width:10%;
 }
-
 .graph-item-info {
   color: #025aa5;
   font-size: 20px;
   position: absolute;
   right: -22px;
 }
-
 .disclaimer {
   padding: 5px;
 }
-
 .disclaimer.graph-disclaimer {
   background: #025fb1;
   color: rgb(255,255,255);
   text-transform: uppercase;
 }
-
 .legend{
   display: inline-block;
   height: 20px;
   width: 10px;
 }
-
 .legend.qualifying-part-number{
   color: #025aa5;
   display: inline;
   font-size: 20px;
 }
-
 .modal .part-numbers {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 .modal .part-numbers li {
   float: left;
   padding: 0 5px;
 }
-
 .modal .btn.btn-secondary{
   color: rgb(56, 64, 66);
   background-color: rgb(230, 230, 230);
   border-color: rgb(173, 173, 173);
 }
-
 .payout-chart-home {
   color: rgb(255,255,255);
   font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: relative;
 }
-
 .payout-chart-home .home-logo{
   position: absolute;
   top:5%;
   left:5%;
   width: 40%;
 }
-
 .payout-chart-home-content{
   position:absolute;
   top: 15%;
@@ -139,24 +199,20 @@
   width: 45%;
   text-shadow: 3px 3px 3px rgba(0,0,0,.2), -3px 3px 3px rgba(0,0,0,.2), 3px -3px 3px rgba(0,0,0,.2);
 }
-
 .payout-chart-home .payout-chart-heading {
   font-size: 4.66em;
   margin-bottom: .02em;
 }
-
 .payout-chart-home .payout-chart-subheading{
   font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 2.33em;
   margin-bottom: .86em;
 }
-
 .payout-chart-home ul{
   list-style: none;
   margin: 2em 0 0;
   padding:0;
 }
-
 .payout-chart-home li {
   font-family: "TitlingGothicFB Narrow Medium";
   font-size: 1.8em;
@@ -164,7 +220,6 @@
   margin: 0 0 .66em 0;
   text-shadow: 2px 2px 2px rgba(0,0,0,.5);
 }
-
 .top-tech{
   position: relative;
 }
@@ -181,42 +236,207 @@
   z-index: 999;
 }
 .top-tech-content{
-    position: absolute;
-    top:0;
-    left:298px;
-
+  position: absolute;
+  top: 0;
+  left: 298px;
 }
-
 .background-image{
   width: 100%;
 }
+/* End Graphs for Payout Chart */
 
-.visible-print{
-  display: none;
-}
 
-/* Payout Chart Admin */
+/* Begin Payout Chart Admin */
 #program-groups-select{
-  width:30%;
+  width: inherit30%;
 }
 #program-groups-active{
-  width:10%;
+  width: 10%;
 }
 #program-groups-program{
-  width:20%;
+  width: 20%;
 }
 #program-groups-start-date{
-  width:15%;
+  width: 15%;
 }
 #program-groups-end-date{
-  width:15%;
+  width: 15%;
 }
 #program-groups-modify{
   width:10%;
 }
+.admin-utility-bar {
+  background:transparent;
+  border-bottom:solid 2px #666;
+  margin-bottom:10px;
+  padding:5px 10px;
+  width:100%;
+}
+table#program-groups.table tbody tr td:last-child {
+  text-align:center;
+  vertical-align:middle;
+}
+#part-number-category-form-quick-add {
+  width:500px;
+}
+.ui-tabview-nav {
+  display:inline-block;
+  list-style-image:none;
+  list-style-type:none;
+  margin-top:20px;
+  margin-bottom:-2px;
+  padding-left:0;
+}
+.ui-tabview-nav li {
+  background-color:rgb(0, 104, 179);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top:solid 1px #DADADA;
+  border-right:solid 1px #DADADA;
+  border-left:solid 1px #DADADA;
+  color:#FFF;
+  display:inline-block;
+  font-size:18px;
+  font-weight:normal;
+  padding:20px 25px;
+  z-index:1;
+}
+.ui-tabview-nav li a {
+  color:#FFF;
+  cursor:default;
+}
+.ui-tabview-title {
+  display:inline-block;
+}
+.ui-tabview-nav li.ui-state-active {
+  background:rgb(242, 244, 248);
+}
+.ui-tabview-nav li.ui-state-active a {
+  color:#333;
+}
+.ui-state-active a {
+  color:#FFF;
+  font-weight:bold;
+}
+.ui-tabview-panel {
+  border:solid 1px #DADADA;
+  padding:20px;
+  z-index:999;
+}
+.show-this{
+  display:block !important;
+}
+input.datepicker-input {
+  padding: 0.5rem 0.75rem;
+  width:80% !important;
+}
+/* End Payout Chart Admin */
 
+
+/* Begin Marketing Presentation */
+#playlist {
+  background-color:#efefef;
+  border:1px solid #ccc;
+  float:left;
+  height:400px;
+  overflow-x:hidden;
+  overflow-y:auto;
+  width: 100% !important;
+}
+#playlist a {
+  background-color:#fff;
+  border:1px solid #ccc;
+  color:#666;
+  display:block;
+  font:11px "bitstream vera sans", "lucida grande",verdana;
+  height: 54px;
+  margin:9px 0px 0px 10px;
+  padding:5px;
+  text-decoration:none;
+  width: 85%;
+}
+#playlist a:hover {
+  background-color:#ffc;
+}
+#playlist a.progress {
+  background-color:#efefef;
+}
+#playlist a.playing {
+  background-color:#ffc;
+  border:1px solid #666;
+}
+#playlist a.paused {
+  background-color:#ffc;
+  border:1px solid #666;
+}
+#playlist a img {
+  border:0;
+  float:left;
+  height: 50px;
+  margin-right:10px;
+  width: 50px;
+}
+#playlist a strong {
+  color:#000;
+  padding-bottom:5px;
+}
+/* End Marketing Presentation */
+
+
+/* Begin Miscellaneous */
 .modify-icon {
   font-size: 20px;
+}
+.dealercode .modal-dialog{
+  height: 20%;
+  margin: 30px auto;
+  max-width: none;
+  max-height: none;
+  width: 40%;
+}
+.visible-print{
+  display: none;
+}
+.refreshGlyphImg {
+    height: 75px;
+    position: fixed;
+    /* or absolute */
+    top: 50%;
+    left: 50%;
+    width: 75px;
+}
+.z-tabs>.z-container>.z-content.z-content-pad>.z-content-inner {
+  padding-top: 10px;
+}
+
+mser-cms{
+  background-color: rgb(255,255,255);
+}
+
+#main-content {
+  background-color: rgb(255,255,255);
+  color: rgb(0,0,0);
+  font:12px verdana, arial, helvetica, sans-serif;
+  padding: 2em 0 0 2em;
+}
+
+#main-content p {
+  line-height: normal;
+}
+
+#main-content a:link,
+#main-content a:visited {
+  color: rgb(2,69,179);
+  text-decoration: underline;
+}
+
+#main-content a:hover,
+#main-content a:focus {
+  text-decoration: none;
+}
+
+#main-content h2, #main-content h3, #main-content strong, #main-content b {
+  font-weight: bold;
 }
 
 
@@ -230,21 +450,16 @@
   .visible-print{
     display: block;
   }
-.z-content-pad.z-content{
-  dispplay: block !important;
-}
-
+  .z-content-pad.z-content{
+    display: block !important;
+  }
   header.navbar .navbar-brand {
     background-position-x: 1rem;
   }
   .z-tabs > ul, .z-tabs > ul > li > a, .z-tabs > .z-container {
     border: none !important;
   }
-  .sidebar-fixed .sidebar .sidebar-nav,
-  .navMenu .menuItem,
-  .navbar-toggler.mobile-sidebar-toggler,
-  app-footer,
-  .z-tabs-nav{
+  .sidebar-fixed .sidebar .sidebar-nav, .navMenu .menuItem, .navbar-toggler.mobile-sidebar-toggler, app-footer, .z-tabs-nav{
     display: none !important;
   }
   .sidebar-fixed .main {
@@ -257,7 +472,8 @@
   blockquote::first-letter,
   li::first-letter{
     vertical-align: text-top;
-        margin-top: 0;
-        padding-top: 0;
-        line-height: initial;
+    margin-top: 0;
+    padding-top: 0;
+    line-height: initial;
+  }
 }
