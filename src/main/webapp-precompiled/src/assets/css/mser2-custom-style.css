@@ -439,9 +439,10 @@ mser-cms{
   font-weight: bold;
 }
 
-.ui-datatable-resizable thead th, .ui-datatable-resizable tbody td, .ui-datatable-resizable tfoot td {
-     white-space: wrap; 
+.ui-datatable-resizable thead th span.ui-cell-data, .ui-datatable-resizable tbody td span.ui-cell-data, .ui-datatable-resizable tfoot td span.ui-cell-data {
+    white-space: normal;
 }
+
 @media print {
   body{
     background: rgb(255,255,255);

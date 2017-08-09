@@ -50,6 +50,23 @@ export class EnrollmentComponent implements OnInit {
     private uvmPartElligpc: any = ["07", "34"];
     private warrantyAdmElligpc: any = ["29"];
 
+    private mserElligiblepcItem2: any = [];
+    private mmElligiblepcItem2: any = [];
+    private upFitsElligpcItem2: any = [];
+    private tiresElligpcItem2: any = [];
+    private mvpElligpcItem2: any = [];
+    private wiAdvMVPElligpcItem2: any = [];
+    private wiAdvTirElligepcItem2: any = [];
+    private uconSalesElligpcItem2: any = [];
+    private uconServiceElligpcItem2: any = [];
+    private pcPartElligpcItem2 = [];
+    private pcMElligpcItem2 = [];
+    private elMElligpcItem2: any = [];
+    private elPElligpcItem2: any = [];
+    private uvmEnrElligpcItem2: any = [];
+    private uvmPartElligpcItem2: any = [];
+    private warrantyAdmElligpcItem2: any = [];
+
     private mserOptions: SelectItem[] = [];
     private mmOptions: SelectItem[] = [];
     private upFitsOptions: SelectItem[] = [];
@@ -95,6 +112,7 @@ export class EnrollmentComponent implements OnInit {
         this.getEnrollmentData();
         this.getExpresslaneDealer();
 
+
     }
     private getSelectedDealerCode() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -108,32 +126,156 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.getPositionCodes().subscribe(
             (positionCodesResponse) => {
                 this.positionCodesResponse = (positionCodesResponse)
+                this.assignElligiblePCItem2();
             },
             (error) => {
             }
         )
+    }
+    private assignElligiblePCItem2() {
+        var mserElligiblepcItem2: any = [];
+        var mmElligiblepcItem2: any = [];
+        var upFitsElligpcItem2: any = [];
+        var tiresElligpcItem2: any = [];
+        var mvpElligpcItem2: any = [];
+        var wiAdvMVPElligpcItem2: any = [];
+        var wiAdvTirElligepcItem2: any = [];
+        var uconSalesElligpcItem2: any = [];
+        var uconServiceElligpcItem2: any = [];
+        var pcPartElligpcItem2 = [];
+        var pcMElligpcItem2 = [];
+        var elMElligpcItem2: any = [];
+        var elPElligpcItem2: any = [];
+        var uvmEnrElligpcItem2: any = [];
+        var uvmPartElligpcItem2: any = [];
+        var warrantyAdmElligpcItem2: any = [];
+
+        for (var i = 0; i < this.positionCodesResponse.length; i++) {
+            for (var j = 0; j < this.mserElligiblepc.length; j++) {
+                if (this.mserElligiblepc[j] === this.positionCodesResponse[i].item1) {
+                    mserElligiblepcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.mmElligiblepc.length; j++) {
+                if (this.mmElligiblepc[j] === this.positionCodesResponse[i].item1) {
+                    mmElligiblepcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.upFitsElligpc.length; j++) {
+                if (this.upFitsElligpc[j] === this.positionCodesResponse[i].item1) {
+                    upFitsElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.tiresElligpc.length; j++) {
+                if (this.tiresElligpc[j] === this.positionCodesResponse[i].item1) {
+                    tiresElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.mvpElligpc.length; j++) {
+                if (this.mvpElligpc[j] === this.positionCodesResponse[i].item1) {
+                    mvpElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.wiAdvMVPElligpc.length; j++) {
+                if (this.wiAdvMVPElligpc[j] === this.positionCodesResponse[i].item1) {
+                    wiAdvMVPElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.wiAdvTirElligepc.length; j++) {
+                if (this.wiAdvTirElligepc[j] === this.positionCodesResponse[i].item1) {
+                    wiAdvTirElligepcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.uconSalesElligpc.length; j++) {
+                if (this.uconSalesElligpc[j] === this.positionCodesResponse[i].item1) {
+                    uconSalesElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.uconServiceElligpc.length; j++) {
+                if (this.uconServiceElligpc[j] === this.positionCodesResponse[i].item1) {
+                    uconServiceElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.pcPartElligpc.length; j++) {
+                if (this.pcPartElligpc[j] === this.positionCodesResponse[i].item1) {
+                    pcPartElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.pcMElligpc.length; j++) {
+                if (this.pcMElligpc[j] === this.positionCodesResponse[i].item1) {
+                    pcMElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.elMElligpc.length; j++) {
+                if (this.elMElligpc[j] === this.positionCodesResponse[i].item1) {
+                    elMElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.elPElligpc.length; j++) {
+                if (this.elPElligpc[j] === this.positionCodesResponse[i].item1) {
+                    elPElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.uvmEnrElligpc.length; j++) {
+                if (this.uvmEnrElligpc[j] === this.positionCodesResponse[i].item1) {
+                    uvmEnrElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.uvmPartElligpc.length; j++) {
+                if (this.uvmPartElligpc[j] === this.positionCodesResponse[i].item1) {
+                    uvmPartElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+            for (var j = 0; j < this.warrantyAdmElligpc.length; j++) {
+                if (this.warrantyAdmElligpc[j] === this.positionCodesResponse[i].item1) {
+                    warrantyAdmElligpcItem2.push(this.positionCodesResponse[i].item2)
+                }
+            }
+
+
+        }
+        this.mserElligiblepcItem2 = mserElligiblepcItem2;
+        this.mmElligiblepcItem2 = mmElligiblepcItem2;
+        this.upFitsElligpcItem2 = upFitsElligpcItem2;
+        this.tiresElligpcItem2 = tiresElligpcItem2;
+        this.mvpElligpcItem2 = mvpElligpcItem2;
+        this.wiAdvMVPElligpcItem2 = wiAdvMVPElligpcItem2;
+        this.wiAdvTirElligepcItem2 = wiAdvTirElligepcItem2;
+        this.uconSalesElligpcItem2 = uconSalesElligpcItem2;
+        this.uconServiceElligpcItem2 = uconServiceElligpcItem2;
+        this.pcPartElligpcItem2 = pcPartElligpcItem2;
+        this.pcMElligpcItem2 = pcMElligpcItem2;
+        this.elMElligpcItem2 = elMElligpcItem2;
+        this.elPElligpcItem2 = elPElligpcItem2;
+        this.uvmEnrElligpcItem2 = uvmEnrElligpcItem2;
+        this.uvmPartElligpcItem2 = uvmPartElligpcItem2;
+        this.warrantyAdmElligpcItem2 = warrantyAdmElligpcItem2;
+
+        // console.log(this.mserElligiblepcItem2);
+        // console.log(this.mmElligiblepcItem2);
+        // console.log(this.uvmPartElligpcItem2);
+
+
     }
     private getEnrollmentData() {
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
-                this.somthing();
+                // this.somthing();
                 for (var a11 = 0; a11 < this.enrollmentDataResponse.length; a11++) {
                     this.readItem1ReturnItem2(this.enrollmentDataResponse[a11], a11);
-                    
                 }
-                // for (var a12 = 0; a12 < this.enrollmentDataResponse.length; a12++) {
-                //     this.constructPreselectedOptions(this.enrollmentDataResponse[a12], a12);
-                    
-                // }
-                
+                for (var a111 = 0; a111 < this.enrollmentDataResponse.length; a111++) {
+                    this.constructSelectItem(this.enrollmentDataResponse[a111], a111);
 
+                }
             },
             (error) => {
             }
         )
     }
+
     private readItem1ReturnItem2(data, index) {
         var positionCodes: any = [];
         var overriddenpositionCodes: any = [];
@@ -146,6 +288,9 @@ export class EnrollmentComponent implements OnInit {
         var tires: any = [];
         var usedReconP: any = [];
         var ucon: any = [];
+        var pc: any = "";
+        var el: any = "";
+        var usedRecon = "";
 
 
         for (var a2 = 0; a2 < this.positionCodesResponse.length; a2++) {
@@ -205,7 +350,15 @@ export class EnrollmentComponent implements OnInit {
                 }
             }
 
-
+            if (data.pc == this.positionCodesResponse[a2].item1) {
+                pc = this.positionCodesResponse[a2].item2;
+            }
+            if (data.el == this.positionCodesResponse[a2].item1) {
+                el = this.positionCodesResponse[a2].item2;
+            }
+            if (data.usedRecon == this.positionCodesResponse[a2].item1) {
+                usedRecon = this.positionCodesResponse[a2].item2;
+            }
         }
 
         this.enrollmentDataResponse[index].positionCodes = positionCodes;
@@ -219,355 +372,109 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].tires = tires;
         this.enrollmentDataResponse[index].usedReconP = usedReconP;
         this.enrollmentDataResponse[index].ucon = ucon;
-
+        this.enrollmentDataResponse[index].pc = pc;
+        this.enrollmentDataResponse[index].el = el;
+        this.enrollmentDataResponse[index].usedRecon = usedRecon;
     }
-    private constructPreselectedOptions(data, index) {
-        
-    }
-    private somthing() {
-        for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
-            this.constructSelectItem(i);
-        }
-    }
-    private getNotEnrolledData() {
-        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.enrollmentService.getNotEnrolledData(dealerCode).subscribe(
-            (notenrolledDataResponse) => {
-                this.notenrolledDataResponse = (notenrolledDataResponse)
-                // for (var j = 0; j < this.notenrolledDataResponse.length; j++) {
-                this.constructNotenrolledSIDSelect();
-                // }
-            },
-            (error) => {
-            }
-        )
-    }
-
-    private constructNotenrolledSIDSelect() {
-        var notenrolledsid: SelectItem[];
-        notenrolledsid = [];
-        for (var k = 0; k < this.notenrolledDataResponse.length; k++) {
-            notenrolledsid.push({ label: this.notenrolledDataResponse[k].sid, value: this.notenrolledDataResponse[k].sid });
-        }
-        this.notenrolledsidOptions = notenrolledsid;
-        // console.log(this.notenrolledsid);
-        // console.log(notenrolledsid);
-
-    }
-
-    private constructSelectItem(index): any {
-        var dataArray: SelectItem[];
-        var optionArray: SelectItem[];
-        var overrideOptionArray: SelectItem[];
-        var cleanOverrideOptionArray: SelectItem[];
-        var pcMOptions: SelectItem[];
-        var elMOptions: SelectItem[];
-        var uvmEnrOptions: SelectItem[];
-        var uvmPartOptions: SelectItem[];
-
-        dataArray = [];
-        optionArray = [];
-        overrideOptionArray = [];
-        cleanOverrideOptionArray = [];
-        pcMOptions = [];
-        elMOptions = [];
-        uvmEnrOptions = [];
-        uvmPartOptions = [];
-        for (var i = 0; i < this.enrollmentDataResponse[index].mser.length; i++) {
-            dataArray.push({ label: this.enrollmentDataResponse[i].mser, value: this.enrollmentDataResponse[i].mser });
-        }
-        for (var i = 0; i < this.enrollmentDataResponse[index].positionCodes.length; i++) {
-            optionArray.push({ label: this.enrollmentDataResponse[index].positionCodes[i], value: this.enrollmentDataResponse[index].positionCodes[i] });
-        }
-        for (var i = 0; i < this.enrollmentDataResponse[index].overriddenpositionCodes.length; i++) {
-            optionArray.push({ label: this.enrollmentDataResponse[index].overriddenpositionCodes[i], value: this.enrollmentDataResponse[index].overriddenpositionCodes[i] });
-        }
-        for (var i = 0; i < this.positionCodesResponse.length; i++) {
-            cleanOverrideOptionArray.push({ label: this.positionCodesResponse[i].item1, value: (this.positionCodesResponse[i].item1) });
-            overrideOptionArray.push({ label: this.positionCodesResponse[i].item2, value: (this.positionCodesResponse[i].item2) });
-        }
-        for (var i = 0; i < this.pcMElligpc.length; i++) {
-            pcMOptions.push({ label: this.pcMElligpc[i], value: this.pcMElligpc[i] });
-        }
-        for (var i = 0; i < this.elMElligpc.length; i++) {
-            elMOptions.push({ label: this.elMElligpc[i], value: this.elMElligpc[i] });
-        }
-        for (var i = 0; i < this.uvmEnrElligpc.length; i++) {
-            uvmEnrOptions.push({ label: this.uvmEnrElligpc[i], value: this.uvmEnrElligpc[i] });
-        }
-        for (var i = 0; i < this.uvmPartElligpc.length; i++) {
-            uvmPartOptions.push({ label: this.uvmPartElligpc[i], value: this.uvmPartElligpc[i] });
-        }
-
-        this.getMatch(optionArray, index);
-
-
-        this.enrollmentDataResponse[index].options = optionArray;
-        this.enrollmentDataResponse[index].optionsOverrides = overrideOptionArray;
-        this.enrollmentDataResponse[index].pcMOptions = pcMOptions;
-        this.enrollmentDataResponse[index].elMOptions = elMOptions;
-        this.enrollmentDataResponse[index].uvmEnrOptions = uvmEnrOptions;
-        this.enrollmentDataResponse[index].uvmPartOptions = uvmPartOptions;
-
-        // return this.mserData.push(dataArray);
-
-    }
-    private getMatch(optionArrayData, index) {
+    private constructSelectItem(data, index) {
+        var overrideOptionArray: SelectItem[] = [];
         var mserOptions: SelectItem[] = [];
+        var masOptions: SelectItem[] = [];
         var mmOptions: SelectItem[] = [];
-        var upFitsOptions: SelectItem[] = [];
-        var tiresOptions: SelectItem[] = [];
         var mvpOptions: SelectItem[] = [];
         var wiAdvMVPOptions: SelectItem[] = [];
         var wiAdvTireOptions: SelectItem[] = [];
         var uconSalesOptions: SelectItem[] = [];
         var uconServiceOptions: SelectItem[] = [];
-        var pcPartOptions: SelectItem[] = [];
-        // var pcMOptions: SelectItem[] = [];
-        //var elMOptions: SelectItem[] = [];
-        var elPOptions: SelectItem[] = [];
-        // var uvmEnrOptions: SelectItem[] = [];
-        // var uvmPartOptions: SelectItem[] = [];
         var warrantyAdmOptions: SelectItem[] = [];
-        for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.mserElligiblepc.length; e++) {
-                if (optionArrayData[i].value === this.mserElligiblepc[e]) {
-                    // mserMatches.push(optionArrayData[i]);
-                    mserOptions.push(optionArrayData[i]);
+        var pcOptions: SelectItem[] = [];
+        var elOptions: SelectItem[] = [];
+        var usedReconManagerOptions: SelectItem[] = [];
+        var usedReconParticipantOptions: SelectItem[] = [];
 
-                }
-            }
+        for (var i = 0; i < this.positionCodesResponse.length; i++) {
+            overrideOptionArray.push({ label: this.positionCodesResponse[i].item2, value: (this.positionCodesResponse[i].item2) });
         }
-        for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.mmElligiblepc.length; e++) {
-                if (optionArrayData[i].value === this.mmElligiblepc[e]) {
-                    mmOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.upFitsElligpc.length; e++) {
-                if (optionArrayData[i].value === this.upFitsElligpc[e]) {
-                    upFitsOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.tiresElligpc.length; e++) {
-                if (optionArrayData[i].value === this.tiresElligpc[e]) {
-                    tiresOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.mvpElligpc.length; e++) {
-                if (optionArrayData[i].value === this.mvpElligpc[e]) {
-                    mvpOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.wiAdvMVPElligpc.length; e++) {
-                if (optionArrayData[i].value === this.wiAdvMVPElligpc[e]) {
-                    wiAdvMVPOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.wiAdvTirElligepc.length; e++) {
-                if (optionArrayData[i].value === this.wiAdvTirElligepc[e]) {
-                    wiAdvTireOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.uconSalesElligpc.length; e++) {
-                if (optionArrayData[i].value === this.uconSalesElligpc[e]) {
-                    uconSalesOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.uconServiceElligpc.length; e++) {
-                if (optionArrayData[i].value === this.uconServiceElligpc[e]) {
-                    uconServiceOptions.push(optionArrayData[i]);
-                }
-            }
-        } for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.pcPartElligpc.length; e++) {
-                if (optionArrayData[i].value === this.pcPartElligpc[e]) {
-                    pcPartOptions.push(optionArrayData[i]);
-                }
-            }
+        for (var j = 0; j < this.enrollmentDataResponse[index].mser.length; j++) {
+            mserOptions.push({ label: this.enrollmentDataResponse[index].mser[j], value: this.enrollmentDataResponse[index].mser[j] });
         }
-        // for (var i = 0; i < optionArrayData.length; i++) {
-        //     for (var e = 0; e < this.pcMElligpc.length; e++) {
-        //         if (optionArrayData[i].value === this.pcMElligpc[e]) {
-        //             pcMOptions.push(optionArrayData[i]);
-        //         }
-        //     }
-        // } 
-        // for (var i = 0; i < optionArrayData.length; i++) {
-        //     for (var e = 0; e < this.elMElligpc.length; e++) {
-        //         if (optionArrayData[i].value === this.elMElligpc[e]) {
-        //             elMOptions.push(optionArrayData[i]);
-        //         }
-        //     }
-        // } 
-        for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.elPElligpc.length; e++) {
-                if (optionArrayData[i].value === this.elPElligpc[e]) {
-                    elPOptions.push(optionArrayData[i]);
-                }
-            }
+        for (var j = 0; j < this.enrollmentDataResponse[index].mas.length; j++) {
+            masOptions.push({ label: this.enrollmentDataResponse[index].mas[j], value: this.enrollmentDataResponse[index].mas[j] });
         }
-        // for (var i = 0; i < optionArrayData.length; i++) {
-        //     for (var e = 0; e < this.uvmEnrElligpc.length; e++) {
-        //         if (optionArrayData[i].value === this.uvmEnrElligpc[e]) {
-        //             uvmEnrOptions.push(optionArrayData[i]);
-        //         }
-        //     }
-        // }
-        // for (var i = 0; i < optionArrayData.length; i++) {
-        //     for (var e = 0; e < this.uvmPartElligpc.length; e++) {
-        //         if (optionArrayData[i].value === this.uvmPartElligpc[e]) {
-        //             uvmPartOptions.push(optionArrayData[i]);
-        //         }
-        //     }
-        // } 
-        for (var i = 0; i < optionArrayData.length; i++) {
-            for (var e = 0; e < this.warrantyAdmElligpc.length; e++) {
-                if (optionArrayData[i].value === this.warrantyAdmElligpc[e]) {
-                    warrantyAdmOptions.push(optionArrayData[i]);
-                }
-            }
-
+        for (var j = 0; j < this.enrollmentDataResponse[index].mm.length; j++) {
+            mmOptions.push({ label: this.enrollmentDataResponse[index].mm[j], value: this.enrollmentDataResponse[index].mm[j] });
+        }
+        for (var j = 0; j < this.enrollmentDataResponse[index].mvp.length; j++) {
+            mvpOptions.push({ label: this.enrollmentDataResponse[index].mvp[j], value: this.enrollmentDataResponse[index].mvp[j] });
+        }
+        for (var j = 0; j < this.enrollmentDataResponse[index].wiMvp.length; j++) {
+            wiAdvMVPOptions.push({ label: this.enrollmentDataResponse[index].wiMvp[j], value: this.enrollmentDataResponse[index].wiMvp[j] });
+        }
+        for (var j = 0; j < this.enrollmentDataResponse[index].wiTires.length; j++) {
+            wiAdvTireOptions.push({ label: this.enrollmentDataResponse[index].wiTires[j], value: this.enrollmentDataResponse[index].wiTires[j] });
+        }
+        for (var j = 0; j < this.enrollmentDataResponse[index].ucon.length; j++) {
+            uconSalesOptions.push({ label: this.enrollmentDataResponse[index].ucon[j], value: this.enrollmentDataResponse[index].ucon[j] });
+        }
+        for (var j = 0; j < this.enrollmentDataResponse[index].ucon.length; j++) {
+            uconServiceOptions.push({ label: this.enrollmentDataResponse[index].ucon[j], value: this.enrollmentDataResponse[index].ucon[j] });
+        }
+        for (var j = 0; j < this.enrollmentDataResponse[index].usedReconP.length; j++) {
+            usedReconParticipantOptions.push({ label: this.enrollmentDataResponse[index].usedReconP[j], value: this.enrollmentDataResponse[index].usedReconP[j] });
         }
 
+        pcOptions.push({ label: this.enrollmentDataResponse[index].pc, value: this.enrollmentDataResponse[index].pc });
+        elOptions.push({ label: this.enrollmentDataResponse[index].el, value: this.enrollmentDataResponse[index].el });
+        usedReconManagerOptions.push({ label: this.enrollmentDataResponse[index].usedRecon, value: this.enrollmentDataResponse[index].usedRecon });
 
+
+        this.enrollmentDataResponse[index].optionsOverrides = overrideOptionArray;
         this.enrollmentDataResponse[index].mserOptions = mserOptions;
+        this.enrollmentDataResponse[index].masOptions = masOptions;
         this.enrollmentDataResponse[index].mmOptions = mmOptions;
-        this.enrollmentDataResponse[index].upFitsOptions = upFitsOptions;
-        this.enrollmentDataResponse[index].tiresOptions = tiresOptions;
         this.enrollmentDataResponse[index].mvpOptions = mvpOptions;
         this.enrollmentDataResponse[index].wiAdvMVPOptions = wiAdvMVPOptions;
         this.enrollmentDataResponse[index].wiAdvTireOptions = wiAdvTireOptions;
         this.enrollmentDataResponse[index].uconSalesOptions = uconSalesOptions;
         this.enrollmentDataResponse[index].uconServiceOptions = uconServiceOptions;
-        this.enrollmentDataResponse[index].pcPartOptions = pcPartOptions;
-        //this.enrollmentDataResponse[index].pcMOptions = pcMOptions;
-        //this.enrollmentDataResponse[index].elMOptions = elMOptions;
-        this.enrollmentDataResponse[index].elPOptions = elPOptions;
-        // this.enrollmentDataResponse[index].uvmEnrOptions = uvmEnrOptions;
-        //this.enrollmentDataResponse[index].uvmPartOptions = uvmPartOptions;
-        this.enrollmentDataResponse[index].warrantyAdmOptions = warrantyAdmOptions;
+        this.enrollmentDataResponse[index].pcOptions = pcOptions;
+        this.enrollmentDataResponse[index].elOptions = elOptions;
+        this.enrollmentDataResponse[index].usedReconParticipantOptions = usedReconParticipantOptions;
 
     }
+    private selectedPCOverrides(data, index) {
+       
+        var mserSelectedData = [];
+        var mserOptions: SelectItem[] = [];
 
-    private namingPositionCode(data, index) {
-        var assignedData: SelectItem[] = [];
-        for (var i = 0; i < data.length; i++) {
-            for (var e = 0; e < this.positionCodesResponse.length; e++) {
-                if (data[i].value === this.positionCodesResponse[e].item1) {
-                    assignedData.push({ label: this.positionCodesResponse[e].item2, value: this.positionCodesResponse[e].item2 });
+        for (var i = 0; i < this.mserElligiblepcItem2.length; i++) {
+            for (var j = 0; j < this.enrollmentDataResponse[index].positionCodes.length; j++) {
+                if (this.mserElligiblepcItem2[i] === this.enrollmentDataResponse[index].positionCodes[j]) {
+                    mserSelectedData.push(this.enrollmentDataResponse[index].positionCodes[j]);
+                }
+            }
+            for (var j = 0; j < data.length; j++) {
+                if (this.mserElligiblepcItem2[i] === data[j]) {
+                    mserSelectedData.push(data[j]);
                 }
             }
         }
-        // console.log(assignedData);
-        return assignedData;
+
+       
+        this.enrollmentDataResponse[index].mserOptions = [{ label: "", value: "" }];
+        for (var j = 0; j < mserSelectedData.length; j++) {
+
+            this.enrollmentDataResponse[index].mserOptions.push({ label: mserSelectedData[j], value: mserSelectedData[j] });
+        }
+        this.enrollmentDataResponse[index].mserOptions.shift();
+
+
+
+
+        console.log(mserSelectedData);
+        console.log(mserOptions);
     }
 
-    private preselectedSelectItem(data, index): any {
-        var dataArray: SelectItem[];
-        dataArray = [];
-        for (var i = 0; i < data.length; i++) {
-            dataArray.push({ label: data[i], value: data[i] });
-        }
-
-        return this.namingPositionCode(dataArray, index);
-    }
-
-    private removeDuplicates(originalArray, prop) {
-        var newArray = [];
-        var lookupObject = {};
-
-        for (var i in originalArray) {
-            lookupObject[originalArray[i][prop]] = originalArray[i];
-        }
-
-        for (i in lookupObject) {
-            newArray.push(lookupObject[i]);
-        }
-        return newArray;
-    }
-
-    private selectedPCOverrides(data: any, index) {
-        var mserOptions = this.enrollmentDataResponse[index].mserOptions;
-        var mmOptions = this.enrollmentDataResponse[index].mmOptions;
-        var upFitsOptions = this.enrollmentDataResponse[index].upFitsOptions;
-        var tiresOptions = this.enrollmentDataResponse[index].tiresOptions;
-        var mvpOptions = this.enrollmentDataResponse[index].mvpOptions;
-        var wiAdvMVPOptions = this.enrollmentDataResponse[index].wiAdvMVPOptions;
-        var wiAdvTireOptions = this.enrollmentDataResponse[index].wiAdvTireOptions;
-        var uconSalesOptions = this.enrollmentDataResponse[index].uconSalesOptions;
-        var uconServiceOptions = this.enrollmentDataResponse[index].uconServiceOptions;
-        var pcPartOptions = this.enrollmentDataResponse[index].pcPartOptions;
-        // var pcMOptions = this.enrollmentDataResponse[index].pcMOptions;
-        //var elMOptions = this.enrollmentDataResponse[index].elMOptions;
-        var elPOptions = this.enrollmentDataResponse[index].mvpOptions;
-        // var uvmEnrOptions = this.enrollmentDataResponse[index].uvmEnrOptions;
-        // var uvmPartOptions = this.enrollmentDataResponse[index].uvmPartOptions;
-        var warrantyAdmOptions = this.enrollmentDataResponse[index].warrantyAdmOptions;
-        if (data.length == 0) {
-            this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptions, "label");
-            this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptions, "label");
-            this.enrollmentDataResponse[index].upFitsOptions = this.removeDuplicates(upFitsOptions, "label");
-            this.enrollmentDataResponse[index].tiresOptions = this.removeDuplicates(tiresOptions, "label");
-            this.enrollmentDataResponse[index].mvpOptions = this.removeDuplicates(mvpOptions, "label");
-            this.enrollmentDataResponse[index].wiAdvMVPOptions = this.removeDuplicates(wiAdvMVPOptions, "label");
-            this.enrollmentDataResponse[index].wiAdvTireOptions = this.removeDuplicates(wiAdvTireOptions, "label");
-            this.enrollmentDataResponse[index].uconSalesOptions = this.removeDuplicates(uconSalesOptions, "label");
-            this.enrollmentDataResponse[index].uconServiceOptions = this.removeDuplicates(uconServiceOptions, "label");
-            this.enrollmentDataResponse[index].pcPartOptions = this.removeDuplicates(pcPartOptions, "label");
-            // this.enrollmentDataResponse[index].pcMOptions = this.removeDuplicates(pcMOptions, "label");
-            //this.enrollmentDataResponse[index].elMOptions = this.removeDuplicates(elMOptions, "label");
-            this.enrollmentDataResponse[index].elPOptions = this.removeDuplicates(elPOptions, "label");
-            // this.enrollmentDataResponse[index].uvmEnrOptions = this.removeDuplicates(uvmEnrOptions, "label");
-            // this.enrollmentDataResponse[index].uvmPartOptions = this.removeDuplicates(uvmPartOptions, "label");
-            this.enrollmentDataResponse[index].warrantyAdmOptions = this.removeDuplicates(warrantyAdmOptions, "label");
-        } else if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-                mserOptions.push({ label: data[i], value: data[i] });
-                mmOptions.push({ label: data[i], value: data[i] });
-                upFitsOptions.push({ label: data[i], value: data[i] });
-                tiresOptions.push({ label: data[i], value: data[i] });
-                mvpOptions.push({ label: data[i], value: data[i] });
-                wiAdvMVPOptions.push({ label: data[i], value: data[i] });
-                wiAdvTireOptions.push({ label: data[i], value: data[i] });
-                uconSalesOptions.push({ label: data[i], value: data[i] });
-                uconServiceOptions.push({ label: data[i], value: data[i] });
-                pcPartOptions.push({ label: data[i], value: data[i] });
-                //  pcMOptions.push({ label: data[i], value: data[i] });
-                //elMOptions.push({ label: data[i], value: data[i] });
-                elPOptions.push({ label: data[i], value: data[i] });
-                // uvmEnrOptions.push({ label: data[i], value: data[i] });
-                //   uvmPartOptions.push({ label: data[i], value: data[i] });
-                warrantyAdmOptions.push({ label: data[i], value: data[i] });
-
-            }
-            this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptions, "label");
-            this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptions, "label");
-            this.enrollmentDataResponse[index].upFitsOptions = this.removeDuplicates(upFitsOptions, "label");
-            this.enrollmentDataResponse[index].tiresOptions = this.removeDuplicates(tiresOptions, "label");
-            this.enrollmentDataResponse[index].mvpOptions = this.removeDuplicates(mvpOptions, "label");
-            this.enrollmentDataResponse[index].wiAdvMVPOptions = this.removeDuplicates(wiAdvMVPOptions, "label");
-            this.enrollmentDataResponse[index].wiAdvTireOptions = this.removeDuplicates(wiAdvTireOptions, "label");
-            this.enrollmentDataResponse[index].uconSalesOptions = this.removeDuplicates(uconSalesOptions, "label");
-            this.enrollmentDataResponse[index].uconServiceOptions = this.removeDuplicates(uconServiceOptions, "label");
-            this.enrollmentDataResponse[index].pcPartOptions = this.removeDuplicates(pcPartOptions, "label");
-            // this.enrollmentDataResponse[index].pcMOptions = this.removeDuplicates(pcMOptions, "label");
-            // this.enrollmentDataResponse[index].elMOptions = this.removeDuplicates(elMOptions, "label");
-            this.enrollmentDataResponse[index].elPOptions = this.removeDuplicates(elPOptions, "label");
-            // this.enrollmentDataResponse[index].uvmEnrOptions = this.removeDuplicates(uvmEnrOptions, "label");
-            //  this.enrollmentDataResponse[index].uvmPartOptions = this.removeDuplicates(uvmPartOptions, "label");
-            this.enrollmentDataResponse[index].warrantyAdmOptions = this.removeDuplicates(warrantyAdmOptions, "label");
-        }
-
-
-    }
     private onEditInitE(event: any) {
         if (!event.data.isEditableR) {
             setTimeout(() => {
@@ -591,17 +498,7 @@ export class EnrollmentComponent implements OnInit {
         rowData.isEditableR = false;
         // this.getEnrollmentData();
     }
-    private returnItem1(data, index): any {
-        var item1 = [];
-        for (var i = 0; i < data.length; i++) {
-            for (var e = 0; e < this.enrollmentDataResponse.length; e++) {
-                if (data[i].value === this.enrollmentDataResponse[e].value) {
-                    item1.push(this.enrollmentDataResponse[e].label);
-                }
-            }
-        }
-        return item1;
-    }
+
     private msg: string = "";
     private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
         editButton.style["display"] = "block";
@@ -609,7 +506,7 @@ export class EnrollmentComponent implements OnInit {
         saveButton.style["display"] = "none";
         this.enableEditable = false;
         rowData.isEditableR = false;
-        this.returnItem1(rowData.mserOptions, index);
+        // this.returnItem1(rowData.mserOptions, index);
         this.enrollmentService.saveEnrollmentMaintenanceData(rowData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
@@ -624,37 +521,6 @@ export class EnrollmentComponent implements OnInit {
                 // alert(error)
             }
         )
-    }
-
-    private addNewUser(addTeamData: any) {
-        this.getNotEnrolledData();
-        this.selectedpc = "";
-        this.displayAddNewUserDialog = true;
-    }
-
-    private onChange(event, ri) {
-        console.log(event.data);
-    }
-    private addNewUserData(data) {
-        var notenrolledsidOptions = []
-        var newlyAddedUser = {};
-        this.displayAddNewUserDialog = false;
-        for (var l = 0; l < this.notenrolledsidOptions.length; l++) {
-            notenrolledsidOptions.push(this.notenrolledsidOptions[l].label)
-        }
-        var index = notenrolledsidOptions.indexOf(data);
-        console.log(this.enrollmentDataResponse[0]);
-        newlyAddedUser = this.notenrolledDataResponse[index];
-        this.enrollmentDataResponse.unshift(newlyAddedUser);
-        console.log(this.enrollmentDataResponse[0]);
-
-        this.somthing();
-        /*this.changeDetector.detectChanges();
-
-        //var newarr = {... this.enrollmentDataResponse};
-        this.enrollmentDataResponse = {... this.enrollmentDataResponse};
-        */
-
     }
 
     private cancelNewUserDataDialogue(data) {
