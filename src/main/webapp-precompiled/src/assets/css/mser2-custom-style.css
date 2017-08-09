@@ -439,7 +439,9 @@ mser-cms{
   font-weight: bold;
 }
 
-
+.ui-datatable-resizable thead th, .ui-datatable-resizable tbody td, .ui-datatable-resizable tfoot td {
+     white-space: wrap; 
+}
 @media print {
   body{
     background: rgb(255,255,255);
@@ -476,4 +478,6 @@ mser-cms{
     padding-top: 0;
     line-height: initial;
   }
+  
 }
+

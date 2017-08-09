@@ -23,7 +23,7 @@ export class DealerRegisterComponent implements OnInit {
   date: DateModel;
   options: DatePickerOptions;
   submitted = false;
-  booleanSelectCheckBox = false;
+  booleanSelectCheckBox: boolean = true;
 
   private val;
   private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
@@ -58,10 +58,17 @@ export class DealerRegisterComponent implements OnInit {
     return re.test(email);
   }
 
-
-  private dealerEnrollmentAggrement(agrrement) {
+  //   private onCheckCall(aggrement) {
+  // if(aggrement==)
+  //   }
+  private dealerEnrollmentAggrement(agrrement: any) {
     this.dealerEnrollment.aggrement = true;
-    this.booleanSelectCheckBox = true;
+    if (agrrement !== undefined && agrrement.length > 0) {
+      this.booleanSelectCheckBox = true;
+    } else {
+      this.booleanSelectCheckBox = false;
+    }
+
   }
   private dealerEnrollmentPCCheckBox() {
     this.dealerEnrollment.isPartsCounter = true;
@@ -75,9 +82,16 @@ export class DealerRegisterComponent implements OnInit {
   private dealerEnrollmentElligibleManagers() {
 
   }
+  private showalert: boolean = true;
   private saveDealerEnrollmentForm() {
-    this.submitted = true;
-    alert(this.dealerEnrollment.date);
+    if (this.booleanSelectCheckBox !== undefined && this.booleanSelectCheckBox !== true) {
+      this.showalert = false;
+      return;
+    } else {
+      this.showalert = true;
+    }
+    //this.submitted = true;
+    //alert(this.dealerEnrollment.date);
     alert(this.dealerEnrollment.date["formatted"]);
 
   }

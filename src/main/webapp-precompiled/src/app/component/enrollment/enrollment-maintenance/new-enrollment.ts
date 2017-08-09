@@ -78,7 +78,7 @@ export class EnrollmentComponent implements OnInit {
         "urManager": "", "urParticipant": ""
     };
 
-    private enrollmentDataResponse: any;
+    private enrollmentDataResponse: any = [];
     private enrollmentDataReq: any = [{
         "dealerCode": "", "myPersonalDMSID": "", "name": "", "email": "", "positionCodes": [""], "overriddenpositionCodes": [],
         "mser": [""], "mas": [" "], "mm": [""], "mvp": [], "wiMvp": [], "wiTires": [], "pc": "", "el": "", "usedRecon": "",
@@ -108,7 +108,6 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.getPositionCodes().subscribe(
             (positionCodesResponse) => {
                 this.positionCodesResponse = (positionCodesResponse)
-
             },
             (error) => {
             }
@@ -120,12 +119,111 @@ export class EnrollmentComponent implements OnInit {
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
                 this.somthing();
+                for (var a11 = 0; a11 < this.enrollmentDataResponse.length; a11++) {
+                    this.readItem1ReturnItem2(this.enrollmentDataResponse[a11], a11);
+                    
+                }
+                // for (var a12 = 0; a12 < this.enrollmentDataResponse.length; a12++) {
+                //     this.constructPreselectedOptions(this.enrollmentDataResponse[a12], a12);
+                    
+                // }
+                
+
             },
             (error) => {
             }
         )
     }
+    private readItem1ReturnItem2(data, index) {
+        var positionCodes: any = [];
+        var overriddenpositionCodes: any = [];
+        var mser: any = [];
+        var mas: any = [];
+        var mm: any = [];
+        var mvp: any = [];
+        var wiMvp: any = [];
+        var wiTires: any = [];
+        var tires: any = [];
+        var usedReconP: any = [];
+        var ucon: any = [];
 
+
+        for (var a2 = 0; a2 < this.positionCodesResponse.length; a2++) {
+            for (var a3 = 0; a3 < data.positionCodes.length; a3++) {
+                if (data.positionCodes[a3] === this.positionCodesResponse[a2].item1) {
+                    positionCodes.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.overriddenpositionCodes.length; a3++) {
+                if (data.overriddenpositionCodes[a3] === this.positionCodesResponse[a2].item1) {
+                    overriddenpositionCodes.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.mser.length; a3++) {
+                if (data.mser[a3] === this.positionCodesResponse[a2].item1) {
+                    mser.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.mas.length; a3++) {
+                if (data.mas[a3] === this.positionCodesResponse[a2].item1) {
+                    mas.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.mm.length; a3++) {
+                if (data.mm[a3] === this.positionCodesResponse[a2].item1) {
+                    mm.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.mvp.length; a3++) {
+                if (data.mvp[a3] === this.positionCodesResponse[a2].item1) {
+                    mvp.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.wiMvp.length; a3++) {
+                if (data.wiMvp[a3] === this.positionCodesResponse[a2].item1) {
+                    wiMvp.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.wiTires.length; a3++) {
+                if (data.wiTires[a3] === this.positionCodesResponse[a2].item1) {
+                    wiTires.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.tires.length; a3++) {
+                if (data.tires[a3] === this.positionCodesResponse[a2].item1) {
+                    tires.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.usedReconP.length; a3++) {
+                if (data.usedReconP[a3] === this.positionCodesResponse[a2].item1) {
+                    usedReconP.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+            for (var a3 = 0; a3 < data.ucon.length; a3++) {
+                if (data.ucon[a3] === this.positionCodesResponse[a2].item1) {
+                    ucon.push(this.positionCodesResponse[a2].item2)
+                }
+            }
+
+
+        }
+
+        this.enrollmentDataResponse[index].positionCodes = positionCodes;
+        this.enrollmentDataResponse[index].overriddenpositionCodes = overriddenpositionCodes;
+        this.enrollmentDataResponse[index].mser = mser;
+        this.enrollmentDataResponse[index].mas = mas;
+        this.enrollmentDataResponse[index].mm = mm;
+        this.enrollmentDataResponse[index].mvp = mvp;
+        this.enrollmentDataResponse[index].wiMvp = wiMvp;
+        this.enrollmentDataResponse[index].wiTires = wiTires;
+        this.enrollmentDataResponse[index].tires = tires;
+        this.enrollmentDataResponse[index].usedReconP = usedReconP;
+        this.enrollmentDataResponse[index].ucon = ucon;
+
+    }
+    private constructPreselectedOptions(data, index) {
+        
+    }
     private somthing() {
         for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
             this.constructSelectItem(i);
@@ -186,7 +284,7 @@ export class EnrollmentComponent implements OnInit {
         }
         for (var i = 0; i < this.positionCodesResponse.length; i++) {
             cleanOverrideOptionArray.push({ label: this.positionCodesResponse[i].item1, value: (this.positionCodesResponse[i].item1) });
-            overrideOptionArray.push({ label: this.positionCodesResponse[i].item2, value: (this.positionCodesResponse[i].item1) });
+            overrideOptionArray.push({ label: this.positionCodesResponse[i].item2, value: (this.positionCodesResponse[i].item2) });
         }
         for (var i = 0; i < this.pcMElligpc.length; i++) {
             pcMOptions.push({ label: this.pcMElligpc[i], value: this.pcMElligpc[i] });
@@ -381,6 +479,7 @@ export class EnrollmentComponent implements OnInit {
 
         return this.namingPositionCode(dataArray, index);
     }
+
     private removeDuplicates(originalArray, prop) {
         var newArray = [];
         var lookupObject = {};
@@ -394,7 +493,6 @@ export class EnrollmentComponent implements OnInit {
         }
         return newArray;
     }
-
 
     private selectedPCOverrides(data: any, index) {
         var mserOptions = this.enrollmentDataResponse[index].mserOptions;
@@ -491,7 +589,7 @@ export class EnrollmentComponent implements OnInit {
         saveButton.style["display"] = "none";
         this.enableEditable = false;
         rowData.isEditableR = false;
-       // this.getEnrollmentData();
+        // this.getEnrollmentData();
     }
     private returnItem1(data, index): any {
         var item1 = [];
@@ -515,6 +613,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.saveEnrollmentMaintenanceData(rowData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
+                this.msg = "Successfully Saved";
                 this.getEnrollmentData();
             },
             (error) => {
