@@ -40,8 +40,8 @@ export class EnrollmentComponent implements OnInit {
     private mvpElligpc: any = ["13", "es", "09"];
     private wiAdvMVPElligpc: any = ["13", "09"];
     private wiAdvTirElligepc: any = ["13", "08", "09"];
-    private uconSalesElligpc: any = [""];
-    private uconServiceElligpc: any = [];
+    private uconSalesElligpc: any = ["01", "02", "03", "74"];
+    private uconServiceElligpc: any = ["08", "09", "74"];
     private pcPartElligpc = ["8", "14", "40", "19"];
     private pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "40", "37"];
     private elMElligpc: any = ["09", "17", "33", "35"];
@@ -392,41 +392,258 @@ export class EnrollmentComponent implements OnInit {
         var usedReconManagerOptions: SelectItem[] = [];
         var usedReconParticipantOptions: SelectItem[] = [];
 
+        var mserData = [];
+        var masData = [];
+        var mmData = [];
+        var mvpData = [];
+        var wiAdvMVPData = [];
+        var wiAdvTireData = [];
+        var uconSalesData = [];
+        var uconServiceData = [];
+        var warrantyAdmData = [];
+        var pcData = [];
+        var elData = [];
+        var usedReconManagerData = [];
+        var usedReconParticipantData = [];
+
         for (var i = 0; i < this.positionCodesResponse.length; i++) {
             overrideOptionArray.push({ label: this.positionCodesResponse[i].item2, value: (this.positionCodesResponse[i].item2) });
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].mser.length; j++) {
-            mserOptions.push({ label: this.enrollmentDataResponse[index].mser[j], value: this.enrollmentDataResponse[index].mser[j] });
+
+        for (var i = 0; i < this.mserElligiblepcItem2.length; i++) {
+            // for (var j = 0; j < this.enrollmentDataResponse[index].mser.length; j++) {
+            //     if (this.mserElligiblepcItem2[i] === this.enrollmentDataResponse[index].mser[j]) {
+            //         mserData.push(this.mserElligiblepcItem2[i]);
+            //     }
+            // }
+
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.mserElligiblepcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    mserData.push(this.mserElligiblepcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.mserElligiblepcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    mserData.push(this.mserElligiblepcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].mas.length; j++) {
-            masOptions.push({ label: this.enrollmentDataResponse[index].mas[j], value: this.enrollmentDataResponse[index].mas[j] });
+        for (var i = 0; i < this.upFitsElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.upFitsElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    masData.push(this.upFitsElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.upFitsElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    masData.push(this.upFitsElligpcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].mm.length; j++) {
-            mmOptions.push({ label: this.enrollmentDataResponse[index].mm[j], value: this.enrollmentDataResponse[index].mm[j] });
+        for (var i = 0; i < this.mmElligiblepcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.mmElligiblepcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    mmData.push(this.mmElligiblepcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.mmElligiblepcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    mmData.push(this.mmElligiblepcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].mvp.length; j++) {
-            mvpOptions.push({ label: this.enrollmentDataResponse[index].mvp[j], value: this.enrollmentDataResponse[index].mvp[j] });
+        for (var i = 0; i < this.mvpElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.mvpElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    mvpData.push(this.mvpElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.mvpElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    mvpData.push(this.mvpElligpcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].wiMvp.length; j++) {
-            wiAdvMVPOptions.push({ label: this.enrollmentDataResponse[index].wiMvp[j], value: this.enrollmentDataResponse[index].wiMvp[j] });
+        for (var i = 0; i < this.wiAdvMVPElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.wiAdvMVPElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    wiAdvMVPData.push(this.wiAdvMVPElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.wiAdvMVPElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    wiAdvMVPData.push(this.wiAdvMVPElligpcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].wiTires.length; j++) {
-            wiAdvTireOptions.push({ label: this.enrollmentDataResponse[index].wiTires[j], value: this.enrollmentDataResponse[index].wiTires[j] });
+        for (var i = 0; i < this.wiAdvTirElligepcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.wiAdvTirElligepcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    wiAdvTireData.push(this.wiAdvTirElligepcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.wiAdvTirElligepcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    wiAdvTireData.push(this.wiAdvTirElligepcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].ucon.length; j++) {
-            uconSalesOptions.push({ label: this.enrollmentDataResponse[index].ucon[j], value: this.enrollmentDataResponse[index].ucon[j] });
+        for (var i = 0; i < this.uconSalesElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.uconSalesElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    uconSalesData.push(this.uconSalesElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.uconSalesElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    uconSalesData.push(this.uconSalesElligpcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].ucon.length; j++) {
-            uconServiceOptions.push({ label: this.enrollmentDataResponse[index].ucon[j], value: this.enrollmentDataResponse[index].ucon[j] });
+        for (var i = 0; i < this.uconServiceElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.uconServiceElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    uconServiceData.push(this.uconServiceElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.uconServiceElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    uconServiceData.push(this.uconServiceElligpcItem2[i]);
+                }
+            }
         }
-        for (var j = 0; j < this.enrollmentDataResponse[index].usedReconP.length; j++) {
-            usedReconParticipantOptions.push({ label: this.enrollmentDataResponse[index].usedReconP[j], value: this.enrollmentDataResponse[index].usedReconP[j] });
+        for (var i = 0; i < this.warrantyAdmElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.warrantyAdmElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    warrantyAdmData.push(this.warrantyAdmElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.warrantyAdmElligpcItem2.length; l++) {
+                if (this.warrantyAdmElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    warrantyAdmData.push(this.warrantyAdmElligpcItem2[i]);
+                }
+            }
+        }
+        for (var i = 0; i < this.uvmPartElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.uvmPartElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    usedReconParticipantData.push(this.uvmPartElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.uvmPartElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    usedReconParticipantData.push(this.uvmPartElligpcItem2[i]);
+                }
+            }
+        }
+        for (var i = 0; i < this.elMElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.elMElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    elData.push(this.elMElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.elMElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    elData.push(this.elMElligpcItem2[i]);
+                }
+            }
+        }
+        for (var i = 0; i < this.pcMElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.pcMElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    pcData.push(this.pcMElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.pcMElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    pcData.push(this.pcMElligpcItem2[i]);
+                }
+            }
+        }
+        for (var i = 0; i < this.uvmEnrElligpcItem2.length; i++) {
+            for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
+                if (this.uvmEnrElligpcItem2[i] === this.enrollmentDataResponse[index].positionCodes[k]) {
+                    usedReconManagerData.push(this.uvmEnrElligpcItem2[i]);
+                }
+            }
+            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+                if (this.uvmEnrElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+                    usedReconManagerData.push(this.uvmEnrElligpcItem2[i]);
+                }
+            }
         }
 
-        pcOptions.push({ label: this.enrollmentDataResponse[index].pc, value: this.enrollmentDataResponse[index].pc });
-        elOptions.push({ label: this.enrollmentDataResponse[index].el, value: this.enrollmentDataResponse[index].el });
-        usedReconManagerOptions.push({ label: this.enrollmentDataResponse[index].usedRecon, value: this.enrollmentDataResponse[index].usedRecon });
 
+
+
+        // for (var j = 0; j < this.enrollmentDataResponse[index].mas.length; j++) {
+        //     masOptions.push({ label: this.enrollmentDataResponse[index].mas[j], value: this.enrollmentDataResponse[index].mas[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].mm.length; j++) {
+        //     mmOptions.push({ label: this.enrollmentDataResponse[index].mm[j], value: this.enrollmentDataResponse[index].mm[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].mvp.length; j++) {
+        //     mvpOptions.push({ label: this.enrollmentDataResponse[index].mvp[j], value: this.enrollmentDataResponse[index].mvp[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].wiMvp.length; j++) {
+        //     wiAdvMVPOptions.push({ label: this.enrollmentDataResponse[index].wiMvp[j], value: this.enrollmentDataResponse[index].wiMvp[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].wiTires.length; j++) {
+        //     wiAdvTireOptions.push({ label: this.enrollmentDataResponse[index].wiTires[j], value: this.enrollmentDataResponse[index].wiTires[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].ucon.length; j++) {
+        //     uconSalesOptions.push({ label: this.enrollmentDataResponse[index].ucon[j], value: this.enrollmentDataResponse[index].ucon[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].ucon.length; j++) {
+        //     uconServiceOptions.push({ label: this.enrollmentDataResponse[index].ucon[j], value: this.enrollmentDataResponse[index].ucon[j] });
+        // }
+        // for (var j = 0; j < this.enrollmentDataResponse[index].usedReconP.length; j++) {
+        //     usedReconParticipantOptions.push({ label: this.enrollmentDataResponse[index].usedReconP[j], value: this.enrollmentDataResponse[index].usedReconP[j] });
+        // }
+
+        // pcOptions.push({ label: this.enrollmentDataResponse[index].pc, value: this.enrollmentDataResponse[index].pc });
+        // elOptions.push({ label: this.enrollmentDataResponse[index].el, value: this.enrollmentDataResponse[index].el });
+        // usedReconManagerOptions.push({ label: this.enrollmentDataResponse[index].usedRecon, value: this.enrollmentDataResponse[index].usedRecon });
+
+        for (var m = 0; m < mserData.length; m++) {
+            mserOptions.push({ label: mserData[m], value: mserData[m] });
+        }
+        for (var m = 0; m < masData.length; m++) {
+            masOptions.push({ label: masData[m], value: masData[m] });
+        }
+        for (var m = 0; m < mmData.length; m++) {
+            mmOptions.push({ label: mmData[m], value: mmData[m] });
+        }
+        for (var m = 0; m < mvpData.length; m++) {
+            mvpOptions.push({ label: mvpData[m], value: mvpData[m] });
+        }
+        for (var m = 0; m < wiAdvMVPData.length; m++) {
+            wiAdvMVPOptions.push({ label: wiAdvMVPData[m], value: wiAdvMVPData[m] });
+        }
+        for (var m = 0; m < wiAdvTireData.length; m++) {
+            wiAdvTireOptions.push({ label: wiAdvTireData[m], value: wiAdvTireData[m] });
+        }
+        for (var m = 0; m < uconSalesData.length; m++) {
+            uconSalesOptions.push({ label: uconSalesData[m], value: uconSalesData[m] });
+        }
+        for (var m = 0; m < uconServiceData.length; m++) {
+            uconServiceOptions.push({ label: uconServiceData[m], value: uconServiceData[m] });
+        }
+        for (var m = 0; m < warrantyAdmData.length; m++) {
+            warrantyAdmOptions.push({ label: warrantyAdmData[m], value: warrantyAdmData[m] });
+        }
+        for (var m = 0; m < pcData.length; m++) {
+            pcOptions.push({ label: pcData[m], value: pcData[m] });
+        }
+        for (var m = 0; m < elData.length; m++) {
+            elOptions.push({ label: elData[m], value: elData[m] });
+        }
+        for (var m = 0; m < usedReconManagerData.length; m++) {
+            usedReconManagerOptions.push({ label: usedReconManagerData[m], value: usedReconManagerData[m] });
+        }
+        for (var m = 0; m < usedReconParticipantData.length; m++) {
+            usedReconParticipantOptions.push({ label: usedReconParticipantData[m], value: usedReconParticipantData[m] });
+        }
 
         this.enrollmentDataResponse[index].optionsOverrides = overrideOptionArray;
         this.enrollmentDataResponse[index].mserOptions = mserOptions;
@@ -442,37 +659,211 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].usedReconParticipantOptions = usedReconParticipantOptions;
 
     }
-    private selectedPCOverrides(data, index) {
-       
-        var mserSelectedData = [];
-        var mserOptions: SelectItem[] = [];
-
-        for (var i = 0; i < this.mserElligiblepcItem2.length; i++) {
-            for (var j = 0; j < this.enrollmentDataResponse[index].positionCodes.length; j++) {
-                if (this.mserElligiblepcItem2[i] === this.enrollmentDataResponse[index].positionCodes[j]) {
-                    mserSelectedData.push(this.enrollmentDataResponse[index].positionCodes[j]);
+    private removeDuplicates(duplicateArray) {
+        var cleanArray: SelectItem[] = [];
+        for (var i = 0; i < duplicateArray.length; i++) {
+            var push = true;
+            for (var j = 0; j < cleanArray.length; j++) {
+                if (cleanArray[j].value === duplicateArray[i].value) {
+                    push = false;
                 }
             }
+            if (push == true) {
+                cleanArray.push(duplicateArray[i]);
+            }
+        }
+        return cleanArray;
+    }
+    private selectedPCOverrides(data, index) {
+        var mserSelectedData = [];
+        var masSelectedData = [];
+        var mmSelectedData = [];
+        var mvpSelectedData = [];
+        var wiAdvMVPSelectedData = [];
+        var wiAdvTireSelectedData = [];
+        var uconSalesSelectedData = [];
+        var uconServiceSelectedData = [];
+        var warrantyAdmSelectedData = [];
+        var pcSelectedData = [];
+        var elSelectedData = [];
+        var usedReconManagerSelectedData = [];
+        var usedReconParticipantSelectedData = [];
+
+        var mserOptions: SelectItem[] = [];
+        var masOptions: SelectItem[] = [];
+        var mmOptions: SelectItem[] = [];
+        var mvpOptions: SelectItem[] = [];
+        var wiAdvMVPOptions: SelectItem[] = [];
+        var wiAdvTireOptions: SelectItem[] = [];
+        var uconSalesOptions: SelectItem[] = [];
+        var uconServiceOptions: SelectItem[] = [];
+        var warrantyAdmOptions: SelectItem[] = [];
+        var pcOptions: SelectItem[] = [];
+        var elOptions: SelectItem[] = [];
+        var usedReconManagerOptions: SelectItem[] = [];
+        var usedReconParticipantOptions: SelectItem[] = [];
+
+        for (var i = 0; i < this.mserElligiblepcItem2.length; i++) {
             for (var j = 0; j < data.length; j++) {
                 if (this.mserElligiblepcItem2[i] === data[j]) {
                     mserSelectedData.push(data[j]);
                 }
             }
         }
+        for (var i = 0; i < this.upFitsElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.upFitsElligpcItem2[i] === data[j]) {
+                    masSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.mmElligiblepcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.mmElligiblepcItem2[i] === data[j]) {
+                    mmSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.mvpElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.mvpElligpcItem2[i] === data[j]) {
+                    mvpSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.wiAdvMVPElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.wiAdvMVPElligpcItem2[i] === data[j]) {
+                    wiAdvMVPSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.wiAdvTirElligepcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.wiAdvTirElligepcItem2[i] === data[j]) {
+                    wiAdvTireSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.uconSalesElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.uconSalesElligpcItem2[i] === data[j]) {
+                    uconSalesSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.uconServiceElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.uconServiceElligpcItem2[i] === data[j]) {
+                    uconServiceSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.warrantyAdmElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.warrantyAdmElligpcItem2[i] === data[j]) {
+                    warrantyAdmSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.pcMElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.pcMElligpcItem2[i] === data[j]) {
+                    pcSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.elMElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.elMElligpcItem2[i] === data[j]) {
+                    elSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.uvmEnrElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.uvmEnrElligpcItem2[i] === data[j]) {
+                    usedReconManagerSelectedData.push(data[j]);
+                }
+            }
+        }
+        for (var i = 0; i < this.uvmPartElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.uvmPartElligpcItem2[i] === data[j]) {
+                    usedReconManagerSelectedData.push(data[j]);
+                }
+            }
+        }
 
-       
-        this.enrollmentDataResponse[index].mserOptions = [{ label: "", value: "" }];
+
         for (var j = 0; j < mserSelectedData.length; j++) {
-
             this.enrollmentDataResponse[index].mserOptions.push({ label: mserSelectedData[j], value: mserSelectedData[j] });
         }
-        this.enrollmentDataResponse[index].mserOptions.shift();
+        for (var j = 0; j < masSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].masOptions.push({ label: masSelectedData[j], value: masSelectedData[j] });
+        }
+        for (var j = 0; j < mvpSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].mvpOptions.push({ label: mvpSelectedData[j], value: mvpSelectedData[j] });
+        }
+        for (var j = 0; j < mmSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].mmOptions.push({ label: mmSelectedData[j], value: mmSelectedData[j] });
+        }
+        for (var j = 0; j < wiAdvMVPSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].wiAdvMVPOptions.push({ label: wiAdvMVPSelectedData[j], value: wiAdvMVPSelectedData[j] });
+        }
+        for (var j = 0; j < wiAdvTireSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].wiAdvTireOptions.push({ label: wiAdvTireSelectedData[j], value: wiAdvTireSelectedData[j] });
+        }
+        for (var j = 0; j < uconSalesSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].uconSalesOptions.push({ label: uconSalesSelectedData[j], value: uconSalesSelectedData[j] });
+        }
+        for (var j = 0; j < uconServiceSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].uconServiceOptions.push({ label: uconServiceSelectedData[j], value: uconServiceSelectedData[j] });
+        }
+        for (var j = 0; j < warrantyAdmSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].warrantyAdmOptions.push({ label: warrantyAdmSelectedData[j], value: warrantyAdmSelectedData[j] });
+        }
+        for (var j = 0; j < pcSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].pcOptions.push({ label: pcSelectedData[j], value: pcSelectedData[j] });
+        }
+        for (var j = 0; j < elSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].elOptions.push({ label: elSelectedData[j], value: elSelectedData[j] });
+        }
+        for (var j = 0; j < usedReconManagerSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].usedReconManagerOptions.push({ label: usedReconManagerSelectedData[j], value: usedReconManagerSelectedData[j] });
+        }
+        for (var j = 0; j < usedReconParticipantSelectedData.length; j++) {
+            this.enrollmentDataResponse[index].usedReconParticipantOptions.push({ label: usedReconParticipantSelectedData[j], value: usedReconParticipantSelectedData[j] });
+        }
 
+        var mserOptionss = this.enrollmentDataResponse[index].mserOptions;
+        var masOptionss = this.enrollmentDataResponse[index].masOptions;
+        var mmOptionss = this.enrollmentDataResponse[index].mmOptions;
+        var mvpOptionss = this.enrollmentDataResponse[index].mvpOptions;
+        var wiAdvMVPOptionss = this.enrollmentDataResponse[index].wiAdvMVPOptions;
+        var wiAdvTireOptionss = this.enrollmentDataResponse[index].wiAdvTireOptions;
+        var uconSalesOptionss = this.enrollmentDataResponse[index].uconSalesOptions;
+        var uconServiceOptionss = this.enrollmentDataResponse[index].uconServiceOptions;
+        var warrantyAdmOptionss = this.enrollmentDataResponse[index].warrantyAdmOptions;
+        var pcOptionss = this.enrollmentDataResponse[index].pcOptions;
+        var elOptionss = this.enrollmentDataResponse[index].elOptions;
+        var usedReconManagerOptionss = this.enrollmentDataResponse[index].usedReconManagerOptions;
+        var usedReconParticipantOptionss = this.enrollmentDataResponse[index].usedReconParticipantOptions;
 
+        this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptionss);    
+        this.enrollmentDataResponse[index].masOptions = this.removeDuplicates(masOptionss);
+        this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptionss);
+        this.enrollmentDataResponse[index].mvpOptions = this.removeDuplicates(mvpOptionss);
+        this.enrollmentDataResponse[index].wiAdvMVPOptions = this.removeDuplicates(wiAdvMVPOptionss);
+        this.enrollmentDataResponse[index].wiAdvTireOptions = this.removeDuplicates(wiAdvTireOptionss);
+        this.enrollmentDataResponse[index].uconSalesOptions = this.removeDuplicates(uconSalesOptionss);
+        this.enrollmentDataResponse[index].uconServiceOptions = this.removeDuplicates(uconServiceOptionss);
+     //   this.enrollmentDataResponse[index].warrantyAdmOptions = this.removeDuplicates(warrantyAdmOptionss);
+        this.enrollmentDataResponse[index].pcOptions = this.removeDuplicates(pcOptionss);
+        this.enrollmentDataResponse[index].elOptions = this.removeDuplicates(elOptionss);
+      //  this.enrollmentDataResponse[index].usedReconManagerOptions = this.removeDuplicates(usedReconManagerOptionss);
+        this.enrollmentDataResponse[index].usedReconParticipantOptions = this.removeDuplicates(usedReconParticipantOptionss);
 
-
-        console.log(mserSelectedData);
-        console.log(mserOptions);
     }
 
     private onEditInitE(event: any) {
@@ -500,14 +891,45 @@ export class EnrollmentComponent implements OnInit {
     }
 
     private msg: string = "";
+    private returnItem1(data) {
+        var myPersonal
+    }
     private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
         editButton.style["display"] = "block";
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";
         this.enableEditable = false;
         rowData.isEditableR = false;
-        // this.returnItem1(rowData.mserOptions, index);
-        this.enrollmentService.saveEnrollmentMaintenanceData(rowData).subscribe(
+        var cleanRowData: any = {};
+        var myPersonalPositionCode: any = [];
+        var overriddenpositionCodes: any = [];
+        var mserData: any = [];
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.positionCodes.length; a2++) {
+                if (rowData.positionCodes[a2] === this.positionCodesResponse[a1].item2) {
+                    myPersonalPositionCode.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.overriddenpositionCodes.length; a2++) {
+                if (rowData.overriddenpositionCodes[a2] === this.positionCodesResponse[a1].item2) {
+                    overriddenpositionCodes.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.mser.length; a2++) {
+                if (rowData.mser[a2] === this.positionCodesResponse[a1].item2) {
+                    mserData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+
+        }
+
+        this.enrollmentService.saveEnrollmentMaintenanceData(rowData, myPersonalPositionCode, overriddenpositionCodes, mserData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
                 this.msg = "Successfully Saved";

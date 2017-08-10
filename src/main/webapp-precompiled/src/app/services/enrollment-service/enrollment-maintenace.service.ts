@@ -47,14 +47,15 @@ export class EnrollmentMaintenanceService {
       .catch(this.handleError);
   }
 
-  saveEnrollmentMaintenanceData(enrollmentDataResponse): any {
+  saveEnrollmentMaintenanceData(enrollmentDataResponse, myPersonalPositionCode, overriddenpositionCodes, mserData): any {
     var url = this.baseUrl + "enrollments/DealerEnrollements/SET/";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     var body = {
       "dealerCode": enrollmentDataResponse.dealerCode, "myPersonalDMSID": enrollmentDataResponse.myPersonalDMSID,
-      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email, "positionCodes": enrollmentDataResponse.positionCodes,
-      "overriddenpositionCodes": enrollmentDataResponse.overriddenpositionCodes, "mser": enrollmentDataResponse.mser,
+      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email, 
+      "positionCodes": myPersonalPositionCode,
+      "overriddenpositionCodes": overriddenpositionCodes, "mser": mserData,
       "mas": enrollmentDataResponse.mas, "mm": enrollmentDataResponse.mm, "mvp": enrollmentDataResponse.mvp,
       "wiMvp": enrollmentDataResponse.wiMvp, "wiTires": enrollmentDataResponse.wiTires,
       "pc": enrollmentDataResponse.pc, "el": enrollmentDataResponse.el, "usedRecon": enrollmentDataResponse.usedRecon,
