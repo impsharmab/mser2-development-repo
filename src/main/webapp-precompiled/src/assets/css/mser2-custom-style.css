@@ -383,6 +383,87 @@ input.datepicker-input {
 /* End Marketing Presentation */
 
 
+/* Begin Rewards Distribution */
+
+.rewards-program-container {
+  box-sizing: border-box;
+  margin: .24rem;
+  overflow: hidden;
+  padding: 0 1rem;
+  width: 95%;
+}
+
+.rewards-program-container .table {
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-sizing: border-box;
+  float: none;
+  margin: 0 .75rem 1rem .75rem;
+  width: 99%;
+}
+
+.rewards-program-container .table th, .modal .table th {
+  background-color: #b3dfff;
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.table .right-align{
+  text-align: right;
+  padding-right: .75rem;
+}
+
+.table .center-align {
+  text-align: center;
+}
+
+.rewards-program-container .btn-container{
+  overflow: hidden;
+  padding-bottom: 1rem;
+}
+
+.rewards-program-container .btn {
+  font-size: 14px;
+  margin:0 .24rem;
+}
+
+.allocation-history-link{
+  margin:1rem 0;
+  display: block;
+  width: 20%;
+}
+
+.dealership-identity {
+  padding: .75rem;
+}
+
+#reward-program{}
+#amount-to-be-distributed{}
+#proceed-to-allocations{
+  width: 175px;
+}
+
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 65%;
+  }
+  .modal-header {
+    background-color: rgb(0, 104, 179);
+  }
+  .modal-header .modal-title, .modal-header button.close {
+    color: rgb(255,255,255);
+  }
+
+  .modal-footer {
+    background: rgb(245,245,245);
+  }
+}
+
+/* End Rewards Distribution */
+
+
 /* Begin Enrollment*/
 .ui-datatable-resizable thead th span.ui-cell-data, .ui-datatable-resizable tbody td span.ui-cell-data, .ui-datatable-resizable tfoot td span.ui-cell-data {
     white-space: normal;
@@ -442,13 +523,7 @@ input.datepicker-input {
 /* End Enrollment*/
 
 
-/*Rewards Distribution*/
-@media (min-width: 576px) {
-  .modal-dialog {
-    max-width: 80%;
-  }
-}
-/**/
+
 
 
 /* Begin Miscellaneous */

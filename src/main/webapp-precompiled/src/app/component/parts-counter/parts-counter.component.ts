@@ -2,7 +2,7 @@
 
 @Component({
   selector: 'parts-counter',
-  templateUrl: './parts-counter.html'
+  templateUrl: './parts-counter-matt.html'
   //styleUrls: ['./marketing-home.component.css']
 })
 export class PartsCounterComponent implements OnInit {

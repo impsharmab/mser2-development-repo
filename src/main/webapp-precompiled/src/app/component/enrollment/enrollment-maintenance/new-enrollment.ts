@@ -657,6 +657,8 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].pcOptions = pcOptions;
         this.enrollmentDataResponse[index].elOptions = elOptions;
         this.enrollmentDataResponse[index].usedReconParticipantOptions = usedReconParticipantOptions;
+         this.enrollmentDataResponse[index].warrantyAdmOptions = warrantyAdmOptions;
+          this.enrollmentDataResponse[index].usedReconManagerOptions  = usedReconManagerOptions ;
 
     }
     private removeDuplicates(duplicateArray) {
