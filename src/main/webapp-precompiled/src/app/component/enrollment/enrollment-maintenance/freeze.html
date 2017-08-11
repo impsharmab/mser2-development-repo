@@ -38,7 +38,7 @@
                                     </div>
                                     <!-- <button type="button" class="btn btn-primary" style="margin-left: auto; float:left" (click)="addNewUser(addUserData)"><i class="fa fa-plus" aria-hidden="true"></i>  Add New User</button> -->
                                     <!-- only show active user if a user selects a category to be edited -->
-                                    <div class="active-user" id="active-user">the active participant is: <strong id="participant-id">S06569P</strong> <strong id="participant-name">Gloria Molina</strong></div>
+                                    <div *ngIf="enableEditable"class="active-user" id="active-user">The Active Participant is: <strong id="participant-id">{{activeUser}}</strong></div>
 
                                 </form>
                                 <p style="color:red">{{msg}}</p>
@@ -217,7 +217,7 @@
                                             {{data.usedRecon}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-dropdown [options]="data.uvmEnrOptions" [(ngModel)]="data.usedRecon" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                            <p-dropdown [options]="data.usedReconManagerOptions" [(ngModel)]="data.usedRecon" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
                                         </ng-template>
                                     </p-column>
 

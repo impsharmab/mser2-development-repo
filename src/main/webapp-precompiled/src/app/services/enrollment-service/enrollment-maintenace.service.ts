@@ -47,20 +47,21 @@ export class EnrollmentMaintenanceService {
       .catch(this.handleError);
   }
 
-  saveEnrollmentMaintenanceData(enrollmentDataResponse, myPersonalPositionCode, overriddenpositionCodes, mserData): any {
+  saveEnrollmentMaintenanceData(enrollmentDataResponse, myPersonalPositionCode, overriddenpositionCodes, mserData, masData, mmData,
+    mvpData, wiAdvMVPData, wiAdvTireData, uconSalesData, uconServiceData, pcData, elData, usedReconManagerData, usedReconParticipantData): any {
     var url = this.baseUrl + "enrollments/DealerEnrollements/SET/";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     var body = {
       "dealerCode": enrollmentDataResponse.dealerCode, "myPersonalDMSID": enrollmentDataResponse.myPersonalDMSID,
-      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email, 
+      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email,
       "positionCodes": myPersonalPositionCode,
       "overriddenpositionCodes": overriddenpositionCodes, "mser": mserData,
-      "mas": enrollmentDataResponse.mas, "mm": enrollmentDataResponse.mm, "mvp": enrollmentDataResponse.mvp,
-      "wiMvp": enrollmentDataResponse.wiMvp, "wiTires": enrollmentDataResponse.wiTires,
-      "pc": enrollmentDataResponse.pc, "el": enrollmentDataResponse.el, "usedRecon": enrollmentDataResponse.usedRecon,
-      "usedReconP": enrollmentDataResponse.usedReconP, "sid": enrollmentDataResponse.sid, "dmsid": enrollmentDataResponse.dmsid,
-      "ucon": enrollmentDataResponse.ucon
+      "mas": masData, "mm": mmData, "mvp": mvpData,
+      "wiMvp": wiAdvMVPData, "wiTires": wiAdvTireData,
+      "pc": pcData, "el": elData, "usedRecon": usedReconManagerData,
+      "usedReconP": usedReconParticipantData, "sid": enrollmentDataResponse.sid, "dmsid": enrollmentDataResponse.dmsid,
+      "ucon": uconSalesData
     };
     console.log("body" + ": " + body);
     headers.append('Content-Type', 'application/json');
@@ -102,10 +103,10 @@ export class EnrollmentMaintenanceService {
   }
 
   private customHandleError(error: Response | any) {
-     let errMsg: string = "";
+    let errMsg: string = "";
     // if (error.status === 500) {
     //   alert(error._body);
-      
+
     // }
     if (error instanceof Response) {
       // const body = error.json() || '';

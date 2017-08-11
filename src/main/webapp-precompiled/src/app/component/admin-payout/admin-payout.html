@@ -1,7 +1,4 @@
-<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">
 
-</script>
-<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
 
 <main class="main">
     <div class="page-title">
@@ -91,7 +88,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">Express Lane</td>
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
                                     <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
@@ -99,7 +96,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">Mopar Accessories</td>
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
                                     <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
@@ -107,14 +104,14 @@
                                 </tr>
 
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">Mopar Parts & Engines</td>
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
                                     <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
                                     <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
                                 </tr>
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">Magnetti Marelli</td>
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
                                     <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
@@ -137,7 +134,7 @@
                                     <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
                                 </tr>
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">FIAT</td>
 
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
@@ -145,7 +142,7 @@
                                     <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
                                 </tr>
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">Tires</td>
 
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
@@ -161,7 +158,7 @@
                                     <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
                                 </tr>
                                 <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
+                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
                                     <td headers="program-groups-select" role="gridcell">wiAdvisor Tire</td>
 
                                     <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
@@ -665,7 +662,7 @@
                         <h3>Add Rewards</h3>
                         <div>
                             <input id="" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
-
+                            
                         </div>
 
                         <!-- START Add Reward Modal -->
@@ -721,22 +718,22 @@
                                     <option>Service Manager (09)</option>
                                 </select>
 
-                                    <label>
+                                <label>
                                     Reward Type
                                 </label>
 
-                                    <select id="payout-month" class="form-control" name="rewardType">
+                                <select id="payout-month" class="form-control" name="rewardType">
                                     <option>Dollar</option>
                                     <option>Percent</option>
                                 </select>
 
-                                    <label>
+                                <label>
                                     Reward Amount
                                 </label>
+                                
+                                <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
 
-                                    <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
-
-                                    <label>
+                                <label>
                                     Labor Type
                                 </label>
                                     <form class="form-control" name="laborType">
@@ -775,7 +772,7 @@
                             <div class="modal-body">
                                 <form>
 
-                                    <h5>Override Source</h5>
+                            <h5>Override Source</h5>
                                     <label>
                                 Program Group
                             </label>
@@ -820,11 +817,11 @@
                                     <option>Service Manager (09)</option>
                                 </select>
 
-                                    <p style="font-weight:bold;">Reward: $5.00 per Set of 2</p>
+                                <p style="font-weight:bold;">Reward: $5.00 per Set of 2</p>
 
-                                    <hr/>
+                                <hr/>
 
-                                    <h5>Override Recipient</h5>
+                                <h5>Override Recipient</h5>
                                     <label>
                                         Recipient Position
                                     </label>
@@ -835,9 +832,9 @@
                                         <option>Service Manager (09)</option>
                                     </select>
 
-                                    <label>
+                                <label>
                                         Override Type
-                                    </label>
+                                    </label>   
                                     <select id="payout-month" class="form-control" name="rewardType">
                                         <option>Percent</option>
                                         <option>Dollar</option>
@@ -848,7 +845,7 @@
                                         Override Amount
                                     </label>
                                     <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="5.00 %">
-
+                                   
                                 </form>
 
                             </div>
@@ -871,9 +868,12 @@
                                 <form>
                                     <p style="font-weight:bold;">
                                         Mopar Parts & Engines
-                                        <br/> T_CASES
-                                        <br/> Service Technician
-                                        <br/> $5.00 per Set of 2
+                                        <br/>
+                                        T_CASES
+                                        <br/>
+                                        Service Technician
+                                        <br/>
+                                        $5.00 per Set of 2
                                     </p>
                                     <hr/>
 
@@ -922,9 +922,9 @@
                                     <option>Parts Manager (08)</option>
                                     <option>Service Manager (09)</option>
                                 </select>
-                                    <hr/>
+                                <hr/>
 
-                                    <h5>Override Recipient</h5>
+                                <h5>Override Recipient</h5>
                                     <label>
                                         Recipient Position
                                     </label>
@@ -935,9 +935,9 @@
                                         <option>Service Manager (09)</option>
                                     </select>
 
-                                    <label>
+                                <label>
                                         Override Type
-                                    </label>
+                                    </label>   
                                     <select id="payout-month" class="form-control" name="rewardType">
                                         <option>Percent</option>
                                         <option>Dollar</option>
@@ -948,7 +948,7 @@
                                         Override Amount
                                     </label>
                                     <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="5.00 %">
-
+                                   
                                 </form>
 
                             </div>
@@ -1015,11 +1015,12 @@
                                         </select>
                                     </td>
                                     <td headers="" role="gridcell">
-
+                                        
                                         <span class="label override-element" style="background-color: #f0ad4e;display:none;width:100%;margin:0;padding: 0.5em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">
-                                            <span style="float:left;">ID: 1</span>                                        5.00 % to Service Advisor
-                                        <i class="fa fa-pencil" style="float:right;margin:0 3px; font-weight:normal;" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
-
+                                            <span style="float:left;">ID: 1</span> 
+                                            5.00 % to Service Advisor
+                                            <i class="fa fa-pencil" style="float:right;margin:0 3px; font-weight:normal;" (click)="openOverrideRecordModal(overrideRecordModal)" ></i>
+                                            
                                         </span>
                                     </td>
                                     <td headers="" role="gridcell">
@@ -1035,10 +1036,10 @@
                                             <option>Individual</option>
                                             <option>Set of 4</option>
                                         </select>
-
+                                        
                                     </td>
                                 </tr>
-                                <tr class="override-hidden" style="display:none;">
+                                <tr class="override-hidden" style="display:none;" >
                                     <td headers="" role="gridcell"></td>
                                     <td headers="" role="gridcell"></td>
                                     <td headers="" role="gridcell"></td>
@@ -1049,25 +1050,26 @@
                                             <option>Parts Manager (08)</option>
                                             <option>Service Manager (09)</option>
                                         </select>
-
-
+                                        
+                                        
                                     </td>
                                     <td headers="" role="gridcell">
                                         <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
+                                             <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00" > 
                                         </form>
                                     </td>
                                     <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardType">
+                                         <select id="payout-month" class="form-control" name="rewardType">
                                             <option>Dollar</option>
                                             <option>Percent</option>
-                                        </select>
+                                        </select> 
                                     </td>
                                     <td headers="" role="gridcell">
                                         <span class="label override-element" style="background-color: #5cb85c;display:none;width:100%;margin:0;padding: 0.5em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">
-                                           <span style="float:left;">ID: 1</span>                                        5.00 % from Service Technician
-                                        <i class="fa fa-pencil" style="float:right;margin:0 3px; font-weight:normal;" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
-
+                                           <span style="float:left;">ID: 1</span> 
+                                            5.00 % from Service Technician
+                                            <i class="fa fa-pencil" style="float:right;margin:0 3px; font-weight:normal;" (click)="openOverrideRecordModal(overrideRecordModal)" ></i>
+                                            
                                         </span>
                                     </td>
                                     <td headers="" role="gridcell">
@@ -1083,7 +1085,7 @@
                                             <option>Set of 2</option>
                                             <option>Set of 4</option>
                                         </select>
-
+                                        
                                     </td>
 
 
@@ -1112,7 +1114,7 @@
                                         </select>
                                     </td>
                                     <td headers="" role="gridcell">
-
+                                        
                                     </td>
                                     <td headers="" role="gridcell">
                                         <form class="form-control" name="laborType">
@@ -1154,7 +1156,7 @@
                                         </select>
                                     </td>
                                     <td headers="" role="gridcell">
-
+                                        
                                     </td>
                                     <td headers="" role="gridcell">
                                         <form class="form-control" name="laborType">
@@ -1173,7 +1175,7 @@
 
 
                                 </tr>
-
+                                
                                 <tr>
                                     <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
                                     <td headers="" role="gridcell">Magneti Marelli</td>
@@ -1207,7 +1209,7 @@
                                         </select>
                                     </td>
                                     <td headers="" role="gridcell">
-
+                                        
                                     </td>
                                     <td headers="" role="gridcell">
                                         <form class="form-control" name="laborType">
@@ -1252,7 +1254,7 @@
                                     </select>
                                     </td>
                                     <td headers="" role="gridcell">
-
+                                    
                                     </td>
                                     <td headers="" role="gridcell">
                                         <form class="form-control" name="laborType">
@@ -1271,7 +1273,7 @@
 
 
                                 </tr>
-
+                                
                             </tbody>
                         </table>
 
@@ -1285,59 +1287,53 @@
                         <h3>Payout Chart Updates Preview</h3>
                         <div>
                             <input id="" class="btn btn-primary" type="submit" value="Save Updates" />
-                            <input id="" class="btn btn-primary" type="submit" (click)="downloadPDF()"
-                            
-                                value="Export to PDF" />
-
-                            <input id="" class="btn btn-primary" type="submit" (click)="download()" value="Export to JSPDF" />
-
-
+                            <button type="button"  class="btn btn-primary" (click)="downloadPDF()">Export to PDF</button>
                         </div>
                         <!-- START Summary Wrapper-->
                         <hr/>
                         <div>
                             <!-- MOPAR Parts &amp; Engines -->
-                            <div id="payout-chart-export">
+                                        <div id="payout-chart-export">
+                                            
+                                            <!-- START Service Technician Area -->
+                                            <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
+                                            <h3>T-Cases</h3>
+                                            <ul class="graph graph-list">
+                                                <li class="graph-item service-override">
+                                                    <span class="graph-item-subject">Service Technician</span>
+                                                    <span class="graph-item-figure">$5.00</span>
+                                                </li>
+                                                <li class="graph-item">
+                                                    <span class="graph-item-subject">Service Advisor</span>
+                                                    <span class="graph-item-figure">$5.00</span>
+                                                </li>
+                                                <li class="graph-item">
+                                                    <span class="graph-item-subject">Service Manager</span>
+                                                    <span class="graph-item-figure">$5.00</span>
+                                                </li>
+                                                <li class="graph-item">
+                                                    <span class="graph-item-subject">Parts Manager</span>
+                                                    <span class="graph-item-figure">$5.00</span>
+                                                </li>
+                                            </ul>
+                                            <p><span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
 
-                                <!-- START Service Technician Area -->
-                                <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
-                                <h3>T-Cases</h3>
-                                <ul class="graph graph-list">
-                                    <li class="graph-item service-override">
-                                        <span class="graph-item-subject">Service Technician</span>
-                                        <span class="graph-item-figure">$5.00</span>
-                                    </li>
-                                    <li class="graph-item">
-                                        <span class="graph-item-subject">Service Advisor</span>
-                                        <span class="graph-item-figure">$5.00</span>
-                                    </li>
-                                    <li class="graph-item">
-                                        <span class="graph-item-subject">Service Manager</span>
-                                        <span class="graph-item-figure">$5.00</span>
-                                    </li>
-                                    <li class="graph-item">
-                                        <span class="graph-item-subject">Parts Manager</span>
-                                        <span class="graph-item-figure">$5.00</span>
-                                    </li>
-                                </ul>
-                                <p><span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
-
-                                <h4 class="payout-chart-heading">MAGNETI MARELLI</h4>
-                                <h3>MM_BK</h3>
-                                <ul class="graph graph-list">
-                                    <li class="graph-item">
-                                        <span class="graph-item-subject">Service Technician</span>
-                                        <span class="graph-item-figure">2.00%</span>
-                                    </li>
-                                    <li class="graph-item">
-                                        <span class="graph-item-subject">Parts Manager</span>
-                                        <span class="graph-item-figure">$2.00</span>
-                                    </li>
-                                </ul>
-                                <!-- END Service Technician Area -->
+                                            <h4 class="payout-chart-heading">MAGNETI MARELLI</h4>
+                                            <h3>MM_BK</h3>
+                                            <ul class="graph graph-list">
+                                                <li class="graph-item">
+                                                    <span class="graph-item-subject">Service Technician</span>
+                                                    <span class="graph-item-figure">2.00%</span>
+                                                </li>
+                                                <li class="graph-item">
+                                                    <span class="graph-item-subject">Parts Manager</span>
+                                                    <span class="graph-item-figure">$2.00</span>
+                                                </li>
+                                            </ul>
+                                            <!-- END Service Technician Area -->
 
 
-                            </div>
+                                        </div>
                         </div>
                         <!-- END Summary Wrapper -->
 

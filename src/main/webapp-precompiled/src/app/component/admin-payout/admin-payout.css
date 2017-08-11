@@ -93,3 +93,7 @@ input.datepicker-input {
     width:80% !important;
     padding: 0.5rem 0.75rem;
 }
+
+#program-groups {
+    width:50%;
+}

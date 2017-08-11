@@ -40,8 +40,8 @@ export class EnrollmentComponent implements OnInit {
     private mvpElligpc: any = ["13", "es", "09"];
     private wiAdvMVPElligpc: any = ["13", "09"];
     private wiAdvTirElligepc: any = ["13", "08", "09"];
-    private uconSalesElligpc: any = ["01", "02", "03", "74"];
-    private uconServiceElligpc: any = ["08", "09", "74"];
+    private uconSalesElligpc: any = ["01", "02", "03", "04", "05", "06 ", "07", "11", "12", "15", "22", "25", "26", "30", "31", "34", "36", "37", "38", "39", "41", "42", "46", "47", "49", "50", "52", "74", "4T", "IM"];
+    private uconServiceElligpc: any = ["08", "09", "10", "13", "14", "16", "17", "18", "19", "20", "23", "24", "27", "28", "29", "32", "33", "35", "40", "48", "56", "79", "85", "1F", "2S", "3S", "4S", "7L", "7M", "7N", "7P", "7Q", "ES", "ET"];
     private pcPartElligpc = ["8", "14", "40", "19"];
     private pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "40", "37"];
     private elMElligpc: any = ["09", "17", "33", "35"];
@@ -657,8 +657,8 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].pcOptions = pcOptions;
         this.enrollmentDataResponse[index].elOptions = elOptions;
         this.enrollmentDataResponse[index].usedReconParticipantOptions = usedReconParticipantOptions;
-         this.enrollmentDataResponse[index].warrantyAdmOptions = warrantyAdmOptions;
-          this.enrollmentDataResponse[index].usedReconManagerOptions  = usedReconManagerOptions ;
+        this.enrollmentDataResponse[index].warrantyAdmOptions = warrantyAdmOptions;
+        this.enrollmentDataResponse[index].usedReconManagerOptions = usedReconManagerOptions;
 
     }
     private removeDuplicates(duplicateArray) {
@@ -852,7 +852,7 @@ export class EnrollmentComponent implements OnInit {
         var usedReconManagerOptionss = this.enrollmentDataResponse[index].usedReconManagerOptions;
         var usedReconParticipantOptionss = this.enrollmentDataResponse[index].usedReconParticipantOptions;
 
-        this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptionss);    
+        this.enrollmentDataResponse[index].mserOptions = this.removeDuplicates(mserOptionss);
         this.enrollmentDataResponse[index].masOptions = this.removeDuplicates(masOptionss);
         this.enrollmentDataResponse[index].mmOptions = this.removeDuplicates(mmOptionss);
         this.enrollmentDataResponse[index].mvpOptions = this.removeDuplicates(mvpOptionss);
@@ -860,10 +860,10 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].wiAdvTireOptions = this.removeDuplicates(wiAdvTireOptionss);
         this.enrollmentDataResponse[index].uconSalesOptions = this.removeDuplicates(uconSalesOptionss);
         this.enrollmentDataResponse[index].uconServiceOptions = this.removeDuplicates(uconServiceOptionss);
-     //   this.enrollmentDataResponse[index].warrantyAdmOptions = this.removeDuplicates(warrantyAdmOptionss);
+        //   this.enrollmentDataResponse[index].warrantyAdmOptions = this.removeDuplicates(warrantyAdmOptionss);
         this.enrollmentDataResponse[index].pcOptions = this.removeDuplicates(pcOptionss);
         this.enrollmentDataResponse[index].elOptions = this.removeDuplicates(elOptionss);
-      //  this.enrollmentDataResponse[index].usedReconManagerOptions = this.removeDuplicates(usedReconManagerOptionss);
+        this.enrollmentDataResponse[index].usedReconManagerOptions = this.removeDuplicates(usedReconManagerOptionss);
         this.enrollmentDataResponse[index].usedReconParticipantOptions = this.removeDuplicates(usedReconParticipantOptionss);
 
     }
@@ -875,10 +875,12 @@ export class EnrollmentComponent implements OnInit {
             }, 1);
         }
     }
+    private activeUser: string = "";
     private edit(rowData, editButton, cancelButton, saveButton) {
         editButton.style["display"] = "none";
         cancelButton.style["display"] = "block";
         saveButton.style["display"] = "block";
+        this.activeUser = rowData.sid + "-" + rowData.name;
         rowData.isEditableR = true;
         this.enableEditable = true;
     }
@@ -902,10 +904,22 @@ export class EnrollmentComponent implements OnInit {
         saveButton.style["display"] = "none";
         this.enableEditable = false;
         rowData.isEditableR = false;
-        var cleanRowData: any = {};
         var myPersonalPositionCode: any = [];
         var overriddenpositionCodes: any = [];
         var mserData: any = [];
+        var masData = [];
+        var mmData = [];
+        var mvpData = [];
+        var wiAdvMVPData = [];
+        var wiAdvTireData = [];
+        var uconSalesData = [];
+        var uconServiceData = [];
+        var warrantyAdmData = [];
+        var pcData = [];
+        var elData = [];
+        var usedReconManagerData = [];
+        var usedReconParticipantData = [];
+
         for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.positionCodes.length; a2++) {
                 if (rowData.positionCodes[a2] === this.positionCodesResponse[a1].item2) {
@@ -928,10 +942,84 @@ export class EnrollmentComponent implements OnInit {
                     mserData.push(this.positionCodesResponse[a1].item1)
                 }
             }
-
         }
-
-        this.enrollmentService.saveEnrollmentMaintenanceData(rowData, myPersonalPositionCode, overriddenpositionCodes, mserData).subscribe(
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.mas.length; a2++) {
+                if (rowData.mas[a2] === this.positionCodesResponse[a1].item2) {
+                    masData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.mm.length; a2++) {
+                if (rowData.mm[a2] === this.positionCodesResponse[a1].item2) {
+                    mmData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.mvp.length; a2++) {
+                if (rowData.mvp[a2] === this.positionCodesResponse[a1].item2) {
+                    mvpData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.wiMvp.length; a2++) {
+                if (rowData.wiMvp[a2] === this.positionCodesResponse[a1].item2) {
+                    wiAdvMVPData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.wiTires.length; a2++) {
+                if (rowData.wiTires[a2] === this.positionCodesResponse[a1].item2) {
+                    wiAdvTireData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.ucon.length; a2++) {
+                if (rowData.ucon[a2] === this.positionCodesResponse[a1].item2) {
+                    uconSalesData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.ucon.length; a2++) {
+                if (rowData.ucon[a2] === this.positionCodesResponse[a1].item2) {
+                    uconServiceData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.ucon.length; a2++) {
+                if (rowData.ucon[a2] === this.positionCodesResponse[a1].item2) {
+                    warrantyAdmData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+            for (var a2 = 0; a2 < rowData.usedReconP.length; a2++) {
+                if (rowData.usedReconP[a2] === this.positionCodesResponse[a1].item2) {
+                    usedReconParticipantData.push(this.positionCodesResponse[a1].item1)
+                }
+            }
+        }
+        for (var a2 = 0; a2 < this.positionCodesResponse.length; a2++) {
+            if (rowData.pc == this.positionCodesResponse[a2].item2) {
+                pcData = this.positionCodesResponse[a2].item1;
+            }
+            if (rowData.el == this.positionCodesResponse[a2].item2) {
+                elData = this.positionCodesResponse[a2].item1;
+            }
+            if (rowData.usedRecon == this.positionCodesResponse[a2].item2) {
+                usedReconManagerData = this.positionCodesResponse[a2].item1;
+            }
+        }
+        this.enrollmentService.saveEnrollmentMaintenanceData(rowData, myPersonalPositionCode, overriddenpositionCodes, mserData,
+            masData, mmData, mvpData, wiAdvMVPData, wiAdvTireData, uconSalesData, uconServiceData, pcData, elData,
+            usedReconManagerData, usedReconParticipantData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
                 this.msg = "Successfully Saved";
@@ -944,7 +1032,7 @@ export class EnrollmentComponent implements OnInit {
 
                 // alert(error)
             }
-        )
+            )
     }
 
     private cancelNewUserDataDialogue(data) {
