@@ -17,6 +17,7 @@ export class EnrollmentComponent implements OnInit {
     @ViewChild("datatable") dataTable: DataTable;
     selectedCars;
     selectedCity;
+
     private expressLaneDealerData: any;
     private isExpresslaneDealer: boolean = false;
     private selectedpc: string = "";
@@ -258,6 +259,9 @@ export class EnrollmentComponent implements OnInit {
 
     }
     private getEnrollmentData() {
+        this.editButton = {};
+        this.cancelButton = {};
+        this.saveButton = {};
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
@@ -885,20 +889,83 @@ export class EnrollmentComponent implements OnInit {
         this.enableEditable = true;
     }
 
+    private confirmCancel: boolean = false;
+    private confirmSave: boolean = false;
+    private editButton: any;
+    private cancelButton: any;
+    private saveButton: any;
+    private rowData: any;
     private cancel(rowData, editButton, cancelButton, saveButton) {
-        editButton.style["display"] = "block";
-        cancelButton.style["display"] = "none";
-        saveButton.style["display"] = "none";
-        this.enableEditable = false;
-        rowData.isEditableR = false;
+        this.confirmCancel = true;
+        this.editButton = editButton;
+        this.cancelButton = cancelButton;
+        this.saveButton = saveButton;
+        this.rowData = rowData;
+        debugger
+        //editButton.style["display"] = "block";
+        // cancelButton.style["display"] = "none";
+        // saveButton.style["display"] = "none";
+        // this.enableEditable = false;
+        // rowData.isEditableR = false;
         // this.getEnrollmentData();
+    }
+    private continueCancel() {
+        this.confirmCancel = false;
+        this.editButton.style["display"] = "block";
+        this.cancelButton.style["display"] = "none";
+        this.saveButton.style["display"] = "none";
+        this.enableEditable = false;
+        this.rowData.isEditableR = false;
+        this.getEnrollmentData();
+
+    }
+    private discontinueCancel() {
+        this.confirmCancel = false;
+        this.editButton = {};
+        this.cancelButton = {};
+        this.saveButton = {};
+    }
+    private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton) {
+        this.confirmSave = true;
+        this.editButton = editButton;
+        this.cancelButton = cancelButton;
+        this.saveButton = saveButton;
+        this.rowData = rowData;
+        //editButton.style["display"] = "block";
+        // cancelButton.style["display"] = "none";
+        // saveButton.style["display"] = "none";
+        // this.enableEditable = false;
+        // rowData.isEditableR = false;
+        // this.getEnrollmentData();
+    }
+    // private continueSave() {
+    //     this.confirmCancel = false;
+    //     this.editButton.style["display"] = "block";
+    //     this.cancelButton.style["display"] = "none";
+    //     this.saveButton.style["display"] = "none";
+    //     this.enableEditable = false;
+    //     this.rowData.isEditableR = false;
+    //     this.getEnrollmentData();
+
+    // }
+    private discontinueSave() {
+        this.confirmSave = false;
+        this.editButton = {};
+        this.cancelButton = {};
+        this.saveButton = {};
     }
 
     private msg: string = "";
     private returnItem1(data) {
         var myPersonal
     }
-    private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
+    private continueSave() {
+        var rowData = this.rowData;
+        var editButton = this.editButton;
+        var cancelButton = this.cancelButton;
+        var saveButton = this.saveButton;
+        this.confirmSave = false;
+        
         editButton.style["display"] = "block";
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";

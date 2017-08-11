@@ -64,9 +64,10 @@ export class DealerRegisterComponent implements OnInit {
   private dealerEnrollmentAggrement(agrrement: any) {
     this.dealerEnrollment.aggrement = true;
     if (agrrement !== undefined && agrrement.length > 0) {
-      this.booleanSelectCheckBox = true;
-    } else {
       this.booleanSelectCheckBox = false;
+       this.showalert = true;
+    } else {
+      this.booleanSelectCheckBox = true;
     }
 
   }
@@ -83,16 +84,23 @@ export class DealerRegisterComponent implements OnInit {
 
   }
   private showalert: boolean = true;
-  private saveDealerEnrollmentForm() {
+  private showValidationDiv: boolean = false;
+  private saveDealerEnrollmentForm(valid) {
     if (this.booleanSelectCheckBox !== undefined && this.booleanSelectCheckBox !== true) {
-      this.showalert = false;
-      return;
-    } else {
       this.showalert = true;
+    
+    } else {
+      this.showalert = false;
     }
+    if (valid !== undefined && valid === false) {
+      this.showValidationDiv = true;
+      return;
+    }
+
+
     //this.submitted = true;
     //alert(this.dealerEnrollment.date);
-    alert(this.dealerEnrollment.date["formatted"]);
+    //alert(this.dealerEnrollment.date["formatted"]);
 
   }
   cancel() {

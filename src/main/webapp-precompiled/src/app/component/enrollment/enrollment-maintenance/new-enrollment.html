@@ -303,19 +303,47 @@
         .minWidth2 {
             min-width: 20%;
         }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
     </style>
+
     <div *ngIf="isExpresslaneDealer ">
+        <div class="tooltip">Hover over me
+            <span class="tooltiptext">Tooltip text</span>
+        </div>
         <div>
             <p></p>
             Would you like to set up Express Lane Teams?<button type="button" class="btn btn-primary" (click)="openDealerTeam()"> <i class="icon-edit"></i> {{dealerTeamButton}} </button>
         </div>
         <br><br>
-         
+
     </div>
 </main>
 
 <div *ngIf="openDealerTeamTable">
     <dealer-team></dealer-team>
 </div>
- <br><br>
-  <br><br>
+<br><br>
+<br><br>

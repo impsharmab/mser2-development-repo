@@ -38,7 +38,7 @@
                                     </div>
                                     <!-- <button type="button" class="btn btn-primary" style="margin-left: auto; float:left" (click)="addNewUser(addUserData)"><i class="fa fa-plus" aria-hidden="true"></i>  Add New User</button> -->
                                     <!-- only show active user if a user selects a category to be edited -->
-                                    <div *ngIf="enableEditable"class="active-user" id="active-user">The Active Participant is: <strong id="participant-id">{{activeUser}}</strong></div>
+                                    <div *ngIf="enableEditable" class="active-user" id="active-user">The Active Participant is: <strong id="participant-id">{{activeUser}}</strong></div>
 
                                 </form>
                                 <p style="color:red">{{msg}}</p>
@@ -283,6 +283,30 @@
             </div>
         </p-footer>
     </p-dialog>
+
+     <p-dialog header="Are you sure you want to continue?" [(visible)]="confirmCancel" showEffect="fade" [modal]="true" [style]="{'width':'500px !important', 'height':'45222px !important'}">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">            
+                <P>You are going to cancel the changes.</P>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" class="btn btn-primary" (click)="continueCancel()"> <i class="icon-edit"></i> Yes Continue </button>
+                <button type="button" class="btn btn-primary" (click)="discontinueCancel()"> <i class="icon-remove-sign"></i> No, Take me Back </button>
+            </div>
+        </p-footer>
+    </p-dialog>
+    <p-dialog header="Are you sure you want to continue?" [(visible)]="confirmSave" showEffect="fade" [modal]="true" [style]="{'width':'500px !important', 'height':'45222px !important'}">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">            
+                <P>You are going to save the changes.</P>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" class="btn btn-primary" (click)="continueSave()"> <i class="icon-edit"></i> Yes Continue </button>
+                <button type="button" class="btn btn-primary" (click)="discontinueSave()"> <i class="icon-remove-sign"></i> No, Take me Back </button>
+            </div>
+        </p-footer>
+    </p-dialog>
+    
     <style type="text/css">
         .minWidth {
             min-width: 300px;
@@ -291,15 +315,17 @@
         .minWidth2 {
             min-width: 20%;
         }
+
     </style>
     <div *ngIf="isExpresslaneDealer ">
         <div>
             <p></p>
-            Would you like to set up Express Lane Teams?<button type="button" class="btn btn-primary" (click)="openDealerTeam()"> <i class="icon-edit"></i> {{dealerTeamButton}} </button>
+            Would you like to set up Express Lane Teams?&nbsp;&nbsp;<button type="button" class="btn btn-primary" (click)="openDealerTeam()"> <i class="icon-edit"></i> {{dealerTeamButton}} </button>
         </div>
         <br><br>
 
     </div>
+    
 </main>
 
 <div *ngIf="openDealerTeamTable">
