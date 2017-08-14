@@ -10,7 +10,7 @@ import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule
-} from 'primeng/primeng'; 
+} from 'primeng/primeng';
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
@@ -30,12 +30,12 @@ import { CMSComponent } from '../../cms/cms.component';
 import { PartsLookupComponent } from '../../parts-lookup/parts-lookup.component';
 import { PayoutRedistributionComponent } from '../../enrollment/payout-redistribution/payout-redistribution';
 import { MVPComponent } from '../../mvp/mvp.component';
-import { PartsCounterComponent } from '../../parts-counter/parts-counter.component';
+import { RewardsDistributionComponent } from '../../rewards-distribution/rewards-distribution';
 import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
 import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
-
+import { RewardsRedistributionComponent } from '../../rewards-redistribution/rewards-redistribution.component';
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 import { DealerTeamService } from '../../../services/express-lane/dealer-team/dealer-team.service';
@@ -43,16 +43,17 @@ import { DealerTeamService } from '../../../services/express-lane/dealer-team/de
 
 @NgModule({
   imports: [
-    CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule, DialogModule,
-    DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule, ButtonModule, DropdownModule, SharedModule, 
-    CheckboxModule
+    CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
+    DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
+    ButtonModule, DropdownModule, SharedModule, CheckboxModule
     //PdfmakeModule
   ],
 
   declarations: [
-    SidenavComponent, FooterComponent, BodyComponent, HeaderComponent, RootPageComponent, HomeComponent, PayoutchartComponent,
-    OpcodeSetupComponent, UserProfileComponent, ContactUsComponent, DealercodeModalComponent, CMSComponent, PartsLookupComponent,
-    PayoutRedistributionComponent, MVPComponent, PartsCounterComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
+    SidenavComponent, FooterComponent, BodyComponent, HeaderComponent, RootPageComponent, HomeComponent,
+    PayoutchartComponent, OpcodeSetupComponent, UserProfileComponent, ContactUsComponent,
+    DealercodeModalComponent, CMSComponent, PartsLookupComponent, RewardsRedistributionComponent, MVPComponent,
+    RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
     EnrollmentComponent
 
   ],

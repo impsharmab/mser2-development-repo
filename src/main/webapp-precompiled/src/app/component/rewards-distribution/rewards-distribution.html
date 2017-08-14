@@ -1,0 +1,311 @@
+<main class="main">
+  <div class="page-title">
+    <div class="pageTitle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="heading-xl">
+              Reward Distribution
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Begin Allocation section -->
+  <div class="row rewards-program-container">
+    <div class="col-sm-12 dealership-identity" id="dealership-identity">
+      <strong>Dealership:</strong>
+      <span>A25467</span>
+    </div>
+    <!-- Proceed to Allocations table -->
+    <table class="table table-bordered table-striped col-sm-12" role="grid">
+      <thead>
+        <tr>
+          <th id="reward-program" scope="col" role="columnheader">Program</th>
+          <th class="right-align" id="amount-to-be-distributed" scope="col" role="columnheader">Amount Available To Be Distributed</th>
+          <th id="proceed-to-allocations" scope="col" role="columnheader"><span class="hide-me">Proceed To Allocations</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- begin ng-if -->
+        <tr>
+          <td headers="reward-program" role="gridcell">MVP</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.mvp}}</td>
+          <td class="center-align" headers="proceed-to-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
+              aria-controls="mvp">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+        </tr>
+        <!-- end ng-if -->
+        <tr>
+          <td headers="reward-program" role="gridcell">Express Lane</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.el}}</td>
+          <td class="center-align" headers="proceed-to-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressPartsRecon"
+              aria-expanded="false" aria-controls="expressPartsRecon">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+        </tr>
+        <tr>
+          <td headers="reward-program" role="gridcell">Parts Counter</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.pc}}</td>
+          <td class="center-align" headers="proceed-to-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressPartsRecon"
+              aria-expanded="false" aria-controls="expressPartsRecon">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+        </tr>
+        <tr>
+          <td headers="reward-program" role="gridcell">Used Recon</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.ur}}</td>
+          <td class="center-align" headers="proceed-to-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressPartsRecon"
+              aria-expanded="false" aria-controls="expressPartsRecon">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- End Allocation Section -->
+
+  <!-- Begin MVP section -->
+  <!-- Once user has selected MVP, the Allocation Section either disappears or the user moves to a new page -->
+  <div class="row rewards-program-container">
+
+    <!-- Begin MVP Collapsible -->
+    <div class="collapse col-sm-12" id="mvp">
+      <div class="row">
+
+        <!-- Begin Allocation Table -->
+        <table class="table table-bordered table-striped col-sm-12" role="grid">
+          <thead>
+            <tr>
+              <th class="right-align" id="allocation-acceptance-date" scope="col" role="columnheader">Acceptance Date</th>
+              <th class="" id="allocation-contract-number" scope="col" role="columnheader">Contract Number</th>
+              <th class="" id="allocation-vin" scope="col" role="columnheader">VIN</th>
+              <th class="" id="allocation-plan-code" scope="col" role="columnheader">Plan Code</th>
+              <th class="right-align" id="allocation-reward-amount" scope="col" role="columnheader">Reward Amount</th>
+              <th class="" id="allocation-sid-name" scope="col" role="columnheader">SID Name</th>
+              <th class="" id="allocation-approved-status" scope="col" role="columnheader">Approved?</th>
+              <!-- <th class="" id="allocation-notes" scope="col" role="columnheader">Notes</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- begin ng-if -->
+            <tr>
+              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{mvpData.acceptance}}</td>
+              <td class="" headers="allocation-contract-number" role="gridcell">{{mvpData.number}}</td>
+              <td class="" headers="allocation-vin" role="gridcell">{{mvpData.vin}}</td>
+              <td class="" headers="allocation-plan-code" role="gridcell">{{mvpData.plancode}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{mvpData.rewardsamount}}</td>
+              <td class="" headers="allocation-sid-name" role="gridcell">
+                <!-- <select class="form-control" id="SID-name-1" [(ngModel)]="mvpInterface.sid" >
+                    <option value="sid" *ngFor="let sid of mvpData.sid" >{{sid}}</option>
+                  </select> -->
+                <p-dropdown appendTo="body" [options]="mvpSIDOptions" name="sid" required [(ngModel)]="mvpInterface.sid" placeholder="Select an SID"
+                  filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="dealerEnrollmentElligibleManagers(mvpInterface.sid)"></p-dropdown>
+              </td>
+              <td class="" headers="allocation-approved-status" role="gridcell">
+                <!-- <select class="form-control" id="approved-1" [(ngModel)]="mvpInterface.approved">
+                    <option value="yes">Yes</option>
+                    <option value="no" selected="selected">No</option>
+                  </select> -->
+                <p-dropdown appendTo="body" [options]="booleanYesNoOptions" name="yes-no" required [(ngModel)]="mvpInterface.approved" placeholder="No"
+                  [style]="{'width':'90%'}" #sid="ngModel" (onChange)="dealerEnrollmentElligibleManagers(mvpInterface.sid)"></p-dropdown>
+
+              </td>
+              <!-- <td class="" headers="allocation-notes" role="gridcell">New brake pads</td> -->
+            </tr>
+            <!-- end ng-if -->
+          </tbody>
+        </table>
+        <!-- End Allocation Table -->
+
+        <div class="col-sm-12 btn-container">
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+        </div>
+
+      </div>
+    </div>
+    <!-- End MVP Collapsible -->
+
+  </div>
+  <!-- End MVP Section -->
+
+  <!-- Begin Express Parts, Parts Counter, and Used Recon sections -->
+  <!-- Once user has selected Express Parts, Parts Counter, or Used Recon, the Allocation Section either disappears or the user moves to a new page -->
+  <div class="row rewards-program-container">
+    <div class="collapse col-sm-12" id="expressPartsRecon">
+      <div class="row">
+        <div class="col-sm-4">
+          <!-- <select class="form-control" id="distribution-type">
+              <option value="expressLane">Express Lane</option>
+              <option value="partsCounter">Parts Counter</option>
+              <option value="usedRecon">Used Recon</option>
+            </select> -->
+          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="programName" placeholder="Select a Program"
+            [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
+
+        </div>
+        <div class="col-sm-12">
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+        </div>
+        <!-- Begin Delearship Details Table -->
+        <table class="table table-bordered table-striped col-sm-12" role="grid">
+          <thead>
+            <tr>
+              <th class="" id="allocation-dealership-details" role="columnheader" scope="col">Dealership Details</th>
+              <th class="right-align" id="allocation-reward-amount" role="columnheader" scope="col">Reward Amount</th>
+              <th class="right-align" id="allocation-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- being ng-if -->
+            <tr>
+              <td class="" headers="allocation-dealership-details" role="gridcell">{{dealerRewDistAmt.dealershipName}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{dealerRewDistAmt.rewardsAmount}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{dealerRewDistAmt.distributedAmount}}</td>
+            </tr>
+            <!-- end ng-if -->
+          </tbody>
+        </table>
+        <!-- End Delearship Details Table -->
+
+        <!-- Begin Participant Table -->
+        <table class="table table-bordered table-striped col-sm-12" role="grid">
+          <thead>
+            <tr>
+              <th class="" id="allocation-participants" role="columnheader" scope="col">Participants</th>
+              <th class="right-align" id="allocation-participant-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- begin ng-if -->
+            <tr *ngFor="let data of participantTable">
+              <td class="" headers="allocation-participants" role="gridcell">
+                <!-- <select class="form-control" id="partCategory-1" name="participant">
+                    <option value="">Michael Scott</option>
+                    <option value="">Michael Skarn</option>
+                  </select> -->
+                <p-dropdown appendTo="body" [options]="participantOptions" name="participantName" [(ngModel)]="eldistInterface.name" placeholder="Select Participant"
+                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(eldistInterface.name)"></p-dropdown>
+              </td>
+              <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
+                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="eldistInterface.amount"
+                  (onTextChange)="rewardedAmount(eldistInterface.amount)" />
+              </td>
+            </tr>
+            <!-- end ng-if -->
+            <!-- <tr>
+              <td class="" headers="allocation-participants" role="gridcell">
+                <select class="form-control" id="partCategory-2" name="participant">
+                    <option value="">David Wallace</option>
+                    <option value="">Jan Levinson</option>
+                  </select>
+              </td>
+              <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
+                <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" type="text" />
+              </td>
+            </tr>
+            <tr>
+              <td class="" headers="allocation-participants" role="gridcell">
+                <select class="form-control" id="partCategory-3" name="participant">
+                    <option value="">Robert California</option>
+                    <option value="">Jo Bennet</option>
+                  </select>
+              </td>
+              <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
+                <input class="form-control right-align" id="distributed-amount-3" name="distributedAmount" type="text" />
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+
+        <!-- <p-dataTable [value]="participantTable">
+          <p-column [style]="{'overflow':'visible', 'width':'100%'}">
+            <ng-template pTemplate="header" id="allocation-participants">Participants Name</ng-template>           
+            <ng-template let-data="rowData" pTemplate="body">
+              <p-dropdown [options]="participantOptions" [(ngModel)]="data.name" placeholder="Select Participants" [style]="{'width':'100%'}"></p-dropdown>
+            </ng-template>
+          </p-column>
+          <p-column [style]="{'overflow':'visible', 'width':'100%' }">
+            <ng-template pTemplate="header" class="right-align" id="allocation-participant-distributed-amount">Distributed Amount</ng-template>            
+            <ng-template let-data="rowData" pTemplate="body">
+              <input type="text" pInputText placeholder="$0.00" [(ngModel)]="vallue" [style]="{'overflow':'visible', 'width':'100%' }">
+            </ng-template>
+          </p-column>
+        </p-dataTable> -->
+        <!-- End Participant Table -->
+
+        <div class="col-sm-12 btn-container">
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Save Changes <i class="fa fa-check"></i></button>
+        </div>
+      </div>
+    </div>
+    <!-- End Express Parts, Parts Counter, and Used Recon Collapsible -->
+
+  </div>
+  <!-- End Express Parts, Parts Counter, and Used Recon sections -->
+
+
+  <!-- Confirmation Modal -->
+  <!-- The message for the modal body changes depending on the action the user has taken.  i.e. If they want to cancel, ask them if they want to cancel. -->
+  <div class="modal fade" id="mvpConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Confirmation Modal -->
+
+  <!-- Begin Allocation History Modal -->
+  <div class="modal fade" id="allocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" role="grid">
+            <thead>
+              <tr>
+                <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Recipient</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Amount</th>
+                <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- begin ng-if -->
+              <tr>
+                <td class="" headers="allocation-history-recipient" role="gridcell">Jim Halpert</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">$500.00</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">08/01/2017</td>
+              </tr>
+              <!-- end ng-if -->
+              <tr>
+                <td class="" headers="allocation-history-recipient" role="gridcell">Dwight K. Schrute</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">$750.00</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">08/02/2017</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Confirmation Modal -->
+
+</main>

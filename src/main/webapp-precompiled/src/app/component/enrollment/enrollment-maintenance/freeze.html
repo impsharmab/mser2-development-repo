@@ -42,13 +42,14 @@
 
                                 </form>
                                 <p style="color:red">{{msg}}</p>
+                                <p><strong>{{enrollmentDataCount}}</strong></p>
                                 <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                     <input #gb type="text" pInputText size="50" placeholder="Global Filter">
                                 </div>
                                 <p-dataTable #datatable [immutable]=false [value]="enrollmentDataResponse" [editable]="true" (onEditInit)="onEditInitE($event)"
                                     (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]"
-                                    [globalFilter]="gb" [responsive]="true" rowIndexVar="index" scrollable="true">
+                                    [globalFilter]="gb" [responsive]="true" rowIndexVar="index" scrollable="true" scrollHeight="500px">
                                     <p-column styleClass="col-button" [style]="{'text-align':'center','width':'70px'}">
                                         <ng-template pTemplate="header">
                                             Activity
@@ -108,8 +109,8 @@
                                             {{data.overriddenpositionCodes}}
                                         </ng-template>
                                         <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="editor">
-                                            <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" [scrollHeight]="200" [appendTo]="body"
-                                                (onChange)="selectedPCOverrides(data.overriddenpositionCodes, ri)" [style]="{'width':'175px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" [appendTo]="body" (onChange)="selectedPCOverrides(data.overriddenpositionCodes, ri)"
+                                                [style]="{'width':'175px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -119,7 +120,7 @@
                                             {{data.mser}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [scrollHeight]="200" [appendTo]="ng-template" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mserOptions" [(ngModel)]="data.mser" [appendTo]="ng-template" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
                                     <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'175px'}">
@@ -128,7 +129,7 @@
                                             {{data.mas}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.masOptions" [(ngModel)]="data.mas" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.masOptions" [(ngModel)]="data.mas" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
                                     <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'175px'}">
@@ -137,7 +138,7 @@
                                             {{data.mm}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.mmOptions" [(ngModel)]="data.mm" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mmOptions" [(ngModel)]="data.mm" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -147,7 +148,7 @@
                                             {{data.mvp}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.mvpOptions" [(ngModel)]="data.mvp" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.mvpOptions" [(ngModel)]="data.mvp" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -157,7 +158,7 @@
                                             {{data.wiMvp}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.wiAdvMVPOptions" [(ngModel)]="data.wiMvp" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.wiAdvMVPOptions" [(ngModel)]="data.wiMvp" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -167,7 +168,7 @@
                                             {{data.wiTires}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.wiAdvTireOptions" [(ngModel)]="data.wiTires" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.wiAdvTireOptions" [(ngModel)]="data.wiTires" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -177,7 +178,7 @@
                                             {{data.ucon}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.uconSalesOptions" [(ngModel)]="data.ucon" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.uconSalesOptions" [(ngModel)]="data.ucon" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -187,7 +188,7 @@
                                             {{data.ucon}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.uconServiceOptions" [(ngModel)]="data.ucon" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.uconServiceOptions" [(ngModel)]="data.ucon" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -227,8 +228,7 @@
                                             {{data.usedReconP}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.usedReconParticipantOptions" [(ngModel)]="data.usedReconP" [scrollHeight]="200" [appendTo]="body"
-                                                [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.usedReconParticipantOptions" [(ngModel)]="data.usedReconP" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -238,7 +238,7 @@
                                             {{data.mm}}
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
-                                            <p-multiSelect [options]="data.warrantyAdmOptions" [(ngModel)]="selectedCars" [scrollHeight]="200" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                            <p-multiSelect [options]="data.warrantyAdmOptions" [(ngModel)]="selectedCars"   [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column> -->
                                 </p-dataTable>
@@ -284,9 +284,9 @@
         </p-footer>
     </p-dialog>
 
-     <p-dialog header="Are you sure you want to continue?" [(visible)]="confirmCancel" showEffect="fade" [modal]="true" [style]="{'width':'500px !important', 'height':'45222px !important'}">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">            
-                <P>You are going to cancel the changes.</P>
+    <p-dialog header="Are you sure you want to continue?" [(visible)]="confirmCancel" showEffect="fade" [modal]="true" [style]="{'width':'500px !important', 'height':'45222px !important'}">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+            <P>You are going to cancel the changes.</P>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -296,8 +296,8 @@
         </p-footer>
     </p-dialog>
     <p-dialog header="Are you sure you want to continue?" [(visible)]="confirmSave" showEffect="fade" [modal]="true" [style]="{'width':'500px !important', 'height':'45222px !important'}">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">            
-                <P>You are going to save the changes.</P>
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="true">
+            <P>You are going to save the changes.</P>
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
@@ -306,7 +306,7 @@
             </div>
         </p-footer>
     </p-dialog>
-    
+
     <style type="text/css">
         .minWidth {
             min-width: 300px;
@@ -315,7 +315,6 @@
         .minWidth2 {
             min-width: 20%;
         }
-
     </style>
     <div *ngIf="isExpresslaneDealer ">
         <div>
@@ -325,7 +324,7 @@
         <br><br>
 
     </div>
-    
+
 </main>
 
 <div *ngIf="openDealerTeamTable">

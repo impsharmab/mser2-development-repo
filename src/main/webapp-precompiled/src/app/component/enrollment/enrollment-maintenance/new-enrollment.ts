@@ -258,6 +258,7 @@ export class EnrollmentComponent implements OnInit {
 
 
     }
+    private enrollmentDataCount: string = "";
     private getEnrollmentData() {
         this.editButton = {};
         this.cancelButton = {};
@@ -266,13 +267,15 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
+                if (this.enrollmentDataResponse !== undefined) {
+                    this.enrollmentDataCount = "Total Number of Employee:"+this.enrollmentDataResponse.length;
+                }
                 // this.somthing();
                 for (var a11 = 0; a11 < this.enrollmentDataResponse.length; a11++) {
                     this.readItem1ReturnItem2(this.enrollmentDataResponse[a11], a11);
                 }
                 for (var a111 = 0; a111 < this.enrollmentDataResponse.length; a111++) {
                     this.constructSelectItem(this.enrollmentDataResponse[a111], a111);
-
                 }
             },
             (error) => {
@@ -965,7 +968,7 @@ export class EnrollmentComponent implements OnInit {
         var cancelButton = this.cancelButton;
         var saveButton = this.saveButton;
         this.confirmSave = false;
-        
+
         editButton.style["display"] = "block";
         cancelButton.style["display"] = "none";
         saveButton.style["display"] = "none";
