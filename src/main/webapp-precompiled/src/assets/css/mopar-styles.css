@@ -1,69 +1,396 @@
 /***
-  mopar-styles.css should be for
+  mopar-styles.css should be for matching the styling (typography, colors, etc)
+
+While these color values don't match the ones provided in the Branding Guidelines,
+they are taken directly from the branding guidelines themselves when the color is
+directly selected in Photoshop.
+
+Mopar Blue:
+CMYK: 91, 59, 1, 0
+Hex: #0068B3
+RGB: rgb(0,104,179)
+
+Mopar Black:
+CMYK: 0, 0, 0, 100
+Hex: #000000
+RGB: rgb(0,0,0)
+
+Mopar Grey:
+CMYK: 62, 47, 43, 12
+Hex: #68737a
+RGB: rgb(104,115,112)
+
+Mopar Fonts:
+TitlingGothicFB LightNarrow
+TitlingGothicFB Narrow Medium
+TitlingGothicFB StandardComp
+
 ***/
+
+/* Begin @fontface declarations */
+@font-face {
+  font-family: 'biro_script_reducedregular';
+  src: url('../fonts/biro/biro_script_reduced-webfont.eot');
+  src: url('../fonts/biro/biro_script_reduced-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/biro/biro_script_reduced-webfont.woff2') format('woff2'),
+       url('../fonts/biro/biro_script_reduced-webfont.woff') format('woff'),
+       url('../fonts/biro/biro_script_reduced-webfont.ttf') format('truetype'),
+       url('../fonts/biro/biro_script_reduced-webfont.svg#biro_script_reducedregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'biro_script_plus_flatregular';
+  src: url('../fonts/biro/biroscriptplusflat-webfont.eot');
+  src: url('../fonts/biro/biroscriptplusflat-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/biro/biroscriptplusflat-webfont.woff2') format('woff2'),
+       url('../fonts/biro/biroscriptplusflat-webfont.woff') format('woff'),
+       url('../fonts/biro/biroscriptplusflat-webfont.ttf') format('truetype'),
+       url('../fonts/biro/biroscriptplusflat-webfont.svg#biro_script_plus_flatregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TitlingGothicFB LightNarrow';
+  src: url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.eot');
+  src: url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.eot?#iefix') format("embedded-opentype"),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.woff2') format('woff2'),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.woff') format('woff'),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.ttf') format('truetype'),
+    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.svg#TitlingGothicFB-LightNarrow') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TitlingGothicFB Narrow Medium';
+  src: url('../fonts/titling-gothic/TitlingGothicFBNar-Med.eot');
+  src: url('../fonts/titling-gothic/TitlingGothicFBNar-Med.eot?#iefix') format("embedded-opentype"),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.woff2') format('woff2'),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.woff') format('woff'),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.ttf') format('truetype'),
+    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.svg#TitlingGothicFBNar-Med') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TitlingGothicFB StandardComp';
+  src: url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.eot');
+  src: url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.eot?#iefix') format("embedded-opentype"),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.woff2') format('woff2'),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.woff') format('woff'),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.ttf') format('truetype'),
+    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.svg#TitlingGothicFB-StandardComp_1') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* End @fontface declarations */
+
+
+/* Begin Generic */
+body{
+  background: rgb(255,255,255);
+}
+a {
+  color: rgb(0,104,179);
+}
+/* End Generic */
+
+
+/* Begin links within a nested link collection */
+.sidebar ul.nav li.nav-item.nav-dropdown.open a.nav-link:hover,.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open .nav-link:hover {
+  background-color: rgb(30, 134, 209) !important;
+}
+.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open .nav-link {
+  background-color: rgb(30, 134, 209) !important;
+}
+.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link {
+  background-color: rgb(60, 164, 239) !important;
+}
+.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link:hover {
+  background-color: rgb(76, 180, 255) !important;
+}
+.sidebar ul.nav li.nav-item a.nav-link.active {
+  background: rgba(255,255,255,.25) !important;
+}
+.nav-item.nav-dropdown.open{
+  border-bottom: 1px solid rgb(206,206,206);
+}
+.nav-item.nav-dropdown.open .nav-dropdown-toggle {
+  border-top: 1px solid rgb(206,206,206);
+  border-bottom: 1px solid rgb(206,206,206);
+  font-weight: bold;
+}
+/* End nested links collection */
+
+
+/* Begin Graphs for Payout Chart */
+.payout-chart-heading{
+  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.66em;
+}
+.graph-item:nth-child(2n){
+  background: rgb(240,240,240);
+}
+.graph-item:nth-child(2n+1){
+  background: rgba(149,206,255,.6);
+}
+.graph-item.service-override, .legend.service-override{
+  background-color: rgb(0,155,0);
+  color: rgb(255,255,255);
+}
+.graph-item.magneti-marelli, .legend.magneti-marelli{
+  background-color: rgb(155,0,155);
+  color: rgb(255,255,255);
+}
+.graph-item.rebate-form, .legend.rebate-form{
+  background-color: rgb(0,0,0);
+  color: rgb(255,255,255);
+}
+.graph-item-figure{
+  text-align: right;
+}
+.graph-item-info {
+  color: rgb(0,104,179);
+  font-size: 20px;
+}
+.disclaimer.graph-disclaimer {
+  text-transform: uppercase;
+}
+.disclaimer.graph-disclaimer {
+  background: rgb(0,104,179);
+  color: rgb(255,255,255);
+}
+.legend.qualifying-part-number{
+  color: rgb(0,104,179);
+  font-size: 20px;
+}
+.modal .btn.btn-secondary{
+  background-color: rgb(230,230,230);
+  border-color: rgb(173,173,173);
+  color: rgb(56,64,66);
+}
+.payout-chart-home {
+  color: rgb(255,255,255);
+  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.payout-chart-home .payout-chart-subheading{
+  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2.33em;
+}
+.payout-chart-home-content{
+  text-shadow: 3px 3px 3px rgba(0,0,0,.2), -3px 3px 3px rgba(0,0,0,.2), 3px -3px 3px rgba(0,0,0,.2);
+}
+.payout-chart-home .payout-chart-heading {
+  font-size: 4.66em;
+}
+.payout-chart-home ul{
+  list-style: none;
+}
+.payout-chart-home li {
+  font-family: "TitlingGothicFB Narrow Medium";
+  font-size: 1.8em;
+  letter-spacing: 1.2px;
+  text-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}
+/* End Payout Chart */
+
+
+/* Begin Payout Chart Admin */
+.admin-utility-bar {
+  background: transparent;
+  border-bottom: 2px solid rgb(102,102,102);
+}
+table#program-groups.table tbody tr td:last-child {
+  text-align: center;
+  vertical-align: middle;
+}
+.ui-tabview-nav li {
+  background-color: rgb(0,104,179);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 1px solid rgb(218,218,218);
+  border-right: 1px solid rgb(218,218,218);
+  border-left: 1px solid rgb(218,218,218);
+  color: rgb(255,255,255);
+  font-size: 18px;
+  font-weight: normal;
+}
+.ui-tabview-nav li a {
+  color: rgb(255,255,255);
+}
+.ui-tabview-nav li.ui-state-active {
+  background: rgb(242, 244, 248);
+}
+.ui-tabview-nav li.ui-state-active a {
+  color: rgb(51,51,51);
+}
+.ui-state-active a {
+  color: rgb(255,255,255);
+  font-weight: bold;
+}
+.ui-tabview-panel {
+  border: 1px solid rgb(218,218,218);
+}
+/* End Payout Chart Admin */
+
+
+/* Begin Marketing Presentation */
+#playlist {
+  background-color: rgb(239,239,239);
+  border: 1px solid rgb(204,204,204);
+}
+#playlist a {
+  background-color: rgb(255,255,255);
+  border: 1px solid rgb(204,204,204);
+  color: rgb(102,102,102);
+  font: normal normal 11px/12px "bitstream vera sans", "lucida grande",verdana;
+  text-decoration: none;
+}
+#playlist a:hover {
+  background-color: rgb(255,255,204);
+}
+#playlist a.progress {
+  background-color: rgb(239,239,239);
+}
+#playlist a.playing {
+  background-color: rgb(255,255,204);
+  border: 1px solid rgb(102,102,102);
+}
+#playlist a.paused {
+  background-color: rgb(255,255,204);
+  border: 1px solid rgb(102,102,102);
+}
+#playlist a img {
+  border: 0;
+}
+#playlist a strong {
+  color: rgb(0,0,0);
+}
+/* End Marketing Presentation */
 
 
 /* Start Contact List */
 .contact-list {
-  list-style-image:none;
-  list-style-type:none;
-  margin:0;
-  padding:0;
-}
-.contact-list li{
-  padding:5px;
+  list-style-image: none;
+  list-style-type: none;
 }
 /* End Contact List */
 
 
-/* Start Dropdowns */
-.dropdown ul.dropdown-menu li{
-  padding: 5px 10px;
+/* Begin Rewards Distribution*/
+.table th {
+  background-color: rgb(179,223,255);
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: normal;
 }
+/* End Rewards Distribution */
+
+@media (min-width: 576px) {
+  .modal-header {
+    background-color: rgb(0, 104, 179);
+  }
+  .modal-header .modal-title, .modal-header button.close {
+    color: rgb(255,255,255);
+  }
+  .modal-footer {
+    background: rgb(245,245,245);
+  }
+}
+/* End Rewards Distribution */
+
+
+/* Begin Enrollment */
+.enrollment-button {
+  background: none;
+  border: none;
+}
+.enrollment-button i{
+  font-size: 1.36rem;
+}
+.enrollment-button.edit {
+  color: rgb(0,104,179);
+}
+.enrollment-button.cancel {
+  color: rgb(155,0,0);
+}
+.enrollment-button.save {
+  color: rgb(92,184,92);
+}
+.active-user{
+  background: rgb(92,184,92);
+  color: rgb(255,255,255);
+  opacity: .875;
+}
+.active-user:hover {
+  opacity: 1;
+}
+.ui-datatable .ui-datatable-data>tr>td{
+  vertical-align: top;
+}
+.ui-datatable tbody > tr.ui-widget-content.ui-state-highlight {
+  background: rgba(0,104,179,.125);
+  color: rgb(0,0,0);
+}
+/* End Enrollment */
+
+
+/* Begin Miscellaneous */
+.modify-icon {
+  font-size: 20px;
+}
+mser-cms{
+  background-color: rgb(255,255,255);
+}
+#main-content {
+  background-color: rgb(255,255,255);
+  color: rgb(0,0,0);
+  font: normal normal 12px/14px arial, helvetica, verdana, sans-serif;
+}
+#main-content p {
+  line-height: normal;
+}
+#main-content a:link,
+#main-content a:visited {
+  color: rgb(2,69,179);
+  text-decoration: underline;
+}
+#main-content a:hover,
+#main-content a:focus {
+  text-decoration: none;
+}
+#main-content h2, #main-content h3, #main-content strong, #main-content b {
+  font-weight: bold;
+}
+/* End Miscellaneous */
+
+
+/* Start Dropdowns */
 .dropdown ul.dropdown-menu li:hover {
   background-color: rgb(152, 198, 247);
-  color:#333;
+  color: rgb(51,51,51);
   transition-duration: 300ms;
   transition-property: background color;
   transition-timing-function: ease-out;
 }
 .dropdown ul.dropdown-menu li:hover a {
-  color:#333;
+  color: rgb(51,51,51);
 }
 .dropdown ul.dropdown-menu li a:hover{
-  color:#333;
-  text-decoration:none;
-}
-.dropdown-menu-right.user-options{
-  top: 20px;
+  color: rgb(51,51,51);
+  text-decoration: none;
 }
 /* End Dropdowns */
 
 
-/* Begin Form Styles */
-.pageForm .dropdown-toggle{
-  width:200px;
-}
-.pageForm{
-  margin-bottom:25px;
-}
-.pageForm label {
-  width:200px;
-}
-/*End Form Styles*/
-
-
 /* Begin Buttons */
 .btn {
-  color: #fff;
-  display: block;
+  color: rgb(255,255,255);
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 1px;
   line-height: 1;
-  margin-bottom: 10px;
-  padding: 5px 15px;
-  width: auto;
   -webkit-border-radius: 34px;
   -ms-border-radius: 34px;
   -khtml-border-radius: 34px;
@@ -73,33 +400,23 @@
   transition-duration: 300ms;
   transition-timing-function: ease-out;
 }
+.ui-widget-header .ui-button, .ui-widget-content .ui-button, .ui-widget.ui-button, .ui-button {
+  background: rgb(0,104,179);
+}
 .btn-primary {
-  background-color: #0068b3;
-  border-color: #0068b3;
+  background-color: rgb(0,104,179);
+  border-color: rgb(0,104,179);
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-  color: #fff;
-  display: inline-block;
+  color: rgb(255,255,255);
 }
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  background: #005999;
-  border-color: #005999;
-  color: #fff;
-}
-.form-btns{
-  margin-top:15px;
-}
-.header-buttons {
-  height:100%;
-  padding:36px 10px 10px 10px;
-  width:auto;
+  background: rgb(0,89,153);
+  border-color: rgb(0,89,153);
+  color: rgb(255,255,255);
 }
 .header-btn {
-  font-size:14px;
-  height:30px;
-  padding:0.5rem 1rem;
-  text-align:center;
-  width:auto;
-  vertical-align:middle;
+  font-size: 14px;
+  vertical-align: middle;
 }
 /* End Buttons */
 
@@ -109,13 +426,12 @@ h1, h2, h3, h4, h5 {
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 400;
   line-height: 1.25em;
-  margin: 0 0 12px 0;
 }
 h2 {
     font-size: 40px;
 }
 .introHeading h1 {
-  color: #0068b3;
+  color: rgb(0,104,179);
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 64px;
   font-weight: normal;
@@ -123,53 +439,31 @@ h2 {
   letter-spacing: 1px;
 }
 .heading {
-  border-bottom: 1px solid #dadfe6;
+  border-bottom: 1px solid rgb(218,223,230);
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 18px;
   font-weight: normal;
   letter-spacing: 1px;
-  padding: 20px 0;
-}
-.heading-line {
-  position: relative;
-  margin: 0 0 24px 0;
 }
 .heading-line h1, .heading-line h2, .heading-line h3, .heading-line h4, .heading-line h5 {
-  background: #f5f7fa;
-  display: inline-block;
-  margin: 0;
-  padding-right: 24px;
-  position: relative;
-  z-index: 2;
+  background: rgb(245,247,250);
 }
 .heading-line::after {
-  background: #e3e7ed;
+  background: rgb(227,231,237);
   content: '';
-  display: block;
-  height: 1px;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  z-index: 1;
 }
 /* End Headings */
 
 
 /* Begin Page Title */
 .pageTitle {
-  background: #0068b3;
+  background-color: rgb(0,104,179);
   line-height: 100px;
-  padding: 0;
-}
-.pageTitle .container {
-  margin:0;
 }
 .pageTitle .heading-xl {
-  color: #fff;
-  display: inline-block;
-  font-family: "TitlingGothicFB Narrow Medium","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 40px;
-  margin: 0;
+  color: rgb(255,255,255);
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 45px;
   vertical-align: middle;
   -webkit-font-smoothing: antialiased;
 }
@@ -177,31 +471,17 @@ h2 {
 
 
 /* Begin Checklist */
-.checkListContainer {
-  margin-bottom: 48px;
-}
 .checklist {
-  color: #1f2833;
+  color: rgb(31,40,51);
   font-size: 14px;
   list-style-type: none;
 }
-.checklist li:first-of-type {
-    margin-top: 0;
-}
 .checklist li {
   line-height: 1.7;
-  margin: 24px 0;
-  padding-left: 24px;
-  position: relative;
 }
 .checklist li:before {
   content: "\f00c";
   font-family: FontAwesome;
-  height: 14px;
-  position: absolute;
-  top: 2px;
-  left: 0;
-  width: 13px;
 }
 /* End Checklist */
 
@@ -216,17 +496,17 @@ h2 {
   float: left;
   height: 75px;
   line-height: 68px;
-  margin-left:20px;
-  margin-top:26px;
+  margin-left: 20px;
+  margin-top: 26px;
 }
 .navMenu .menuItem {
   float: left;
   position: relative;
 }
 .navMenu .menuItem .menuTarget {
-  border-bottom: 3px solid #fff;
-  border-top: 3px solid #fff;
-  color: #7a8899;
+  border-bottom: 3px solid rgb(255,255,255);
+  border-top: 3px solid rgb(255,255,255);
+  color: rgb(104,115,112);
   cursor: pointer;
   display: inline-block;
   height: 74px;
@@ -238,8 +518,8 @@ h2 {
   transition: 300ms ease-out all;
 }
 .navMenu .menuItem .menuTarget:hover, .nav .navMenu .menuItem .menuTarget.active {
-  border-bottom: 3px solid #0068b3;
-  color: #1f2833;
+  border-bottom: 3px solid rgb(0,104,179);
+  color: rgb(31,40,51);
 }
 .navbar .nav-item .nav-link.nav-pill.avatar {
   display: inline-block;
@@ -252,19 +532,14 @@ h2 {
 
 /* Begin Salutation */
 .salutation {
-  display: inline-block;
-  margin: 10px;
-  position: relative;
   text-align: right;
   vertical-align: middle;
 }
 .salutation p {
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 17px;
-  font-weight:300;
+  font-weight: 300;
   line-height: 17px;
-  margin: 0;
-  padding: 0;
   text-align: right;
 }
 .salutation p:first-child {
@@ -275,91 +550,57 @@ h2 {
 
 /* Begin Footer */
 .app-footer {
-  background: #0f141a;
-  color: #dadfe6;
-  display: block;
+  background: rgb(15,20,26);
+  color: rgb(218,223,230);
 }
 
 .footer-links {
-  display: inline;
-  font-family: "Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   list-style-image: none;
   list-style-type: none;
-  margin: 0;
-  padding: 15px;
 }
 
 .footer-item {
-  box-sizing: border-box;
-  display: inline-block;
   list-style-type: none;
-  padding: 0;
-  margin: 0 10px 5px 0;
   text-align: -webkit-match-parent;
 }
 
 .footer-link {
   background-color: transparent;
-  color: #dadfe6;
+  color: rgb(218,223,230);
   cursor: pointer;
-  display: block;
   font-weight: 300;
   font-size: 16px;
   letter-spacing: 1px;
-  margin: 0;
-  padding: 0;
   transition: 300ms ease-out all;
   text-decoration: none;
 }
 
 .footer-link:hover {
-  color:white;
-  text-decoration:none;
+  color: rgb(255,255,255);
+  text-decoration: none;
 }
 /* End Footer */
 
 
-/* Miscellaneous */
+/* Begin Miscellaneous */
 .fa.refresh-button {
-  color:rgb(33, 150, 243);
+  color: rgb(33, 150, 243);
   font-size: 31px;
-  height: 35px;
-  margin-top: .6em;
-  margin-right: 1em;
-  width: 35px;
-}
-.inline {
-  display:inline-block !important ;
-}
-.visible-lg {
-  display: block !important;
-}
-.img-responsive {
-  display: block;
-  height: auto;
-  max-width: 100%;
 }
 p {
   line-height: 25px;
-  margin-bottom: 24px;
 }
 .copy {
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size:17px;
-}
-.container {
-  margin:0 !important;
-  width:100% !important;
-}
-.body-container {
-  margin-left:0 !important;
-  margin-right:0 !important;
+  font-size: 17px;
 }
 .priority {
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 17px;
-  font-weight:500;
+  font-weight: 500;
   letter-spacing: .5px;
   line-height: 25px;
   text-transform: none;
 }
+/* End Miscellaneous */

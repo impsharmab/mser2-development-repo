@@ -1,101 +1,18 @@
-/* Begin @fontface declarations */
-@font-face {
-  font-family: 'biro_script_reducedregular';
-  src: url('../fonts/biro/biro_script_reduced-webfont.eot');
-  src: url('../fonts/biro/biro_script_reduced-webfont.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/biro/biro_script_reduced-webfont.woff2') format('woff2'),
-       url('../fonts/biro/biro_script_reduced-webfont.woff') format('woff'),
-       url('../fonts/biro/biro_script_reduced-webfont.ttf') format('truetype'),
-       url('../fonts/biro/biro_script_reduced-webfont.svg#biro_script_reducedregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'biro_script_plus_flatregular';
-  src: url('../fonts/biro/biroscriptplusflat-webfont.eot');
-  src: url('../fonts/biro/biroscriptplusflat-webfont.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/biro/biroscriptplusflat-webfont.woff2') format('woff2'),
-       url('../fonts/biro/biroscriptplusflat-webfont.woff') format('woff'),
-       url('../fonts/biro/biroscriptplusflat-webfont.ttf') format('truetype'),
-       url('../fonts/biro/biroscriptplusflat-webfont.svg#biro_script_plus_flatregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
+/***
+mser2-custome-style.css should be for structure (position, width, margin, etc)
 
-@font-face {
-  font-family: 'TitlingGothicFB LightNarrow';
-  src: url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.eot');
-  src: url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.eot?#iefix') format("embedded-opentype"),
-    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.woff2') format('woff2'),
-    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.woff') format('woff'),
-    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.ttf') format('truetype'),
-    url('../fonts/titling-gothic/TitlingGothicFB-LightNarrow.svg#TitlingGothicFB-LightNarrow') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'TitlingGothicFB Narrow Medium';
-  src: url('../fonts/titling-gothic/TitlingGothicFBNar-Med.eot');
-  src: url('../fonts/titling-gothic/TitlingGothicFBNar-Med.eot?#iefix') format("embedded-opentype"),
-    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.woff2') format('woff2'),
-    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.woff') format('woff'),
-    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.ttf') format('truetype'),
-    url('../fonts/titling-gothic/TitlingGothicFBNar-Med.svg#TitlingGothicFBNar-Med') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'TitlingGothicFB StandardComp';
-  src: url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.eot');
-  src: url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.eot?#iefix') format("embedded-opentype"),
-    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.woff2') format('woff2'),
-    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.woff') format('woff'),
-    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.ttf') format('truetype'),
-    url('../fonts/titling-gothic/TitlingGothicFB-StandardComp_1.svg#TitlingGothicFB-StandardComp_1') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-/* End @fontface declarations */
-
+***/
 
 /* Begin links within a nested link collection */
-.sidebar ul.nav li.nav-item.nav-dropdown.open a.nav-link:hover,.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open .nav-link:hover {
-  background-color: rgb(30, 134, 209) !important;
-}
-.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open .nav-link {
-  background-color: rgb(30, 134, 209) !important;
-}
 .sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link {
-  background-color: rgb(60, 164, 239) !important;
   padding-left: 3rem;
 }
-.sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link:hover {
-  background-color: rgb(76, 180, 255) !important;
-}
-.sidebar ul.nav li.nav-item a.nav-link.active {
-  background: rgba(255,255,255,.25) !important;
-}
 .sidebar ul.nav ul.nav-dropdown-items a.nav-link {
-    padding-left: 2rem;
-}
-.nav-item.nav-dropdown.open{
-  border-bottom: 1px solid rgb(206,206,206);
-}
-.nav-item.nav-dropdown.open .nav-dropdown-toggle {
-  border-top: 1px solid rgb(206,206,206);
-  border-bottom: 1px solid rgb(206,206,206);
-  font-weight: bold;
+  padding-left: 2rem;
 }
 /* End nested links collection */
 
-
 /* Begin Graphs for Payout Chart */
-.payout-chart-heading{
-  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 2.66em;
-}
 .graph{
   box-sizing: border-box;
   display: flex;
@@ -117,45 +34,19 @@
   position: relative;
   width:100%;
 }
-.graph-item:nth-child(2n){
-  background: rgb(240,240,240);
-}
-.graph-item:nth-child(2n+1){
-  background: rgba(149, 206, 255,.6);
-}
-.graph-item.service-override, .legend.service-override{
-  background-color: rgb(0,155,0);
-  color: rgb(255,255,255);
-}
-.graph-item.magneti-marelli, .legend.magneti-marelli{
-  background-color: rgb(155,0,155);
-  color: rgb(255,255,255);
-}
-.graph-item.rebate-form, .legend.rebate-form{
-  background-color: rgb(0,0,0);
-  color: rgb(255,255,255);
-}
 .graph-item-subject{
   width: 90%;
 }
 .graph-item-figure{
   padding-left: 10px;
-  text-align: right;
   width:10%;
 }
 .graph-item-info {
-  color: #025aa5;
-  font-size: 20px;
   position: absolute;
   right: -22px;
 }
 .disclaimer {
   padding: 5px;
-}
-.disclaimer.graph-disclaimer {
-  background: #025fb1;
-  color: rgb(255,255,255);
-  text-transform: uppercase;
 }
 .legend{
   display: inline-block;
@@ -163,9 +54,7 @@
   width: 10px;
 }
 .legend.qualifying-part-number{
-  color: #025aa5;
   display: inline;
-  font-size: 20px;
 }
 .modal .part-numbers {
   list-style: none;
@@ -176,14 +65,7 @@
   float: left;
   padding: 0 5px;
 }
-.modal .btn.btn-secondary{
-  color: rgb(56, 64, 66);
-  background-color: rgb(230, 230, 230);
-  border-color: rgb(173, 173, 173);
-}
 .payout-chart-home {
-  color: rgb(255,255,255);
-  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: relative;
 }
 .payout-chart-home .home-logo{
@@ -197,28 +79,19 @@
   top: 15%;
   left: 45%;
   width: 45%;
-  text-shadow: 3px 3px 3px rgba(0,0,0,.2), -3px 3px 3px rgba(0,0,0,.2), 3px -3px 3px rgba(0,0,0,.2);
 }
 .payout-chart-home .payout-chart-heading {
-  font-size: 4.66em;
   margin-bottom: .02em;
 }
 .payout-chart-home .payout-chart-subheading{
-  font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 2.33em;
   margin-bottom: .86em;
 }
 .payout-chart-home ul{
-  list-style: none;
   margin: 2em 0 0;
   padding:0;
 }
 .payout-chart-home li {
-  font-family: "TitlingGothicFB Narrow Medium";
-  font-size: 1.8em;
-  letter-spacing: 1.2px;
   margin: 0 0 .66em 0;
-  text-shadow: 2px 2px 2px rgba(0,0,0,.5);
 }
 .top-tech{
   position: relative;
@@ -248,7 +121,7 @@
 
 /* Begin Payout Chart Admin */
 #program-groups-select{
-  width: inherit30%;
+  width: 30%;
 }
 #program-groups-active{
   width: 10%;
@@ -263,128 +136,90 @@
   width: 15%;
 }
 #program-groups-modify{
-  width:10%;
+  width: 10%;
 }
 .admin-utility-bar {
-  background:transparent;
-  border-bottom:solid 2px #666;
-  margin-bottom:10px;
-  padding:5px 10px;
-  width:100%;
-}
-table#program-groups.table tbody tr td:last-child {
-  text-align:center;
-  vertical-align:middle;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  width: 100%;
 }
 #part-number-category-form-quick-add {
-  width:500px;
+  width: 500px;
 }
 .ui-tabview-nav {
-  display:inline-block;
-  list-style-image:none;
-  list-style-type:none;
-  margin-top:20px;
-  margin-bottom:-2px;
-  padding-left:0;
+  display: inline-block;
+  list-style-image: none;
+  list-style-type: none;
+  margin-top: 20px;
+  margin-bottom: -2px;
+  padding-left: 0;
 }
 .ui-tabview-nav li {
-  background-color:rgb(0, 104, 179);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-top:solid 1px #DADADA;
-  border-right:solid 1px #DADADA;
-  border-left:solid 1px #DADADA;
-  color:#FFF;
-  display:inline-block;
-  font-size:18px;
-  font-weight:normal;
-  padding:20px 25px;
-  z-index:1;
+  display: inline-block;
+  padding: 20px 25px;
+  z-index: 1;
 }
 .ui-tabview-nav li a {
-  color:#FFF;
-  cursor:default;
+  cursor: default;
 }
 .ui-tabview-title {
-  display:inline-block;
-}
-.ui-tabview-nav li.ui-state-active {
-  background:rgb(242, 244, 248);
-}
-.ui-tabview-nav li.ui-state-active a {
-  color:#333;
-}
-.ui-state-active a {
-  color:#FFF;
-  font-weight:bold;
+  display: inline-block;
 }
 .ui-tabview-panel {
-  border:solid 1px #DADADA;
-  padding:20px;
-  z-index:999;
+  padding: 20px;
+  z-index: 999;
 }
 .show-this{
-  display:block !important;
+  display: block !important;
 }
 input.datepicker-input {
   padding: 0.5rem 0.75rem;
-  width:80% !important;
+  width: 80% !important;
 }
 /* End Payout Chart Admin */
 
 
+/* Begin Form Styles */
+.pageForm .dropdown-toggle{
+  width: 200px;
+}
+.pageForm{
+  margin-bottom: 25px;
+}
+.pageForm label {
+  width: 200px;
+}
+/*End Form Styles*/
+
+
 /* Begin Marketing Presentation */
 #playlist {
-  background-color:#efefef;
-  border:1px solid #ccc;
-  float:left;
-  height:400px;
-  overflow-x:hidden;
-  overflow-y:auto;
+  float: left;
+  height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100% !important;
 }
 #playlist a {
-  background-color:#fff;
-  border:1px solid #ccc;
-  color:#666;
-  display:block;
-  font:11px "bitstream vera sans", "lucida grande",verdana;
+  display: block;
   height: 54px;
-  margin:9px 0px 0px 10px;
-  padding:5px;
-  text-decoration:none;
+  margin: 9px 0px 0px 10px;
+  padding: 5px;
   width: 85%;
 }
-#playlist a:hover {
-  background-color:#ffc;
-}
-#playlist a.progress {
-  background-color:#efefef;
-}
-#playlist a.playing {
-  background-color:#ffc;
-  border:1px solid #666;
-}
-#playlist a.paused {
-  background-color:#ffc;
-  border:1px solid #666;
-}
 #playlist a img {
-  border:0;
-  float:left;
+  float: left;
   height: 50px;
-  margin-right:10px;
+  margin-right: 10px;
   width: 50px;
 }
 #playlist a strong {
-  color:#000;
-  padding-bottom:5px;
+  padding-bottom: 5px;
 }
 /* End Marketing Presentation */
 
 
 /* Begin Rewards Distribution */
-
 .rewards-program-container {
   box-sizing: border-box;
   margin: .24rem;
@@ -392,75 +227,45 @@ input.datepicker-input {
   padding: 0 1rem;
   width: 95%;
 }
-
-.rewards-program-container .table {
+.table {
   margin-bottom: 1rem;
-  border-radius: 5px;
   box-sizing: border-box;
   float: none;
   margin: 0 .75rem 1rem .75rem;
   width: 99%;
 }
-
-.rewards-program-container .table th, .modal .table th {
-  background-color: #b3dfff;
-  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 18px;
-  font-weight: normal;
-}
-
 .table .right-align{
   text-align: right;
   padding-right: .75rem;
 }
-
 .table .center-align {
   text-align: center;
 }
-
-.rewards-program-container .btn-container{
+.btn-container{
   overflow: hidden;
   padding-bottom: 1rem;
 }
-
 .rewards-program-container .btn {
-  font-size: 14px;
   margin:0 .24rem;
 }
-
 .allocation-history-link{
-  margin:1rem 0;
+  margin: 1rem 0;
   display: block;
   width: 20%;
 }
-
 .dealership-identity {
   padding: .75rem;
 }
-
 #reward-program{}
 #amount-to-be-distributed{}
 #proceed-to-allocations{
   width: 175px;
 }
-
-
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 65%;
   }
-  .modal-header {
-    background-color: rgb(0, 104, 179);
-  }
-  .modal-header .modal-title, .modal-header button.close {
-    color: rgb(255,255,255);
-  }
-
-  .modal-footer {
-    background: rgb(245,245,245);
-  }
 }
-
 /* End Rewards Distribution */
 
 
@@ -470,66 +275,214 @@ input.datepicker-input {
 }
 .enrollment-button-container{
   overflow: hidden;
-  width:100%;
+  width: 100%;
 }
 .enrollment-button {
-  background: none;
-  border: none;
-  cursor: pointer;
   float: left;
   padding: .16rem;
 }
-.enrollment-button i{
-  font-size: 1.36rem;
-}
 .enrollment-button.edit {
-  color: rgb(0, 104, 179);
   float: none;
 }
-.enrollment-button.cancel {
-  color: rgb(155,0,0);
-}
-.enrollment-button.save {
-  color: rgb(92,184,92);
-}
 .active-user{
-  background: rgb(92,184,92);
-  color: rgb(255,255,255);
-  opacity: .875;
   padding: .36rem .72rem;
   position: fixed;
   top: 101px;
   right: 0;
   z-index: 9;
 }
-
-.active-user:hover {
-  opacity: 1;
-}
-
-.ui-datatable .ui-datatable-data>tr>td{
-  vertical-align: top;
-}
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
   overflow-y: scroll;
   max-height: 300px;
 }
-.ui-datatable tbody > tr.ui-widget-content.ui-state-highlight {
-  background: rgba(0,104,179,.125);
-  color: rgb(0,0,0);
-}
-
-
 /* End Enrollment*/
 
 
+/* Start Contact List */
+.contact-list {
+  margin: 0;
+  padding: 0;
+}
+.contact-list li{
+  padding: 5px;
+}
+/* End Contact List */
 
 
+/* Start Dropdowns */
+.dropdown ul.dropdown-menu li{
+  padding: 5px 10px;
+}
+.dropdown-menu-right.user-options{
+  top: 20px;
+}
+/* End Dropdowns */
+
+
+/* Begin Buttons */
+.btn {
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  width: auto;
+}
+.btn-primary {
+  display: inline-block;
+}
+.form-btns{
+  margin-top:15px;
+}
+.header-buttons {
+  height: 100%;
+  padding: 36px 10px 10px 10px;
+  width: auto;
+}
+.header-btn {
+  height: 30px;
+  padding: 0.5rem 1rem;
+  width: auto;
+}
+/* End Buttons */
+
+/* Start Headings */
+h1, h2, h3, h4, h5 {
+  margin: 0 0 12px 0;
+}
+.heading {
+  padding: 20px 0;
+}
+.heading-line {
+  position: relative;
+  margin: 0 0 24px 0;
+}
+.heading-line h1, .heading-line h2, .heading-line h3, .heading-line h4, .heading-line h5 {
+  display: inline-block;
+  margin: 0;
+  padding-right: 24px;
+  position: relative;
+  z-index: 2;
+}
+.heading-line::after {
+  display: block;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: 1;
+}
+/* End Headings */
+
+
+/* Begin Page Title */
+.pageTitle {
+  padding: 0;
+}
+.pageTitle .container {
+  margin:0;
+}
+.pageTitle .heading-xl {
+  display: inline-block;
+  margin: 0;
+}
+/* End Page Title */
+
+
+/* Begin Nav Menu */
+.navMenu:before, .navMenu:after {
+  display: table;
+}
+.navMenu {
+  display: block;
+  float: left;
+  height: 75px;
+  margin-left: 20px;
+  margin-top: 26px;
+}
+.navMenu .menuItem {
+  float: left;
+  position: relative;
+}
+.navMenu .menuItem .menuTarget {
+  display: inline-block;
+  height: 74px;
+  padding: 0 24px;
+}
+.navbar .nav-item .nav-link.nav-pill.avatar {
+  display: inline-block;
+  margin: 10px 30px 10px 10px;
+  position: relative;
+}
+/* End Nav Menu */
+
+
+/* Begin Salutation */
+.salutation {
+  display: inline-block;
+  margin: 10px;
+  position: relative;
+}
+.salutation p {
+  margin: 0;
+  padding: 0;
+}
+/* End Salutation */
+
+
+/* Begin Footer */
+.app-footer {
+  display: block;
+}
+
+.footer-links {
+  display: inline;
+  margin: 0;
+  padding: 15px;
+}
+
+.footer-item {
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0;
+  margin: 0 10px 5px 0;
+}
+
+.footer-link {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+/* End Footer */
 
 /* Begin Miscellaneous */
-.modify-icon {
-  font-size: 20px;
+.fa.refresh-button {
+  height: 35px;
+  margin-top: .6em;
+  margin-right: 1em;
+  width: 35px;
 }
+.inline {
+  display: inline-block !important ;
+}
+.visible-lg {
+  display: block !important;
+}
+.img-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+p {
+  margin-bottom: 24px;
+}
+.container {
+  margin: 0 !important;
+  width: 100% !important;
+}
+.body-container {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
 .dealercode .modal-dialog{
   height: 20%;
   margin: 30px auto;
@@ -551,38 +504,10 @@ input.datepicker-input {
 .z-tabs>.z-container>.z-content.z-content-pad>.z-content-inner {
   padding-top: 10px;
 }
-
-mser-cms{
-  background-color: rgb(255,255,255);
-}
-
 #main-content {
-  background-color: rgb(255,255,255);
-  color: rgb(0,0,0);
-  font:12px verdana, arial, helvetica, sans-serif;
   padding: 2em 0 0 2em;
 }
-
-#main-content p {
-  line-height: normal;
-}
-
-#main-content a:link,
-#main-content a:visited {
-  color: rgb(2,69,179);
-  text-decoration: underline;
-}
-
-#main-content a:hover,
-#main-content a:focus {
-  text-decoration: none;
-}
-
-#main-content h2, #main-content h3, #main-content strong, #main-content b {
-  font-weight: bold;
-}
 /* End Miscellaneous */
-
 
 @media print {
   body{
