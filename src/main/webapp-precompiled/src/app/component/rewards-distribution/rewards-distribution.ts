@@ -17,7 +17,11 @@ export class RewardsDistributionComponent implements OnInit {
   booleanYesNoOptions: SelectItem[] = [{ label: "Yes", value: "Yes" }, { label: "No", value: "No" }];
   programNameOptions: SelectItem[] = [{ label: "Express Lane", value: "Express Lane" }, { label: "Parts Counter", value: "Parts Counter" }, { label: "Used Recon", value: "Used Recon" }];
   participantOptions: SelectItem[] = [{ label: "Oliver Edward", value: "Oliver Edward" }, { label: "Kevin Hunt", value: "Kevin Hunt" }];
-  participantTable: any = [{ name: "Oliver Edward", value: "" }, { name: "Kevin Hahn", value: "" }, { name: "Oller Wayne", value: "" }, { name: "Hunter East", value: "" }]
+  participantTable: any = [{ name: "Oliver Edward", value: "" },
+  { name: "Kevin Hahn", value: "" },
+  { name: "Oller Wayne", value: "" },
+  { name: "Hunter East", value: "" }
+  ]
   constructor() { }
 
   ngOnInit() {
@@ -52,7 +56,7 @@ export class RewardsDistributionComponent implements OnInit {
 
   }
   private selectedParticipant(participantName) {
-    alert(participantName);
+     alert(participantName);
   }
 
   private rewardedAmount(amount) {

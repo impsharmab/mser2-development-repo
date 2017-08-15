@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Mser</title>
-     <!-- <script>
+    <!-- <script>
         document.write('<base href="' + document.location + '" />');
     </script>    -->
-     <base href="/"> 
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="assets/img/favicon.png" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -63,13 +63,14 @@
     <script src="assets/js/app.js"></script>
     <script src="assets/js/toastr.js"></script>
     <style>
-            .ui-datatable-resizable thead th,
+        .ui-datatable-resizable thead th,
         .ui-datatable-resizable tbody td,
         .ui-datatable-resizable tfoot td {
             white-space: wrap;
         }
-
-        
+        .ui-datatable-scrollable-body {
+            min-height: 250px !important;
+        }
     </style>
 </head>
 

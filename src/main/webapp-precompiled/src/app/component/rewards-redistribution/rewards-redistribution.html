@@ -1,23 +1,28 @@
 <main class="main">
   <div class="page-title">
-      <div class="pageTitle">
-          <div class="container">
-              <div class="row">
-                  <div class="col-sm-12">
-                      <h1 class="heading-xl">
-                          Reward Re-Distribution
-                      </h1>
-                  </div>
-              </div>
+    <div class="pageTitle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="heading-xl">
+              Reward Re-Distribution
+            </h1>
           </div>
+        </div>
       </div>
+    </div>
   </div>
 
   <div class="row rewards-program-container">
     <div class="col-sm-4">
       <label class="form-label" for="dealer-code">Dealer Code</label>
-      <div>
-        <input class="form-control" id="dealer-code" type="text" />
+      <div >
+        <input class="form-control" id="dealer-code" type="text" required [(ngModel)]="dealerCode" minlength="5" maxlength="5" pattern="[0-9]{5}"
+          #dealercode="ngModel" />
+        <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" (click)="readDealerCode(dealerCode)">Submit</button>
+        <div  [hidden]=" validDealerCode" class="alert alert-danger">
+          Valid Dealercode is required
+        </div>
       </div>
     </div>
 
@@ -25,7 +30,6 @@
     <div class="col-sm-12">
       <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
     </div>
-
   </div>
 
   <div class="row rewards-program-container">
@@ -43,23 +47,27 @@
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$1000.00</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable" aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
+              aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$800.00</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable" aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
+              aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$2300.00</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable" aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
+              aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Payout Re-Distribution</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$100.00</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable" aria-expanded="false" aria-controls="payoutTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable"
+              aria-expanded="false" aria-controls="payoutTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -313,7 +321,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership.  Are you sure you want to continue?</p>
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>

@@ -268,7 +268,7 @@ export class EnrollmentComponent implements OnInit {
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
                 if (this.enrollmentDataResponse !== undefined) {
-                    this.enrollmentDataCount = "Total Number of Employee:"+this.enrollmentDataResponse.length;
+                    this.enrollmentDataCount = "Total Number of Employee:" + this.enrollmentDataResponse.length;
                 }
                 // this.somthing();
                 for (var a11 = 0; a11 < this.enrollmentDataResponse.length; a11++) {
@@ -919,7 +919,7 @@ export class EnrollmentComponent implements OnInit {
         this.saveButton.style["display"] = "none";
         this.enableEditable = false;
         this.rowData.isEditableR = false;
-        this.getEnrollmentData();
+       // this.getEnrollmentData();
 
     }
     private discontinueCancel() {
@@ -985,9 +985,9 @@ export class EnrollmentComponent implements OnInit {
         var uconSalesData = [];
         var uconServiceData = [];
         var warrantyAdmData = [];
-        var pcData = [];
-        var elData = [];
-        var usedReconManagerData = [];
+        var pcData = "";
+        var elData = "";
+        var usedReconManagerData = "";
         var usedReconParticipantData = [];
 
         for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
@@ -1092,12 +1092,17 @@ export class EnrollmentComponent implements OnInit {
             usedReconManagerData, usedReconParticipantData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
-                this.msg = "Successfully Saved";
-                this.getEnrollmentData();
+                this.msg = "Participant Information has been updated Successfully.";
+               // this.getEnrollmentData();
             },
             (error) => {
                 setTimeout(() => {
-                    this.msg = error;
+                    if (error !== undefined && error.length < 250) {
+                        this.msg = error;
+                    }else{
+                        this.msg = "Error in Updating Participant Information.";
+                    }
+
                 }, 1000)
 
                 // alert(error)

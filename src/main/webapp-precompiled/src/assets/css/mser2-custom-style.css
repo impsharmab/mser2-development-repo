@@ -1,6 +1,5 @@
 /***
 mser2-custome-style.css should be for structure (position, width, margin, etc)
-
 ***/
 
 /* Begin links within a nested link collection */
@@ -294,6 +293,22 @@ input.datepicker-input {
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
   overflow-y: scroll;
   max-height: 300px;
+}
+.minWidth {
+    min-width: 300px;
+}
+.minWidth2 {
+    min-width: 20%;
+}
+.ui-paginator .ui-paginator-current, .ui-paginator .ui-paginator-rpp-options {
+  padding: 0 .5rem;
+  min-width: 3rem;
+}
+.dealer-team-container{
+  padding-bottom: 2rem;
+}
+.btn-container.open-dealer-team{
+  padding-top: 1rem;
 }
 /* End Enrollment*/
 
