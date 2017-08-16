@@ -32,32 +32,32 @@
         <!-- begin ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">MVP</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.mvp}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.MVP}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-controls="mvp" (click)="mvpOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.el}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
-            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressPartsRecon"
-              aria-expanded="false" aria-controls="expressPartsRecon">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressLane"
+              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.pc}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
-            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressPartsRecon"
-              aria-expanded="false" aria-controls="expressPartsRecon">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#partsCounter"
+              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocateAmount.ur}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
-            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressPartsRecon"
-              aria-expanded="false" aria-controls="expressPartsRecon">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#usedRecon"
+              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -98,7 +98,7 @@
                 <!-- <select class="form-control" id="SID-name-1" [(ngModel)]="mvpInterface.sid" >
                     <option value="sid" *ngFor="let sid of mvpData.sid" >{{sid}}</option>
                   </select> -->
-                <p-dropdown appendTo="body" [options]="mvpSIDOptions" name="sid" required [(ngModel)]="mvpInterface.sid" placeholder="Select an SID"
+                <p-dropdown appendTo="body" [options]="participantOptions" name="sid" required [(ngModel)]="mvpInterface.sid" placeholder="Select an SID"
                   filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="dealerEnrollmentElligibleManagers(mvpInterface.sid)"></p-dropdown>
               </td>
               <td class="" headers="allocation-approved-status" role="gridcell">
@@ -118,8 +118,8 @@
         <!-- End Allocation Table -->
 
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpSaveConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
         </div>
 
       </div>
@@ -132,7 +132,7 @@
   <!-- Begin Express Lane sections -->
   <!-- Once user has selected Express Lane, the Allocation Section either disappears or the user moves to a new page -->
   <div class="row rewards-program-container">
-    <div class="collapse col-sm-12" id="expressPartsRecon">
+    <div class="collapse col-sm-12" id="expressLane">
       <div class="row">
         <div class="col-sm-4">          
           <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="programName" placeholder="Select a Program"
@@ -172,10 +172,10 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of participantTable">
+            <tr *ngFor="let data of participantsList">
               <td class="" headers="allocation-participants" role="gridcell">                
-                <p-dropdown appendTo="body" [options]="participantOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
-                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.name)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.item2" placeholder="Select Participant"
+                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
                 <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
@@ -186,8 +186,8 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcconfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcconfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
       </div>
     </div>
@@ -197,9 +197,9 @@
   <!-- End Express Lane sections -->
 
   <!-- Begin Parts Counter -->
-  <!-- Once user has selected Express Lane, the Allocation Section either disappears or the user moves to a new page -->
+  <!-- Once user has selected Parts Counter, the Allocation Section either disappears or the user moves to a new page -->
   <div class="row rewards-program-container">
-    <div class="collapse col-sm-12" id="expressPartsRecon">
+    <div class="collapse col-sm-12" id="partsCounter">
       <div class="row">
         <div class="col-sm-4">
           <!-- <select class="form-control" id="distribution-type">
@@ -245,9 +245,9 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of participantTable">
+            <tr *ngFor="let data of participantDataValue">
               <td class="" headers="allocation-participants" role="gridcell">                
-                <p-dropdown appendTo="body" [options]="participantOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
+                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
                   [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.name)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
@@ -259,8 +259,10 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcconfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcconfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal"  (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+          
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcSaveConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
       </div>
     </div>
@@ -270,9 +272,9 @@
   <!-- End Parts Counter sections -->
 
   <!-- Begin Used Recon -->
-  <!-- Once user has selected Express Lane, the Allocation Section either disappears or the user moves to a new page -->
+  <!-- Once user has selected Used Recon, the Allocation Section either disappears or the user moves to a new page -->
   <div class="row rewards-program-container">
-    <div class="collapse col-sm-12" id="expressPartsRecon">
+    <div class="collapse col-sm-12" id="usedRecon">
       <div class="row">
         <div class="col-sm-4">
           <!-- <select class="form-control" id="distribution-type">
@@ -318,10 +320,10 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of participantTable">
+            <tr *ngFor="let data of participantsList">
               <td class="" headers="allocation-participants" role="gridcell">                
-                <p-dropdown appendTo="body" [options]="participantOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
-                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.name)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.item2" placeholder="Select Participant"
+                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
                 <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
@@ -332,8 +334,8 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcconfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcconfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
       </div>
     </div>
@@ -341,12 +343,10 @@
 
   </div>
   <!-- End Used Recon sections -->
-  
-
 
   <!-- Confirmation Modal -->
   <!-- The message for the modal body changes depending on the action the user has taken.  i.e. If they want to cancel, ask them if they want to cancel. -->
-  <div class="modal fade" id="mvpConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal fade" id="mvpSaveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -354,7 +354,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+          <p>You are about to save the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDATA()">Yes, Continue</button>
@@ -363,7 +363,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="elConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal fade" id="mvpCancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -371,16 +371,50 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+          <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" >Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="pcConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal fade" id="elConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="elConfirmationModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="elConfirmationModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveELDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="pcCancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>You are about to cancel changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" >Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="pcSaveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -391,7 +425,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCDATA()">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -408,7 +442,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveUsedReconDATA()">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>

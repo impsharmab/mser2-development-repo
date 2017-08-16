@@ -39,6 +39,7 @@ import { RewardsRedistributionComponent } from '../../rewards-redistribution/rew
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 import { DealerTeamService } from '../../../services/express-lane/dealer-team/dealer-team.service';
+import {RewardsDistributionService} from '../../../services/rewards-distribution/rewards-distribution.service';
 
 
 @NgModule({
@@ -57,6 +58,6 @@ import { DealerTeamService } from '../../../services/express-lane/dealer-team/de
     EnrollmentComponent
 
   ],
-  providers: [OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService]
+  providers: [OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService]
 })
 export class MserModule { }

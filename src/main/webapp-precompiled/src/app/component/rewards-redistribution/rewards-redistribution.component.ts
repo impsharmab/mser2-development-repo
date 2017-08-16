@@ -26,5 +26,10 @@ export class RewardsRedistributionComponent implements OnInit {
         alert(dealerCode);
     }
 
+    private hideValidationDiv() {
+       // alert()
+        this.validDealerCode = true;
+    }
+
 
 }
