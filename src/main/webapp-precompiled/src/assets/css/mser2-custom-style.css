@@ -244,9 +244,6 @@ input.datepicker-input {
   overflow: hidden;
   padding-bottom: 1rem;
 }
-.rewards-program-container .btn {
-  margin:0 .24rem;
-}
 .allocation-history-link{
   margin: 1rem 0;
   display: block;
@@ -257,7 +254,7 @@ input.datepicker-input {
 }
 #reward-program{}
 #amount-to-be-distributed{}
-#proceed-to-allocations{
+#proceed-to-allocations,#mvp-proceed-to-allocations{
   width: 175px;
 }
 @media (min-width: 576px) {
@@ -268,7 +265,27 @@ input.datepicker-input {
 /* End Rewards Distribution */
 
 
-/* Begin Enrollment*/
+/* Begin Dealer Enrollment */
+.primeng-date-override {
+  display: block;
+}
+.primeng-date-override .datepicker-input-container,.primeng-date-override .datepicker-container{
+  display: block !important;
+  width: 100%;
+}
+.primeng-date-override input.datepicker-input{
+  width: calc(100% - 30px) !important;
+}
+.ui-dropdown{
+  width: 100% !important;
+}
+.ui-dropdown .ui-dropdown-label{
+  padding: 0.5rem 0.75rem;
+}
+/* End Dealer Enrollment */
+
+
+/* Begin Enrollment Maintenance*/
 .ui-datatable-resizable thead th span.ui-cell-data, .ui-datatable-resizable tbody td span.ui-cell-data, .ui-datatable-resizable tfoot td span.ui-cell-data {
     white-space: normal;
 }
@@ -310,7 +327,10 @@ input.datepicker-input {
 .btn-container.open-dealer-team{
   padding-top: 1rem;
 }
-/* End Enrollment*/
+.btn-container .btn{
+  margin:0 .24rem;
+}
+/* End Enrollment Maintenance*/
 
 
 /* Start Contact List */

@@ -1,0 +1,137 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+    <a class="navbar-brand" href="#"></a>
+
+    <form class="hide-me form-inline float-left b-r-1 px-2 hidden-md-down">
+        <i class="fa fa-search"></i>
+        <input class="form-control" placeholder="Search..." type="text">
+    </form>
+</header>
+<!-- Main content -->
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            FIAT Enrollment Request Page
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <article class="card animated fadeInUp">
+                    <div class="card-block">
+                        <div class="content-row row">
+                            <div class="col-sm-6 col-md-6 col-lg-6" [hidden]="submitted">
+                                <button type="button" style="cursor: pointer" class="btn btn-info btn-sm" (click)="cancel()">Cancel</button>
+                                <button type="button" style="cursor: pointer; float:right; color:white" class="btn btn-info btn-sm">
+                                    <a href="/shared/imi-cms/MSER/docs/MSER%20Enrollment%20Form%20-%20FIAT.pdf" class="resetLink" style=" color:white"
+                                        target="_blank">Open as PDF</a>
+                                    </button>
+
+                                <form #enrollmentForm="ngForm">
+                                    <fieldset>
+                                        <legend>Mopar Service Excellence Rewards 2017 Enrollment Form – FIAT Alfa Romeo Studios
+                                        </legend>
+                                        <h5>I have read and agree with the Mopar Service Excellence Rewards Official Program
+                                            Rules and allow my Studio Personnel to participate in this rewards program..</h5>
+                                        <p> Put a check in the box below: </p>
+                                        <!-- <input type="checkbox" name="aggrement" id="aggrement"> Yes, I agree to the enrollment
+                                        fee and allow my dealership personnel to participate in the Mopar Service Excellence
+                                        Rewards Program. -->
+                                        <p-checkbox name="aggrement1" value="aggrement1" label="Yes, I agree to allow my Studio Personnel to participate in the 
+                                        Mopar Service Excellence Rewards Program" [(ngModel)]="agreement1"></p-checkbox>
+                                        <br>
+                                        <br>
+                                        <p-checkbox name="aggrement2" value="aggrement2" label="Yes, I understand there is no enrollment fee for FIAT Alfa Romeo Studios"
+                                            [(ngModel)]="aggrement2"></p-checkbox>
+                                        <br><br>
+
+                                         <div class="form-group">
+                                            <label for="dealercode">Dealer Code</label>
+                                            <input type="text" class="form-control" id="dealercode" name="dealercode" size="5" style="width: 30%">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sid">SID *</label>
+                                            <input type="text" class="form-control" id="sid" required [(ngModel)]="fiatEnrollment.sid" name="sid" minlength="7" maxlength="7"
+                                                style="width: 30%" pattern="[A-Za-z]{7}" #sid="ngModel">
+                                            <div [hidden]="sid.valid || sid.pristine" class="alert alert-danger">
+                                                Valid SID is required
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="dealershipname">Dealership Name</label>
+                                            <input type="text" class="form-control" id="dealershipname" name="dealershipname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dealershipprincipalname">Dealership Principal Name</label>
+                                            <input type="text" class="form-control" id="dealershipprincipalname" name="dealershipprincipalname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="text" class="form-control" id="email" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone Number</label>
+                                            <input type="text" class="form-control" id="phone" name="phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="signature">Dealer Principal Signature (or person listed on paragraph 2 of Dealer
+                                                                Agreement): Type OK to signature</label>
+                                            <input type="text" class="form-control" id="signature" name="signature">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Date</label>
+
+                                            <ng2-datepicker [options]="options" name="date" id="date" value="date"></ng2-datepicker>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alterEgo">Eligible Parts Manager or Service Manager: </label>
+                                            <p-dropdown [options]="option" name="elligiblemanagers" [(ngModel)]="selectedmanagers" placeholder="Select a Manager" filter="filter"
+                                                [style]="{'width':'59%'}"></p-dropdown>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="manageremail">Manager Email </label>
+                                            <input type="text" class="form-control" id="manageremail" name="manageremail">
+                                        </div>
+                                        <div class="form-group">
+
+                                            <p-checkbox name="group1" value="New York" label="Yes, I will enroll in
+                                            Parts Counter." [(ngModel)]="selectedCities"></p-checkbox>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <p-checkbox name="group1" value="New York" label="Yes, I will enroll in
+                                            Used Recon." [(ngModel)]="selectedCities"></p-checkbox>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <p-checkbox name="group1" value="New York" label="Yes, I will enroll in
+                                            Express Lane." [(ngModel)]="selectedCities"></p-checkbox>
+                                        </div>
+                                        <button type="submit" class="btn btn-success" (click)="saveDealerEnrollmentForm()" [disabled]="!enrollmentForm.form.valid">Submit</button> 
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>

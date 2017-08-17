@@ -54,23 +54,23 @@
                                             <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
                                                 <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span> -->
                                             <div class="enrollment-button-container">
-                                                <span #editButton>
+                                                <span #editButton  pTooltip="Edit This Row" tooltipPosition="right">
                                               <button class="enrollment-button edit" type="button" (click)="edit(data, editButton, cancelButton, saveButton )">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i>
                                                 <span class="hide-me">EDIT</span>
                                                 </button>
                                                 </span>
 
-                                                <span #cancelButton style="display: none;">
+                                                <span #cancelButton style="display: none; " pTooltip="Cancel Your Changes" tooltipPosition="right">
                                               <button class="enrollment-button cancel" type="button" (click)="cancel(data, editButton, cancelButton, saveButton)">
-                                                <i class="fa fa-remove" aria-hidden="true"></i>
-                                                <span class="hide-me">CANCEL</span>
+                                                <i style="cursor: pointer;" class="fa fa-remove" aria-hidden="true"></i>
+                                                <span class="hide-me" >CANCEL</span>
                                                 </button>
                                                 </span>
 
-                                                <span #saveButton style="display: none;">
+                                                <span #saveButton style="display: none; " pTooltip="Save Your Changes" tooltipPosition="right">
                                               <button class="enrollment-button save" type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
-                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                <i style="cursor: pointer;" class="fa fa-check" aria-hidden="true"></i>
                                                 <span class="hide-me">SAVE</span>
                                                 </button>
                                                 </span>

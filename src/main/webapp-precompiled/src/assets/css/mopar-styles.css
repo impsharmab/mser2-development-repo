@@ -301,7 +301,18 @@ table#program-groups.table tbody tr td:last-child {
 /* End Rewards Distribution */
 
 
-/* Begin Enrollment */
+/* Begin Dealer Enrollment */
+.primeng-date-override input.datepicker-input{
+  border: 1px solid rgb(206, 212, 218) !important;
+  text-align: left !important;
+}
+.ui-dropdown .ui-dropdown-label{
+  line-height: 1.25;
+}
+/* End Dealer Enrollment */
+
+
+/* Begin Enrollment Maintenance */
 .enrollment-button {
   background: none;
   border: none;
@@ -333,7 +344,7 @@ table#program-groups.table tbody tr td:last-child {
   background: rgba(0,104,179,.125);
   color: rgb(0,0,0);
 }
-/* End Enrollment */
+/* End Enrollment Maintenance */
 
 
 /* Begin Miscellaneous */

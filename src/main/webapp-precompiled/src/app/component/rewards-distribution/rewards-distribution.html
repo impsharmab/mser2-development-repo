@@ -32,10 +32,10 @@
         <!-- begin ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">MVP</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.MVP}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp" (click)="mvpOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer(mvp)">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if -->
         <tr>
@@ -43,30 +43,32 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressLane"
-              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#partsCounter"
-              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable(); getParticipantsByDealer('pc')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#usedRecon"
-              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable(); getParticipantsByDealer('ur')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
       </tbody>
     </table>
   </div>
   <!-- End Allocation Section -->
+  <p style="margin-left: 20px">* Potential Amount to be distributed</p>
 
+  <p style="color:red; margin-left: 20px">{{msg}}</p>
   <!-- Begin MVP section -->
   <!-- Once user has selected MVP, the Allocation Section either disappears or the user moves to a new page -->
-  <div class="row rewards-program-container">
+  <div class="row rewards-program-container" *ngIf="showMVPDIV">
 
     <!-- Begin MVP Collapsible -->
     <div class="collapse col-sm-12" id="mvp">
@@ -131,10 +133,10 @@
 
   <!-- Begin Express Lane sections -->
   <!-- Once user has selected Express Lane, the Allocation Section either disappears or the user moves to a new page -->
-  <div class="row rewards-program-container">
+  <div class="row rewards-program-container" *ngIf="showELDIV">
     <div class="collapse col-sm-12" id="expressLane">
       <div class="row">
-        <div class="col-sm-4">          
+        <div class="col-sm-4">
           <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="programName" placeholder="Select a Program"
             [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
         </div>
@@ -172,17 +174,17 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of participantsList">
-              <td class="" headers="allocation-participants" role="gridcell">                
+            <tr *ngFor="let data of participantDataValue">
+              <td class="" headers="allocation-participants" role="gridcell">
                 <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.item2" placeholder="Select Participant"
-                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
+                  [style]="{'width':'100%', 'overflow':'visible'}" filter="filter" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
                 <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
                   (change)="rewardedAmount(data.value)" />
               </td>
             </tr>
-            <!-- end ng-if -->            
+            <!-- end ng-if -->
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
@@ -198,7 +200,7 @@
 
   <!-- Begin Parts Counter -->
   <!-- Once user has selected Parts Counter, the Allocation Section either disappears or the user moves to a new page -->
-  <div class="row rewards-program-container">
+  <div class="row rewards-program-container" *ngIf="showPCDIV">
     <div class="collapse col-sm-12" id="partsCounter">
       <div class="row">
         <div class="col-sm-4">
@@ -246,21 +248,21 @@
           <tbody>
             <!-- begin ng-if -->
             <tr *ngFor="let data of participantDataValue">
-              <td class="" headers="allocation-participants" role="gridcell">                
+              <td class="" headers="allocation-participants" role="gridcell">
                 <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
-                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.name)"></p-dropdown>
+                  [style]="{'width':'100%', 'overflow':'visible'}" filter="filter" (onChange)="selectedParticipant(data.name)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
                 <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
                   (change)="rewardedAmount(data.value)" />
               </td>
             </tr>
-            <!-- end ng-if -->            
+            <!-- end ng-if -->
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal"  (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
-          
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcSaveConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
@@ -273,7 +275,7 @@
 
   <!-- Begin Used Recon -->
   <!-- Once user has selected Used Recon, the Allocation Section either disappears or the user moves to a new page -->
-  <div class="row rewards-program-container">
+  <div class="row rewards-program-container" *ngIf="showURDIV">
     <div class="collapse col-sm-12" id="usedRecon">
       <div class="row">
         <div class="col-sm-4">
@@ -320,8 +322,8 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of participantsList">
-              <td class="" headers="allocation-participants" role="gridcell">                
+            <tr *ngFor="let data of participantDataValue">
+              <td class="" headers="allocation-participants" role="gridcell">
                 <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.item2" placeholder="Select Participant"
                   [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
               </td>
@@ -330,7 +332,7 @@
                   (change)="rewardedAmount(data.value)" />
               </td>
             </tr>
-            <!-- end ng-if -->            
+            <!-- end ng-if -->
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
@@ -374,7 +376,7 @@
           <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" >Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -408,7 +410,7 @@
           <p>You are about to cancel changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" >Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { DatePickerModule } from 'ng2-datepicker';
 import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
-  TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule
+  TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule
 } from 'primeng/primeng';
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
@@ -46,7 +46,7 @@ import {RewardsDistributionService} from '../../../services/rewards-distribution
   imports: [
     CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
-    ButtonModule, DropdownModule, SharedModule, CheckboxModule
+    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule
     //PdfmakeModule
   ],
 

@@ -39,8 +39,6 @@ $(document).ready(function ($) {
     $(this).parent().parent().remove();
   });
 
-
-
   $(".program-group-collapse.group-mopar").on("click", function () {
 
     if ($(".row-category.group-mopar").css("display") == "none") {
@@ -110,17 +108,7 @@ $(document).ready(function ($) {
     });
   */
 
-  function resizeBroadcast() {
 
-    var timesRun = 0;
-    var interval = setInterval(function () {
-      timesRun += 1;
-      if (timesRun === 5) {
-        clearInterval(interval);
-      }
-      window.dispatchEvent(new Event('resize'));
-    }, 62.5);
-  }
 
   /* ---------- Main Menu Open/Close, Min/Full ---------- */
   /*
@@ -153,6 +141,17 @@ $(document).ready(function ($) {
   });
 
 });
+
+function resizeBroadcast() {
+  var timesRun = 0;
+  var interval = setInterval(function () {
+    timesRun += 1;
+    if (timesRun === 5) {
+      clearInterval(interval);
+    }
+    window.dispatchEvent(new Event('resize'));
+  }, 62.5);
+}
 
 /****
 * CARDS ACTIONS

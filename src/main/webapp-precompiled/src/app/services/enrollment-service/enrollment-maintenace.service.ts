@@ -88,10 +88,10 @@ export class EnrollmentMaintenanceService {
   }
   private handleError(error: Response | any) {
     let errMsg: string = "";
-    if (error.status === 500) {
-      alert(error._body);
+    // if (error.status === 500) {
+    //   alert(error._body);
 
-    }
+    // }
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
