@@ -884,6 +884,7 @@ export class EnrollmentComponent implements OnInit {
     }
     private activeUser: string = "";
     private edit(rowData, editButton, cancelButton, saveButton) {
+        this.msg = "";
         editButton.style["display"] = "none";
         cancelButton.style["display"] = "block";
         saveButton.style["display"] = "block";
@@ -919,7 +920,7 @@ export class EnrollmentComponent implements OnInit {
         this.saveButton.style["display"] = "none";
         this.enableEditable = false;
         this.rowData.isEditableR = false;
-       // this.getEnrollmentData();
+        // this.getEnrollmentData();
 
     }
     private discontinueCancel() {
@@ -1093,13 +1094,13 @@ export class EnrollmentComponent implements OnInit {
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
                 this.msg = "Participant Information has been updated Successfully.";
-               // this.getEnrollmentData();
+                // this.getEnrollmentData();
             },
             (error) => {
                 setTimeout(() => {
                     if (error !== undefined && error.length < 250) {
                         this.msg = error;
-                    }else{
+                    } else {
                         this.msg = "Error in Updating Participant Information.";
                     }
 

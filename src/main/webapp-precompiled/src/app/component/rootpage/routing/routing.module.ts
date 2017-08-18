@@ -22,6 +22,7 @@ import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component'
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
 import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
+import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-component';
 
 const routes: Routes = [
 
@@ -107,6 +108,11 @@ const routes: Routes = [
             {
                 path: "dealerteam",
                 component: DealerTeamComponent
+
+            },
+            {
+                path: "jasperreport",
+                component: JasperPocComponent
 
             },
 

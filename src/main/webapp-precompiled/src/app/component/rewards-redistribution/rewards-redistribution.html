@@ -19,7 +19,7 @@
       <div>
         <input class="form-control" id="dealer-code" type="text" required [(ngModel)]="dealerCode" (ngModelChange)="hideValidationDiv()"
           minlength="5" maxlength="5" pattern="[0-9]{5}" #dealercode="ngModel" />
-        <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" (click)="readDealerCode(dealerCode)">Submit</button>
+        <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" (click)="submitDealerCode(dealerCode)">Submit</button>
         <div [hidden]=" validDealerCode" class="alert alert-danger">
           Valid Dealercode is required
         </div>
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="row rewards-program-container">
+  <div class="row rewards-program-container" *ngIf="showAllocationDiv">
     <!-- Begin Proceed to Re-Allocations Table -->
     <table class="table table-bordered table-striped col-sm-12" role="grid">
       <thead>
@@ -46,26 +46,26 @@
         <!-- begin ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$1000.00</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.el}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
               aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$800.00</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.pc}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
               aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$2300.00</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.ur}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
               aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Payout Re-Distribution</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">$100.00</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.payout}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable"
               aria-expanded="false" aria-controls="payoutTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>

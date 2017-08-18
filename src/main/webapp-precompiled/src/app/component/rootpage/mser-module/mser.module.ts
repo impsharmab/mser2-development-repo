@@ -14,6 +14,7 @@ import {
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
+import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-component';
 
 import { BodyComponent } from '../../body/body.component';
 import { HeaderComponent } from '../../header/header.component';
@@ -39,8 +40,9 @@ import { RewardsRedistributionComponent } from '../../rewards-redistribution/rew
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 import { DealerTeamService } from '../../../services/express-lane/dealer-team/dealer-team.service';
-import {RewardsDistributionService} from '../../../services/rewards-distribution/rewards-distribution.service';
-
+import { RewardsDistributionService } from '../../../services/rewards-distribution/rewards-distribution.service';
+import { RewardsReDistributionService } from '../../../services/rewards-redistribution/rewards-redistribution.service';
+import { JasperService } from '../../../services/report/jasper-report-poc/jasper-service';
 
 @NgModule({
   imports: [
@@ -55,9 +57,12 @@ import {RewardsDistributionService} from '../../../services/rewards-distribution
     PayoutchartComponent, OpcodeSetupComponent, UserProfileComponent, ContactUsComponent,
     DealercodeModalComponent, CMSComponent, PartsLookupComponent, RewardsRedistributionComponent, MVPComponent,
     RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
-    EnrollmentComponent
+    EnrollmentComponent, JasperPocComponent
 
   ],
-  providers: [OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService]
+  providers: [
+    OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
+    RewardsReDistributionService, JasperService
+  ]
 })
 export class MserModule { }

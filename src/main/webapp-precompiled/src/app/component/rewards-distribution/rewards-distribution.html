@@ -16,8 +16,8 @@
   <!-- Begin Allocation section -->
   <div class="row rewards-program-container">
     <div class="col-sm-12 dealership-identity" id="dealership-identity">
-      <strong>Dealership:</strong>
-      <span>A25467</span>
+      <strong>Dealership: {{getSelectedDealerCode()}}</strong>
+      <span></span>
     </div>
     <!-- Proceed to Allocations table -->
     <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -137,8 +137,8 @@
     <div class="collapse col-sm-12" id="expressLane">
       <div class="row">
         <div class="col-sm-4">
-          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="programName" placeholder="Select a Program"
-            [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
+          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="preSelectedProgramName" [style]="{'width':'100%', 'overflow':'visible'}"
+            (onChange)="selectedProgramName(programName)"></p-dropdown>
         </div>
         <div class="col-sm-12">
           <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
@@ -209,8 +209,8 @@
               <option value="partsCounter">Parts Counter</option>
               <option value="usedRecon">Used Recon</option>
             </select> -->
-          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="programName" placeholder="Select a Program"
-            [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
+          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="preSelectedProgramName" [style]="{'width':'100%', 'overflow':'visible'}"
+            (onChange)="selectedProgramName(programName)"></p-dropdown>
 
         </div>
         <div class="col-sm-12">
@@ -284,8 +284,8 @@
               <option value="partsCounter">Parts Counter</option>
               <option value="usedRecon">Used Recon</option>
             </select> -->
-          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="programName" placeholder="Select a Program"
-            [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
+          <p-dropdown appendTo="body" [options]="programNameOptions" name="preSelectedProgramName" [(ngModel)]="preSelectedProgramName"
+            filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
 
         </div>
         <div class="col-sm-12">

@@ -51,6 +51,20 @@ export class RewardsDistributionService {
       .catch(this.handleCustomError);
   }
 
+  saveELData(dealerCode, list) {
+    var url = this.baseUrl + "Rewards/ExpressLane/" + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var body = list;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.post(url, body, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleCustomError);
+  }
+
 
   private handleCustomError(error: Response | any) {
     let errMsg: string = "";
