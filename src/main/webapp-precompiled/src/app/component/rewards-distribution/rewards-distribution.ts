@@ -15,7 +15,6 @@ export class RewardsDistributionComponent implements OnInit {
   private mvpInterface: MVPInterface = { approved: "No", sid: "" };
   private eldistInterface: ELDistributionInterface = { name: "", amount: "" }
   allocateAmount = { "mvp": "$9000.02", "el": "$400", "pc": "$750", "ur": "$230" };
-  mvpData = { acceptance: "4545", number: "25", vin: "454545", plancode: "59898", rewardsamount: "$785", sid: ["14546546- Raymond Fisher Edwards", "2", "858755", "4565650", "89898898", "858755", "4565650", "89898898", "100"] }
   dealerRewDistAmt = { dealershipName: "Bob Baker", rewardsAmount: "$58956.03", distributedAmount: "$4545.54" };
   booleanYesNoOptions: SelectItem[] = [{ label: "Yes", value: "Yes" }, { label: "No", value: "No" }];
   programNameOptions: SelectItem[] = [{ label: "Express Lane", value: "Express Lane" }, { label: "Parts Counter", value: "Parts Counter" }, { label: "Used Recon", value: "Used Recon" }];
@@ -25,10 +24,14 @@ export class RewardsDistributionComponent implements OnInit {
   { name: "Miller Wayne", value: "" },
   { name: "Hunter East", value: "" }
   ]
+  private date: string = "";
   constructor(private rewardsDistributionService: RewardsDistributionService) { }
 
   ngOnInit() {
-    this.getRewardsAmount();
+    this.getRewardsDistributionAmount();
+    var d = new Date;
+    this.date = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
+
     // this.getParticipantsByDealer();
   }
 
@@ -37,13 +40,16 @@ export class RewardsDistributionComponent implements OnInit {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
 
+  private getSelectedDealerName() {
+    return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
+  }
+
   private rewardsAmount: any = {}
-  private getRewardsAmount() {
+  private getRewardsDistributionAmount() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-    this.rewardsDistributionService.getRewardsAmount(dealerCode).subscribe(
+    this.rewardsDistributionService.getRewardsDistributionAmount(dealerCode).subscribe(
       (rewardsAmount) => {
         this.rewardsAmount = (rewardsAmount)
-
       },
       (error) => {
       }
@@ -55,8 +61,13 @@ export class RewardsDistributionComponent implements OnInit {
   private showPCDIV: boolean = false;
   private showURDIV: boolean = false;
   private preSelectedProgramName: string = "";
+  private displayActiveProgram: boolean = false;
+  private count: any = 0;
   private mvpOpenAllocationTable() {
-
+    this.msg = "";
+    if (this.count == 0) { }
+    this.displayActiveProgram = !this.displayActiveProgram;
+    this.preSelectedProgramName = "Active Program: MVP";
     this.showMVPDIV = true;
     this.showELDIV = false;
     this.showPCDIV = false;
@@ -64,33 +75,67 @@ export class RewardsDistributionComponent implements OnInit {
 
   }
   private elOpenAllocationTable() {
-    this.preSelectedProgramName = "Express Lane";
+    this.msg = "";
+    this.displayActiveProgram = !this.displayActiveProgram;
+    this.preSelectedProgramName = "Active Program: Express Lane";
     this.showMVPDIV = false;
     this.showELDIV = true;
     this.showPCDIV = false;
     this.showURDIV = false;
   }
-
   private pcOpenAllocationTable() {
-    this.preSelectedProgramName = "Parts Counter";
+    this.msg = "";
+    this.displayActiveProgram = !this.displayActiveProgram;
+    this.preSelectedProgramName = "Active Program: Parts Counter";
     this.showMVPDIV = false;
     this.showELDIV = false;
     this.showPCDIV = true;
     this.showURDIV = false;
   }
-
   private urOpenAllocationTable() {
-    this.preSelectedProgramName = "Used Recon";
+    this.msg = "";
+    this.displayActiveProgram = !this.displayActiveProgram;
+    this.preSelectedProgramName = "Active Program: Used Recon";
     this.showMVPDIV = false;
     this.showELDIV = false;
     this.showPCDIV = false;
     this.showURDIV = true;
   }
 
+  private mvpDistributionDatum: any;
+  private getMVPDistributionData() {
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    this.rewardsDistributionService.getMVPDistributionData(dealerCode).subscribe(
+      (mvpDistributionDatum) => {
+        this.mvpDistributionDatum = (mvpDistributionDatum)
+        console.log(this.mvpDistributionDatum);
+        for (var i = 0; i < this.mvpDistributionDatum.length; i++) {
+          this.mvpDistributionDatum[i].selectedSid = "";
+          this.mvpDistributionDatum[i].approved = "No";
+        }
+        console.log(this.mvpDistributionDatum);
+      },
+      (error) => {
+      }
+    )
+  }
+  private distributionAllocationHistoryDatum: any;
+  private getDistributionAllocationHistory(programName: string) {
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    this.rewardsDistributionService.getDistributionAllocationHistory(dealerCode, programName).subscribe(
+      (distributionAllocationHistoryDatum) => {
+        this.distributionAllocationHistoryDatum = (distributionAllocationHistoryDatum)
+
+      },
+      (error) => {
+      }
+    )
+  }
   private participantsList: any = [];
   private participantDataValue: any = [];
   private participantsOptions: SelectItem[] = [];
   private getParticipantsByDealer(program: string) {
+    this.participantsOptions = [];
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.participantDataValue = [];
     var constructParticipants: any = [];
@@ -115,14 +160,152 @@ export class RewardsDistributionComponent implements OnInit {
   private addNewRow() {
     this.participantDataValue.push({ name: "", value: "" });
   }
-  private saveMVPDATA() {
-    alert(this.mvpInterface.approved);
-    alert("sid: " + this.mvpInterface.sid);
+
+  private saveMVPDistributionDatum: any;
+  private saveMVPDistributionDATA() {
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    var mvpDistributionData = this.mvpDistributionDatum;
+    var data: any = {};
+    for (var i = 0; i < mvpDistributionData.length; i++) {
+      if (mvpDistributionData[i].sid.length > 0 && mvpDistributionData[i].approved == "Yes") {
+        mvpDistributionData[i].approveDate = this.date;
+      } else if (mvpDistributionData[i].approved == "No") {
+        mvpDistributionData[i].approveDate = null;
+      }
+    }
+    data.list = mvpDistributionData;
+    this.rewardsDistributionService.saveMVPDistributionDATA(dealerCode, data).subscribe(
+      (saveMVPDistributionDatum) => {
+        this.saveMVPDistributionDatum = (saveMVPDistributionDatum)
+        this.getMVPDistributionData();
+
+      },
+      (error) => {
+      }
+    )
 
   }
 
-  private saveELDATUM: any;
-  private saveELDATA() {
+  private distributionHistoryData: any = [];
+  private getDistributionHistoryData(programName: string) {
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+
+    this.rewardsDistributionService.getDistributionHistoryData(dealerCode, programName).subscribe(
+      (distributionHistoryData) => {
+        this.distributionHistoryData = (distributionHistoryData)
+
+
+      },
+      (error) => {
+      }
+    )
+  }
+  // private saveELDATUM: any;
+  // private saveELDistributionDATA() {
+  //   var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+  //   var nameValueList: any = [];
+  //   var nameValues: any = {};
+  //   var rewardsAmount = this.rewardsAmount;
+  //   var totalValues: any = 0;
+
+  //   for (var i = 0; i < this.participantDataValue.length; i++) {
+  //     if (this.participantDataValue[i].name.length > 0 && this.participantDataValue[i].value.length > 0) {
+  //       nameValueList.push({ name: this.participantDataValue[i].name, value: parseFloat(this.participantDataValue[i].value) })
+  //     }
+  //   }
+  //   nameValues.list = nameValueList;
+
+  //   this.rewardsDistributionService.saveELDistributionData(dealerCode, nameValues).subscribe(
+  //     (savePCDATUM) => {
+  //       this.savePCDATUM = (savePCDATUM)
+  //       if (this.savePCDATUM == true) {
+  //         this.msg = "Successfully Allocated the Rewards Amount";
+  //       }
+  //     },
+  //     (error) => {
+  //       setTimeout(() => {
+  //         if (error !== undefined && error.length < 250) {
+  //           this.msg = error;
+  //         } else {
+  //           this.msg = "Error in Distribution.";
+  //         }
+
+  //       }, 1000)
+  //     }
+  //   )
+  // }
+  // private savePCDATUM: any;
+  // private savePCDistributionDATA() {
+  //   var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+  //   var nameValueList: any = [];
+  //   var nameValues: any = {};
+  //   var rewardsAmount = this.rewardsAmount;
+  //   var totalValues: any = 0;
+
+  //   for (var i = 0; i < this.participantDataValue.length; i++) {
+  //     if (this.participantDataValue[i].name.length > 0 && this.participantDataValue[i].value.length > 0) {
+  //       nameValueList.push({ name: this.participantDataValue[i].name, value: parseFloat(this.participantDataValue[i].value) })
+  //     }
+  //   }
+  //   nameValues.list = nameValueList;
+
+  //   this.rewardsDistributionService.savePCDistributionData(dealerCode, nameValues).subscribe(
+  //     (savePCDATUM) => {
+  //       this.savePCDATUM = (savePCDATUM)
+  //       if (this.savePCDATUM == true) {
+  //         this.msg = "Successfully Allocated the Rewards Amount";
+  //       }
+  //     },
+  //     (error) => {
+  //       setTimeout(() => {
+  //         if (error !== undefined && error.length < 250) {
+  //           this.msg = error;
+  //         } else {
+  //           this.msg = "Error in Distribution.";
+  //         }
+
+  //       }, 1000)
+  //     }
+  //   )
+  // }
+
+  // private saveURDATUM: any;
+  // private saveURDistributionDATA() {
+  //   var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+  //   var nameValueList: any = [];
+  //   var nameValues: any = {};
+  //   var rewardsAmount = this.rewardsAmount;
+  //   var totalValues: any = 0;
+
+  //   for (var i = 0; i < this.participantDataValue.length; i++) {
+  //     if (this.participantDataValue[i].name.length > 0 && this.participantDataValue[i].value.length > 0) {
+  //       nameValueList.push({ name: this.participantDataValue[i].name, value: parseFloat(this.participantDataValue[i].value) })
+  //     }
+  //   }
+  //   nameValues.list = nameValueList;
+
+  //   this.rewardsDistributionService.saveURDistributionData(dealerCode, nameValues).subscribe(
+  //     (saveURDATUM) => {
+  //       this.saveURDATUM = (saveURDATUM)
+  //       if (this.saveURDATUM == true) {
+  //         this.msg = "Successfully Allocated the Rewards Amount";
+  //       }
+  //     },
+  //     (error) => {
+  //       setTimeout(() => {
+  //         if (error !== undefined && error.length < 250) {
+  //           this.msg = error;
+  //         } else {
+  //           this.msg = "Error in Distribution.";
+  //         }
+
+  //       }, 1000)
+  //     }
+  //   )
+  // }
+
+  private saveDistributionDATUM: any;
+  private saveDistributionDATA(programName: string) {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var nameValueList: any = [];
     var nameValues: any = {};
@@ -136,10 +319,10 @@ export class RewardsDistributionComponent implements OnInit {
     }
     nameValues.list = nameValueList;
 
-    this.rewardsDistributionService.saveELData(dealerCode, nameValues).subscribe(
-      (savePCDATUM) => {
-        this.savePCDATUM = (savePCDATUM)
-        if (this.savePCDATUM == true) {
+    this.rewardsDistributionService.saveDistributionData(dealerCode, nameValues, programName).subscribe(
+      (saveDistributionDATUM) => {
+        this.saveDistributionDATUM = (saveDistributionDATUM)
+        if (this.saveDistributionDATUM == true) {
           this.msg = "Successfully Allocated the Rewards Amount";
         }
       },
@@ -156,41 +339,7 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-  private savePCDATUM: any;
-  private savePCDATA() {
-    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-    var nameValueList: any = [];
-    var nameValues: any = {};
-    var rewardsAmount = this.rewardsAmount;
-    var totalValues: any = 0;
 
-    for (var i = 0; i < this.participantDataValue.length; i++) {
-      if (this.participantDataValue[i].name.length > 0 && this.participantDataValue[i].value.length > 0) {
-        nameValueList.push({ name: this.participantDataValue[i].name, value: parseFloat(this.participantDataValue[i].value) })
-      }
-    }
-    nameValues.list = nameValueList;
-
-    this.rewardsDistributionService.savePCData(dealerCode, nameValues).subscribe(
-      (savePCDATUM) => {
-        this.savePCDATUM = (savePCDATUM)
-        if (this.savePCDATUM == true) {
-          this.msg = "Successfully Allocated the Rewards Amount";
-        }
-      },
-      (error) => {
-        setTimeout(() => {
-          if (error !== undefined && error.length < 250) {
-            this.msg = error;
-          } else {
-            this.msg = "Error in Distribution.";
-          }
-
-        }, 1000)
-      }
-    )
-  }
-  
   private msg: String = "";
   private selectedProgramName(programName: string) {
     if (programName === "Express Lane") {
@@ -206,7 +355,13 @@ export class RewardsDistributionComponent implements OnInit {
 
 
   }
+  private mvpSelectedSID(sid) {
+    alert(sid)
+  }
 
+  private mvpApproved(approve) {
+    alert(approve)
+  }
   private selectedParticipant(participantName) {
 
     //alert(participantName);
@@ -216,6 +371,6 @@ export class RewardsDistributionComponent implements OnInit {
     // alert(amount);
   }
 
-  
+
 
 }

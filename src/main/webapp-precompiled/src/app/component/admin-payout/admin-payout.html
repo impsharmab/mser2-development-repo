@@ -1,1373 +1,1272 @@
-
-
 <main class="main">
-    <div class="page-title">
-        <div class="pageTitle">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12">
-                        <h1 class="heading-xl">
-                            Payout Chart Wizard
-                        </h1>
-                    </div>
-                </div>
-            </div>
+  <div class="page-title">
+    <div class="pageTitle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h1 class="heading-xl">Payout Chart Wizard</h1>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="container m-t-md">
-        <div class="row m-t-md">
-            <div class="col-xs-12 col-md-12">
-
-
-                <p-tabView [activeIndex]="index">
-                    <p-tabPanel header="Step 1" [disabled]="true">
-
-                        <div class="admin-utility-bar">
-                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
-                        </div>
-
-                        <div class="group-payout-month">
-                            <h3>Select Payout Month</h3>
-                            <div class="row">
-                                <div class="form-group col-xs-12 col-md-4">
-                                    <label for="payout-month">Select Month</label>
-                                    <select id="payout-month" class="form-control" name="payoutMonth">
-                                <option>JUL-2017</option>
-                                <option>AUG-2017</option>
-                                <option>SEP-2017</option>
-                                <option>OCT-2017</option>
-                                <option>NOV-2017</option>
-                                <option>DEC-2017</option>
-                            </select>
-                                </div>
-                            </div>
-
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="month-copy" onclick="(function(){$('#copy-month-selector').css('display','block');})();">
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description"> Would you like to copy the Payout Chart information from a previous month?</span>
-                            </label>
-
-                            <div class="row" id="copy-month-selector" style="display:none;">
-                                <div class="form-group col-xs-12 col-md-4">
-                                    <label for="payout-month">Select Month to Copy</label>
-                                    <select id="payout-month" class="form-control" name="payoutMonth">
-                                        <option>JUN-2017</option>
-                                        <option>MAY-2017</option>
-                                        <option>APR-2017</option>
-                                        <option>MAR-2017</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </p-tabPanel>
-                    <p-tabPanel header="Step 2" [disabled]="true">
-                        <div class="admin-utility-bar">
-                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
-                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
-                        </div>
-
-                        <!-- Select Program Group-->
-                        <h3>Select Program Group</h3>
-
-
-                        <table id="program-groups" class="table table-bordered table-striped" role="grid">
-                            <thead>
-                                <tr>
-                                    <td colspan="3" style="padding:0;">
-                                        <div class="chart-date-display">July 1 2017 - July 31 2017</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="program-groups-active" scope="col" role="columnheader" class="col-lg-2">Select</th>
-                                    <th id="program-groups-group" scope="col" role="columnheader" class="col-lg-7">Program Group</th>
-                                    <!-- <th id="program-groups-start-date" scope="col" role="columnheader">Effective Start Date</th>
-                                    <th id="program-groups-end-date" scope="col" role="columnheader">Effective End Date</th> -->
-                                    <th id="program-groups-modify" scope="col" role="columnheader" class="col-lg-3">Image</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">Express Lane</td>
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">Mopar Accessories</td>
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">Mopar Parts & Engines</td>
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">Magnetti Marelli</td>
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="program-groups-select" role="gridcell">Parts Counter</td>
-
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="program-groups-select" role="gridcell">wiAdvisor</td>
-
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">FIAT</td>
-
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">Tires</td>
-
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="program-groups-select" role="gridcell">UConnect</td>
-
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-                                <tr>
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox"  /></td>
-                                    <td headers="program-groups-select" role="gridcell">wiAdvisor Tire</td>
-
-                                    <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                    <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                                    <td headers="program-groups-modify" role="gridcell"><input id="" class="btn btn-primary" type="submit" value="+" /></td>
-                                </tr>
-
-
-
-
-
-                            </tbody>
-                        </table>
-
-
-                    </p-tabPanel>
-                    <p-tabPanel header="Step 3" [disabled]="true">
-
-                        <div class="admin-utility-bar">
-                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
-                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
-                        </div>
-
-                        <!-- Select Category-->
-                        <h3>Select Category</h3>
-
-                        <ng-template #addCategory let-c="close" let-d="dismiss">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add a Category</h4>
-                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-
-                                <form>
-                                    <label>
-                                Program Group
-                            </label>
-                                    <select id="payout-month" class="form-control" name="rewardPosition">
-                                        <option>Express Lane</option>
-                                        <option>Magneti Marelli</option>
-                                        <option>Mopar Accessories</option>
-                                        <option>Mopar Parts &amp; Engines</option>
-                                        <option>Mopar Vehicle Protection</option>
-                                        <option>Parts Counter</option>
-                                        <option>wiAdvisor</option>
-                                        <option>FIAT</option>
-                                        <option>UConnect</option>
-                                        <option>Tires</option>
-                                        <option>wiAdvisor Tire</option>
-                                    </select>
-
-                                    <label>
-                                    Category
-                                </label>
-                                    <input class="input-category-name" type="text" class="form-control" name="msg" placeholder="Category" value="">
-
-                                    <label>
-                                    Category Description
-                                </label>
-                                    <input class="input-category-desc" type="text" class="form-control" name="msg" placeholder="Category Description" value="">
-
-
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="c('Add click')">Add</button>
-                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-                            </div>
-                        </ng-template>
-
-                        <div>
-                            <input id="" class="btn btn-primary" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)" />
-
-                        </div>
-                        <table id="admin-category-table" class="table table-bordered table-striped" role="grid">
-                            <thead>
-                                <tr>
-                                    <td colspan="6" style="padding:0;">
-                                        <div class="chart-date-display">July 1 2017 - July 31 2017</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="" scope="col" role="columnheader" class="col-xs-2">Select Category</th>
-                                    <th id="" scope="col" role="columnheader" class="col-xs-2"></th>
-                                    <th id="" scope="col" role="columnheader" class="col-xs-2">Program Group</th>
-                                    <th id="" scope="col" role="columnheader" class="col-xs-2">Category</th>
-                                    <th id="" scope="col" role="columnheader" class="col-xs-2">Category Description</th>
-                                    <!-- <th id="" scope="col" role="columnheader">Start Date</th>
-                                    <th id="" scope="col" role="columnheader">End Date</th> -->
-                                    <th id="" scope="col" role="columnheader" class="col-xs-2">Additional Information on Final Payout Chart</th>
-                                    <!-- <th id="" scope="col" role="columnheader">Add Image</th> -->
-                                    <!-- <th id="" scope="col" role="columnheader">Modify</th>
-                                    <th id="" scope="col" role="columnheader">Amend Plan Code</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr class="row-program-group">
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell" class="program-group-collapse group-mopar"><i class="fa fa-minus"></i></td>
-                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
-                                    <td headers="" role="gridcell" colspan="3"></td>
-
-                                </tr>
-
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked="checked" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">T_CASES</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Transmissions and T-Cases">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">BRKE</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="MSER OE Brake Pad Kits">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">FLCLR</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Fuel System Cleaner (#05019625AB)">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">MENG</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Mopar Engines">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">MOPAC</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Mopar AC Compressors">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">N45</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="MSER RECALL - N45">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">N46</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="MSER RECALL - N46">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">POTHOLE</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Pot Hole Promo">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">RAMSHOCK</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="RAM Shock And Struts ($5 for set of 2)">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-category group-mopar">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">RR</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Rain Repellent (#68194881AA)">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                                <tr class="row-program-group">
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell" class="program-group-collapse group-magneti"><i class="fa fa-minus"></i></td>
-                                    <td headers="" role="gridcell">Magneti Marelli</td>
-                                    <td headers="" role="gridcell" colspan="8"></td>
-
-                                </tr>
-                                <tr class="row-category group-magneti">
-                                    <td headers="program-groups-active" role="gridcell"><input type="checkbox" checked /></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-
-                                    <td headers="" role="gridcell">MM_BK</td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Magneti Marelli Brake Pad Kit">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                                    </td> -->
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Additional Information ">
-                                        </form>
-                                    </td>
-                                    <!-- <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="+" />
-                                    </td> -->
-                                    <!-- <td headers="" role="gridcell">
-                                        <a class="modify-icon" href="#">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <a href="#">Amend Plan Code</a>
-                                    </td> -->
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </p-tabPanel>
-                    <p-tabPanel header="Step 4" [disabled]="true">
-                        <div class="admin-utility-bar">
-                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
-                            <button type="button" pButton icon="fa fa-chevron-down" class="btn btn-primary" (click)="openNext()">Next</button>
-                        </div>
-
-                        <!-- Add Rewards by Position/ Value -->
-                        <h3>Add Rewards</h3>
-                        <div>
-                            <input id="" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
-                            
-                        </div>
-
-                        <!-- START Add Reward Modal -->
-                        <ng-template #addReward let-c="close" let-d="dismiss">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add a Reward</h4>
-                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <label>
-                                Program Group
-                            </label>
-                                    <select id="payout-month" class="form-control" name="rewardPosition">
-                                    <option>Express Lane</option>
-                                    <option>Magneti Marelli</option>
-                                    <option>Mopar Accessories</option>
-                                    <option>Mopar Parts &amp; Engines</option>
-                                    <option>Mopar Vehicle Protection</option>
-                                    <option>Parts Counter</option>
-                                    <option>wiAdvisor</option>
-                                    <option>FIAT</option>
-                                    <option>UConnect</option>
-                                    <option>Tires</option>
-                                    <option>wiAdvisor Tire</option>
-                                </select>
-
-                                    <label>
-                                    Category
-                                </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                    <option>MSER OE Brake Pad Kits (BRKE)</option>
-                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
-                                    <option>Mopar Engines (MENG)</option>
-                                    <option>Mopar AC Compressors (MOPAC)</option>
-                                    <option>MSER RECALL - N45 (N45)</option>
-                                    <option>MSER RECALL - N46 (N46)</option>
-                                    <option>Pot Hole Promo (POTHOLE)</option>
-                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
-                                    <option>Rain Repellent (#68194881AA) (RR)</option>
-                                    <option>Transmissions and T-Cases (T_CASES)</option>
-                                </select>
-
-                                    <label>
-                                    Position
-                                </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                    <option>Service Technician (23)</option>
-                                    <option>Service Advisor (13)</option>
-                                    <option>Parts Manager (08)</option>
-                                    <option>Service Manager (09)</option>
-                                </select>
-
-                                <label>
-                                    Reward Type
-                                </label>
-
-                                <select id="payout-month" class="form-control" name="rewardType">
-                                    <option>Dollar</option>
-                                    <option>Percent</option>
-                                </select>
-
-                                <label>
-                                    Reward Amount
-                                </label>
-                                
-                                <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
-
-                                <label>
-                                    Labor Type
-                                </label>
-                                    <form class="form-control" name="laborType">
-                                        <label>Customer (C)</label> <input type="checkbox" />
-                                        <label>Internal (I)</label> <input type="checkbox" />
-                                        <label>Warranty (W)</label> <input type="checkbox" />
-                                    </form>
-
-                                    <label>
-                                    Quantity
-                                </label>
-                                    <select id="quantity" class="form-control" name="quantity">           
-                                        <option>Individual</option>
-                                        <option>Set of 2</option>
-                                        <option>Set of 4</option>
-                                    </select>
-                                    <!-- <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Enter a quantity number"> -->
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="c('Add click')" onclick="(function(){$('.override-hidden').css('display','table-row');return false;})();">Add</button>
-                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-                            </div>
-                        </ng-template>
-                        <!-- END Add Reward Modal-->
-
-                        <!-- START Override Modal -->
-                        <ng-template #overrideModal let-c="close" let-d="dismiss">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add an Override</h4>
-                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-
-                            <h5>Override Source</h5>
-                                    <label>
-                                Program Group
-                            </label>
-                                    <select id="payout-month" class="form-control" name="rewardPosition">
-                                    <!-- <option>Express Lane</option>
-                                    <option>Magneti Marelli</option>
-                                    <option>Mopar Accessories</option> -->
-                                    <option>Mopar Parts &amp; Engines</option>
-                                    <option>Magnetti Marelli</option>
-                                    <!-- <option>Mopar Vehicle Protection</option>
-                                    <option>Parts Counter</option>
-                                    <option>wiAdvisor</option>
-                                    <option>FIAT</option>
-                                    <option>UConnect</option>
-                                    <option>Tires</option>
-                                    <option>wiAdvisor Tire</option> -->
-                                </select>
-
-                                    <label>
-                                    Category
-                                </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                    <!-- <option>MSER OE Brake Pad Kits (BRKE)</option>
-                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
-                                    <option>Mopar Engines (MENG)</option>
-                                    <option>Mopar AC Compressors (MOPAC)</option>
-                                    <option>MSER RECALL - N45 (N45)</option>
-                                    <option>MSER RECALL - N46 (N46)</option>
-                                    <option>Pot Hole Promo (POTHOLE)</option>
-                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
-                                    <option>Rain Repellent (#68194881AA) (RR)</option> -->
-                                    <option>Transmissions and T-Cases (T_CASES)</option>
-                                </select>
-
-                                    <label>
-                                    Position
-                                </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                    <option>Service Technician (23)</option>
-                                    <option>Service Advisor (13)</option>
-                                    <option>Parts Manager (08)</option>
-                                    <option>Service Manager (09)</option>
-                                </select>
-
-                                <p style="font-weight:bold;">Reward: $5.00 per Set of 2</p>
-
-                                <hr/>
-
-                                <h5>Override Recipient</h5>
-                                    <label>
-                                        Recipient Position
-                                    </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                        
-                                        <option>Service Advisor (13)</option>
-                                        <option>Parts Manager (08)</option>
-                                        <option>Service Manager (09)</option>
-                                    </select>
-
-                                <label>
-                                        Override Type
-                                    </label>   
-                                    <select id="payout-month" class="form-control" name="rewardType">
-                                        <option>Percent</option>
-                                        <option>Dollar</option>
-                                        
-                                    </select>
-
-                                    <label>
-                                        Override Amount
-                                    </label>
-                                    <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="5.00 %">
-                                   
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="c('Add click')" onclick="(function(){$('.override-element').css('display','inline-block');return false;})();">Add Override</button>
-                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
-                            </div>
-                        </ng-template>
-                        <!-- END Override Modal-->
-
-                        <!-- START EXISTING Override Modal -->
-                        <ng-template #overrideRecordModal let-c="close" let-d="dismiss">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Edit Override</h4>
-                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <p style="font-weight:bold;">
-                                        Mopar Parts & Engines
-                                        <br/>
-                                        T_CASES
-                                        <br/>
-                                        Service Technician
-                                        <br/>
-                                        $5.00 per Set of 2
-                                    </p>
-                                    <hr/>
-
-                                    <h5>Override Source</h5>
-                                    <label>
-                                Program Group
-                            </label>
-                                    <select id="payout-month" class="form-control" name="rewardPosition">
-                                    <option>Mopar Parts &amp; Engines</option>
-                                        <option>Express Lane</option>
-                                    <option>Magneti Marelli</option>
-                                    <option>Mopar Accessories</option>
-                                    
-                                    <option>Mopar Vehicle Protection</option>
-                                    <option>Parts Counter</option>
-                                    <option>wiAdvisor</option>
-                                    <option>FIAT</option>
-                                    <option>UConnect</option>
-                                    <option>Tires</option>
-                                    <option>wiAdvisor Tire</option>
-                                </select>
-
-                                    <label>
-                                    Category
-                                </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                    <option>Transmissions and T-Cases (T_CASES)</option>
-                                    <option>MSER OE Brake Pad Kits (BRKE)</option>
-                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
-                                    <option>Mopar Engines (MENG)</option>
-                                    <option>Mopar AC Compressors (MOPAC)</option>
-                                    <option>MSER RECALL - N45 (N45)</option>
-                                    <option>MSER RECALL - N46 (N46)</option>
-                                    <option>Pot Hole Promo (POTHOLE)</option>
-                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
-                                    <option>Rain Repellent (#68194881AA) (RR)</option>
-                                    
-                                </select>
-
-                                    <label>
-                                    Position
-                                </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                    <option>Service Technician (23)</option>
-                                    <option>Service Advisor (13)</option>
-                                    <option>Parts Manager (08)</option>
-                                    <option>Service Manager (09)</option>
-                                </select>
-                                <hr/>
-
-                                <h5>Override Recipient</h5>
-                                    <label>
-                                        Recipient Position
-                                    </label>
-                                    <select id="add-reward-category" class="form-control" name="">
-                                        <option>Service Advisor (13)</option>
-                                        <option>Service Technician (23)</option>
-                                        <option>Parts Manager (08)</option>
-                                        <option>Service Manager (09)</option>
-                                    </select>
-
-                                <label>
-                                        Override Type
-                                    </label>   
-                                    <select id="payout-month" class="form-control" name="rewardType">
-                                        <option>Percent</option>
-                                        <option>Dollar</option>
-                                        
-                                    </select>
-
-                                    <label>
-                                        Override Amount
-                                    </label>
-                                    <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="5.00 %">
-                                   
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" (click)="c('Add click')" style="float:left;">Delete</button>
-                                <button type="button" class="btn btn-secondary" (click)="c('Add click')">Save Changes</button>
-                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cancel</button>
-                            </div>
-                        </ng-template>
-                        <!-- END EXISTING Override Modal-->
-                        <table id="" class="table table-bordered table-striped" role="grid">
-                            <thead>
-                                <tr>
-                                    <td colspan="9" style="padding:0;">
-                                        <div class="chart-date-display">July 1 2017 - July 31 2017</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th id="" scope="col" role="columnheader"></th>
-                                    <th id="" scope="col" role="columnheader">Program Group</th>
-                                    <th id="" scope="col" role="columnheader">Category</th>
-                                    <th id="" scope="col" role="columnheader">Position</th>
-                                    <th id="" scope="col" role="columnheader">Reward Amount</th>
-                                    <th id="" scope="col" role="columnheader">Reward Type</th>
-                                    <th id="" scope="col" role="columnheader">Override</th>
-                                    <th id="" scope="col" role="columnheader">Labor Type</th>
-                                    <th id="" scope="col" role="columnheader">Quantity</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
-                                    <td headers="" role="gridcell">Mopar Parts &amp; Engines</td>
-                                    <td headers="" role="gridcell" colspan="4"></td>
-                                    <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="Add an Override" (click)="openOverrideModal(overrideModal)" />
-                                    </td>
-                                    <td headers="" role="gridcell" colspan="2"></td>
-                                </tr>
-
-                                <tr>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
-                                    <td headers="" role="gridcell">T_CASES</td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardPosition">
-                                            <option>Service Technician (23)</option>
-                                            <option>Service Advisor (13)</option>
-                                            <option>Parts Manager (08)</option>
-                                            <option>Service Manager (09)</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardType">
-                                            <option>Dollar</option>
-                                            <option>Percent</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        
-                                        <span class="label override-element" style="background-color: #f0ad4e;display:none;width:100%;margin:0;padding: 0.5em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">
-                                            <span style="float:left;">ID: 1</span> 
-                                            5.00 % to Service Advisor
-                                            <i class="fa fa-pencil" style="float:right;margin:0 3px; font-weight:normal;" (click)="openOverrideRecordModal(overrideRecordModal)" ></i>
-                                            
-                                        </span>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form class="form-control" name="laborType">
-                                            <label>Customer (C)</label> <input type="checkbox" />
-                                            <label>Internal (I)</label> <input type="checkbox" />
-                                            <label>Warranty (W)</label> <input type="checkbox" />
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="quantity" class="form-control" name="quantity">           
-                                            <option>Set of 2</option>
-                                            <option>Individual</option>
-                                            <option>Set of 4</option>
-                                        </select>
-                                        
-                                    </td>
-                                </tr>
-                                <tr class="override-hidden" style="display:none;" >
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardPosition">
-                                            <option>Service Advisor (13)</option>
-                                            <option>Service Technician (23)</option>
-                                            <option>Parts Manager (08)</option>
-                                            <option>Service Manager (09)</option>
-                                        </select>
-                                        
-                                        
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                             <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00" > 
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                         <select id="payout-month" class="form-control" name="rewardType">
-                                            <option>Dollar</option>
-                                            <option>Percent</option>
-                                        </select> 
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <span class="label override-element" style="background-color: #5cb85c;display:none;width:100%;margin:0;padding: 0.5em;font-size: 75%;font-weight: 700;line-height: 1;color: #fff;text-align: center;white-space: nowrap;vertical-align: baseline;border-radius: .25em;">
-                                           <span style="float:left;">ID: 1</span> 
-                                            5.00 % from Service Technician
-                                            <i class="fa fa-pencil" style="float:right;margin:0 3px; font-weight:normal;" (click)="openOverrideRecordModal(overrideRecordModal)" ></i>
-                                            
-                                        </span>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form class="form-control" name="laborType">
-                                            <label>Customer (C)</label> <input type="checkbox" />
-                                            <label>Internal (I)</label> <input type="checkbox" />
-                                            <label>Warranty (W)</label> <input type="checkbox" />
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="quantity" class="form-control" name="quantity">           
-                                            <option>Individual</option>
-                                            <option>Set of 2</option>
-                                            <option>Set of 4</option>
-                                        </select>
-                                        
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardPosition">
-                                            <option>Service Manager (09)</option>
-                                            <option>Service Advisor (13)</option>
-                                            <option>Service Technician (23)</option>
-                                            <option>Parts Manager (08)</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardType">
-                                            <option>Dollar</option>
-                                            <option>Percent</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form class="form-control" name="laborType">
-                                            <label>Customer (C)</label> <input type="checkbox" />
-                                            <label>Internal (I)</label> <input type="checkbox" />
-                                            <label>Warranty (W)</label> <input type="checkbox" />
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="quantity" class="form-control" name="quantity">           
-                                            <option>Individual</option>
-                                            <option>Set of 2</option>
-                                            <option>Set of 4</option>
-                                        </select>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardPosition">
-                                            <option>Parts Manager (08)</option>
-                                            <option>Service Technician (23)</option>
-                                            <option>Service Advisor (13)</option>
-                                            <option>Service Manager (09)</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$5.00">
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardType">
-                                            <option>Dollar</option>
-                                            <option>Percent</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form class="form-control" name="laborType">
-                                            <label>Customer (C)</label> <input type="checkbox" />
-                                            <label>Internal (I)</label> <input type="checkbox" />
-                                            <label>Warranty (W)</label> <input type="checkbox" />
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="quantity" class="form-control" name="quantity">           
-                                            <option>Individual</option>
-                                            <option>Set of 2</option>
-                                            <option>Set of 4</option>
-                                        </select>
-                                    </td>
-
-
-                                </tr>
-                                
-                                <tr>
-                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
-                                    <td headers="" role="gridcell">Magneti Marelli</td>
-                                    <td headers="" role="gridcell" colspan="4"></td>
-                                    <td headers="" role="gridcell">
-                                        <input id="" class="btn btn-primary" type="submit" value="Add an Override" (click)="openOverrideModal(overrideModal)" />
-                                    </td>
-                                    <td headers="" role="gridcell" colspan="2"></td>
-                                </tr>
-                                <tr>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"><i class="fa fa-minus"></i></td>
-                                    <td headers="" role="gridcell">MM_BK</td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardPosition">
-                                            <option>Service Technician (23)</option>
-                                            <option>Service Advisor (13)</option>
-                                            <option>Parts Manager (08)</option>
-                                            <option>Service Manager (09)</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="2.00 %">
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardType">
-                                            <option>Percent</option>
-                                            <option>Dollar</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form class="form-control" name="laborType">
-                                            <label>Customer (C)</label> <input type="checkbox" />
-                                            <label>Internal (I)</label> <input type="checkbox" />
-                                            <label>Warranty (W)</label> <input type="checkbox" />
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="quantity" class="form-control" name="quantity">           
-                                            <option>Individual</option>
-                                            <option>Set of 2</option>
-                                            <option>Set of 4</option>
-                                        </select>
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell"></td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardPosition">
-                                            <option>Parts Manager (08)</option>
-                                            <option>Service Advisor (13)</option>
-                                            <option>Service Technician (23)</option>
-                                            
-                                            <option>Service Manager (09)</option>
-                                        </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form>
-                                            <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="$2.00">
-                                        </form>
-
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="payout-month" class="form-control" name="rewardType">
-                                        <option>Dollar</option>
-                                        <option>Percent</option>
-                                    </select>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                    
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <form class="form-control" name="laborType">
-                                            <label>Customer (C)</label> <input type="checkbox" />
-                                            <label>Internal (I)</label> <input type="checkbox" />
-                                            <label>Warranty (W)</label> <input type="checkbox" />
-                                        </form>
-                                    </td>
-                                    <td headers="" role="gridcell">
-                                        <select id="quantity" class="form-control" name="quantity">           
-                                            <option>Individual</option>
-                                            <option>Set of 2</option>
-                                            <option>Set of 4</option>
-                                        </select>
-                                    </td>
-
-
-                                </tr>
-                                
-                            </tbody>
-                        </table>
-
-                    </p-tabPanel>
-                    <p-tabPanel header="Step 5" [disabled]="true">
-
-                        <div class="admin-utility-bar">
-                            <button type="button" pButton icon="fa fa-chevron-up" class="btn btn-primary" (click)="openPrev()">Previous</button>
-                        </div>
-
-                        <h3>Payout Chart Updates Preview</h3>
-                        <div>
-                            <input id="" class="btn btn-primary" type="submit" value="Save Updates" />
-                            <button type="button"  class="btn btn-primary" (click)="downloadPDF()">Export to PDF</button>
-                        </div>
-                        <!-- START Summary Wrapper-->
-                        <hr/>
-                        <div>
-                            <!-- MOPAR Parts &amp; Engines -->
-                                        <div id="payout-chart-export">
-                                            
-                                            <!-- START Service Technician Area -->
-                                            <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
-                                            <h3>T-Cases</h3>
-                                            <ul class="graph graph-list">
-                                                <li class="graph-item service-override">
-                                                    <span class="graph-item-subject">Service Technician</span>
-                                                    <span class="graph-item-figure">$5.00</span>
-                                                </li>
-                                                <li class="graph-item">
-                                                    <span class="graph-item-subject">Service Advisor</span>
-                                                    <span class="graph-item-figure">$5.00</span>
-                                                </li>
-                                                <li class="graph-item">
-                                                    <span class="graph-item-subject">Service Manager</span>
-                                                    <span class="graph-item-figure">$5.00</span>
-                                                </li>
-                                                <li class="graph-item">
-                                                    <span class="graph-item-subject">Parts Manager</span>
-                                                    <span class="graph-item-figure">$5.00</span>
-                                                </li>
-                                            </ul>
-                                            <p><span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
-
-                                            <h4 class="payout-chart-heading">MAGNETI MARELLI</h4>
-                                            <h3>MM_BK</h3>
-                                            <ul class="graph graph-list">
-                                                <li class="graph-item">
-                                                    <span class="graph-item-subject">Service Technician</span>
-                                                    <span class="graph-item-figure">2.00%</span>
-                                                </li>
-                                                <li class="graph-item">
-                                                    <span class="graph-item-subject">Parts Manager</span>
-                                                    <span class="graph-item-figure">$2.00</span>
-                                                </li>
-                                            </ul>
-                                            <!-- END Service Technician Area -->
-
-
-                                        </div>
-                        </div>
-                        <!-- END Summary Wrapper -->
-
-                    </p-tabPanel>
-                </p-tabView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <!-- Zozo Tabs Start-->
-                <div id="tabbed-nav">
-
-
-                    <!-- Content container -->
-                    <div>
-
-
-
-                    </div>
-
-                </div>
-                <!-- Zozo Tabs End-->
-
+  </div>
+  <div class="container m-t-md">
+    <div class="row m-t-md">
+      <div class="col-xs-12 col-md-12">
+        <p-tabView [activeIndex]="index">
+
+
+          <!-- Begin Select Payout Method -->
+          <p-tabPanel header="Step 1" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary btn-disabled" disabled type="button"><i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
             </div>
+            <div class="group-payout-month">
+              <h3>Select Payout Month</h3>
+              <div class="row">
+                <div class="form-group col-xs-12 col-md-4">
+                  <label for="payout-month">Select Month</label>
+                  <select class="form-control" id="payout-month" name="payoutMonth">
+                    <option>JUL-2017</option>
+                    <option>AUG-2017</option>
+                    <option>SEP-2017</option>
+                    <option>OCT-2017</option>
+                    <option>NOV-2017</option>
+                    <option>DEC-2017</option>
+                  </select>
+                </div>
+              </div>
+              <label class="custom-control custom-checkbox">
+                <p-checkbox name="copyMonth" value="yes" [(ngModel)]="adminPayout" onclick="(function(){$('#copy-month-container').toggleClass('hide-me');})();"></p-checkbox>
+                <span class="custom-control-description">Would you like to copy the Payout Chart information from a previous month?</span>
+              </label>
+              <div class="row hide-me" id="copy-month-container">
+                <div class="form-group col-xs-12 col-md-4">
+                  <label for="payout-month-copy">Select Month to Copy</label>
+                  <select class="form-control" id="payout-month-copy" name="payoutMonth">
+                    <option>JUN-2017</option>
+                    <option>MAY-2017</option>
+                    <option>APR-2017</option>
+                    <option>MAR-2017</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </p-tabPanel>
+          <!-- End Select Payout Method -->
+
+
+          <!-- Begin Select Program Group -->
+          <p-tabPanel header="Step 2" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+            <!-- Select Program Group-->
+            <h3>Select Program Group</h3>
+            <h4 class="chart-date-display">July 1 2017 - July 31 2017</h4>
+            <table class="table table-bordered table-striped" id="program-groups" role="grid">
+              <thead>
+                <tr scope="row">
+                  <th class="col-lg-2" id="program-groups-active" role="columnheader" scope="col">Select</th>
+                  <th class="col-lg-7" id="program-groups-group" role="columnheader" scope="col">Program Group</th>
+                  <!-- <th id="program-groups-start-date" role="columnheader" scope="col">Effective Start Date</th>
+                  <th id="program-groups-end-date" role="columnheader" scope="col">Effective End Date</th> -->
+                  <th class="col-lg-3" id="program-groups-modify" role="columnheader" scope="col">Image</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-1" name="selectRow" value="row1" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">Express Lane</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-1-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-2" name="selectRow" value="row2" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">Mopar Accessories</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-3" name="selectRow" value="row3" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">Mopar Parts &amp; Engines</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-3-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-4" name="selectRow" value="row4" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">Magnetti Marelli</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-4-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-5" name="selectRow" value="row5" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">Parts Counter</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-5-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-6" name="selectRow" value="row6" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">wiAdvisor</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-6-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-7" name="selectRow" value="row7" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">FIAT</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-7-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-8" name="selectRow" value="row8" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">Tires</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-8-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-9" name="selectRow" value="row9" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">UConnect</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-9-image" type="submit" value="+" /></td>
+                </tr>
+                <tr scope="row">
+                  <td headers="program-groups-active" role="gridcell"><p-checkbox id="program-select-10" name="selectRow" value="row10" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="program-groups-select" role="gridcell">wiAdvisor Tire</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-10-image" type="submit" value="+" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </p-tabPanel>
+          <!-- End Select Program Group -->
+
+
+          <!-- Begin Select Category -->
+          <p-tabPanel header="Step 3" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+            <!-- Select Category-->
+            <h3>Select Category</h3>
+            <h4 class="chart-date-display">July 1 2017 - July 31 2017</h4>
+            <div>
+              <input class="btn btn-primary" id="add-category" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)" />
+            </div>
+            <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
+              <thead>
+                <tr scope="row">
+                  <th class="col-xs-2" id="select-category-checkbox" role="columnheader" scope="col">Select Category</th>
+                  <th class="col-xs-2" id="select-category-toggle" role="columnheader" scope="col"></th>
+                  <th class="col-xs-2" id="select-category-column-program-group" role="columnheader" scope="col">Program Group</th>
+                  <th class="col-xs-2" id="select-category-column-category-name" role="columnheader" scope="col">Category</th>
+                  <th class="col-xs-2" id="select-category-column-category-description" role="columnheader" scope="col">Category Description</th>
+                  <!-- <th id="" role="columnheader" scope="col">Start Date</th>
+                  <th id="" role="columnheader" scope="col">End Date</th> -->
+                  <th class="col-xs-2" id="select-category-column-additional-info" role="columnheader" scope="col">Additional Information on Final Payout Chart</th>
+                  <!-- <th id="" role="columnheader" scope="col">Add Image</th> -->
+                  <!-- <th id="" role="columnheader" scope="col">Modify</th>
+                  <th id="" role="columnheader" scope="col">Amend Plan Code</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row-program-group">
+                  <td headers="select-category-checkbox" role="gridcell"></td>
+
+                  <!-- Hey, Pay attention to me there's something about me that collapses and stuff -->
+
+                  <td class="program-group-collapse group-mopar" headers="select-category-toggle" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td headers="select-category-column-program-group" role="gridcell">Mopar Parts &amp; Engines</td>
+                  <td colspan="3" headers="select-category-column-category-name select-category-column-category-description select-category-column-additional-info" role="gridcell"></td>
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row1" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">T_CASES</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-1" name="selectCategoryDescription1" placeholder="" type="text" value="Transmissions and T-Cases" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input id="select-category-additional-info-1" class="form-control" name="selectCategoryAdditionalInfo1" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row2" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">BRKE</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                      <form>
+                          <input class="form-control" id="select-category-description-2" name="selectCategoryDescription2" placeholder="" type="text" value="MSER OE Brake Pad Kits" />
+                      </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input id="select-category-additional-info-2" type="text" class="form-control" name="selectCategoryAdditionalInfo2" placeholder="" value="Additional Information ">
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row3" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">FLCLR</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-3" name="selectCategoryDescription3" placeholder="" type="text" value="Fuel System Cleaner (#05019625AB)" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-3" name="selectCategoryAdditionalInfo3" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row4" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">MENG</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-4" name="selectCategoryDescription4" placeholder="" type="text" value="Mopar Engines" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                      <form>
+                          <input class="form-control" id="select-category-additional-info-4" name="selectCategoryAdditionalInfo4" placeholder="" type="text" value="Additional Information" />
+                      </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row5" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">MOPAC</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-5" name="selectCategoryDescription5" placeholder="" type="text" value="Mopar AC Compressors" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-5" name="selectCategoryAdditionalInfo5" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row6" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">N45</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-6" name="selectCategoryDescription6" placeholder="" type="text" value="MSER RECALL - N45" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-6" name="selectCategoryAdditionalInfo6" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row7" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">N46</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-7" name="selectCategoryDescription7" placeholder="" type="text" value="MSER RECALL - N46" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-7" name="selectCategoryAdditionalInfo7" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row8" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">POTHOLE</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-8" name="selectCategoryDescription8" placeholder="" type="text" value="Pot Hole Promo" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-8" name="selectCategoryAdditionalInfo8" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row9" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">RAMSHOCK</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-9" name="selectCategoryDescription9" placeholder="" type="text" value="RAM Shock And Struts ($5 for set of 2)" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-9" type="text" name="selectCategoryAdditionalInfo9" placeholder="" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-category group-mopar">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row10" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">RR</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-10" name="selectCategoryDescription10" placeholder="" type="text" value="Rain Repellent (#68194881AA)" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-10" name="selectCategoryAdditionalInfo10" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+                <tr class="row-program-group">
+                  <td headers="select-category-checkbox" role="gridcell"></td>
+                  <td headers="select-category-toggle" role="gridcell" class="program-group-collapse group-magneti"><i class="fa fa-minus"></i></td>
+                  <td headers="select-category-column-program-group" role="gridcell">Magneti Marelli</td>
+                  <td colspan="3" headers="select-category-column-category-name select-category-column-category-description select-category-column-additional-info" role="gridcell"></td>
+                </tr>
+                <tr class="row-category group-magneti">
+                  <td headers="select-category-checkbox" role="gridcell"><p-checkbox name="selectCategory" value="row1" [(ngModel)]="adminPayout"></p-checkbox></td>
+                  <td headers="select-category-toggle" role="gridcell"></td>
+                  <td headers="select-category-column-program-group" role="gridcell"></td>
+                  <td headers="select-category-column-category-name" role="gridcell">MM_BK</td>
+                  <td headers="select-category-column-category-description" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-description-11" name="selectCategoryDescription11" placeholder="" type="text" value="Magneti Marelli Brake Pad Kit" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+                  </td> -->
+                  <td headers="select-category-column-additional-info" role="gridcell">
+                    <form>
+                      <input class="form-control" id="select-category-additional-info-11" name="selectCategoryAdditionalInfo11" placeholder="" type="text" value="Additional Information" />
+                    </form>
+                  </td>
+                  <!-- <td headers="" role="gridcell">
+                      <input id="" class="btn btn-primary" type="submit" value="+" />
+                  </td> -->
+                  <!-- <td headers="" role="gridcell">
+                      <a class="modify-icon" href="#">
+                  <i class="fa fa-pencil"></i>
+                  </a>
+                  </td>
+                  <td headers="" role="gridcell">
+                      <a href="#">Amend Plan Code</a>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+            <ng-template #addCategory let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Add a Category</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="add-category-program-group">Program Group</label>
+                      <select id="add-category-program-group" class="form-control" name="rewardPosition">
+                        <option>Express Lane</option>
+                        <option>Magneti Marelli</option>
+                        <option>Mopar Accessories</option>
+                        <option>Mopar Parts &amp; Engines</option>
+                        <option>Mopar Vehicle Protection</option>
+                        <option>Parts Counter</option>
+                        <option>wiAdvisor</option>
+                        <option>FIAT</option>
+                        <option>UConnect</option>
+                        <option>Tires</option>
+                        <option>wiAdvisor Tire</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="add-category-name">Category</label>
+                      <input class="input-category-name form-control" id="add-category-name" name="addCategoryName" placeholder="Category" type="text" value="" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="add-category-description">Category Description</label>
+                      <input class="input-category-desc form-control" id="add-category-description" name="addCategoryDescription" placeholder="Category Description" type="text" value="" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="c('Add click')">Add</button>
+                <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+              </div>
+            </ng-template>
+          </p-tabPanel>
+          <!-- End Select Category -->
+
+
+          <!-- Begin Add Rewards -->
+          <p-tabPanel header="Step 4" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button type="button" class="btn btn-primary" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
+              <button type="button" class="btn btn-primary" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Add Rewards by Position/ Value -->
+            <h3>Add Rewards</h3>
+            <h4 class="chart-date-display">July 1 2017 - July 31 2017</h4>
+            <div>
+              <input id="add-reward" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
+            </div>
+
+            <table id="add-reward-table" class="table table-bordered table-striped" role="grid">
+              <thead>
+                <tr scope="row">
+                  <th id="add-reward-toggle" role="columnheader" scope="col"></th>
+                  <th id="add-reward-program-group" role="columnheader" scope="col">Program Group</th>
+                  <th id="add-reward-category" role="columnheader" scope="col">Category</th>
+                  <th id="add-reward-position" role="columnheader" scope="col">Position</th>
+                  <th id="add-reward-amount" role="columnheader" scope="col">Reward Amount</th>
+                  <th id="add-reward-types" role="columnheader" scope="col">Reward Type</th>
+                  <th id="add-reward-override" role="columnheader" scope="col">Override</th>
+                  <th id="add-reward-labor-type" role="columnheader" scope="col">Labor Type</th>
+                  <th id="add-reward-quantity" role="columnheader" scope="col">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row">
+                  <td class="program-group-collapse group-mopar" headers="add-reward-toggle" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td headers="add-reward-program-group" role="gridcell">Mopar Parts &amp; Engines</td>
+                  <td colspan="4" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
+                  <td headers="add-reward-override" role="gridcell">
+                    <input class="btn btn-primary" id="add-override-mopar" name="AddOverrideMopar" type="submit" value="Add an Override" (click)="openOverrideModal(overrideModal)" />
+                  </td>
+                  <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
+                </tr>
+                <tr class="row-category group-mopar" scope="row">
+                  <td headers="add-reward-toggle" role="gridcell"></td>
+                  <td class="program-group-collapse group-1" headers="add-reward-program-group" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td headers="add-reward-category" role="gridcell">T_CASES</td>
+                  <td headers="add-reward-position" role="gridcell">
+                    <select class="form-control" id="add-reward-position-1" name="addRewardPosition1">
+                      <option>Service Technician (23)</option>
+                      <option>Service Advisor (13)</option>
+                      <option>Parts Manager (08)</option>
+                      <option>Service Manager (09)</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-amount" role="gridcell">
+                    <form>
+                      <input class="form-control" id="add-reward-amount-1" name="addRewardAmount1" placeholder="" type="text" value="$5.00" />
+                    </form>
+                  </td>
+                  <td headers="add-reward-types" role="gridcell">
+                    <select class="form-control" id="add-reward-type-1" name="addRewardType1">
+                      <option>Dollar</option>
+                      <option>Percent</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-override" role="gridcell">
+                    <span class="label override-element override" style="display:none;">
+                      <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)" ></i>
+                      <span>ID: 1 5.00% to Service Advisor</span>
+                    </span>
+                  </td>
+                  <td headers="add-reward-labor-type" role="gridcell">
+                    <form class="form-control" name="laborType1">
+                      <label><p-checkbox name="laborType1" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label><p-checkbox name="laborType1" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label><p-checkbox name="laborType1" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                    </form>
+                  </td>
+                  <td headers="add-reward-quantity" role="gridcell">
+                    <select class="form-control" id="add-reward-quantity-1" name="addRewardQuantity1">
+                      <option>Set of 2</option>
+                      <option>Individual</option>
+                      <option>Set of 4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="row-category group-mopar group-1 override-hidden" style="display:none;" scope="row">
+                  <td headers="add-reward-toggle" role="gridcell"></td>
+                  <td headers="add-reward-program-group" role="gridcell"></td>
+                  <td headers="add-reward-category" role="gridcell"></td>
+                  <td headers="add-reward-position" role="gridcell">
+                    <select class="form-control" id="add-reward-payout-2" name="addRewardPosition2">
+                      <option>Service Advisor (13)</option>
+                      <option>Service Technician (23)</option>
+                      <option>Parts Manager (08)</option>
+                      <option>Service Manager (09)</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-amount" role="gridcell">
+                    <form>
+                     <input class="form-control" id="add-reward-amount-2" name="addRewardAmount2" placeholder="" type="text" value="$5.00" />
+                    </form>
+                  </td>
+                  <td headers="add-reward-types" role="gridcell">
+                    <select class="form-control" id="add-reward-type-2" name="addRewardType2">
+                      <option>Dollar</option>
+                      <option>Percent</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-override" role="gridcell">
+                    <span class="label override-element reward" style="display:none;">
+                     <span>ID: 1 5.00% from Service Technician</span>
+                     <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
+                    </span>
+                  </td>
+                  <td headers="add-reward-labor-type" role="gridcell">
+                    <form class="form-control" name="laborType2">
+                      <label><p-checkbox name="laborType2" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label><p-checkbox name="laborType2" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label><p-checkbox name="laborType2" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                    </form>
+                  </td>
+                  <td headers="add-reward-quantity" role="gridcell">
+                    <select class="form-control" id="add-reward-quantity-2" name="addRewardQuantity2">
+                      <option>Individual</option>
+                      <option>Set of 2</option>
+                      <option>Set of 4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="row-category group-mopar group-1" scope="row">
+                  <td headers="add-reward-toggle" role="gridcell"></td>
+                  <td headers="add-reward-program-group" role="gridcell"></td>
+                  <td headers="add-reward-category" role="gridcell"></td>
+                  <td headers="add-reward-position" role="gridcell">
+                    <select class="form-control" id="add-reward-position-3" name="addRewardPosition3">
+                      <option>Service Manager (09)</option>
+                      <option>Service Advisor (13)</option>
+                      <option>Service Technician (23)</option>
+                      <option>Parts Manager (08)</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-amount" role="gridcell">
+                    <form>
+                      <input class="form-control" id="add-reward-amount-3" name="addRewardAmount3" placeholder="" type="text" value="$5.00" />
+                    </form>
+                  </td>
+                  <td headers="add-reward-types" role="gridcell">
+                    <select class="form-control" id="add-reward-type-3" name="addRewardType3">
+                      <option>Dollar</option>
+                      <option>Percent</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-override" role="gridcell">
+                  </td>
+                  <td headers="add-reward-labor-type" role="gridcell">
+                    <form class="form-control" name="laborType">
+                      <label><p-checkbox name="laborType3" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label><p-checkbox name="laborType3" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label><p-checkbox name="laborType3" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                    </form>
+                  </td>
+                  <td headers="add-reward-quantity" role="gridcell">
+                    <select class="form-control" id="add-reward-quantity-3" name="addRewardQuantity3">
+                      <option>Individual</option>
+                      <option>Set of 2</option>
+                      <option>Set of 4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="row-category group-mopar group-1" scope="row">
+                  <td headers="add-reward-toggle" role="gridcell"></td>
+                  <td headers="add-reward-program-group" role="gridcell"></td>
+                  <td headers="add-reward-category" role="gridcell"></td>
+                  <td headers="add-reward-position" role="gridcell">
+                    <select class="form-control" id="add-reward-position-4" name="addRewardPosition4">
+                      <option>Parts Manager (08)</option>
+                      <option>Service Technician (23)</option>
+                      <option>Service Advisor (13)</option>
+                      <option>Service Manager (09)</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-amount" role="gridcell">
+                    <form>
+                      <input class="form-control" id="add-reward-amount-4" name="addRewardAmount4" placeholder="" type="text" value="$5.00" />
+                    </form>
+                  </td>
+                  <td headers="add-reward-types" role="gridcell">
+                    <select class="form-control" id="add-reward-type-4" name="addRewardType4">
+                      <option>Dollar</option>
+                      <option>Percent</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-override" role="gridcell">
+                  </td>
+                  <td headers="add-reward-labor-type" role="gridcell">
+                    <form class="form-control" name="laborType4">
+                      <label><p-checkbox name="laborType4" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label><p-checkbox name="laborType4" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label><p-checkbox name="laborType4" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                    </form>
+                  </td>
+                  <td headers="add-reward-quantity" role="gridcell">
+                    <select class="form-control" id="add-reward-quantity-4" name="addRewardQuantity4">
+                      <option>Individual</option>
+                      <option>Set of 2</option>
+                      <option>Set of 4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr scope="row">
+                  <td class="program-group-collapse group-magneti" headers="add-reward-toggle" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td headers="add-reward-program-group" role="gridcell">Magneti Marelli</td>
+                  <td colspan="4" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
+                  <td headers="add-reward-override add-reward-quantity" role="gridcell">
+                    <input class="btn btn-primary" id="add-override-magneti" name="addOverrideMagneti" type="submit" value="Add an Override" (click)="openOverrideModal(overrideModal)" />
+                  </td>
+                  <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
+                </tr>
+                <tr class="row-category group-magneti" scope="row">
+                  <td headers="add-reward-toggle" role="gridcell"></td>
+                  <td headers="add-reward-program-group" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td headers="add-reward-category" role="gridcell">MM_BK</td>
+                  <td headers="add-reward-position" role="gridcell">
+                    <select class="form-control" id="add-reward-position-5" name="addRewardPosition5">
+                      <option>Service Technician (23)</option>
+                      <option>Service Advisor (13)</option>
+                      <option>Parts Manager (08)</option>
+                      <option>Service Manager (09)</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-amount" role="gridcell">
+                    <form>
+                      <input class="form-control" id="add-reward-amount-5" name="addRewardAmount5" placeholder="" type="text" value="2.00 %" />
+                    </form>
+                  </td>
+                  <td headers="add-reward-types" role="gridcell">
+                    <select class="form-control" id="add-reward-type-5" name="addRewardType5">
+                      <option>Percent</option>
+                      <option>Dollar</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-override" role="gridcell">
+                  </td>
+                  <td headers="add-reward-labor-type" role="gridcell">
+                    <form class="form-control" name="laborType5">
+                      <label><p-checkbox name="laborType5" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label><p-checkbox name="laborType5" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label><p-checkbox name="laborType5" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                    </form>
+                  </td>
+                  <td headers="add-reward-quantity" role="gridcell">
+                    <select class="form-control" id="add-reward-quantity-5" name="addRewardQuantity5">
+                      <option>Individual</option>
+                      <option>Set of 2</option>
+                      <option>Set of 4</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="row-category group-magneti" scope="row">
+                  <td headers="add-reward-toggle" role="gridcell"></td>
+                  <td headers="add-reward-program-group" role="gridcell"></td>
+                  <td headers="add-reward-category" role="gridcell"></td>
+                  <td headers="add-reward-position" role="gridcell">
+                    <select class="form-control" id="add-reward-position-6" name="addRewardPosition6">
+                      <option>Parts Manager (08)</option>
+                      <option>Service Advisor (13)</option>
+                      <option>Service Technician (23)</option>
+                      <option>Service Manager (09)</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-amount" role="gridcell">
+                    <form>
+                      <input class="form-control" id="add-reward-amount-6" name="addRewardAmount6" placeholder="" type="text" value="$2.00" />
+                    </form>
+                  </td>
+                  <td headers="add-reward-types" role="gridcell">
+                    <select class="form-control" id="add-reward-type-6" name="addRewardType6">
+                      <option>Dollar</option>
+                      <option>Percent</option>
+                    </select>
+                  </td>
+                  <td headers="add-reward-override" role="gridcell">
+                  </td>
+                  <td headers="add-reward-labor-type" role="gridcell">
+                    <form class="form-control" name="laborType6">
+                      <label><p-checkbox name="laborType6" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label><p-checkbox name="laborType6" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label><p-checkbox name="laborType6" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                    </form>
+                  </td>
+                  <td headers="add-reward-quantity" role="gridcell">
+                    <select class="form-control" id="add-reward-quantity-6" name="addRewardQuantity6">
+                      <option>Individual</option>
+                      <option>Set of 2</option>
+                      <option>Set of 4</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- START Add Reward Modal -->
+            <ng-template #addReward let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Add a Reward</h4>
+                <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="payout-reward-group">Program Group</label>
+                      <select class="form-control" id="payout-reward-group" name="payoutRewardPosition">
+                        <option>Express Lane</option>
+                        <option>Magneti Marelli</option>
+                        <option>Mopar Accessories</option>
+                        <option>Mopar Parts &amp; Engines</option>
+                        <option>Mopar Vehicle Protection</option>
+                        <option>Parts Counter</option>
+                        <option>wiAdvisor</option>
+                        <option>FIAT</option>
+                        <option>UConnect</option>
+                        <option>Tires</option>
+                        <option>wiAdvisor Tire</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="payout-reward-category">Category</label>
+                      <select class="form-control" id="payout-reward-category" name="payoutRewardCategory">
+                        <option>MSER OE Brake Pad Kits (BRKE)</option>
+                        <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                        <option>Mopar Engines (MENG)</option>
+                        <option>Mopar AC Compressors (MOPAC)</option>
+                        <option>MSER RECALL - N45 (N45)</option>
+                        <option>MSER RECALL - N46 (N46)</option>
+                        <option>Pot Hole Promo (POTHOLE)</option>
+                        <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                        <option>Rain Repellent (#68194881AA) (RR)</option>
+                        <option>Transmissions and T-Cases (T_CASES)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="payout-reward-position">Position</label>
+                      <select class="form-control" id="payout-reward-position" name="payoutRewardPosition">
+                        <option>Service Technician (23)</option>
+                        <option>Service Advisor (13)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="payout-reward-type">Reward Type</label>
+                      <select class="form-control" id="payout-reward-type" name="payoutRewardType">
+                        <option>Dollar</option>
+                        <option>Percent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="payout-reward-amount">Reward Amount</label>
+                    </div>
+                    <input class="form-control" id="payout-reward-amount" name="payoutRewardAmount" placeholder="Enter reward amount" type="text" value="" />
+                    <div class="col-sm-6">
+                      <label for="payout-reward-quantity">Quantity</label>
+                      <select class="form-control" id="payout-reward-quantity" name="payoutRewardQuantity">
+                        <option>Individual</option>
+                        <option>Set of 2</option>
+                        <option>Set of 4</option>
+                      </select>
+                      <!-- <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Enter a quantity number"> -->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label for="payout-labor-type">Labor Type</label>
+                      <form class="form-control" id="payout-labor-type" name="payoutLaborType">
+                        <label><input type="checkbox" /> Customer (C)</label>
+                        <label><input type="checkbox" /> Internal (I)</label>
+                        <label><input type="checkbox" /> Warranty (W)</label>
+                      </form>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="c('Add click')" onclick="(function(){$('.override-hidden').css('display','table-row');return false;})();">Add Reward</button>
+                <button class="btn btn-primary" type="button" (click)="c('Close click')">Close</button>
+              </div>
+            </ng-template>
+            <!-- END Add Reward Modal-->
+
+            <!-- START Override Modal -->
+            <ng-template #overrideModal let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Add an Override</h4>
+                <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <h5>Override Source</h5>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="override-program-group">Program Group</label>
+                      <select class="form-control" id="override-payout-group" name="overrideProgramGroup">
+                        <!-- <option>Express Lane</option>
+                        <option>Magneti Marelli</option>
+                        <option>Mopar Accessories</option> -->
+                        <option>Mopar Parts &amp; Engines</option>
+                        <option>Magnetti Marelli</option>
+                        <!-- <option>Mopar Vehicle Protection</option>
+                        <option>Parts Counter</option>
+                        <option>wiAdvisor</option>
+                        <option>FIAT</option>
+                        <option>UConnect</option>
+                        <option>Tires</option>
+                        <option>wiAdvisor Tire</option> -->
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="override-category">Category</label>
+                      <select class="form-control" id="override-category" name="overrideCategory">
+                        <!-- <option>MSER OE Brake Pad Kits (BRKE)</option>
+                        <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                        <option>Mopar Engines (MENG)</option>
+                        <option>Mopar AC Compressors (MOPAC)</option>
+                        <option>MSER RECALL - N45 (N45)</option>
+                        <option>MSER RECALL - N46 (N46)</option>
+                        <option>Pot Hole Promo (POTHOLE)</option>
+                        <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                        <option>Rain Repellent (#68194881AA) (RR)</option> -->
+                        <option>Transmissions and T-Cases (T_CASES)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="override-position">Position</label>
+                      <select class="form-control" id="override-position" name="overridePosition">
+                        <option>Service Technician (23)</option>
+                        <option>Service Advisor (13)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <p><strong>Reward: $5.00 per Set of 2</strong></p>
+                    </div>
+                  </div>
+
+                  <h5>Override Recipient</h5>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="override-recipient-position">Recipient Position</label>
+                      <select class="form-control" id="override-recipient-position" name="overrideRecipientPosition">
+                        <option>Service Advisor (13)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="override-type">Override Type</label>
+                      <select class="form-control" id="override-type" name="overrideType">
+                        <option>Percent</option>
+                        <option>Dollar</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="override-amount">Override Amount</label>
+                      <input class="form-control" id="override-amount" name="override-amount" placeholder="" type="text" value="5.00%" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="c('Add click')" onclick="(function(){$('.override-element').css('display','inline-block');return false;})();">Add Override</button>
+                <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
+              </div>
+            </ng-template>
+            <!-- END Override Modal-->
+
+            <!-- START EXISTING Override Modal -->
+            <ng-template #overrideRecordModal let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Override</h4>
+                <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <p>
+                    <strong>Mopar Parts & Engines<br/>
+                      T_CASES<br/>
+                      Service Technician<br/>
+                      $5.00 per Set of 2
+                    </strong>
+                  </p>
+                  <hr/>
+                  <h5>Override Source</h5>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label for="override-record-payout-month">Program Group</label>
+                      <select class="form-control" id="override-record-payout-month" name="rewardPosition">
+                        <option>Mopar Parts &amp; Engines</option>
+                        <option>Express Lane</option>
+                        <option>Magneti Marelli</option>
+                        <option>Mopar Accessories</option>
+                        <option>Mopar Vehicle Protection</option>
+                        <option>Parts Counter</option>
+                        <option>wiAdvisor</option>
+                        <option>FIAT</option>
+                        <option>UConnect</option>
+                        <option>Tires</option>
+                        <option>wiAdvisor Tire</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-add-reward-category">Category</label>
+                      <select class="form-control" id="override-record-add-reward-category" name="">
+                        <option>Transmissions and T-Cases (T_CASES)</option>
+                        <option>MSER OE Brake Pad Kits (BRKE)</option>
+                        <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                        <option>Mopar Engines (MENG)</option>
+                        <option>Mopar AC Compressors (MOPAC)</option>
+                        <option>MSER RECALL - N45 (N45)</option>
+                        <option>MSER RECALL - N46 (N46)</option>
+                        <option>Pot Hole Promo (POTHOLE)</option>
+                        <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                        <option>Rain Repellent (#68194881AA) (RR)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-add-reward-category">Position</label>
+                      <select class="form-control" id="override-record-add-reward-category" name="">
+                        <option>Service Technician (23)</option>
+                        <option>Service Advisor (13)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <hr/>
+                  <h5>Override Recipient</h5>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label for="override-record-add-reward-category">Recipient Position</label>
+                      <select class="form-control" id="override-record-add-reward-category" name="">
+                        <option>Service Advisor (13)</option>
+                        <option>Service Technician (23)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-payout-month">Override Type</label>
+                      <select class="form-control" id="override-record-payout-month" name="rewardType">
+                        <option>Percent</option>
+                        <option>Dollar</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-amount">Override Amount</label>
+                      <input class="form-control" id="override-record-amount" name="msg" placeholder="" type="text" value="5.00%" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="c('Add click')">Delete</button>
+                <button class="btn btn-primary" type="button" (click)="c('Add click')">Save Changes</button>
+                <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
+              </div>
+            </ng-template>
+            <!-- END EXISTING Override Modal-->
+
+          </p-tabPanel>
+          <!-- End Add Rewards -->
+
+
+          <!-- Begin Payout Chart Update Preview -->
+          <p-tabPanel header="Step 5" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
+            </div>
+            <h3>Payout Chart Updates Preview</h3>
+            <div>
+              <input class="btn btn-primary" id="" type="submit" value="Save Updates" />
+              <button class="btn btn-primary" type="button" (click)="downloadPDF('payout-chart-export')">Export to PDF</button>
+            </div>
+            <!-- START Summary Wrapper-->
+            <hr/>
+            <div>
+              <!-- MOPAR Parts &amp; Engines -->
+              <div id="payout-chart-export">
+                <!-- START Service Technician Area -->
+                <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
+                <h3>T-Cases</h3>
+                <ul class="graph graph-list">
+                  <li class="graph-item service-override">
+                    <span class="graph-item-subject">Service Technician</span>
+                    <span class="graph-item-figure">$5.00</span>
+                  </li>
+                  <li class="graph-item">
+                    <span class="graph-item-subject">Service Advisor</span>
+                    <span class="graph-item-figure">$5.00</span>
+                  </li>
+                  <li class="graph-item">
+                    <span class="graph-item-subject">Service Manager</span>
+                    <span class="graph-item-figure">$5.00</span>
+                  </li>
+                  <li class="graph-item">
+                    <span class="graph-item-subject">Parts Manager</span>
+                    <span class="graph-item-figure">$5.00</span>
+                  </li>
+                </ul>
+                <p><span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
+                <h4 class="payout-chart-heading">MAGNETI MARELLI</h4>
+                <h3>MM_BK</h3>
+                <ul class="graph graph-list">
+                  <li class="graph-item">
+                    <span class="graph-item-subject">Service Technician</span>
+                    <span class="graph-item-figure">2.00%</span>
+                  </li>
+                  <li class="graph-item">
+                    <span class="graph-item-subject">Parts Manager</span>
+                    <span class="graph-item-figure">$2.00</span>
+                  </li>
+                </ul>
+                <!-- END Service Technician Area -->
+              </div>
+            </div>
+            <!-- END Summary Wrapper -->
+          </p-tabPanel>
+          <!-- End Payout Chart Update Preview -->
+
+
+        </p-tabView>
+
+
+        <!-- Zozo Tabs Start-->
+        <div id="tabbed-nav">
+          <!-- Content container -->
+          <div>
+          </div>
         </div>
+        <!-- Zozo Tabs End-->
+
+
+      </div>
     </div>
+  </div>
 </main>

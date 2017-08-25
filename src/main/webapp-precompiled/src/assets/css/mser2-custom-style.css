@@ -175,6 +175,24 @@ input.datepicker-input {
   padding: 0.5rem 0.75rem;
   width: 80% !important;
 }
+.label.override-element {
+  margin:0;
+  padding: 0.5rem;
+  width: 100%;
+}
+.label.override-element span{
+  float: left;
+  display: block;
+  width: calc(100% - 1.5rem);
+}
+.label.override-element .fa{
+  float: right;
+  margin: 0 3px;
+}
+#payout-chart-export{
+  width: 760px;
+  //if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts 
+}
 /* End Payout Chart Admin */
 
 

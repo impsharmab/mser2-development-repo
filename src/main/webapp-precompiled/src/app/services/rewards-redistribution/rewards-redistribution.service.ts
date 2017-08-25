@@ -10,8 +10,20 @@ export class RewardsReDistributionService {
 
     constructor(private http: Http) { }
 
+    redistributeAmount(dealerCode, allocationID) {
+        var url = this.baseUrl + "Rewards/RedistributeReturnToDealer/" + dealerCode + "/" + allocationID;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
 
-    getPCRedistributionData(dealerCode, programName): any {
+        return this.http.post(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleError);
+    }
+
+    getRedistributionData(dealerCode, programName): any {
         var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
@@ -23,32 +35,45 @@ export class RewardsReDistributionService {
                 response.json())
             .catch(this.handleError);
     }
+    // getPCRedistributionData(dealerCode, programName): any {
+    //     var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+    //     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    //     var headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', validToken);
 
-    getELRedistributionData(dealerCode, programName): any {
-        var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
-        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', validToken);
+    //     return this.http.get(url, { headers: headers })
+    //         .map((response: Response) =>
+    //             response.json())
+    //         .catch(this.handleError);
+    // }
 
-        return this.http.get(url, { headers: headers })
-            .map((response: Response) =>
-                response.json())
-            .catch(this.handleError);
-    }
+    // getELRedistributionData(dealerCode, programName): any {
+    //     var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+    //     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    //     var headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', validToken);
 
-    getURRedistributionData(dealerCode, programName): any {
-        var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
-        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', validToken);
+    //     return this.http.get(url, { headers: headers })
+    //         .map((response: Response) =>
+    //             response.json())
+    //         .catch(this.handleError);
+    // }
 
-        return this.http.get(url, { headers: headers })
-            .map((response: Response) =>
-                response.json())
-            .catch(this.handleError);
-    }
+    // getURRedistributionData(dealerCode, programName): any {
+    //     var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+    //     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    //     var headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     headers.append('Authorization', validToken);
+
+    //     return this.http.get(url, { headers: headers })
+    //         .map((response: Response) =>
+    //             response.json())
+    //         .catch(this.handleError);
+    // }
+
     getPayoutRedistributionData(dealerCode, programName): any {
         var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
@@ -60,6 +85,20 @@ export class RewardsReDistributionService {
             .map((response: Response) =>
                 response.json())
             .catch(this.handleError);
+    }
+
+    saveRedistributionData(dealerCode, list, allocationID) {
+        var url = this.baseUrl + "Rewards/Redistribute/" + dealerCode + "/" + allocationID;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var body = list;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.post(url, body, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleCustomError);
     }
 
 

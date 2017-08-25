@@ -13,6 +13,9 @@
     </div>
   </div>
 
+  <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is: <strong id="participant-id">{{activeProgram}}</strong></div>
+
+  <!-- Begin  Dealer Input Field -->
   <div class="row rewards-program-container">
     <div class="col-sm-4">
       <label class="form-label" for="dealer-code">Dealer Code</label>
@@ -25,15 +28,11 @@
         </div>
       </div>
     </div>
-
-    <!-- only show allocation history after they have entered a Dealer Code -->
-    <div class="col-sm-12">
-      <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
-    </div>
   </div>
+  <!-- End Dealer Input Field -->
 
+  <!-- Begin Proceed to Re-Allocations Table -->
   <div class="row rewards-program-container" *ngIf="showAllocationDiv">
-    <!-- Begin Proceed to Re-Allocations Table -->
     <table class="table table-bordered table-striped col-sm-12" role="grid">
       <thead>
         <tr>
@@ -47,40 +46,44 @@
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.el}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
-              aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#elDistributionTable"
+              aria-expanded="false" aria-controls="elDistributionTable" [disabled]="disableelButton" (click)="elProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
-        <!-- end ng-if -->
+        <!-- end ng-if   -->
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.pc}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
-              aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#pcDistributionTable"
+              aria-expanded="false" aria-controls="pcDistributionTable" [disabled]="disablepcButton" (click)="pcProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.ur}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#distributionTable"
-              aria-expanded="false" aria-controls="distributionTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#urDistributionTable"
+              aria-expanded="false" aria-controls="urDistributionTable"  [disabled]="disableurButton" (click)="urProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Payout Re-Distribution</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.payout}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable"
-              aria-expanded="false" aria-controls="payoutTable">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="payoutTable" [disabled]="disablepayoutButton" (click)="payoutProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
       </tbody>
     </table>
-    <!-- Begin Proceed to Re-Allocations Table -->
   </div>
+  <!-- End Proceed to Re-Allocations Table -->
 
   <!-- Begin Express Lane, Parts Counter, and Used Recon sections -->
+  <!-- Begin Express Lane -->
   <div class="row rewards-program-container">
 
     <!-- Begin Distribution Collapsible -->
-    <div class="collapse col-sm-12" id="distributionTable">
-      <div class="row">
+    <div class="collapse col-sm-12" id="elDistributionTable" *ngIf="hideELSection">
 
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#elAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+        </div>
         <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
           <thead>
@@ -91,28 +94,22 @@
             </tr>
           </thead>
           <tbody>
-            <!-- begin ng-if -->
-            <tr>
-              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a class="" href="#distributedDateModal" data-toggle="modal" data-target="#distributedDateModal"><i class="fa fa-clone"></i> 08/01/2017</a></td>
-              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">$100.00</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a data-toggle="collapse" href="#participantTable" aria-expanded="false" aria-controls="participantTable">$90.00</a></td>
-            </tr>
-            <!-- end ng-if -->
-            <tr>
-              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a class="" href="#distributedDateModal" data-toggle="modal" data-target="#distributedDateModal"><i class="fa fa-clone"></i> 08/02/2017</a></td>
-              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">$50.00</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a data-toggle="collapse" href="#participantTable" aria-expanded="false" aria-controls="participantTable">$40.00</a></td>
+            <tr *ngFor="let elAllocData of elAllocationDataa">
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable"
+                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'el')"><i class="fa fa-clone"></i> {{elAllocData.date}}</a></td>
+              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{elAllocData.amount}}</td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#elDistributedAmountModal" data-toggle="modal" data-target="#elDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)">{{elAllocData.amount}}</a></td>
             </tr>
           </tbody>
         </table>
         <!-- End Distribution Table -->
 
         <!-- Begin Participant Collapsible -->
-        <div class="collapse col-sm-12" id="participantTable">
+        <div class="collapse col-sm-12" id="elParticipantTable">
           <div class="row">
-
             <!-- Begin Participant Table -->
-            <table class="table table-bordered table-striped col-sm-12" role="grid">
+
+            <table class="table table-bordered table-striped col-sm-12" role="grid" id="elAllocationTable">
               <thead>
                 <tr>
                   <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID/TID)</th>
@@ -120,50 +117,28 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- begin ng-if -->
-                <tr>
+
+                <tr *ngFor="let data of participantDataValue">
                   <td class="" headers="allocation-participants" role="gridcell">
-                    <select class="form-control" id="partCategory-1" name="participant">
-                      <option value="">Michael Scott - S12345Z</option>
-                      <option value="">Michael Skarn- S12346Z</option>
-                    </select>
+                    <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.item2" placeholder="Select an SID"
+                      filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
                   </td>
                   <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                    <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" />
+                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="text"
+                    />
                   </td>
                 </tr>
-                <!-- end ng-if -->
-                <tr>
-                  <td class="" headers="allocation-participants" role="gridcell">
-                    <select class="form-control" id="partCategory-2" name="participant">
-                      <option value="">David Wallace - W45278A</option>
-                      <option value="">Jan Levinson</option>
-                    </select>
-                  </td>
-                  <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" type="text" />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="" headers="allocation-participants" role="gridcell">
-                    <select class="form-control" id="partCategory-3" name="participant">
-                      <option value="">Robert California - C77841R</option>
-                      <option value="">Jo Bennet</option>
-                    </select>
-                  </td>
-                  <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                    <input class="form-control right-align" id="distributed-amount-3" name="distributedAmount" type="text" />
-                  </td>
-                </tr>
+
               </tbody>
             </table>
+
             <!-- End Participant Table -->
 
             <div class="col-sm-12 btn-container">
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-left" data-toggle="modal" data-target="#confirmationModal">Re-Distribute</button>
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Cancel</button>
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Submit</button>
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Clear</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-left " data-toggle="modal" data-target="#elRedistributeconfirmationModal">Re-Distribute</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elCancelationModal">Cancel</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elSubmitConfirmationModal">Submit</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elClearationModal">Clear</button>
             </div>
           </div>
         </div>
@@ -174,13 +149,166 @@
     <!-- End Distribution Collapsible -->
 
   </div>
+  <!-- End Express Lane -->
+
+  <!-- Begin Parts Counter -->
+  <div class="row rewards-program-container">
+
+    <!-- Begin Distribution Collapsible -->
+    <div class="collapse col-sm-12" id="pcDistributionTable" *ngIf="hidePCSection">
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+        </div>
+        <!-- Begin Distribution Table -->
+        <table class="table table-bordered table-striped col-sm-12" role="grid">
+          <thead>
+            <tr>
+              <th class="right-align" id="re-allocation-distributed-date" role="columnheader" scope="col">Distributed Date</th>
+              <th class="right-align" id="re-allocation-reward-amount" role="columnheader" scope="col">Reward Amount</th>
+              <th class="right-align" id="re-allocation-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pcAllocData of pcAllocationDataa">
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#pcParticipantTable" aria-expanded="false" aria-controls="pcParticipantTable"
+                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'pc')"><i class="fa fa-clone"></i> {{pcAllocData.date}}</a></td>
+              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{pcAllocData.amount}}</td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#pcDistributedAmountModal" data-toggle="modal" data-target="#pcDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)">{{pcAllocData.amount}}</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- End Distribution Table -->
+
+        <!-- Begin Participant Collapsible -->
+        <div class="collapse col-sm-12" id="pcParticipantTable">
+          <div class="row">
+            <!-- Begin Participant Table -->
+
+            <table class="table table-bordered table-striped col-sm-12" role="grid" id="pcAllocationTable">
+              <thead>
+                <tr>
+                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID/TID)</th>
+                  <th class="right-align" id="allocation-participant-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let data of participantDataValue">
+                  <td class="" headers="allocation-participants" role="gridcell">
+                    <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.item2" placeholder="Select an SID"
+                      filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
+                  </td>
+                  <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
+                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="text"
+                    />
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <!-- End Participant Table -->
+
+            <div class="col-sm-12 btn-container">
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-left " data-toggle="modal" data-target="#pcRedistributeconfirmationModal">Re-Distribute</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelationModal">Cancel</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcSubmitConfirmationModal">Submit</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcClearationModal">Clear</button>
+            </div>
+          </div>
+        </div>
+        <!-- End Partipant Collapsible -->
+
+      </div>
+    </div>
+    <!-- End Distribution Collapsible -->
+
+  </div>
+  <!-- End Parts Counter -->
+
+  <!-- Begin Used Recon -->
+  <div class="row rewards-program-container">
+
+    <!-- Begin Distribution Collapsible -->
+    <div class="collapse col-sm-12" id="urDistributionTable" *ngIf="hideURSection">
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+        </div>
+        <!-- Begin Distribution Table -->
+        <table class="table table-bordered table-striped col-sm-12" role="grid">
+          <thead>
+            <tr>
+              <th class="right-align" id="re-allocation-distributed-date" role="columnheader" scope="col">Distributed Date</th>
+              <th class="right-align" id="re-allocation-reward-amount" role="columnheader" scope="col">Reward Amount</th>
+              <th class="right-align" id="re-allocation-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let urAllocData of urAllocationDataa">
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#urParticipantTable" aria-expanded="false" aria-controls="urParticipantTable"
+                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'ur')"><i class="fa fa-clone"></i> {{urAllocData.date}}</a></td>
+              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{urAllocData.amount}}</td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#urDistributedAmountModal" data-toggle="modal" data-target="#urDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)">{{urAllocData.amount}}</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- End Distribution Table -->
+
+        <!-- Begin Participant Collapsible -->
+        <div class="collapse col-sm-12" id="urParticipantTable">
+          <div class="row">
+            <!-- Begin Participant Table -->
+
+            <table class="table table-bordered table-striped col-sm-12" role="grid" id="urAllocationTable">
+              <thead>
+                <tr>
+                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID/TID)</th>
+                  <th class="right-align" id="allocation-participant-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let data of participantDataValue">
+                  <td class="" headers="allocation-participants" role="gridcell">
+                    <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.item2" placeholder="Select an SID"
+                      filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
+                  </td>
+                  <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
+                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="text"
+                    />
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <!-- End Participant Table -->
+
+            <div class="col-sm-12 btn-container">
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-left " data-toggle="modal" data-target="#urRedistributeconfirmationModal">Re-Distribute</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urCancelationModal">Cancel</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urSubmitConfirmationModal">Submit</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urClearationModal">Clear</button>
+            </div>
+          </div>
+        </div>
+        <!-- End Partipant Collapsible -->
+
+      </div>
+    </div>
+    <!-- End Distribution Collapsible -->
+
+  </div>
+  <!-- End Used Recon -->
   <!-- End Express Lane, Parts Counter, and Used Recon sections -->
 
   <!-- Begin Payout Re-Distribution -->
   <div class="row rewards-program-container">
 
     <!-- Begin Payout Collapsible -->
-    <div class="collapse col-sm-12" id="payoutTable">
+    <div class="collapse col-sm-12" id="payoutTable" *ngIf="hidePayoutSection">
       <div class="row">
         <!-- Begin Dealer Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -305,15 +433,47 @@
 
   </div>
   <!-- End Payout Re-Distribution -->
-
 </main>
-
-
-
 
 <!-- Confirmation Modal -->
 <!-- The message for the modal body changes depending on the action the user has taken.  i.e. If they want to cancel, ask them if they want to cancel. -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+
+<!-- Begin EL Confirmation Modal -->
+<div class="modal fade" id="elRedistributeconfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="elCancelationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="elClearationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -330,14 +490,175 @@
     </div>
   </div>
 </div>
-<!-- End Confirmation Modal -->
-
-<!-- Begin Allocation History Modal -->
-<div class="modal fade" id="allocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+<div class="modal fade" id="elSubmitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End EL Confirmation Modal -->
+
+<!-- Begin PC Confirmation Modal -->
+<div class="modal fade" id="pcRedistributeconfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pcCancelationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pcClearationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pcSubmitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End PC Confirmation Modal -->
+
+<!-- Begin UR Confirmation Modal -->
+<div class="modal fade" id="urRedistributeconfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="urCancelationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="urClearationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="urSubmitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End UR Confirmation Modal -->
+
+<!-- End Confirmation Modal -->
+
+<!-- Begin Allocation History Modal -->
+<div class="modal fade" id="elAllocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -351,18 +672,77 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr>
-              <td class="" headers="allocation-history-recipient" role="gridcell">Jim Halpert</td>
-              <td class="right-align" headers="allocation-history-amount" role="gridcell">$500.00</td>
-              <td class="right-align" headers="allocation-history-date" role="gridcell">08/01/2017</td>
+            <tr *ngFor="let dat of data">
+              <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
+              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount}}</td>
+              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
             </tr>
-            <!-- end ng-if -->
-            <tr>
-              <td class="" headers="allocation-history-recipient" role="gridcell">Dwight K. Schrute</td>
-              <td class="right-align" headers="allocation-history-amount" role="gridcell">$750.00</td>
-              <td class="right-align" headers="allocation-history-date" role="gridcell">08/02/2017</td>
-            </tr>
+          </tbody>
+        </table>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pcAllocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped" role="grid">
+          <thead>
+            <tr>
+              <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Recipient</th>
+              <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Amount</th>
+              <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- begin ng-if -->
+            <tr *ngFor="let dat of data">
+              <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
+              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount}}</td>
+              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="urAllocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped" role="grid">
+          <thead>
+            <tr>
+              <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Recipient</th>
+              <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Amount</th>
+              <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- begin ng-if -->
+            <tr *ngFor="let dat of data">
+              <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
+              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount}}</td>
+              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
+            </tr>
           </tbody>
         </table>
 
@@ -375,12 +755,13 @@
 </div>
 <!-- End Allocation History Modal -->
 
-<!-- Begin Distributed Date Modal -->
-<div class="modal fade" id="distributedDateModal" tabindex="-1" role="dialog" aria-labelledby="distributedDateModalLabel">
+<!-- Begin Distributed Amount Modal -->
+
+<div class="modal fade" id="elDistributedAmountModal" tabindex="-1" role="dialog" aria-labelledby="pcDistributedAmountModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="distributedDateModalLabel">Are you sure you want to continue?</h4>
+        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Are you sure you want to continue?</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -392,28 +773,20 @@
               <th class="right-align" id="re-allocation-history-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
               <th class="" id="re-allocation-history-distributed-by" role="columnheader" scope="col">Distributed By</th>
               <th class="right-align" id="re-allocation-history-distributed-date" role="columnheader" scope="col">Distributed Date</th>
-              <th class="right-align" id="re-allocation-history-expected-payment-date" role="columnheader" scope="col">Expected Payment Date</th>
+              <!-- <th class="right-align" id="re-allocation-history-expected-payment-date" role="columnheader" scope="col">Expected Payment Date</th> -->
             </tr>
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr>
-              <td class="" headers="re-allocation-history-sid" role="gridcell">S02262A</td>
-              <td class="" headers="re-allocation-history-name" role="gridcell">Jim Halpert</td>
-              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">$50.00</td>
-              <td class="" headers="re-allocation-history-distributed-by" role="gridcell">S55515M</td>
-              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">08/01/2017</td>
-              <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td>
+            <tr *ngFor="let data of elHistoryData">
+              <td class="" headers="re-allocation-history-sid" role="gridcell">{{data.sid}}</td>
+              <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
+              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount}}</td>
+              <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
+              <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
             </tr>
             <!-- end ng-if -->
-            <tr>
-              <td class="" headers="re-allocation-history-sid" role="gridcell">S02371D</td>
-              <td class="" headers="re-allocation-history-name" role="gridcell">Dwight Schrute</td>
-              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">$100.00</td>
-              <td class="" headers="re-allocation-history-distributed-by" role="gridcell">S55515M</td>
-              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">08/02/2017</td>
-              <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -423,4 +796,83 @@
     </div>
   </div>
 </div>
-<!-- End Distributed Date Modal -->
+<div class="modal fade" id="pcDistributedAmountModal" tabindex="-1" role="dialog" aria-labelledby="pcDistributedAmountModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped" role="grid">
+          <thead>
+            <tr>
+              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID/TID)</th>
+              <th class="" id="re-allocation-history-name" role="columnheader" scope="col">Participant Name</th>
+              <th class="right-align" id="re-allocation-history-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+              <th class="" id="re-allocation-history-distributed-by" role="columnheader" scope="col">Distributed By</th>
+              <th class="right-align" id="re-allocation-history-distributed-date" role="columnheader" scope="col">Distributed Date</th>
+              <!-- <th class="right-align" id="re-allocation-history-expected-payment-date" role="columnheader" scope="col">Expected Payment Date</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- begin ng-if -->
+            <tr *ngFor="let data of pcHistoryData">
+              <td class="" headers="re-allocation-history-sid" role="gridcell">{{data.sid}}</td>
+              <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
+              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount}}</td>
+              <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
+              <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
+            </tr>
+            <!-- end ng-if -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="urDistributedAmountModal" tabindex="-1" role="dialog" aria-labelledby="pcDistributedAmountModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped" role="grid">
+          <thead>
+            <tr>
+              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID/TID)</th>
+              <th class="" id="re-allocation-history-name" role="columnheader" scope="col">Participant Name</th>
+              <th class="right-align" id="re-allocation-history-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
+              <th class="" id="re-allocation-history-distributed-by" role="columnheader" scope="col">Distributed By</th>
+              <th class="right-align" id="re-allocation-history-distributed-date" role="columnheader" scope="col">Distributed Date</th>
+              <!-- <th class="right-align" id="re-allocation-history-expected-payment-date" role="columnheader" scope="col">Expected Payment Date</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <!-- begin ng-if -->
+            <tr *ngFor="let data of urHistoryData">
+              <td class="" headers="re-allocation-history-sid" role="gridcell">{{data.sid}}</td>
+              <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
+              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount}}</td>
+              <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
+              <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
+            </tr>
+            <!-- end ng-if -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Distributed Amount Modal -->

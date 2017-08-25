@@ -232,6 +232,26 @@ table#program-groups.table tbody tr td:last-child {
 .ui-tabview-panel {
   border: 1px solid rgb(218,218,218);
 }
+.label.override-element {
+  border-radius: .25rem;
+  color: rgb(255,255,255);
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1.4;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.35);
+  vertical-align: baseline;
+}
+.label.override-element.override {
+  background-color: rgb(240,173,78);
+}
+.label.override-element.reward {
+  background-color: #5cb85c;
+}
+.label.override-element .fa{
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: normal;
+}
 /* End Payout Chart Admin */
 
 
@@ -398,21 +418,34 @@ mser-cms{
 /* Begin Buttons */
 .btn {
   color: rgb(255,255,255);
+  cursor: pointer;
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 14px;
+  font-size: 1rem;
   letter-spacing: 1px;
   line-height: 1;
-  -webkit-border-radius: 34px;
-  -ms-border-radius: 34px;
-  -khtml-border-radius: 34px;
-  -moz-border-radius: 34px;
-  border-radius: 34px;
+  -webkit-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -khtml-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  border-radius: 1rem;
   transition-property: background color;
   transition-duration: 300ms;
   transition-timing-function: ease-out;
 }
+
+
 .ui-widget-header .ui-button, .ui-widget-content .ui-button, .ui-widget.ui-button, .ui-button {
   background: rgb(0,104,179);
+}
+.ui-button-icon-only .fa {
+  left: auto;
+  right: 0;
+}
+
+
+.ui-widget button, .ui-widget input[type="submit"] {
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1rem;
 }
 .btn-primary {
   background-color: rgb(0,104,179);

@@ -13,6 +13,7 @@
     </div>
   </div>
 
+  <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is: <strong id="participant-id">{{activeProgram}}</strong></div>
   <!-- Begin Allocation section -->
   <div class="row rewards-program-container">
     <div class="col-sm-12 dealership-identity" id="dealership-identity">
@@ -35,7 +36,7 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer(mvp)">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if -->
         <tr>
@@ -65,7 +66,11 @@
   <!-- End Allocation Section -->
   <p style="margin-left: 20px">* Potential Amount to be distributed</p>
 
-  <p style="color:red; margin-left: 20px">{{msg}}</p>
+  
+
+  <div id="displayError">
+    <p style="color:red; margin-left: 20px">{{msg}}</p>
+  </div>
   <!-- Begin MVP section -->
   <!-- Once user has selected MVP, the Allocation Section either disappears or the user moves to a new page -->
   <div class="row rewards-program-container" *ngIf="showMVPDIV">
@@ -90,26 +95,26 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr>
-              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{mvpData.acceptance}}</td>
-              <td class="" headers="allocation-contract-number" role="gridcell">{{mvpData.number}}</td>
-              <td class="" headers="allocation-vin" role="gridcell">{{mvpData.vin}}</td>
-              <td class="" headers="allocation-plan-code" role="gridcell">{{mvpData.plancode}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{mvpData.rewardsamount}}</td>
+            <tr *ngFor="let data of mvpDistributionDatum">
+              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.approveDate}}</td>
+              <td class="" headers="allocation-contract-number" role="gridcell">{{data.contractNumber}}</td>
+              <td class="" headers="allocation-vin" role="gridcell">{{data.vin}}</td>
+              <td class="" headers="allocation-plan-code" role="gridcell">{{data.planCode}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{data.rewardValue}}</td>
               <td class="" headers="allocation-sid-name" role="gridcell">
                 <!-- <select class="form-control" id="SID-name-1" [(ngModel)]="mvpInterface.sid" >
                     <option value="sid" *ngFor="let sid of mvpData.sid" >{{sid}}</option>
                   </select> -->
-                <p-dropdown appendTo="body" [options]="participantOptions" name="sid" required [(ngModel)]="mvpInterface.sid" placeholder="Select an SID"
-                  filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="dealerEnrollmentElligibleManagers(mvpInterface.sid)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.sid" placeholder="Select an SID"
+                  filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="mvpSelectedSID(data.sid)"></p-dropdown>
               </td>
               <td class="" headers="allocation-approved-status" role="gridcell">
                 <!-- <select class="form-control" id="approved-1" [(ngModel)]="mvpInterface.approved">
                     <option value="yes">Yes</option>
                     <option value="no" selected="selected">No</option>
                   </select> -->
-                <p-dropdown appendTo="body" [options]="booleanYesNoOptions" name="yes-no" required [(ngModel)]="mvpInterface.approved" placeholder="No"
-                  [style]="{'width':'90%'}" #sid="ngModel" (onChange)="dealerEnrollmentElligibleManagers(mvpInterface.sid)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="booleanYesNoOptions" name="yes-no" required [(ngModel)]="data.approved" placeholder="No"
+                  [style]="{'width':'90%'}" #sid="ngModel" (onChange)="mvpApproved(data.approved)"></p-dropdown>
 
               </td>
               <!-- <td class="" headers="allocation-notes" role="gridcell">New brake pads</td> -->
@@ -137,11 +142,11 @@
     <div class="collapse col-sm-12" id="expressLane">
       <div class="row">
         <div class="col-sm-4">
-          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="preSelectedProgramName" [style]="{'width':'100%', 'overflow':'visible'}"
-            (onChange)="selectedProgramName(programName)"></p-dropdown>
+          <!-- <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="preSelectedProgramName" [style]="{'width':'100%', 'overflow':'visible'}"
+            (onChange)="selectedProgramName(programName)"></p-dropdown> -->
         </div>
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#elAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
         </div>
         <!-- Begin Delearship Details Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -155,9 +160,9 @@
           <tbody>
             <!-- being ng-if -->
             <tr>
-              <td class="" headers="allocation-dealership-details" role="gridcell">{{dealerRewDistAmt.dealershipName}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{dealerRewDistAmt.rewardsAmount}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{dealerRewDistAmt.distributedAmount}}</td>
+              <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.el}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.el}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -188,7 +193,9 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elCancelationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
       </div>
@@ -209,12 +216,12 @@
               <option value="partsCounter">Parts Counter</option>
               <option value="usedRecon">Used Recon</option>
             </select> -->
-          <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="preSelectedProgramName" [style]="{'width':'100%', 'overflow':'visible'}"
-            (onChange)="selectedProgramName(programName)"></p-dropdown>
+          <!-- <p-dropdown appendTo="body" [options]="programNameOptions" name="programName" [(ngModel)]="preSelectedProgramName" [style]="{'width':'100%', 'overflow':'visible'}"
+            (onChange)="selectedProgramName(programName)"></p-dropdown> -->
 
         </div>
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('pc')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
         </div>
         <!-- Begin Delearship Details Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -228,9 +235,9 @@
           <tbody>
             <!-- being ng-if -->
             <tr>
-              <td class="" headers="allocation-dealership-details" role="gridcell">{{dealerRewDistAmt.dealershipName}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{dealerRewDistAmt.rewardsAmount}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{dealerRewDistAmt.distributedAmount}}</td>
+              <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.pc}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.pc}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -284,12 +291,12 @@
               <option value="partsCounter">Parts Counter</option>
               <option value="usedRecon">Used Recon</option>
             </select> -->
-          <p-dropdown appendTo="body" [options]="programNameOptions" name="preSelectedProgramName" [(ngModel)]="preSelectedProgramName"
-            filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown>
+          <!-- <p-dropdown appendTo="body" [options]="programNameOptions" name="preSelectedProgramName" [(ngModel)]="preSelectedProgramName"
+            filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedProgramName(programName)"></p-dropdown> -->
 
         </div>
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#allocationHistoryModal"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('ur')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
         </div>
         <!-- Begin Delearship Details Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -303,9 +310,9 @@
           <tbody>
             <!-- being ng-if -->
             <tr>
-              <td class="" headers="allocation-dealership-details" role="gridcell">{{dealerRewDistAmt.dealershipName}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{dealerRewDistAmt.rewardsAmount}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{dealerRewDistAmt.distributedAmount}}</td>
+              <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.ur}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.ur}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -336,8 +343,9 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urCancellationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
       </div>
     </div>
@@ -359,13 +367,30 @@
           <p>You are about to save the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDistributionDATA()">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
     </div>
   </div>
   <div class="modal fade" id="mvpCancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="elCancelationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -393,7 +418,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveELDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('el')">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -427,13 +452,30 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('pc')">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="usedReconConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal fade" id="urCancellationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="urConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -444,7 +486,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveUsedReconDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('ur')">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -453,7 +495,7 @@
   <!-- End Confirmation Modal -->
 
   <!-- Begin Allocation History Modal -->
-  <div class="modal fade" id="allocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+  <div class="modal fade" id="pcAllocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -471,17 +513,13 @@
             </thead>
             <tbody>
               <!-- begin ng-if -->
-              <tr>
-                <td class="" headers="allocation-history-recipient" role="gridcell">Jim Halpert</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">$500.00</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">08/01/2017</td>
+              <tr *ngFor="let data of distributionHistoryData">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
               </tr>
               <!-- end ng-if -->
-              <tr>
-                <td class="" headers="allocation-history-recipient" role="gridcell">Dwight K. Schrute</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">$750.00</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">08/02/2017</td>
-              </tr>
+
             </tbody>
           </table>
         </div>
@@ -491,6 +529,84 @@
       </div>
     </div>
   </div>
-  <!-- End Confirmation Modal -->
 
+  <div class="modal fade" id="elAllocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" role="grid">
+            <thead>
+              <tr>
+                <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Recipient</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Amount</th>
+                <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- begin ng-if -->
+              <tr *ngFor="let data of distributionHistoryData">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+              </tr>
+              <!-- end ng-if -->
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="urAllocationHistoryModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" role="grid">
+            <thead>
+              <tr>
+                <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Recipient</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Amount</th>
+                <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- begin ng-if -->
+              <tr *ngFor="let data of distributionHistoryData">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+              </tr>
+              <!-- end ng-if -->
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Confirmation Modal -->
+  <style>
+    .activeProgram {
+      background: rgb(92, 184, 92);
+      color: rgb(255, 255, 255);
+      opacity: .875;
+      padding: .36rem .72rem;
+    }
+  </style>
 </main>

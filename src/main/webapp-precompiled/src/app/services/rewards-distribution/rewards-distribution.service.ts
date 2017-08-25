@@ -11,8 +11,20 @@ export class RewardsDistributionService {
   constructor(private http: Http) { }
 
 
-  getRewardsAmount(dealerCode): any {
+  getRewardsDistributionAmount(dealerCode): any {
     var url = this.baseUrl + "Rewards/" + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.get(url, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
+  getMVPDistributionData(dealerCode): any {
+    var url = this.baseUrl + "Rewards/MVPApproval/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -36,9 +48,76 @@ export class RewardsDistributionService {
         response.json())
       .catch(this.handleError);
   }
+  saveMVPDistributionDATA(dealerCode, data){
+    var url = this.baseUrl + "Rewards/MVPApproval/" + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var body=data;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
 
-  savePCData(dealerCode, list) {
-    var url = this.baseUrl + "Rewards/PartsCounter/" + dealerCode;
+    return this.http.post(url, body, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
+  getDistributionHistoryData(dealerCode, programName): any {
+    var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.get(url, { headers: headers })
+        .map((response: Response) =>
+            response.json())
+        .catch(this.handleError);
+}
+
+  // savePCDistributionData(dealerCode, list) {
+  //   var url = this.baseUrl + "Rewards/PartsCounter/" + dealerCode;
+  //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+  //   var body = list;
+  //   var headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+  //   headers.append('Authorization', validToken);
+
+  //   return this.http.post(url, body, { headers: headers })
+  //     .map((response: Response) =>
+  //       response.json())
+  //     .catch(this.handleCustomError);
+  // }
+
+  // saveELDistributionData(dealerCode, list) {
+  //   var url = this.baseUrl + "Rewards/ExpressLane/" + dealerCode;
+  //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+  //   var body = list;
+  //   var headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+  //   headers.append('Authorization', validToken);
+
+  //   return this.http.post(url, body, { headers: headers })
+  //     .map((response: Response) =>
+  //       response.json())
+  //     .catch(this.handleCustomError);
+  // }
+
+  // saveURDistributionData(dealerCode, list) {
+  //   var url = this.baseUrl + "Rewards/UsedRecon/" + dealerCode;
+  //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+  //   var body = list;
+  //   var headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+  //   headers.append('Authorization', validToken);
+
+  //   return this.http.post(url, body, { headers: headers })
+  //     .map((response: Response) =>
+  //       response.json())
+  //     .catch(this.handleCustomError);
+  // }
+
+  saveDistributionData(dealerCode, list, programName) {
+    var url = this.baseUrl + "Rewards/Distribution/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = list;
     var headers = new Headers();
@@ -51,15 +130,15 @@ export class RewardsDistributionService {
       .catch(this.handleCustomError);
   }
 
-  saveELData(dealerCode, list) {
-    var url = this.baseUrl + "Rewards/ExpressLane/" + dealerCode;
+  getDistributionAllocationHistory(dealerCode, programName) {
+    var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var body = list;
+   
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
 
-    return this.http.post(url, body, { headers: headers })
+    return this.http.get(url, { headers: headers })
       .map((response: Response) =>
         response.json())
       .catch(this.handleCustomError);
