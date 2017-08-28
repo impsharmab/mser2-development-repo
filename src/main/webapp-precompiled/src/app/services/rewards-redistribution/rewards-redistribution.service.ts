@@ -12,12 +12,13 @@ export class RewardsReDistributionService {
 
     redistributeAmount(dealerCode, allocationID) {
         var url = this.baseUrl + "Rewards/RedistributeReturnToDealer/" + dealerCode + "/" + allocationID;
+        var value = '0';
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+        // headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-
-        return this.http.post(url, { headers: headers })
+        //headers.append('Content-Length', '0');
+        return this.http.get(url, { headers: headers })
             .map((response: Response) =>
                 response.json())
             .catch(this.handleError);

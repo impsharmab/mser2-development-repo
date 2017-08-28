@@ -248,7 +248,7 @@ export class RewardsRedistributionComponent implements OnInit {
                 }
             }
         }
-        console.log(dataJson);
+      //  console.log(dataJson);
         this.elAllocationDataa = dataJson;
 
     }
@@ -273,7 +273,7 @@ export class RewardsRedistributionComponent implements OnInit {
                 }
             }
         }
-        console.log(dataJson);
+       // console.log(dataJson);
         this.pcAllocationDataa = dataJson;
 
     }
@@ -298,7 +298,7 @@ export class RewardsRedistributionComponent implements OnInit {
                 }
             }
         }
-        console.log(dataJson);
+      //  console.log(dataJson);
         this.urAllocationDataa = dataJson;
 
     }

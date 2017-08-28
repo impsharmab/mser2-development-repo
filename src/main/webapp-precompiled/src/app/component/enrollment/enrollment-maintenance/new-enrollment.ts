@@ -18,6 +18,7 @@ export class EnrollmentComponent implements OnInit {
     selectedCars;
     selectedCity;
 
+    private editSingleRow: boolean = false;
     private expressLaneDealerData: any;
     private isExpresslaneDealer: boolean = false;
     private selectedpc: string = "";
@@ -884,6 +885,11 @@ export class EnrollmentComponent implements OnInit {
     }
     private activeUser: string = "";
     private edit(rowData, editButton, cancelButton, saveButton) {
+        if (this.editSingleRow) {
+            return;
+        } else {
+            this.editSingleRow = true;
+        }
         this.msg = "";
         editButton.style["display"] = "none";
         cancelButton.style["display"] = "block";
@@ -900,12 +906,12 @@ export class EnrollmentComponent implements OnInit {
     private saveButton: any;
     private rowData: any;
     private cancel(rowData, editButton, cancelButton, saveButton) {
+      //  this.editSingleRow = false;
         this.confirmCancel = true;
         this.editButton = editButton;
         this.cancelButton = cancelButton;
         this.saveButton = saveButton;
         this.rowData = rowData;
-        debugger
         //editButton.style["display"] = "block";
         // cancelButton.style["display"] = "none";
         // saveButton.style["display"] = "none";
@@ -914,6 +920,7 @@ export class EnrollmentComponent implements OnInit {
         // this.getEnrollmentData();
     }
     private continueCancel() {
+        this.editSingleRow = false;
         this.confirmCancel = false;
         this.editButton.style["display"] = "block";
         this.cancelButton.style["display"] = "none";
@@ -924,12 +931,14 @@ export class EnrollmentComponent implements OnInit {
 
     }
     private discontinueCancel() {
+        this.editSingleRow = true;
         this.confirmCancel = false;
         this.editButton = {};
         this.cancelButton = {};
         this.saveButton = {};
     }
     private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton) {
+        // this.editSingleRow = false;
         this.confirmSave = true;
         this.editButton = editButton;
         this.cancelButton = cancelButton;
@@ -953,6 +962,7 @@ export class EnrollmentComponent implements OnInit {
 
     // }
     private discontinueSave() {
+        this.editSingleRow = true;
         this.confirmSave = false;
         this.editButton = {};
         this.cancelButton = {};
@@ -964,6 +974,7 @@ export class EnrollmentComponent implements OnInit {
         var myPersonal
     }
     private continueSave() {
+        this.editSingleRow = false;
         var rowData = this.rowData;
         var editButton = this.editButton;
         var cancelButton = this.cancelButton;

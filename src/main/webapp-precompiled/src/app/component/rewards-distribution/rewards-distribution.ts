@@ -45,61 +45,162 @@ export class RewardsDistributionComponent implements OnInit {
   }
 
   private rewardsAmount: any = {}
+  private disableMVPButton: boolean = false;
+  private disableELButton: boolean = false;
+  private disablePCButton: boolean = false;
+  private disableURButton: boolean = false;
+
   private getRewardsDistributionAmount() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getRewardsDistributionAmount(dealerCode).subscribe(
       (rewardsAmount) => {
         this.rewardsAmount = (rewardsAmount)
+        if (this.rewardsAmount.MVP != undefined && this.rewardsAmount.MVP == 0) {
+          this.disableMVPButton = true;
+        } if (this.rewardsAmount.el != undefined && this.rewardsAmount.el == 0) {
+          this.disableELButton = true;
+        } if (this.rewardsAmount.pc != undefined && this.rewardsAmount.pc == 0) {
+          this.disablePCButton = true;
+        } if (this.rewardsAmount.ur != undefined && this.rewardsAmount.ur == 0) {
+          this.disableURButton = true;
+        }
       },
       (error) => {
       }
     )
   }
 
-  private showMVPDIV: boolean = false;
-  private showELDIV: boolean = false;
-  private showPCDIV: boolean = false;
-  private showURDIV: boolean = false;
-  private preSelectedProgramName: string = "";
-  private displayActiveProgram: boolean = false;
-  private count: any = 0;
-  private mvpOpenAllocationTable() {
-    this.msg = "";
-    if (this.count == 0) { }
-    this.displayActiveProgram = !this.displayActiveProgram;
-    this.preSelectedProgramName = "Active Program: MVP";
-    this.showMVPDIV = true;
-    this.showELDIV = false;
-    this.showPCDIV = false;
-    this.showURDIV = false;
+  // private showMVPDIV: boolean = false;
+  // private showELDIV: boolean = false;
+  // private showPCDIV: boolean = false;
+  // private showURDIV: boolean = false;
+  // private preSelectedProgramName: string = "";
+  // private displayActiveProgram: boolean = false;
+  // private count: any = 0;
+  // private mvpOpenAllocationTable() {
+  //   this.msg = "";
+  //   if (this.count == 0) { }
+  //   this.displayActiveProgram = !this.displayActiveProgram;
+  //   this.preSelectedProgramName = "Active Program: MVP";
+  //   this.showMVPDIV = true;
+  //   this.showELDIV = false;
+  //   this.showPCDIV = false;
+  //   this.showURDIV = false;
 
+  // }
+  // private elOpenAllocationTable() {
+  //   this.msg = "";
+  //   this.displayActiveProgram = !this.displayActiveProgram;
+  //   this.preSelectedProgramName = "Active Program: Express Lane";
+  //   this.showMVPDIV = false;
+  //   this.showELDIV = true;
+  //   this.showPCDIV = false;
+  //   this.showURDIV = false;
+  // }
+  // private pcOpenAllocationTable() {
+  //   this.msg = "";
+  //   this.displayActiveProgram = !this.displayActiveProgram;
+  //   this.preSelectedProgramName = "Active Program: Parts Counter";
+  //   this.showMVPDIV = false;
+  //   this.showELDIV = false;
+  //   this.showPCDIV = true;
+  //   this.showURDIV = false;
+  // }
+  // private urOpenAllocationTable() {
+  //   this.msg = "";
+  //   this.displayActiveProgram = !this.displayActiveProgram;
+  //   this.preSelectedProgramName = "Active Program: Used Recon";
+  //   this.showMVPDIV = false;
+  //   this.showELDIV = false;
+  //   this.showPCDIV = false;
+  //   this.showURDIV = true;
+  // }
+  private showActiveProgram: boolean = false;
+  private activeProgram: string = "";
+  private lastClick: string = "";
+  private hideMVPSection: boolean = true;
+  private hideELSection: boolean = true;
+  private hidePCSection: boolean = true;
+  private hideURSection: boolean = true;
+  private mvpOpenAllocationTable() {
+    this.hideMVPSection = true;
+    this.hideELSection = false;
+    this.hideURSection = false;
+    this.hidePCSection = false;
+    if (this.lastClick == "MVP" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "MVP";
+      this.lastClick = "MVP";
+    } else if (this.lastClick == "MVP" && this.showActiveProgram == true) {
+      this.showActiveProgram = false;
+      this.hideMVPSection = true;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "MVP";
+      this.lastClick = "MVP";
+    }
   }
   private elOpenAllocationTable() {
-    this.msg = "";
-    this.displayActiveProgram = !this.displayActiveProgram;
-    this.preSelectedProgramName = "Active Program: Express Lane";
-    this.showMVPDIV = false;
-    this.showELDIV = true;
-    this.showPCDIV = false;
-    this.showURDIV = false;
+    this.hideMVPSection = false;
+    this.hideELSection = true;
+    this.hideURSection = false;
+    this.hidePCSection = false;
+    if (this.lastClick == "Express Lane" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "Express Lane";
+      this.lastClick = "Express Lane";
+    } else if (this.lastClick == "Express Lane" && this.showActiveProgram == true) {
+      this.showActiveProgram = false;
+      this.hideELSection = true;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "Express Lane";
+      this.lastClick = "Express Lane";
+    }
   }
   private pcOpenAllocationTable() {
-    this.msg = "";
-    this.displayActiveProgram = !this.displayActiveProgram;
-    this.preSelectedProgramName = "Active Program: Parts Counter";
-    this.showMVPDIV = false;
-    this.showELDIV = false;
-    this.showPCDIV = true;
-    this.showURDIV = false;
+    this.hideMVPSection = false;
+    this.hideELSection = false;
+    this.hidePCSection = true;
+    this.hideURSection = false;
+    if (this.lastClick == "Parts Counter" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "Parts Counter";
+      this.lastClick = "Parts Counter";
+    } else if (this.lastClick == "Parts Counter" && this.showActiveProgram == true) {
+      this.showActiveProgram = false;
+      this.hidePCSection = true;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "Parts Counter";
+      this.lastClick = "Parts Counter";
+    }
   }
   private urOpenAllocationTable() {
-    this.msg = "";
-    this.displayActiveProgram = !this.displayActiveProgram;
-    this.preSelectedProgramName = "Active Program: Used Recon";
-    this.showMVPDIV = false;
-    this.showELDIV = false;
-    this.showPCDIV = false;
-    this.showURDIV = true;
+    this.hideMVPSection = false;
+    this.hideELSection = false;
+    this.hidePCSection = false;
+    this.hideURSection = true;
+    if (this.lastClick == "Used Recon" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "Used Recon";
+      this.lastClick = "Used Recon";
+    } else if (this.lastClick == "Used Recon" && this.showActiveProgram == true) {
+      this.hideURSection = true;
+      this.showActiveProgram = false;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "Used Recon";
+      this.lastClick = "Used Recon";
+    }
   }
 
   private mvpDistributionDatum: any;
@@ -108,12 +209,12 @@ export class RewardsDistributionComponent implements OnInit {
     this.rewardsDistributionService.getMVPDistributionData(dealerCode).subscribe(
       (mvpDistributionDatum) => {
         this.mvpDistributionDatum = (mvpDistributionDatum)
-        console.log(this.mvpDistributionDatum);
+        // console.log(this.mvpDistributionDatum);
         for (var i = 0; i < this.mvpDistributionDatum.length; i++) {
           this.mvpDistributionDatum[i].selectedSid = "";
           this.mvpDistributionDatum[i].approved = "No";
         }
-        console.log(this.mvpDistributionDatum);
+        //  console.log(this.mvpDistributionDatum);
       },
       (error) => {
       }
@@ -178,9 +279,12 @@ export class RewardsDistributionComponent implements OnInit {
       (saveMVPDistributionDatum) => {
         this.saveMVPDistributionDatum = (saveMVPDistributionDatum)
         this.getMVPDistributionData();
+        this.mvpCancellation();
 
       },
       (error) => {
+        this.mvpCancellation();
+
       }
     )
 
@@ -325,6 +429,9 @@ export class RewardsDistributionComponent implements OnInit {
         if (this.saveDistributionDATUM == true) {
           this.msg = "Successfully Allocated the Rewards Amount";
         }
+        this.elCancellation();
+        this.pcCancellation();
+        this.urCancellation();
       },
       (error) => {
         setTimeout(() => {
@@ -335,6 +442,9 @@ export class RewardsDistributionComponent implements OnInit {
           }
 
         }, 1000)
+        this.elCancellation();
+        this.pcCancellation();
+        this.urCancellation();
       }
     )
   }
@@ -371,6 +481,74 @@ export class RewardsDistributionComponent implements OnInit {
     // alert(amount);
   }
 
+  private mvpCancellation() {
+    this.hideMVPSection = false;
+    if (this.lastClick == "MVP" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "MVP";
+      this.lastClick = "MVP";
+    } else if (this.lastClick == "MVP" && this.showActiveProgram == true) {
+      this.showActiveProgram = false;
+      this.hideMVPSection = false;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "MVP";
+      this.lastClick = "MVP";
+    }
+  }
+  private elCancellation() {
+    this.hideELSection = false;
+    if (this.lastClick == "Express Lane" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "Express Lane";
+      this.lastClick = "Express Lane";
+    } else if (this.lastClick == "Express Lane" && this.showActiveProgram == true) {
+      this.showActiveProgram = false;
+      this.hideELSection = false;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "Express Lane";
+      this.lastClick = "Express Lane";
+    }
+  }
+  private pcCancellation() {
+    this.hidePCSection = false;
+    if (this.lastClick == "Parts Counter" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "Parts Counter";
+      this.lastClick = "Parts Counter";
+    } else if (this.lastClick == "Parts Counter" && this.showActiveProgram == true) {
+      this.showActiveProgram = false;
+      this.hidePCSection = false;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "Parts Counter";
+      this.lastClick = "Parts Counter";
+    }
+  }
+  private urCancellation() {
+    this.hideURSection = false;
+    if (this.lastClick == "Used Recon" && this.showActiveProgram == false) {
+      this.showActiveProgram = false;
+      this.activeProgram = "Used Recon";
+      this.lastClick = "Used Recon";
+    } else if (this.lastClick == "Used Recon" && this.showActiveProgram == true) {
+      this.hideURSection = false;
+      this.showActiveProgram = false;
+      this.activeProgram = "";
+      this.lastClick = "";
+    } else {
+      this.showActiveProgram = true;
+      this.activeProgram = "Used Recon";
+      this.lastClick = "Used Recon";
+    }
+  }
 
 
 }

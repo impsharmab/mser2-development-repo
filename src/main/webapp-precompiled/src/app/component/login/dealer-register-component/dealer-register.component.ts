@@ -71,7 +71,7 @@ export class DealerRegisterComponent implements OnInit {
     }
 
   }
-  private dealerEnrollmentPCCheckBox() {
+  private dealerEnrollmentPCCheckBox() { 
     this.dealerEnrollment.isPartsCounter = true;
   }
   private dealerEnrollmentUsedReconCheckBox() {
