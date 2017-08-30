@@ -113,17 +113,13 @@ export class EnrollmentComponent implements OnInit {
         this.getPositionCodes();
         this.getEnrollmentData();
         this.getExpresslaneDealer();
-
-
     }
     private getSelectedDealerCode() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     }
-
     private getSelectedDealerName() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
     }
-
     private getPositionCodes() {
         this.enrollmentService.getPositionCodes().subscribe(
             (positionCodesResponse) => {
@@ -283,7 +279,6 @@ export class EnrollmentComponent implements OnInit {
             }
         )
     }
-
     private readItem1ReturnItem2(data, index) {
         var positionCodes: any = [];
         var overriddenpositionCodes: any = [];
@@ -875,7 +870,6 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].usedReconParticipantOptions = this.removeDuplicates(usedReconParticipantOptionss);
 
     }
-
     private onEditInitE(event: any) {
         if (!event.data.isEditableR) {
             setTimeout(() => {
@@ -898,7 +892,7 @@ export class EnrollmentComponent implements OnInit {
         rowData.isEditableR = true;
         this.enableEditable = true;
     }
-
+    
     private confirmCancel: boolean = false;
     private confirmSave: boolean = false;
     private editButton: any;
@@ -1151,4 +1145,9 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
+    private onRowSelect(event){
+        console.log(event);
+        event.data.isEditableR = true;
+        this.enableEditable = true;
+    }
 } 

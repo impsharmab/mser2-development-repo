@@ -23,6 +23,10 @@ import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
 import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
 import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-component';
+import { CategoryMaintenanceComponent } from '../../category-maintenance/category-maintenance.component';
+import { PartAddComponent } from '../../part-add/part-add.component';
+import { PartMaintenanceComponent } from '../../part-maintenance/part-maintenance.component';
+
 
 const routes: Routes = [
 
@@ -113,6 +117,21 @@ const routes: Routes = [
             {
                 path: "jasperreport",
                 component: JasperPocComponent
+
+            },
+            {
+                path: "categorymaintenance",
+                component: CategoryMaintenanceComponent
+
+            },
+            {
+                path: "partadd",
+                component: PartAddComponent
+
+            },
+            {
+                path: "partmaintenance",
+                component: PartMaintenanceComponent
 
             },
 

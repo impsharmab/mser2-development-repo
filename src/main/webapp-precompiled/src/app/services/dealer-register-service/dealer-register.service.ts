@@ -12,6 +12,42 @@ export class DealerRegisterService {
 
   }
 
+  submitDealerAndPositionCode(dealerCode, sid) {
+    var url = this.baseUrl + "enrollments/forms/mser/check";
+    var body = { dealerCode: dealerCode, sid: sid }
+    // var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    //  headers.append('Authorization', validToken);
+
+    return this.http.post(url, body, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleCustomError);
+  }
+
+  saveDealerEnrollmentForm(
+    dealerCode, sid, dealerPrincipalEmail, phone,
+    selectedPartsManager, partsManagerEmail, selectedServiceManager, serviceManagerEmail,
+    isPartsCounter, isUsedRecon, isExpressLane
+  ) {
+    var url = this.baseUrl + "enrollments/forms/mser";
+    var body = {
+      dealerCode: dealerCode, sID: sid, email: dealerPrincipalEmail, phone: phone,
+      managerP: selectedPartsManager, managerPEmail: partsManagerEmail,
+      managerS: selectedServiceManager, managerSEmail: serviceManagerEmail,
+      enrollPartsCounter: isPartsCounter, enrollUsedRecon: isUsedRecon, enrollExpressLane: isExpressLane
+    }
+    // var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    //  headers.append('Authorization', validToken);
+
+    return this.http.post(url, body, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleCustomError);
+  }
 
   registerDealership(dealerSID: string, dealerCode: string, dealerPrincipalEmail: string): any {
     var registerDealershipUrl = this.baseUrl + "Registration/dealerRegistration";
@@ -33,5 +69,16 @@ export class DealerRegisterService {
       errMsg = error.message ? error.message : error.toString();
     }
     return Observable.throw(errMsg);
+  }
+
+  private handleCustomError(error: Response | any) {
+    let errMsg: string = "";
+    if (error instanceof Response) {
+      errMsg = `${error.text() || ''}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    return Observable.throw(errMsg);
+
   }
 }

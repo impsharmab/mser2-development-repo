@@ -386,7 +386,7 @@ export class RewardsRedistributionComponent implements OnInit {
     }
 
     private activeAllocationID: any = 0;
-    openPCRedistributionTable(allocationID, programName) {
+    openPCRedistributionTable(allocationID, programName) { 
         this.activeAllocationID = allocationID;
         this.participantsOptions = [];
         this.getParticipantsByDealer(this.insertedDealercode, programName);
@@ -445,7 +445,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private hideELSection: boolean = true;
     private hidePCSection: boolean = true;
     private hideURSection: boolean = true;
-    private hidePayoutSection: boolean = true;
+    private hidePayoutSection: boolean = true; 
     private elProceedToAllocation() {
         this.hideELSection = true;
         this.hidePCSection = false;

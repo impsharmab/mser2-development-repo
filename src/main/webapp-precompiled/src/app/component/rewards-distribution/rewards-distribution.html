@@ -33,29 +33,29 @@
         <!-- begin ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">MVP</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()" [disabled]="disableMVPButton">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()" [disabled]="disableMVPButton">Approve Plans <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if [disabled]="disableELButton" [disabled]="disablePCButton" [disabled]="disableURButton"-->
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressLane"
               aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el')" >Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#partsCounter"
               aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable(); getParticipantsByDealer('pc')" >Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#usedRecon"
               aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable(); getParticipantsByDealer('ur')" >Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
@@ -96,11 +96,11 @@
           <tbody>
             <!-- begin ng-if -->
             <tr *ngFor="let data of mvpDistributionDatum">
-              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.approveDate}}</td>
+              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.loadDate}}</td>
               <td class="" headers="allocation-contract-number" role="gridcell">{{data.contractNumber}}</td>
               <td class="" headers="allocation-vin" role="gridcell">{{data.vin}}</td>
               <td class="" headers="allocation-plan-code" role="gridcell">{{data.planCode}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{data.rewardValue}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{data.rewardValue | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="allocation-sid-name" role="gridcell">
                 <!-- <select class="form-control" id="SID-name-1" [(ngModel)]="mvpInterface.sid" >
                     <option value="sid" *ngFor="let sid of mvpData.sid" >{{sid}}</option>
@@ -162,8 +162,8 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.el}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.el}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -194,7 +194,7 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
 
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elCancelationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
@@ -239,8 +239,8 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.pc}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.pc}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -271,7 +271,7 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
 
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcSaveConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
@@ -315,8 +315,8 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.ur}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.ur}}</td>
+              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -347,7 +347,7 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urCancellationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
         </div>
@@ -502,7 +502,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
@@ -537,7 +537,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
@@ -572,7 +572,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="allocationHistoryModalLabel">Are you sure you want to continue?</h4>
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">

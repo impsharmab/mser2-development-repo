@@ -1,0 +1,121 @@
+<main class="main">
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Add Part Number
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container m-t-md">
+        <div class="row m-t-md">
+            <div class="col-xs-12 col-md-12">
+
+                <!-- Part Number by Category -->
+                <br/>
+                    <h3>Upload Part Numbers</h3>
+                        <form style="margin-left:20px;">
+                            
+                            <label for="exampleInputFile">Upload</label>
+                            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <small id="fileHelp" class="form-text">Please upload the part list with these columns (File Format: Excel): Program Group, Category, Part Number, Part Description, Manufacturer, Start Date, End Date.</small>
+
+                        </form>
+                        
+                        <hr/>
+
+                            <h3>Add an Individual Part Number</h3>
+                            <div class="modal-body">
+                                <form>
+                                    <label>
+                                Program Group
+                            </label>
+                                    <select id="payout-month" class="form-control" name="rewardPosition">
+                                    <option>Express Lane</option>
+                                    <option>Magneti Marelli</option>
+                                    <option>Mopar Accessories</option>
+                                    <option>Mopar Parts &amp; Engines</option>
+                                    <option>Mopar Vehicle Protection</option>
+                                    <option>Parts Counter</option>
+                                    <option>wiAdvisor</option>
+                                    <option>FIAT</option>
+                                    <option>UConnect</option>
+                                    <option>Tires</option>
+                                    <option>wiAdvisor Tire</option>
+                                </select>
+
+                                    <label>
+                                    Category
+                                </label>
+                                    <select id="add-reward-category" class="form-control" name="">
+                                    <option>MSER OE Brake Pad Kits (BRKE)</option>
+                                    <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                                    <option>Mopar Engines (MENG)</option>
+                                    <option>Mopar AC Compressors (MOPAC)</option>
+                                    <option>MSER RECALL - N45 (N45)</option>
+                                    <option>MSER RECALL - N46 (N46)</option>
+                                    <option>Pot Hole Promo (POTHOLE)</option>
+                                    <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                                    <option>Rain Repellent (#68194881AA) (RR)</option>
+                                    <option>Transmissions and T-Cases (T_CASES)</option>
+                                </select>
+
+
+                                    <label>
+                                    Part Number
+                            </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Part Number" value="">
+
+                                    <label>
+                                    Part Description
+                                </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
+
+                                    <label>
+                                    Manufacturer
+                                </label>
+                                    <input id="" type="text" class="form-control" name="" placeholder="Enter reward amount" value="">
+                                    <br/>
+
+                                    <label>
+                                    Start Date
+                                </label>
+                                    <ng2-datepicker name="date" [options]="options" [(ngModel)]="date"></ng2-datepicker>
+
+                                    <label>
+                                    End Date
+                                </label>
+                                    <ng2-datepicker name="date" [options]="options" [(ngModel)]="date"></ng2-datepicker>
+
+
+                                </form>
+
+                                <br/>
+                                <input id="" class="btn btn-primary" type="submit" value="Save" />
+
+                            </div>
+
+                      
+                <!-- Zozo Tabs Start-->
+                <div id="tabbed-nav">
+
+
+                    <!-- Content container -->
+                    <div>
+
+
+
+                    </div>
+
+                </div>
+                <!-- Zozo Tabs End-->
+
+            </div>
+        </div>
+    </div>
+</main>

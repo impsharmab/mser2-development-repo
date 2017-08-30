@@ -15,6 +15,9 @@ import {
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-component';
+import { CategoryMaintenanceComponent } from '../../category-maintenance/category-maintenance.component';
+import { PartAddComponent } from '../../part-add/part-add.component';
+import { PartMaintenanceComponent } from '../../part-maintenance/part-maintenance.component';
 
 import { BodyComponent } from '../../body/body.component';
 import { HeaderComponent } from '../../header/header.component';
@@ -57,7 +60,7 @@ import { JasperService } from '../../../services/report/jasper-report-poc/jasper
     PayoutchartComponent, OpcodeSetupComponent, UserProfileComponent, ContactUsComponent,
     DealercodeModalComponent, CMSComponent, PartsLookupComponent, RewardsRedistributionComponent, MVPComponent,
     RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
-    EnrollmentComponent, JasperPocComponent
+    EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent
 
   ],
   providers: [

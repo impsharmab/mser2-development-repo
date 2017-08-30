@@ -49,7 +49,6 @@ export class RewardsDistributionComponent implements OnInit {
   private disableELButton: boolean = false;
   private disablePCButton: boolean = false;
   private disableURButton: boolean = false;
-
   private getRewardsDistributionAmount() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getRewardsDistributionAmount(dealerCode).subscribe(
@@ -69,6 +68,7 @@ export class RewardsDistributionComponent implements OnInit {
       }
     )
   }
+
 
   // private showMVPDIV: boolean = false;
   // private showELDIV: boolean = false;
@@ -123,6 +123,7 @@ export class RewardsDistributionComponent implements OnInit {
   private hidePCSection: boolean = true;
   private hideURSection: boolean = true;
   private mvpOpenAllocationTable() {
+    this.msg = "";
     this.hideMVPSection = true;
     this.hideELSection = false;
     this.hideURSection = false;
@@ -143,6 +144,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private elOpenAllocationTable() {
+    this.msg = "";
     this.hideMVPSection = false;
     this.hideELSection = true;
     this.hideURSection = false;
@@ -163,6 +165,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private pcOpenAllocationTable() {
+    this.msg = "";
     this.hideMVPSection = false;
     this.hideELSection = false;
     this.hidePCSection = true;
@@ -183,6 +186,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private urOpenAllocationTable() {
+    this.msg = "";
     this.hideMVPSection = false;
     this.hideELSection = false;
     this.hidePCSection = false;
@@ -267,20 +271,31 @@ export class RewardsDistributionComponent implements OnInit {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var mvpDistributionData = this.mvpDistributionDatum;
     var data: any = {};
+    var count: any = 0;
     for (var i = 0; i < mvpDistributionData.length; i++) {
       if (mvpDistributionData[i].sid.length > 0 && mvpDistributionData[i].approved == "Yes") {
         mvpDistributionData[i].approveDate = this.date;
       } else if (mvpDistributionData[i].approved == "No") {
         mvpDistributionData[i].approveDate = null;
+        count++;
       }
     }
+
+    if (count == mvpDistributionData.length) {
+      this.msg="Please check at least a single SID."
+      return;
+    }
+    for (var j = 0; j < mvpDistributionData.length; j++) {
+
+    }
+
     data.list = mvpDistributionData;
     this.rewardsDistributionService.saveMVPDistributionDATA(dealerCode, data).subscribe(
       (saveMVPDistributionDatum) => {
         this.saveMVPDistributionDatum = (saveMVPDistributionDatum)
         this.getMVPDistributionData();
         this.mvpCancellation();
-
+        this.msg = "Successfully Updated";
       },
       (error) => {
         this.mvpCancellation();
@@ -409,17 +424,60 @@ export class RewardsDistributionComponent implements OnInit {
   // }
 
   private saveDistributionDATUM: any;
+
   private saveDistributionDATA(programName: string) {
+    var program = programName;
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var nameValueList: any = [];
     var nameValues: any = {};
     var rewardsAmount = this.rewardsAmount;
     var totalValues: any = 0;
+    var checkDuplicateArray = [];
+    var amount: any = 0;
+
+    if (programName == "pc") {
+      amount = rewardsAmount.pc
+    } else if (programName == "el") {
+      amount = rewardsAmount.el
+    } else if (programName == "MVP") {
+      amount = rewardsAmount.MVP
+    } else if (programName == "ur") {
+      amount = rewardsAmount.ur
+    }
 
     for (var i = 0; i < this.participantDataValue.length; i++) {
       if (this.participantDataValue[i].name.length > 0 && this.participantDataValue[i].value.length > 0) {
         nameValueList.push({ name: this.participantDataValue[i].name, value: parseFloat(this.participantDataValue[i].value) })
       }
+    }
+
+    checkDuplicateArray.push(nameValueList[0]);
+    for (var k = 1; k < nameValueList.length; k++) {
+      var check = false;
+      for (var l = 0; l < checkDuplicateArray.length; l++) {
+        if (nameValueList[k].name == checkDuplicateArray[l].name) {
+          check = true;
+          this.pcOpenAllocationTable();
+          this.getParticipantsByDealer('pc');
+          this.msg = "You have selected the same participant twice. Please revise your reward distribution and Save Changes.";
+          return;
+        }
+      }
+      if (!check) {
+        checkDuplicateArray.push(nameValueList[k]);
+      }
+    }
+
+    for (var m = 0; m < nameValueList.length; m++) {
+      totalValues = totalValues + nameValueList[m].value;
+    }
+
+    if (totalValues > amount) {
+      this.msg = "Distributions may not exceed total reward amount";
+      return;
+    } else if (totalValues < amount) {
+      this.msg = "Additional funds remain, Please continue reward distribution";
+      return;
     }
     nameValues.list = nameValueList;
 
@@ -427,7 +485,7 @@ export class RewardsDistributionComponent implements OnInit {
       (saveDistributionDATUM) => {
         this.saveDistributionDATUM = (saveDistributionDATUM)
         if (this.saveDistributionDATUM == true) {
-          this.msg = "Successfully Allocated the Rewards Amount";
+          this.msg = "Successfully Allocated the Reward Amount";
         }
         this.elCancellation();
         this.pcCancellation();
