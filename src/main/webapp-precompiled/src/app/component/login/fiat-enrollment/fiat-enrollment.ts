@@ -15,6 +15,9 @@ import { FiatEnrollmentFormInterface } from './fiat-enrollment.interface';
     // styleUrls: ['./dealer-register.component.css']
 })
 export class FiatEnrollmentComponent implements OnInit {
+    private disableFields: boolean = false;
+    private date: DateModel;
+    private todayDate: string = "";
     private fiatEnrollment: FiatEnrollmentFormInterface = {
         aggrement1: false, aggrement2: false, dealerCode: "", sid: "", dealershipName: "", dealerPrincipalName: "", dealerPrincipalEmail: "", phone: "",
         signature: "", date: "", selectedManager: "", managerEmail: "",
@@ -23,7 +26,13 @@ export class FiatEnrollmentComponent implements OnInit {
     constructor(private router: Router) { }
 
     ngOnInit() {
+        var d = new Date;
+        this.todayDate = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
+    
+    }
 
+    private submitDealerCodeAndSID() {
+        this.disableFields = true;
     }
     cancel() {
         let url = ["login"]

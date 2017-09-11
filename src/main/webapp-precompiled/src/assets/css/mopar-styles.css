@@ -113,13 +113,26 @@ a {
 .sidebar ul.nav li.nav-item a.nav-link.active {
   background: rgba(255,255,255,.25) !important;
 }
-.nav-item.nav-dropdown.open{
-  border-bottom: 1px solid rgb(206,206,206);
+.nav-item.open .parent-link {
+  border-width:1px 0;
+  border-style: solid;
+  border-color: rgb(255,255,255);
 }
-.nav-item.nav-dropdown.open .nav-dropdown-toggle {
-  border-top: 1px solid rgb(206,206,206);
-  border-bottom: 1px solid rgb(206,206,206);
-  font-weight: bold;
+.nav-item.dopdown-parent.open{
+  border-bottom: 1px solid rgb(255,255,255);
+}
+.nav-dropdown-items .nav-item.nav-dropdown .child-link{
+  border-width:1px 0 0;
+  border-style: solid;
+  border-color: rgba(255,255,255,.5);
+}
+.nav-dropdown-items .nav-item.nav-dropdown .child-link.only-child {
+  border-bottom-width:1px;
+}
+.nav-dropdown-items .nav-item.nav-dropdown.open .child-link{
+  border-width:1px 0;
+  border-style: solid;
+  border-color: rgba(255,255,255,.75);
 }
 /* End nested links collection */
 
@@ -365,6 +378,45 @@ table#program-groups.table tbody tr td:last-child {
   color: rgb(0,0,0);
 }
 /* End Enrollment Maintenance */
+
+
+/* Begin Report Center */
+.report {
+  list-style: none;
+}
+.report-item-link{
+  background-color: rgb(240,240,240);
+  color: rgb(0,104,179);
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  transition: background-color .667s;
+}
+.report-item-link:hover {
+  background-color: rgb(230,230,230);
+  text-decoration: none;
+  transition: background-color .333s;
+}
+.report-item-link span {
+  align-self: flex-start;
+  background-color: rgb(0,104,179);
+  color: rgb(255,255,255);
+  justify-content: center;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0,0,0,.25);
+  transition: background-color .667s;
+}
+.report-item-link:hover span {
+  background: rgba(0,104,179,.75);
+  transition: background-color .333s;
+}
+.report-item-link i{
+  color: rgba(0,0,0,.125);
+  transition: color .333s, left .667s;
+}
+.report-item-link:hover i {
+  color:rgba(0,104,179,.45);
+  transition: color .333s, left .333s;
+ }
+/* End Report Center */
 
 
 /* Begin Miscellaneous */

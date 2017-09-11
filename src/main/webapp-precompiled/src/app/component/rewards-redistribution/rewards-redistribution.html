@@ -37,7 +37,7 @@
       <thead>
         <tr>
           <th id="reward-program" scope="col" role="columnheader">Program</th>
-          <th class="right-align" id="amount-to-be-distributed" scope="col" role="columnheader">Amount Available To Be Distributed</th>
+          <th class="right-align" id="amount-to-be-distributed" scope="col" role="columnheader">Amount Available To Re-Distribute</th>
           <th id="proceed-to-re-allocations" scope="col" role="columnheader"><span class="hide-me">Proceed To Re-Allocations</span></th>
         </tr>
       </thead>
@@ -45,26 +45,26 @@
         <!-- begin ng-if -->
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.el}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.el | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#elDistributionTable"
               aria-expanded="false" aria-controls="elDistributionTable" [disabled]="disableelButton" (click)="elProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if   -->
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.pc}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.pc | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#pcDistributionTable"
               aria-expanded="false" aria-controls="pcDistributionTable" [disabled]="disablepcButton" (click)="pcProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.ur}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.ur | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#urDistributionTable"
-              aria-expanded="false" aria-controls="urDistributionTable"  [disabled]="disableurButton" (click)="urProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="urDistributionTable" [disabled]="disableurButton" (click)="urProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Payout Re-Distribution</td>
-          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.payout}}</td>
+          <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.payout | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable"
               aria-expanded="false" aria-controls="payoutTable" [disabled]="disablepayoutButton" (click)="payoutProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
@@ -96,9 +96,9 @@
           <tbody>
             <tr *ngFor="let elAllocData of elAllocationDataa">
               <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable"
-                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'el')"><i class="fa fa-clone"></i> {{elAllocData.date}}</a></td>
-              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{elAllocData.amount}}</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#elDistributedAmountModal" data-toggle="modal" data-target="#elDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)">{{elAllocData.amount}}</a></td>
+                  (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')"><i class="fa fa-clone"></i> {{elAllocData.date }}</a></td>
+              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#elDistributedAmountModal" data-toggle="modal" data-target="#elDistributedAmountModal" (click)="openELHistory(elAllocData.allocationID)">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
             </tr>
           </tbody>
         </table>
@@ -112,7 +112,7 @@
             <table class="table table-bordered table-striped col-sm-12" role="grid" id="elAllocationTable">
               <thead>
                 <tr>
-                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID/TID)</th>
+                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID)</th>
                   <th class="right-align" id="allocation-participant-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
                 </tr>
               </thead>
@@ -158,7 +158,7 @@
     <div class="collapse col-sm-12" id="pcDistributionTable" *ngIf="hidePCSection">
       <div class="row">
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('pc')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
         </div>
         <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -172,9 +172,11 @@
           <tbody>
             <tr *ngFor="let pcAllocData of pcAllocationDataa">
               <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#pcParticipantTable" aria-expanded="false" aria-controls="pcParticipantTable"
-                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'pc')"><i class="fa fa-clone"></i> {{pcAllocData.date}}</a></td>
-              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{pcAllocData.amount}}</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#pcDistributedAmountModal" data-toggle="modal" data-target="#pcDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)">{{pcAllocData.amount}}</a></td>
+                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'pc')" style="text-decoration: underline">
+                  <i class="fa fa-clone"></i> {{pcAllocData.date}}</a></td>
+              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#pcDistributedAmountModal" data-toggle="modal" data-target="#pcDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)"
+                  style="text-decoration: underline">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
             </tr>
           </tbody>
         </table>
@@ -188,7 +190,7 @@
             <table class="table table-bordered table-striped col-sm-12" role="grid" id="pcAllocationTable">
               <thead>
                 <tr>
-                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID/TID)</th>
+                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID)</th>
                   <th class="right-align" id="allocation-participant-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
                 </tr>
               </thead>
@@ -200,11 +202,10 @@
                       filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
                   </td>
                   <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="text"
+                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="number"
                     />
                   </td>
                 </tr>
-
               </tbody>
             </table>
 
@@ -234,7 +235,7 @@
     <div class="collapse col-sm-12" id="urDistributionTable" *ngIf="hideURSection">
       <div class="row">
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('ur')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
         </div>
         <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -247,10 +248,14 @@
           </thead>
           <tbody>
             <tr *ngFor="let urAllocData of urAllocationDataa">
-              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#urParticipantTable" aria-expanded="false" aria-controls="urParticipantTable"
-                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'ur')"><i class="fa fa-clone"></i> {{urAllocData.date}}</a></td>
-              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{urAllocData.amount}}</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#urDistributedAmountModal" data-toggle="modal" data-target="#urDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)">{{urAllocData.amount}}</a></td>
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
+                <a data-toggle="collapse" href="#urParticipantTable" aria-expanded="false" aria-controls="urParticipantTable" (click)="openPCRedistributionTable(urAllocData.allocationID, 'ur')"
+                  style="text-decoration: underline">
+                  <i class="fa fa-clone"></i> {{urAllocData.date}}</a></td>
+              <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{urAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell">
+                <a class="" href="#urDistributedAmountModal" data-toggle="modal" data-target="#urDistributedAmountModal" (click)="openURHistory(urAllocData.allocationID)"
+                  style="text-decoration: underline">{{urAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
             </tr>
           </tbody>
         </table>
@@ -264,7 +269,7 @@
             <table class="table table-bordered table-striped col-sm-12" role="grid" id="urAllocationTable">
               <thead>
                 <tr>
-                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID/TID)</th>
+                  <th class="" id="allocation-participants" role="columnheader" scope="col">Participant (SID)</th>
                   <th class="right-align" id="allocation-participant-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
                 </tr>
               </thead>
@@ -276,7 +281,7 @@
                       filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
                   </td>
                   <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="text"
+                    <input class="form-control right-align" id="distributed-amount-2" name="distributedAmount" [(ngModel)]="data.value" type="number"
                     />
                   </td>
                 </tr>
@@ -323,105 +328,75 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr>
-              <td class="" headers="payout-dealer-code" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout">A341</a></td>
-              <td class="" headers="payout-category-description" role="gridcell">Express Lane - Beam Blades ($2.00 set of 2) [EL_BEAM]</td>
-              <td class="right-align" headers="payout-period" role="gridcell">08/11/2017</td>
-              <td class="right-align" headers="payout-reward-amount" role="gridcell">$50.00</td>
-              <td class="right-align" headers="payout-rejected-amount" role="gridcell">$500.00</td>
+            <tr *ngFor="let data of payoutGroupedData">
+              <td class="" headers="payout-dealer-code" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout"
+                  (click)="createRODetails(data.description)" style="text-decoration: underline">{{insertedDealercode}}</a></td>
+              <td class="" headers="payout-category-description" role="gridcell">{{data.description}}</td>
+              <td class="right-align" headers="payout-period" role="gridcell">{{data.payoutPeriod}}</td>
+              <td class="right-align" headers="payout-reward-amount" role="gridcell">{{data.rewardAmount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="payout-rejected-amount" role="gridcell">{{data.rejectedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
-            <tr>
-              <td class="" headers="payout-dealer-code" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout">C685</a></td>
-              <td class="" headers="payout-category-description" role="gridcell">Express Lane - Oil Filters ($5.00) [EL_OIL]</td>
-              <td class="right-align" headers="payout-period" role="gridcell">08/11/2017</td>
-              <td class="right-align" headers="payout-reward-amount" role="gridcell">$20.00</td>
-              <td class="right-align" headers="payout-rejected-amount" role="gridcell">$100.00</td>
-            </tr>
-            <tr>
-              <td class="" headers="payout-dealer-code" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout">T357</a></td>
-              <td class="" headers="payout-category-description" role="gridcell">Express Lane - Tires ($50.00 set of 4) [EL_TIRE]</td>
-              <td class="right-align" headers="payout-period" role="gridcell">08/11/2017</td>
-              <td class="right-align" headers="payout-reward-amount" role="gridcell">$100.00</td>
-              <td class="right-align" headers="payout-rejected-amount" role="gridcell">$110.00</td>
-            </tr>
-            <tr>
-              <td class="" headers="payout-" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout">L481</a></td>
-              <td class="" headers="payout-" role="gridcell">Express Lane - Air Filters ($10.00) [EL_AF]</td>
-              <td class="right-align" headers="payout-" role="gridcell">08/11/2017</td>
-              <td class="right-align" headers="payout-" role="gridcell">$2.00</td>
-              <td class="right-align" headers="payout-" role="gridcell">$5.00</td>
-            </tr>
+ 
           </tbody>
         </table>
         <!-- End Dealer Table -->
 
         <!-- Begin Payout Participant Collapsible -->
-        <div class="collapse col-sm-12" id="participantTablePayout">
+        <div class="collapse col-sm-12" id="participantTablePayout" *ngIf ="!hidePayoutDistributionTable">
           <div class="row">
             <!-- Begin Participant Table -->
             <table class="table table-bordered table-striped col-sm-12" role="grid">
               <thead>
                 <tr>
                   <th class="" id="re-allocate-dealer-sid" role="columnheader" scope="col">SID</th>
-                  <th class="" id="re-allocate-dealer-ro-num" role="columnheader" scope="col">RO Numbers</th>
-                  <th class="" id="re-allocate-dealer-part-num" role="columnheader" scope="col">Part Numbers</th>
+                  <th class="" id="re-allocate-dealer-ro-num" role="columnheader" scope="col">RO Number</th>
+                  <th class="" id="re-allocate-dealer-part-num" role="columnheader" scope="col">Part Number</th>
                   <th class="" id="re-allocate-dealer-labor-seq" role="columnheader" scope="col">Labor Seq</th>
                   <th class="" id="re-allocate-dealer-part-seq" role="columnheader" scope="col">Part Seq</th>
                   <th class="" id="re-allocate-dealer-quantity" role="columnheader" scope="col">Quantity</th>
                   <th class="right-align" id="re-allocate-dealer-reward-amount" role="columnheader" scope="col">Reward Amount</th>
                   <th class="" id="re-allocate-dealer-status" role="columnheader" scope="col">Status</th>
-                  <th class="" id="re-allocate-dealer-approved" role="columnheader" scope="col">Approved</th>
+                  <th class="" id="re-allocate-dealer-approved" role="columnheader" scope="col">Approved?<br>
+                    <p-checkbox label="" [(ngModel)]="approveAllpayout" (onChange)="approveAllPayoutRedistribution(approveAllpayout)"
+                      binary="true"></p-checkbox>
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <!-- begin ng-if -->
-                <tr>
+                <tr *ngFor="let data of roDetails">
                   <td class="" headers="re-allocate-dealer-sid" role="gridcell">
-                    <select class="form-control" id="">
+                    <!-- <select class="form-control" id="">
                       <option value="">S02251N - ROBERT SHAW</option>
-                    </select>
+                    </select> -->
+                    <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.sid" [disabled]="data.disable"
+                      filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="payoutSelectedSID(data.sid)">
+                    </p-dropdown>
                   </td>
-                  <td class="" headers="re-allocate-dealer-ro-num" role="gridcell">391657</td>
-                  <td class="" headers="re-allocate-dealer-part-num" role="gridcell">WBF000016AA</td>
-                  <td class="" headers="re-allocate-dealer-labor-seq" role="gridcell">5</td>
-                  <td class="" headers="re-allocate-dealer-part-seq" role="gridcell">3</td>
-                  <td class="" headers="re-allocate-dealer-quantity" role="gridcell">10</td>
-                  <td class="right-align" headers="re-allocate-dealer-reward-amount" role="gridcell">$100.00</td>
-                  <td class="" headers="re-allocate-dealer-status" role="gridcell">Approved</td>
+                  <td class="" headers="re-allocate-dealer-ro-num" role="gridcell">{{data.ronumber}}</td>
+                  <td class="" headers="re-allocate-dealer-part-num" role="gridcell">{{data.partNumber}}</td>
+                  <td class="" headers="re-allocate-dealer-labor-seq" role="gridcell">{{data.laborSeq}}</td>
+                  <td class="" headers="re-allocate-dealer-part-seq" role="gridcell">{{data.partSeq}}</td>
+                  <td class="" headers="re-allocate-dealer-quantity" role="gridcell">{{data.quantity}}</td>
+                  <td class="right-align" headers="re-allocate-dealer-reward-amount" role="gridcell">{{data.rewardAmount | currency:'USD':true:'1.2-2'}}</td>
+                  <td class="" headers="re-allocate-dealer-status" role="gridcell">{{data.status}}</td>
                   <td class="" headers="re-allocate-dealer-approved" role="gridcell">
-                    <select class="form-control" id="">
+                    <!-- <select class="form-control" id="">
                       <option valu="">Yes</option>
-                    </select>
+                    </select> -->
+                    <p-checkbox [(ngModel)]="data.checked" [disabled]="data.disable" binary="true"></p-checkbox>
                   </td>
                 </tr>
                 <!-- end ng-if -->
-                <tr>
-                  <td class="" headers="re-allocate-dealer-sid" role="gridcell">
-                    <select class="form-control" id="">
-                      <option value="">S69120Q - SHASTA MATHISON</option>
-                    </select>
-                  </td>
-                  <td class="" headers="re-allocate-dealer-ro-num" role="gridcell">391657</td>
-                  <td class="" headers="re-allocate-dealer-part-num" role="gridcell">WBF000021AA</td>
-                  <td class="" headers="re-allocate-dealer-labor-seq" role="gridcell">5</td>
-                  <td class="" headers="re-allocate-dealer-part-seq" role="gridcell">4</td>
-                  <td class="" headers="re-allocate-dealer-quantity" role="gridcell">23</td>
-                  <td class="right-align" headers="re-allocate-dealer-reward-amount" role="gridcell">$25.00</td>
-                  <td class="" headers="re-allocate-dealer-status" role="gridcell">Paid</td>
-                  <td class="" headers="re-allocate-dealer-approved" role="gridcell">
-                    <select class="form-control" id="">
-                      <option valu="">No</option>
-                    </select>
-                  </td>
-                </tr>
+
               </tbody>
             </table>
             <!-- End Participant Table -->
 
             <div class="col-sm-12 btn-container">
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Cancel Changes</button>
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#confirmationModal">Save Changes <i class="fa fa-check"></i></button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#payoutCancelationModal">Cancel Changes</button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#payoutSubmitConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
             </div>
           </div>
         </div>
@@ -484,7 +459,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -555,7 +530,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -626,7 +601,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -651,6 +626,46 @@
 </div>
 <!-- End UR Confirmation Modal -->
 
+<!-- Begin Payout Confirmation Modal -->
+
+<div class="modal fade" id="payoutCancelationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="payoutCancelationModal()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="payoutSubmitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Payout Confirmation Modal -->
+
+
 <!-- End Confirmation Modal -->
 
 <!-- Begin Allocation History Modal -->
@@ -672,9 +687,9 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let dat of data">
+            <tr *ngFor="let dat of elRedistributionDataResponse">
               <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
-              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount}}</td>
+              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
             </tr>
           </tbody>
@@ -705,9 +720,9 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let dat of data">
+            <tr *ngFor="let dat of pCRedistributionDataResponse">
               <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
-              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount}}</td>
+              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
             </tr>
           </tbody>
@@ -738,9 +753,9 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let dat of data">
+            <tr *ngFor="let dat of uRRedistributionDataResponse">
               <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
-              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount}}</td>
+              <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
             </tr>
           </tbody>
@@ -768,7 +783,7 @@
         <table class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
-              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID/TID)</th>
+              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID)</th>
               <th class="" id="re-allocation-history-name" role="columnheader" scope="col">Participant Name</th>
               <th class="right-align" id="re-allocation-history-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
               <th class="" id="re-allocation-history-distributed-by" role="columnheader" scope="col">Distributed By</th>
@@ -781,7 +796,7 @@
             <tr *ngFor="let data of elHistoryData">
               <td class="" headers="re-allocation-history-sid" role="gridcell">{{data.sid}}</td>
               <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
-              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
               <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
               <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
@@ -807,7 +822,7 @@
         <table class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
-              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID/TID)</th>
+              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID)</th>
               <th class="" id="re-allocation-history-name" role="columnheader" scope="col">Participant Name</th>
               <th class="right-align" id="re-allocation-history-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
               <th class="" id="re-allocation-history-distributed-by" role="columnheader" scope="col">Distributed By</th>
@@ -820,7 +835,7 @@
             <tr *ngFor="let data of pcHistoryData">
               <td class="" headers="re-allocation-history-sid" role="gridcell">{{data.sid}}</td>
               <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
-              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
               <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
               <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
@@ -846,7 +861,7 @@
         <table class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
-              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID/TID)</th>
+              <th class="" id="re-allocation-history-sid" role="columnheader" scope="col">Participant (SID)</th>
               <th class="" id="re-allocation-history-name" role="columnheader" scope="col">Participant Name</th>
               <th class="right-align" id="re-allocation-history-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
               <th class="" id="re-allocation-history-distributed-by" role="columnheader" scope="col">Distributed By</th>
@@ -859,7 +874,7 @@
             <tr *ngFor="let data of urHistoryData">
               <td class="" headers="re-allocation-history-sid" role="gridcell">{{data.sid}}</td>
               <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
-              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
               <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
               <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->

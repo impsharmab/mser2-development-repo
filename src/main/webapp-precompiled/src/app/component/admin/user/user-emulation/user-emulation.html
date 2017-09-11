@@ -1,0 +1,59 @@
+<main class="main">
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Admin Dashboard
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <!-- <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">Admin</li>
+        <li class="breadcrumb-item">User</li>
+        <li class="breadcrumb-item active"><a href="#">User Emulation</a></li>
+    </ol> -->
+
+    <a name="payoutchart"></a>
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <article class="card animated fadeInUp">
+                    <div class="card-block">
+                        <!--<div class="introHeading">
+                  <h1>Admin Dashboard</h1>
+                </div>-->
+                        <div class="heading-line">
+                            <h2>User Emulation</h2>
+                        </div>
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                <form class="pageForm">
+                                    <p style="color: red;">{{emulateusermessage}}</p>
+                                    <label>Enter SID/TID/Dealer Code</label>
+                                    <input type="text" id="emulateUserName" name="emulateUserName" pInputText [(ngModel)]="emulateUserID" minlength="5" maxlength="7"
+                                    />
+                                    <br />
+                                    <button type="button" class="btn btn-primary btn-sm inline" (click)="emulateAllUser(emulateUserID)">Emulate User</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+</main>

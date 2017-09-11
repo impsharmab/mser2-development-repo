@@ -191,7 +191,7 @@ input.datepicker-input {
 }
 #payout-chart-export{
   width: 760px;
-  //if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts 
+  //if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts
 }
 /* End Payout Chart Admin */
 
@@ -349,6 +349,50 @@ input.datepicker-input {
   margin:0 .24rem;
 }
 /* End Enrollment Maintenance*/
+
+
+/* Begin Report Center */
+.report-center h2 {
+  padding-top: 1rem;
+}
+.report, .report-item, .report-item-link, .report-item-link span {
+  display: flex;
+}
+.report-item, .report-item-link, .report-item-link span {
+  flex-direction: row;
+}
+.report-item-link, .report-item-link, .report-item-link span {
+  position: relative;
+}
+.report {
+  margin: 0;
+  padding: 0 0 1rem 0;
+}
+.report-item {
+  margin: 0 1%;
+  padding: 0;
+  width: 16%;
+}
+.report-item:first-child {
+  margin-left: 0;
+}
+.report-item-link{
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.report-item-link span {
+  width: 100%;
+}
+.report-item-link i{
+  position: absolute;
+  bottom: 2%;
+  left: 25%;
+}
+.report-item-link:hover i {
+  left: 30%;
+ }
+/* End Report Center */
 
 
 /* Start Contact List */

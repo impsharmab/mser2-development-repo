@@ -12,12 +12,16 @@ import {
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule
 } from 'primeng/primeng';
 
+import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-component';
 import { CategoryMaintenanceComponent } from '../../category-maintenance/category-maintenance.component';
 import { PartAddComponent } from '../../part-add/part-add.component';
 import { PartMaintenanceComponent } from '../../part-maintenance/part-maintenance.component';
+import { UserEmulationComponent } from '../../admin/user/user-emulation/user-emulation.component';
 
 import { BodyComponent } from '../../body/body.component';
 import { HeaderComponent } from '../../header/header.component';
@@ -40,12 +44,18 @@ import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
 import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
 import { RewardsRedistributionComponent } from '../../rewards-redistribution/rewards-redistribution.component';
+import { EmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/employee-maintenance.component';
+import { UserLookupComponent } from '../../admin/user/user-maintenance/user-lookup.component';
+import { AddEmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/add-employee-maintenance.component';
+import { AddUserMaintenanceComponent } from '../../admin/user/user-maintenance/add-user-maintenance';
+
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
 import { DealerTeamService } from '../../../services/express-lane/dealer-team/dealer-team.service';
 import { RewardsDistributionService } from '../../../services/rewards-distribution/rewards-distribution.service';
 import { RewardsReDistributionService } from '../../../services/rewards-redistribution/rewards-redistribution.service';
 import { JasperService } from '../../../services/report/jasper-report-poc/jasper-service';
+import { AdminService } from '../../../services/admin-service/admin-user/user-emulation.service';
 
 @NgModule({
   imports: [
@@ -60,12 +70,14 @@ import { JasperService } from '../../../services/report/jasper-report-poc/jasper
     PayoutchartComponent, OpcodeSetupComponent, UserProfileComponent, ContactUsComponent,
     DealercodeModalComponent, CMSComponent, PartsLookupComponent, RewardsRedistributionComponent, MVPComponent,
     RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
-    EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent
+    EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent,
+    SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
+    AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent
 
   ],
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
-    RewardsReDistributionService, JasperService
+    RewardsReDistributionService, JasperService, CookieService, AdminService
   ]
 })
 export class MserModule { }

@@ -25,7 +25,7 @@ export class RewardsReDistributionService {
     }
 
     getRedistributionData(dealerCode, programName): any {
-        var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+        var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -76,7 +76,7 @@ export class RewardsReDistributionService {
     // }
 
     getPayoutRedistributionData(dealerCode, programName): any {
-        var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+        var url = this.baseUrl + "Rewards/PayoutRedistribution/" + dealerCode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');

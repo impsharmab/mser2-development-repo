@@ -130,7 +130,7 @@ export class RewardsDistributionService {
       .catch(this.handleCustomError);
   }
 
-  getDistributionAllocationHistory(dealerCode, programName) {
+  getDistributionAllocationHistory(dealerCode, programName) { 
     var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
    

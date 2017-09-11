@@ -1,0 +1,117 @@
+<main class="main">
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Admin Dashboard
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">Admin</li>
+        <li class="breadcrumb-item">User</li>
+        <li class="breadcrumb-item">Employee Maintenance</li>
+        <li class="breadcrumb-item active"><a href="#">Edit User</a></li>
+    </ol>
+
+    <a name="payoutchart"></a>
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+                        <!--<div class="introHeading">
+                  <h1>Admin Dashboard</h1>
+                </div>-->
+                        <div class="heading-line">
+                            <h2>Edit User</h2>
+                        </div>
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                <form class="pageForm">
+
+                                    <button type="button" class="btn btn-info btn-sm inline" (click)="searchAgain()">Search Again</button>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                          Type
+                          <span class="caret"></span>
+                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Parts Manager; Service Manager; Dealership; Parts Administrator; CAP/AYES Student</a></li>
+                                            <li><a href="#">Service Technician; Shop Foreman; Service Advisor; Dealer Principal; Parts Advisor; District Manager</a></li>
+                                            <li><a href="#">Express Lane Technician; Express Lane Service Advisor; Business Center; Assistant Parts Manager; District</a></li>
+                                        </ul>
+                                    </div>
+
+
+                                    <label>Participant ID</label>
+                                    <input type="text" id="participantID" placeholder="existing value from Employee Lookup table" />
+                                    <br />
+                                    <label>Dealer Employee ID</label>
+                                    <input type="text" id="dealerEmployeeID" placeholder="existing value from Employee Lookup table" />
+                                    <br />
+                                    <label>Name</label>
+                                    <input type="text" id="name" placeholder="existing value from Employee Lookup table" />
+                                    <br />
+                                    <label>Email</label>
+                                    <input type="text" id="eMail" placeholder="existing value from Employee Lookup table" />
+                                    <br />
+                                    <label>Parent Business Unit</label>
+                                    <input type="text" id="parentBusinessUnit" placeholder="existing value from Employee Lookup table" />
+                                    <br />
+
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                          Enrollment
+                          <span class="caret"></span>
+                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Enrolled</a></li>
+                                            <li><a href="#">Unenrolled</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <label>Status Date</label>
+                                    <input type="text" id="statusDate" placeholder="existing value from Employee Lookup table" />
+                                    <br />
+                                    <label>Status Update By</label>
+                                    <input type="text" id="statusDate" disabled="disabled" />
+                                    <br />
+
+                                    <button type="button" class="btn btn-info btn-sm inline">Update</button>
+
+                                </form>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+</main>

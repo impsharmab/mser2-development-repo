@@ -1,0 +1,92 @@
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Admin Dashboard
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">Admin</li>
+        <li class="breadcrumb-item">User</li>
+        <li class="breadcrumb-item active"><a href="#">User Maintenance</a></li>
+    </ol>
+
+    <a name="payoutchart"></a>
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+                        <!--<div class="introHeading">
+                  <h1>Admin Dashboard</h1>
+                </div>-->
+                        <div class="heading-line">
+                            <h2>User Lookup</h2>
+                        </div>
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                <form class="pageForm">
+
+                                    <button type="button" class="btn btn-info btn-sm" (click)="addUserMaintenance()">Add User</button>
+
+                                    <label>User ID</label>
+                                    <input type="text" id="participantID" />
+                                    <br />
+                                    <label>Name</label>
+                                    <input type="text" id="name" />
+                                    <br />
+                                    <label>Email</label>
+                                    <input type="text" id="email" />
+                                    <br />
+
+                                    <button type="button" class="btn btn-info btn-sm inline">Search</button>
+                                </form>
+
+
+                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th>Name</th>
+                                            <th>BU Codes</th>
+                                            <th>Roles</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>12 <i class="fa fa-chevron-right"></i></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+</main>

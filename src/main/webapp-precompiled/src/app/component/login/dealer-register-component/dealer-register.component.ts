@@ -164,7 +164,7 @@ export class DealerRegisterComponent implements OnInit {
           } else {
             this.msg = "Error in Submitting Dealer Code and SID.";
           }
-        }, 1000)
+        }, 1000) 
       }
     )
   }

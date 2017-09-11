@@ -26,7 +26,11 @@ import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-compon
 import { CategoryMaintenanceComponent } from '../../category-maintenance/category-maintenance.component';
 import { PartAddComponent } from '../../part-add/part-add.component';
 import { PartMaintenanceComponent } from '../../part-maintenance/part-maintenance.component';
-
+import { UserEmulationComponent } from '../../admin/user/user-emulation/user-emulation.component';
+import { EmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/employee-maintenance.component';
+import { AddEmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/add-employee-maintenance.component';
+import { UserLookupComponent } from '../../admin/user/user-maintenance/user-lookup.component';
+import { AddUserMaintenanceComponent } from '../../admin/user/user-maintenance/add-user-maintenance';
 
 const routes: Routes = [
 
@@ -134,9 +138,39 @@ const routes: Routes = [
                 component: PartMaintenanceComponent
 
             },
+            {
+                path: "useremulation",
+                component: UserEmulationComponent
+
+            },
+
+            {
+                path: "employeemaintenance",
+                component: EmployeeMaintenanceComponent
+
+            },
+            {
+                path: "addemployeemaintenance",
+                component: AddEmployeeMaintenanceComponent
+
+            },
+            {
+                path: "userlookup",
+                component: UserLookupComponent
+
+            },
+            {
+                path: "addusermaintenance",
+                component: AddUserMaintenanceComponent
+            }
+
+
+
 
         ]
     }
+
+
 
 ]
 @NgModule({

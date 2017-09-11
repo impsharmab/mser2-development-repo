@@ -39,12 +39,13 @@
                                 </div>
                                 <p-dataTable #datatable [immutable]=false [value]="enrollmentDataResponse" [editable]="true" (onEditInit)="onEditInitE($event)"
                                     (onRowSelect)="onRowSelect($event)" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[10,20,30]"
-                                    [globalFilter]="gb" [responsive]="true"  rowIndexVar="index" scrollable="true" scrollHeight="500px" >
-                                    <p-column styleClass="col-button" [style]="{'text-align':'center','width':'70px'}" selectionMode="single">
+                                    [globalFilter]="gb" [responsive]="true" rowIndexVar="index" scrollable="true" scrollHeight="500px"
+                                    >
+                                    <p-column styleClass="col-button" [style]="{'text-align':'center','width':'70px'}">
                                         <ng-template pTemplate="header">
                                             Activity
                                         </ng-template>
-                                        <ng-template pTemplate="body" let-data="rowData" let-ri="rowIndex" >
+                                        <ng-template pTemplate="body" let-data="rowData" let-ri="rowIndex">
                                             <!-- <span #editButton> <button  type="button" (click)="edit(data, editButton, cancelButton, saveButton )">
                                                 <i class="icon-edit" aria-hidden="true"></i>EDIT</button></span>
 
@@ -53,8 +54,8 @@
 
                                             <span #saveButton style="display: none"> <button  type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
                                                 <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span> -->
-                                            <span class="enrollment-button-container">
-                                                <span #editButton  pTooltip="Edit This Row" tooltipPosition="right">
+                                            <div class="enrollment-button-container">
+                                                <span #editButton pTooltip="Edit This Row" tooltipPosition="right">
                                               <button class="enrollment-button edit" type="button" (click)="edit(data, editButton, cancelButton, saveButton )">
                                                 <i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i>
                                                 <span class="hide-me">EDIT</span>
@@ -74,10 +75,10 @@
                                                 <span class="hide-me">SAVE</span>
                                                 </button>
                                                 </span>
-                                            </span>
+                                            </div>
                                         </ng-template>
                                     </p-column>
-                                    <p-column field="sid" header="Participant" [style]="{'width':'100px'}"></p-column>
+                                    <p-column field="sid" header="Participant" [style]="{'width':'100px', fontWeight: 'bold'}"></p-column>
                                     <p-column field="name" header="Participant Name" [style]="{'width':'150px'}"></p-column>
                                     <p-column field="email" header="Email" [style]="{'width':'250px'}"></p-column>
                                     <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'100px' }">
@@ -101,6 +102,26 @@
                                         <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="editor">
                                             <p-multiSelect [options]="data.optionsOverrides" [(ngModel)]="data.overriddenpositionCodes" [appendTo]="body" (onChange)="selectedPCOverrides(data.overriddenpositionCodes, ri)"
                                                 [style]="{'width':'175px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'175px' }">
+                                        <ng-template pTemplate="header">Parts Manager of Records</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.pmPositionCode}}
+                                        </ng-template>
+                                        <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="editor">
+                                            <p-multiSelect [options]="data.pmRecordsOptions" [(ngModel)]="data.pmPositionCode" [appendTo]="body" (onChange)="selectedPMRecordsPC(data.pmPositionCode, data.sid)"
+                                                [style]="{'width':'175px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'175px' }">
+                                        <ng-template pTemplate="header">Service Manager of Records</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.smPositionCode}}
+                                        </ng-template>
+                                        <ng-template let-data="rowData" let-ri="rowIndex" pTemplate="editor">
+                                            <p-multiSelect [options]="data.smRecordsOptions" [(ngModel)]="data.smPositionCode" (onChange)="selectedSMRecordsPC(data.smPositionCode, data.sid)"
+                                                [appendTo]="body" [style]="{'width':'175px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -159,6 +180,26 @@
                                         </ng-template>
                                         <ng-template let-data="rowData" pTemplate="editor">
                                             <p-multiSelect [options]="data.wiAdvTireOptions" [(ngModel)]="data.wiTires" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+
+                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'150px'}">
+                                        <ng-template pTemplate="header">Tires</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.tires}}
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.tiresOptions" [(ngModel)]="data.tires" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
+                                        </ng-template>
+                                    </p-column>
+
+                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'150px'}">
+                                        <ng-template pTemplate="header">Fiat</ng-template>
+                                        <ng-template let-data="rowData" pTemplate="body">
+                                            {{data.fiat}}
+                                        </ng-template>
+                                        <ng-template let-data="rowData" pTemplate="editor">
+                                            <p-multiSelect [options]="data.fiatOptions" [(ngModel)]="data.fiat" [appendTo]="body" [style]="{'width':'250px'}"></p-multiSelect>
                                         </ng-template>
                                     </p-column>
 
@@ -241,7 +282,7 @@
                         </div>
                     </div>
                 </article>
-            </div> 
+            </div>
         </div>
         <!-- .end FIRST row -->
     </div>
@@ -297,4 +338,10 @@
         <dealer-team></dealer-team>
     </div>
 
+    <style>
+        .rowSelectionColor {
+            background-color: red;
+            color: green;
+        }
+    </style>
 </main>

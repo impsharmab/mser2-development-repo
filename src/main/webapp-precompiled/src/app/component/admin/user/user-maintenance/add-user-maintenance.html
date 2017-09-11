@@ -1,0 +1,109 @@
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12">
+
+
+
+                        <h1 class="heading-xl">
+                            Admin Dashboard
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <!-- <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item" routerLink="payoutchart">Home</li>
+        <li class="breadcrumb-item" routerLink="./userlookup">User Lookup</li>        
+        <li class="breadcrumb-item active"><a href="#">Add New User</a></li>
+    </ol> -->
+
+    <a name="payoutchart"></a>
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+                        <!--<div class="introHeading">
+                  <h1>Admin Dashboard</h1>
+                </div>-->
+                        <div class="heading-line">
+                            <h2>Add New User</h2>
+                        </div>
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                <form class="pageForm">
+
+                                    <button type="button" class="btn btn-info btn-sm" (click)="searchUser()">Search for a User</button>
+
+                                    <label>User ID</label>
+                                    <input type="text" id="participantID" placeholder="SID/TID if user; Vendor format is ok for Vendors" />
+                                    <br />
+                                    <label>Name</label>
+                                    <input type="text" id="dealerEmployeeID" placeholder="" />
+                                    <br />
+                                    <label>Email</label>
+                                    <input type="text" id="eMail" placeholder="" />
+                                    <br />
+                                    <label>Business Unit Code</label>
+                                    <input type="text" id="parentBusinessUnit" placeholder="" />
+                                    <br />
+                                    <br />
+                                </form>
+
+                                <p style="font-weight:bold;margin-bottom:5px;">User Roles</p>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="">Reports; SEBC, MWBC, AMI, NEWBC, All BC, GLBC, SWBC, MABC, WEBC, DNBC, CABC (reports)</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="">Corporate Users</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="">Customer Service</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="">Administrator</label>
+                                </div>
+                                <br />
+                                <form class="pageForm">
+                                    <label>Password</label>
+                                    <input type="text" id="passwordInput" placeholder="" />
+                                    <br />
+                                    <label>Confirm Password</label>
+                                    <input type="text" id="confirmPasswordInput" placeholder="" />
+                                    <br />
+
+                                    <button type="button" class="btn btn-info btn-sm inline">Add</button>
+
+                                </form>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+</main>

@@ -36,7 +36,8 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()" [disabled]="disableMVPButton">Approve Plans <i class="fa fa-arrow-right"></i></button></td>
+              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()"
+              [disabled]="disableMVPButton">Approve Plans <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <!-- end ng-if [disabled]="disableELButton" [disabled]="disablePCButton" [disabled]="disableURButton"-->
         <tr>
@@ -44,21 +45,21 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressLane"
-              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el')" >Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#partsCounter"
-              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable(); getParticipantsByDealer('pc')" >Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable(); getParticipantsByDealer('pc')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#usedRecon"
-              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable(); getParticipantsByDealer('ur')" >Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable(); getParticipantsByDealer('ur')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -68,7 +69,7 @@
 
 
 
-  <div id="displayError">
+  <div smoothScroll offset="0" id="displayError">
     <p style="color:red; margin-left: 20px">{{msg}}</p>
   </div>
   <!-- Begin MVP section -->
@@ -80,7 +81,7 @@
       <div class="row">
 
         <!-- Begin Allocation Table -->
-        <table class="table table-bordered table-striped col-sm-12" role="grid">
+        <table class="table table-bordered table-striped col-sm-12" role="grid"> 
           <thead>
             <tr>
               <th class="right-align" id="allocation-acceptance-date" scope="col" role="columnheader">Acceptance Date</th>
@@ -89,7 +90,8 @@
               <th class="" id="allocation-plan-code" scope="col" role="columnheader">Plan Code</th>
               <th class="right-align" id="allocation-reward-amount" scope="col" role="columnheader">Reward Amount</th>
               <th class="" id="allocation-sid-name" scope="col" role="columnheader">SID Name</th>
-              <th class="" id="allocation-approved-status" scope="col" role="columnheader">Approved?</th>
+              <th class="" id="allocation-approved-status" scope="col" role="columnheader"> Approved?<span><br>
+                <p-checkbox  label="Approve All" [(ngModel)]="approveAllMVP" (onChange)="approveAllMVPPlans(approveAllMVP)" binary="true"></p-checkbox></span></th>
               <!-- <th class="" id="allocation-notes" scope="col" role="columnheader">Notes</th> -->
             </tr>
           </thead>
@@ -113,9 +115,9 @@
                     <option value="yes">Yes</option>
                     <option value="no" selected="selected">No</option>
                   </select> -->
-                <p-dropdown appendTo="body" [options]="booleanYesNoOptions" name="yes-no" required [(ngModel)]="data.approved" placeholder="No"
-                  [style]="{'width':'90%'}" #sid="ngModel" (onChange)="mvpApproved(data.approved)"></p-dropdown>
-
+                <!-- <p-dropdown appendTo="body" [options]="booleanYesNoOptions" name="yes-no" required [(ngModel)]="data.approved" placeholder="No"
+                  [style]="{'width':'90%'}" #sid="ngModel" (onChange)="mvpApproved(data.approved)"></p-dropdown> -->
+                <p-checkbox [(ngModel)]="data.approved" binary="true"></p-checkbox>
               </td>
               <!-- <td class="" headers="allocation-notes" role="gridcell">New brake pads</td> -->
             </tr>
@@ -163,7 +165,7 @@
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
               <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -182,11 +184,11 @@
             <!-- begin ng-if -->
             <tr *ngFor="let data of participantDataValue">
               <td class="" headers="allocation-participants" role="gridcell">
-                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.item2" placeholder="Select Participant"
-                  [style]="{'width':'100%', 'overflow':'visible'}" filter="filter" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
+                  [style]="{'width':'100%', 'overflow':'visible'}" filter="filter" (onChange)="selectedParticipant(data.name)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
+                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="number" [(ngModel)]="data.value"
                   (change)="rewardedAmount(data.value)" />
               </td>
             </tr>
@@ -240,7 +242,7 @@
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
               <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -263,7 +265,7 @@
                   [style]="{'width':'100%', 'overflow':'visible'}" filter="filter" (onChange)="selectedParticipant(data.name)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
+                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="number" [(ngModel)]="data.value "
                   (change)="rewardedAmount(data.value)" />
               </td>
             </tr>
@@ -316,7 +318,7 @@
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
               <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -335,11 +337,11 @@
             <!-- begin ng-if -->
             <tr *ngFor="let data of participantDataValue">
               <td class="" headers="allocation-participants" role="gridcell">
-                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.item2" placeholder="Select Participant"
-                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
+                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
+                  [style]="{'width':'100%', 'overflow':'visible'}" (onChange)="selectedParticipant(data.name)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
-                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="text" [(ngModel)]="data.value"
+                <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="number" [(ngModel)]="data.value"
                   (change)="rewardedAmount(data.value)" />
               </td>
             </tr>
@@ -370,7 +372,8 @@
           <p>You are about to save the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDistributionDATA()">Yes, Continue</button>
+          <button [scrollTo]="'displayError'" type="button" id="clickToDisplayErrorDiv" class="btn btn-primary" data-dismiss="modal"
+            (click)="saveMVPDistributionDATA()">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -421,7 +424,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('el')">Yes, Continue</button>
+          <button [scrollTo]="'displayError'" type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('el')">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -455,7 +458,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('pc')">Yes, Continue</button>
+          <button [scrollTo]="'displayError'" type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('pc')">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -489,7 +492,7 @@
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('ur')">Yes, Continue</button>
+          <button [scrollTo]="'displayError'" type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveDistributionDATA('ur')">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>
@@ -517,8 +520,8 @@
             <tbody>
               <!-- begin ng-if -->
               <tr *ngFor="let data of distributionHistoryData">
-                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.firstName + " " + data.lastName}}</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount}}</td>
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
                 <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
               </tr>
               <!-- end ng-if -->
@@ -552,8 +555,8 @@
             <tbody>
               <!-- begin ng-if -->
               <tr *ngFor="let data of distributionHistoryData">
-                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.firstName + " " + data.lastName}}</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount}}</td>
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
                 <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
               </tr>
               <!-- end ng-if -->
@@ -587,8 +590,8 @@
             <tbody>
               <!-- begin ng-if -->
               <tr *ngFor="let data of distributionHistoryData">
-                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.firstName + " " + data.lastName}}</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount}}</td>
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
                 <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
               </tr>
               <!-- end ng-if -->
@@ -605,5 +608,5 @@
 
   <!-- End Confirmation Modal -->
 
-
+  
 </main>
