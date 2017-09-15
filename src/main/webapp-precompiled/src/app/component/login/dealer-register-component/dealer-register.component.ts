@@ -33,7 +33,7 @@ export class DealerRegisterComponent implements OnInit {
     signature: "", date: "", selectedPartsManager: "", partsManagerEmail: "", selectedServiceManager: "", serviceManagerEmail: "",
     isPartsCounter: false, isUsedRecon: false, isExpressLane: false
   };
-  private mserEnrollmentFormData = {}
+  private mserEnrollmentFormData = {} 
   private errorSID: string = "";
   private errorDealerCode: string = "";
   private errorDealerEmail: string = "";
@@ -141,14 +141,14 @@ export class DealerRegisterComponent implements OnInit {
         for (var i = 0; i < this.submitDealerAndPositionCodeDatum.PartsManagers.length; i++) {
           this.partsMangerOptions.push({
             label: this.submitDealerAndPositionCodeDatum.PartsManagers[i].name + " - " + this.submitDealerAndPositionCodeDatum.PartsManagers[i].value,
-            value: this.submitDealerAndPositionCodeDatum.PartsManagers[i].name + " - " + this.submitDealerAndPositionCodeDatum.PartsManagers[i].value
+            value: this.submitDealerAndPositionCodeDatum.PartsManagers[i].name 
           })
         }
 
         for (var j = 0; j < this.submitDealerAndPositionCodeDatum.ServiceManagers.length; j++) {
           this.ServiceManagerOptions.push({
             label: this.submitDealerAndPositionCodeDatum.ServiceManagers[j].name + " - " + this.submitDealerAndPositionCodeDatum.ServiceManagers[j].value,
-            value: this.submitDealerAndPositionCodeDatum.ServiceManagers[j].name + " - " + this.submitDealerAndPositionCodeDatum.ServiceManagers[j].value
+            value: this.submitDealerAndPositionCodeDatum.ServiceManagers[j].name 
           })
         }
         if (this.submitDealerAndPositionCodeDatum.isELValidated) {

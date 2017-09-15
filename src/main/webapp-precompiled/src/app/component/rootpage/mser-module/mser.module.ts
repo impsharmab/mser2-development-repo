@@ -9,7 +9,8 @@ import { DatePickerModule } from 'ng2-datepicker';
 import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
-  TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule
+  TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule,
+  FileUploadModule
 } from 'primeng/primeng';
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
@@ -48,6 +49,8 @@ import { EmployeeMaintenanceComponent } from '../../admin/user/employee-maintena
 import { UserLookupComponent } from '../../admin/user/user-maintenance/user-lookup.component';
 import { AddEmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/add-employee-maintenance.component';
 import { AddUserMaintenanceComponent } from '../../admin/user/user-maintenance/add-user-maintenance';
+import { PartCategoryLookupComponent } from '../../admin/part/part-category-lookup.component';
+import { CommaSeparatedNumberPipe } from '../../number-formatting/comma-separated.component';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -56,12 +59,13 @@ import { RewardsDistributionService } from '../../../services/rewards-distributi
 import { RewardsReDistributionService } from '../../../services/rewards-redistribution/rewards-redistribution.service';
 import { JasperService } from '../../../services/report/jasper-report-poc/jasper-service';
 import { AdminService } from '../../../services/admin-service/admin-user/user-emulation.service';
+import { HomeService } from '../../../services/home-service/home-service';
 
 @NgModule({
   imports: [
     CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
-    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule
+    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule
     //PdfmakeModule
   ],
 
@@ -72,12 +76,12 @@ import { AdminService } from '../../../services/admin-service/admin-user/user-em
     RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
     EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent,
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
-    AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent
+    AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe
 
   ],
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
-    RewardsReDistributionService, JasperService, CookieService, AdminService
+    RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService
   ]
 })
 export class MserModule { }

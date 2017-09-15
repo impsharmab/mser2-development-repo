@@ -1,0 +1,48 @@
+<main class="main">
+
+  <!-- Breadcrumb -->
+  <!-- <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">Home</li>
+    
+        <li class="breadcrumb-item active"><a href="#">Dashboard</a></li>
+      </ol> -->
+
+  <div class="container m-t-md">
+    <div class="row">
+      <!-- <div *ngFor="let data of tileData; let i = index;" class="{{(tileData.length%2==1) && (tileData.length== i+1) ? 'col-sm-6 card1':'col-sm card1'}}"> -->
+      <div class="col-sm card1">
+        <!-- <p>{{mserEnrollmentDatum[0].tileName}}</p> -->
+        <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
+        <div class="display-data-set">
+          <div class="data-group" *ngFor="let data of mserEnrollmentDatum; let i = index;">
+            <p *ngIf="data.type=='number'" class="data-point">{{data.value | commaSeparatedNumber}}</p>
+            <p *ngIf="data.type=='currency'" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
+            <p class="data-substitle">{{data.name}}</p>
+          </div>
+
+        </div>
+        <div class="card1-action ">
+          <button type="button " class="btn btn-primary btn-sm " style="cursor:pointer" (click)="openProgramSite(tile.programSiteUrl)"><i class="fa fa-arrow-circle-right " aria-hidden="true "></i>
+              Click </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container m-t-md">
+    <div class="row">
+      <!-- <div *ngFor="let data of tileData; let i = index;" class="{{(tileData.length%2==1) && (tileData.length== i+1) ? 'col-sm-6 card1':'col-sm card1'}}"> -->
+      <div class="col-sm card1">
+        <div class="image-frame">{{mserEarningTileData[0].tileName}}<img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
+        <div class="display-data-set">
+          <div class="data-group" *ngFor="let data of mserEnrollmentTileData; let i = index;">
+            <p *ngIf="data.type=='number'" class="data-point">{{data.value | commaSeparatedNumber}}</p>
+            <p *ngIf="data.type=='currency'" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
+            <p class="data-substitle">{{data.name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

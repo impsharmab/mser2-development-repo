@@ -5,8 +5,8 @@ import './../rxjs-operators';
 
 @Injectable()
 export class RewardsReDistributionService {
-    private baseUrl = "https://test.myfcarewards.com/mser/";
-    // private baseUrl = "./";
+   private baseUrl = "https://test.myfcarewards.com/mser/";
+     // private baseUrl = "./";
 
     constructor(private http: Http) { }
 
@@ -90,6 +90,20 @@ export class RewardsReDistributionService {
 
     saveRedistributionData(dealerCode, list, allocationID) {
         var url = this.baseUrl + "Rewards/Redistribute/" + dealerCode + "/" + allocationID;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var body = list;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.post(url, body, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleCustomError);
+    }
+
+    savePayoutRedistributionData(dealerCode, list) {
+        var url = this.baseUrl + "Rewards/PayoutRedistribution/" + dealerCode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var body = list;
         var headers = new Headers();

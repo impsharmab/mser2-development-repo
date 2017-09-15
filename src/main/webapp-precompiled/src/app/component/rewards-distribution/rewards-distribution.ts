@@ -74,6 +74,7 @@ export class RewardsDistributionComponent implements OnInit {
   private hidePCSection: boolean = true;
   private hideURSection: boolean = true;
   private mvpOpenAllocationTable() {
+    this.displayError = false;
     this.msg = "";
     this.hideMVPSection = true;
     this.hideELSection = false;
@@ -95,6 +96,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private elOpenAllocationTable() {
+    this.displayError=false;
     this.msg = "";
     this.distributedAmount = 0;
     this.hideMVPSection = false;
@@ -117,6 +119,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private pcOpenAllocationTable() {
+    this.displayError=false;
     this.msg = "";
     this.distributedAmount = 0;
     this.hideMVPSection = false;
@@ -139,6 +142,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private urOpenAllocationTable() {
+    this.displayError=false;
     this.msg = "";
     this.distributedAmount = 0;
     this.hideMVPSection = false;
@@ -221,6 +225,7 @@ export class RewardsDistributionComponent implements OnInit {
   }
 
   private saveMVPDistributionDatum: any;
+  private displayError: boolean = false;
   private saveMVPDistributionDATA() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var mvpDistributionData = this.mvpDistributionDatum;
@@ -236,7 +241,8 @@ export class RewardsDistributionComponent implements OnInit {
     }
 
     if (count == mvpDistributionData.length) {
-      this.msg = "Please select a SID and Enter the Distribution amount.";
+      this.displayError = true;
+      this.msg = "Approve atleast one Plan.";
       return;
     }
     for (var j = 0; j < mvpDistributionData.length; j++) {
@@ -250,6 +256,7 @@ export class RewardsDistributionComponent implements OnInit {
         this.getMVPDistributionData();
         this.mvpCancellation();
         this.getRewardsDistributionAmount();
+        this.displayError = true;
         this.msg = "Successfully Approved";
       },
       (error) => {
@@ -310,6 +317,7 @@ export class RewardsDistributionComponent implements OnInit {
           // this.pcOpenAllocationTable();
           // this.getParticipantsByDealer(programName);
           // this.getRewardsDistributionAmount();
+          this.displayError = true;
           this.msg = "A user has been selected multiple times for distribution.";
           return;
         }
@@ -324,13 +332,16 @@ export class RewardsDistributionComponent implements OnInit {
     }
 
     if (totalValues == 0) {
+      this.displayError = true;
       this.msg = "Please select a participant and indicate the amount to be paid. The total Reward Amount available must be distributed to participants in order to proceed.";
       return;
     }
     else if (totalValues > amount) {
+      this.displayError = true;
       this.msg = "Distributions should not exceed total Reward Amount";
       return;
     } else if (totalValues < amount) {
+      this.displayError = true;
       this.msg = "Additional funds remain, Please continue Reward Distribution";
       return;
     }
@@ -345,8 +356,10 @@ export class RewardsDistributionComponent implements OnInit {
         this.urCancellation();
         this.getRewardsDistributionAmount();
         if (this.saveDistributionDATUM == true) {
+          this.displayError = true;
           this.msg = "Successfully Allocated the Reward Amount";
         } else if (this.saveDistributionDATUM == false) {
+          this.displayError = true;
           this.msg = "Internal Server Error";
         }
 
@@ -356,6 +369,7 @@ export class RewardsDistributionComponent implements OnInit {
           if (error != undefined && error.length < 250) {
             this.msg = error;
           } else {
+            this.displayError = true;
             this.msg = "Error in Distribution.";
           }
 
@@ -396,6 +410,7 @@ export class RewardsDistributionComponent implements OnInit {
 
   private mvpCancellation() {
     this.msg = "";
+    this.displayError = false;
     this.approveAllMVP = false;
     this.hideMVPSection = false;
     if (this.lastClick == "MVP" && this.showActiveProgram == false) {
@@ -415,6 +430,7 @@ export class RewardsDistributionComponent implements OnInit {
   }
   private elCancellation() {
     this.msg = "";
+    this.displayError = false;
     this.hideELSection = false;
     if (this.lastClick == "Express Lane" && this.showActiveProgram == false) {
       this.showActiveProgram = false;
@@ -432,6 +448,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private pcCancellation() {
+    this.displayError = false;
     this.msg = "";
     this.hidePCSection = false;
     if (this.lastClick == "Parts Counter" && this.showActiveProgram == false) {
@@ -450,6 +467,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private urCancellation() {
+    this.displayError = false;
     this.msg = "";
     this.hideURSection = false;
     if (this.lastClick == "Used Recon" && this.showActiveProgram == false) {
@@ -484,6 +502,10 @@ export class RewardsDistributionComponent implements OnInit {
         this.mvpDistributionDatum[i].approved = false;
       }
     }
+  }
+
+  private getRewardsAmountData(programName) {
+    //alert(programName);
   }
 
 }

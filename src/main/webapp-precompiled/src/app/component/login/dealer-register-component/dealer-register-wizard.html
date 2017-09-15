@@ -119,32 +119,32 @@
                                             <div class="form-group row">
                                                 <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                                                     <label for="elligiblemanager">Eligible Parts Manager </label>
-                                                    <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Parts Manager" required [options]="partsMangerOptions" [(ngModel)]="dealerEnrollment.selectedPartsManager"
-                                                        #elligiblemanager="ngModel" (onChange)="dealerEnrollmentElligibleManagers(dealerEnrollment.selectedPartsManager)" ></p-dropdown>
-                                                    <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine">Select Parts Manager.</div>
+                                                    <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Parts Manager" [options]="partsMangerOptions" [(ngModel)]="dealerEnrollment.selectedPartsManager"
+                                                         (onChange)="dealerEnrollmentElligibleManagers(dealerEnrollment.selectedPartsManager)" ></p-dropdown>
+                                                    <!-- <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine">Select Parts Manager.</div> -->
                                                 </div>
                                                 <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                                                     <label for="manageremail">Parts Manager Email</label>
-                                                    <input class="form-control" id="manageremail" name="manageremail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required
-                                                        type="email" [(ngModel)]="dealerEnrollment.partsManagerEmail" [disabled]="!enableInputs" #manageremail="ngModel"
+                                                    <input class="form-control" id="manageremail" name="manageremail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
+                                                        type="email" [(ngModel)]="dealerEnrollment.partsManagerEmail" [disabled]="!enableInputs" 
                                                     />
-                                                    <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">Valid email is required.</div>
+                                                    <!-- <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">Valid email is required.</div> -->
                                                 </div>
                                             </div>
                                             <!-- Eligible Service Manager, Manager Email -->
                                             <div class="form-group row">
                                                 <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                                                     <label for="elligiblemanager">Eligible  Service Manager</label>
-                                                    <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Service Manager" required [options]="ServiceManagerOptions" [(ngModel)]="dealerEnrollment.selectedServiceManager"
-                                                        #elligiblemanager="ngModel" (onChange)="dealerEnrollmentElligibleManagers(dealerEnrollment.selectedServiceManager)"></p-dropdown>
-                                                    <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine" >Select Service Manager.</div>
+                                                    <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Service Manager"  [options]="ServiceManagerOptions" [(ngModel)]="dealerEnrollment.selectedServiceManager"
+                                                         (onChange)="dealerEnrollmentElligibleManagers(dealerEnrollment.selectedServiceManager)"></p-dropdown>
+                                                    <!-- <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine" >Select Service Manager.</div> -->
                                                 </div>
                                                 <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                                                     <label for="manageremail">Service Manager Email</label>
-                                                    <input [disabled]="!enableInputs" class="form-control" id="servicemanageremail" name="servicemanageremail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required
-                                                        type="email" [(ngModel)]="dealerEnrollment.serviceManagerEmail" #servicemanageremail="ngModel"
+                                                    <input [disabled]="!enableInputs" class="form-control" id="servicemanageremail" name="servicemanageremail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
+                                                        type="email" [(ngModel)]="dealerEnrollment.serviceManagerEmail" 
                                                     />
-                                                    <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">Valid email is required.</div>
+                                                    <!-- <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">Valid email is required.</div> -->
                                                 </div>
                                             </div>
                                             <!-- Opt In Mopar -->

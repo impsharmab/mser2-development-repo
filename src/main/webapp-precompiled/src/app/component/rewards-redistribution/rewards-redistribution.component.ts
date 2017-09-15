@@ -109,6 +109,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private validDealerCode: boolean = true;
     private insertedDealercode: any = "";
     private submitDealerCode(dealerCode) {
+        this.msg = "";
         this.hideELSection = false;
         this.hidePCSection = false;
         this.hideURSection = false;
@@ -345,13 +346,17 @@ export class RewardsRedistributionComponent implements OnInit {
                 this.redistributeAmountDatum = (redistributeAmountDatum)
                 // alert(this.insertedDealercode + " , " + this.activeAllocationID)
                 if (this.redistributeAmountDatum == true) {
-                    this.msg = "Successfully Redistributed the Amount";
+                    this.msg = "Distribution has been successfully Reset.";
                     this.hideELSection = false;
                     this.hidePCSection = false;
                     this.hideURSection = false;
                     this.hidePayoutSection = false;
                     this.lastClick = "";
                     this.showActiveProgram = false;
+                    this.getELRedistributionData(this.insertedDealercode, "el");
+                    this.getPCRedistributionData(this.insertedDealercode, "pc");
+                    this.getURRedistributionData(this.insertedDealercode, "ur");
+                    this.getPayoutRedistributionData(this.insertedDealercode, "payout");
                 }
             },
             (error) => {
@@ -439,28 +444,32 @@ export class RewardsRedistributionComponent implements OnInit {
         this.participantsOptions = [];
         this.getParticipantsByDealer(this.insertedDealercode, programName);
     }
+
     private savePCDATUM: any;
     private rewardsAmount: any = {};
     private msg: string = "";
     private savePCRedistributionData() {
-        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+       
         var nameValueList: any = [];
         var nameValues: any = {};
         var rewardsAmount = this.rewardsAmount;
         var totalValues: any = 0;
 
         for (var i = 0; i < this.participantDataValue.length; i++) {
-            if (this.participantDataValue[i].item2 != undefined && this.participantDataValue[i].item2.length > 0 && this.participantDataValue[i].value.length > 0) {
+            if (this.participantDataValue[i].item2 != undefined && this.participantDataValue[i].item2.length > 0 && this.participantDataValue[i].value > 0) {
                 nameValueList.push({ name: this.participantDataValue[i].item2, value: parseFloat(this.participantDataValue[i].value) })
             }
         }
         nameValues.list = nameValueList;
-
-        this.rewardsReDistributionService.saveRedistributionData(dealerCode, nameValues, this.activeAllocationID).subscribe(
+        this.rewardsReDistributionService.saveRedistributionData(this.insertedDealercode, nameValues, this.activeAllocationID).subscribe(
             (savePCDATUM) => {
                 this.savePCDATUM = (savePCDATUM)
                 if (this.savePCDATUM == true) {
                     this.msg = "Successfully Allocated the Rewards Amount";
+                    this.getELRedistributionData(this.insertedDealercode, "el");
+                    this.getPCRedistributionData(this.insertedDealercode, "pc");
+                    this.getURRedistributionData(this.insertedDealercode, "ur");
+                    this.getPayoutRedistributionData(this.insertedDealercode, "payout");
                 }
             },
             (error) => {
@@ -631,6 +640,7 @@ export class RewardsRedistributionComponent implements OnInit {
     }
 
     private roDetails: any = [];
+    private sortedRODetails: any = [];
     private payoutSIDOptions: SelectItem[] = [];
     private createRODetails(description) {
         if (!this.hidePayoutDistributionTable) {
@@ -639,10 +649,8 @@ export class RewardsRedistributionComponent implements OnInit {
             this.hidePayoutDistributionTable = false;
         }
         var roDetails: any = [];
+        var sortedRODetails: any = [];
         var payoutSIDs: any = [];
-        for (var z = 0; z < this.payoutRedistributionDataResponse.length; z++) {
-
-        }
 
         for (var x = 0; x < this.payoutRedistributionDataResponse.length; x++) {
             if (this.payoutRedistributionDataResponse[x].description == description) {
@@ -663,6 +671,23 @@ export class RewardsRedistributionComponent implements OnInit {
             }
         }
         this.roDetails = roDetails;
+        var rejectedROindex: any = [];
+        for (var z = 0; z < this.roDetails.length; z++) {
+            if (this.roDetails[z].statusCode == "REJC") {
+                sortedRODetails.push(this.roDetails[z]);
+                rejectedROindex.push(z);
+            }
+        }
+        for (var r = rejectedROindex.length - 1; r >= 0; r--) {
+            this.roDetails.splice(rejectedROindex[r], 1);
+
+        }
+
+        for (var q = 0; q < this.roDetails.length; q++) {
+            sortedRODetails.push(this.roDetails[q]);
+        }
+        this.sortedRODetails = sortedRODetails;
+
         // console.log(roDetails);
     }
 
@@ -676,21 +701,53 @@ export class RewardsRedistributionComponent implements OnInit {
 
     private approveAllPayoutRedistribution(approveAllpayout) {
         if (approveAllpayout != undefined && approveAllpayout == true) {
-            for (var y = 0; y < this.roDetails.length; y++) {
-                if (this.roDetails[y].statusCode == "REJC") {
-                    this.roDetails[y].checked = true;
+            for (var y = 0; y < this.sortedRODetails.length; y++) {
+                if (this.sortedRODetails[y].statusCode == "REJC") {
+                    this.sortedRODetails[y].checked = true;
                     // this.roDetails[y].disable = true;
                 }
             }
         }
         else if (approveAllpayout != undefined && approveAllpayout == false) {
-            for (var y = 0; y < this.roDetails.length; y++) {
-                if (this.roDetails[y].statusCode == "REJC") {
-                    this.roDetails[y].checked = false;
+            for (var y = 0; y < this.sortedRODetails.length; y++) {
+                if (this.sortedRODetails[y].statusCode == "REJC") {
+                    this.sortedRODetails[y].checked = false;
                     // this.roDetails[y].disable = false;
                 }
             }
         }
     }
 
+    private savePayoutDATUM: any;
+    private savePayoutRedistributionData() {
+        var data: any = {};
+        for (var i = 0; i < this.sortedRODetails.length; i++) {
+            if (this.sortedRODetails[i].sid != undefined && this.sortedRODetails[i].checked == true) {
+                this.sortedRODetails[i].statusCode = "APRV";
+            }
+        }
+        data.list = this.sortedRODetails;
+        this.rewardsReDistributionService.savePayoutRedistributionData(this.insertedDealercode, data).subscribe(
+            (savePayoutDATUM) => {
+                this.savePayoutDATUM = (savePayoutDATUM)
+                if (this.savePayoutDATUM == true) {
+                    this.msg = "Successfully Approved.";
+                    this.getPayoutRedistributionData(this.insertedDealercode, "payout");
+                } else {
+                    this.msg = "Internal Server error.";
+                }
+
+            },
+            (error) => {
+                setTimeout(() => {
+                    if (error !== undefined && error.length < 250) {
+                        this.msg = error;
+                    } else {
+                        this.msg = "Internal Server error.";
+                    }
+
+                }, 1000)
+            }
+        )
+    }
 }

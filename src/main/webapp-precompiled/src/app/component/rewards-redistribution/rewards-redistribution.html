@@ -31,6 +31,8 @@
   </div>
   <!-- End Dealer Input Field -->
 
+  
+
   <!-- Begin Proceed to Re-Allocations Table -->
   <div class="row rewards-program-container" *ngIf="showAllocationDiv">
     <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -72,7 +74,9 @@
     </table>
   </div>
   <!-- End Proceed to Re-Allocations Table -->
-
+  <div smoothScroll offset="0" id="displayError" >
+    <p style="color:red">{{msg}}</p>
+  </div>
   <!-- Begin Express Lane, Parts Counter, and Used Recon sections -->
   <!-- Begin Express Lane -->
   <div class="row rewards-program-container">
@@ -96,7 +100,7 @@
           <tbody>
             <tr *ngFor="let elAllocData of elAllocationDataa">
               <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable"
-                  (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')"><i class="fa fa-clone"></i> {{elAllocData.date }}</a></td>
+                  (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')"><i class="fa fa-clone"></i> {{elAllocData.date | date:"MM/dd/yy" }}</a></td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#elDistributedAmountModal" data-toggle="modal" data-target="#elDistributedAmountModal" (click)="openELHistory(elAllocData.allocationID)">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
             </tr>
@@ -173,7 +177,7 @@
             <tr *ngFor="let pcAllocData of pcAllocationDataa">
               <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#pcParticipantTable" aria-expanded="false" aria-controls="pcParticipantTable"
                   (click)="openPCRedistributionTable(pcAllocData.allocationID, 'pc')" style="text-decoration: underline">
-                  <i class="fa fa-clone"></i> {{pcAllocData.date}}</a></td>
+                  <i class="fa fa-clone"></i> {{pcAllocData.date | date:"MM/dd/yy"}}</a></td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#pcDistributedAmountModal" data-toggle="modal" data-target="#pcDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)"
                   style="text-decoration: underline">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
@@ -251,7 +255,7 @@
               <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
                 <a data-toggle="collapse" href="#urParticipantTable" aria-expanded="false" aria-controls="urParticipantTable" (click)="openPCRedistributionTable(urAllocData.allocationID, 'ur')"
                   style="text-decoration: underline">
-                  <i class="fa fa-clone"></i> {{urAllocData.date}}</a></td>
+                  <i class="fa fa-clone"></i> {{urAllocData.date | date:"MM/dd/yy"}}</a></td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{urAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell">
                 <a class="" href="#urDistributedAmountModal" data-toggle="modal" data-target="#urDistributedAmountModal" (click)="openURHistory(urAllocData.allocationID)"
@@ -337,13 +341,13 @@
               <td class="right-align" headers="payout-rejected-amount" role="gridcell">{{data.rejectedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
- 
+
           </tbody>
         </table>
         <!-- End Dealer Table -->
 
         <!-- Begin Payout Participant Collapsible -->
-        <div class="collapse col-sm-12" id="participantTablePayout" *ngIf ="!hidePayoutDistributionTable">
+        <div class="collapse col-sm-12" id="participantTablePayout" *ngIf="!hidePayoutDistributionTable">
           <div class="row">
             <!-- Begin Participant Table -->
             <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -358,14 +362,13 @@
                   <th class="right-align" id="re-allocate-dealer-reward-amount" role="columnheader" scope="col">Reward Amount</th>
                   <th class="" id="re-allocate-dealer-status" role="columnheader" scope="col">Status</th>
                   <th class="" id="re-allocate-dealer-approved" role="columnheader" scope="col">Approved?<br>
-                    <p-checkbox label="" [(ngModel)]="approveAllpayout" (onChange)="approveAllPayoutRedistribution(approveAllpayout)"
-                      binary="true"></p-checkbox>
+                    <p-checkbox label="" [(ngModel)]="approveAllpayout" (onChange)="approveAllPayoutRedistribution(approveAllpayout)" binary="true"></p-checkbox>
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <!-- begin ng-if -->
-                <tr *ngFor="let data of roDetails">
+                <tr *ngFor="let data of sortedRODetails">
                   <td class="" headers="re-allocate-dealer-sid" role="gridcell">
                     <!-- <select class="form-control" id="">
                       <option value="">S02251N - ROBERT SHAW</option>
@@ -425,7 +428,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -439,7 +442,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to cancel changes. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
@@ -456,7 +459,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to clear changes. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
@@ -464,7 +467,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
 <div class="modal fade" id="elSubmitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -476,7 +479,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -496,7 +499,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -510,7 +513,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to cancel changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
@@ -527,7 +530,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to clear changes. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
@@ -547,7 +550,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -567,7 +570,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="redistributeAmount()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -581,10 +584,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to cancel changes. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="pcCancelationModal()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -598,10 +601,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to clear changes. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="clearationAllModal()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -618,7 +621,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -636,10 +639,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+        <p>You are about to cancel changes. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="payoutCancelationModal()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="payoutCancelationModal()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -657,7 +660,7 @@
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePCRedistributionData()">Yes, Continue</button>
+        <button type="button" [scrollTo]="'displayError'" class="btn btn-primary" data-dismiss="modal" (click)="savePayoutRedistributionData()">Yes, Continue</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
       </div>
     </div>
@@ -690,7 +693,7 @@
             <tr *ngFor="let dat of elRedistributionDataResponse">
               <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
               <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
+              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate | date:"MM/dd/yy"}}</td>
             </tr>
           </tbody>
         </table>
@@ -723,7 +726,7 @@
             <tr *ngFor="let dat of pCRedistributionDataResponse">
               <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
               <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
+              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate | date:"MM/dd/yy"}}</td>
             </tr>
           </tbody>
         </table>
@@ -756,7 +759,7 @@
             <tr *ngFor="let dat of uRRedistributionDataResponse">
               <td class="" headers="allocation-history-recipient" role="gridcell">{{dat.firstName + " " + dat.lastName}}</td>
               <td class="right-align" headers="allocation-history-amount" role="gridcell">{{dat.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate}}</td>
+              <td class="right-align" headers="allocation-history-date" role="gridcell">{{dat.updatedDate | date:"MM/dd/yy"}}</td>
             </tr>
           </tbody>
         </table>
@@ -776,7 +779,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Are you sure you want to continue?</h4>
+        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Express Lane Distributed Participants</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -798,7 +801,7 @@
               <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
               <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
-              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
               <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
             </tr>
             <!-- end ng-if -->
@@ -815,7 +818,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Are you sure you want to continue?</h4>
+        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Parts Counter Distributed Participants </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -837,7 +840,7 @@
               <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
               <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
-              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
               <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
             </tr>
             <!-- end ng-if -->
@@ -854,7 +857,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="pcDistributedAmountModalLabel">Are you sure you want to continue?</h4>
+        <h4 class="modal-title" id="pcDistributedAmountModalLabel">UVM Distributed Participants </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -876,7 +879,7 @@
               <td class="" headers="re-allocation-history-name" role="gridcell">{{data.firstName + " " + data.lastName}} </td>
               <td class="right-align" headers="re-allocation-history-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="" headers="re-allocation-history-distributed-by" role="gridcell">{{data.updatedBy}}</td>
-              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate}}</td>
+              <td class="right-align" headers="re-allocation-history-distributed-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
               <!-- <td class="right-align" headers="re-allocation-history-distributed-expected-payment-amount" role="gridcell">08/14/2017</td> -->
             </tr>
             <!-- end ng-if -->

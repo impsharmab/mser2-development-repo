@@ -5,8 +5,8 @@ import './../rxjs-operators';
 
 @Injectable()
 export class MarketingTrainingService {
-  // private baseUrl = "https://test.myfcarewards.com/mser/";
-  private baseUrl = "./";
+  private baseUrl = "https://test.myfcarewards.com/mser/";
+  // private baseUrl = "./";
 
   constructor(private http: Http) { }
 

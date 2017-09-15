@@ -31,6 +31,7 @@ import { EmployeeMaintenanceComponent } from '../../admin/user/employee-maintena
 import { AddEmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/add-employee-maintenance.component';
 import { UserLookupComponent } from '../../admin/user/user-maintenance/user-lookup.component';
 import { AddUserMaintenanceComponent } from '../../admin/user/user-maintenance/add-user-maintenance';
+import {PartCategoryLookupComponent} from '../../admin/part/part-category-lookup.component';
 
 const routes: Routes = [
 
@@ -162,7 +163,14 @@ const routes: Routes = [
             {
                 path: "addusermaintenance",
                 component: AddUserMaintenanceComponent
+            },
+            {
+                path: "partcategorylookup",
+                component: PartCategoryLookupComponent
             }
+
+
+            
 
 
 

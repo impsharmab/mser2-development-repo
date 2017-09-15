@@ -6,7 +6,7 @@ import './../rxjs-operators';
 @Injectable()
 export class RewardsDistributionService {
   private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
+  // // private baseUrl = "./";
 
   constructor(private http: Http) { }
 
@@ -61,8 +61,8 @@ export class RewardsDistributionService {
         response.json())
       .catch(this.handleError);
   }
-  getDistributionHistoryData(dealerCode, programName): any {
-    var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+  getDistributionHistoryData(dealerCode, programName): any { 
+    var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -131,7 +131,8 @@ export class RewardsDistributionService {
   }
 
   getDistributionAllocationHistory(dealerCode, programName) { 
-    var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode;
+    // old url  var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode; 
+    var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
    
     var headers = new Headers();

@@ -6,6 +6,8 @@ import { DomSanitizer, BrowserModule } from '@angular/platform-browser';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+import {Message} from 'primeng/components/common/api';
+
 //import { SafeHtml } from './safeHtml.pipe';
 import { CMSService } from '../../services/cms-service/cms-service';
 import '../../../assets/js/html2canvas.js';
@@ -22,6 +24,8 @@ declare var html2canvas: any;
 
 
 export class AdminPayoutComponent implements OnInit {
+    uploadedFiles: any[] = [];
+    private msgs: Message[];
     date: DateModel;
     options: DatePickerOptions;
 
@@ -43,18 +47,26 @@ export class AdminPayoutComponent implements OnInit {
     ngOnInit() {
 
     }
-        downloadPDF(id) {
-          html2canvas(document.getElementById(id),{
-            onrendered:function(canvas){
 
-              var img=canvas.toDataURL("image/png");
-              var doc = new jsPDF();
-              doc.addImage(img,'JPEG',10,10);
-              doc.save('payoutChart.pdf');
+    private onUpload(event) {
+        for (let file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    }
+    downloadPDF(id) {
+        html2canvas(document.getElementById(id), {
+            onrendered: function (canvas) {
+                var img = canvas.toDataURL("image/png");
+                var doc = new jsPDF();
+                doc.addImage(img, 'JPEG', 10, 10);
+                doc.save('payoutChart.pdf');
             },
             width: 760
-          });
-        }
+        });
+    }
 
     openCategoryModal() {
         this.modalService.open(this.addCategory).result.then((result) => {

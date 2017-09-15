@@ -69,8 +69,8 @@
 
 
 
-  <div smoothScroll offset="0" id="displayError">
-    <p style="color:red; margin-left: 20px">{{msg}}</p>
+  <div smoothScroll offset="0" id="displayError" >
+    <p style="color:red">{{msg}}</p>
   </div>
   <!-- Begin MVP section -->
   <!-- Once user has selected MVP, the Allocation Section either disappears or the user moves to a new page -->
@@ -81,7 +81,7 @@
       <div class="row">
 
         <!-- Begin Allocation Table -->
-        <table class="table table-bordered table-striped col-sm-12" role="grid"> 
+        <table class="table table-bordered table-striped col-sm-12" role="grid">
           <thead>
             <tr>
               <th class="right-align" id="allocation-acceptance-date" scope="col" role="columnheader">Acceptance Date</th>
@@ -91,14 +91,14 @@
               <th class="right-align" id="allocation-reward-amount" scope="col" role="columnheader">Reward Amount</th>
               <th class="" id="allocation-sid-name" scope="col" role="columnheader">SID Name</th>
               <th class="" id="allocation-approved-status" scope="col" role="columnheader"> Approved?<span><br>
-                <p-checkbox  label="Approve All" [(ngModel)]="approveAllMVP" (onChange)="approveAllMVPPlans(approveAllMVP)" binary="true"></p-checkbox></span></th>
+                <p-checkbox  [(ngModel)]="approveAllMVP" (onChange)="approveAllMVPPlans(approveAllMVP)" binary="true"></p-checkbox></span></th>
               <!-- <th class="" id="allocation-notes" scope="col" role="columnheader">Notes</th> -->
             </tr>
           </thead>
           <tbody>
             <!-- begin ng-if -->
             <tr *ngFor="let data of mvpDistributionDatum">
-              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.loadDate}}</td>
+              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.loadDate | date:"MM/dd/yy"}}</td>
               <td class="" headers="allocation-contract-number" role="gridcell">{{data.contractNumber}}</td>
               <td class="" headers="allocation-vin" role="gridcell">{{data.vin}}</td>
               <td class="" headers="allocation-plan-code" role="gridcell">{{data.planCode}}</td>
@@ -164,7 +164,8 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal" data-target="#elRewardAmountModal"
+                (click)="getRewardsAmountData('el')">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
@@ -241,7 +242,9 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal" data-target="#pcRewardAmountModal"
+                (click)="getRewardsAmountData('pc')">
+                {{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
@@ -315,9 +318,12 @@
           </thead>
           <tbody>
             <!-- being ng-if -->
+
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align" headers="allocation-reward-amount" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal" data-target="#urRewardAmountModal"
+                (click)="getRewardsAmountData('ur')">
+                {{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
@@ -369,7 +375,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <p>You are about to save the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+          <p>You are about to save the changes. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
           <button [scrollTo]="'displayError'" type="button" id="clickToDisplayErrorDiv" class="btn btn-primary" data-dismiss="modal"
@@ -387,7 +393,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
+          <p>You are about to cancel the changes. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="mvpCancellation()">Yes, Continue</button>
@@ -522,7 +528,7 @@
               <tr *ngFor="let data of distributionHistoryData">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
               </tr>
               <!-- end ng-if -->
 
@@ -557,7 +563,7 @@
               <tr *ngFor="let data of distributionHistoryData">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
               </tr>
               <!-- end ng-if -->
 
@@ -592,7 +598,7 @@
               <tr *ngFor="let data of distributionHistoryData">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
               </tr>
               <!-- end ng-if -->
 
@@ -608,5 +614,114 @@
 
   <!-- End Confirmation Modal -->
 
-  
+  <!-- Begin Reward Amount Modal -->
+  <div class="modal fade" id="elRewardAmountModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Reward Amount Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" role="grid">
+            <thead>
+              <tr>
+                <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Dealer Code</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Invoice Number</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Part Number</th>
+                <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Invoice Date</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Reward Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- begin ng-if -->
+              <!-- <tr *ngFor="let data of distributionHistoryData">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+              </tr> -->
+              <!-- end ng-if -->
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="pcRewardAmountModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" role="grid">
+            <thead>
+              <tr>
+                <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Dealer Code</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Invoice Number</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Part Number</th>
+                <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Invoice Date</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Reward Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- begin ng-if -->
+              <!-- <tr *ngFor="let data of distributionHistoryData">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+              </tr> -->
+              <!-- end ng-if -->
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="urRewardAmountModal" tabindex="-1" role="dialog" aria-labelledby="allocationHistoryModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped" role="grid">
+            <thead>
+              <tr>
+                <th class="" id="allocation-history-recipient" role="columnheader" scope="col">Dealer Code</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Invoice Number</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Part Number</th>
+                <th class="right-align" id="allocation-history-date" role="columnheader" scope="col">Invoice Date</th>
+                <th class="right-align" id="allocation-history-amount" role="columnheader" scope="col">Reward Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- begin ng-if -->
+              <!-- <tr *ngFor="let data of distributionHistoryData">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
+              </tr> -->
+              <!-- end ng-if -->
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Reward Amount Modal -->
 </main>
