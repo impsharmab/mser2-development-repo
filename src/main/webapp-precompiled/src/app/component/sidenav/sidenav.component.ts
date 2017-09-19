@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { CMSService } from '../../services/cms-service/cms-service';
+
+import * as userMatrix from '../../global-variable/user-matrix';
+
 declare var $: any;
 
 @Component({
@@ -10,14 +13,72 @@ declare var $: any;
   styleUrls: ['./sidenav.component.css'],
 
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, AfterViewInit {
   private cmsContentObject: any;
-
+  private selectedPositionCode: any = "";
+  private showMSERRulesPage: boolean = false;
+  private showMSEREnrollmentReport: boolean = false;
+  private showMSEREnrollmentForm: boolean = false;
+  private showMSEROPCodeSetup: boolean = false;
+  private showMSEREnrollmentMaintenance: boolean = false;
+  private showMSERAutoEnrollmentOpt: boolean = false;
+  private isMSEREnrolled: boolean = false;
+  private showMVPChangeApprovalSettings: boolean = false;
   constructor(private cmsService: CMSService) { }
 
   ngOnInit() {
+
+    var mserEnrolled: any = [];
+    mserEnrolled = JSON.parse(sessionStorage.getItem("CurrentUser")).mserEnrollment;
+    if (mserEnrolled.length > 0) {
+      this.isMSEREnrolled = true;
+    } else {
+      this.isMSEREnrolled = false;
+    }
+    this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
+    console.log(this.selectedPositionCode);
+  }
+  
+  ngAfterViewInit() {
     this.executeJQueryCode();
   }
+  private mSEREnrollmentPageMatrix() {
+    if (userMatrix.enrollmentFormMatrix.indexOf(this.selectedPositionCode) > -1) {
+      this.showMSEREnrollmentForm = true;
+    } else {
+      this.showMSEREnrollmentForm = false;
+    }
+    if (userMatrix.enrollmentReportMatrix.indexOf(this.selectedPositionCode) > -1) {
+      this.showMSEREnrollmentReport = true;
+    } else {
+      this.showMSEREnrollmentReport = false;
+    }
+    if (userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1) {
+      this.showMSEROPCodeSetup = true;
+    } else {
+      this.showMSEROPCodeSetup = false;
+    }
+    if (this.isMSEREnrolled == true && userMatrix.enrollmentMaintenanceMatrix.indexOf(this.selectedPositionCode) > -1) {
+      this.showMSEREnrollmentMaintenance = true;
+    } else {
+      this.showMSEREnrollmentMaintenance = false;
+    }
+    if (this.isMSEREnrolled == true && userMatrix.autoEnrollmentOptMatrix.indexOf(this.selectedPositionCode) > -1) {
+      this.showMSERAutoEnrollmentOpt = true;
+    } else {
+      this.showMSERAutoEnrollmentOpt = false;
+    }
+
+  }
+
+  private mvpPageMatrix() {
+    if (userMatrix.mvpChangeApprovalSettings.indexOf(this.selectedPositionCode) > -1) {
+      this.showMVPChangeApprovalSettings = true;
+    } else {
+      this.showMVPChangeApprovalSettings = false;
+    }
+  }
+
 
   private executeJQueryCode() {
     $.navigation = $('nav > ul.nav');
@@ -75,7 +136,7 @@ export class SidenavComponent implements OnInit {
         //           resizeBroadcast();
         $(this).parent().toggleClass('open');
         $(this).parent().siblings('li').removeClass('open').addClass('closed');
-          resizeBroadcast();
+        resizeBroadcast();
 
       }
 
@@ -94,6 +155,7 @@ export class SidenavComponent implements OnInit {
       }, 62.5);
     }
   }
+
 
   private openCMSPage(pageName) {
     this.cmsService.getCmsContent(pageName).subscribe(

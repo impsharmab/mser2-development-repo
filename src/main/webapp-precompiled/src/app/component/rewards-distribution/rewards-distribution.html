@@ -13,6 +13,12 @@
     </div>
   </div>
 
+  <!-- Breadcrumb -->
+  <ol class="breadcrumb mb-0">
+    <li class="breadcrumb-item" routerLink="/mserHomepage/home" >Home</li>
+    <li class="breadcrumb-item active" routerLink="#">Rewards-Distribution</li>
+  </ol>
+
   <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is: <strong id="participant-id">{{activeProgram}}</strong></div>
   <!-- Begin Allocation section -->
   <div class="row rewards-program-container">
@@ -98,7 +104,7 @@
           <tbody>
             <!-- begin ng-if -->
             <tr *ngFor="let data of mvpDistributionDatum">
-              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.loadDate | date:"MM/dd/yy"}}</td>
+              <td class="right-align" headers="allocation-acceptance-date" role="gridcell">{{data.loadDate | date:"MM/dd/yyyy"}}</td>
               <td class="" headers="allocation-contract-number" role="gridcell">{{data.contractNumber}}</td>
               <td class="" headers="allocation-vin" role="gridcell">{{data.vin}}</td>
               <td class="" headers="allocation-plan-code" role="gridcell">{{data.planCode}}</td>
@@ -528,7 +534,7 @@
               <tr *ngFor="let data of distributionHistoryData">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yyyy"}}</td>
               </tr>
               <!-- end ng-if -->
 
@@ -563,7 +569,7 @@
               <tr *ngFor="let data of distributionHistoryData">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yyyy"}}</td>
               </tr>
               <!-- end ng-if -->
 
@@ -598,7 +604,7 @@
               <tr *ngFor="let data of distributionHistoryData">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yy"}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate | date:"MM/dd/yyyy"}}</td>
               </tr>
               <!-- end ng-if -->
 

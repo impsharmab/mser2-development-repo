@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './header.component-matt.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() data: any;
   @ViewChild("dealercodeModal") private dealercodeModal: NgbModalRef;
   @Output("onProfileChange") profileChange = new EventEmitter<any>();
@@ -33,23 +33,18 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getSelectedDealerCode();
-    // this.getSelectedDealerName();
-    //debugger
-    this.data = JSON.parse(sessionStorage.getItem("CurrentUser"))
-    // this.selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-    // this.selectedDealerName = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
-
+    this.data = JSON.parse(sessionStorage.getItem("CurrentUser"));
     var role = JSON.parse(sessionStorage.getItem("UserRole"));
-
     if (role != undefined && role == "Dealer") {
       this.displayDealerCode = true;
     }
-    // this.getUserProfileData();
-    /*****
-    * CONFIGURATION
-    */
-    //Main navigation
+  }
+  // this.getUserProfileData();
+  /*****
+  * CONFIGURATION
+  */
+  //Main navigation
+  ngAfterViewInit() {
     $.navigation = $('nav > ul.nav');
 
     $.panelIconOpened = 'icon-arrow-up';
@@ -157,6 +152,8 @@ export class HeaderComponent implements OnInit {
     }
 
   }
+
+
 
   private getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;

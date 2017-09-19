@@ -33,7 +33,7 @@ export class DealerRegisterComponent implements OnInit {
     signature: "", date: "", selectedPartsManager: "", partsManagerEmail: "", selectedServiceManager: "", serviceManagerEmail: "",
     isPartsCounter: false, isUsedRecon: false, isExpressLane: false
   };
-  private mserEnrollmentFormData = {} 
+  private mserEnrollmentFormData = {}
   private errorSID: string = "";
   private errorDealerCode: string = "";
   private errorDealerEmail: string = "";
@@ -107,12 +107,6 @@ export class DealerRegisterComponent implements OnInit {
   private isELValidated: boolean = false;
   private enableInputs: boolean = false;
   private submitDealerAndPositionCode(valid) {
-    if (valid !== undefined && valid === false) {
-      this.showValidationDiv = true;
-      return;
-    } else {
-      this.showValidationDiv = false;
-    }
     var z1 = /^[0-9]*$/;
     if (this.dealerEnrollment.dealerCode.trim() == "" && this.dealerEnrollment.sid.trim() == "") {
       this.msg = "Please enter Dealer Code and SID";
@@ -130,7 +124,12 @@ export class DealerRegisterComponent implements OnInit {
       this.msg = "Plese Enter Dealer Code";
       return;
     }
-
+    if (valid !== undefined && valid === false) {
+      this.showValidationDiv = true;
+      return;
+    } else {
+      this.showValidationDiv = false;
+    }
     this.mserEnrollmentService.submitDealerAndPositionCode(this.dealerEnrollment.dealerCode.trim(), this.dealerEnrollment.sid.trim()).subscribe(
       (submitDealerAndPositionCodeDatum) => {
         this.submitDealerAndPositionCodeDatum = (submitDealerAndPositionCodeDatum)
@@ -141,14 +140,14 @@ export class DealerRegisterComponent implements OnInit {
         for (var i = 0; i < this.submitDealerAndPositionCodeDatum.PartsManagers.length; i++) {
           this.partsMangerOptions.push({
             label: this.submitDealerAndPositionCodeDatum.PartsManagers[i].name + " - " + this.submitDealerAndPositionCodeDatum.PartsManagers[i].value,
-            value: this.submitDealerAndPositionCodeDatum.PartsManagers[i].name 
+            value: this.submitDealerAndPositionCodeDatum.PartsManagers[i].name
           })
         }
 
         for (var j = 0; j < this.submitDealerAndPositionCodeDatum.ServiceManagers.length; j++) {
           this.ServiceManagerOptions.push({
             label: this.submitDealerAndPositionCodeDatum.ServiceManagers[j].name + " - " + this.submitDealerAndPositionCodeDatum.ServiceManagers[j].value,
-            value: this.submitDealerAndPositionCodeDatum.ServiceManagers[j].name 
+            value: this.submitDealerAndPositionCodeDatum.ServiceManagers[j].name
           })
         }
         if (this.submitDealerAndPositionCodeDatum.isELValidated) {
@@ -164,7 +163,7 @@ export class DealerRegisterComponent implements OnInit {
           } else {
             this.msg = "Error in Submitting Dealer Code and SID.";
           }
-        }, 1000) 
+        }, 1000)
       }
     )
   }

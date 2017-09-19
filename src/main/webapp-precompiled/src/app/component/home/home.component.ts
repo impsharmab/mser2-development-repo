@@ -1,4 +1,5 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Router, RouterOutlet, ActivatedRoute, Params } from '@angular/router';
 
 import { CommaSeparatedNumberPipe } from '../number-formatting/comma-separated.component';
 
@@ -10,6 +11,7 @@ import { HomeService } from '../../services/home-service/home-service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  private isDealerManager: any = false;
   private mserEnrollmentTileData: any = [
     {
       "name": "Total Dealers Enrolled",
@@ -71,13 +73,12 @@ export class HomeComponent implements OnInit {
       "type": "number"
     }
   ];
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, private router: Router) { }
 
   ngOnInit() {
     this.getMSEREnrollmentTileData();
+    this.getMSEREarningTileData();
   }
-
-
 
   private mserEnrollmentDatum: any = [{
     "name": "",
@@ -97,10 +98,17 @@ export class HomeComponent implements OnInit {
       }
     )
   }
-  private mserEarningDatum: any;
+  private mserEarningDatum: any = [{
+    "name": "",
+    "value": 0,
+    "type": "",
+    "tileName": "",
+    "tileHeaderImage": ""
+  }];
   private getMSEREarningTileData() {
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var positionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
-    this.homeService.getMSEREarningTileData(positionCode).subscribe(
+    this.homeService.getMSEREarningTileData(positionCode, dealerCode).subscribe(
       (mserEarningDatum) => {
         this.mserEarningDatum = (mserEarningDatum)
 
@@ -108,6 +116,11 @@ export class HomeComponent implements OnInit {
       (error) => {
       }
     )
+  }
+
+  private openEnrollmentSite() {
+    let url = ["mserHomepage/enrollmentmaintenance"]
+    this.router.navigate(url);
   }
 
 }

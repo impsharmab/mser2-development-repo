@@ -98,7 +98,12 @@
                                         </div>
                                     </p-header>
                                     <p-column field="opCode" header="Op Code" [sortable]="true"></p-column>
-                                    <p-column field="createdDate" header="Created Date" [sortable]="true"></p-column>
+                                    <!-- <p-column field="createdDate" header="Created Date" [sortable]="true"></p-column> -->
+                                    <p-column field="createdDate" header="Date">
+                                        <ng-template let-col let-car="rowData" pTemplate="body">
+                                            <span>{{car.createdDate | date: 'MM/dd/yyyy'}}</span>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column header="Action">
                                         <ng-template pTemplate type="header" let-file="rowData">
                                             <button type="button" class="btn btn-primary btn-sm" (click)="inactivateOpCode(file.id)">Deactivate</button>
@@ -119,7 +124,12 @@
                                         </div>
                                     </p-header>
                                     <p-column field="opCode" header="Op Code" [sortable]="true"></p-column>
-                                    <p-column field="updatedDate" header="Updated Date" [sortable]="true"></p-column>
+                                    <!-- <p-column field="updatedDate" header="Updated Date" [sortable]="true"></p-column> -->
+                                    <p-column field="updatedDate" header="Date">
+                                        <ng-template let-col let-car="rowData" pTemplate="body">
+                                            <span>{{car.updatedDate | date: 'MM/dd/yyyy'}}</span>
+                                        </ng-template>
+                                    </p-column>
                                     <p-column header="Action">
                                         <ng-template pTemplate type="header" let-file="rowData">
                                             <button type="button" class="btn btn-primary btn-sm" (click)="activateOpCode(file.id)">Activate</button>

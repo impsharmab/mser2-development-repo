@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -9,9 +9,10 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 })
 export class RootPageComponent implements OnInit {
-        
+
     constructor(private router: Router, private http: Http) {
     }
-    ngOnInit() {        
+    ngOnInit() {
+        this.router.navigate(["mserHomepage/home"]);
     }
 }

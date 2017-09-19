@@ -71,7 +71,6 @@ export class JasperPocComponent implements OnInit {
 
     private jasperObject: any = {}
     private getJasperReportData() {
-
         this.jasperService.getJaperContent().subscribe(
             (jasperObject) => {
                 this.jasperObject = (jasperObject)

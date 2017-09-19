@@ -137,6 +137,18 @@ a {
 /* End nested links collection */
 
 
+/* Begin Home/Dashboard */
+.card1{
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 5px;
+  box-shadow: 2px 2px 3px rgba(0,0,0,.075), -2px 2px 3px rgba(0,0,0,.075), -2px -2px 3px rgba(0,0,0,.075);
+}
+.data-substitle {
+  font-size: .76em;
+}
+/* End Home/Dashboard */
+
+
 /* Begin Graphs for Payout Chart */
 .payout-chart-heading{
   font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;

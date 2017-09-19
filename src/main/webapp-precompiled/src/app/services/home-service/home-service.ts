@@ -24,8 +24,8 @@ export class HomeService {
       .catch(this.handleError);
   }
 
-  getMSEREarningTileData(dealerCode): any {
-    var url = this.baseUrl + "" + dealerCode;
+  getMSEREarningTileData(positionCode, dealerCode): any {
+    var url = this.baseUrl + "services/tile/re/" + positionCode + "/" + dealerCode;
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};

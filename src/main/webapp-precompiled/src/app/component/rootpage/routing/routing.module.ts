@@ -31,7 +31,10 @@ import { EmployeeMaintenanceComponent } from '../../admin/user/employee-maintena
 import { AddEmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/add-employee-maintenance.component';
 import { UserLookupComponent } from '../../admin/user/user-maintenance/user-lookup.component';
 import { AddUserMaintenanceComponent } from '../../admin/user/user-maintenance/add-user-maintenance';
-import {PartCategoryLookupComponent} from '../../admin/part/part-category-lookup.component';
+import { PartCategoryLookupComponent } from '../../admin/part/part-category-lookup.component';
+import { IneligibleROReportComponent } from '../../reports/mser/inelligible-repair-orders/ineligible-ro.component';
+import { RewardsDepositReportComponent } from '../../reports/mser/reward-deposit-report/reward-deposit.component';
+import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.component';
 
 const routes: Routes = [
 
@@ -167,10 +170,22 @@ const routes: Routes = [
             {
                 path: "partcategorylookup",
                 component: PartCategoryLookupComponent
+            },
+            {
+                path: "ineligibleroreport",
+                component: IneligibleROReportComponent
+            },
+            {
+                path: "rewardsdepositreport",
+                component: RewardsDepositReportComponent
+            },
+            {
+                path: "roreport",
+                component: ROReportComponent
             }
 
 
-            
+
 
 
 

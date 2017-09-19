@@ -11,6 +11,46 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
 }
 /* End nested links collection */
 
+
+/* Begin Home/Dashboard */
+box {
+  align-items: stretch;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+.card1 {
+  align-items: stretch;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 5px;
+  width: 100%;
+}
+.image-frame{
+  margin: 10px;
+}
+.data-group{
+  width: calc(50% - 20px)
+}
+.display-data-set{
+  float: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width:100%;
+}
+.button-container {
+  margin: 10px;
+  width: calc(100% - 20px);
+}
+.button-container button {
+  float: right;
+  margin-left: .5rem;
+}
+/* End Home/Dashboard */
+
+
+
 /* Begin Graphs for Payout Chart */
 .graph{
   box-sizing: border-box;

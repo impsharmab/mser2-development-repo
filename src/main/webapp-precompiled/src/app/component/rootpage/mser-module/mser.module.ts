@@ -51,6 +51,9 @@ import { AddEmployeeMaintenanceComponent } from '../../admin/user/employee-maint
 import { AddUserMaintenanceComponent } from '../../admin/user/user-maintenance/add-user-maintenance';
 import { PartCategoryLookupComponent } from '../../admin/part/part-category-lookup.component';
 import { CommaSeparatedNumberPipe } from '../../number-formatting/comma-separated.component';
+import { IneligibleROReportComponent } from '../../reports/mser/inelligible-repair-orders/ineligible-ro.component';
+import { RewardsDepositReportComponent } from '../../reports/mser/reward-deposit-report/reward-deposit.component';
+import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.component';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -63,7 +66,9 @@ import { HomeService } from '../../../services/home-service/home-service';
 
 @NgModule({
   imports: [
-    CommonModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
     ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule
     //PdfmakeModule
@@ -76,7 +81,8 @@ import { HomeService } from '../../../services/home-service/home-service';
     RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
     EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent,
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
-    AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe
+    AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
+    ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent
 
   ],
   providers: [

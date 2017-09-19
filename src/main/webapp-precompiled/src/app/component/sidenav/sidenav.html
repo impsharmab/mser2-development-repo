@@ -16,14 +16,14 @@
           <span>Resources</span>
         </li>
         <li class="nav-item nav-dropdown dopdown-parent">
-          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Enrollment </a>
+          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="mSEREnrollmentPageMatrix()">Enrollment </a>
           <ul class="nav-dropdown-items dopdown-child">
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mserRules', 'pdf':'false'}]">MSER Rules</a></li>
-            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a></li>
-            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a></li>
-            <li class="nav-item"><a class="nav-link">Enrollment Report</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="opcodesetup">OP Code Setup</a></li>
+            <li *ngIf="showMSEREnrollmentForm" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a></li>
+            <li *ngIf="showMSERAutoEnrollmentOpt" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a></li>
+            <li *ngIf="showMSEREnrollmentReport" class="nav-item"><a class="nav-link">Enrollment Report</a></li>
+            <li *ngIf="showMSEREnrollmentMaintenance" class="nav-item"><a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a></li>
+            <li *ngIf="showMSEROPCodeSetup" class="nav-item"><a class="nav-link" routerLink="opcodesetup">OP Code Setup</a></li>
             <!--<li class="nav-item"><a class="nav-link" routerLink="payoutedistribution">Payout ReDistribution</a></li>-->
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'MSER_Enrollment_Form.pdf', 'pdf':'true'}]" target="_blank">Enrollment Form</a></li>-->
           </ul>
@@ -76,9 +76,9 @@
             <li class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">MSER</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Reward Deposit Report</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">RO Report</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Ineligible Repair Orders</a></li>
+                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="rewardsdepositreport">Reward Deposit Report</a></li>
+                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="roreport">RO Report</a></li>
+                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li>
               </ul>
             </li>
             <li class="nav-item nav-dropdown dopdown-grandchild">
@@ -153,12 +153,12 @@
         <!-- End Report Center -->
         <li class="nav-item"><a class="nav-link" routerLink="partslookuppage">Parts Lookup</a></li>
         <li class="nav-item nav-dropdown dopdown-parent">
-          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">MVP</a>
+          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="mvpPageMatrix()">MVP</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item"><a class="nav-link">Home</a></li>
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a></li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneMaintenance', 'pdf':'false'}]">Approve MVP Plans</a></li>-->
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
+            <li *ngIf="showMVPChangeApprovalSettings" class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="mvp">Videos &amp; Presentations </a></li>
           </ul>
         </li>
@@ -169,7 +169,7 @@
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Express Lane</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item"><a class="nav-link">Home</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="dealerteam">Dealer Team</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" routerLink="dealerteam">Dealer Team</a></li> -->
             <!--<li class="nav-item"><a class="nav-link">Rewards Re-Distribution</a></li>-->
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="mvp">Videos</a></li>-->
