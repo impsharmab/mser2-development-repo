@@ -31,7 +31,7 @@
   </div>
   <!-- End Dealer Input Field -->
 
-  
+
 
   <!-- Begin Proceed to Re-Allocations Table -->
   <div class="row rewards-program-container" *ngIf="showAllocationDiv">
@@ -74,7 +74,7 @@
     </table>
   </div>
   <!-- End Proceed to Re-Allocations Table -->
-  <div smoothScroll offset="0" id="displayError" >
+  <div smoothScroll offset="0" id="displayError">
     <p style="color:red">{{msg}}</p>
   </div>
   <!-- Begin Express Lane, Parts Counter, and Used Recon sections -->
@@ -109,7 +109,7 @@
         <!-- End Distribution Table -->
 
         <!-- Begin Participant Collapsible -->
-        <div class="collapse col-sm-12" id="elParticipantTable">
+        <div class="collapse col-sm-12" id="elParticipantTable" [hidden]="hideelParticipantTable">
           <div class="row">
             <!-- Begin Participant Table -->
 
@@ -187,7 +187,7 @@
         <!-- End Distribution Table -->
 
         <!-- Begin Participant Collapsible -->
-        <div class="collapse col-sm-12" id="pcParticipantTable">
+        <div class="collapse col-sm-12" id="pcParticipantTable" [hidden]="hidepcParticipantTable">
           <div class="row">
             <!-- Begin Participant Table -->
 
@@ -266,7 +266,7 @@
         <!-- End Distribution Table -->
 
         <!-- Begin Participant Collapsible -->
-        <div class="collapse col-sm-12" id="urParticipantTable">
+        <div class="collapse col-sm-12" id="urParticipantTable" [hidden]="hideurParticipantTable">
           <div class="row">
             <!-- Begin Participant Table -->
 
@@ -332,12 +332,12 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of payoutGroupedData">
+            <tr *ngFor="let data of payoutGroupedData"> 
               <td class="" headers="payout-dealer-code" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout"
                   (click)="createRODetails(data.description)" style="text-decoration: underline">{{insertedDealercode}}</a></td>
               <td class="" headers="payout-category-description" role="gridcell">{{data.description}}</td>
               <td class="right-align" headers="payout-period" role="gridcell">{{data.payoutPeriod}}</td>
-              <td class="right-align" headers="payout-reward-amount" role="gridcell">{{data.rewardAmount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="payout-reward-amount" role="gridcell">{{data.totalRewardAmount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="payout-rejected-amount" role="gridcell">{{data.rejectedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
@@ -369,14 +369,12 @@
               <tbody>
                 <!-- begin ng-if -->
                 <tr *ngFor="let data of sortedRODetails">
-                  <td class="" headers="re-allocate-dealer-sid" role="gridcell">
-                    <!-- <select class="form-control" id="">
-                      <option value="">S02251N - ROBERT SHAW</option>
-                    </select> -->
+                  <td *ngIf="!data.disable" class="" headers="re-allocate-dealer-sid" role="gridcell">
                     <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.sid" [disabled]="data.disable"
                       filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="payoutSelectedSID(data.sid)">
                     </p-dropdown>
                   </td>
+                  <td *ngIf="data.disable" class="" headers="re-allocate-dealer-ro-num" role="gridcell">{{data.sid}}</td>
                   <td class="" headers="re-allocate-dealer-ro-num" role="gridcell">{{data.ronumber}}</td>
                   <td class="" headers="re-allocate-dealer-part-num" role="gridcell">{{data.partNumber}}</td>
                   <td class="" headers="re-allocate-dealer-labor-seq" role="gridcell">{{data.laborSeq}}</td>
@@ -467,7 +465,7 @@
       </div>
     </div>
   </div>
-</div> 
+</div>
 <div class="modal fade" id="elSubmitConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

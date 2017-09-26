@@ -21,7 +21,9 @@ export class RewardsDistributionComponent implements OnInit {
   private date: string = "";
   private approveAllMVP: boolean = false;
   private distributedAmount: any = 0;
-
+  private hideelParticipantTable: boolean = false;
+  private hidepcParticipantTable: boolean = false;
+  private hideurParticipantTable: boolean = false;
   constructor(private rewardsDistributionService: RewardsDistributionService) { }
 
   ngOnInit() {
@@ -46,20 +48,46 @@ export class RewardsDistributionComponent implements OnInit {
   private disableELButton: boolean = false;
   private disablePCButton: boolean = false;
   private disableURButton: boolean = false;
+  private elRewardAmountModal: boolean = false;
+  private pcRewardAmountModal: boolean = false;
+  private urRewardAmountModal: boolean = false;
   private getRewardsDistributionAmount() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getRewardsDistributionAmount(dealerCode).subscribe(
       (rewardsAmount) => {
         this.rewardsAmount = (rewardsAmount)
-        if (this.rewardsAmount.MVP != undefined && this.rewardsAmount.MVP == 0) {
+        if (this.rewardsAmount.MVP != undefined && this.rewardsAmount.MVP <= 0) {
           this.disableMVPButton = true;
-        } if (this.rewardsAmount.el != undefined && this.rewardsAmount.el == 0) {
-          this.disableELButton = true;
-        } if (this.rewardsAmount.pc != undefined && this.rewardsAmount.pc == 0) {
-          this.disablePCButton = true;
-        } if (this.rewardsAmount.ur != undefined && this.rewardsAmount.ur == 0) {
-          this.disableURButton = true;
+          this.rewardsAmount.MVP = 0;
         }
+        if (this.rewardsAmount.el != undefined && this.rewardsAmount.el <= 0) {
+          this.disableELButton = true;
+          this.hideelParticipantTable = true;
+          this.rewardsAmount.el = 0
+          this.elRewardAmountModal = false;
+        } else {
+          this.elRewardAmountModal = true;
+          this.hideelParticipantTable = false;
+        }
+        if (this.rewardsAmount.pc != undefined && this.rewardsAmount.pc <= 0) {
+          this.disablePCButton = true;
+          this.hidepcParticipantTable = true;
+          this.rewardsAmount.pc = 0;
+          this.pcRewardAmountModal = false;
+        } else {
+          this.pcRewardAmountModal = true;
+          this.hidepcParticipantTable = false;
+        }
+        if (this.rewardsAmount.ur != undefined && this.rewardsAmount.ur <= 0) {
+          this.disableURButton = true;
+          this.hideurParticipantTable = true;
+          this.rewardsAmount.ur = 0;
+          this.urRewardAmountModal = false;
+        } else {
+          this.urRewardAmountModal = true;
+          this.hideurParticipantTable = false;
+        }
+
       },
       (error) => {
       }
@@ -96,7 +124,12 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private elOpenAllocationTable() {
-    this.displayError=false;
+    if (this.rewardsAmount.el != undefined && this.rewardsAmount.el <= 0) {
+      this.hideelParticipantTable = true;
+    } else {
+      this.hideelParticipantTable = false;
+    }
+    this.displayError = false;
     this.msg = "";
     this.distributedAmount = 0;
     this.hideMVPSection = false;
@@ -119,7 +152,12 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private pcOpenAllocationTable() {
-    this.displayError=false;
+    if (this.rewardsAmount.pc != undefined && this.rewardsAmount.pc <= 0) {
+      this.hidepcParticipantTable = true;
+    } else {
+      this.hidepcParticipantTable = false;
+    }
+    this.displayError = false;
     this.msg = "";
     this.distributedAmount = 0;
     this.hideMVPSection = false;
@@ -142,7 +180,12 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
   private urOpenAllocationTable() {
-    this.displayError=false;
+    if (this.rewardsAmount.ur != undefined && this.rewardsAmount.ur <= 0) {
+      this.hideurParticipantTable = true;
+    } else {
+      this.hideurParticipantTable = false;
+    }
+    this.displayError = false;
     this.msg = "";
     this.distributedAmount = 0;
     this.hideMVPSection = false;
@@ -283,6 +326,9 @@ export class RewardsDistributionComponent implements OnInit {
 
   private saveDistributionDATUM: any;
   private saveDistributionDATA(programName: string) {
+    this.hideelParticipantTable = true;
+    this.hidepcParticipantTable = true;
+    this.hideurParticipantTable = true;
     var program = programName;
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var nameValueList: any = [];
@@ -504,8 +550,19 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
 
+  private rewardsAmountDatum: any;
   private getRewardsAmountData(programName) {
-    //alert(programName);
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    this.rewardsDistributionService.getRewardsAmountData(programName, dealerCode).subscribe(
+      (rewardsAmountDatum) => {
+        this.rewardsAmountDatum = (rewardsAmountDatum)
+        console.log(this.rewardsAmountDatum);
+      },
+      (error) => {
+
+
+      }
+    )
   }
 
 }

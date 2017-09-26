@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 
+import { ROReportInterface } from "./ro-report.interface";
 import { SelectItem } from 'primeng/primeng';
 
 declare var $: any;
@@ -15,6 +16,12 @@ declare var $: any;
 })
 export class ROReportComponent implements OnInit {
     private program = "Enrollment_Admin";
+    private roReportInterface: ROReportInterface = {
+        "from": "",
+        "to": "",
+        "dealerCode": "",
+        "roNumber": ""
+    }
 
     constructor(private domSanitizer: DomSanitizer) { }
 
@@ -35,6 +42,14 @@ export class ROReportComponent implements OnInit {
             defaultTab: "tab1",
             orientation: "horizontal"
         });
+
+        this.roReportInterface = {
+            "from": "9/1/2017",
+            "to": "9/30/2017",
+            "dealerCode": "",
+            "roNumber": ""
+        }
+        this.openROReportLink();
     }
 
     private squarify() {
@@ -54,11 +69,24 @@ export class ROReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
+    private src: any = "";
     private openROReportLink() {
-        var programName="Enrollment_Admin"
-        var src = `http://172.25.32.40/reports/ReportServlet?reportPath=MSER&reportName=${programName}`
-        return this.domSanitizer.bypassSecurityTrustResourceUrl(src);
 
+
+    }
+
+    private showROReportIframe: boolean = false;
+    private showROReport() {
+        this.showROReportIframe = true;
+        var programName = "RepairOrder"
+        var RepairOrderSD = this.roReportInterface.from;
+        var RepairOrderED = this.roReportInterface.to;
+        var DealerCode = this.roReportInterface.dealerCode;
+        var RONumber = this.roReportInterface.roNumber;
+
+        var src1 = `http://172.25.32.40/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DealerCode}&RONumber=${RONumber}`;
+        console.log(src1);
+        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(src1);
     }
 
 }

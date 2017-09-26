@@ -15,7 +15,7 @@
 
   <!-- Breadcrumb -->
   <ol class="breadcrumb mb-0">
-    <li class="breadcrumb-item" routerLink="/mserHomepage/home" >Home</li>
+    <li class="breadcrumb-item" routerLink="/mserHomepage/home">Home</li>
     <li class="breadcrumb-item active" routerLink="#">Rewards-Distribution</li>
   </ol>
 
@@ -75,7 +75,7 @@
 
 
 
-  <div smoothScroll offset="0" id="displayError" >
+  <div smoothScroll offset="0" id="displayError">
     <p style="color:red">{{msg}}</p>
   </div>
   <!-- Begin MVP section -->
@@ -170,8 +170,10 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal" data-target="#elRewardAmountModal"
-                (click)="getRewardsAmountData('el')">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
+              <td *ngIf="!elRewardAmountModal" class="right-align " headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
+                data-target="#" (click)="getRewardsAmountData('el')">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
+              <td *ngIf="elRewardAmountModal" class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
+                data-target="#elRewardAmountModal" (click)="getRewardsAmountData('el')">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
@@ -180,7 +182,7 @@
         <!-- End Delearship Details Table -->
 
         <!-- Begin Participant Table -->
-        <table class="table table-bordered table-striped col-sm-12" role="grid">
+        <table class="table table-bordered table-striped col-sm-12" role="grid" [hidden]="hideelParticipantTable">
           <thead>
             <tr>
               <th class="" id="allocation-participants" role="columnheader" scope="col">Participants</th>
@@ -202,7 +204,7 @@
             <!-- end ng-if -->
           </tbody>
         </table>
-        <div class="col-sm-12 btn-container">
+        <div class="col-sm-12 btn-container" [hidden]="hideelParticipantTable">
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
 
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elCancelationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
@@ -248,8 +250,11 @@
             <!-- being ng-if -->
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal" data-target="#pcRewardAmountModal"
-                (click)="getRewardsAmountData('pc')">
+              <td *ngIf="!pcRewardAmountModal" class="right-align " headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
+                data-target="#" (click)="getRewardsAmountData('pc')">
+                {{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
+              <td *ngIf="pcRewardAmountModal" class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
+                data-target="#pcRewardAmountModal" (click)="getRewardsAmountData('pc')">
                 {{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
@@ -259,7 +264,7 @@
         <!-- End Delearship Details Table -->
 
         <!-- Begin Participant Table -->
-        <table class="table table-bordered table-striped col-sm-12" role="grid">
+        <table class="table table-bordered table-striped col-sm-12" role="grid" [hidden]="hidepcParticipantTable">
           <thead>
             <tr>
               <th class="" id="allocation-participants" role="columnheader" scope="col">Participants</th>
@@ -281,7 +286,7 @@
             <!-- end ng-if -->
           </tbody>
         </table>
-        <div class="col-sm-12 btn-container">
+        <div class="col-sm-12 btn-container" [hidden]="hidepcParticipantTable">
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
 
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
@@ -327,8 +332,11 @@
 
             <tr>
               <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
-              <td class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal" data-target="#urRewardAmountModal"
-                (click)="getRewardsAmountData('ur')">
+              <td *ngIf="!urRewardAmountModal" class="right-align " headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
+                data-target="#" (click)="getRewardsAmountData('ur')">
+                {{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
+              <td *ngIf="urRewardAmountModal" class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
+                data-target="#urRewardAmountModal" (click)="getRewardsAmountData('ur')">
                 {{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
@@ -338,7 +346,7 @@
         <!-- End Delearship Details Table -->
 
         <!-- Begin Participant Table -->
-        <table class="table table-bordered table-striped col-sm-12" role="grid">
+        <table class="table table-bordered table-striped col-sm-12" role="grid" [hidden]="hideurParticipantTable">
           <thead>
             <tr>
               <th class="" id="allocation-participants" role="columnheader" scope="col">Participants</th>
@@ -360,7 +368,7 @@
             <!-- end ng-if -->
           </tbody>
         </table>
-        <div class="col-sm-12 btn-container">
+        <div class="col-sm-12 btn-container" [hidden]="hideurParticipantTable">
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urCancellationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
           <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
@@ -625,7 +633,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="allocationHistoryModalLabel">Reward Amount Details</h4>
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Invoice Details</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
@@ -641,11 +649,13 @@
             </thead>
             <tbody>
               <!-- begin ng-if -->
-              <!-- <tr *ngFor="let data of distributionHistoryData">
-                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
-              </tr> -->
+              <tr *ngFor="let data of rewardsAmountDatum">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.dealerCode}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.invoiceNumber}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.partNumber}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.invoiceDate | date:"MM/dd/yyyy"}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.rewardAmount | currency:'USD':true:'1.2-2'}}</td>
+              </tr>
               <!-- end ng-if -->
 
             </tbody>
@@ -661,7 +671,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Invoice Details</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
@@ -677,11 +687,13 @@
             </thead>
             <tbody>
               <!-- begin ng-if -->
-              <!-- <tr *ngFor="let data of distributionHistoryData">
-                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
-              </tr> -->
+              <tr *ngFor="let data of rewardsAmountDatum">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.dealerCode}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.invoiceNumber}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.partNumber}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.invoiceDate | date:"MM/dd/yyyy"}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.rewardAmount | currency:'USD':true:'1.2-2'}}</td>
+              </tr>
               <!-- end ng-if -->
 
             </tbody>
@@ -697,7 +709,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
+          <h4 class="modal-title" id="allocationHistoryModalLabel">Invoice Details</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
@@ -713,11 +725,13 @@
             </thead>
             <tbody>
               <!-- begin ng-if -->
-              <!-- <tr *ngFor="let data of distributionHistoryData">
-                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.sid + " - " + data.firstName + " " + data.lastName}}</td>
-                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.updatedDate}}</td>
-              </tr> -->
+              <tr *ngFor="let data of rewardsAmountDatum">
+                <td class="" headers="allocation-history-recipient" role="gridcell">{{data.dealerCode}}</td>
+                <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.invoiceNumber}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.partNumber}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.invoiceDate | date:"MM/dd/yyyy"}}</td>
+                <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.rewardAmount | currency:'USD':true:'1.2-2'}}</td>
+              </tr>
               <!-- end ng-if -->
 
             </tbody>

@@ -13,92 +13,10 @@ declare var $: any;
 })
 export class RewardsRedistributionComponent implements OnInit {
     private showAllocationDiv: boolean = false;
-    private payoutRedistributionData: any = [
-        {
-            SID: "1",
-            RewardAllocHeaderId: "456",
-            RONumber: "1452",
-            PartNumber: "4545",
-            LaborSeq: "635",
-            PartSeq: "9685",
-            Quantity: "3256",
-            StatusCode: "REWARD",
-            ApprovedDate: "12-23-2017",
-            RewardAmount: 1,
-            AllocationId: "21",
-            Description: "Express Lane - Beam Blades ($2.00 set of 2) [EL_BEAM]"
-        },
-        {
-            SID: "2",
-            RewardAllocHeaderId: "456",
-            RONumber: "1452",
-            PartNumber: "4545",
-            LaborSeq: "635",
-            PartSeq: "9685",
-            Quantity: "3256",
-            StatusCode: "REWARD",
-            ApprovedDate: "12-23-2017",
-            RewardAmount: 11,
-            AllocationId: "21",
-            Description: "Express Lane - Beam Blades ($2.00 set of 2) [EL_BEAM]"
-        },
-        {
-            SID: "3",
-            RewardAllocHeaderId: "456",
-            RONumber: "1452",
-            PartNumber: "4545",
-            LaborSeq: "635",
-            PartSeq: "9685",
-            Quantity: "3256",
-            StatusCode: "RJCT",
-            ApprovedDate: "12-23-2018",
-            RewardAmount: 2,
-            AllocationId: "21",
-            Description: "Express Lane - Beam Blades ($2.00 set of 2) [EL_BEAM]"
-        },
-        {
-            SID: "4",
-            RewardAllocHeaderId: "456",
-            RONumber: "1452",
-            PartNumber: "4545",
-            LaborSeq: "635",
-            PartSeq: "9685",
-            Quantity: "3256",
-            StatusCode: "RJCT",
-            ApprovedDate: "12-23-2018",
-            RewardAmount: 22,
-            AllocationId: "21",
-            Description: "Express Lane - Beam Blades ($2.00 set of 2) [EL_BEAM]"
-        },
-        {
-            SID: "045",
-            RewardAllocHeaderId: "456",
-            RONumber: "1452",
-            PartNumber: "4545",
-            LaborSeq: "635",
-            PartSeq: "9685",
-            Quantity: "3256",
-            StatusCode: "RJCT",
-            ApprovedDate: "12-14-2017",
-            RewardAmount: 3,
-            AllocationId: "21",
-            Description: "Used Recon - Beam Blades ($2.00 set of 2) [EL_BEAM]"
-        },
-        {
-            SID: "523",
-            RewardAllocHeaderId: "456",
-            RONumber: "1452",
-            PartNumber: "4545",
-            LaborSeq: "635",
-            PartSeq: "9685",
-            Quantity: "3256",
-            StatusCode: "REWARD",
-            ApprovedDate: "10-23-2001",
-            RewardAmount: 33,
-            AllocationId: "21",
-            Description: "Parts Counter - Beam Blades ($2.00 set of 2) [EL_BEAM]"
-        }
-    ]
+    private hideelParticipantTable: boolean = false;
+    private hidepcParticipantTable: boolean = false;
+    private hideurParticipantTable: boolean = false;
+    private hidepayoutParticipantTable: boolean = false;
 
     constructor(private rewardsReDistributionService: RewardsReDistributionService,
         private rewardsDistributionService: RewardsDistributionService) {
@@ -238,7 +156,9 @@ export class RewardsRedistributionComponent implements OnInit {
     private constructPayoutAllocationData() {
         var payoutTotalData: any = 0;
         for (var i = 0; i < this.payoutRedistributionDataResponse.length; i++) {
-            payoutTotalData = payoutTotalData + this.payoutRedistributionDataResponse[i].rewardAmount;
+            if (this.payoutRedistributionDataResponse[i].statusCode == "RJCT") {
+                payoutTotalData = payoutTotalData + this.payoutRedistributionDataResponse[i].rewardAmount;
+            }
         }
         this.allocationTableData.payout = payoutTotalData;
         if (payoutTotalData == 0) {
@@ -379,6 +299,7 @@ export class RewardsRedistributionComponent implements OnInit {
     }
     private elHistoryData = []
     private openELHistory(allocationID) {
+        this.msg = "";
         var elHistoryData1 = [];
         for (var i = 0; i < this.elRedistributionDataResponse.length; i++) {
             if (allocationID == this.elRedistributionDataResponse[i].allocationID) {
@@ -389,6 +310,7 @@ export class RewardsRedistributionComponent implements OnInit {
     }
     private pcHistoryData = []
     private openPCHistory(allocationID) {
+        this.msg = "";
         var pcHistoryData1 = [];
         for (var i = 0; i < this.pCRedistributionDataResponse.length; i++) {
             if (allocationID == this.pCRedistributionDataResponse[i].allocationID) {
@@ -399,7 +321,7 @@ export class RewardsRedistributionComponent implements OnInit {
     }
     private urHistoryData = []
     private openURHistory(allocationID) {
-        debugger
+        this.msg = "";
         var urHistoryData1 = [];
         for (var i = 0; i < this.uRRedistributionDataResponse.length; i++) {
             if (allocationID == this.uRRedistributionDataResponse[i].allocationID) {
@@ -413,6 +335,9 @@ export class RewardsRedistributionComponent implements OnInit {
     private participantDataValue: any = [];
     private participantsOptions: SelectItem[] = [];
     private getParticipantsByDealer(dealerCode: string, program: string) {
+        this.hidepcParticipantTable = false;
+        this.hideelParticipantTable = false;
+        this.hideurParticipantTable = false;
         this.participantDataValue = [];
         var constructParticipants: any = [];
         this.rewardsDistributionService.getParticipantsByDealer(dealerCode, program).subscribe(
@@ -440,6 +365,10 @@ export class RewardsRedistributionComponent implements OnInit {
 
     private activeAllocationID: any = 0;
     openPCRedistributionTable(allocationID, programName) {
+        this.hidepcParticipantTable = false;
+        this.hideelParticipantTable = false;
+        this.hideurParticipantTable = false;
+        this.msg = "";
         this.activeAllocationID = allocationID;
         this.participantsOptions = [];
         this.getParticipantsByDealer(this.insertedDealercode, programName);
@@ -449,7 +378,10 @@ export class RewardsRedistributionComponent implements OnInit {
     private rewardsAmount: any = {};
     private msg: string = "";
     private savePCRedistributionData() {
-       
+        this.hidepcParticipantTable = true;
+        this.hideelParticipantTable = true;
+        this.hideurParticipantTable = true;
+        this.hidePayoutDistributionTable = true;
         var nameValueList: any = [];
         var nameValues: any = {};
         var rewardsAmount = this.rewardsAmount;
@@ -485,7 +417,7 @@ export class RewardsRedistributionComponent implements OnInit {
         )
     }
 
-    private hidepcParticipantTable: boolean = false;
+    // private hidepcParticipantTable: boolean = false;
     private hidepcDistributionTable: boolean = false;
     private pcCancelationModal() {
         this.hideELSection = false;
@@ -516,6 +448,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private hideURSection: boolean = true;
     private hidePayoutSection: boolean = true;
     private elProceedToAllocation() {
+        this.msg = "";
         this.hideELSection = true;
         this.hidePCSection = false;
         this.hideURSection = false;
@@ -536,6 +469,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
     }
     private pcProceedToAllocation() {
+        this.msg = "";
         this.hideELSection = false;
         this.hidePCSection = true;
         this.hideURSection = false;
@@ -556,6 +490,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
     }
     private urProceedToAllocation() {
+        this.msg = "";
         this.hideELSection = false;
         this.hidePCSection = false;
         this.hideURSection = true;
@@ -576,6 +511,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
     }
     private payoutProceedToAllocation() {
+        this.msg = "";
         this.hideELSection = false;
         this.hidePCSection = false;
         this.hideURSection = false;
@@ -621,10 +557,13 @@ export class RewardsRedistributionComponent implements OnInit {
         descriptionArray = this.removeDuplicates(descriptionArray);
 
         for (var j = 0; j < descriptionArray.length; j++) {
-            payoutGroupedData.push({ dealerCode: this.insertedDealercode, description: descriptionArray[j], payoutPeriod: "", rewardAmount: 0, rejectedAmount: 0 })
+            payoutGroupedData.push({ dealerCode: this.insertedDealercode, description: descriptionArray[j], payoutPeriod: "", totalRewardAmount: 0, rewardAmount: 0, rejectedAmount: 0 })
             for (var k = 0; k < payoutData.length; k++) {
                 if (descriptionArray[j] == payoutData[k].description) {
-                    if (payoutData[k].statusCode == "REJC") {
+                    if (payoutData[k].statusCode == "RJCT" || payoutData[k].statusCode == "CLSE") {
+                        payoutGroupedData[j].totalRewardAmount += payoutData[k].rewardAmount;
+                    }
+                    if (payoutData[k].statusCode == "RJCT") {
                         payoutGroupedData[j].payoutPeriod = payoutData[k].approvedDate;
                         payoutGroupedData[j].rejectedAmount += payoutData[k].rewardAmount;
                     } else if (payoutData[k].statusCode == "CLSE") {
@@ -635,7 +574,7 @@ export class RewardsRedistributionComponent implements OnInit {
             }
         }
         this.payoutGroupedData = payoutGroupedData;
-        // console.log(payoutGroupedData);
+        console.log(payoutGroupedData);
 
     }
 
@@ -643,6 +582,8 @@ export class RewardsRedistributionComponent implements OnInit {
     private sortedRODetails: any = [];
     private payoutSIDOptions: SelectItem[] = [];
     private createRODetails(description) {
+        this.msg = "";
+        this.getParticipantsByDealer(this.insertedDealercode, "payout");
         if (!this.hidePayoutDistributionTable) {
             this.hidePayoutDistributionTable = false;
         } else if (this.hidePayoutDistributionTable) {
@@ -659,7 +600,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
 
         for (var y = 0; y < roDetails.length; y++) {
-            if (roDetails[y].statusCode == "REJC") {
+            if (roDetails[y].statusCode == "RJCT") {
                 roDetails[y].status = "Rejected";
                 roDetails[y].checked = false;
                 roDetails[y].disable = false;
@@ -673,7 +614,7 @@ export class RewardsRedistributionComponent implements OnInit {
         this.roDetails = roDetails;
         var rejectedROindex: any = [];
         for (var z = 0; z < this.roDetails.length; z++) {
-            if (this.roDetails[z].statusCode == "REJC") {
+            if (this.roDetails[z].statusCode == "RJCT") {
                 sortedRODetails.push(this.roDetails[z]);
                 rejectedROindex.push(z);
             }
@@ -692,7 +633,7 @@ export class RewardsRedistributionComponent implements OnInit {
     }
 
     private getDistributionHistoryData(programName) {
-
+        this.msg = "";
     }
 
     private payoutSelectedSID(sid) {
@@ -702,7 +643,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private approveAllPayoutRedistribution(approveAllpayout) {
         if (approveAllpayout != undefined && approveAllpayout == true) {
             for (var y = 0; y < this.sortedRODetails.length; y++) {
-                if (this.sortedRODetails[y].statusCode == "REJC") {
+                if (this.sortedRODetails[y].statusCode == "RJCT") {
                     this.sortedRODetails[y].checked = true;
                     // this.roDetails[y].disable = true;
                 }
@@ -710,7 +651,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
         else if (approveAllpayout != undefined && approveAllpayout == false) {
             for (var y = 0; y < this.sortedRODetails.length; y++) {
-                if (this.sortedRODetails[y].statusCode == "REJC") {
+                if (this.sortedRODetails[y].statusCode == "RJCT") {
                     this.sortedRODetails[y].checked = false;
                     // this.roDetails[y].disable = false;
                 }
@@ -720,6 +661,7 @@ export class RewardsRedistributionComponent implements OnInit {
 
     private savePayoutDATUM: any;
     private savePayoutRedistributionData() {
+        this.hidePayoutDistributionTable = true;
         var data: any = {};
         for (var i = 0; i < this.sortedRODetails.length; i++) {
             if (this.sortedRODetails[i].sid != undefined && this.sortedRODetails[i].checked == true) {

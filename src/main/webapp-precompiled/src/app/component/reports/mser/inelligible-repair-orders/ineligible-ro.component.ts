@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from "@angular/platform-browser";
+
 import { SelectItem } from 'primeng/primeng';
 
 declare var $: any;
@@ -12,9 +14,12 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class IneligibleROReportComponent implements OnInit {
+    private showExecutiveInelligibleROReport: boolean = true;
+    private showDistrictInelligibleROReport: boolean = false;
+    private showDealerInelligibleRODepositReport: boolean = false;
 
 
-    constructor() { }
+    constructor(private domSanitizer: DomSanitizer) { }
 
     ngOnInit() {
         this.squarify();
@@ -51,5 +56,30 @@ export class IneligibleROReportComponent implements OnInit {
     onResize(event) {
         this.squarify();
         //event.target.innerWidth; // window width
+    }
+
+    private openExecutiveInelligibleROReport() {
+        this.showExecutiveInelligibleROReport = true;
+        this.showDistrictInelligibleROReport = false;
+        this.showDealerInelligibleRODepositReport = false;
+    }
+
+    private openDistrictInelligibleROReport() {
+        this.showExecutiveInelligibleROReport = false;
+        this.showDistrictInelligibleROReport = true;
+        this.showDealerInelligibleRODepositReport = false;
+    }
+
+    private openDealerInelligibleRODepositReport() {
+        this.showExecutiveInelligibleROReport = false;
+        this.showDistrictInelligibleROReport = false;
+        this.showDealerInelligibleRODepositReport = true;
+    }
+
+    private openInalegibleROReportLink() {
+        var programName = "Enrollment_Admin"
+        var src = `http://172.25.32.40/reports/ReportServlet?reportPath=MSER&reportName=${programName}`
+        return this.domSanitizer.bypassSecurityTrustResourceUrl(src);
+
     }
 }

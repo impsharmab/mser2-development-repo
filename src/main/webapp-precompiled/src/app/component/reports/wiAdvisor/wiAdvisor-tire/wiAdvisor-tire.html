@@ -1,0 +1,170 @@
+<main class="main report-center" id="report-center">
+
+    <!-- Reward Center Tabs-->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
+            <li class="tab" (click)="viewBCTabOnly()"><a>Businss Center</a></li>
+            <li class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
+            <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+            <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
+            <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
+        </ul>
+        <!-- Content container -->
+        <div>
+            <div class="z-content-pad">
+                <h2>Executive wiAdvisor Tire Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+
+                <form>
+                    <div class="form-group row">
+                        From:&#160;&#160;
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar> <span style="margin-left:45px"></span>
+
+                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="wiAdvisorTireInterface.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+                        Program:&#160;&#160;
+                        <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                    </div>
+                </form>
+                <!-- Report Include -->
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+
+            <div *ngIf="showExecutiveWiAdvisorTireReportIframe">
+                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+
+            <div class="z-content-pad">
+                <h2>Business Center wiAdvisor Tire Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+
+                <form>
+                    <div class="form-group row">
+                        Business Center:&#160; <input placeholder="BC" type="text" id="dc" name="dc" pInputText [(ngModel)]="wiAdvisorTireInterface.bc"
+                        /> From:&#160;&#160;
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar> <span style="margin-left:45px"></span>
+                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="wiAdvisorTireInterface.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+                        <button pButton type="button" (click)="viewBCWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                    </div>
+                </form>
+                <!-- Report Include -->
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <div *ngIf="showBCWiAdvisorTireReportIframe">
+                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+
+
+            <div class="z-content-pad">
+                <h2>District Reward Center Report</h2>
+                <p class="report-description">Total excellence card rewards deposited through MSER</p>
+                <form>
+                    <div class="form-group row">
+                        <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="wiAdvisorTireInterface.dealerCode" /> -->
+
+                        From:&#160;&#160;
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
+
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar> <span style="margin-left:45px"></span>
+
+                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="wiAdvisorTireInterface.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+                        Program:&#160;&#160;
+                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
+
+                        <button pButton type="button" (click)="viewDistrictWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report"
+                            style="margin-left:35px"></button>
+                    </div>
+                </form>
+
+                <!-- Report Include -->
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+
+            <div *ngIf="showDistrictWiAdvisorTireReportIframe">
+                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+
+
+            <div class="z-content-pad">
+                <h2>Dealer Reward Center Report</h2>
+                <p class="report-description">Total excellence card rewards deposited through MSER</p>
+                <form>
+                    <div class="form-group row">
+                        Dealer Code:&#160; <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="wiAdvisorTireInterface.dealerCode"
+                        /> From:&#160;&#160;
+
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
+
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar> <span style="margin-left:45px"></span>
+
+                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="wiAdvisorTireInterface.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+
+                        Program:&#160;&#160;
+                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
+
+                        <button pButton type="button" (click)="viewDealerWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report"
+                            style="margin-left:35px"></button>
+                    </div>
+                </form>
+                <!-- Report Include -->
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <div *ngIf="showDealerWiAdvisorTireReportIframe">
+                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+            <!-- <iframe *ngIf="showDealerWiAdvisorTireReportIframe" height=625px width=950px id="frame1" name="frame1" [src]=' openWiAdvisorTireReport()'>
+                </iframe> -->
+
+            <div class="z-content-pad">
+                <h2>Participant Reward Center Report</h2>
+                <p class="report-description">Total excellence card rewards deposited through MSER</p>
+                <form>
+                    <div class="form-group row">
+                        Sid:&#160;&#160;<input placeholder="Sid" type="text" id="dc" name="dc" pInputText [(ngModel)]="wiAdvisorTireInterface.sid"
+                        /> &#160;From:&#160;&#160;
+
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
+
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar> <span style="margin-left:45px"></span>
+
+                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="wiAdvisorTireInterface.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+                        Program:&#160;&#160;
+                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
+
+                        <button pButton type="button" (click)="viewParticipantWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report"
+                            style="margin-left:35px"></button>
+                    </div>
+                </form>
+                <!-- Report Include -->
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <div *ngIf="showParticipantWiAdvisorTireReportIframe">
+                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+
+
+        </div>
+    </div>
+</main>

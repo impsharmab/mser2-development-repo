@@ -1,0 +1,69 @@
+<main class="main report-center" id="report-center">
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="Executive" (click)="viewExecutiveRewardDepositReport()">
+            <div class="z-content-pad">
+                <h2>Executive Reward Center Report</h2>
+                <p class="report-description">Total excellence card rewards deposited through MSER</p>
+            </div>
+            <div *ngIf="showExecutiveRewardDepositReportIframe">
+                <iframe height=625px width=950px id="exIframe" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Businss Center" (click)="viewBCTabOnly()">
+            <div class="z-content-pad">
+                <h2>Business Center Reward Report</h2>
+                <!-- <form>
+                    <div class="form-group row">
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span>
+
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar> <span style="margin-left:45px"></span>
+
+                        <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                            filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown>
+                        <button pButton type="button" (click)="viewBCRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                    </div>
+                </form> -->
+                <div>
+                    <form>
+                        <div class="form-group row">
+                            <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'margin-left' :'55px', 'overflow':'visible'}"
+                                [showTime]="false" [(ngModel)]="bcfrom" dataType="string"></p-calendar>
+
+                            <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'margin-left' :'55px','overflow':'visible'}"
+                                [showTime]="false" dataType="string" [(ngModel)]="bcto"></p-calendar>
+
+                            <p-dropdown [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="bcprogram" [style]="{'margin-left' :'55px','width':'400px'}"
+                                filter="filter" placeholder="Select a Program">
+                            </p-dropdown>
+
+                            <button pButton type="button" (click)="viewBCRewardDepositReport(bcfrom, bcto, bcprogram)" icon="fa-check" iconPos="right"
+                                label="View Report" style="margin-left:35px"></button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div *ngIf="showBCRewardDepositReportIframe">
+                <iframe height=625px width=950px id="bcIframe" name="frame1" [src]="src">
+                </iframe>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="District">
+
+        </p-tabPanel>
+        <p-tabPanel header="Dealer">
+
+        </p-tabPanel>
+        <p-tabPanel header="Participant">
+
+        </p-tabPanel>
+        <p-tabPanel header="Detail">
+
+        </p-tabPanel>
+    </p-tabView>
+
+
+</main>

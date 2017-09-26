@@ -36,9 +36,9 @@ export class SidenavComponent implements OnInit, AfterViewInit {
       this.isMSEREnrolled = false;
     }
     this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
-    console.log(this.selectedPositionCode);
+    //  console.log(this.selectedPositionCode);
   }
-  
+
   ngAfterViewInit() {
     this.executeJQueryCode();
   }

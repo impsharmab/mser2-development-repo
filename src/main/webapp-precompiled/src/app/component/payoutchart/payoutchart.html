@@ -16,8 +16,8 @@
             <li class="tab"><a>PARTS PERSONNEL REWARDS</a></li-->
 
 
-            <li class="tab"><a>Home</a></li>
-            <li class="tab"><a>Monthly Highlights</a></li>
+            <li class="tab" [routerLink]="['/mserHomepage/cmsrouter', {'cmsPage': 'PayoutChartHome', 'pdf':'false'}]"><a>Home</a></li>
+            <li class="tab" [routerLink]="['/mserHomepage/cmsrouter', {'cmsPage': 'PayoutChartMonthlyHighlights', 'pdf':'false'}]"><a>Monthly Highlights</a></li>
             <li class="tab"><a>Service Advisors</a></li>
             <li class="tab"><a>Technicians</a></li>
             <li class="tab"><a>Parts</a></li>
@@ -31,7 +31,8 @@
             <!-- Home tab -->
             <div class="z-content-pad">
               <h2 class="visible-print">Home</h2>
-              <div class="payout-chart-home">
+
+              <!--<div class="payout-chart-home">
                 <div class="payout-chart-home-content">
                   <h3 class="payout-chart-heading">REWARDS WRAP</h3>
                   <h4 class="payout-chart-subheading">MSER PAYOUT CHART<br />Q3 2017 July Update</h4>
@@ -45,15 +46,15 @@
                 </div>
                 <img class="home-logo" alt="" src="assets/img/mser-logo-white.png" />
                 <img class="background-image" alt="Couple going over options with their car dealer" src="assets/img/payout-chart-cover.jpg" />
-              </div>
+              </div> -->
             </div>
 
             <!-- Monthly Highlights -->
             <div class="z-content-pad">
-              <h2 class="visible-print">Q3 2017 JULY HIGHLIGHTS</h2>
+              <!-- <h2 class="visible-print">Q3 2017 JULY HIGHLIGHTS</h2>
 
-              <h4 class="payout-chart-heading">Q3 2017 JULY- Rewards of Note</h4>
-              <ul>
+              <h4 class="payout-chart-heading">Q3 2017 JULY- Rewards of Note</h4> -->
+              <!-- <ul>
                 <li><strong>Beam Blades and Rain Repellent are now on the drive. See <a href="https://www.moparser.com/mser/consumerRebates.do">details and special rebate</a> for this perfect Summer duo!</strong></li>
                 <li><strong>Carpet Floor Mats stay put for July at $5.00!</strong></li>
                 <li><strong>RAM Trailer Hitches continue on the menu for Advisors, Technicians and Parts Personnel.</strong></li>
@@ -73,10 +74,10 @@
               <h4 class="payout-chart-heading">wiADVISOR</h4>
               <p>wiADVISOR continues to pay $5 for a set of 2 tires and $10 for a set of 4 tires in July! Plus $1 on any MVP Plan sold using wiADVISOR technology.</p>
               <img alt="MOPAR logo" src="assets/img/logo.png" />
-              <!--</div>  End Col 6 -->
+              
               <div class="col6">
-              </div>
-              <!-- End Col 6 -->
+              </div> -->
+
             </div>
 
             <!-- Service Advisors -->
@@ -99,14 +100,17 @@
                   <div>
                     <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override"><span class="graph-item-subject">Transmissions/Trans Axles/T-Cases</span> <span class="graph-item-figure">$20.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item magneti-marelli"><span class="graph-item-subject">Brake Pads (OE, MM)</span> <span class="graph-item-figure">$2.00</span> <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item"><span class="graph-item-subject">Mopar Engines</span> <span class="graph-item-figure">$30.00</span> <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Transmissions/Trans Axles/T-Cases</span> <span class="graph-item-figure">$20.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item magneti-marelli"><span class="graph-item-subject">Brake Pads (OE, MM)</span> <span class="graph-item-figure">$2.00</span>                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item"><span class="graph-item-subject">Mopar Engines</span> <span class="graph-item-figure">$30.00</span>                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
                       <li class="graph-item"><span class="graph-item-subject">N45 &amp; N46 Recall Rewards</span> <span class="graph-item-figure">$10.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Mopar AC Compressors</span> <span class="graph-item-figure">$5.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Cabin Air Filters (MM and Mopar)</span> <span class="graph-item-figure">$2.00</span></li>
                       <li class="graph-item rebate-form"><span class="graph-item-subject">Beam Blades (Set of 2)</span> <span class="graph-item-figure">$2.00</span></li>
-                      <li class="graph-item rebate-form"><span class="graph-item-subject">Rain Repellent</span> <span class="graph-item-figure">$1.00</span></li>                    </ul>
+                      <li class="graph-item rebate-form"><span class="graph-item-subject">Rain Repellent</span> <span class="graph-item-figure">$1.00</span></li>
+                    </ul>
                     <p><span class="legend service-override"></span> Service Manager override is $5.</p>
                     <p><span class="legend magneti-marelli"></span> OE and Magneti Marelli Brake Pads.</p>
                     <p><span class="legend rebate-form"></span> Click on "info" icon for rebate form and part listing.</p>
@@ -119,11 +123,19 @@
                   <div>
                     <h4 class="payout-chart-heading">MOPAR Upfits</h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Water Pumps</span> <span class="graph-item-figure">$2.50</span><a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="A1234, B2345, Z9087"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Water Pumps</span> <span class="graph-item-figure">$2.50</span>
+                        <a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="A1234, B2345, Z9087"><i class="fa fa-info-circle"></i></a>
+                      </li>
                       <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Starters</span> <span class="graph-item-figure">$10.00</span></li>
-                      <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Alternators</span> <span class="graph-item-figure">$10.00</span><a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="D4567, X8676"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Batteries</span> <span class="graph-item-figure">$5.00</span><a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="A1234"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Radiators &amp; Condensers</span> <span class="graph-item-figure">$5.00</span><a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="C3456, D4567, X8676, Z9087"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Alternators</span> <span class="graph-item-figure">$10.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="D4567, X8676"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Batteries</span> <span class="graph-item-figure">$5.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="A1234"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Radiators &amp; Condensers</span> <span class="graph-item-figure">$5.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="tooltip" data-placement="left" title="C3456, D4567, X8676, Z9087"><i class="fa fa-info-circle"></i></a>
+                      </li>
                     </ul>
                     <p><span class="legend service-override"></span> Service Manager override is $5.</p>
                     <p class="disclaimer graph-disclaimer">Parts &amp; Service manager override is 20% on all above items.</p>
@@ -135,7 +147,7 @@
                     <h4 class="payout-chart-heading">wiADVISOR</h4>
                     <p>Mopar Vehicle Protection</p>
                     <a href="http://www.moparser.com/shared/imi-cms/MSER/docs/MVP%20PLANS%20July%202017.pdf"><img alt="MOPAR Vehicle Protection" src="assets/img/mopar-vehicle-protection-logo.png" /></a>
-                    <p>Rewards range from $1 to $50.  See MVP tab on moparser.com or click icon for more details.</p>
+                    <p>Rewards range from $1 to $50. See MVP tab on moparser.com or click icon for more details.</p>
                     <ul class="graph graph-list">
                       <li class="graph-item"><span class="graph-item-subject">MVP Plans</span> <span class="graph-item-figure">$1.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Tires (Set of 4)</span> <span class="graph-item-figure">$10.00</span></li>
@@ -175,9 +187,12 @@
                   <div>
                     <h4 class="payout-chart-heading"><span class="hide-me">UConnect</span><img alt="UConnect" src="assets/img/uconnect-logo.png" /></h4>
                     <h5>New For July!</h5>
-                    <p>Inform your Retail Sales People and let them know that all UConnect Navigation Activations properly processed will be paid $10. Come directly from DealerConnect,without logging into MSER! See link onTraining tab.</p>
+                    <p>Inform your Retail Sales People and let them know that all UConnect Navigation Activations properly processed
+                      will be paid $10. Come directly from DealerConnect,without logging into MSER! See link onTraining tab.</p>
                     <ul class="graph graph-list">
-                      <li class="graph-item"><span class="graph-item-subject">UConnect RA3 Navigation Activation<br/><strong>All Sales, Service and Parts Personnel</strong></span><span class="graph-item-figure">$10.00</span></li>
+                      <li class="graph-item"><span class="graph-item-subject">UConnect RA3 Navigation Activation<br/><strong>All Sales, Service and Parts Personnel</strong></span>
+                        <span class="graph-item-figure">$10.00</span>
+                      </li>
                     </ul>
                     <p class="disclaimer graph-disclaimer">Service manager override is 20% on all above items.</p>
                     <img alt="MOPAR logo" src="assets/img/logo.png" />
@@ -202,12 +217,14 @@
                   <div>
                     <h4 class="payout-chart-heading">MOPAR PARTS & ENGINES</h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override"><span class="graph-item-subject">Transmissions/Trans Axles/T-Cases</span> <span class="graph-item-figure">$25.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item magneti-marelli"><span class="graph-item-subject">Mopar Brake Pads (OE, MM)</span> <span class="graph-item-figure">$2.00</span> <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item"><span class="graph-item-subject">Mopar Engines</span> <span class="graph-item-figure">$15.00</span> <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Transmissions/Trans Axles/T-Cases</span> <span class="graph-item-figure">$25.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item magneti-marelli"><span class="graph-item-subject">Mopar Brake Pads (OE, MM)</span> <span class="graph-item-figure">$2.00</span>                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item"><span class="graph-item-subject">Mopar Engines</span> <span class="graph-item-figure">$15.00</span>                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
                       <li class="graph-item"><span class="graph-item-subject">Mopar AC Compressors</span> <span class="graph-item-figure">$5.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Cabin Air Filters (MM and Mopar)</span> <span class="graph-item-figure">$2.00</span></li>
-                      <li class="graph-item rebate-form"><span class="graph-item-subject">Beam Blades (Set of 2)</span> <span class="graph-item-figure">$2.00</span> <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item rebate-form"><span class="graph-item-subject">Beam Blades (Set of 2)</span> <span class="graph-item-figure">$2.00</span>                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
                       <li class="graph-item rebate-form"><span class="graph-item-subject">Rain Repellent</span> <span class="graph-item-figure">$1.00</span></li>
                     </ul>
                     <p><span class="legend service-override"></span> Service Manager override is $5.</p>
@@ -222,8 +239,10 @@
                   <div>
                     <h4 class="payout-chart-heading">MOPAR Upfits</h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override"><span class="graph-item-subject">RAM Trailer Hitches</span> <span class="graph-item-figure">$2.50</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item service-override"><span class="graph-item-subject">Carpet Floor Mats</span> <span class="graph-item-figure">$5.00</span> <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">RAM Trailer Hitches</span> <span class="graph-item-figure">$2.50</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Carpet Floor Mats</span> <span class="graph-item-figure">$5.00</span>                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
                     </ul>
 
                     <p>Select <i class="legend qualifying-part-number fa fa-info-circle"></i> for qualifying part number(s).</p>
@@ -292,10 +311,17 @@
                   <div>
                     <h4 class="payout-chart-heading">PARTS COUNTER</h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override"><span class="graph-item-subject">RAM Trailer Hitches</span><span class="graph-item-figure">$25.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item"><span class="graph-item-subject">Mopar WiFi</span><span class="graph-item-figure">$10.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item"><span class="graph-item-subject">Cell Phone Hands-Free Kit</span><span class="graph-item-figure">$10.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item service-override"><span class="graph-item-subject">Carpet Floor Mats</span><span class="graph-item-figure">$5.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">RAM Trailer Hitches</span><span class="graph-item-figure">$25.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item"><span class="graph-item-subject">Mopar WiFi</span><span class="graph-item-figure">$10.00</span><a class="graph-item-info"
+                          href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item"><span class="graph-item-subject">Cell Phone Hands-Free Kit</span><span class="graph-item-figure">$10.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Carpet Floor Mats</span><span class="graph-item-figure">$5.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
                       <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli TMPS Part #1AMTP3350A</span><span class="graph-item-figure">$2.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Alternators</span><span class="graph-item-figure">$2.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Starters</span><span class="graph-item-figure">$2.00</span></li>
@@ -340,10 +366,17 @@
                   <div>
                     <h4 class="payout-chart-heading">USED RECON PROMOTION PARTS</h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override"><span class="graph-item-subject">Spare Tire Kits</span><span class="graph-item-figure">$25.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item service-override"><span class="graph-item-subject">Bed Liners</span><span class="graph-item-figure">$10.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item"><span class="graph-item-subject">OHTSU Tires (Set of 2)</span><span class="graph-item-figure">$10.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
-                      <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Batteries</span><span class="graph-item-figure">$5.00</span><a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Spare Tire Kits</span><span class="graph-item-figure">$25.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Bed Liners</span><span class="graph-item-figure">$10.00</span><a class="graph-item-info"
+                          href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a></li>
+                      <li class="graph-item"><span class="graph-item-subject">OHTSU Tires (Set of 2)</span><span class="graph-item-figure">$10.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
+                      <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Batteries</span><span class="graph-item-figure">$5.00</span>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"><i class="fa fa-info-circle"></i></a>
+                      </li>
                       <li class="graph-item service-override"><span class="graph-item-subject">Magneti Marelli Alternator</span><span class="graph-item-figure">$2.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Starter</span><span class="graph-item-figure">$2.00</span></li>
                       <li class="graph-item"><span class="graph-item-subject">Magneti Marelli Water Pump</span><span class="graph-item-figure">$2.00</span></li>
@@ -360,7 +393,8 @@
                   <!-- Promo Objective -->
                   <div>
                     <h4 class="payout-chart-heading">PROMO OBJECTIVE</h4>
-                    <p>To encourage, reward and recognize dealership employees for the use of Magneti Marelli parts on vehicles being traded and reconditioned for resale.</p>
+                    <p>To encourage, reward and recognize dealership employees for the use of Magneti Marelli parts on vehicles
+                      being traded and reconditioned for resale.</p>
                     <p>*Be sure to indicate the Labor OP Code UCRMSER1 on the invoice for the part to be counted.</p>
                     <p>*Dealers using Reynolds and Reynolds DMS must use an OP Code with UCRM to qualify for payouts.</p>
                     <p><a href="">More info and rules</a></p>
@@ -370,7 +404,9 @@
                   <div>
                     <h4 class="payout-chart-heading"><span class="hide-me">UConnect</span><img alt="UConnect" src="assets/img/uconnect-logo.png" /></h4>
                     <ul class="graph graph-list">
-                      <li class="graph-item"><span class="graph-item-subject">UConnect RA3 Navigation Activation<br/><strong>All Sales, Service and Parts Personnel</strong></span><span class="graph-item-figure">$10.00</span></li>
+                      <li class="graph-item"><span class="graph-item-subject">UConnect RA3 Navigation Activation<br/><strong>All Sales, Service and Parts Personnel</strong></span>
+                        <span class="graph-item-figure">$10.00</span>
+                      </li>
                     </ul>
                     <p class="disclaimer graph-disclaimer">Service manager override is 20% on all above items.</p>
                     <img alt="MOPAR logo" src="assets/img/logo.png" />

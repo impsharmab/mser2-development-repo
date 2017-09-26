@@ -658,35 +658,45 @@ h2 {
 
 /* Begin Footer */
 .app-footer {
-  background: rgb(15,20,26);
-  color: rgb(218,223,230);
+  background-color: rgb(91,103,112);
+  color: rgb(255,255,255);
 }
-
 .footer-links {
-  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   list-style-image: none;
   list-style-type: none;
 }
-
+.footer-logos {
+  background-color: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.35);
+}
+.footer-logo{
+  background-color: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  list-style: none;
+}
 .footer-item {
   list-style-type: none;
   text-align: -webkit-match-parent;
 }
-
 .footer-link {
   background-color: transparent;
   color: rgb(218,223,230);
   cursor: pointer;
-  font-weight: 300;
   font-size: 16px;
+  font-weight: 300;
   letter-spacing: 1px;
-  transition: 300ms ease-out all;
   text-decoration: none;
+  transition: 300ms ease-out all;
 }
-
 .footer-link:hover {
   color: rgb(255,255,255);
-  text-decoration: none;
+  text-decoration:none;
+}
+.copyright-notice {
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 17px;
+  font-weight: normal;
+  text-align: center;
 }
 /* End Footer */
 

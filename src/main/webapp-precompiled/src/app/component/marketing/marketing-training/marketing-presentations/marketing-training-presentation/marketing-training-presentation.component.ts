@@ -61,6 +61,7 @@ export class MarketingTrainingPresentationComponent implements OnInit {
     // alert(this.pptLink);
     //   return "https://view.officeapps.live.com/op/view.aspx?src=http://www.moparser.com/shared/imi-cms/MSER/presentations/2015MoparServiceExcellenceRewardsModule5ExpressLane.pptx";
     // return this.pptLink;
+    console.log(this.pptLink);
     return this.domSanitizer.bypassSecurityTrustResourceUrl(this.pptLink);
   }
   private returnValue() {

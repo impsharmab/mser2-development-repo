@@ -1,0 +1,37 @@
+<main class="main report-center" id="report-center">
+    <!-- Begin MSER -->
+    <!-- RO Report Tabs -->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li class="tab"><a>Detail</a></li>
+        </ul>
+        <div>
+            <div class="z-content-pad">
+                <h2>Parts Summary Repair Order Report</h2>
+                <!-- <p class="report-description">Use to look up a specifc RO and how MSER processed.</p> -->
+
+                <form>
+                    <div class="form-group row">
+                        From:&#160;&#160;
+                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                            [showTime]="false" dataType="string" [(ngModel)]="partsSummaryROInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
+
+                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                            dataType="string" [(ngModel)]="partsSummaryROInterface.to"></p-calendar> <span style="margin-left:45px"></span> Dealer Code:&#160;
+
+                        <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="partsSummaryROInterface.dealerCode"
+                        />
+                        <button pButton type="button" (click)="showPartsSummaryROReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                    </div>
+                </form>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <div *ngIf="showPartsSummaryROReportIframe">
+                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+
+</main>

@@ -48,10 +48,10 @@ export class RewardsDistributionService {
         response.json())
       .catch(this.handleError);
   }
-  saveMVPDistributionDATA(dealerCode, data){
+  saveMVPDistributionDATA(dealerCode, data) {
     var url = this.baseUrl + "Rewards/MVPApproval/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var body=data;
+    var body = data;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
@@ -61,7 +61,7 @@ export class RewardsDistributionService {
         response.json())
       .catch(this.handleError);
   }
-  getDistributionHistoryData(dealerCode, programName): any { 
+  getDistributionHistoryData(dealerCode, programName): any {
     var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
@@ -69,10 +69,10 @@ export class RewardsDistributionService {
     headers.append('Authorization', validToken);
 
     return this.http.get(url, { headers: headers })
-        .map((response: Response) =>
-            response.json())
-        .catch(this.handleError);
-}
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
 
   // savePCDistributionData(dealerCode, list) {
   //   var url = this.baseUrl + "Rewards/PartsCounter/" + dealerCode;
@@ -130,11 +130,11 @@ export class RewardsDistributionService {
       .catch(this.handleCustomError);
   }
 
-  getDistributionAllocationHistory(dealerCode, programName) { 
+  getDistributionAllocationHistory(dealerCode, programName) {
     // old url  var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode; 
     var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-   
+
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', validToken);
@@ -143,6 +143,19 @@ export class RewardsDistributionService {
       .map((response: Response) =>
         response.json())
       .catch(this.handleCustomError);
+  }
+
+  getRewardsAmountData(programName, dealerCode) {
+    var url = this.baseUrl + "Rewards/DistributionInfo/" + programName + "/" + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.get(url, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
   }
 
 

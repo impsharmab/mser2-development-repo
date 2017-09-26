@@ -10,7 +10,7 @@ import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule,
-  FileUploadModule
+  FileUploadModule, CalendarModule
 } from 'primeng/primeng';
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
@@ -54,6 +54,8 @@ import { CommaSeparatedNumberPipe } from '../../number-formatting/comma-separate
 import { IneligibleROReportComponent } from '../../reports/mser/inelligible-repair-orders/ineligible-ro.component';
 import { RewardsDepositReportComponent } from '../../reports/mser/reward-deposit-report/reward-deposit.component';
 import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.component';
+import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
+import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-tire/wiAdvisor-tire.component';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -70,7 +72,7 @@ import { HomeService } from '../../../services/home-service/home-service';
     BrowserAnimationsModule,
     BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
-    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule
+    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule
     //PdfmakeModule
   ],
 
@@ -82,7 +84,7 @@ import { HomeService } from '../../../services/home-service/home-service';
     EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent,
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
-    ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent
+    ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent, WiAdvisorTireReportComponent
 
   ],
   providers: [

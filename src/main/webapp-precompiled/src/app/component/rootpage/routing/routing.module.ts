@@ -35,6 +35,7 @@ import { PartCategoryLookupComponent } from '../../admin/part/part-category-look
 import { IneligibleROReportComponent } from '../../reports/mser/inelligible-repair-orders/ineligible-ro.component';
 import { RewardsDepositReportComponent } from '../../reports/mser/reward-deposit-report/reward-deposit.component';
 import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.component';
+import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-tire/wiAdvisor-tire.component';
 
 const routes: Routes = [
 
@@ -182,9 +183,14 @@ const routes: Routes = [
             {
                 path: "roreport",
                 component: ROReportComponent
+            },
+            {
+                path: "wiadvisortirereport",
+                component: WiAdvisorTireReportComponent
             }
 
 
+            
 
 
 

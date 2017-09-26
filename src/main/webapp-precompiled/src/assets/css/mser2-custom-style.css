@@ -568,25 +568,46 @@ h1, h2, h3, h4, h5 {
 /* Begin Footer */
 .app-footer {
   display: block;
+  overflow: hidden;
+  margin-top: 2rem;
+  padding: 10px;
 }
-
 .footer-links {
   display: inline;
-  margin: 0;
   padding: 15px;
+  margin: 0;
 }
-
-.footer-item {
+.footer-logos {
+  float: right;
+  margin: 0;
+  padding: 10px;
+  overflow: hidden;
+  min-width: 350px;
+  width: 30%;
+}
+.footer-logo{
   box-sizing: border-box;
-  display: inline-block;
-  padding: 0;
-  margin: 0 10px 5px 0;
+  float: left;
+  margin: 2% 1%;
+  padding: .36rem;
+  width: 48%;
 }
-
+.footer-item {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0 10px;
+  margin-bottom: 5px;
+}
 .footer-link {
   display: block;
-  margin: 0;
   padding: 0;
+  margin: 0;
+}
+.copyright-notice {
+  float: left;
+  max-width: calc(100% - 350px);
+  min-width: 50%;
 }
 /* End Footer */
 
