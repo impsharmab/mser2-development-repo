@@ -47,7 +47,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
             size: "medium",
             responsive: true,
             animation: {
-                effects: "slideH",
+                effects: "fade",
                 easing: "easeInOutCirc",
                 type: "jquery"
             },
@@ -191,30 +191,26 @@ export class WiAdvisorTireReportComponent implements OnInit {
     }
     private viewDistrictWiAdvisorTireReport() {
         this.showDistrictWiAdvisorTireReportIframe = true;
-        this.programName = "WiAdvisorTireReport-District";
-        var RDD = "CA";
-        var RDDFromDate = this.wiAdvisorTireInterface.from;
-        var RDDToDate = this.wiAdvisorTireInterface.to;
-        var RDDPG = "";
+        this.programName = "WiAdvisorTires_DIST";
+        var District = this.wiAdvisorTireInterface.district;
+        var FromDate = this.wiAdvisorTireInterface.from;
+        var ToDate = this.wiAdvisorTireInterface.to;
 
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}&RDDPG=${RDDPG}`;
+        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}&FromDate=${FromDate}&ToDate=${ToDate}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    // private viewDealerWiAdvisorTireReport() {
-    //     this.showDealerWiAdvisorTireReportIframe = true;
-    //     this.programName = "RewardDepositreward-Dealer";
-    //     var RDDL = this.wiAdvisorTireInterface.dealerCode;
-    //     var RDDFromDate = this.wiAdvisorTireInterface.from;
-    //     var RDDToDate = this.wiAdvisorTireInterface.to;
-    //     var RDDLPG = this.wiAdvisorTireInterface.program;
-    //     for (var i = 0; i < this.selectedProgramList.length; i++) {
-    //         RDDLPG = RDDLPG + "," + this.selectedProgramList[i];
-    //     }
-    //     this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}&RDDLPG=${RDDLPG}`;
-    //     console.log(this.src);
-    //     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
-    // }
+    private viewDealerWiAdvisorTireReport() {
+        this.showDealerWiAdvisorTireReportIframe = true;
+        this.programName = "WiAdvisorTires_Dealer";
+        var DealerCode = this.wiAdvisorTireInterface.dealerCode;
+        var FromDate = this.wiAdvisorTireInterface.from;
+        var ToDate = this.wiAdvisorTireInterface.to;
+    
+        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}&FromDate=${FromDate}&ToDate=${ToDate}`;
+        console.log(this.src);
+        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
+    }
 
     // private viewParticipantWiAdvisorTireReport() {
     //     this.showParticipantWiAdvisorTireReportIframe = true;

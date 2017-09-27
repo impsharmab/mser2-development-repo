@@ -56,6 +56,7 @@ import { RewardsDepositReportComponent } from '../../reports/mser/reward-deposit
 import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.component';
 import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
 import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-tire/wiAdvisor-tire.component';
+import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-distribution/pc-distribution-report.component';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -84,7 +85,8 @@ import { HomeService } from '../../../services/home-service/home-service';
     EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent,
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
-    ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent, WiAdvisorTireReportComponent
+    ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
+    WiAdvisorTireReportComponent, PCDistributionReportComponent
 
   ],
   providers: [

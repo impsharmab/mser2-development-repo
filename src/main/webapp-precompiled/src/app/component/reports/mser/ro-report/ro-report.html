@@ -5,34 +5,47 @@
         <ul class="tabs">
             <li class="tab"><a>Detail</a></li>
         </ul>
+        <!-- Begin Content Container -->
         <div>
+            <!-- Begin RO Report -->
             <div class="z-content-pad">
                 <h2>RO Report</h2>
                 <!-- <p class="report-description">Use to look up a specifc RO and how MSER processed.</p> -->
 
-                <form>
-                    <div class="form-group row">
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="roReportInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="roReportInterface.to"></p-calendar> <span style="margin-left:45px"></span>
-
-                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                            filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                        Dealer Code:&#160; <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="roReportInterface.dealerCode"
-                        />&#160;&#160; RO Number:&#160; <input placeholder="RO Number" type="text" id="ro" name="ro" pInputText [(ngModel)]="roReportInterface.roNumber"
-                        />
-                        <button pButton type="button" (click)="showROReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="from">From:</label>
+                            <p-calendar dateFormat="mm/dd/yy" dataType="string" id="from" name="from" placeholder="From" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" [(ngModel)]="roReportInterface.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to">To:</label>
+                            <p-calendar dateFormat="mm/dd/yy" dataType="string" id="to" name="to" placeholder="To" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" [(ngModel)]="roReportInterface.to"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="dc">Dealer Code:</label>
+                            <input id="dc" name="dc" placeholder="Dealer Code" type="text" pInputText [(ngModel)]="roReportInterface.dealerCode" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="ro">RO Number:</label>
+                            <input id="ro" name="ro" placeholder="RO Number" type="text" pInputText [(ngModel)]="roReportInterface.roNumber" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <button icon="fa-check" iconPos="right" label="View Report" pButton type="button" (click)="showROReport()"></button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showROReportIframe">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                     </div>
                 </form>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
-            <div *ngIf="showROReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
+            <!-- End RO Report -->
         </div>
+        <!-- End Content Container -->
     </div>
 
 

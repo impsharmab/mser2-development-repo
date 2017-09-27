@@ -21,7 +21,7 @@
             <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mserRules', 'pdf':'false'}]">MSER Rules</a></li>
             <li *ngIf="showMSEREnrollmentForm" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a></li>
             <li *ngIf="showMSERAutoEnrollmentOpt" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a></li>
-            <li *ngIf="showMSEREnrollmentReport" class="nav-item"><a class="nav-link">Enrollment Report</a></li>
+            <li *ngIf="showMSEREnrollmentReport" class="nav-item"><a class="nav-link" routerLink="enrollmentreport">Enrollment Report</a></li>
             <li *ngIf="showMSEREnrollmentMaintenance" class="nav-item"><a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a></li>
             <li *ngIf="showMSEROPCodeSetup" class="nav-item"><a class="nav-link" routerLink="opcodesetup">OP Code Setup</a></li>
             <!--<li class="nav-item"><a class="nav-link" routerLink="payoutedistribution">Payout ReDistribution</a></li>-->
@@ -95,13 +95,13 @@
                 <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Contract Pending Approval</a></li>
               </ul>
             </li> -->
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
+            <li class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Parts Counter</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">PC Distribution</a></li>
+                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="pcdistributionreport">PC Distribution</a></li>
                 <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">PC Invoice</a></li>
               </ul>
-            </li> -->
+            </li>
             <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Used Vehicle Manager</a>
               <ul>

@@ -13,7 +13,7 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
 
 
 /* Begin Home/Dashboard */
-box {
+.box {
   align-items: stretch;
   flex-direction: column;
   margin: 1rem 0;
@@ -392,6 +392,16 @@ input.datepicker-input {
 
 
 /* Begin Report Center */
+.report-center {
+  z-index: 999;
+}
+/* this is so the dropdowns will show up above the reports */
+.report-center .z-tabs.horizontal.z-shadows > .z-container, .report-center .z-tabs > .z-container > .z-content.z-active {
+  overflow: visible;
+}
+.report-form .form-group {
+  box-sizing: border-box;
+}
 .report-center h2 {
   padding-top: 1rem;
 }
@@ -432,6 +442,22 @@ input.datepicker-input {
 .report-item-link:hover i {
   left: 30%;
  }
+ .report-form label {
+   clear: both;
+   display: block;
+   margin-bottom: .2rem;
+ }
+ .report-iframe {
+   box-sizing: border-box;
+   height: 625px;
+   margin: 2rem 0 0;
+   padding: 2rem 0 0;
+ }
+ .report-center .ui-button-icon-only .fa {
+   left: 50%;
+   right: 50%;
+ }
+
 /* End Report Center */
 
 

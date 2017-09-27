@@ -36,6 +36,9 @@ import { IneligibleROReportComponent } from '../../reports/mser/inelligible-repa
 import { RewardsDepositReportComponent } from '../../reports/mser/reward-deposit-report/reward-deposit.component';
 import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.component';
 import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-tire/wiAdvisor-tire.component';
+import { EnrollmentReportComponent } from '../../enrollment/enrollment-report/enrollment-report.component';
+import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-distribution/pc-distribution-report.component';
+
 
 const routes: Routes = [
 
@@ -187,10 +190,23 @@ const routes: Routes = [
             {
                 path: "wiadvisortirereport",
                 component: WiAdvisorTireReportComponent
+            },
+            {
+                path: "enrollmentreport",
+                component: EnrollmentReportComponent
+            },
+            {
+                path: "pcdistributionreport",
+                component: PCDistributionReportComponent
             }
 
-
             
+
+
+
+
+
+
 
 
 

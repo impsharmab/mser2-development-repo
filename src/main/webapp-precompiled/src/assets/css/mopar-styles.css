@@ -396,6 +396,12 @@ table#program-groups.table tbody tr td:last-child {
 .report {
   list-style: none;
 }
+.report-iframe {
+  border-width: 1px 0 0;
+  border-style: solid;
+  border-color: rgb(104,115,112);
+}
+
 .report-item-link{
   background-color: rgb(240,240,240);
   color: rgb(0,104,179);

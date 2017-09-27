@@ -4,194 +4,221 @@
     <div class="tabbed-nav">
         <ul class="tabs">
             <li class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-            <li class="tab" (click)="viewBCTabOnly()"><a>Businss Center</a></li>
+            <li class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
             <li class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
             <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
             <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
             <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
         </ul>
-        <!-- Content container -->
+        <!-- Begin Content container -->
         <div>
+            <!-- Begin Executive Reward Center Report-->
             <div class="z-content-pad">
                 <h2>Executive Reward Center Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
 
-                <form>
-                    <div class="form-group row">
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar> <span style="margin-left:45px"></span>
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="from-1">From:</label>
+                            <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-1">To:</label>
+                            <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                                dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="program-1">Program:</label>
+                            <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList"
+                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
 
                         <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                            filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                        Program:&#160;&#160;
-                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
-                        <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     </div>
                 </form>
                 <!-- Report Include -->
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="row" *ngIf="showExecutiveRewardDepositReportIframe">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
+            <!-- End Executive Reward Center Report-->
 
-            <div *ngIf="showExecutiveRewardDepositReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
-
+            <!-- Begin Business Center Reward Report-->
             <div class="z-content-pad">
                 <h2>Business Center Reward Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
 
-                <form>
-                    <div class="form-group row">
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar> <span style="margin-left:45px"></span>
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="from-2">From:</label>
+                            <p-calendar placeholder="From" id="from-2" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-2">To:</label>
+                            <p-calendar placeholder="To" id="to-2" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                                dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="program-2">Program:</label>
+                            <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-2" name="program" [(ngModel)]="selectedProgramList"
+                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <button pButton type="button" (click)="viewBCRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
                         <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                            filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                        Program:&#160;&#160;
-                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
-                        <button pButton type="button" (click)="viewBCRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     </div>
                 </form>
                 <!-- Report Include -->
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="row" *ngIf="showBCRewardDepositReportIframe">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
+                    </iframe>
+                </div>
             </div>
-            <div *ngIf="showBCRewardDepositReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
+            <!-- End Business Center Reward Report-->
 
-
+            <!-- Begin District Reward Center Report-->
             <div class="z-content-pad">
                 <h2>District Reward Center Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-                <form>
-                    <div class="form-group row">
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="from-3">From:</label>
+                            <p-calendar placeholder="From" id="from-3" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-3">To:</label>
+                            <p-calendar placeholder="To" id="to-3" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                                dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="program-3">Program:</label>
+                            <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-3" name="program" [(ngModel)]="selectedProgramList"
+                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
                         <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode" /> -->
-
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true"
-                            [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar> <span style="margin-left:45px"></span>
-
-                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                            filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                        Program:&#160;&#160;
-                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program"
-                            [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
-
-                        <button pButton type="button" (click)="viewDistrictRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <button pButton type="button" (click)="viewDistrictRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                      filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
 
                 <!-- Report Include -->
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="row" *ngIf="showDistrictRewardDepositReportIframe">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
+                    </iframe>
+                </div>
+
             </div>
+            <!-- End District Reward Center Report-->
 
-            <div *ngIf="showDistrictRewardDepositReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
-
-
+            <!-- Begin Dealer Reward Center Report -->
             <div class="z-content-pad">
                 <h2>Dealer Reward Center Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-                <form>
-                    <div class="form-group row">
-                        Dealer Code:&#160; <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode"
-                        /> From:&#160;&#160;
-
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar> <span style="margin-left:45px"></span>
-
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="dc-4">Dealer Code:</label>
+                            <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="from-4">From:</label>
+                            <p-calendar placeholder="From" id="from-4" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-4">To:</label>
+                            <p-calendar placeholder="To" id="to-4" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                                dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="program-4">Program:</label>
+                            <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-4" name="program" [(ngModel)]="selectedProgramList"
+                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <button pButton type="button" (click)="viewDealerRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
                         <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                            filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-
-                        Program:&#160;&#160;
-                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program"
-                            [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
-
-                        <button pButton type="button" (click)="viewDealerRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     </div>
                 </form>
-                <!-- Report Include -->
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
-            </div>
-            <div *ngIf="showDealerRewardDepositReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
-            <!-- <iframe *ngIf="showDealerRewardDepositReportIframe" height=625px width=950px id="frame1" name="frame1" [src]=' openRewardDepositReport()'>
-            </iframe> -->
 
+                <!-- Report Include -->
+                <div *ngIf="showDealerRewardDepositReportIframe">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    <!-- <iframe *ngIf="showDealerRewardDepositReportIframe" height=625px width=950px id="frame1" name="frame1" [src]=' openRewardDepositReport()'>
+                    </iframe> -->
+                </div>
+            </div>
+            <!-- End Dealer Reward Center Report-->
+
+            <!-- Begin Participant Reward Center Report-->
             <div class="z-content-pad">
                 <h2>Participant Reward Center Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-                <form>
-                    <div class="form-group row">
-                        Sid:&#160;&#160;<input placeholder="Sid" type="text" id="dc" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid"
-                        /> &#160;From:&#160;&#160;
-
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar> <span style="margin-left:45px"></span>
-
-                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="dc-5">Sid:</label>
+                            <input placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="from-5">From:</label>
+                            <p-calendar placeholder="From" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-5">To:</label>
+                            <p-calendar placeholder="To" id="to-5" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                                dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="program-5">Program:</label>
+                            <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-5" name="program" [(ngModel)]="selectedProgramList"
+                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <button pButton type="button" (click)="viewParticipantRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                             filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                        Program:&#160;&#160;
-                        <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program" name="program"
-                            [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
 
-                        <button pButton type="button" (click)="viewParticipantRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
+                    <!-- Report Include -->
+                    <div class="row" *ngIf="showParticipantRewardDepositReportIframe">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                     </div>
                 </form>
-                <!-- Report Include -->
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
-            <div *ngIf="showParticipantRewardDepositReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
+            <!-- End Participant Reward Center Report -->
 
-            <!-- <div *ngIf="showInputField">
-                <form>
-                    <div class="form-group row">
-
-                        <input *ngIf="showDealerCodeInput" id="dealer-code" name="dealer-code" [(ngModel)]="bcrewardDeposit.dealerCode" type="text"
-                            size="30" pInputText placeholder="Enter Dealer Code" style="margin-right:50px">
-
-
-                        <p-calendar *ngIf="showFromInput" placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'margin-left' :'55px', 'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
-
-
-                        <p-calendar *ngIf="showToInput" placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'margin-left' :'55px','overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
-
-
-                        <p-dropdown *ngIf="showProgramOptionInput" [options]="rewardDepositProgramIDOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program"
-                            [style]="{'margin-left' :'55px','width':'400px'}" filter="filter" placeholder="Select a Program">
-                        </p-dropdown>
-                    </div>
-                </form>
-                <br><br><br><br><br><br><br><br><br><br><br><br>
-            </div> -->
         </div>
+        <!-- End Content container -->
     </div>
 </main>

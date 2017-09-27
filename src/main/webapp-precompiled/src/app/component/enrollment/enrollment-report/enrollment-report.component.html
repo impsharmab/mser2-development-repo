@@ -1,3 +1,103 @@
-<p>
-  enrollment-report works!
-</p>
+<main class="main report-center" id="report-center">
+
+  <!-- Reward Center Tabs-->
+  <div class="tabbed-nav">
+    <ul class="tabs">
+      <li class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
+      <li class="tab" (click)="viewBCTabOnly()"><a>Businss Center</a></li>
+      <li class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
+      <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+      <!-- <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li> -->
+      <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
+    </ul>
+    <!-- Content container -->
+    <div>
+      <div class="z-content-pad">
+        <h2>Executive Enrollment Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+
+        <form>
+          <div class="form-group row">
+            Program:&#160;&#160;
+            <p-multiSelect [options]="enrollmentReportProgramOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
+            <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+          </div>
+        </form>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+
+      <div *ngIf="showExecutiveEnrollmentReportIframe">
+        <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+        </iframe>
+      </div>
+
+      <div class="z-content-pad">
+        <h2>Business Center Enrollment Report</h2>
+
+
+        <form>
+          <div class="form-group row">
+            Business Center:&#160; <input placeholder="BC" type="text" id="dc" name="dc" pInputText [(ngModel)]="enrollmentReportInterface.businessCenter"
+            /> Program:&#160;&#160;
+            <p-multiSelect [options]="enrollmentReportProgramOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
+
+            <button pButton type="button" (click)="viewBCEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+          </div>
+        </form>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+      <div *ngIf="showBCEnrollmentReportIframe">
+        <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+        </iframe>
+      </div>
+
+
+      <div class="z-content-pad">
+        <h2>District Reward Center Report</h2>
+        <p class="report-description">Total excellence card rewards deposited through MSER</p>
+        <form>
+          <div class="form-group row">
+
+            District:&#160; <input placeholder="District" type="text" id="dist" name="dist" pInputText [(ngModel)]="enrollmentReportInterface.district"
+            /> Program:&#160;&#160;
+            <p-multiSelect [options]="enrollmentReportProgramOptions" id="program" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'120px'}"></p-multiSelect>
+
+            <button pButton type="button" (click)="viewDistrictEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"
+              style="margin-left:35px"></button>
+          </div>
+        </form>
+
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+
+      <div *ngIf="showDistrictEnrollmentReportIframe">
+        <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+        </iframe>
+      </div>
+
+      
+      <div class="z-content-pad">
+        <h2>Dealer Reward Center Report</h2>
+        <p class="report-description">Total excellence card rewards deposited through MSER</p>
+        <form>
+          <div class="form-group row">
+            Dealer Code:&#160; <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="enrollmentReportInterface.dealerCode"
+            /> <button pButton type="button" (click)="viewDealerEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"
+              style="margin-left:35px"></button>
+          </div>
+        </form>
+       
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      </div>
+      <div *ngIf="showDealerEnrollmentReportIframe">
+        <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
+        </iframe>
+      </div>
+
+
+    </div>
+  </div>
+</main>
