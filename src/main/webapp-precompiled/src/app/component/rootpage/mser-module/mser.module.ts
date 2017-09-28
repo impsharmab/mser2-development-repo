@@ -15,6 +15,7 @@ import {
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { GetLastDateOfMonth } from 'get-last-date-of-month';
 
 import { SidenavComponent } from '../../sidenav/sidenav.component';
 import { FooterComponent } from '../../footer/footer.component';
@@ -57,6 +58,7 @@ import { ROReportComponent } from '../../reports/mser/ro-report/ro-report.compon
 import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
 import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-tire/wiAdvisor-tire.component';
 import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-distribution/pc-distribution-report.component';
+import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAdvisor-management/wiAdvisor-management-report.component';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -73,7 +75,8 @@ import { HomeService } from '../../../services/home-service/home-service';
     BrowserAnimationsModule,
     BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
-    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule
+    ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule,
+    // GetLastDateOfMonth
     //PdfmakeModule
   ],
 
@@ -86,7 +89,7 @@ import { HomeService } from '../../../services/home-service/home-service';
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
     ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
-    WiAdvisorTireReportComponent, PCDistributionReportComponent
+    WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent
 
   ],
   providers: [

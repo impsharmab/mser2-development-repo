@@ -8,12 +8,38 @@
     </button>
     </div>
     <div class="modal-body">
-        <!--<dealercode-modal></dealercode-modal>-->
         <dealercode-modal (onSubmit)="positionCodeSubmit(c)" (onCancel)="c()"></dealercode-modal>
     </div>
     <div class="modal-footer">
     </div>
 </ng-template>
+
+<p-dialog header="Select Position Code - Dealer Code" [(visible)]="displayRetweetModal" modal="modal" width="600" height="200"
+    [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+
+    <div class="row">
+        <div class="form-group col-sm-6">
+            <label for="pc">Select Position Code:</label>
+            <ng-template >
+                <p-dropdown id="pc" class="pc" [options]="positionCodeOptions" [(ngModel)]="selectedPositionCode" (onChange)="onChangePC(ri, selectedPositionCode)"
+                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown>
+            </ng-template>
+            
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label for="dc">Select Dealer Code:</label>
+            <p-dropdown id="dc" class="dc" [options]="dealerCodeOptions" [(ngModel)]="selectedDealerCode" (onChange)="onChangeDC($event, selectedDealerCode)"
+                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown>
+        </div>
+    </div>
+
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="submitRetweetPCDC()" label="Submit"></button>
+        <button type="button" pButton icon="fa-close" (click)="displayRetweetModal=false" label="Cancel"></button>
+    </p-footer>
+</p-dialog>
+
 
 <header class="app-header navbar">
     <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>

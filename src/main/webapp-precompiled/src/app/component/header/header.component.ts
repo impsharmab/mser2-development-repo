@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef,
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
+import { SelectItem } from 'primeng/primeng';
 import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileService } from '../../services/user-profile-service/user-profile.service';
 
@@ -17,14 +18,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild("dealercodeModal") private dealercodeModal: NgbModalRef;
   @Output("onProfileChange") profileChange = new EventEmitter<any>();
 
-  private poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
-  private delcodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerCode;
+  private poscodes: any = [];
+  private delcodes: any = [];
   private userProfileData: any = {};
   private displayDealerCode: any = false;
-  // private selectedDealerName: string = "";
-  // private selectedDealerCode: string = "";
-  // selectedDealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-  // selectedDealerName = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
+  private displayRetweetModal: boolean = false;
+  private selectedDealerCode: any = "";
+  private selectedPositionCode: any = "";
+
+
   constructor(
     private router: Router,
     private userProfileService: UserProfileService,
@@ -34,19 +36,23 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"));
+    // this.poscodes = this.data.positionCode;
+    // this.delcodes = this.data.dealerCode;
+    this.poscodes = ["01", "05", "08", "09"];
+    this.delcodes = ["05002", "08625", "45614", "78451"];
+
     var role = JSON.parse(sessionStorage.getItem("UserRole"));
     if (role != undefined && role == "Dealer") {
       this.displayDealerCode = true;
     }
   }
-  // this.getUserProfileData();
+
   /*****
   * CONFIGURATION
   */
   //Main navigation
   ngAfterViewInit() {
     $.navigation = $('nav > ul.nav');
-
     $.panelIconOpened = 'icon-arrow-up';
     $.panelIconClosed = 'icon-arrow-down';
 
@@ -153,8 +159,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
   private getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
@@ -162,18 +166,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private getSelectedDealerName() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   }
-
-  // private getUserProfileData() {
-
-  //   this.userProfileService.getUserProfileData().subscribe( 
-  //     (resUserProfileData) => {
-  //       this.userProfileData = (resUserProfileData)
-  //       this.userProfileService.setUserProfileData(this.userProfileData)
-
-
-  //     }
-  //   )
-  // } 
 
   private openSSOSite(url: any) {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
@@ -183,20 +175,54 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     window.open(url + validToken + "&positioncode=" + positioncodes + "&dealercode=" + dealerlcodes, "_self")
 
   }
+
+  private positionCodeOptions: SelectItem[] = [];
+  private dealerCodeOptions: SelectItem[] = [];
+  private createPCDCOptions() {
+    // var positionCodeOptions = [{ label: "", value: "" }];
+    // var dealerCodeOptions = [{ label: "", value: "" }];
+    var positionCodeOptions = [];
+    var dealerCodeOptions = [];
+    for (var i = 0; i < this.poscodes.length; i++) {
+      positionCodeOptions.push({ label: this.poscodes[i], value: this.poscodes[i] })
+    }
+    for (var i = 0; i < this.delcodes.length; i++) {
+      dealerCodeOptions.push({ label: this.delcodes[i], value: this.delcodes[i] })
+    }
+    this.positionCodeOptions = positionCodeOptions;
+    this.dealerCodeOptions = dealerCodeOptions;
+  }
+
+
+
+
   private positionCodeCancel() {
     this.dealercodeModal.close();
   }
   private positionCodeSubmit(c: any) {
-    // alert("1");	
     c();
     this.profileChange.emit("")
   }
   private dropdownDealerCode() {
-    // alert(this.poscodes + "" + this.delcodes)
-    //    alert()
-    this.modalService.open(this.dealercodeModal, { windowClass: 'dealercode' });
+    // this.modalService.open(this.dealercodeModal, { windowClass: 'dealercode' });
+    this.createPCDCOptions();
+    this.displayRetweetModal = true;
+
+  }
+  private submitRetweetPCDC() {
+    this.displayRetweetModal = false;
+    console.log(this.selectedPositionCode + " " + this.selectedDealerCode);
   }
 
+  private selectedPCIndex: any = 0;
+  private selectedDCIndex: any = 0;
+  private onChangePC(event, selectedPositionCode) {
+    alert(selectedPositionCode);
+
+  }
+  private onChangeDC(event, selectedDealerCode) {
+    alert(selectedDealerCode);
+  }
   logout() {
     sessionStorage.removeItem('CurrentUser');
     sessionStorage.removeItem('selectedCodeData');
