@@ -29,10 +29,7 @@
                             <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
                                 dataType="string" [(ngModel)]="wIAdvisorManagementInterface.to"></p-calendar>
                         </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
 
@@ -52,25 +49,21 @@
 
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="dc-4">Business Center:</label>
-                            <p-multiSelect [options]="wiAdvisorManagementBCOptions" id="wiAdvBCopt" name="wiAdvBCopt" [(ngModel)]="selectedBCList" [style]="{minWidth:'120px'}"></p-multiSelect>
+                            <p-multiSelect [options]="wiAdvisorManagementBCOptions" id="wiAdvBCopt" name="wiAdvBCopt" [(ngModel)]="selectedBCList" [style]="{minWidth:'175px'}"></p-multiSelect>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-2">From:</label>
                             <p-calendar placeholder="From" id="from-2" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
                                 [showTime]="false" dataType="string" [(ngModel)]="wIAdvisorManagementInterface.from"></p-calendar>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3 ">
                             <label for="to-2">To:</label>
                             <p-calendar placeholder="To" id="to-2" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
                                 dataType="string" [(ngModel)]="wIAdvisorManagementInterface.to"></p-calendar>
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="viewBCWiAdvisorManagementReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                         <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="wIAdvisorManagementInterface.program" [style]="{'width':'400px'}"
@@ -91,30 +84,28 @@
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="from-3">From:</label>
                             <p-calendar placeholder="From" id="from-3" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
                                 [showTime]="false" dataType="string" [(ngModel)]="wIAdvisorManagementInterface.from"></p-calendar>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="to-3">To:</label>
                             <p-calendar placeholder="To" id="to-3" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
                                 dataType="string" [(ngModel)]="wIAdvisorManagementInterface.to"></p-calendar>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="program-3">Business Center:</label>
-                            <p-multiSelect [options]="wiAdvisorManagementBCOptions" id="program-3" name="program" [(ngModel)]="selectedBCList"
-                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                            <p-multiSelect [options]="wiAdvisorManagementBCOptions" id="program-3" name="program" [(ngModel)]="selectedBCList" [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="program-3">District:</label>
                             <p-multiSelect [options]="wiAdvisorManagementDistrictOptions" id="program-3" name="program" [(ngModel)]="selectedDistrictList"
                                 [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
                         <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="wIAdvisorManagementInterface.dealerCode" /> -->
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
+                    
+                        <div class="col-sm-2 report-button-container">
                             <button pButton type="button" (click)="viewDistrictWiAdvisorManagementReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>

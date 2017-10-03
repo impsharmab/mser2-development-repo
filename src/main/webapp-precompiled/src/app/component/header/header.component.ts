@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef,
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
+import { CodeData } from './selected-codedata.interface';
 import { SelectItem } from 'primeng/primeng';
 import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileService } from '../../services/user-profile-service/user-profile.service';
@@ -18,13 +19,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild("dealercodeModal") private dealercodeModal: NgbModalRef;
   @Output("onProfileChange") profileChange = new EventEmitter<any>();
 
-  private poscodes: any = [];
-  private delcodes: any = [];
+  private poscodesSession: any = [];
+  private delcodesSession: any = [];
+  private dealerNamesSession: any = [];
+  private dealerManagerSession: any = [];
+  private serviceManagerOfRecordSession: any = []
+  private partsManagerOfRecordSession: any = [];
   private userProfileData: any = {};
   private displayDealerCode: any = false;
   private displayRetweetModal: boolean = false;
   private selectedDealerCode: any = "";
   private selectedPositionCode: any = "";
+  private selectedDealerName: any = "";
+  private rolesSession: any;
+  private isDealerManager: boolean = false;
+  private isServiceManagerOfRecord: boolean = false;
+  private isPartsManagerOfRecord: boolean = false;
+  private isAdminSession: boolean = false;
+  private codeData: CodeData;
 
 
   constructor(
@@ -36,17 +48,98 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"));
-    // this.poscodes = this.data.positionCode;
-    // this.delcodes = this.data.dealerCode;
-    this.poscodes = ["01", "05", "08", "09"];
-    this.delcodes = ["05002", "08625", "45614", "78451"];
+    this.poscodesSession = this.data.positionCode;
+    this.delcodesSession = this.data.dealerCode;
+    this.dealerNamesSession = this.data.dealerName;
+    this.dealerManagerSession = this.data.dealerManager;
+    this.partsManagerOfRecordSession = this.data.partsManagerOfRecord;
+    this.serviceManagerOfRecordSession = this.data.serviceManagerOfRecord;
+    this.rolesSession = this.data.roles;
+    this.isAdminSession = this.data.admin;
+    // this.poscodesSession = ["01", "03", "05", "08", "09", "05", "06"];
+    // this.delcodesSession = ["05002", "05002", "05002", "08625", "08625", "45614", "45614"];
+    // this.dealerNamesSession = ["as", "as", "as", "de", "de", "dw", "dw"];
+    // this.dealerManagerSession = [true, true, false, true, false, false, true];
+    // this.partsManagerOfRecordSession = [true, false, true, false, false, true, false];
+    // this.serviceManagerOfRecordSession = [false, true, false, false, true, true, true];
+
 
     var role = JSON.parse(sessionStorage.getItem("UserRole"));
     if (role != undefined && role == "Dealer") {
       this.displayDealerCode = true;
     }
-  }
 
+    this.codeData = {
+      selectedPositionCode: this.poscodesSession[0],
+      selectedDealerCode: this.delcodesSession[0],
+      selectedDealerName: this.selectedDealerName[0],
+      isDealerManager: this.dealerManagerSession[0],
+      isPartsManagerOfRecord: this.partsManagerOfRecordSession[0],
+      isServiceManagerOfRecord: this.serviceManagerOfRecordSession[0],
+      role: this.rolesSession[0],
+      isAdmin: this.isAdminSession
+    }
+    this.groupbyPCDC();
+
+  }
+  private removeDuplicates(duplicateArray) {
+    var cleanArray = [];
+    for (var i = 0; i < duplicateArray.length; i++) {
+      var push = true;
+      for (var j = 0; j < cleanArray.length; j++) {
+        if (cleanArray[j] === duplicateArray[i]) {
+          push = false;
+        }
+      }
+      if (push == true) {
+        cleanArray.push(duplicateArray[i]);
+      }
+    }
+    return cleanArray;
+  }
+  private dcDinstinct = [];
+  private pcMap = {};
+
+  private groupbyPCDC() {
+    this.dcDinstinct = this.removeDuplicates(this.delcodesSession);
+    console.log(this.dcDinstinct);
+
+    for (var i = 0; i < this.dcDinstinct.length; i++) {
+      for (var j = 0; j < this.delcodesSession.length; j++) {
+        if (this.dcDinstinct[i] == this.delcodesSession[j]) {
+          if (this.pcMap[this.dcDinstinct[i]] == undefined) {
+            this.pcMap[this.dcDinstinct[i]] = [this.poscodesSession[j]];
+          } else {
+            var temp = this.pcMap[this.dcDinstinct[i]];
+            temp.push(this.poscodesSession[j]);
+            this.pcMap[this.dcDinstinct[i]] = temp;
+          }
+        }
+      }
+    }
+
+    this.pcDinstinct = this.pcMap[this.dcDinstinct[0]];
+    this.onPCChange();
+  }
+  private pcDinstinct = [];
+  private onDCChange() {
+    var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
+    var index = htmlObject.selectedIndex
+
+    this.pcDinstinct = this.pcMap[this.dcDinstinct[index]];
+    this.codeData.selectedPositionCode = this.pcDinstinct[0];
+    this.onPCChange();
+
+  }
+  private onPCChange() {
+    for (var i = 0; i < this.delcodesSession.length; i++) {
+      if (this.delcodesSession[i] == this.codeData.selectedDealerCode && this.codeData.selectedPositionCode == this.poscodesSession[i]) {
+        this.selectedIndex = i;
+      }
+    }
+
+    this.onChangePC();
+  }
   /*****
   * CONFIGURATION
   */
@@ -162,7 +255,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
-
   private getSelectedDealerName() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   }
@@ -183,18 +275,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     // var dealerCodeOptions = [{ label: "", value: "" }];
     var positionCodeOptions = [];
     var dealerCodeOptions = [];
-    for (var i = 0; i < this.poscodes.length; i++) {
-      positionCodeOptions.push({ label: this.poscodes[i], value: this.poscodes[i] })
+    for (var i = 0; i < this.poscodesSession.length; i++) {
+      positionCodeOptions.push({ label: this.poscodesSession[i], value: this.poscodesSession[i], id: i })
     }
-    for (var i = 0; i < this.delcodes.length; i++) {
-      dealerCodeOptions.push({ label: this.delcodes[i], value: this.delcodes[i] })
+    for (var i = 0; i < this.delcodesSession.length; i++) {
+      dealerCodeOptions.push({ label: this.delcodesSession[i], value: this.delcodesSession[i], id: i })
     }
     this.positionCodeOptions = positionCodeOptions;
     this.dealerCodeOptions = dealerCodeOptions;
   }
-
-
-
 
   private positionCodeCancel() {
     this.dealercodeModal.close();
@@ -214,15 +303,43 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     console.log(this.selectedPositionCode + " " + this.selectedDealerCode);
   }
 
-  private selectedPCIndex: any = 0;
-  private selectedDCIndex: any = 0;
-  private onChangePC(event, selectedPositionCode) {
-    alert(selectedPositionCode);
+  private selectedIndex: any = 0;
+  //private selectedPCIndex: any = 0;
+  //private selectedDCIndex: any = 0;
+  private selectedCodeData: any = [];
+  private role: any = "";
+  private onChangePC() {
+    // var index = this.poscodes.indexOf(event.value);
+    //var htmlObject = document.getElementById("pcOptions") as HTMLSelectElement;
+    //var index = htmlObject.selectedIndex
+    //this.selectedPCIndex = index;
+    //this.codeData.selectedPositionCode = this.selectedPositionCode = selectedPositionCode;
+    //this.codeData.selectedDealerCode = this.selectedDealerCode = this.delcodesSession[index];
+    this.codeData.selectedDealerName = this.selectedDealerName = this.dealerNamesSession[this.selectedIndex];
+    this.codeData.isDealerManager = this.isDealerManager = this.dealerManagerSession[this.selectedIndex];
+    this.codeData.isServiceManagerOfRecord = this.isServiceManagerOfRecord = this.serviceManagerOfRecordSession[this.selectedIndex];
+    this.codeData.isPartsManagerOfRecord = this.isPartsManagerOfRecord = this.partsManagerOfRecordSession[this.selectedIndex];
+    this.codeData.role = this.role = this.rolesSession[this.selectedIndex];
+    this.codeData.isAdmin = this.isAdminSession;
+    this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
+    console.log("Selectes Index: " + this.selectedIndex);
+  }
+  /*private onChangeDC(selectedDealerCode) {
+    var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
+    var index = htmlObject.selectedIndex
+    this.selectedDCIndex = index;
+    this.codeData.selectedDealerCode = this.selectedDealerCode = selectedDealerCode;
+    this.codeData.selectedPositionCode = this.selectedPositionCode = this.poscodesSession[index];
+    this.codeData.selectedDealerName = this.selectedDealerName = this.dealerNamesSession[index];
+    this.codeData.isDealerManager = this.isDealerManager = this.dealerManagerSession[index];
+    this.codeData.isServiceManagerOfRecord = this.isServiceManagerOfRecord = this.serviceManagerOfRecordSession[index];
+    this.codeData.isPartsManagerOfRecord = this.isPartsManagerOfRecord = this.partsManagerOfRecordSession[index];
+    this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
+    console.log(selectedDealerCode + " " + index);
+  }*/
 
-  }
-  private onChangeDC(event, selectedDealerCode) {
-    alert(selectedDealerCode);
-  }
+  
+
   logout() {
     sessionStorage.removeItem('CurrentUser');
     sessionStorage.removeItem('selectedCodeData');

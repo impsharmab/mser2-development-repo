@@ -402,6 +402,27 @@ input.datepicker-input {
 .report-form .form-group {
   box-sizing: border-box;
 }
+.report-form .report-button-container {
+  align-self: flex-end;
+  display: flex;
+}
+.report-form .report-button-container button {
+  display: flex;
+  height: 30px;
+  margin-bottom: 4px;
+}
+.report-form .ui-calendar {
+  width: 100%;
+}
+.report-form .ui-inputtext {
+  width: 95%;
+}
+.report-form .ui-calendar .ui-inputtext {
+  width: 90%;
+}
+.report-form .ui-multiselect .ui-multiselect-label-container {
+  height: 30px;
+}
 .report-center h2 {
   padding-top: 1rem;
 }

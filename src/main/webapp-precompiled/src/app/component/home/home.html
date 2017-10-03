@@ -18,8 +18,8 @@
           <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
           <div class="display-data-set">
             <div class="data-group" *ngFor="let data of mserEnrollmentDatum; let i = index;">
-              <p *ngIf="data.type=='number'" class="data-point">{{data.value | commaSeparatedNumber}}</p>
-              <p *ngIf="data.type=='currency'" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
+              <p *ngIf="data.type=='number' && data.value!=undefined" class="data-point">{{data.value | commaSeparatedNumber}}</p>
+              <p *ngIf="data.type=='currency' && data.value!=undefined" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
               <p *ngIf="data.type=='text'" class="data-point">{{data.value }}</p>
               <p class="data-substitle">{{data.name}}</p>
             </div>
@@ -38,8 +38,8 @@
           <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
           <div class="display-data-set">
             <div class="data-group" *ngFor="let data of mserEarningDatum; let i = index;">
-              <p *ngIf="data.type=='number'" class="data-point">{{data.value | commaSeparatedNumber}}</p>
-              <p *ngIf="data.type=='currency'" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
+              <p *ngIf="data.type=='number' && data.value!=undefined" class="data-point">{{data.value | commaSeparatedNumber}}</p>
+              <p *ngIf="data.type=='currency'&&  data.value!=undefined" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
               <p *ngIf="data.type=='text'" class="data-point">{{data.value }}</p>
               <p class="data-substitle">{{data.name}}</p>
             </div>

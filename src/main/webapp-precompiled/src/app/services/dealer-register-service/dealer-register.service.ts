@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
 @Injectable()
-export class DealerRegisterService {
+export class DealerRegisterService { 
  private baseUrl = "https://test.myfcarewards.com/mser/";
   // private baseUrl = "./";
 

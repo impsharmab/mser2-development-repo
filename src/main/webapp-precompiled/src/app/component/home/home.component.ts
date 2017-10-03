@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getMSEREnrollmentTileData();
-    this.getMSEREarningTileData();
+    this.getMSEREarningTileData(); 
   }
 
   private mserEnrollmentDatum: any = [{

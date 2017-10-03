@@ -3,18 +3,18 @@
     <!-- Reward Center Tabs-->
     <div class="tabbed-nav">
         <ul class="tabs">
-            <li class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-            <li class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
-            <li class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
-            <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
-            <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
+            <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
+            <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
+            <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
+            <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+            <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
             <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
         </ul>
         <!-- Begin Content container -->
         <div>
             <!-- Begin Executive Reward Center Report-->
-            <div class="z-content-pad">
-                <h2>Executive Reward Center Report</h2>
+            <div [hidden]="!isExecutive" class="z-content-pad">
+                <h2>Executive Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
 
                 <form class="report-form">
@@ -34,15 +34,12 @@
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList"
                                 [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
-
-                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     </div>
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
                 <!-- Report Include -->
                 <div class="row" *ngIf="showExecutiveRewardDepositReportIframe">
@@ -52,8 +49,8 @@
             <!-- End Executive Reward Center Report-->
 
             <!-- Begin Business Center Reward Report-->
-            <div class="z-content-pad">
-                <h2>Business Center Reward Report</h2>
+            <div [hidden]="!isBC" class="z-content-pad">
+                <h2>Business Center Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
 
                 <form class="report-form">
@@ -73,15 +70,12 @@
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-2" name="program" [(ngModel)]="selectedProgramList"
                                 [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="viewBCRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
-                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
-                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     </div>
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                                filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
                 <!-- Report Include -->
                 <div class="row" *ngIf="showBCRewardDepositReportIframe">
@@ -92,8 +86,8 @@
             <!-- End Business Center Reward Report-->
 
             <!-- Begin District Reward Center Report-->
-            <div class="z-content-pad">
-                <h2>District Reward Center Report</h2>
+            <div [hidden]="!isDistrict" class="z-content-pad">
+                <h2>District Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
@@ -113,9 +107,7 @@
                                 [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
                         <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode" /> -->
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 form-group report-button-container">
                             <button pButton type="button" (click)="viewDistrictRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
@@ -133,12 +125,12 @@
             <!-- End District Reward Center Report-->
 
             <!-- Begin Dealer Reward Center Report -->
-            <div class="z-content-pad">
-                <h2>Dealer Reward Center Report</h2>
+            <div [hidden]="!isDealer" class="z-content-pad">
+                <h2>Dealer Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="dc-4">Dealer Code:</label>
                             <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode" />
                         </div>
@@ -152,16 +144,16 @@
                             <p-calendar placeholder="To" id="to-4" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
                                 dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="program-4">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-4" name="program" [(ngModel)]="selectedProgramList"
                                 [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2 report-button-container">
                             <button pButton type="button" (click)="viewDealerRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
+                    </div>
+                    <div class="row">
                         <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                                 filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     </div>
@@ -177,12 +169,12 @@
             <!-- End Dealer Reward Center Report-->
 
             <!-- Begin Participant Reward Center Report-->
-            <div class="z-content-pad">
-                <h2>Participant Reward Center Report</h2>
+            <div [hidden]="!isParticipant" class="z-content-pad">
+                <h2>Participant Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="dc-5">Sid:</label>
                             <input placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid" />
                         </div>
@@ -196,14 +188,12 @@
                             <p-calendar placeholder="To" id="to-5" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
                                 dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="program-5">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-5" name="program" [(ngModel)]="selectedProgramList"
                                 [style]="{minWidth:'100%'}"></p-multiSelect>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2 report-button-container">
                             <button pButton type="button" (click)="viewParticipantRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>

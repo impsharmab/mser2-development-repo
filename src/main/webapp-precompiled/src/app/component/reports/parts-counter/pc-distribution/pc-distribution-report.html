@@ -1,161 +1,175 @@
 <main class="main report-center" id="report-center">
 
-    <!-- Parts Counter Distribution Tabs-->
-    <div class="tabbed-nav">
-        <ul class="tabs">
-            <li class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-            <li class="tab" (click)="viewBCTabOnly()"><a>Businss Center</a></li>
-            <li class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
-            <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
-            <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
-            <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
-        </ul>
-        <!-- Content container -->
-        <div>
-            <div class="z-content-pad">
-                <h2>Executive Parts Counter Distribution Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-
-                <form>
-                    <div class="form-group row">
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar> <span style="margin-left:45px"></span>
-
-                        <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
-                    </div>
-                </form>
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <!-- Parts Counter Distribution Tabs-->
+  <div class="tabbed-nav">
+    <ul class="tabs">
+      <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
+      <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
+      <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
+      <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+      <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
+      <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
+    </ul>
+    <!-- Content container -->
+    <div>
+      <!-- Begin Executive Parts Counter Distribution Report -->
+      <div [hidden]="!isExecutive" class="z-content-pad">
+        <h2>Executive PC Distribution Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+        <form class="report-form">
+          <div class="row">
+            <div class="form-group col-sm-3">
+              <label for="from-1">From:</label>
+              <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
             </div>
-
-            <div *ngIf="showExecutivePCDistributionReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
+            <div class="form-group col-sm-3">
+              <label for="to-1">To:</label>
+              <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
             </div>
-            <div class="z-content-pad">
-                <h2>Business Center Parts Counter Distribution Report</h2>
-                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
-
-                <form>
-                    <div class="form-group row">
-                        Program:&#160;&#160;
-                        <p-multiSelect [options]="pCDistributionBCOptions" id="program" name="program" [(ngModel)]="selectedBCList" [style]="{minWidth:'120px'}"></p-multiSelect>
-
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar> <span style="margin-left:45px"></span>
-                        <button pButton type="button" (click)="viewBCPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
-                    </div>
-                </form>
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="form-group col-sm-3 report-button-container">
+              <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>
-            <div *ngIf="showBCDistributionReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
+          </div>
+          <div class="row" *ngIf="showExecutivePCDistributionReportIframe">
+            <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+          </div>
+        </form>
+      </div>
+      <!-- End Executive Parts Counter Distribution Report -->
+
+      <!-- Begin Business Center Parts Counter Distribution Report -->
+      <div [hidden]="!isBC" class="z-content-pad">
+        <h2>Business Center PC Distribution Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+        <form class="report-form">
+          <div class="row">
+            <div class="form-group col-sm-2">
+              <label for="program-2">Program:</label>
+              <p-multiSelect [options]="pCDistributionBCOptions" id="program-2" name="program" [(ngModel)]="selectedBCList" [style]="{minWidth:'175px'}"></p-multiSelect>
             </div>
+            <div class="form-group col-sm-3">
+              <label for="from-2">From:</label>
+              <p-calendar placeholder="From" id="from-2" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="to-2">To:</label>
+              <p-calendar placeholder="To" id="to-2" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+            </div>
+            <div class="form-group col-sm-2 report-button-container">
+              <button pButton type="button" (click)="viewBCPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+            </div>
+          </div>
+          <div class="row" *ngIf="showBCDistributionReportIframe">
+            <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+          </div>
+        </form>
+      </div>
+      <!-- End Business Center Parts Counter Distribution Report -->
 
-            <div class="z-content-pad">
-                <h2>District Parts Counter Distribution Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-                <form>
-                    <div class="form-group row">
-                        <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="pCDistributionReportInterface.dealerCode" /> -->
-                        District:&#160;&#160;
-                        <p-multiSelect [options]="pCDistributionDistrictOptions" id="program" name="program" [(ngModel)]="selectedDistrictList" [style]="{minWidth:'120px'}"></p-multiSelect>
-
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar> <span style="margin-left:45px"></span>
-
-                        <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="pCDistributionReportInterface.program" [style]="{'width':'400px'}"
+      <!-- Begin District Parts Counter Distribution Report -->
+      <div [hidden]="!isDistrict" class="z-content-pad">
+        <h2>District PC Distribution Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+        <form class="report-form">
+          <div class="row">
+            <div class="form-group col-sm-2">
+              <label for="program-3">District:</label>
+              <p-multiSelect [options]="pCDistributionDistrictOptions" id="program-3" name="program" [(ngModel)]="selectedDistrictList"
+                [style]="{minWidth:'175px'}"></p-multiSelect>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="from-3">From:</label>
+              <p-calendar placeholder="From" id="from-3" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="to-3">To:</label>
+              <p-calendar placeholder="To" id="to-3" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+            </div>
+            <div class="form-group col-sm-3 report-button-container">
+              <button pButton type="button" (click)="viewDistrictPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+            </div>
+          </div>
+          <div class="row" *ngIf="showDistrictPCDistributionReportIframe">
+            <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+          </div>
+          <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="pCDistributionReportInterface.dealerCode" /> -->
+          <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="pCDistributionReportInterface.program" [style]="{'width':'400px'}"
                             filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+        </form>
+      </div>
+      <!-- End District Parts Counter Distribution Report -->
 
-                        <button pButton type="button" (click)="viewDistrictPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
-                    </div>
-                </form>
-
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <!-- Begin Dealer Parts Counter Distribution Report -->
+      <div [hidden]="!isDealer" class="z-content-pad">
+        <h2>Dealer PC Distribution Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+        <form class="report-form">
+          <div class="row">
+            <div class="form-group col-sm-2">
+              <label for="program-4">Dealer Code:</label>
+              <p-multiSelect [options]="pCDistributionDealeCodeOptions" id="program-4" name="program" [(ngModel)]="selectedDealerCodeList"
+                [style]="{minWidth:'175px'}"></p-multiSelect>
             </div>
-            <div *ngIf="showDistrictPCDistributionReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
+            <div class="form-group col-sm-3">
+              <label for="from-4">From:</label>
+              <p-calendar placeholder="From" id="from-4" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
             </div>
-
-            <div class="z-content-pad">
-                <h2>Dealer Parts Counter Distribution Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-                <form>
-                    <div class="form-group row">
-                        Dealer Code:&#160;&#160;
-                        <p-multiSelect [options]="pCDistributionDealeCodeOptions" id="program" name="program" [(ngModel)]="selectedDealerCodeList"
-                            [style]="{minWidth:'120px'}"></p-multiSelect>
-
-                        From:&#160;&#160;
-
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar> <span style="margin-left:45px"></span>
-
-
-
-                        <button pButton type="button" (click)="viewDealerPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
-                    </div>
-                </form>
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="form-group col-sm-3">
+              <label for="to-4">To:</label>
+              <p-calendar placeholder="To" id="to-4" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
             </div>
-            <div *ngIf="showDealerPCDistributionReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
+            <div class="form-group col-sm-3 report-button-container">
+              <button pButton type="button" (click)="viewDealerPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>
-
-            <div class="z-content-pad">
-                <h2>Participant Parts Counter Distribution Report</h2>
-                <p class="report-description">Total excellence card rewards deposited through MSER</p>
-                <form>
-                    <div class="form-group row">
-                        Dealer Code:&#160;&#160;
-                        <p-multiSelect [options]="pCDistributionDealeCodeOptions" id="program" name="program" [(ngModel)]="selectedDealerCodeList"
-                            [style]="{minWidth:'120px'}"></p-multiSelect>
-
-                        From:&#160;&#160;
-
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar> <span style="margin-left:45px"></span>
-
-
-
-                        <button pButton type="button" (click)="viewParticipantPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"
-                            style="margin-left:35px"></button>
-                    </div>
-                </form>
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br>
-            </div>
-            <div *ngIf="showParticipantPCDistributionReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
-            </div>
-
+          </div>
+        </form>
+        <div class="row" *ngIf="showDealerPCDistributionReportIframe">
+          <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
         </div>
+      </div>
+      <!-- End Dealer Parts Counter Distribution Report-->
+
+      <!-- Begin Participant Parts Counter Distribution Report -->
+      <div [hidden]="!isParticipant" class="z-content-pad">
+        <h2>Participant PC Distribution Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+        <form class="report-form">
+          <div class="row">
+            <div class="form-group col-sm-2">
+              <label for="program-5">Dealer Code:</label>
+              <p-multiSelect [options]="pCDistributionDealeCodeOptions" id="program-5" name="program" [(ngModel)]="selectedDealerCodeList"
+                [style]="{minWidth:'175px'}"></p-multiSelect>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="from-5">From:</label>
+              <p-calendar placeholder="From" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="to-5">To:</label>
+              <p-calendar placeholder="To" id="to-5" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+            </div>
+            <div class="form-group col-sm-2 report-button-container">
+              <button pButton type="button" (click)="viewParticipantPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+            </div>
+          </div>
+          <div class="row" *ngIf="showParticipantPCDistributionReportIframe">
+            <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+          </div>
+        </form>
+      </div>
+      <!-- End Participant Parts Counter Distribution Report -->
+
     </div>
+  </div>
 
 </main>

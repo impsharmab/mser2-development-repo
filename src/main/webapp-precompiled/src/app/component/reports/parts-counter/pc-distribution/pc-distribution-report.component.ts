@@ -27,9 +27,21 @@ export class PCDistributionReportComponent implements OnInit {
     private programName: string = "";
     private src: any;
     private selectedProgramList: any = [];
+
+    private isAdmin: boolean = false;
+    private isExecutive: boolean = false;
+    private isDealer: boolean = false;
+    private isBC: boolean = false;
+    private isDistrict: boolean = false;
+    private isManager: boolean = false;
+    private isParticipant: boolean = false;
+    private tabNumber: any = "tab1";
+
+    private fromDate: string = "";
+    private toDate: string = "";
     private pCDistributionReportInterface: PCDistributionReportInterface = {
-        from: "9/1/2017",
-        to: "9/30/2017",
+        from: this.fromDate,
+        to: this.toDate,
         bc: "",
         district: ""
     }
@@ -66,21 +78,14 @@ export class PCDistributionReportComponent implements OnInit {
 
     ngOnInit() {
         this.squarify();
+        var d = new Date;
+        var today = new Date();
+        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
+        this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
         /* jQuery activation and setting options for parent tabs with id selector*/
-        $(".tabbed-nav").zozoTabs({
-            rounded: false,
-            multiline: true,
-            theme: "white",
-            size: "medium",
-            responsive: true,
-            animation: {
-                effects: "slideH",
-                easing: "easeInOutCirc",
-                type: "jquery"
-            },
-            defaultTab: "tab1",
-            orientation: "horizontal"
-        });
+        this.identifyRoles();
+        this.renderTab();
         this.viewEXTabOnly();
         //   this.createBCProgramOptions();
     }
@@ -97,19 +102,94 @@ export class PCDistributionReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
-
+    private renderTab() {
+        /* jQuery activation and setting options for parent tabs with id selector*/
+        $(".tabbed-nav").zozoTabs({
+            rounded: false,
+            multiline: true,
+            theme: "white",
+            size: "medium",
+            responsive: true,
+            animation: {
+                effects: "slideH",
+                easing: "easeInOutCirc",
+                type: "jquery"
+            },
+            defaultTab: this.tabNumber,
+            orientation: "horizontal"
+        });
+    }
     onResize(event) {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-
-    // // private createBCProgramOptions() {
-    // //     var programOptions: SelectItem[] = []
-    // //     for (var i = 0; i < this.bcProgramName.length; i++) {
-    // //         programOptions.push({ label: this.bcProgramName[i], value: (this.bcProgramName[i]) });
-    // //     }
-    // //     this.programOptions = programOptions;
-    // // }
+    private identifyRoles() {
+        var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+        if (role == 1) {
+            this.tabNumber = "tab1";
+            this.isAdmin = false;
+            this.isExecutive = true;
+            this.isBC = true;
+            this.isDistrict = true;
+            this.isManager = true;
+            this.isDealer = true;
+            this.isParticipant = true;
+        } else if (role == 3) {
+            this.tabNumber = "tab1";
+            this.isAdmin = false;
+            this.isExecutive = true;
+            this.isBC = true;
+            this.isDistrict = true;
+            this.isManager = true;
+            this.isDealer = true;
+            this.isParticipant = true;
+        } else if (role == 12) {
+            this.tabNumber = "tab2";
+            this.isAdmin = false;
+            this.isExecutive = false;
+            this.isBC = true;
+            this.isDistrict = true;
+            this.isManager = true;
+            this.isDealer = true;
+            this.isParticipant = true;
+        } else if (role == 11) {
+            this.tabNumber = "tab3";
+            this.isAdmin = false;
+            this.isExecutive = false;
+            this.isBC = false;
+            this.isDistrict = true;
+            this.isManager = true;
+            this.isDealer = true;
+            this.isParticipant = true;
+        } else if (role == 5) {
+            this.tabNumber = "tab4";
+            this.isAdmin = false;
+            this.isExecutive = false;
+            this.isBC = false;
+            this.isDistrict = false;
+            this.isManager = true;
+            this.isDealer = true;
+            this.isParticipant = true;
+        } else if (role == 10) {
+            this.tabNumber = "tab4";
+            this.isAdmin = false;
+            this.isExecutive = false;
+            this.isBC = false;
+            this.isDistrict = false;
+            this.isManager = false;
+            this.isDealer = true;
+            this.isParticipant = true;
+        } else if (role == 6 || role == 9) {
+            this.tabNumber = "tab5";
+            this.isAdmin = false;
+            this.isExecutive = false;
+            this.isBC = false;
+            this.isDistrict = false;
+            this.isManager = false;
+            this.isDealer = false;
+            this.isParticipant = true;
+        }
+    }
 
     private viewEXTabOnly() {
         // this.createBCProgramOptions();
@@ -120,8 +200,8 @@ export class PCDistributionReportComponent implements OnInit {
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
-            from: "9/1/2017",
-            to: "9/30/2017",
+            from: this.fromDate,
+            to: this.toDate,
             district: "",
             bc: ""
         }
@@ -135,8 +215,8 @@ export class PCDistributionReportComponent implements OnInit {
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
-            from: "9/1/2017",
-            to: "9/30/2017",
+            from: this.fromDate,
+            to: this.toDate,
             district: "",
             bc: ""
         }
@@ -153,8 +233,8 @@ export class PCDistributionReportComponent implements OnInit {
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
-            from: "9/1/2017",
-            to: "9/30/2017",
+            from: this.fromDate,
+            to: this.toDate,
             district: "",
             bc: ""
         }
@@ -172,8 +252,8 @@ export class PCDistributionReportComponent implements OnInit {
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
-            from: "9/1/2017",
-            to: "9/30/2017",
+            from: this.fromDate,
+            to: this.toDate,
             district: "",
             bc: ""
         }
@@ -191,8 +271,8 @@ export class PCDistributionReportComponent implements OnInit {
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
-            from: "9/1/2017",
-            to: "9/30/2017",
+            from: this.fromDate,
+            to: this.toDate,
             district: "",
             bc: ""
         }

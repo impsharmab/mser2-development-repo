@@ -17,22 +17,26 @@
 <p-dialog header="Select Position Code - Dealer Code" [(visible)]="displayRetweetModal" modal="modal" width="600" height="200"
     [responsive]="true" [contentStyle]="{'overflow':'visible'}">
 
-    <div class="row">
-        <div class="form-group col-sm-6">
-            <label for="pc">Select Position Code:</label>
-            <ng-template >
-                <p-dropdown id="pc" class="pc" [options]="positionCodeOptions" [(ngModel)]="selectedPositionCode" (onChange)="onChangePC(ri, selectedPositionCode)"
-                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown>
-            </ng-template>
-            
+    <div class="form-group row ">
+        <div class=" col-sm-6">
+            <label for="dc">Select Dealer Code:</label>
+            <!-- <p-dropdown id="dc" class="dc" [options]="dealerCodeOptions" [(ngModel)]="selectedDealerCode" (onChange)="onChangeDC($event, selectedDealerCode)"
+                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
+            <select id="dcOptions" name="dcOptions" (change)="onDCChange()" style="width: 90px" [(ngModel)]="codeData.selectedDealerCode">
+                    <option *ngFor="let data of dcDinstinct" [ngValue]="data">{{data}}</option> 
+            </select> 
         </div>
 
-        <div class="form-group col-sm-6">
-            <label for="dc">Select Dealer Code:</label>
-            <p-dropdown id="dc" class="dc" [options]="dealerCodeOptions" [(ngModel)]="selectedDealerCode" (onChange)="onChangeDC($event, selectedDealerCode)"
-                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown>
+        <div class="col-sm-6">
+            <label for="pc">Select Position Code:</label>
+            <!-- <p-dropdown id="pcOptions" class="pcOptions" [options]="positionCodeOptions" [(ngModel)]="selectedPositionCode" (onChange)="onChangePC($event, selectedPositionCode)"
+                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
+            <select id="pcOptions" name="pcOptions" (change)="onPCChange()" style="width: 90px" [(ngModel)]="codeData.selectedPositionCode">
+                    <option *ngFor="let data of pcDinstinct" [ngValue]="data">{{data}}</option>
+            </select>
         </div>
     </div>
+    <!-- </div> -->
 
     <p-footer>
         <button type="button" pButton icon="fa-check" (click)="submitRetweetPCDC()" label="Submit"></button>
@@ -68,7 +72,8 @@
 
 
         <li class="nav-item refresh-button-container">
-            <a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownDealerCode()" style="cursor:pointer">
+            <a *ngIf="poscodesSession.length>1 || delcodesSession.length>1" class="utility-nav active " (click)="dropdownDealerCode()"
+                style="cursor:pointer">
             <span>
               <i class="refresh-button fa fa-retweet"></i>
             </span>
@@ -99,4 +104,6 @@
         </li>-->
 
     </ul>
+
+
 </header>

@@ -16,9 +16,11 @@ declare var $: any;
 })
 export class ROReportComponent implements OnInit {
     private program = "Enrollment_Admin";
+    private fromDate: string = "";
+    private toDate: string = "";
     private roReportInterface: ROReportInterface = {
-        "from": "",
-        "to": "",
+        "from": this.fromDate,
+        "to": this.toDate,
         "dealerCode": "",
         "roNumber": ""
     }
@@ -27,6 +29,11 @@ export class ROReportComponent implements OnInit {
 
     ngOnInit() {
         this.squarify();
+        var d = new Date;
+        var today = new Date();
+        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
+        this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -44,8 +51,8 @@ export class ROReportComponent implements OnInit {
         });
 
         this.roReportInterface = {
-            "from": "9/1/2017",
-            "to": "9/30/2017",
+            "from": this.fromDate,
+            "to": this.toDate,
             "dealerCode": "",
             "roNumber": ""
         }

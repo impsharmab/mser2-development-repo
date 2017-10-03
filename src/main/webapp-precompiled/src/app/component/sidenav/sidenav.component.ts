@@ -14,6 +14,7 @@ declare var $: any;
 
 })
 export class SidenavComponent implements OnInit, AfterViewInit {
+  private isAdmin: boolean = false;
   private cmsContentObject: any;
   private selectedPositionCode: any = "";
   private showMSERRulesPage: boolean = false;
@@ -27,15 +28,19 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   constructor(private cmsService: CMSService) { }
 
   ngOnInit() {
-
     var mserEnrolled: any = [];
     mserEnrolled = JSON.parse(sessionStorage.getItem("CurrentUser")).mserEnrollment;
+    this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
+    this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
     if (mserEnrolled.length > 0) {
       this.isMSEREnrolled = true;
     } else {
       this.isMSEREnrolled = false;
     }
-    this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
+
+    if (this.isAdmin) {
+      this.showMSEREnrollmentReport = true;
+    }
     //  console.log(this.selectedPositionCode);
   }
 
@@ -49,6 +54,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
       this.showMSEREnrollmentForm = false;
     }
     if (userMatrix.enrollmentReportMatrix.indexOf(this.selectedPositionCode) > -1) {
+      this.showMSEREnrollmentReport = true;
+    } else if (this.isAdmin) {
       this.showMSEREnrollmentReport = true;
     } else {
       this.showMSEREnrollmentReport = false;

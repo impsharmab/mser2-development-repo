@@ -24,18 +24,16 @@
                             <p-calendar dateFormat="mm/dd/yy" dataType="string" id="to" name="to" placeholder="To" showIcon="true" [style]="{'overflow':'visible'}"
                                 [showTime]="false" [(ngModel)]="roReportInterface.to"></p-calendar>
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="dc">Dealer Code:</label>
                             <input id="dc" name="dc" placeholder="Dealer Code" type="text" pInputText [(ngModel)]="roReportInterface.dealerCode" />
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="ro">RO Number:</label>
                             <input id="ro" name="ro" placeholder="RO Number" type="text" pInputText [(ngModel)]="roReportInterface.roNumber" />
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-sm-3">
-                            <button icon="fa-check" iconPos="right" label="View Report" pButton type="button" (click)="showROReport()"></button>
+                        <div class="form-group col-sm-2 report-button-container">
+                          <button icon="fa-check" iconPos="right" label="View Report" pButton type="button" (click)="showROReport()"></button>
                         </div>
                     </div>
                     <div class="row" *ngIf="showROReportIframe">
