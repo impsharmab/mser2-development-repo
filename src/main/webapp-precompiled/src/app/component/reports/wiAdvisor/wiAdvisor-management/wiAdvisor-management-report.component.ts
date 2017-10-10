@@ -84,7 +84,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         var today = new Date();
         var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
-        this.toDate = (d.getMonth() + 1) + "/" + new Date().getDate() + "/" + new Date().getFullYear();
+        this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
         console.log(this.fromDate + "-----" + this.toDate + " " + lastDayOfMonth.getDate());
         this.squarify();
         /* jQuery activation and setting options for parent tabs with id selector*/
@@ -226,7 +226,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         var WFD = this.wIAdvisorManagementInterface.from;
         var WTD = this.wIAdvisorManagementInterface.to;
 
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&WFD=${WFD}&WTD=${WTD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&WFD=${WFD}&WTD=${WTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -240,7 +240,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         for (var i = 0; i < this.selectedBCList.length; i++) {
             WBC = WBC + "&WBC=" + this.selectedBCList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${WBC}&WBCFD=${WBCFD}&WBCTD=${WBCTD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${WBC}&WBCFD=${WBCFD}&WBCTD=${WBCTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -257,7 +257,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         for (var i = 0; i < this.selectedDistrictList.length; i++) {
             WMDD = WMDD + "&WMDD=" + this.selectedDistrictList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&WMDFD=${WMDFD}&WMDTD=${WMDTD}${WMDBC}${WMDD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&WMDFD=${WMDFD}&WMDTD=${WMDTD}${WMDBC}${WMDD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -271,7 +271,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
     //     for (var i = 0; i < this.selectedProgramList.length; i++) {
     //         RDDLPG = RDDLPG + "&RDDLPG=" + this.selectedProgramList[i];
     //     }
-    //     this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
+    //     this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
     //     console.log(this.src);
     //     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     // }
@@ -286,7 +286,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
     //     for (var i = 0; i < this.selectedProgramList.length; i++) {
     //         RDPPG = RDPPG + "&RDPPG=" + this.selectedProgramList[i];
     //     }
-    //     this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+    //     this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
     //     console.log(this.src);
     //     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     // }

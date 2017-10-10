@@ -1,6 +1,7 @@
 package com.imperialm.imimserservices.dao;
-
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.imperialm.imimserservices.dto.EnrollmentSummaryDTO;
 import com.imperialm.imimserservices.dto.MSERGraphDetailsSummaryDTO;
 import com.imperialm.imimserservices.dto.TileDTO;
 
@@ -233,6 +235,67 @@ public class MSERTilesDAOImpl {
 		}
 		return result;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public EnrollmentSummaryDTO getEnrollementSummaryByProgramGroupAndTerritory(String territory, int programId) {
+		EnrollmentSummaryDTO result = null;
+		try {
+			
+				Query query = this.em.createNativeQuery("select * from EnrollmentSummary where Child = ?0 and ProgramGroupID =(?1)", EnrollmentSummaryDTO.class);
+				query.setParameter(0, territory);
+				query.setParameter(1, programId);
+				List<EnrollmentSummaryDTO> rows = query.getResultList();
+				result = rows.get(0);
+		} catch (final NoResultException ex) {
+			logger.info("result in else " + result);
+		} catch (final Exception ex) {
+			logger.error("error occured in getMSERCountNATByType", ex);
+		}
+		return result;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public EnrollmentSummaryDTO getRewardSummaryByProgramGroupAndTerritory(String territory, String period) {
+		EnrollmentSummaryDTO result = null;
+		try {
+			Date begin = new Date(0);
+			Date end = new Date(0);
+			if(period.equalsIgnoreCase("ytd")){
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.MONTH, Calendar.JANUARY);
+				cal.set(Calendar.DAY_OF_MONTH, 1);
+				cal.setTime(begin);
+				
+				cal.set(Calendar.MONTH, Calendar.DECEMBER);
+				cal.set(Calendar.DAY_OF_MONTH, 30);
+				cal.setTime(end);
+				
+			}else if (period.equalsIgnoreCase("mtd")){
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.DAY_OF_MONTH, 1);
+				cal.setTime(begin);
+				cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+				cal.setTime(end);
+			}else{
+				return result;
+			}
+				
+				Query query = this.em.createNativeQuery("select * from RewardSummary where Child = ?0 and PaidDate between ?1 and ?2", EnrollmentSummaryDTO.class);
+				query.setParameter(0, territory);
+				query.setParameter(1, begin);
+				query.setParameter(2, end);
+				List<EnrollmentSummaryDTO> rows = query.getResultList();
+				result = rows.get(0);
+		} catch (final NoResultException ex) {
+			logger.info("result in else " + result);
+		} catch (final Exception ex) {
+			logger.error("error occured in getMSERCountNATByType", ex);
+		}
+		return result;
+	}
+	
 	
 	
 }

@@ -14,10 +14,10 @@
   </div>
 
   <!-- Breadcrumb -->
-  <ol class="breadcrumb mb-0">
+  <!-- <ol class="breadcrumb mb-0">
     <li class="breadcrumb-item" routerLink="/mserHomepage/home">Home</li>
     <li class="breadcrumb-item active" routerLink="#">Rewards-Distribution</li>
-  </ol>
+  </ol> -->
 
   <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is: <strong id="participant-id">{{activeProgram}}</strong></div>
   <!-- Begin Allocation section -->
@@ -76,7 +76,7 @@
 
 
   <div smoothScroll offset="0" id="displayError">
-    <p style="color:red">{{msg}}</p>
+    <p style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{msg}}</p>
   </div>
   <!-- Begin MVP section -->
   <!-- Once user has selected MVP, the Allocation Section either disappears or the user moves to a new page -->
@@ -384,7 +384,7 @@
   <div class="modal fade" id="mvpSaveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header"> 
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>

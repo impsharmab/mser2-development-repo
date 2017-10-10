@@ -1,0 +1,48 @@
+<main class="main report-center" id="report-center">
+    <!-- Begin MSER -->
+    <!-- RO Report Tabs -->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li class="tab"><a>Detail</a></li>
+        </ul>
+        <!-- Begin Content Container -->
+        <div>
+            <!-- Begin RO Report -->
+            <div class="z-content-pad">
+                <h2>RO Report</h2>
+                <!-- <p class="report-description">Use to look up a specifc RO and how MSER processed.</p> -->
+
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-2">
+                            <label for="dc-1">Dealer Code:</label>
+                            <p-multiSelect [options]="dealerCodeOptions" id="dc-1" name="dc-1" [(ngModel)]="selectedDealerList" [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="from">From:</label>
+                            <p-calendar dateFormat="mm/dd/yy" dataType="string" id="from" name="from" placeholder="From" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" [(ngModel)]="pcInvoiceInterface.from"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to">To:</label>
+                            <p-calendar dateFormat="mm/dd/yy" dataType="string" id="to" name="to" placeholder="To" showIcon="true" [style]="{'overflow':'visible'}"
+                                [showTime]="false" [(ngModel)]="pcInvoiceInterface.to"></p-calendar>
+                        </div>
+
+
+                        <div class="form-group col-sm-2 report-button-container">
+                            <button icon="fa-check" iconPos="right" label="View Report" pButton type="button" (click)="showPCInvoiceReport()"></button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showPCInvoiceReportIframe">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    </div>
+                </form>
+            </div>
+            <!-- End RO Report -->
+        </div>
+        <!-- End Content Container -->
+    </div>
+
+
+</main>

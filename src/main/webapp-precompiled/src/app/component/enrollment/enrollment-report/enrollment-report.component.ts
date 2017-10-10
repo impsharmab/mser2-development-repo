@@ -149,7 +149,7 @@ export class EnrollmentReportComponent implements OnInit {
     }
   }
   private viewEXTabOnly() {
-    this.showExecutiveEnrollmentReportIframe = false;
+    this.showExecutiveEnrollmentReportIframe = true;
     this.showBCEnrollmentReportIframe = false;
     this.showDealerEnrollmentReportIframe = false;
     this.showDistrictEnrollmentReportIframe = false;
@@ -166,7 +166,7 @@ export class EnrollmentReportComponent implements OnInit {
   }
   private viewBCTabOnly() {
     this.showExecutiveEnrollmentReportIframe = false;
-    this.showBCEnrollmentReportIframe = false;
+    this.showBCEnrollmentReportIframe = true;
     this.showDealerEnrollmentReportIframe = false;
     this.showDistrictEnrollmentReportIframe = false;
     this.showParticipantEnrollmentReportIframe = false;
@@ -178,12 +178,13 @@ export class EnrollmentReportComponent implements OnInit {
       programGroup: ""
     }
     this.selectedProgramList = ["4", "1", "6"];
+    this.viewBCEnrollmentReport();
   }
 
   private viewDistrictTabOnly() {
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = false;
-    this.showDistrictEnrollmentReportIframe = false;
+    this.showDistrictEnrollmentReportIframe = true;
     this.showDealerEnrollmentReportIframe = false;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
@@ -202,7 +203,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = false;
     this.showDistrictEnrollmentReportIframe = false;
-    this.showDealerEnrollmentReportIframe = false;
+    this.showDealerEnrollmentReportIframe = true;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
     this.enrollmentReportInterface = {
@@ -211,7 +212,7 @@ export class EnrollmentReportComponent implements OnInit {
 
     }
 
-    // this.viewDealerEnrollmentReport();
+    this.viewDealerEnrollmentReport();
   }
 
   private viewParticipantTabOnly() {
@@ -243,7 +244,7 @@ export class EnrollmentReportComponent implements OnInit {
       ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
     }
     console.log(ProgramGroup);
-    this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${ProgramGroup}`;
+    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
@@ -256,7 +257,7 @@ export class EnrollmentReportComponent implements OnInit {
     for (var i = 0; i < this.selectedProgramList.length; i++) {
       ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
     }
-    this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}${ProgramGroup}`;
+    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
@@ -270,7 +271,7 @@ export class EnrollmentReportComponent implements OnInit {
       ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
     }
 
-    this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}${ProgramGroup}`;
+    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
@@ -279,7 +280,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.programName = "Enrollment_Dealer";
     var DealerCode = this.enrollmentReportInterface.dealerCode;
 
-    this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}`;
+    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.imperialm.imimserservices.dao.DealerPersonnelPositionsDAO;
 import com.imperialm.imimserservices.dao.GroupSIDEnrollmentsDAO;
 import com.imperialm.imimserservices.dao.UserPositionCodeRoleDAO;
+import com.imperialm.imimserservices.dto.ParticipantEnrollmentList;
 import com.imperialm.imimserservices.dto.TIDUsersDTO;
 import com.imperialm.imimserservices.dto.UserDetailsImpl;
 import com.imperialm.imimserservices.dto.UserPositionCodeRoleDTO;
@@ -34,6 +35,9 @@ import com.imperialm.imimserservices.security.JwtAuthenticationRequest;
 import com.imperialm.imimserservices.security.JwtTokenUtil;
 import com.imperialm.imimserservices.security.service.JwtAuthenticationResponse;
 import com.imperialm.imimserservices.services.UserServiceImpl;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @RestController
 public class AuthenticationRestController {
@@ -62,7 +66,6 @@ public class AuthenticationRestController {
 	@Autowired
 	private DealerPersonnelPositionsDAO DealerPersonnelPositionsDAO;
 	
-	
 	@Autowired
 	private GroupSIDEnrollmentsDAO GroupSIDEnrollmentsDAO;
 	
@@ -88,10 +91,6 @@ public class AuthenticationRestController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		final UserDetailsImpl user = (UserDetailsImpl) userDetailsService.loadUserByUsername(authenticationRequest.getUsername().trim());
-		/*
-        if(!(this.get_SHA_512_SecurePassword(authenticationRequest.getPassword(), user.getSalt()).toUpperCase().equals(user.getPassword()))){
-        	throw new AuthenticationException("Failed to login");
-        }*/
 		final String token = jwtTokenUtil.generateToken(user);
 		
 		logger.info("User Id: " + user.getUserId() + ", signed in!");
@@ -135,12 +134,21 @@ public class AuthenticationRestController {
 	}
 
 	public ResponseEntity<?> finalizeToken(String token, UserDetailsImpl user, String tokenPositionCode, String tokenDealerCode){
-		List<UserPositionCodeRoleDTO> userCodes = userPositionCodeRoleDAO.getDealerCodePCRoleBySid(user.getUserId());
+		//List<UserPositionCodeRoleDTO> userCodes = userPositionCodeRoleDAO.getDealerCodePCRoleBySid(user.getUserId());
+		
+		List<ParticipantEnrollmentList> userCodes = GroupSIDEnrollmentsDAO.getParticipantEnrollementList(user.getUserId());
+		
 		List<String> positionCode = new ArrayList<String>();
 		List<String> dealerCode = new ArrayList<String>();
 		List<String> dealerName = new ArrayList<String>();
 		List<Integer> userRoles = new ArrayList<Integer>();
 		List<Boolean> mserEnrollment = new ArrayList<Boolean>();
+		List<Boolean> dealerManager = new ArrayList<Boolean>();
+	    List<Boolean> serviceManagerOfRecord = new ArrayList<Boolean>();
+	    List<Boolean> partsManagerOfRecord = new ArrayList<Boolean>();
+	    List<Boolean> elManager = new ArrayList<Boolean>();
+	    List<Boolean> pcManager = new ArrayList<Boolean>();
+	    List<Boolean> uvmManager = new ArrayList<Boolean>();
 
 		if(!(tokenPositionCode == null || tokenPositionCode.isEmpty() || tokenPositionCode.equalsIgnoreCase("undefined"))){
 			positionCode.add(tokenPositionCode);
@@ -150,13 +158,13 @@ public class AuthenticationRestController {
 			dealerCode.add(tokenDealerCode);
 		}
 
-		for(UserPositionCodeRoleDTO item: userCodes){
+		for(ParticipantEnrollmentList item: userCodes){
 			positionCode.add(item.getPositionCode());
 			dealerCode.add(item.getDealerCode());
 		}
 
 		if(userCodes.size() == 0){
-			List<TIDUsersDTO> tids = TIDUsersDAO.getTIDUsersByTID(user.getUserId());
+			/*List<TIDUsersDTO> tids = TIDUsersDAO.getTIDUsersByTID(user.getUserId());
 			if(tids.size() > 0){
 				for(TIDUsersDTO item: tids){
 					positionCode.add(item.getPositionCode());
@@ -164,19 +172,47 @@ public class AuthenticationRestController {
 						dealerCode.add(item.getTerritory());
 					}
 				}
-			}else{
+			}else{*/
 				List<String> territoryCheck = this.userPositionCodeRoleDAO.getUserTerritoyById(user.getUserId());
-				if(territoryCheck.size() > 0){
+				//if(territoryCheck.size() > 0){
+				for(int i=0; i< territoryCheck.size(); i++){
 					if(territoryCheck.get(0).equalsIgnoreCase("nat")){
 						positionCode.add("90");
+						dealerCode.add(territoryCheck.get(i));
+						mserEnrollment.add(true);
+						
+						elManager.add(false);
+						pcManager.add(false);
+						uvmManager.add(false);
+						dealerManager.add(false);
+					    serviceManagerOfRecord.add(false);
+					    partsManagerOfRecord.add(false);
 					}else if(territoryCheck.get(0).contains("-")){
 						positionCode.add("97");
+						dealerCode.add(territoryCheck.get(i));
+						mserEnrollment.add(true);
+						
+						elManager.add(false);
+						pcManager.add(false);
+						uvmManager.add(false);
+						dealerManager.add(false);
+					    serviceManagerOfRecord.add(false);
+					    partsManagerOfRecord.add(false);
 					}else if(territoryCheck.get(0).trim().length() == 2){
 						positionCode.add("8D");
+						dealerCode.add(territoryCheck.get(i));
+						mserEnrollment.add(true);
+						
+						elManager.add(false);
+						pcManager.add(false);
+						uvmManager.add(false);
+						dealerManager.add(false);
+					    serviceManagerOfRecord.add(false);
+					    partsManagerOfRecord.add(false);
 					}
 				}
 			}
-		}
+		//}
 
 		/*Set<String> p = new LinkedHashSet<>(positionCode);
 		Set<String> d = new LinkedHashSet<>(dealerCode);
@@ -186,9 +222,22 @@ public class AuthenticationRestController {
 		positionCode.addAll(p);
 		dealerCode.addAll(d);*/
 		
+		
+		
 		for(String dc: dealerCode){
 			dealerName.add(DealerInfoDAO.getDealershipName(dc));
 			mserEnrollment.add(ProgramEnrollmentsDAO.isDealershipEnrolled(dc));
+			
+			
+			elManager.add(GroupSIDEnrollmentsDAO.isELManager(dc, user.getUserId()));
+			pcManager.add(GroupSIDEnrollmentsDAO.isPCManager(dc, user.getUserId()));
+			uvmManager.add(GroupSIDEnrollmentsDAO.isPCManager(dc, user.getUserId()));
+			
+			dealerManager.add(GroupSIDEnrollmentsDAO.isDealerPricipal(dc, user.getUserId()));
+		    serviceManagerOfRecord.add(GroupSIDEnrollmentsDAO.isServiceManagerOfRecord(dc, user.getUserId()));
+		    partsManagerOfRecord.add(GroupSIDEnrollmentsDAO.isPartsManagerOfRecord(dc, user.getUserId()));
+		    
+		    
 		}
 
 		for(String pc: positionCode){
@@ -200,7 +249,12 @@ public class AuthenticationRestController {
 		response.setRoles(userRoles);
 		response.setDealerCode(dealerCode);
 		response.setDealerName(dealerName);
-		response.setMserEnrollment(mserEnrollment);
+		response.setDealerManager(dealerManager);
+		response.setServiceManagerOfRecord(serviceManagerOfRecord);
+		response.setPartsManagerOfRecord(partsManagerOfRecord);
+		if(mserEnrollment.contains(true)){
+			response.setMserEnrollment(true);
+		}
 		response.setName(user.getUsername());
 		response.setUserId(jwtTokenUtil.getUsernameFromToken(token));
 		if(UserProgramRolesDAO.isAdmin(user.getUserId().trim())){

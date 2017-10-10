@@ -9,6 +9,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
+
+
 @SpringBootApplication
 @EntityScan
 @ComponentScan

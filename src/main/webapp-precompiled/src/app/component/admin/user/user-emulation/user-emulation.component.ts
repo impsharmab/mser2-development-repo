@@ -22,10 +22,10 @@ export class UserEmulationComponent implements OnInit {
     }
 
     private emulateAllUser(emulateID) {
-        if (emulateID == undefined || emulateID.trim() == "") {
+        if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
-        } else if (emulateID != undefined || emulateID.trim().length < 5) {
+        } else if (emulateID != undefined && emulateID.trim().length < 5) {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
         }
@@ -58,7 +58,7 @@ export class UserEmulationComponent implements OnInit {
         )
     }
 
-    private emulateDealerCodeUser(dealerCode) { 
+    private emulateDealerCodeUser(dealerCode) {  
         this.adminService.emulateUserWithDealerCode(dealerCode).subscribe(
             (emulateUserData) => {
                 this.emulateUserData = emulateUserData;

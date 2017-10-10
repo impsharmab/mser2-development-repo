@@ -77,7 +77,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getMSEREnrollmentTileData();
-    this.getMSEREarningTileData(); 
+    this.getMSEREarningTileData();
+    this.hideEnrollmentTileMatrix();
   }
 
   private mserEnrollmentDatum: any = [{
@@ -87,10 +88,8 @@ export class HomeComponent implements OnInit {
     "tileName": "",
     "tileHeaderImage": ""
   }];
-  private getMSEREnrollmentTileData() {
-    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-    var positionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
-    this.homeService.getMSEREnrollmentTileData(positionCode, dealerCode).subscribe(
+  private getMSEREnrollmentTileData() {   
+    this.homeService.getMSEREnrollmentTileData().subscribe(
       (mserEnrollmentDatum) => {
         this.mserEnrollmentDatum = (mserEnrollmentDatum)
       },
@@ -106,18 +105,22 @@ export class HomeComponent implements OnInit {
     "tileHeaderImage": ""
   }];
   private getMSEREarningTileData() {
-    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-    var positionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
-    this.homeService.getMSEREarningTileData(positionCode, dealerCode).subscribe(
+    this.homeService.getMSEREarningTileData().subscribe(
       (mserEarningDatum) => {
         this.mserEarningDatum = (mserEarningDatum)
-
       },
       (error) => {
       }
     )
   }
 
+  private hideEnrollmentTile: boolean = false;
+  private hideEnrollmentTileMatrix() {
+    var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+    if (role == 6 || role == 9) {
+      this.hideEnrollmentTile = true;
+    }
+  }
   private openEnrollmentSite() {
     let url = ["mserHomepage/enrollmentmaintenance"]
     this.router.navigate(url);

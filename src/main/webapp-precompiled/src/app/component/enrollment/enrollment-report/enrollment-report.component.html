@@ -18,14 +18,14 @@
         <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">
           <div class="row">
-            <div class="form-group col-sm-5">
+            <!-- <div class="form-group col-sm-5">
               <label for="program-1">Program:</label>
               <p-multiSelect [options]="enrollmentReportProgramOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList"
                 [style]="{minWidth:'120px'}"></p-multiSelect>
-            </div>
-            <div class="form-group col-sm-3 report-button-container">
+            </div> -->
+            <!-- <div class="form-group col-sm-3 report-button-container">
               <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
-            </div>
+            </div> -->
           </div>
           <div class="row" *ngIf="showExecutiveEnrollmentReportIframe">
             <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
@@ -44,11 +44,11 @@
               <input placeholder="BC" type="text" id="dc-2" name="dc" pInputText [(ngModel)]="enrollmentReportInterface.businessCenter"
               />
             </div>
-            <div class="form-group col-sm-5">
+            <!-- <div class="form-group col-sm-5">
               <label for="program-2">Program:</label>
               <p-multiSelect [options]="enrollmentReportProgramOptions" id="program-2" name="program" [(ngModel)]="selectedProgramList"
                 [style]="{minWidth:'120px'}"></p-multiSelect>
-            </div>
+            </div> -->
             <div class="form-group col-sm-2 report-button-container">
               <button pButton type="button" (click)="viewBCEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>
@@ -71,11 +71,11 @@
               <input placeholder="District" type="text" id="dist-3" name="dist" pInputText [(ngModel)]="enrollmentReportInterface.district"
               />
             </div>
-            <div class="form-group col-sm-5">
+            <!-- <div class="form-group col-sm-5">
               <label for="program-3">Program:</label>
               <p-multiSelect [options]="enrollmentReportProgramOptions" id="program-3" name="program" [(ngModel)]="selectedProgramList"
                 [style]="{minWidth:'120px'}"></p-multiSelect>
-            </div>
+            </div> -->
             <div class="form-group col-sm-2 report-button-container">
               <button pButton type="button" (click)="viewDistrictEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>

@@ -23,39 +23,56 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   private showMSEROPCodeSetup: boolean = false;
   private showMSEREnrollmentMaintenance: boolean = false;
   private showMSERAutoEnrollmentOpt: boolean = false;
+  private showuvmHome: boolean = false;
+  private showuvmProgramRules: boolean = false;
+  private showexcellenceCardIssuance: boolean = false;
+  private showexcellenceCardInfo: boolean = false;
+  private showRewardDistribution: boolean = false;
   private isMSEREnrolled: boolean = false;
   private showMVPChangeApprovalSettings: boolean = false;
+  private showRewardDistributionMainTab: boolean = false;
+  private roleSession: any = "";
+  private hideThisReportForParticipant: boolean = false;
+
   constructor(private cmsService: CMSService) { }
 
   ngOnInit() {
     var mserEnrolled: any = [];
-    mserEnrolled = JSON.parse(sessionStorage.getItem("CurrentUser")).mserEnrollment;
+    var mserEnrolled = JSON.parse(sessionStorage.getItem("CurrentUser")).mserEnrollment;
     this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
     this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
-    if (mserEnrolled.length > 0) {
+    this.roleSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+
+    if (this.roleSession != undefined && (this.roleSession == 6 || this.roleSession == 9)) {
+      this.hideThisReportForParticipant = true;
+    }
+    if (mserEnrolled) {
       this.isMSEREnrolled = true;
     } else {
       this.isMSEREnrolled = false;
     }
 
-    if (this.isAdmin) {
-      this.showMSEREnrollmentReport = true;
-    }
+    // if (this.isAdmin) {
+    //   this.showMSEREnrollmentReport = true;
+    // }
     //  console.log(this.selectedPositionCode);
+    this.rewardDistributionMatrix();
   }
 
   ngAfterViewInit() {
     this.executeJQueryCode();
   }
   private mSEREnrollmentPageMatrix() {
+    var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
+    var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
+    var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
+
     if (userMatrix.enrollmentFormMatrix.indexOf(this.selectedPositionCode) > -1) {
       this.showMSEREnrollmentForm = true;
     } else {
       this.showMSEREnrollmentForm = false;
     }
     if (userMatrix.enrollmentReportMatrix.indexOf(this.selectedPositionCode) > -1) {
-      this.showMSEREnrollmentReport = true;
-    } else if (this.isAdmin) {
       this.showMSEREnrollmentReport = true;
     } else {
       this.showMSEREnrollmentReport = false;
@@ -65,12 +82,12 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else {
       this.showMSEROPCodeSetup = false;
     }
-    if (this.isMSEREnrolled == true && userMatrix.enrollmentMaintenanceMatrix.indexOf(this.selectedPositionCode) > -1) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
       this.showMSEREnrollmentMaintenance = true;
     } else {
       this.showMSEREnrollmentMaintenance = false;
     }
-    if (this.isMSEREnrolled == true && userMatrix.autoEnrollmentOptMatrix.indexOf(this.selectedPositionCode) > -1) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
       this.showMSERAutoEnrollmentOpt = true;
     } else {
       this.showMSERAutoEnrollmentOpt = false;
@@ -86,7 +103,45 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private uvmPageMatrix() {
+    if (userMatrix.uvmHome.indexOf(this.selectedPositionCode) > -1) {
+      this.showuvmHome = true;
+    } else {
+      this.showuvmHome = false;
+    }
+    if (userMatrix.uvmProgramRules.indexOf(this.selectedPositionCode) > -1) {
+      this.showuvmProgramRules = true;
+    } else {
+      this.showuvmProgramRules = false;
+    }
+  }
 
+  private excellenceCardMatrix() {
+    if (userMatrix.excellenceCardIssuance.indexOf(this.selectedPositionCode) > -1) {
+      this.showexcellenceCardIssuance = true;
+    } else {
+      this.showexcellenceCardIssuance = false;
+    }
+    if (userMatrix.excellenceCardInfo.indexOf(this.selectedPositionCode) > -1) {
+      this.showexcellenceCardInfo = true;
+    } else {
+      this.showexcellenceCardInfo = false;
+    }
+  }
+
+  private rewardDistributionMatrix() {
+    var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
+    var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
+    var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
+
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
+      this.showRewardDistributionMainTab = true;
+      this.showRewardDistribution = true;
+    } else {
+      this.showRewardDistribution = false;
+    }
+
+  }
   private executeJQueryCode() {
     $.navigation = $('nav > ul.nav');
 

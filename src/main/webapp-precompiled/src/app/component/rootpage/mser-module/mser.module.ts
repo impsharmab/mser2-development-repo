@@ -10,7 +10,7 @@ import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule,
-  FileUploadModule, CalendarModule
+  FileUploadModule, CalendarModule, RadioButtonModule
 } from 'primeng/primeng';
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
@@ -59,6 +59,8 @@ import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary
 import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-tire/wiAdvisor-tire.component';
 import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-distribution/pc-distribution-report.component';
 import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAdvisor-management/wiAdvisor-management-report.component';
+import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
+// import { PhonePipe } from '../../number-formatting/phone-pipe';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -76,6 +78,7 @@ import { HomeService } from '../../../services/home-service/home-service';
     BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
     ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule,
+    RadioButtonModule
     // GetLastDateOfMonth
     //PdfmakeModule
   ],
@@ -89,7 +92,8 @@ import { HomeService } from '../../../services/home-service/home-service';
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
     ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
-    WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent
+    WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent, PCInvoiceReportComponent,
+    // PhonePipe
 
   ],
   providers: [

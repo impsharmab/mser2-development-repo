@@ -5,4 +5,6 @@ public interface ProgramEnrollmentsDAO {
 	public boolean enrollDealership(String dealerCode);
 	public boolean isDealershipRecordExists(String dealerCode);
 	public boolean updateDealershipEnrollment(String dealerCode);
+	//public boolean isAutoApprovalMVP(String dealerCode);
+	//public boolean setAutoApprovalMVP(String dealerCode, boolean enroll);
 }

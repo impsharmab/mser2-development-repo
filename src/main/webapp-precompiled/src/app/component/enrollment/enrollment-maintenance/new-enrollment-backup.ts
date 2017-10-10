@@ -93,7 +93,7 @@ export class EnrollmentComponent implements OnInit {
         this.getSelectedDealerName();
         this.getPositionCodes();
         this.getEnrollmentData();
-        this.getExpresslaneDealer();
+       // this.getExpresslaneDealer();
 
     }
     private getSelectedDealerCode() {
@@ -662,18 +662,18 @@ export class EnrollmentComponent implements OnInit {
         this.displayAddNewUserDialog = false;
     }
 
-    private getExpresslaneDealer() {
-        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
-            (expressLaneDealerData) => {
-                this.expressLaneDealerData = (expressLaneDealerData)
-                this.isExpresslaneDealer = true;
-            },
-            (error) => {
-                this.isExpresslaneDealer = false;
-            }
-        )
-    }
+    // private getExpresslaneDealer() {
+    //     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    //     this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
+    //         (expressLaneDealerData) => {
+    //             this.expressLaneDealerData = (expressLaneDealerData)
+    //             this.isExpresslaneDealer = true;
+    //         },
+    //         (error) => {
+    //             this.isExpresslaneDealer = false;
+    //         }
+    //     )
+    // }
     private openDealerTeamTable: boolean = false;
     private dealerTeamButton: string = "YES";
     private openDealerTeam() {

@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
     if (user !== undefined) {
       if (user !== undefined && user.length > 1) {
         this.hideLoginPage = true;
-        this.loginService.getRefreshLoginResponse(user).subscribe(
+        this.loginService.getRefreshLoginResponse(user).subscribe( 
           (refreshTokenData) => {
             this.refreshTokenData = (refreshTokenData)
             if (refreshTokenData !== undefined && refreshTokenData.token.length > 1) {
@@ -115,7 +115,9 @@ export class LoginComponent implements OnInit {
                 this.loginService.setUserData(this.refreshTokenData);
                 var poscodes: any = this.refreshTokenData.positionCode;
                 var delcodes: any = this.refreshTokenData.dealerCode;
-                var delnames: any = this.userdata.dealerName;
+                var delnames: any = this.refreshTokenData.dealerName;
+                var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
+                var passwordReset: any = this.refreshTokenData.passwordReset;
               }
               // var userid: any = this.refreshTokenData.userId;
               // ga('set', 'userId', userid);
@@ -125,8 +127,17 @@ export class LoginComponent implements OnInit {
                   "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
                   "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
                 }))
-              let url = ["mserHomepage"]
-              this.router.navigate(url);
+
+              if (mserEnrollment && !passwordReset) {
+                let url = ["mserHomepage"]
+                this.router.navigate(url);
+              } else if (mserEnrollment && passwordReset) {
+                let url = ["resetpassword"]
+                this.router.navigate(url);
+              } else if (!mserEnrollment) {
+                let url = ["notMserEnrolledPage"]
+                this.router.navigate(url);
+              }
             } else {
 
             }
@@ -149,7 +160,7 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Please enter your SID/TID'
       return;
     } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
-     // this.loginFailed = "Login Failed";
+      // this.loginFailed = "Login Failed";
       this.errorMessage = 'Please enter your Password'
       return;
     }
@@ -163,15 +174,27 @@ export class LoginComponent implements OnInit {
           var poscodes: any = this.userdata.positionCode;
           var delcodes: any = this.userdata.dealerCode;
           var delnames: any = this.userdata.dealerName;
-          
+          var mserEnrollment: any = this.userdata.mserEnrollment;
+          var passwordReset: any = this.userdata.passwordReset;
+
           sessionStorage.setItem("selectedCodeData", JSON.stringify(
             {
-              "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
-              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
-              "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
+              "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : poscodes.length == 0 ? 0 : 0,
+              "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : delcodes.length == 0 ? 0 : 0,
+              "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : delnames.length == 0 ? "" : 0
             }))
-          let url = ["mserHomepage"]
-          this.router.navigate(url);
+
+          if (mserEnrollment && !passwordReset) {
+            let url = ["mserHomepage"]
+            this.router.navigate(url);
+          } else if (mserEnrollment && passwordReset) {
+            let url = ["resetpassword"]
+            this.router.navigate(url);
+          } else if (!mserEnrollment) {
+            let url = ["notMserEnrolledPage"]
+            this.router.navigate(url);
+          }
+
         }
         else {
 
@@ -187,7 +210,7 @@ export class LoginComponent implements OnInit {
     )
   }
   private resetPassword() {
-    let url = ["resetPassword"]
+    let url = ["resetpassword"]
     this.router.navigate(url);
   }
   dealerregister() {

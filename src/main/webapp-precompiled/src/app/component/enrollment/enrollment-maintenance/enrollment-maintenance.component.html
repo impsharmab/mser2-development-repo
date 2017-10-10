@@ -17,11 +17,11 @@
     </div>
   </div>
   <!-- Breadcrumb -->
-  <ol class="breadcrumb mb-0">
-    <!--<li class="breadcrumb-item active"><a href="#">Contact Us</a></li>-->
+  <!-- <ol class="breadcrumb mb-0">
+    <li class="breadcrumb-item active"><a href="#">Contact Us</a></li>
   </ol>
   <a name="payoutchart"></a>
-  <a name="dashboard"></a>
+  <a name="dashboard"></a> -->
   <div class="container m-t-md body-container">
     <!-- First row -->
 
@@ -37,7 +37,7 @@
             <div class="heading-line">
               <h2> </h2>
             </div>
-              <button class="btn btn-primary"(click)="clickOnOpCode(newParticipantData)"> Add New Participant</button>
+            <button class="btn btn-primary" (click)="clickOnOpCode(newParticipantData)"> Add New Participant</button>
             <div class="content-row row">
               <div class="container">
                 <opcodedatatable [tableData]="employeeMaintenanceData" [columnsHeader]="employeeMaintenanceHeaders" (ClickOnCell)="clickOnOpCode($event)"></opcodedatatable>
@@ -67,70 +67,70 @@
   </div>
   <div class="modal-body">
     <div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Participant ID</label>
-  <div class="col-10">
-    <input class="form-control" type="text" [(ngModel)]="participantData.participantID" id="example-text-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Type</label>
-  <div class="col-10">
-     <select class="form-control"  id="exampleSelect1">
+      <label for="example-text-input" class="col-2 col-form-label">Participant ID</label>
+      <div class="col-10">
+        <input class="form-control" type="text" [(ngModel)]="participantData.participantID" id="example-text-input">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">Type</label>
+      <div class="col-10">
+        <select class="form-control" id="exampleSelect1">
       <option>1</option>
       <option>2</option>
       <option>3</option>
       <option>4</option>
       <option>5</option>
     </select>
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label" >DMS ID</label>
-  <div class="col-10">
-    <input class="form-control" type="text" [(ngModel)]="participantData.dmsID" id="example-text-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Name</label>
-  <div class="col-10">
-    <input class="form-control" type="text" [(ngModel)]="participantData.name"  id="example-text-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Email</label>
-  <div class="col-10">
-    <input class="form-control" type="text" [(ngModel)]="participantData.email" id="example-text-input">
-  </div>
-</div>
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Enrollment Status</label>
-  <div class="col-10">
-   <select class="form-control" id="exampleSelect1">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">DMS ID</label>
+      <div class="col-10">
+        <input class="form-control" type="text" [(ngModel)]="participantData.dmsID" id="example-text-input">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">Name</label>
+      <div class="col-10">
+        <input class="form-control" type="text" [(ngModel)]="participantData.name" id="example-text-input">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">Email</label>
+      <div class="col-10">
+        <input class="form-control" type="text" [(ngModel)]="participantData.email" id="example-text-input">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">Enrollment Status</label>
+      <div class="col-10">
+        <select class="form-control" id="exampleSelect1">
       <option>1</option>
       <option>2</option>
       <option>3</option>
       <option>4</option>
       <option>5</option>
     </select>
-  </div>
-</div>
+      </div>
+    </div>
 
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Status Date</label>
-  <div class="col-10">
-    <input class="form-control" type="text" [(ngModel)]="participantData.enrollmentUpdatedDate"  id="example-text-input">
-  </div>
-</div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">Status Date</label>
+      <div class="col-10">
+        <input class="form-control" type="text" [(ngModel)]="participantData.enrollmentUpdatedDate" id="example-text-input">
+      </div>
+    </div>
 
-<div class="form-group row">
-  <label for="example-text-input" class="col-2 col-form-label">Status Updated By</label>
-  <div class="col-10">
-    <input class="form-control" type="text" value="" id="example-text-input">
-  </div>
-</div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label">Status Updated By</label>
+      <div class="col-10">
+        <input class="form-control" type="text" value="" id="example-text-input">
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-     <button type="button" class="btn btn-primary" (click)="c('Close click')">Save</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Save</button>
     <button type="button" class="btn btn-primary" (click)="c('Close click')">Cancel</button>
   </div>
 </ng-template>

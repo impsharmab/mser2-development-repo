@@ -12,6 +12,10 @@ import lombok.Setter;
 @Entity @Getter @Setter
 public class PartsLookupDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5715441430540695802L;
 	@Id private String partNumber;
 	@Id private String catagoryCode;
 	@Id private String catagoryName;

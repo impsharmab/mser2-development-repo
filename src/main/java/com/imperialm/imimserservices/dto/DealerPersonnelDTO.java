@@ -33,5 +33,25 @@ public class DealerPersonnelDTO implements Serializable {
 	private String DMS_ID;
 	private Date DealerHireDate;
 	private Date CorpHireDate;
-	
+
+
+
+	@Override
+	public boolean equals(Object object)
+	{
+		boolean sameSame = false;
+
+		if (object != null && object instanceof DealerPersonnelDTO)
+		{
+			if(this.SID == ((DealerPersonnelDTO) object).SID  
+					&& this.PositionCode == ((DealerPersonnelDTO) object).PositionCode 
+					&& this.DealerCode == ((DealerPersonnelDTO) object).DealerCode){
+				sameSame = true;
+			}
+		}
+
+		return sameSame;
+	}
+
+
 }

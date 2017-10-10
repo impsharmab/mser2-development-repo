@@ -13,6 +13,6 @@ export class RootPageComponent implements OnInit {
     constructor(private router: Router, private http: Http) {
     }
     ngOnInit() {
-        this.router.navigate(["mserHomepage/home"]);
+       this.router.navigate(["mserHomepage/home"]);
     }
 }

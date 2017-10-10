@@ -193,7 +193,7 @@ export class PCDistributionReportComponent implements OnInit {
 
     private viewEXTabOnly() {
         // this.createBCProgramOptions();
-        this.showExecutivePCDistributionReportIframe = false;
+        this.showExecutivePCDistributionReportIframe = true;
         this.showBCDistributionReportIframe = false;
         this.showDealerPCDistributionReportIframe = false;
         this.showDistrictPCDistributionReportIframe = false;
@@ -205,11 +205,12 @@ export class PCDistributionReportComponent implements OnInit {
             district: "",
             bc: ""
         }
+        this.showExDepositReport();
     }
     private viewBCTabOnly() {
         //  this.createBCProgramOptions();
         this.showExecutivePCDistributionReportIframe = false;
-        this.showBCDistributionReportIframe = false;
+        this.showBCDistributionReportIframe = true;
         this.showDealerPCDistributionReportIframe = false;
         this.showDistrictPCDistributionReportIframe = false;
         this.showParticipantPCDistributionReportIframe = false;
@@ -228,7 +229,7 @@ export class PCDistributionReportComponent implements OnInit {
         //  this.createBCProgramOptions();
         this.showExecutivePCDistributionReportIframe = false;
         this.showBCDistributionReportIframe = false;
-        this.showDistrictPCDistributionReportIframe = false;
+        this.showDistrictPCDistributionReportIframe = true;
         this.showDealerPCDistributionReportIframe = false;
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
@@ -248,7 +249,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.showExecutivePCDistributionReportIframe = false;
         this.showBCDistributionReportIframe = false;
         this.showDistrictPCDistributionReportIframe = false;
-        this.showDealerPCDistributionReportIframe = false;
+        this.showDealerPCDistributionReportIframe = true;
         this.showParticipantPCDistributionReportIframe = false;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
@@ -268,7 +269,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.showBCDistributionReportIframe = false;
         this.showDistrictPCDistributionReportIframe = false;
         this.showDealerPCDistributionReportIframe = false;
-        this.showParticipantPCDistributionReportIframe = false;
+        this.showParticipantPCDistributionReportIframe = true;
         this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface = {
             from: this.fromDate,
@@ -286,7 +287,7 @@ export class PCDistributionReportComponent implements OnInit {
         var PCDFD = this.pCDistributionReportInterface.from;
         var PCDTD = this.pCDistributionReportInterface.to;
 
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -301,8 +302,8 @@ export class PCDistributionReportComponent implements OnInit {
         for (var i = 0; i < this.selectedBCList.length; i++) {
             PCDBC = PCDBC + "&PCDBC=" + this.selectedBCList[i];
         }
-        //https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=PCDistributionReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDBC=${PCDBC}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
+        //https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=PCDistributionReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDBC=${PCDBC}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -316,7 +317,7 @@ export class PCDistributionReportComponent implements OnInit {
         for (var i = 0; i < this.selectedDistrictList.length; i++) {
             PCDD = PCDD + "&PCDD=" + this.selectedDistrictList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDD}&PCDDFD=${PCDDFD}&PCDDTD=${PCDDTD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDD}&PCDDFD=${PCDDFD}&PCDDTD=${PCDDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -330,7 +331,7 @@ export class PCDistributionReportComponent implements OnInit {
         for (var i = 0; i < this.selectedDealerCodeList.length; i++) {
             PCDDL = PCDDL + "&PCDDL=" + this.selectedDealerCodeList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -345,7 +346,7 @@ export class PCDistributionReportComponent implements OnInit {
         for (var i = 0; i < this.selectedDealerCodeList.length; i++) {
             PCDDLDD = PCDDLDD + "&PCDDLDD=" + this.selectedDealerCodeList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDLDD}&PCDDLFD=${PCDDLFD}&PCDDLTD=${PCDDLTD}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDLDD}&PCDDLFD=${PCDDLFD}&PCDDLTD=${PCDDLTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }

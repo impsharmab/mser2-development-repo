@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
 @Injectable()
-export class DealerRegisterService { 
- private baseUrl = "https://test.myfcarewards.com/mser/";
+export class DealerRegisterService {
+  private baseUrl = "https://test.myfcarewards.com/mser/";
   // private baseUrl = "./";
 
   constructor(private http: Http) {
@@ -29,14 +29,15 @@ export class DealerRegisterService {
   saveDealerEnrollmentForm(
     dealerCode, sid, dealerPrincipalEmail, phone,
     selectedPartsManager, partsManagerEmail, selectedServiceManager, serviceManagerEmail,
-    isPartsCounter, isUsedRecon, isExpressLane
+    isPartsCounter, isUsedRecon, isExpressLane, mvpApprove
   ) {
     var url = this.baseUrl + "enrollments/forms/mser";
     var body = {
       dealerCode: dealerCode, sid: sid, email: dealerPrincipalEmail, phone: phone,
       managerP: selectedPartsManager, managerPEmail: partsManagerEmail,
       managerS: selectedServiceManager, managerSEmail: serviceManagerEmail,
-      enrollPartsCounter: isPartsCounter, enrollUsedRecon: isUsedRecon, enrollExpressLane: isExpressLane
+      enrollPartsCounter: isPartsCounter, enrollUsedRecon: isUsedRecon, enrollExpressLane: isExpressLane,
+      mvpAuto: mvpApprove
     }
     // var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
     var headers = new Headers();

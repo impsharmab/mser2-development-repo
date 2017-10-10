@@ -18,9 +18,12 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.imperialm.imimserservices.dao.DealerPersonnelPositionsDAO;
 import com.imperialm.imimserservices.dao.UserPositionCodeRoleDAO;
+import com.imperialm.imimserservices.dto.EnrollmentSummaryDTO;
 import com.imperialm.imimserservices.dto.MSERGraphDetailsSummaryDTO;
+import com.imperialm.imimserservices.dto.MyfcaMSERTotalEarningsDTO;
 import com.imperialm.imimserservices.dto.TileDTO;
 import com.imperialm.imimserservices.dto.UserDetailsImpl;
+import com.imperialm.imimserservices.model.MSERTile;
 import com.imperialm.imimserservices.model.TileAttribute;
 import com.imperialm.imimserservices.model.TopTenChart;
 import com.imperialm.imimserservices.util.IMIServicesUtil;
@@ -41,6 +44,12 @@ public class DashboardController {
 	@Autowired
 	private DealerPersonnelPositionsDAO dealerPersonnelPositionsDAO;
 
+	@Autowired
+	private com.imperialm.imimserservices.dao.ProgramGroupEnrollmentsDAO ProgramGroupEnrollmentsDAO;
+
+	@Autowired
+	private com.imperialm.imimserservices.dao.MyfcaMSERTotalEarningsDAO MyfcaMSERTotalEarningsDAO;
+
 	@RequestMapping(value = "/mserHomePage", method = RequestMethod.GET)
 	public RedirectView myfcadashboard() {
 		RedirectView redirectView = new RedirectView("/", true);
@@ -55,7 +64,7 @@ public class DashboardController {
 
 	@RequestMapping(value ="/services/tile/{chartId}/{positionCode}/{dealerCode}", method = RequestMethod.GET)
 	public @ResponseBody Object findTilesListByRole(@PathVariable(value="chartId") String id, @PathVariable(value="positionCode") String positionCode, @PathVariable(value="dealerCode") String dealerCode, HttpServletRequest request) {
-		
+
 		UserDetailsImpl user = IMIServicesUtil.checkToken(request);
 
 		int testa = dealerPersonnelPositionsDAO.getRoleByPositionCode(positionCode);
@@ -522,6 +531,214 @@ public class DashboardController {
 			tile.addAttributes(list);
 			return tile;
 		}
+		case"en":
+		{	
+			List<MSERTile> tileAtt = new ArrayList<>();
+
+
+			if(type.equals("Dealer") || type.equals("Manager")){
+				EnrollmentSummaryDTO mserEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(dealerCode, 4);
+				//EnrollmentSummaryDTO pcEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 6);
+				//EnrollmentSummaryDTO elEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 1);
+				//EnrollmentSummaryDTO urEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 15);
+
+
+				if(mserEnrollement != null){
+					MSERTile mserEnrollmentAtt = new MSERTile("MSER Participants Enrolled", mserEnrollement.getTotalEnrolled(), "number", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("MSER Participants Enrolled", "-", "number", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+
+				if(type.equals("Dealer")){
+					boolean elenrolled = ProgramGroupEnrollmentsDAO.isDealershipEnrolledByProgramGroup(dealerCode, 1);
+					if(elenrolled){
+						tileAtt.add(new MSERTile("Dealership Express Lane Enrolled ", "Yes", "text", "Enrollments Tile", ""));
+					}else{
+						tileAtt.add(new MSERTile("Dealership Express Lane Enrolled ", "No", "text", "Enrollments Tile", ""));
+					}
+
+					boolean pcenrolled = ProgramGroupEnrollmentsDAO.isDealershipEnrolledByProgramGroup(dealerCode, 6);
+					if(pcenrolled){
+						tileAtt.add(new MSERTile("Dealership Parts Counter Enrolled ", "Yes", "text", "Enrollments Tile", ""));
+					}else{
+						tileAtt.add(new MSERTile("Dealership Parts Counter Enrolled ", "No", "text", "Enrollments Tile", ""));
+					}
+
+					boolean urenrolled = ProgramGroupEnrollmentsDAO.isDealershipEnrolledByProgramGroup(dealerCode, 15);
+					if(urenrolled){
+						tileAtt.add(new MSERTile("Dealership Used Car Manager Enrolled ", "Yes", "text", "Enrollments Tile", ""));
+					}else{
+						tileAtt.add(new MSERTile("Dealership Used Car Manager Enrolled ", "No", "text", "Enrollments Tile", ""));
+					}
+
+				}
+
+			}
+
+
+			if(type.equals("Executive") || type.equalsIgnoreCase("bc") || type.equalsIgnoreCase("district")){
+				EnrollmentSummaryDTO mserEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 4);
+				EnrollmentSummaryDTO pcEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 6);
+				EnrollmentSummaryDTO elEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 1);
+				EnrollmentSummaryDTO urEnrollement = MSERTilesDAOImpl.getEnrollementSummaryByProgramGroupAndTerritory(territory, 15);
+				if(mserEnrollement != null){
+					MSERTile mserEnrollmentAtt = new MSERTile("Total MSER Dealers Enrolled", mserEnrollement.getTotalDealers(), "number", "Enrollments Tile", "");
+					MSERTile elEnrollmentAtt = new MSERTile("Total Express Lane Dealers Enrolled", mserEnrollement.getExpressLaneValidated(), "number", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+					tileAtt.add(elEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("MSER Dealers Enrolled", "-", "number", "Enrollments Tile", "");
+					MSERTile elEnrollmentAtt = new MSERTile("Total Express Lane Dealers Enrolled", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+					tileAtt.add(elEnrollmentAtt);
+
+				}
+
+				if(pcEnrollement != null){
+					MSERTile enrollmentAtt = new MSERTile("Total Parts Counter Dealers Enrolled", pcEnrollement.getTotalDealers(), "number", "Enrollments Tile", "");
+					tileAtt.add(enrollmentAtt);
+				}else{
+					MSERTile enrollmentAtt = new MSERTile("Total Parts Counter Dealers Enrolled", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(enrollmentAtt);
+				}
+
+				if(elEnrollement != null){
+					MSERTile enrollmentAtt = new MSERTile("Total Express Lane Dealers Enrolled", elEnrollement.getTotalDealers(), "number", "Enrollments Tile", "");
+					tileAtt.add(enrollmentAtt);
+				}else{
+					MSERTile enrollmentAtt = new MSERTile("Total Express Lane Dealers Enrolled", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(enrollmentAtt);
+				}
+
+				if(urEnrollement != null){
+					MSERTile enrollmentAtt = new MSERTile("Total Used Car Manager Dealers Enrolled", urEnrollement.getTotalDealers(), "number", "Enrollments Tile", "");
+					tileAtt.add(enrollmentAtt);
+				}else{
+					MSERTile enrollmentAtt = new MSERTile("Total Used Car Manager Dealers Enrolled", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(enrollmentAtt);
+				}
+
+
+
+
+			}
+
+			return tileAtt;
+		}
+		case"re":
+		{	
+			List<MSERTile> tileAtt = new ArrayList<>();
+
+			if(type.equalsIgnoreCase("participant")){
+
+			}
+
+			if(type.equals("Manager")){
+
+				List<MyfcaMSERTotalEarningsDTO> mtd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(dealerCode, "mtd");
+				List<MyfcaMSERTotalEarningsDTO> ytd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(dealerCode, "ytd");
+
+
+				if(ytd.size() > 0){
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards YTD ", ytd.get(0).getAmount(), "currency", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards YTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+
+				if(mtd.size() > 0){
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards MTD ", mtd.get(0).getAmount(), "currency", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards MTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+			}
+			if(type.equals("Dealer")){
+
+				
+				List<MyfcaMSERTotalEarningsDTO> mtd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(dealerCode, "mtd");
+				List<MyfcaMSERTotalEarningsDTO> ytd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(dealerCode, "ytd");
+
+
+				if(ytd.size() > 0){
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards YTD ", ytd.get(0).getAmount(), "currency", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards YTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+
+				if(mtd.size() > 0){
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards MTD ", mtd.get(0).getAmount(), "currency", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards MTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+				
+			}
+			
+			
+			if(type.equals("Dealer") || type.equals("Manager")){
+				List<MyfcaMSERTotalEarningsDTO> ytd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(dealerCode, "ytd");
+
+				if(ytd.size() > 1000){
+					MSERTile mserEnrollmentAtt = new MSERTile("Dealership Ranking within District YTD ", ytd.get(0).getAmount(), "number", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Dealership Ranking within District YTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+
+			}
+			
+			
+			if(type.equalsIgnoreCase("participant")){
+				List<MyfcaMSERTotalEarningsDTO> ytd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(dealerCode, "ytd");
+
+				if(ytd.size() > 1000){
+					MSERTile mserEnrollmentAtt = new MSERTile("Ranking within District YTD ", ytd.get(0).getAmount(), "number", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Ranking within District YTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+
+			}
+
+
+			if(type.equals("Executive") || type.equalsIgnoreCase("bc") || type.equalsIgnoreCase("district")){
+				
+				
+				List<MyfcaMSERTotalEarningsDTO> mtd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(territory, "mtd");
+				List<MyfcaMSERTotalEarningsDTO> ytd = MyfcaMSERTotalEarningsDAO.getMSERGraphByChildTerritoryAndToggle(territory, "ytd");
+
+
+				if(ytd.size() > 0){
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards YTD ", ytd.get(0).getAmount(), "currency", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards YTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+
+				if(mtd.size() > 0){
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards MTD ", mtd.get(0).getAmount(), "currency", "Reward Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}else{
+					MSERTile mserEnrollmentAtt = new MSERTile("Rewarding Excellence Card Awards MTD", "-", "text", "Enrollments Tile", "");
+					tileAtt.add(mserEnrollmentAtt);
+				}
+				
+			}
+
+			return tileAtt;
+		}
+
 		}
 
 

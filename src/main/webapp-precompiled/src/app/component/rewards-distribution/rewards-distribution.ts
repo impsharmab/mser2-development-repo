@@ -326,9 +326,7 @@ export class RewardsDistributionComponent implements OnInit {
 
   private saveDistributionDATUM: any;
   private saveDistributionDATA(programName: string) {
-    this.hideelParticipantTable = true;
-    this.hidepcParticipantTable = true;
-    this.hideurParticipantTable = true;
+    
     var program = programName;
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var nameValueList: any = [];
@@ -403,13 +401,19 @@ export class RewardsDistributionComponent implements OnInit {
         this.getRewardsDistributionAmount();
         if (this.saveDistributionDATUM == true) {
           this.displayError = true;
+          this.hideelParticipantTable = true;
+          this.hidepcParticipantTable = true;
+          this.hideurParticipantTable = true;
           this.msg = "Successfully Allocated the Reward Amount";
         } else if (this.saveDistributionDATUM == false) {
           this.displayError = true;
+          this.hideelParticipantTable = true;
+          this.hidepcParticipantTable = true;
+          this.hideurParticipantTable = true;
           this.msg = "Internal Server Error";
         }
 
-      },
+      }, 
       (error) => {
         setTimeout(() => {
           if (error != undefined && error.length < 250) {
@@ -417,6 +421,9 @@ export class RewardsDistributionComponent implements OnInit {
           } else {
             this.displayError = true;
             this.msg = "Error in Distribution.";
+            this.hideelParticipantTable = true;
+            this.hidepcParticipantTable = true;
+            this.hideurParticipantTable = true;
           }
 
         }, 1000)

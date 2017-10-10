@@ -49,7 +49,7 @@ public class RegistrationController {
 	private UserDAOImpl userDAOImpl;
 
 
-	@RequestMapping(value = "/Registration/dealerRegistration", method = RequestMethod.POST)
+	//@RequestMapping(value = "/Registration/dealerRegistration", method = RequestMethod.POST)
 	public @ResponseBody Object dealerRegistration(@RequestBody Map<String, Object> input, HttpServletRequest request) {
 		String dealerCode = (String)input.get("dealerCode");
 		String sid = (String)input.get("sid");
@@ -110,17 +110,17 @@ public class RegistrationController {
 
 	}
 	
-	@RequestMapping(value = "/Registration/dealerMSERRegistration", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/Registration/dealerMSERRegistration", method = RequestMethod.POST)
 	public @ResponseBody Object dealerMSERRegistration(@RequestBody MSERRegistrationForm input, HttpServletRequest request) {
 		UserDetails user = null;
 		boolean registered = false;
 
 		boolean result = false;
 
-		if(!dealerPersonnelPositions.isRegistrationEligiable(input.getSID(), input.getDealerCode())){
+		if(!dealerPersonnelPositions.isRegistrationEligiable(input.getSid(), input.getDealerCode())){
 			return ResponseEntity.status(500).body("Thank you for your interest in the Mopar Service Excellence Rewards program.  However, your SID is not authorized to approve enrollment into MSER.  Please contact your dealer principal or authorized representative.");
 		}
-	/*	try{
+		try{
 			user = userDetailsService.loadUserByUsername(sid);
 			registered = programEnrollments.isDealershipEnrolled(dealerCode);
 		}catch (Exception ex){
@@ -164,11 +164,11 @@ public class RegistrationController {
 			}
 			emailHandler.sendMailConfirmation(user, "ExistingDashboardUser", null);
 			return result;
-		}*/
+		}
 		
 		return null;
 
-	}
+	}*/
 	
 	
 

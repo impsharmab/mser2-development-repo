@@ -9,9 +9,12 @@ export interface FiatEnrollmentFormInterface {
     phone: string;
     signature: string;
     date: string;
-    selectedManager: string;
-    managerEmail: string;
+    selectedPartsManager: string;
+    partsManagerEmail: string;
+    selectedServiceManager: string;
+    serviceManagerEmail: string;
     isPartsCounter: boolean;
     isUsedRecon: boolean;
     isExpressLane: boolean;
+    autoApproveMVP: string;
 }

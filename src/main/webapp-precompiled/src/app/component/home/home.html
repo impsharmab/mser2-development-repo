@@ -1,21 +1,21 @@
 <main class="main">
 
   <!-- Breadcrumb -->
-  <ol class="breadcrumb mb-0">
+  <!-- <ol class="breadcrumb mb-0">
     <li class="breadcrumb-item" routerLink="home" >Home</li>
     <li class="breadcrumb-item active" routerLink="home">Dashboard</li>
-  </ol>
+  </ol> -->
 
   <div class="container m-t-md">
     <div class="row m-t-md">
 
       <!-- Begin First Block -->
-      <div class="col-sm-6 box">
+      <div *ngIf="!hideEnrollmentTile" class="col-sm-6 box">
         <!-- <div *ngFor="let data of tileData; let i = index;" class="{{(tileData.length%2==1) && (tileData.length== i+1) ? 'col-sm-6 card1':'col-sm card1'}}"> -->
 
         <div class="card1">
           <!-- <p>{{mserEnrollmentDatum[0].tileName}}</p> -->
-          <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
+          <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/MSEREnrollment.jpg" style="height: 55px"> </div>
           <div class="display-data-set">
             <div class="data-group" *ngFor="let data of mserEnrollmentDatum; let i = index;">
               <p *ngIf="data.type=='number' && data.value!=undefined" class="data-point">{{data.value | commaSeparatedNumber}}</p>
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="button-container pull-right">
-            <button type="button " class="btn btn-primary btn-sm " (click)="openEnrollmentSite()"><i class="fa fa-arrow-circle-right " aria-hidden="true "></i> Visit Enrollment Site </button>
+            <button type="button " class="btn btn-primary btn-sm " (click)="openEnrollmentSite()"><i class="fa fa-arrow-circle-right " aria-hidden="true "></i> Visit Enrollment Maintenance </button>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ public final class NTLMAuthenticator
   private final String _userName;
   private final char[] _password;
 
-  NTLMAuthenticator( final String domainName, final String userName, final String password )
+  public NTLMAuthenticator( final String domainName, final String userName, final String password )
   {
     _domainName = domainName;
     _userName = userName;

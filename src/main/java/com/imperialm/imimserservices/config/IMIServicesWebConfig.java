@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.JstlView;
 /*
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.imperialm.imiservices")
+@ComponentScan(basePackages = "com.imperialm.imimserservices")
 public class IMIServicesWebConfig extends WebMvcConfigurerAdapter {
 	
 	@Override

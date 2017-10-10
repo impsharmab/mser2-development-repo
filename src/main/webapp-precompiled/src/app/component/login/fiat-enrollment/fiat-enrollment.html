@@ -43,14 +43,14 @@
                       <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                         <label for="dealercode">Dealer Code</label>
                         <input class="form-control" id="dealercode" minlength="5" maxlength="5" name="dealercode" pattern="[0-9]{5}" required type="text"
-                          [(ngModel)]="fiatEnrollment.dealerCode" #dealercode="ngModel" [disabled]="disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || dealercode.valid || dealercode.pristine">Valid Dealercode is required</div>
+                          [(ngModel)]="fiatEnrollment.dealerCode" #dealercode="ngModel" [disabled]="disableFields" (ngModelChange)="ngModelChangeDC()"/>
+                        <div class="alert alert-danger" [hidden]="!showDCErrorHiddenDiv">Valid Dealercode is required</div>
                       </div>
                       <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                         <label for="sid">SID *</label>
                         <input class="form-control" id="sid" maxlength="7" minlength="7" name="sid" pattern="[A-Za-z]{7}" required type="text" [(ngModel)]="fiatEnrollment.sid"
-                          #sid="ngModel" [disabled]="disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || sid.valid || sid.pristine">Valid SID is required</div>
+                          #sid="ngModel" [disabled]="disableFields" (ngModelChange)="ngModelChangeSID()"/>
+                        <div class="alert alert-danger" [hidden]="!showSIDErrorHiddenDiv">Valid SID is required</div>
                       </div>
                     </div>
                     <!-- Dealer Code and SID Submit Button -->
@@ -65,7 +65,7 @@
                         <label for="dealershipname">Dealership Name</label>
                         <input class="form-control" id="dealershipname" name="dealershipname" pattern="[A-Za-z].{3,}" required type="text" [(ngModel)]="fiatEnrollment.dealershipname"
                           #dealershipname="ngModel" [disabled]="!disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || dealershipname.valid || dealershipname.pristine">Dealership Name is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || dealershipname.valid || dealershipname.pristine">Dealership Name is required</div>
                       </div>
                     </div>
 
@@ -76,7 +76,7 @@
                         <input class="form-control" id="dealershipprincipalname" name="dealershipprincipalname" pattern="[A-Za-z].{3,}" required
                           type="text" [(ngModel)]="fiatEnrollment.dealershipprincipalname" #dealershipprincipalname="ngModel"
                           [disabled]="!disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || dealershipprincipalname.valid || dealershipprincipalname.pristine">Dealership Principal Name is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || dealershipprincipalname.valid || dealershipprincipalname.pristine">Dealership Principal Name is required</div>
                       </div>
                     </div>
 
@@ -86,13 +86,13 @@
                         <label for="email">Email Address</label>
                         <input class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required type="text"
                           [(ngModel)]="fiatEnrollment.email" #email="ngModel" [disabled]="!disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || email.valid || email.pristine">A valid Email Address is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || email.valid || email.pristine">A valid Email Address is required</div>
                       </div>
                       <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
                         <label for="phone">Phone Number</label>
                         <input class="form-control" id="phone" minlength="10" maxlength="10" name="phone" pattern="[0-9]{10}" required type="text"
                           [(ngModel)]="fiatEnrollment.phone" #phone="ngModel" [disabled]="!disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || phone.valid || phone.pristine">A valid Phone Number is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || phone.valid || phone.pristine">A valid Phone Number is required</div>
                       </div>
                     </div>
 
@@ -102,7 +102,7 @@
                         <label for="signature">Dealer Principal Signature (or person listed on paragraph 2 of Dealer Agreement): Type OK to signature</label>
                         <input class="form-control" id="signature" minlength="2" maxlength="2" name="signature" pattern="[OKok]{2}" required type="text"
                           [(ngModel)]="fiatEnrollment.signature" #signature="ngModel" [disabled]="!disableFields" />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || signature.valid || signature.pristine">A Dealer Principal Signature is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || signature.valid || signature.pristine">A Dealer Principal Signature is required</div>
                       </div>
                     </div>
 
@@ -122,14 +122,14 @@
                         <p-dropdown filter="filter" name="elligiblemanagers" placeholder="Select a Parts Manager" required [options]="option" [(ngModel)]="fiatEnrollment.selectedManager"
                           #elligiblemanager="ngModel" (onChange)="dealerEnrollmentElligibleManagers(fiatEnrollment.selectedManager)"
                           [disabled]="!disableFields"></p-dropdown>
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine">An Eligible Parts Manager or Service Manger is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine">An Eligible Parts Manager or Service Manger is required</div>
                       </div>
                       <div class="col-xs-6 col-md-5 col-lg-4 col-xl-3">
                         <label for="manageremail">Parts Manager Email</label>
                         <input class="form-control" id="manageremail" name="manageremail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required
                           type="text" [(ngModel)]="fiatEnrollment.manageremail" #manageremail="ngModel" [disabled]="!disableFields"
                         />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">A Manager Email is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">A Manager Email is required</div>
                       </div>
                     </div>
 
@@ -140,14 +140,14 @@
                         <p-dropdown filter="filter" name="elligiblemanagers" placeholder="Select a Service Manager" required [options]="option" [(ngModel)]="fiatEnrollment.selectedManager"
                           #elligiblemanager="ngModel" (onChange)="dealerEnrollmentElligibleManagers(fiatEnrollment.selectedManager)"
                           [disabled]="!disableFields"></p-dropdown>
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine">An Eligible Parts Manager or Service Manger is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || elligiblemanager.valid || elligiblemanager.pristine">An Eligible Parts Manager or Service Manger is required</div>
                       </div>
                       <div class="col-xs-6 col-md-5 col-lg-4 col-xl-3">
                         <label for="serviceManageremail">Service Manager Email</label>
                         <input class="form-control" id="serviceManageremail" name="serviceManageremail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                           required type="text" [(ngModel)]="fiatEnrollment.manageremail" #serviceManageremail="ngModel" [disabled]="!disableFields"
                         />
-                        <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">A Manager Email is required</div>
+                        <div class="alert alert-danger" [hidden]="!showValidationDiv || manageremail.valid || manageremail.pristine">A Manager Email is required</div>
                       </div>
                     </div>
 
@@ -157,7 +157,7 @@
                                               <p-checkbox class="form-check-input" name="aggrement1" value="aggrement1" [(ngModel)]="fiatEnrollment.agreement1"></p-checkbox>
                                               I agree to allow my Studio Personnel to participate in the Mopar Service Excellence Rewards Program.  I have read and agree with the Mopar Service Excellence Rewards Official Program Rules and allow my Studio Personnel to participate in this rewards program.  Put a check in the box below.
                                             </label>
-                      <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="showalert">Selection in checkbox is required</div>
+                      <div class="alert alert-danger" [hidden]="showalert">Selection in checkbox is required</div>
                     </div>
                     <!-- Opt In Fiat -->
                     <div class="form-check">
@@ -165,27 +165,27 @@
                                               <p-checkbox class="form-check-input" name="aggrement2" value="aggrement2" [(ngModel)]="fiatEnrollment.aggrement2"></p-checkbox>
                                               Yes, I understand there is no enrollment fee for FIAT Alfa Romeo Studios.
                                             </label>
-                      <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="showalert">Selection in checkbox is required</div>
+                      <div class="alert alert-danger" [hidden]="showalert">Selection in checkbox is required</div>
                     </div>
                     <!-- Parts Counter Checkbox -->
                     <div class="form-group">
                       <p-checkbox label="Yes, I will enroll in Parts Counter." name="group1" value="PartsCounter" (onChange)="fiatEnrollmentPCCheckBox()"
                         [disabled]="!disableFields"></p-checkbox>
-                      <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="showalert">You need to opt in to Parts Counter</div>
+                      <div class="alert alert-danger" [hidden]="showalert">You need to opt in to Parts Counter</div>
                     </div>
 
                     <!-- Used Recon Checkbox -->
                     <div class="form-group">
                       <p-checkbox label="Yes, I will enroll in Used Recon." name="group1" value="UsedRecon" (onChange)="fiatEnrollmentUsedReconCheckBox()"
                         [disabled]="!disableFields"></p-checkbox>
-                      <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="showalert">You need to opt in to Used Recon</div>
+                      <div class="alert alert-danger" [hidden]="showalert">You need to opt in to Used Recon</div>
                     </div>
 
                     <!-- Express lane Checkbox -->
                     <div class="form-group">
                       <p-checkbox label="Yes, I will enroll in Express Lane." name="group1" value="ExpressLane" (onChange)="fiatEnrollmentExpressLaneCheckBox()"
                         [disabled]="!disableFields"></p-checkbox>
-                      <div class="alert alert-danger" *ngIf="showValidationDiv" [hidden]="showalert">You need to opt in to Express Lane</div>
+                      <div class="alert alert-danger" [hidden]="showalert">You need to opt in to Express Lane</div>
                     </div>
 
                     <div class="btn-container">

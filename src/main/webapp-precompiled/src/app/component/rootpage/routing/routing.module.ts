@@ -39,6 +39,8 @@ import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-
 import { EnrollmentReportComponent } from '../../enrollment/enrollment-report/enrollment-report.component';
 import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-distribution/pc-distribution-report.component';
 import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAdvisor-management/wiAdvisor-management-report.component';
+import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
+import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
 
 
 const routes: Routes = [
@@ -203,9 +205,19 @@ const routes: Routes = [
             {
                 path: "wiadvisormanagementreport",
                 component: WiAdvisorManagementReportComponent
+            },
+            {
+                path: "partssummaryroreport",
+                component: PartsSummaryROReportComponent
+            },
+            {
+                path: "pcinvoicereport",
+                component: PCInvoiceReportComponent
             }
 
+
             
+
 
 
 

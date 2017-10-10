@@ -1,0 +1,63 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+    <a class="navbar-brand" href="#"></a>
+
+    <form class="hide-me form-inline float-left b-r-1 px-2 hidden-md-down">
+        <i class="fa fa-search"></i>
+        <input class="form-control" placeholder="Search..." type="text">
+    </form>
+    <div class="notmserenrolledlogout">
+        <a style="cursor: pointer;" (click)="logout()"><i class="fa fa-lock" ></i> Logout</a>
+    </div>
+</header>
+
+<!-- Main content -->
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Not MSER Enrolled
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a name="dashboard"></a>
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <p>Sorry, You are not enrolled in MSER Program, please enrolled to MSER Program.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+
+    <style>
+        .notmserenrolledlogout {
+            position: absolute;
+            right: 0;
+            margin: 25px;
+        }
+    </style>
+</main>

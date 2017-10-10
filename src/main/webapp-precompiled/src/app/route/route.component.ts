@@ -7,6 +7,8 @@ import { ResetPasswordComponent } from '../component/login/reset-password/reset-
 // import {HomeComponent} from "../home/home.component"
 import { DealerRegisterComponent } from '../component/login/dealer-register-component/dealer-register.component';
 import { FiatEnrollmentComponent } from '../component/login/fiat-enrollment/fiat-enrollment';
+import { PasswordResetComponent } from '../component/login/password-reset/password-reset.component';
+import { NotMSEREnrolledComponent } from '../component/login/not-mserenrolled/not-mserenrolled.component';
 
 const routes: Routes = [
     {
@@ -34,10 +36,14 @@ const routes: Routes = [
         path: "fiatenrollment",
         component: FiatEnrollmentComponent
     },
-    //  {
-    //     path: "home",
-    //     component: HomeComponent
-    // },
+    {
+        path: "resetpassword",
+        component: PasswordResetComponent
+    },
+     {
+        path: "notMserEnrolledPage",
+        component: NotMSEREnrolledComponent 
+    },
     //,
     // {
     //     path: "myfcadashboard",

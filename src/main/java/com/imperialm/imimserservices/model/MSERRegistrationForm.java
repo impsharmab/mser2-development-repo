@@ -7,14 +7,15 @@ import lombok.Setter;
 public class MSERRegistrationForm {
 	
 	private String dealerCode;
-	private String sID;
-	private String dealershipName;
-	private String dealerPrincipal;
+	private String sid;
 	private String email;
 	private String phone;
-	private String managerPC;
-	private String managerEmail;
+	private String managerP;
+	private String managerPEmail;
+	private String managerS;
+	private String managerSEmail;
 	private boolean enrollPartsCounter;
 	private boolean enrollUsedRecon;
 	private boolean enrollExpressLane;
+	private boolean mvpAuto;
 }

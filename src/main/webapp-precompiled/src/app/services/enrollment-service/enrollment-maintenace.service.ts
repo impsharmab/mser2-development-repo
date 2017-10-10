@@ -75,18 +75,18 @@ export class EnrollmentMaintenanceService {
 
   }
 
-  getExpresslaneDealer(dealerCode) {
-    var url = 'https://test.myfcarewards.com/mser//enrollments/ELenrolled/' + dealerCode;
-    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', validToken);
+  // getExpresslaneDealer(dealerCode) {
+  //   var url = 'https://test.myfcarewards.com/mser/enrollments/ELenrolled/' + dealerCode;
+  //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+  //   var headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+  //   headers.append('Authorization', validToken);
 
-    return this.http.get(url, { headers })
-      .map((response: Response) =>
-        response.json())
-      .catch(this.handleError);
-  }
+  //   return this.http.get(url, { headers })
+  //     .map((response: Response) =>
+  //       response.json())
+  //     .catch(this.handleError);
+  // }
   private handleError(error: Response | any) {
     let errMsg: string = "";
     // if (error.status === 500) {

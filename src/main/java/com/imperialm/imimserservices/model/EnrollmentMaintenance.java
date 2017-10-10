@@ -26,6 +26,7 @@ public class EnrollmentMaintenance {
 	private List<String> wiTires = new ArrayList<>();
 	private List<String> uCon = new ArrayList<>();
 	private List<String> tires = new ArrayList<>();
+	private List<String> fiat = new ArrayList<>();
 	
 	private String pc = "";
 	private String el = "";

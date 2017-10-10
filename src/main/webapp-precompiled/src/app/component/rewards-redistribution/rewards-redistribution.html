@@ -122,7 +122,7 @@
               </thead>
               <tbody>
 
-                <tr *ngFor="let data of participantDataValue">
+                <tr *ngFor="let data of participantDataValue"> 
                   <td class="" headers="allocation-participants" role="gridcell">
                     <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.item2" placeholder="Select an SID"
                       filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>

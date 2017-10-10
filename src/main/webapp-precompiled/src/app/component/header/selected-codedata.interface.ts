@@ -7,5 +7,10 @@ export interface CodeData {
     role: string;
     isServiceManagerOfRecord: boolean;
     isAdmin: boolean;
+    isElManager: boolean;
+    isPCManager: boolean;
+    isUVMManager: boolean;
+    isELEnrolled: string;
+    isPCEnrolled: string;
 
 }

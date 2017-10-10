@@ -34,7 +34,25 @@ export class EnrollmentComponent implements OnInit {
     private selectedRowSid: string = "";
     private dat: any = "";
     private saveEnrollmentMaintenanceDataResponse: any;
-    // private mserElligiblepc: SelectItem[] = [{ label: "01", value: "01" }, { label: "13", value: "13" }, { label: "23", value: "23" }, { label: "2A", value: "2A" }, { label: "08", value: "08" }, { label: "20", value: "20" }];
+
+    private selectedPMRecordsPCindex: any = 0
+    private selectedPMRecordsPCData: any = "";
+    private selectedSMRecordsPCindex: any = 0
+    private selectedSMRecordsPCData: any = "";
+
+    private enrollmentDataCount: string = "";
+    private activeUser: string = "";
+    private confirmCancel: boolean = false;
+    private confirmSave: boolean = false;
+    private editButton: any;
+    private cancelButton: any;
+    private saveButton: any;
+    private rowData: any;
+    private rowIndex: any = 0;
+    private msg: string = "";
+    private openDealerTeamTable: boolean = false;
+    private dealerTeamButton: string = "YES";
+
     private pmRecordsElligiblepc: any = ["08"];
     private smRecordsElligiblepc: any = ["09"];
     private mserElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
@@ -113,7 +131,6 @@ export class EnrollmentComponent implements OnInit {
         "mser": [""], "mas": [" "], "mm": [""], "mvp": [], "wiMvp": [], "wiTires": [], "pc": "", "el": "", "usedRecon": "",
         "usedReconP": [], "sid": "", "dmsid": "", "ucon": []
     }];
-    cities: any = [{ label: 'New York', value: 'New York' }, { label: 'Rome', value: 'Rome' }];
 
     constructor(private enrollmentService: EnrollmentMaintenanceService, private changeDetector: ChangeDetectorRef) { }
 
@@ -122,13 +139,40 @@ export class EnrollmentComponent implements OnInit {
         this.getSelectedDealerName();
         this.getPositionCodes();
         this.getEnrollmentData();
-        this.getExpresslaneDealer();
+        // this.getExpresslaneDealer();
+        this.isEnrolled();
     }
     private getSelectedDealerCode() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     }
     private getSelectedDealerName() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
+    }
+
+    private showELColumn: boolean = true;
+    private showPCColumn: boolean = true;
+    private showUVMColumn: boolean = true;
+    private isEnrolled() {
+        var isElEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isELEnrolled;
+        var isPCEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCEnrolled;
+        // var isUVMmanager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isUVMManager;isELEnrolled":false,"isPCEnrolled
+
+        if (isElEnrolled) {
+            this.showELColumn = true;
+        }
+        else {
+            this.showELColumn = false;
+        }
+        if (isPCEnrolled) {
+            this.showPCColumn = true;
+        } else {
+            this.showPCColumn = false;
+        }
+        // if (isUVMmanager) {
+        //     this.showUVMColumn = true;
+        // } else {
+        //     this.showUVMColumn = false;
+        // }
     }
     private getPositionCodes() {
         this.enrollmentService.getPositionCodes().subscribe(
@@ -272,7 +316,7 @@ export class EnrollmentComponent implements OnInit {
 
 
     }
-    private enrollmentDataCount: string = "";
+
     private getEnrollmentData() {
         this.editButton = {};
         this.cancelButton = {};
@@ -1360,12 +1404,6 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-
-    private selectedPMRecordsPCindex: any = 0
-    private selectedPMRecordsPCData: any = "";
-    private selectedSMRecordsPCindex: any = 0
-    private selectedSMRecordsPCData: any = "";
-
     private selectedPMRecordsPC(data, sid) {
         var enrollmentDataResponse = this.enrollmentDataResponse;
         var selectedPMRecordsPCindex: any = 0;
@@ -1393,7 +1431,7 @@ export class EnrollmentComponent implements OnInit {
             }, 1);
         }
     }
-    private activeUser: string = "";
+
     private edit(rowData, editButton, cancelButton, saveButton) {
         if (this.editSingleRow) {
             return;
@@ -1410,15 +1448,10 @@ export class EnrollmentComponent implements OnInit {
     }
 
     private applyRowStyle(rowData: any): string {
-       // console.log("applyrow");
+        // console.log("applyrow");
         return ".rowSelectionColor";
     }
-    private confirmCancel: boolean = false;
-    private confirmSave: boolean = false;
-    private editButton: any;
-    private cancelButton: any;
-    private saveButton: any;
-    private rowData: any;
+
     private cancel(rowData, editButton, cancelButton, saveButton) {
         //  this.editSingleRow = false;
         this.confirmCancel = true;
@@ -1451,7 +1484,6 @@ export class EnrollmentComponent implements OnInit {
         this.cancelButton = {};
         this.saveButton = {};
     }
-    private rowIndex: any = 0;
     private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
         // this.editSingleRow = false;
         this.confirmSave = true;
@@ -1485,7 +1517,7 @@ export class EnrollmentComponent implements OnInit {
         this.saveButton = {};
     }
 
-    private msg: string = "";
+
     private returnItem1(data) {
         var myPersonal
     }
@@ -1672,25 +1704,22 @@ export class EnrollmentComponent implements OnInit {
             }
             )
     }
-
     private cancelNewUserDataDialogue(data) {
         this.displayAddNewUserDialog = false;
     }
+    // private getExpresslaneDealer() {
+    //     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+    //     this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
+    //         (expressLaneDealerData) => {
+    //             this.expressLaneDealerData = (expressLaneDealerData)
+    //             this.isExpresslaneDealer = true;
+    //         },
+    //         (error) => {
+    //             this.isExpresslaneDealer = false;
+    //         }
+    //     )
+    // }
 
-    private getExpresslaneDealer() {
-        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
-            (expressLaneDealerData) => {
-                this.expressLaneDealerData = (expressLaneDealerData)
-                this.isExpresslaneDealer = true;
-            },
-            (error) => {
-                this.isExpresslaneDealer = false;
-            }
-        )
-    }
-    private openDealerTeamTable: boolean = false;
-    private dealerTeamButton: string = "YES";
     private openDealerTeam() {
         if (this.dealerTeamButton === 'YES') {
             this.openDealerTeamTable = true;

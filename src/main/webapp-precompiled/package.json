@@ -1,6 +1,6 @@
 {
   "name": "mser",
-  "version": "3.4.2",
+  "version": "3.6.5",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

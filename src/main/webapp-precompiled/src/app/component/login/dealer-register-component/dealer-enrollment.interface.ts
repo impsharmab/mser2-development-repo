@@ -15,4 +15,5 @@ export interface DealerEnrollmentFormInterface {
     isPartsCounter: boolean;
     isUsedRecon: boolean;
     isExpressLane: boolean;
+    autoApproveMVP: string;
 }

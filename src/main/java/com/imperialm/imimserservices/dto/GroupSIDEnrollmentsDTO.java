@@ -27,5 +27,6 @@ public class GroupSIDEnrollmentsDTO implements Serializable {
 	private Date UpdateDate;
 	private String UpdatedBy;
 	private String DelFlag;
+	private String OriginalPostionCode;
 
 }

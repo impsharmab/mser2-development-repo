@@ -76,7 +76,7 @@ export class RewardsRedistributionComponent implements OnInit {
                 this.constructPCAllocationData();
                 // this.getParticipantsByDealer(dealerCode, programName);
 
-                //// console.log(this.pCRedistributionDataResponse);
+                console.log(this.pCRedistributionDataResponse);
             },
             (error) => {
 
@@ -156,7 +156,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private constructPayoutAllocationData() {
         var payoutTotalData: any = 0;
         for (var i = 0; i < this.payoutRedistributionDataResponse.length; i++) {
-            if (this.payoutRedistributionDataResponse[i].statusCode == "RJCT") {
+            if (this.payoutRedistributionDataResponse[i].itastatus == "RJCT") {
                 payoutTotalData = payoutTotalData + this.payoutRedistributionDataResponse[i].rewardAmount;
             }
         }
@@ -334,7 +334,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private participantsList: any = [];
     private participantDataValue: any = [];
     private participantsOptions: SelectItem[] = [];
-    private getParticipantsByDealer(dealerCode: string, program: string) {
+    private getParticipantsByDealer(dealerCode: string, program: string, allocationID: any) {
         this.hidepcParticipantTable = false;
         this.hideelParticipantTable = false;
         this.hideurParticipantTable = false;
@@ -343,13 +343,31 @@ export class RewardsRedistributionComponent implements OnInit {
         this.rewardsDistributionService.getParticipantsByDealer(dealerCode, program).subscribe(
             (participantsList) => {
                 this.participantsList = (participantsList)
+                console.log(this.participantsList);
+                if (program == 'pc') {
+                    this.openPCHistory(allocationID)
+                } else if (program == 'el') {
+                    this.openELHistory(allocationID)
+                } else if (program == 'ur') {
+                    this.openURHistory(allocationID)
+                }
                 for (var i = 0; i < this.participantsList.length; i++) {
-                    this.participantDataValue.push({ name: "", value: 0, item2: "" });
+                    if (program == 'pc' && i < this.pcHistoryData.length) {
+                        this.participantDataValue.push({ name: this.pcHistoryData[i].sid + " - " + this.pcHistoryData[i].firstName + " " + this.pcHistoryData[i].lastName, value: this.pcHistoryData[i].amount, item2: this.pcHistoryData[i].sid });
+                    } else if (program == 'el' && i < this.elHistoryData.length) {
+                        this.participantDataValue.push({ name: this.elHistoryData[i].sid + " - " + this.elHistoryData[i].firstName + " " + this.elHistoryData[i].lastName, value: this.elHistoryData[i].amount, item2: this.elHistoryData[i].sid });
+                    } else if (program == 'ur' && i < this.urHistoryData.length) {
+                        this.participantDataValue.push({ name: this.urHistoryData[i].sid + " - " + this.urHistoryData[i].firstName + " " + this.urHistoryData[i].lastName, value: this.urHistoryData[i].amount, item2: this.urHistoryData[i].sid });
+                    } else {
+                        this.participantDataValue.push({ name: "", value: 0, item2: "" });
+                    }
                     constructParticipants.push(this.participantsList[i].item2 + " - " + this.participantsList[i].item1);
                     this.participantsOptions.push({
                         label: this.participantsList[i].item2 + " - " + this.participantsList[i].item1, value: this.participantsList[i].item2
                     })
                 }
+                console.log(this.participantsOptions);
+                console.log(this.participantDataValue);
 
                 // // console.log(this.participantsOptions);
             },
@@ -371,7 +389,7 @@ export class RewardsRedistributionComponent implements OnInit {
         this.msg = "";
         this.activeAllocationID = allocationID;
         this.participantsOptions = [];
-        this.getParticipantsByDealer(this.insertedDealercode, programName);
+        this.getParticipantsByDealer(this.insertedDealercode, programName, allocationID);
     }
 
     private savePCDATUM: any;
@@ -549,32 +567,39 @@ export class RewardsRedistributionComponent implements OnInit {
     private payoutGroupbyDescription() {
         var payoutData = this.payoutRedistributionDataResponse;
         var descriptionArray: any = [];
+        var rewardDateArray: any = [];
         var payoutGroupedData: any = [];
 
         for (var i = 0; i < payoutData.length; i++) {
             descriptionArray.push(payoutData[i].description);
+            rewardDateArray.push(payoutData[i].rewardDate);
         }
+
         descriptionArray = this.removeDuplicates(descriptionArray);
+        rewardDateArray = this.removeDuplicates(rewardDateArray);
 
         for (var j = 0; j < descriptionArray.length; j++) {
             payoutGroupedData.push({ dealerCode: this.insertedDealercode, description: descriptionArray[j], payoutPeriod: "", totalRewardAmount: 0, rewardAmount: 0, rejectedAmount: 0 })
-            for (var k = 0; k < payoutData.length; k++) {
-                if (descriptionArray[j] == payoutData[k].description) {
-                    if (payoutData[k].statusCode == "RJCT" || payoutData[k].statusCode == "CLSE") {
-                        payoutGroupedData[j].totalRewardAmount += payoutData[k].rewardAmount;
-                    }
-                    if (payoutData[k].statusCode == "RJCT") {
-                        payoutGroupedData[j].payoutPeriod = payoutData[k].approvedDate;
-                        payoutGroupedData[j].rejectedAmount += payoutData[k].rewardAmount;
-                    } else if (payoutData[k].statusCode == "CLSE") {
-                        payoutGroupedData[j].payoutPeriod = payoutData[k].approvedDate;
-                        payoutGroupedData[j].rewardAmount += payoutData[k].rewardAmount;
+            for (var x = 0; x < rewardDateArray.length; x++) {
+                
+                for (var k = 0; k < payoutData.length; k++) {
+                    if (descriptionArray[j] == payoutData[k].description && rewardDateArray[x] == payoutData[k].rewardDate) {
+                        if (payoutData[k].itastatus == "RJCT" || payoutData[k].itastatus == "CLSE") {
+                            payoutGroupedData[j].totalRewardAmount += payoutData[k].rewardAmount;
+                        }
+                        if (payoutData[k].itastatus == "RJCT") {
+                            payoutGroupedData[j].payoutPeriod = payoutData[k].rewardDate;
+                            payoutGroupedData[j].rejectedAmount += payoutData[k].rewardAmount;
+                        } else if (payoutData[k].itastatus == "CLSE") {
+                            payoutGroupedData[j].payoutPeriod = payoutData[k].rewardDate;
+                            payoutGroupedData[j].rewardAmount += payoutData[k].rewardAmount;
+                        }
                     }
                 }
             }
         }
         this.payoutGroupedData = payoutGroupedData;
-        console.log(payoutGroupedData);
+        // console.log(payoutGroupedData);
 
     }
 
@@ -583,7 +608,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private payoutSIDOptions: SelectItem[] = [];
     private createRODetails(description) {
         this.msg = "";
-        this.getParticipantsByDealer(this.insertedDealercode, "payout");
+        this.getParticipantsByDealer(this.insertedDealercode, "payout", 0);
         if (!this.hidePayoutDistributionTable) {
             this.hidePayoutDistributionTable = false;
         } else if (this.hidePayoutDistributionTable) {
@@ -600,12 +625,12 @@ export class RewardsRedistributionComponent implements OnInit {
         }
 
         for (var y = 0; y < roDetails.length; y++) {
-            if (roDetails[y].statusCode == "RJCT") {
+            if (roDetails[y].itastatus == "RJCT") {
                 roDetails[y].status = "Rejected";
                 roDetails[y].checked = false;
                 roDetails[y].disable = false;
             }
-            else if (roDetails[y].statusCode == "CLSE") {
+            else if (roDetails[y].itastatus == "CLSE") {
                 roDetails[y].status = "Paid";
                 roDetails[y].checked = true;
                 roDetails[y].disable = true;
@@ -614,7 +639,7 @@ export class RewardsRedistributionComponent implements OnInit {
         this.roDetails = roDetails;
         var rejectedROindex: any = [];
         for (var z = 0; z < this.roDetails.length; z++) {
-            if (this.roDetails[z].statusCode == "RJCT") {
+            if (this.roDetails[z].itastatus == "RJCT") {
                 sortedRODetails.push(this.roDetails[z]);
                 rejectedROindex.push(z);
             }
@@ -643,7 +668,7 @@ export class RewardsRedistributionComponent implements OnInit {
     private approveAllPayoutRedistribution(approveAllpayout) {
         if (approveAllpayout != undefined && approveAllpayout == true) {
             for (var y = 0; y < this.sortedRODetails.length; y++) {
-                if (this.sortedRODetails[y].statusCode == "RJCT") {
+                if (this.sortedRODetails[y].itastatus == "RJCT") {
                     this.sortedRODetails[y].checked = true;
                     // this.roDetails[y].disable = true;
                 }
@@ -651,7 +676,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
         else if (approveAllpayout != undefined && approveAllpayout == false) {
             for (var y = 0; y < this.sortedRODetails.length; y++) {
-                if (this.sortedRODetails[y].statusCode == "RJCT") {
+                if (this.sortedRODetails[y].itastatus == "RJCT") {
                     this.sortedRODetails[y].checked = false;
                     // this.roDetails[y].disable = false;
                 }
@@ -665,7 +690,7 @@ export class RewardsRedistributionComponent implements OnInit {
         var data: any = {};
         for (var i = 0; i < this.sortedRODetails.length; i++) {
             if (this.sortedRODetails[i].sid != undefined && this.sortedRODetails[i].checked == true) {
-                this.sortedRODetails[i].statusCode = "APRV";
+                this.sortedRODetails[i].itastatus = "APRV";
             }
         }
         data.list = this.sortedRODetails;

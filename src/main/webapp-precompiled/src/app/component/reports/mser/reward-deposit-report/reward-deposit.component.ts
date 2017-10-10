@@ -29,6 +29,9 @@ export class RewardsDepositReportComponent implements OnInit {
     private src: any;
     private selectedProgramList: any = [];
 
+    private minDate: Date;
+    private maxDate: Date;
+
     private isAdmin: boolean = false;
     private isExecutive: boolean = false;
     private isDealer: boolean = false;
@@ -70,13 +73,20 @@ export class RewardsDepositReportComponent implements OnInit {
         var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
         this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
-        //console.log(this.fromDate + "-----" + this.toDate + " " + lastDayOfMonth.getDate());
+        
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.minDate.setMonth(0);
+        this.minDate.setDate(1);
+        this.minDate.setFullYear(today.getFullYear());
+        this.maxDate.setMonth(d.getMonth());
+        this.maxDate.setFullYear(today.getFullYear());
+        this.maxDate.setDate(lastDayOfMonth.getDate());
+
         this.squarify();
         this.identifyRoles();
         this.renderTab();
         this.viewEXTabOnly();
-
-
     }
 
     private squarify() {
@@ -112,7 +122,7 @@ export class RewardsDepositReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-    
+
     private identifyRoles() {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
@@ -296,7 +306,8 @@ export class RewardsDepositReportComponent implements OnInit {
             RDEPG = RDEPG + "&RDEPG=" + this.selectedProgramList[i];
         }
         console.log(RDEPG);
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDEFromDate=${RDEFromDate}&RDEToDate=${RDEToDate}${RDEPG}`;
+        // : https://reportservice.imperialm.com
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDEFromDate=${RDEFromDate}&RDEToDate=${RDEToDate}${RDEPG}`;
         console.log(this.selectedProgramList);
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -312,8 +323,8 @@ export class RewardsDepositReportComponent implements OnInit {
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDBCPG = RDBCPG + "&RDBCPG=" + this.selectedProgramList[i];
         }
-        //https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=RewardDepositReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDBC=${rdbc}&RDBCFromDate=${RDBCFromDate}&RDBCToDate=${RDBCToDate}${RDBCPG}`;
+        //https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=RewardDepositReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDBC=${rdbc}&RDBCFromDate=${RDBCFromDate}&RDBCToDate=${RDBCToDate}${RDBCPG}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -327,7 +338,7 @@ export class RewardsDepositReportComponent implements OnInit {
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDDPG = RDDPG + "&RDDPG=" + this.selectedProgramList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -341,7 +352,7 @@ export class RewardsDepositReportComponent implements OnInit {
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDDLPG = RDDLPG + "&RDDLPG=" + this.selectedProgramList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -356,7 +367,7 @@ export class RewardsDepositReportComponent implements OnInit {
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDPPG = RDPPG + "&RDPPG=" + this.selectedProgramList[i];
         }
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }

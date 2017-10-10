@@ -24,8 +24,18 @@ public class UserProgramRolesDAOImpl implements UserProgramRolesDAO {
 	
 	@Override
 	public List<String> getUserRoleById(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> result = new ArrayList<String>();
+		try {
+			final Query query = this.em.createNativeQuery("select RoleID from UserProgramRoles where UserId = 't0019pn' and ProgramID = 1 and DelFlag = 'N'");
+			query.setParameter(0, userId);
+			List<String> rows = (List<String>) query.getResultList();
+			result = rows;
+		} catch (final NoResultException ex) {
+			logger.info("result in else " + result);
+		} catch (final Exception ex) {
+			logger.error("error occured in isAdmin", ex);
+		}
+		return result;
 	}
 	
 	@Override
@@ -48,7 +58,7 @@ public class UserProgramRolesDAOImpl implements UserProgramRolesDAO {
 		try {
 			final Query query = this.em.createNativeQuery(CHECK_IF_ADMIN);
 			query.setParameter(0, userId);
-			query.setParameter(1, 9);
+			query.setParameter(1, 1);
 			query.setParameter(2, 3);
 			List<String> rows = (List<String>) query.getResultList();
 			result = rows;

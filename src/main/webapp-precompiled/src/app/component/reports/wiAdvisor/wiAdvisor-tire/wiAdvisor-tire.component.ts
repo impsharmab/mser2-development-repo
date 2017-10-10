@@ -50,6 +50,11 @@ export class WiAdvisorTireReportComponent implements OnInit {
     constructor(private domSanitizer: DomSanitizer) { }
 
     ngOnInit() {
+        var d = new Date;
+        var today = new Date();
+        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
+        this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
         this.squarify();
         /* jQuery activation and setting options for parent tabs with id selector*/
         this.identifyRoles();
@@ -254,7 +259,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         this.programName = "WiAdvisorTires_Executive";
         var FromDate = this.wiAdvisorTireInterface.from;
         var ToDate = this.wiAdvisorTireInterface.to;
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&FromDate=${FromDate}&ToDate=${ToDate}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&FromDate=${FromDate}&ToDate=${ToDate}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -267,19 +272,19 @@ export class WiAdvisorTireReportComponent implements OnInit {
         var ToDate = this.wiAdvisorTireInterface.to;
         var RDBCPG = "";
 
-        //https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=RewardDepositReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}&FromDate=${FromDate}&ToDate=${ToDate}`;
+        //https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=RewardDepositReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}&FromDate=${FromDate}&ToDate=${ToDate}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
     private viewDistrictWiAdvisorTireReport() {
-        this.showDistrictWiAdvisorTireReportIframe = true; 
+        this.showDistrictWiAdvisorTireReportIframe = true;
         this.programName = "WiAdvisorTires_DIST";
         var District = this.wiAdvisorTireInterface.district;
         var FromDate = this.wiAdvisorTireInterface.from;
         var ToDate = this.wiAdvisorTireInterface.to;
 
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}&FromDate=${FromDate}&ToDate=${ToDate}`;
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}&FromDate=${FromDate}&ToDate=${ToDate}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -289,8 +294,8 @@ export class WiAdvisorTireReportComponent implements OnInit {
         var DealerCode = this.wiAdvisorTireInterface.dealerCode;
         var FromDate = this.wiAdvisorTireInterface.from;
         var ToDate = this.wiAdvisorTireInterface.to;
-    
-        this.src = `https://backoffice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}&FromDate=${FromDate}&ToDate=${ToDate}`;
+
+        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}&FromDate=${FromDate}&ToDate=${ToDate}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }

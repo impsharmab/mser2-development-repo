@@ -60,9 +60,15 @@ public class ProgramEnrollmentsDAOImpl implements ProgramEnrollmentsDAO {
 	public boolean enrollDealership(String dealerCode){
 		boolean result = false;
 		try {
-			final Query query = this.em.createNativeQuery("INSERT INTO dbo.[ProgramEnrollments] ([ProgramId], [DealerCode], [Status], CreatedBy, CreatedDate, DelFlag, UpdatedBy , UpdatedDate) values (?0, ?1, 'E', 'SYSTEM', GetDate(), 'N', 'SYSTEM', GetDate())");
-			query.setParameter(0, MSER_PROGRAM_ID);
-			query.setParameter(1, dealerCode);
+			final Query query = this.em.createNativeQuery(
+					"IF EXISTS (SELECT * FROM ProgramEnrollments WHERE [DealerCode] = ?0)"
+					+ " update ProgramEnrollments set Status = 'E' , DelFlag = 'N' where ProgramId = (?1) and DealerCode = ?0"
+					+ " ELSE"
+					+ " INSERT INTO [ProgramEnrollments] ([ProgramId], [DealerCode], [Status], CreatedBy, CreatedDate, DelFlag, UpdatedBy , UpdatedDate) values (?1, ?0, 'E', 'SYSTEM', GetDate(), 'N', 'SYSTEM', GetDate())"
+					);
+			
+			query.setParameter(0, dealerCode);
+			query.setParameter(1, MSER_PROGRAM_ID);
 
 			if(query.executeUpdate() > 0){
 				result = true;
@@ -93,5 +99,43 @@ public class ProgramEnrollmentsDAOImpl implements ProgramEnrollmentsDAO {
 		return result;
 	}
 
-
+	/*
+	@Override
+	public boolean isAutoApprovalMVP(String dealerCode) {
+		boolean result = false;
+		try{
+			final Query query = this.em.createNativeQuery("select defaultApproval from ProgramGroupEnrollments where ProgramGroupID = 5 and DelFlag = 'N' and Status = 'E' and defaultApproval = 'Y' and DealerCode = ?0");
+			query.setParameter(0, dealerCode);
+			List<String> rows = query.getResultList();
+			if(rows.size() > 0){
+				result = true;
+			}
+		}catch (Exception e) {
+			logger.error("error occured in isAutoApprovalMVP", e);
+		}
+		return result;
+	}
+	
+	@Override
+	@Transactional
+	public boolean setAutoApprovalMVP(String dealerCode, boolean enroll){
+		boolean result = false;
+		try{
+			final Query query = this.em.createNativeQuery("update ProgramGroupEnrollments set defaultApproval = ?0 , DelFlag = 'N' where ProgramGroupID = 5 and DealerCode = ?1");
+			if(enroll){
+				query.setParameter(0, "Y");
+			}else{
+				query.setParameter(0, "N");
+			}
+			query.setParameter(1, dealerCode);
+			if(query.executeUpdate() > 0){
+				result = true;
+			}
+		}catch (Exception e) {
+			logger.error("error occured in setAutoApprovalMVP", e);
+		}
+		return result;
+	}*/
+	
+	
 }

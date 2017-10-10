@@ -1,11 +1,14 @@
 package com.imperialm.imimserservices.rest;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Holder;
 
@@ -21,6 +24,8 @@ import com.imperialm.imimserservices.dao.DealerPersonnelDAO;
 import com.imperialm.imimserservices.dao.DealerPersonnelPositionsDAO;
 import com.imperialm.imimserservices.dto.DealerPersonnelDTO;
 import com.imperialm.imimserservices.model.TwoStringItems;
+import com.imperialm.imimserservices.reports.util.IMIUtils;
+import com.imperialm.imimserservices.reports.util.ReportUtil;
 import com.imperialm.imimserservices.ssrs.ArrayOfDataSourceCredentials;
 import com.imperialm.imimserservices.ssrs.ArrayOfParameterValue;
 import com.imperialm.imimserservices.ssrs.ArrayOfString;
@@ -66,7 +71,7 @@ public class GeneralController {
 		
 		List<TwoStringItems> pcList = dealerPersonnelPositions.getAllPositionCodesWithNames();
 		for(TwoStringItems item: pcList){
-			item.setItem2(item.getItem2() + " (" + item.getItem1() + ")");
+			item.setItem2("(" + item.getItem1() + ")" + item.getItem2() + " ");
 		}
 		
 		return pcList;
@@ -80,6 +85,23 @@ public class GeneralController {
 		List<TwoStringItems> sids = new ArrayList<>();
 		for(DealerPersonnelDTO item: dpUser){
 			sids.add(new TwoStringItems(item.getFirstName() + " " + item.getLastName(), item.getSID()));
+		}
+		return sids;
+	}
+	
+	@RequestMapping(value = "/General/ParticipantsByDealer/{dealerCode}", method = RequestMethod.GET)
+	public @ResponseBody Object getParticipantsByDealerCode(@PathVariable(value="dealerCode") String dealerCode,HttpServletRequest request) {
+		
+		List<DealerPersonnelDTO> dpUser = DealerPersonnelDAO.getSIDInfoByDealerCode(dealerCode);
+		
+		
+		List<String> tempSids = new ArrayList<>();
+		List<TwoStringItems> sids = new ArrayList<>();
+		for(DealerPersonnelDTO item: dpUser){
+			if(!tempSids.contains(item.getSID())){
+				tempSids.add(item.getSID());
+				sids.add(new TwoStringItems(item.getFirstName() + " " + item.getLastName(), item.getSID()));
+			}
 		}
 		return sids;
 	}
@@ -109,7 +131,7 @@ public class GeneralController {
 			
 			
 			//http://826878-sqlimpro //http://826909-sql-imst
-			URL url = new URL("http://826878-sqlimpro/reportserver/ReportExecution2005.asmx?wsdl");
+			URL url = new URL("http://ssrs.imperialm.com/reportserver/ReportExecution2005.asmx?wsdl");
 			
 			ReportExecutionService res = new ReportExecutionService(url);
 			ReportExecutionServiceSoap ress = res.getReportExecutionServiceSoap();
@@ -130,15 +152,11 @@ public class GeneralController {
 			
 			WSBindingProvider wsbp = (WSBindingProvider)ress;
 
-
-			// Sessions erlauben
 			bp.getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, true);
 
 
 			ExecutionInfo execInfo = new ExecutionInfo();
 			            
-
-			// Parameterliste erzeugen
 			ArrayOfParameterValue apv = new ArrayOfParameterValue();
 			List<ParameterValue> apvList = apv.getParameterValue();     
 
@@ -153,13 +171,11 @@ public class GeneralController {
 			apvList.add(param1);
 
 			try{
-			// Report vorbereiten
 				int fasd = 0;
 			execInfo = ress.loadReport(reportPath, historyID);
 			}catch(Exception ex){
 				System.out.println(ex);
 			}
-			// ExecutionID für den nächsten Aufruf merken
 			
 			/*ParameterValue param3 = new ParameterValue();
 			param3.setName("executionID");
@@ -176,24 +192,20 @@ public class GeneralController {
 			bp.getRequestContext().put("executionID", executionID);
 
 
-			// ExecutionHeader Element erzeugen und es für den nächsten Aufruf
-			// and den WSBindingProvider übergeben
 			ExecutionHeader eh = new ExecutionHeader();
 			eh.setExecutionID(executionID);
 			
 			wsbp.setOutboundHeaders(eh);
 			      
 
-			// Parameter an den Report übergeben
 			//ress.setExecutionCredentials(c);
 			ress.setExecutionParameters(apv, "en-us");
 
-			// Report anfordern
-			ress.render(format, devInfo, result, extension, mimeType, encoding, warnings, streamIDs);
-			// Ergebnis des Aufrufs ausgeben
+
+			ress.render("EXCEL", devInfo, result, extension, mimeType, encoding, warnings, streamIDs);
 			String resultString = new String(result.value);     
-			
-			return resultString;
+			return result.value;
+			//return resultString;
 			/*url = new URL("http://826878-sqlimpro/ReportServer/ReportService2005.asmx?wsdl");
 			SSRS a = new SSRS(url, "");
 			
@@ -225,6 +237,52 @@ public class GeneralController {
 		
 		return null;
 		
+	}
+	
+	
+	@RequestMapping(value = "/General/report/{domain:.+}", method = RequestMethod.GET)
+	public @ResponseBody void setContentType(@PathVariable(value="domain") String domain, HttpServletRequest request, HttpServletResponse response) throws IOException{
+        response.setContentType("text/html;charset=UTF-8");
+        
+        PrintWriter out = response.getWriter();
+        try {
+        String key;
+        String reportName = "";
+        String reportPath = "";
+
+        List<com.imperialm.imimserservices.reports.ParameterValue> params = new ArrayList<>();
+        com.imperialm.imimserservices.reports.ParameterValue param = null;
+
+        
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Imperial Report Loader...</title>");
+            out.println("</head>");
+            out.println("<body>");
+            for (Object keyObject : request.getParameterMap().keySet()) {
+                key = keyObject.toString();
+                if (key.toString().startsWith("/")) {
+                    String[] keys = key.split("/");
+                    reportPath = keys[1];
+                    reportName = keys[2];
+                } else if (!key.contains(":")) {
+                    param = new com.imperialm.imimserservices.reports.ParameterValue();
+                    param.setName(key);
+                    param.setValue(request.getParameter(key).toString());
+                    params.add(param);
+                }
+            }
+            com.imperialm.imimserservices.reports.ParameterValue[] paramArray = params.toArray(new com.imperialm.imimserservices.reports.ParameterValue[params.size()]);
+
+            StringBuilder sb = ReportUtil.getReport(paramArray, reportPath, reportName, "");
+            out.println(sb.toString().replace("http://826909-sql-imst/ReportServer", IMIUtils.getBaseUrl(request)+"LoadReports"));
+            out.println("</body>");
+            out.println("</html>");
+        } finally {
+            out.close();
+        }
 	}
 
 	

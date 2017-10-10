@@ -222,7 +222,7 @@
                                         </ng-template>
                                     </p-column> -->
 
-                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'175px','text-align':'left'}">
+                                    <p-column *ngIf="showPCColumn" [editable]="true" [style]="{'overflow':'visible', 'width':'175px','text-align':'left'}">
                                         <ng-template pTemplate="header">Parts Counter Manager</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
                                             {{data.pc}}
@@ -232,7 +232,7 @@
                                         </ng-template>
                                     </p-column>
 
-                                    <p-column [editable]="true" [style]="{'overflow':'visible', 'width':'175px','text-align':'left'}">
+                                    <p-column *ngIf="showELColumn" [editable]="true" [style]="{'overflow':'visible', 'width':'175px','text-align':'left'}">
                                         <ng-template pTemplate="header">Express Lane Manager</ng-template>
                                         <ng-template let-data="rowData" pTemplate="body">
                                             {{data.el}}
@@ -274,7 +274,7 @@
                                 </p-dataTable>
                             </div>
                             <br/>
-                            <div class="col-sm-12 btn-container open-dealer-team" *ngIf="isExpresslaneDealer ">
+                            <div class="col-sm-12 btn-container open-dealer-team" *ngIf="showELColumn ">
                                 Would you like to set up Express Lane Teams?&nbsp;&nbsp;<button type="button" class="btn btn-primary"
                                     (click)="openDealerTeam()"> <i class="icon-edit"></i> {{dealerTeamButton}} </button>
                             </div>

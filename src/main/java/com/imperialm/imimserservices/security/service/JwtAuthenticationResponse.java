@@ -30,13 +30,32 @@ public class JwtAuthenticationResponse implements Serializable {
     private List<String> dealerName;
     
     @Getter @Setter
-    private List<Boolean> mserEnrollment;
+    //private List<Boolean> mserEnrollment;
+    private Boolean mserEnrollment = false;
     
     @Getter @Setter
     private List<Integer> roles;
     
     @Getter @Setter
     private String userId;
+    
+    @Getter @Setter
+    private List<Boolean> dealerManager;
+    
+    @Getter @Setter
+    private List<Boolean> serviceManagerOfRecord;
+    
+    @Getter @Setter
+    private List<Boolean> partsManagerOfRecord;
+    
+    @Getter @Setter
+    private List<Boolean> elManager;
+    
+    @Getter @Setter
+    private List<Boolean> pcManager;
+    
+    @Getter @Setter
+    private List<Boolean> uvmManager;
 
     public JwtAuthenticationResponse(String token) {
         this.token = token;
@@ -44,6 +63,13 @@ public class JwtAuthenticationResponse implements Serializable {
         this.dealerCode = new ArrayList<String>();
         this.roles = new ArrayList<Integer>();
         this.dealerName = new ArrayList<String>();
-        this.mserEnrollment = new ArrayList<Boolean>();
+        //this.mserEnrollment = new ArrayList<Boolean>();
+        this.dealerManager = new ArrayList<Boolean>();
+        this.serviceManagerOfRecord = new ArrayList<Boolean>();
+        this.partsManagerOfRecord = new ArrayList<Boolean>();
+        
+        this.elManager = new ArrayList<Boolean>();
+        this.pcManager = new ArrayList<Boolean>();
+        this.uvmManager = new ArrayList<Boolean>();
     }
 }

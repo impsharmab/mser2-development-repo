@@ -172,5 +172,46 @@ public class IMIServicesUtil {
 		return user;
 	}
 	
+	public boolean isValidEmail(String input)
+	  {
+		
+			if(input == null){
+				return false;
+			}
+		
+	      int atIndex = input.indexOf('@');
+	      int dotIndex = input.lastIndexOf('.');
+	      if ((atIndex == -1) || (dotIndex == -1) || (atIndex >= dotIndex))
+	         return false;
+	      // now check for content of the string
+	      byte[] s = input.getBytes();
+	      int length = s.length;
+	      byte b = 0;
+
+	      for (int i = 0; i < length; i++)
+	      {
+	          b = s[i];
+	          if ((b >= 'a') && (b <= 'z')) {}  // lower char
+	          else if ((b >= 'A') && (b <= 'Z')) {}  // upper char
+	          else if ((b >= '0') && (b <= '9') && (i != 0)) {} // numeric char
+	          else if ( ( (b=='_') || (b=='-') || (b=='.') || (b=='@') ) && (i != 0) ) {}// _ char
+	          else 
+	          {
+	              return false;
+	          }
+	      }
+	      
+	      try 
+	      {
+	          new javax.mail.internet.InternetAddress(input);
+	      } 
+	      catch (Exception ex) 
+	      {
+	          return false;
+	      }
+	      
+	      return true;
+	  }
+	
 
 }

@@ -25,4 +25,22 @@ public class ProgramGroupDAOImpl implements ProgramGroupDAO {
 		return null;
 	}
 
+	@Override
+	public boolean isDealerELEnrolled(String dealerCode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isDealerMVPEnrolled(String dealerCode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isDealerPCEnrolled(String dealerCode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
