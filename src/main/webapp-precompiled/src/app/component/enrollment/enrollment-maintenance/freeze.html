@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h1 class="heading-xl">
-                            Employee Maintenance for- <span> {{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</span>
+                            Employee Maintenance for-
+                            <span> {{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</span>
                         </h1>
                     </div>
 
@@ -28,11 +29,15 @@
                                     </div>
                                     <!-- <button type="button" class="btn btn-primary" style="margin-left: auto; float:left" (click)="addNewUser(addUserData)"><i class="fa fa-plus" aria-hidden="true"></i>  Add New User</button> -->
                                     <!-- only show active user if a user selects a category to be edited -->
-                                    <div *ngIf="enableEditable" class="active-user" id="active-user">The Active Participant is: <strong id="participant-id">{{activeUser}}</strong></div>
+                                    <div *ngIf="enableEditable" class="active-user" id="active-user">The Active Participant is:
+                                        <strong id="participant-id">{{activeUser}}</strong>
+                                    </div>
 
                                 </form>
                                 <p style="color:red">{{msg}}</p>
-                                <p><strong>{{enrollmentDataCount}}</strong></p>
+                                <p>
+                                    <strong>{{enrollmentDataCount}}</strong>
+                                </p>
                                 <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
                                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                                     <input #gb type="text" pInputText size="50" placeholder="Global Filter">
@@ -55,24 +60,24 @@
                                                 <i class="icon-edit" aria-hidden="true" >SAVE</i></button></span> -->
                                             <div class="enrollment-button-container">
                                                 <span #editButton pTooltip="Edit This Row" tooltipPosition="right">
-                                              <button class="enrollment-button edit" type="button" (click)="edit(data, editButton, cancelButton, saveButton )">
-                                                <i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i>
-                                                <span class="hide-me">EDIT</span>
-                                                </button>
+                                                    <button class="enrollment-button edit" type="button" (click)="edit(data, editButton, cancelButton, saveButton )">
+                                                        <i style="cursor: pointer;" class="fa fa-pencil" aria-hidden="true"></i>
+                                                        <span class="hide-me">EDIT</span>
+                                                    </button>
                                                 </span>
 
                                                 <span #cancelButton style="display: none; " pTooltip="Cancel Your Changes" tooltipPosition="right">
-                                              <button class="enrollment-button cancel" type="button" (click)="cancel(data, editButton, cancelButton, saveButton)">
-                                                <i style="cursor: pointer;" class="fa fa-remove" aria-hidden="true"></i>
-                                                <span class="hide-me" >CANCEL</span>
-                                                </button>
+                                                    <button class="enrollment-button cancel" type="button" (click)="cancel(data, editButton, cancelButton, saveButton)">
+                                                        <i style="cursor: pointer;" class="fa fa-remove" aria-hidden="true"></i>
+                                                        <span class="hide-me">CANCEL</span>
+                                                    </button>
                                                 </span>
 
                                                 <span #saveButton style="display: none; " pTooltip="Save Your Changes" tooltipPosition="right">
-                                              <button class="enrollment-button save" type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
-                                                <i style="cursor: pointer;" class="fa fa-check" aria-hidden="true"></i>
-                                                <span class="hide-me">SAVE</span>
-                                                </button>
+                                                    <button class="enrollment-button save" type="button" (click)="saveEnrollmentMaintenanceData(data, editButton, cancelButton, saveButton, ri)">
+                                                        <i style="cursor: pointer;" class="fa fa-check" aria-hidden="true"></i>
+                                                        <span class="hide-me">SAVE</span>
+                                                    </button>
                                                 </span>
                                             </div>
                                         </ng-template>
@@ -275,8 +280,10 @@
                             </div>
                             <br/>
                             <div class="col-sm-12 btn-container open-dealer-team" *ngIf="showELColumn ">
-                                Would you like to set up Express Lane Teams?&nbsp;&nbsp;<button type="button" class="btn btn-primary"
-                                    (click)="openDealerTeam()"> <i class="icon-edit"></i> {{dealerTeamButton}} </button>
+                                Would you like to set up Express Lane Teams?&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary"
+                                    (click)="openDealerTeam()">
+                                    <i class="icon-edit"></i> {{dealerTeamButton}} </button>
                             </div>
                         </div>
                     </div>
@@ -304,8 +311,10 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" class="btn btn-primary" (click)="addNewUserData(selectedpc)"> <i class="icon-edit"></i> Add</button>
-                <button type="button" class="btn btn-primary" (click)="cancelNewUserDataDialogue(data)"> <i class="icon-remove-sign"></i> Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="addNewUserData(selectedpc)">
+                    <i class="icon-edit"></i> Add</button>
+                <button type="button" class="btn btn-primary" (click)="cancelNewUserDataDialogue(data)">
+                    <i class="icon-remove-sign"></i> Cancel</button>
             </div>
         </p-footer>
     </p-dialog>
@@ -316,8 +325,10 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" class="btn btn-primary" (click)="continueCancel()"> <i class="icon-edit"></i> Yes, Continue </button>
-                <button type="button" class="btn btn-primary" (click)="discontinueCancel()"> <i class="icon-remove-sign"></i> No, Take me Back </button>
+                <button type="button" class="btn btn-primary" (click)="continueCancel()">
+                    <i class="icon-edit"></i> Yes, Continue </button>
+                <button type="button" class="btn btn-primary" (click)="discontinueCancel()">
+                    <i class="icon-remove-sign"></i> No, Take me Back </button>
             </div>
         </p-footer>
     </p-dialog>
@@ -327,8 +338,10 @@
         </div>
         <p-footer>
             <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                <button type="button" class="btn btn-primary" (click)="continueSave()"> <i class="icon-edit"></i> Yes, Continue </button>
-                <button type="button" class="btn btn-primary" (click)="discontinueSave()"> <i class="icon-remove-sign"></i> No, Take me Back </button>
+                <button type="button" class="btn btn-primary" (click)="continueSave()">
+                    <i class="icon-edit"></i> Yes, Continue </button>
+                <button type="button" class="btn btn-primary" (click)="discontinueSave()">
+                    <i class="icon-remove-sign"></i> No, Take me Back </button>
             </div>
         </p-footer>
     </p-dialog>

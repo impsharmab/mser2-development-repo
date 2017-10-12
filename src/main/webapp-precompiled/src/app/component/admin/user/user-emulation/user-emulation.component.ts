@@ -4,7 +4,7 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { Router } from '@angular/router';
 
 import { AdminService } from '../../../../services/admin-service/admin-user/user-emulation.service';
-
+import { LoginService } from '../../../../services/login-service/login.service';
 @Component({
     selector: 'user-emulation',
     templateUrl: './user-emulation.html'
@@ -13,7 +13,12 @@ import { AdminService } from '../../../../services/admin-service/admin-user/user
 export class UserEmulationComponent implements OnInit {
     private emulateusermessage: string = "";
     private emulateUserData: any;
-    constructor(private cookieService: CookieService, private adminService: AdminService, private router: Router) {
+    constructor(
+        private cookieService: CookieService,
+        private adminService: AdminService,
+        private router: Router,
+        private loginService: LoginService
+    ) {
 
     }
 
@@ -45,6 +50,7 @@ export class UserEmulationComponent implements OnInit {
                 this.emulateUserData = emulateUserData;
                 if (emulateUserData["item"].length > 0) {
                     var adminToken = this.cookieService.get("token");
+                    this.cookieService.put("isDealerEmulation", "false");
                     this.cookieService.put("adminToken", adminToken);
                     this.cookieService.put("token", emulateUserData.item);
                     let url = ["login"]
@@ -58,11 +64,13 @@ export class UserEmulationComponent implements OnInit {
         )
     }
 
-    private emulateDealerCodeUser(dealerCode) {  
+    private emulateDealerCodeUser(dealerCode) {
         this.adminService.emulateUserWithDealerCode(dealerCode).subscribe(
             (emulateUserData) => {
                 this.emulateUserData = emulateUserData;
                 var adminToken = this.cookieService.get("token");
+                this.loginService.setUserData(this.emulateUserData);
+                this.cookieService.put("isDealerEmulation", "true");
                 this.cookieService.put("adminToken", adminToken);
                 this.cookieService.put("dealercode", dealerCode);
                 sessionStorage.setItem("hideButton", "true");

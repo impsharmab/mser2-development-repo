@@ -3,30 +3,20 @@
   <!-- Reward Center Tabs-->
   <div class="tabbed-nav">
     <ul class="tabs">
-      <li [hidden]="!isAdmin || !isNational" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-      <li [hidden]="!isAdmin || !isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
-      <li [hidden]="!isAdmin || !isDistrict || !isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
-      <li [hidden]="!isAdmin" class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+      <li [hidden]="!isNational" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
+      <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
+      <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
+      <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
       <!-- <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li> -->
       <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
     </ul>
     <!-- Content container -->
     <div>
       <!-- Begin Executive Enrollment Report -->
-      <div [hidden]="!isAdmin || !isNational" class="z-content-pad">
+      <div [hidden]="!isNational" class="z-content-pad">
         <h2>Executive Enrollment Report</h2>
         <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">
-          <div class="row">
-            <!-- <div class="form-group col-sm-5">
-              <label for="program-1">Program:</label>
-              <p-multiSelect [options]="enrollmentReportProgramOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList"
-                [style]="{minWidth:'120px'}"></p-multiSelect>
-            </div> -->
-            <!-- <div class="form-group col-sm-3 report-button-container">
-              <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
-            </div> -->
-          </div>
           <div class="row" *ngIf="showExecutiveEnrollmentReportIframe">
             <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
           </div>
@@ -35,24 +25,9 @@
       <!-- End Executive Enrollment Report -->
 
       <!-- Begin Business Center Enrollment Report -->
-      <div [hidden]="!isAdmin || !isBC" class="z-content-pad">
+      <div [hidden]="!isBC" class="z-content-pad">
         <h2>Business Center Enrollment Report</h2>
         <form class="report-form">
-          <div class="row">
-            <div class="form-group col-sm-2">
-              <label for="dc-2">Business Center:</label>
-              <input placeholder="BC" type="text" id="dc-2" name="dc" pInputText [(ngModel)]="enrollmentReportInterface.businessCenter"
-              />
-            </div>
-            <!-- <div class="form-group col-sm-5">
-              <label for="program-2">Program:</label>
-              <p-multiSelect [options]="enrollmentReportProgramOptions" id="program-2" name="program" [(ngModel)]="selectedProgramList"
-                [style]="{minWidth:'120px'}"></p-multiSelect>
-            </div> -->
-            <div class="form-group col-sm-2 report-button-container">
-              <button pButton type="button" (click)="viewBCEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"></button>
-            </div>
-          </div>
           <div class="row" *ngIf="showBCEnrollmentReportIframe">
             <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
           </div>
@@ -61,25 +36,10 @@
       <!-- End Business Center Enrollment Report -->
 
       <!-- Begin District Reward Center Report -->
-      <div [hidden]="!isAdmin || !isDistrict" class="z-content-pad">
+      <div [hidden]="!isDistrict" class="z-content-pad">
         <h2>District Enrollment Report</h2>
         <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">
-          <div class="row">
-            <div class="form-group col-sm-2">
-              <label for="dist-3">District:</label>
-              <input placeholder="District" type="text" id="dist-3" name="dist" pInputText [(ngModel)]="enrollmentReportInterface.district"
-              />
-            </div>
-            <!-- <div class="form-group col-sm-5">
-              <label for="program-3">Program:</label>
-              <p-multiSelect [options]="enrollmentReportProgramOptions" id="program-3" name="program" [(ngModel)]="selectedProgramList"
-                [style]="{minWidth:'120px'}"></p-multiSelect>
-            </div> -->
-            <div class="form-group col-sm-2 report-button-container">
-              <button pButton type="button" (click)="viewDistrictEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"></button>
-            </div>
-          </div>
           <div class="row" *ngIf="showDistrictEnrollmentReportIframe">
             <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
           </div>
@@ -88,11 +48,11 @@
       <!-- End District Reward Center Report -->
 
       <!-- Begin Dealer Reward Center Report -->
-      <div [hidden]="!isAdmin" class="z-content-pad">
+      <div class="z-content-pad">
         <h2>Dealer Enrollment Report</h2>
         <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">
-          <div class="row">
+          <!-- <div class="row">
             <div class="form-group col-sm-2">
               <label for="dc-4">Dealer Code:</label>
               <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="enrollmentReportInterface.dealerCode"
@@ -101,7 +61,7 @@
             <div class="form-group col-sm-2 report-button-container">
               <button pButton type="button" (click)="viewDealerEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>
-          </div>
+          </div> -->
           <div class="row" *ngIf="showDealerEnrollmentReportIframe">
             <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
           </div>

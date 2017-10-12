@@ -6,6 +6,7 @@ export interface DealerEnrollmentFormInterface {
     dealerPrincipalName: string;
     dealerPrincipalEmail: string;
     phone: string;
+    extention: string;
     signature: string;
     date: string;
     selectedPartsManager: string;

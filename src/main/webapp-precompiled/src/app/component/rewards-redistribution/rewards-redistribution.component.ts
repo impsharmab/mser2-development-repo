@@ -596,7 +596,7 @@ export class RewardsRedistributionComponent implements OnInit {
                         }
                     }
                 }
-            }
+            } 
         }
         this.payoutGroupedData = payoutGroupedData;
         // console.log(payoutGroupedData);

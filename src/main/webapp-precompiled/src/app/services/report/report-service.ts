@@ -1,35 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable'
-import './../../rxjs-operators';
+import './../rxjs-operators';
 
 @Injectable()
-export class AdminService {
+export class ReportService {
     private baseUrl = "https://test.myfcarewards.com/mser/";
     // private baseUrl = "./";
 
-    constructor(private http: Http) { }
-
-
-    getEmulateUserData(sid: string) {
-        var getEmulateUserDataUrl = this.baseUrl + "services/admin/emulate/" + sid;
-        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', validToken);
-        return this.http.get(getEmulateUserDataUrl, { headers })
-            .map((response: Response) => response.json())
-            .catch(this.handleError);
+    constructor(private http: Http) {
     }
 
-    emulateUserWithDealerCode(dealercode: string) {
-        var getEmulateUserDataUrl = this.baseUrl + "services/admin/dealerEmulation/" + dealercode;
+    getDistrictByBC(bc): any {
+        // var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        
+        var url = this.baseUrl + "services/admin/districts/" + bc;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-        return this.http.get(getEmulateUserDataUrl, { headers })
-            .map((response: Response) => response.json())
+
+        return this.http.get(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
             .catch(this.handleError);
     }
 
@@ -44,5 +38,4 @@ export class AdminService {
         }
         return Observable.throw(errMsg);
     }
-
 }

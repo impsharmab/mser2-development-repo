@@ -7,6 +7,17 @@
         <input class="form-control" placeholder="Search..." type="text">
     </form>
 </header>
+
+<p-dialog header="" [(visible)]="displayConfirmationModal" modal="modal" width="600" height="200" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+    <div class="form-group row ">
+        <div id="displayError">
+            <p style="margin-left: 15px; margin-right: 15px;"> {{successmsg}}</p>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="redirectTOLoginPage()" label="OK"></button>
+    </p-footer>
+</p-dialog>
 <!-- Main content -->
 <main class="main">
 
@@ -33,23 +44,24 @@
                                 <form #enrollmentForm="ngForm">
                                     <fieldset>
                                         <legend>
-                                            <h2>2017 Enrollment Form <a href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf"
-                                                    class="btn btn-primary resetLink" target="_blank">Open as PDF</a></h2>
+                                            <h2>2017 Enrollment Form
+                                                <a href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" class="btn btn-primary resetLink" target="_blank">Open as PDF</a>
+                                            </h2>
                                         </legend>
-                                        <div smoothScroll offset="0" id="displayError">
+                                        <!-- <div smoothScroll offset="0" id="displayError">
                                             <p style="color: red">{{msg}}</p>
-                                            <!-- <p style="color: red">{{errorMobileNumber}}</p> -->
-                                        </div>
+                                        </div> -->
                                         <div *ngIf="!successsubmit">
-                                            <p>I have read and agree with these<span>
-                                                <a href="https://www.moparser.com/shared/imi-cms/MSER/webDocs/MSER_Official_Program_Rules.pdf" target="_blank" style="text-decoration: underline"><b> Program Rules</b>
-                                            </a></span> and allow my dealership personnel to participate in these rewards
-                                                programs.
+                                            <p>I have read and agree with these 
+                                                <span>
+                                                    <a href="/shared/imi-cms/MSER/webDocs/MSER_Official_Program_Rules.pdf" target="_blank" style="text-decoration: underline">
+                                                        <b> Program Rules</b>
+                                                    </a>
+                                                </span> and allow my dealership personnel to participate in these rewards programs.
                                             </p>
-                                            <!-- <div smoothScroll offset="0" id="displayError">
+                                            <div smoothScroll offset="0" id="displayError">
                                                 <p style="color: red">{{msg}}</p>
-                                                <p style="color: red">{{errorMobileNumber}}</p>
-                                            </div> -->
+                                            </div>
 
                                             <!-- Dealer Code, SID -->
                                             <div class="form-group row">
@@ -108,19 +120,26 @@
                                                     />
                                                     <div class="alert alert-danger" [hidden]="!showDealerPrincipalEmailErrorHiddenDiv">Valid email is required.</div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-2">
                                                     <label for="phone">Phone Number</label>
                                                     <input class="form-control" id="phone" minlength="10" maxlength="10" placeholder="(000)-000-0000" name="phone" [disabled]="!enableInputs"
                                                         pattern="[0-9]{10}" required type="text" [(ngModel)]="dealerEnrollment.phone"
                                                         #phone="ngModel" (ngModelChange)="ngModelChangePhone()" />
                                                     <div class="alert alert-danger" [hidden]="!showPhoneNumberErrorHiddenDiv">Valid phone number is required.</div>
                                                 </div>
+                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-1">
+                                                    <label for="phone">Extention</label>
+                                                    <input class="form-control" id="phone" minlength="1" maxlength="10" name="extention" [disabled]="!enableInputs" pattern="[0-9]{10}"
+                                                        required type="text" [(ngModel)]="dealerEnrollment.extention" />
+                                                    <!-- <div class="alert alert-danger" [hidden]="!showExtentionErrorHiddenDiv">Valid extention is required.</div> -->
+                                                </div>
                                             </div>
 
                                             <!-- Dealer Principal Signature -->
                                             <div class="form-group row">
                                                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
-                                                    <label for="signature">*Dealer Principal Signature (or person listed on paragraph 2 of Dealer Agreement): Type OK to signature</label>
+                                                    <label for="signature">*Dealer Principal Signature (or person listed on paragraph 2 of Dealer
+                                                        Agreement): Type OK to sign</label>
                                                     <input class="form-control" id="signature" minlength="2" maxlength="2" name="signature" [disabled]="!enableInputs" pattern="[OKok]{2}"
                                                         required type="text" [(ngModel)]="dealerEnrollment.signature" #signature="ngModel"
                                                         (ngModelChange)="ngModelChangeOK()" />
@@ -157,7 +176,7 @@
                                             <!-- Eligible Service Manager, Manager Email -->
                                             <div class="form-group row">
                                                 <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                                                    <label for="elligiblemanager">Eligible  Service Manager</label>
+                                                    <label for="elligiblemanager">Eligible Service Manager</label>
                                                     <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Service Manager" [options]="ServiceManagerOptions"
                                                         [(ngModel)]="dealerEnrollment.selectedServiceManager" (onChange)="dealerEnrollmentElligibleServiceManagers(dealerEnrollment.selectedServiceManager)"></p-dropdown>
                                                     <div class="alert alert-danger" [hidden]="!showServiceManagerNameErrorHiddenDiv">Select Service Manager.</div>
@@ -175,10 +194,10 @@
                                                 <!-- <div class="form-check"> -->
                                                 <!-- <label class="form-check-label"> -->
                                                 <p-checkbox [disabled]="!enableInputs" label=" Yes, I agree to the Enrollment Fee {{enrollmentFee}} and allow my dealership personnel to participate in the Mopar Service Excellence Rewards Program."
-                                                    name="aggrement" required value="aggrement" [(ngModel)]="aggrement" (onChange)="dealerEnrollmentAggrement(aggrement)"></p-checkbox>
+                                                    name="aggrement" required value="aggrement" [(ngModel)]="aggrement" (click)="dealerEnrollmentAggrement(aggrement)"></p-checkbox>
 
                                                 <!-- </label> -->
-                                                <div class="alert alert-danger" [hidden]="showalert">
+                                                <div class="alert alert-danger" [hidden]="!showAggrementErrorHiddenDiv">
                                                     Selection in checkbox is required
                                                 </div>
                                                 <!-- </div> -->
@@ -207,10 +226,10 @@
                                             <!-- <div class="alert alert-danger"  [hidden]="showalert">You need to opt in to Express Lane</div> -->
                                             <!-- </div> -->
                                             <div class="form-group">
-                                                <input [disabled]="!enableInputs" type="radio" name="auto-manual" id="auto" [value]="true" [(ngModel)]="dealerEnrollment.autoApproveMVP">&nbsp;&nbsp;Yes,
-                                                I would like to auto-approve MVP plans<br><br>
-                                                <input [disabled]="!enableInputs" type="radio" name="auto-manual" id="manual" [value]="false" [(ngModel)]="dealerEnrollment.autoApproveMVP">&nbsp;&nbsp;Yes,
-                                                I would like to manually approve MVP plans
+                                                <input [disabled]="!enableInputs" type="radio" name="auto-manual" id="auto" [value]="true" [(ngModel)]="dealerEnrollment.autoApproveMVP">&nbsp;&nbsp;Yes, I would like to auto-approve MVP plans
+                                                <br>
+                                                <br>
+                                                <input [disabled]="!enableInputs" type="radio" name="auto-manual" id="manual" [value]="false" [(ngModel)]="dealerEnrollment.autoApproveMVP">&nbsp;&nbsp;Yes, I would like to manually approve MVP plans
                                             </div>
                                             <!-- Buttons -->
                                             <div class="btn-container">

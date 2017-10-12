@@ -70,6 +70,7 @@ import { RewardsReDistributionService } from '../../../services/rewards-redistri
 import { JasperService } from '../../../services/report/jasper-report-poc/jasper-service';
 import { AdminService } from '../../../services/admin-service/admin-user/user-emulation.service';
 import { HomeService } from '../../../services/home-service/home-service';
+import { ReportService } from '../../../services/report/report-service';
 
 @NgModule({
   imports: [
@@ -98,7 +99,7 @@ import { HomeService } from '../../../services/home-service/home-service';
   ],
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
-    RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService
+    RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService, ReportService
   ]
 })
 export class MserModule { }

@@ -48,9 +48,17 @@ export class LoginComponent implements OnInit {
         )
       }
     });
+    this.checkDealerToken();
     this.refreshLogin();
   }
 
+  private checkDealerToken() {
+    if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
+      if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
+        this.booleanDealerEmulation = true;
+      }
+    }
+  }
   private ssologin(ssotoken: string, ssopositioncode: string, ssodealercode: string) {
     var adminToken = this.cookieService.get("adminToken");
     if (adminToken !== undefined && adminToken !== null && adminToken.length > 1) {
@@ -100,17 +108,47 @@ export class LoginComponent implements OnInit {
   }
   private refreshLogin() {
     var user = this.cookieService.get("token");
+    var isDealerEmulation = this.cookieService.get("isDealerEmulation");
     if (user !== undefined) {
       if (user !== undefined && user.length > 1) {
         this.hideLoginPage = true;
-        this.loginService.getRefreshLoginResponse(user).subscribe( 
+        this.loginService.getRefreshLoginResponse(user).subscribe(
           (refreshTokenData) => {
             this.refreshTokenData = (refreshTokenData)
             if (refreshTokenData !== undefined && refreshTokenData.token.length > 1) {
               sessionStorage.setItem("showWelcomePopup", "false");
-              if (this.booleanDealerEmulation) {
+              if (isDealerEmulation == "true") {
                 var poscodes: any = ["01"];
                 var delcodes: any = [this.cookieService.get("dealercode")];
+                var delnames: any = this.refreshTokenData.dealerName;
+                var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
+                var passwordReset: any = this.refreshTokenData.passwordReset;
+                var roles: any = ["10"];
+                // this.loginService.setUserData(this.refreshTokenData);
+                // sessionStorage.setItem("CurrentUser", JSON.stringify(
+                //   {
+                //     "token": this.refreshTokenData.token,
+                //     "name": this.refreshTokenData.name,
+                //     "positionCode": poscodes,
+                //     "dealerCode": delcodes,
+                //     "dealerName": [],
+                //     "mserEnrollment": this.refreshTokenData.mserEnrollment,
+                //     "roles": roles,
+                //     "userId": "",
+                //     "dealerManager": this.refreshTokenData.dealerManager,
+                //     "serviceManagerOfRecord": this.refreshTokenData.serviceManagerOfRecord,
+                //     "partsManagerOfRecord": this.refreshTokenData.partsManagerOfRecord,
+                //     "elManager": this.refreshTokenData.elManager,
+                //     "pcManager": this.refreshTokenData.pcManager,
+                //     "uvmManager": this.refreshTokenData.uvmManager,
+                //     "elEnrolled": this.refreshTokenData.elEnrolled,
+                //     "pcEnrolled": this.refreshTokenData.pcEnrolled,
+                //     "passwordReset": false,
+                //     "admin": false
+                //   }
+                // )
+                // )
+
               } else {
                 this.loginService.setUserData(this.refreshTokenData);
                 var poscodes: any = this.refreshTokenData.positionCode;
@@ -165,7 +203,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
-
       (resUserData) => {
         this.userdata = (resUserData)
         if (resUserData["token"].length > 0) {
@@ -176,7 +213,7 @@ export class LoginComponent implements OnInit {
           var delnames: any = this.userdata.dealerName;
           var mserEnrollment: any = this.userdata.mserEnrollment;
           var passwordReset: any = this.userdata.passwordReset;
-
+          this.cookieService.put("isDealerEmulation", "false");
           sessionStorage.setItem("selectedCodeData", JSON.stringify(
             {
               "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : poscodes.length == 0 ? 0 : 0,

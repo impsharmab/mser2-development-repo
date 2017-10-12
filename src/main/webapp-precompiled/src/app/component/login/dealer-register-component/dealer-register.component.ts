@@ -23,16 +23,17 @@ export class DealerRegisterComponent implements OnInit {
   date: DateModel;
   options: DatePickerOptions;
   submitted = false;
-  booleanSelectCheckBox: boolean = true;
+  // booleanSelectCheckBox: boolean = true;
 
   private successsubmit: boolean = false;
+  private displayConfirmationModal: boolean = false;
   private val;
   private todayDate: string = "";
   private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
   private dealerEnrollment: DealerEnrollmentFormInterface = {
     aggrement: false, dealerCode: "", sid: "", dealershipName: "", dealerPrincipalName: "", dealerPrincipalEmail: "", phone: "",
-    signature: "", date: "", selectedPartsManager: "", partsManagerEmail: "", selectedServiceManager: "", serviceManagerEmail: "",
-    isPartsCounter: false, isUsedRecon: false, isExpressLane: false, autoApproveMVP: ""
+    extention: "", signature: "", date: "", selectedPartsManager: "", partsManagerEmail: "", selectedServiceManager: "",
+    serviceManagerEmail: "", isPartsCounter: false, isUsedRecon: false, isExpressLane: false, autoApproveMVP: ""
   };
   private mserEnrollmentFormData = {}
   private errorSID: string = "";
@@ -59,7 +60,7 @@ export class DealerRegisterComponent implements OnInit {
     }
     var d = new Date;
     var date = JSON.stringify(new Date().getDate());
-    if (date != undefined && date.length < 10) {
+    if (date != undefined && date.length < 2) {
       date = ("0" + date);
     }
     this.todayDate = (d.getMonth() + 1) + "/" + date + "/" + new Date().getFullYear();
@@ -74,12 +75,10 @@ export class DealerRegisterComponent implements OnInit {
   // if(aggrement==)
   //   }
   private dealerEnrollmentAggrement(agrrement: any) {
-    this.dealerEnrollment.aggrement = true;
     if (agrrement !== undefined && agrrement.length > 0) {
-      this.booleanSelectCheckBox = false;
-      this.showalert = true;
+      this.dealerEnrollment.aggrement = true;
     } else {
-      this.booleanSelectCheckBox = true;
+      this.dealerEnrollment.aggrement = false;
     }
 
   }
@@ -238,6 +237,7 @@ export class DealerRegisterComponent implements OnInit {
     }
   }
 
+  private showAggrementErrorHiddenDiv: boolean = false;
   private showDealershipNameErrorHiddenDiv: boolean = false;
   private showDealerPrincipalNameErrorHiddenDiv: boolean = false;
   private showDealerPrincipalEmailErrorHiddenDiv: boolean = false;
@@ -247,10 +247,12 @@ export class DealerRegisterComponent implements OnInit {
   private showPartsManagerNameErrorHiddenDiv: boolean = false;
   private showServiceManagerNameErrorHiddenDiv: boolean = false;
   private showOKErrorHiddenDiv: boolean = false;
+  private successmsg: string = "";
 
   private saveDealerEnrollmentForm(valid) {
     this.msg = "";
     this.errorMobileNumber = "";
+    this.showAggrementErrorHiddenDiv = false;
     this.showDealershipNameErrorHiddenDiv = false;
     this.showDealerPrincipalNameErrorHiddenDiv = false;
     this.showDealerPrincipalEmailErrorHiddenDiv = false;
@@ -266,15 +268,18 @@ export class DealerRegisterComponent implements OnInit {
     var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
-    if (this.booleanSelectCheckBox != undefined && this.booleanSelectCheckBox != true) {
-      this.showalert = true;
-    } else {
-      this.showalert = false;
-    }
+    // if (this.booleanSelectCheckBox != undefined && this.booleanSelectCheckBox != true) {
+    //   this.showalert = true;
+    // } else {
+    //   this.showalert = false;
+    // }
 
     // if (!nameRegex.test(this.dealerEnrollment.dealershipName)) {
     //   this.showDealershipNameErrorHiddenDiv = true;
     // }
+    if (this.dealerEnrollment.aggrement != true) {
+      this.showAggrementErrorHiddenDiv = true;
+    }
     if (this.dealerEnrollment.dealershipName != undefined && this.dealerEnrollment.dealershipName.length < 1) {
       this.showDealershipNameErrorHiddenDiv = true;
     }
@@ -306,7 +311,7 @@ export class DealerRegisterComponent implements OnInit {
 
     if (this.dealerEnrollment.dealershipName.length < 1 || !nameRegex.test(this.dealerEnrollment.dealerPrincipalName) ||
       !emailRegex.test(this.dealerEnrollment.dealerPrincipalEmail) || !phoneRegex.test(this.dealerEnrollment.phone) ||
-      this.dealerEnrollment.signature.toLowerCase() != "ok") {
+      this.dealerEnrollment.signature.toLowerCase() != "ok" || this.dealerEnrollment.aggrement == false) {
       return;
     }
     if (this.dealerEnrollment.selectedPartsManager.length < 1 && this.dealerEnrollment.selectedServiceManager.length < 1) {
@@ -340,6 +345,7 @@ export class DealerRegisterComponent implements OnInit {
     var dealerPrincipalName = this.dealerEnrollment.dealerPrincipalName;
     var dealerPrincipalEmail = this.dealerEnrollment.dealerPrincipalEmail;
     var phone = this.dealerEnrollment.phone;
+    var extention = this.dealerEnrollment.extention;
     var signature = this.dealerEnrollment.signature;
     var date = this.dealerEnrollment.date;
     var selectedPartsManager = this.dealerEnrollment.selectedPartsManager;
@@ -352,14 +358,16 @@ export class DealerRegisterComponent implements OnInit {
     var isMVPAutoApprove = this.dealerEnrollment.autoApproveMVP;
 
     this.mserEnrollmentService.saveDealerEnrollmentForm(
-      dealerCode, sid, dealerPrincipalEmail, phone,
+      dealerCode, sid, dealerPrincipalEmail, phone, extention,
       selectedPartsManager, partsManagerEmail, selectedServiceManager, serviceManagerEmail,
       isPartsCounter, isUsedRecon, isExpressLane, isMVPAutoApprove
     ).subscribe(
       (submitDealerAndPositionCodeDatum) => {
         this.submitDealerAndPositionCodeDatum = (submitDealerAndPositionCodeDatum)
         this.successsubmit = true;
-        this.msg = "Registration Successful, an email has been sent to the one provided with your temporary user id and password.";
+        this.displayConfirmationModal = true;
+        this.enableInputs = true;
+        this.successmsg = "Registration Successful, an email has been sent to the one provided with your temporary user id and password.";
       },
       (error) => {
         setTimeout(() => {
@@ -426,6 +434,16 @@ export class DealerRegisterComponent implements OnInit {
   }
   private ngModelChangeServiceManagerEmail() {
     this.showServiceManagerEmailErrorHiddenDiv = false;
+  }
+
+  private resetForm() {
+    var dealerEnrollmentForm = document.getElementById("dealerEnrollmentForm") as HTMLSelectElement;
+    dealerEnrollmentForm.reset();
+  }
+
+  private redirectTOLoginPage() {
+    let url = ["login"]
+    this.router.navigate(url);
   }
 
   cancel() {

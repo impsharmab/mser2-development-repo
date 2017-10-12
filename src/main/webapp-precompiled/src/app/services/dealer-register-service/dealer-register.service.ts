@@ -27,13 +27,13 @@ export class DealerRegisterService {
   }
 
   saveDealerEnrollmentForm(
-    dealerCode, sid, dealerPrincipalEmail, phone,
+    dealerCode, sid, dealerPrincipalEmail, phone, extention,
     selectedPartsManager, partsManagerEmail, selectedServiceManager, serviceManagerEmail,
     isPartsCounter, isUsedRecon, isExpressLane, mvpApprove
   ) {
     var url = this.baseUrl + "enrollments/forms/mser";
     var body = {
-      dealerCode: dealerCode, sid: sid, email: dealerPrincipalEmail, phone: phone,
+      dealerCode: dealerCode, sid: sid, email: dealerPrincipalEmail, phone: phone, extension: extention,
       managerP: selectedPartsManager, managerPEmail: partsManagerEmail,
       managerS: selectedServiceManager, managerSEmail: serviceManagerEmail,
       enrollPartsCounter: isPartsCounter, enrollUsedRecon: isUsedRecon, enrollExpressLane: isExpressLane,

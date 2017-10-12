@@ -46,7 +46,8 @@ export class PasswordResetComponent implements OnInit {
         this.passwordResetService.getPasswordResetResponse(this.passwordResetInterface.password).subscribe(
             (passwordResetResponse) => {
                 this.passwordResetResponse = (passwordResetResponse)
-                if(this.passwordResetResponse == true){
+                if (this.passwordResetResponse == true) {
+                    this.msg = "Successfully changed the password"
                     let url = ["/login"]
                     this.router.navigate(url);
                 }
@@ -56,6 +57,10 @@ export class PasswordResetComponent implements OnInit {
             }
 
         )
+    }
+
+    private ngModelChangePW() {
+        this.msg = "";
     }
 
     logout() {

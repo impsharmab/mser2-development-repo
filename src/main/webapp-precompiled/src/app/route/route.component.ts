@@ -24,10 +24,10 @@ const routes: Routes = [
         path: "mserHomepage",
         component: RootPageComponent
     },
-    {
-        path: "resetPassword",
-        component: ResetPasswordComponent
-    },
+    // {
+    //     path: "resetPassword",
+    //     component: ResetPasswordComponent
+    // },
     {
         path: "dealerregister",
         component: DealerRegisterComponent

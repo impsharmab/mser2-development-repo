@@ -326,7 +326,7 @@ export class EnrollmentComponent implements OnInit {
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
                 if (this.enrollmentDataResponse !== undefined) {
-                    this.enrollmentDataCount = "Total Number of Employee:" + this.enrollmentDataResponse.length;
+                    this.enrollmentDataCount = "Total Number of Employees:" + this.enrollmentDataResponse.length;
                 }
                 // this.somthing();
                 for (var a11 = 0; a11 < this.enrollmentDataResponse.length; a11++) {
@@ -1713,7 +1713,7 @@ export class EnrollmentComponent implements OnInit {
     //         (expressLaneDealerData) => {
     //             this.expressLaneDealerData = (expressLaneDealerData)
     //             this.isExpresslaneDealer = true;
-    //         },
+    //         },f
     //         (error) => {
     //             this.isExpresslaneDealer = false;
     //         }

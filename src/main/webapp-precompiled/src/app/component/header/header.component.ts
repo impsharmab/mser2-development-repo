@@ -49,8 +49,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private codeData: CodeData;
 
   private booleanAdminToken: any = this.cookieService.get("adminToken");
-  private booleanDealerEmulation: any = false;
-
+  // private booleanDealerEmulation: any = false;
+  private isDealerEmulation: string = "false";
 
   constructor(
     private router: Router,
@@ -60,6 +60,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
+    this.isDealerEmulation = this.cookieService.get("isDealerEmulation");
     this.data = JSON.parse(sessionStorage.getItem("CurrentUser"));
     this.poscodesSession = this.data.positionCode;
     this.delcodesSession = this.data.dealerCode;
@@ -104,7 +105,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       isPCEnrolled: this.isPCEnrolledSession[0]
     }
     this.groupbyPCDC();
-    this.checkDealerToken();
+   
   }
   private removeDuplicates(duplicateArray) {
     var cleanArray = [];
@@ -373,6 +374,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }*/
 
   private endEmulation() {
+    this.cookieService.put("isDealerEmulation", "false");
     var adminToken = this.cookieService.get("adminToken");
     this.cookieService.remove("adminToken");
     this.cookieService.remove("token");
@@ -388,6 +390,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   private endDealerEmulation() {
+    this.cookieService.put("isDealerEmulation", "false");
     var adminToken = this.cookieService.get("adminToken");
     this.cookieService.remove("adminToken");
     this.cookieService.remove("token");
@@ -403,13 +406,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  private checkDealerToken() {
-    if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
-      if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
-        this.booleanDealerEmulation = true;
-      }
-    }
-  }
+  // private checkDealerToken() {
+  //   if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
+  //     if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
+  //       this.booleanDealerEmulation = true;
+  //     }
+  //   }
+  // }
 
   logout() {
     sessionStorage.removeItem('CurrentUser');

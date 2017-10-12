@@ -5,6 +5,8 @@ import { SelectItem } from 'primeng/primeng';
 
 import * as userMatrix from '../../../global-variable/user-matrix';
 import { EnrollmentReportInterface } from "./enrollment-report.interface";
+
+import { ReportService } from '../../../services/report/report-service';
 declare var $: any;
 
 @Component({
@@ -33,7 +35,7 @@ export class EnrollmentReportComponent implements OnInit {
   private isDistrict: boolean = false;
   private isManager: boolean = false;
   private isParticipant: boolean = false;
-  private tabNumber: any = "tab1";
+  private tabNumber: any = "";
   private fromDate: any = "";
   private toDate: any = "";
 
@@ -44,7 +46,7 @@ export class EnrollmentReportComponent implements OnInit {
     dealerCode: ""
   }
 
-  constructor(private domSanitizer: DomSanitizer) { }
+  constructor(private domSanitizer: DomSanitizer, private reportService: ReportService) { }
 
   ngOnInit() {
     this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
@@ -56,15 +58,19 @@ export class EnrollmentReportComponent implements OnInit {
       this.isBC = true;
       this.isDistrict = true;
       this.isManager = true;
+      this.viewEXTabOnly();
     }
     var d = new Date;
     var today = new Date();
     var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
     this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
+
+
+    this.checkRole();
     this.squarify();
     this.renderTab();
-    this.viewEXTabOnly();
+
   }
 
   private squarify() {
@@ -100,54 +106,76 @@ export class EnrollmentReportComponent implements OnInit {
     this.squarify();
     //event.target.innerWidth; // window width
   }
+  private selectedRole: any;
+  private isExecutiveUser: boolean = false;
+  private isBCUser: boolean = false;
+  private isDistrictUser: boolean = false;
+  private isDealerUser: boolean = false;
+  private isManagerUser: boolean = false;
+  private isParticipantUser: boolean = false;
+  private checkRole() {
+    this.selectedRole = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+    if (this.selectedRole == 1) {
 
-  private enrollmentReportProgramOptions: SelectItem[] = [
-    { label: "Mopar Parts & Engines", value: "4" },
-    { label: "Express Lane", value: "1" },
-    { label: "Parts Counter", value: "6" }
-  ]
-
-
-  private enrollmentMatrix() {
-    this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
-    if (this.selectedPositionCode != undefined && this.selectedPositionCode == "IAD") {
+      this.isExecutiveUser = true;
       this.tabNumber = "tab1";
       this.isNational = true;
       this.isAdminByPC = true;
       this.isBC = true;
       this.isDistrict = true;
       this.isManager = true;
-    } else if (this.selectedPositionCode != undefined && this.selectedPositionCode == "NAT") {
-      this.tabNumber = "tab1";
-      this.isNational = true;
-      this.isAdminByPC = false;
-      this.isBC = true;
-      this.isDistrict = true;
-      this.isManager = true;
-    } else if (this.selectedPositionCode != undefined && this.selectedPositionCode == "BC") {
+      this.viewEXTabOnly();
+
+    } else if (this.selectedRole == 12) {
+
+      this.isBCUser = true;
       this.tabNumber = "tab2";
       this.isNational = false;
       this.isAdminByPC = false;
       this.isBC = true;
       this.isDistrict = true;
       this.isManager = true;
-    } else if (this.selectedPositionCode != undefined && this.selectedPositionCode == "DOM") {
+      this.viewBCTabOnly();
+
+    } else if (this.selectedRole == 11) {
+
+      this.isDistrictUser = true;
       this.tabNumber = "tab3";
       this.isNational = false;
       this.isAdminByPC = false;
       this.isBC = false;
       this.isDistrict = true;
       this.isManager = true;
-    } else if (this.selectedPositionCode != undefined && this.selectedPositionCode == "DST") {
-      this.tabNumber = "tab3";
-      this.isNational = false;
-      this.isAdminByPC = false;
-      this.isBC = false;
-      this.isDistrict = true;
-      this.isManager = true;
+      this.viewDistrictTabOnly();
+
+    } else if (this.selectedRole == 10) {
+      this.viewDealerTabOnly();
+      this.isDealerUser = true;
 
     }
+    // alert("inside checkrole " + this.tabNumber + this.isBC);
+
   }
+  private districtByBCDatum: any;
+  private getDistrictByBC(bc) {
+    this.reportService.getDistrictByBC(bc).subscribe(
+      (districtByBCDatum) => {
+        this.districtByBCDatum = (districtByBCDatum)
+        console.log(this.districtByBCDatum);
+      },
+      (error) => {
+
+
+      }
+    )
+
+  }
+  private enrollmentReportProgramOptions: SelectItem[] = [
+    { label: "Mopar Parts & Engines", value: "4" },
+    { label: "Express Lane", value: "1" },
+    { label: "Parts Counter", value: "6" }
+  ]
+
   private viewEXTabOnly() {
     this.showExecutiveEnrollmentReportIframe = true;
     this.showBCEnrollmentReportIframe = false;
@@ -155,13 +183,6 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDistrictEnrollmentReportIframe = false;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
-    this.enrollmentReportInterface = {
-      businessCenter: "",
-      district: "",
-      dealerCode: "",
-      programGroup: ""
-    }
-    this.selectedProgramList = ["4", "1", "6"];
     this.showExDepositReport();
   }
   private viewBCTabOnly() {
@@ -171,16 +192,8 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDistrictEnrollmentReportIframe = false;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
-    this.enrollmentReportInterface = {
-      businessCenter: "",
-      district: "",
-      dealerCode: "",
-      programGroup: ""
-    }
-    this.selectedProgramList = ["4", "1", "6"];
     this.viewBCEnrollmentReport();
   }
-
   private viewDistrictTabOnly() {
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = false;
@@ -188,16 +201,8 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDealerEnrollmentReportIframe = false;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
-    this.enrollmentReportInterface = {
-      businessCenter: "",
-      district: "",
-      dealerCode: "",
-      programGroup: ""
-    }
-    this.selectedProgramList = ["4", "1", "6"];
     this.viewDistrictEnrollmentReport();
   }
-
   private viewDealerTabOnly() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.showExecutiveEnrollmentReportIframe = false;
@@ -206,44 +211,12 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDealerEnrollmentReportIframe = true;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
-    this.enrollmentReportInterface = {
-
-      businessCenter: "", district: "", dealerCode: "", programGroup: "",
-
-    }
-
     this.viewDealerEnrollmentReport();
   }
 
-  private viewParticipantTabOnly() {
-    //  this.createBCProgramOptions();
-    var sid = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
-    this.showExecutiveEnrollmentReportIframe = false;
-    this.showBCEnrollmentReportIframe = false;
-    this.showDistrictEnrollmentReportIframe = false;
-    this.showDealerEnrollmentReportIframe = false;
-    this.showParticipantEnrollmentReportIframe = false;
-    this.showDetailEnrollmentReportIframe = false;
-    this.enrollmentReportInterface = {
-
-      businessCenter: "", district: "", dealerCode: "", programGroup: ""
-
-
-
-    }
-
-
-    // this.viewParticipantEnrollmentReport();
-  }
   private showExDepositReport() {
     this.showExecutiveEnrollmentReportIframe = true;
     this.programName = "Enrollment_Executive";
-    var ProgramGroup = "";
-
-    for (var i = 0; i < this.selectedProgramList.length; i++) {
-      ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
-    }
-    console.log(ProgramGroup);
     this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -252,12 +225,17 @@ export class EnrollmentReportComponent implements OnInit {
   private viewBCEnrollmentReport() {
     this.showBCEnrollmentReportIframe = true;
     this.programName = "Enrollment_BC";
-    var BusinessCenter = this.enrollmentReportInterface.businessCenter;
-    var ProgramGroup = "";
-    for (var i = 0; i < this.selectedProgramList.length; i++) {
-      ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
+    if (this.isExecutiveUser) {
+      var BusinessCenter = "NAT";
+      // var BusinessCenter = "CA&BusinessCenter=DN";      
+
+      this.getDistrictByBC(BusinessCenter);
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}`;
+    } else if (this.isBCUser) {
+      var BusinessCenter1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+      this.getDistrictByBC(BusinessCenter1);
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter1}`;
     }
-    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
@@ -265,11 +243,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDistrictEnrollmentReportIframe = true;
     this.programName = "Enrollment_DIST";
     var District = this.enrollmentReportInterface.district;
-    var ProgramGroup = "";
-
-    for (var i = 0; i < this.selectedProgramList.length; i++) {
-      ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
-    }
+    
 
     this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}`;
     console.log(this.src);
