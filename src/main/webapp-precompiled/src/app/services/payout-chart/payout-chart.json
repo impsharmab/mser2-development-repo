@@ -1,0 +1,74 @@
+[
+    {
+        "tab": "SERVICE ADVISORS",
+        "positionCode": "23",
+        "programs": [
+            {
+                "id": 3,
+                "image": "image.jpg",
+                "name": "Mopar Parts",
+                "managerLabel": "PARTS & SERVICE MANAGER OVERRIDE IS 20% ON ALL ABOVE ITEMS.",
+                "payouts": [
+                    {
+                        "name": "Transmissions/Trans Axles/T-Cases",
+                        "value": 20,
+                        "parts": [
+                            "11111",
+                            "22222",
+                            "333333",
+                            "444444"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "tab": "SERVICE Technicians",
+        "positionCode": "23",
+        "programs": [
+            {
+                "id": 3,
+                "image": "image.jpg",
+                "name": "Mopar Parts",
+                "managerLabel": "PARTS & SERVICE MANAGER OVERRIDE IS 20% ON ALL ABOVE ITEMS.",
+                "payouts": [
+                    {
+                        "name": "Transmissions/Trans Axles/T-Cases",
+                        "value": 20,
+                        "parts": [
+                            "11111",
+                            "22222",
+                            "333333",
+                            "444444"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "tab": "Parts ADVISORS",
+        "positionCode": "23",
+        "programs": [
+            {
+                "id": 3,
+                "image": "image.jpg",
+                "name": "Mopar Parts",
+                "managerLabel": "PARTS & SERVICE MANAGER OVERRIDE IS 20% ON ALL ABOVE ITEMS.",
+                "payouts": [
+                    {
+                        "name": "Transmissions/Trans Axles/T-Cases",
+                        "value": 20,
+                        "parts": [
+                            "11111",
+                            "22222",
+                            "333333",
+                            "444444"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

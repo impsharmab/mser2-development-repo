@@ -71,6 +71,8 @@ import { JasperService } from '../../../services/report/jasper-report-poc/jasper
 import { AdminService } from '../../../services/admin-service/admin-user/user-emulation.service';
 import { HomeService } from '../../../services/home-service/home-service';
 import { ReportService } from '../../../services/report/report-service';
+import { PayoutChartService } from '../../../services/payout-chart/payout-chart.service';
+
 
 @NgModule({
   imports: [
@@ -99,7 +101,8 @@ import { ReportService } from '../../../services/report/report-service';
   ],
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
-    RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService, ReportService
+    RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService, ReportService,
+    PayoutChartService
   ]
 })
 export class MserModule { }

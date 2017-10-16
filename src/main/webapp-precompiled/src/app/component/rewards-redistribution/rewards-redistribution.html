@@ -13,22 +13,38 @@
     </div>
   </div>
 
-  <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is: <strong id="participant-id">{{activeProgram}}</strong></div>
+  <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is:
+    <strong id="participant-id">{{activeProgram}}</strong>
+  </div>
 
   <!-- Begin  Dealer Input Field -->
-  <div class="row rewards-program-container">
-    <div class="col-sm-4">
-      <label class="form-label" for="dealer-code">Dealer Code</label>
-      <div>
-        <input class="form-control" id="dealer-code" type="text" required [(ngModel)]="dealerCode" (ngModelChange)="hideValidationDiv()"
-          minlength="5" maxlength="5" pattern="[0-9]{5}" #dealercode="ngModel" />
-        <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" (click)="submitDealerCode(dealerCode)">Submit</button>
-        <div [hidden]=" validDealerCode" class="alert alert-danger">
-          Valid Dealercode is required
+  <!-- <div class="row rewards-program-container"> -->
+  <br>
+  <br>
+  <div class="content-row row">
+    <div class="col-sm-12">
+      <form>
+        <div class="form-group row">
+          <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+            <label for="dealer-code" style="font-weight: bold">Dealer Code :</label>
+
+            <input id="dealer-code" name="dealer-code" type="text" required [(ngModel)]="dealerCode" (ngModelChange)="hideValidationDiv()"
+              minlength="5" maxlength="5" pattern="[0-9]{5}" #dealercode="ngModel" />
+
+
+            <div [hidden]=" validDealerCode" class="alert alert-danger">
+              Valid Dealercode is required
+            </div>
+            <br>
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" (click)="submitDealerCode(dealerCode)">Submit</button>
+
+          </div>
         </div>
-      </div>
+
+      </form>
     </div>
   </div>
+
   <!-- End Dealer Input Field -->
 
 
@@ -40,7 +56,9 @@
         <tr>
           <th id="reward-program" scope="col" role="columnheader">Program</th>
           <th class="right-align" id="amount-to-be-distributed" scope="col" role="columnheader">Amount Available To Re-Distribute</th>
-          <th id="proceed-to-re-allocations" scope="col" role="columnheader"><span class="hide-me">Proceed To Re-Allocations</span></th>
+          <th id="proceed-to-re-allocations" scope="col" role="columnheader">
+            <span class="hide-me">Proceed To Re-Allocations</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -48,27 +66,43 @@
         <tr>
           <td headers="reward-program" role="gridcell">Express Lane</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.el | currency:'USD':true:'1.2-2'}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#elDistributionTable"
-              aria-expanded="false" aria-controls="elDistributionTable" [disabled]="disableelButton" (click)="elProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#elDistributionTable"
+              aria-expanded="false" aria-controls="elDistributionTable" [disabled]="disableelButton" (click)="elProceedToAllocation()">Proceed To Re-Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
         <!-- end ng-if   -->
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.pc | currency:'USD':true:'1.2-2'}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#pcDistributionTable"
-              aria-expanded="false" aria-controls="pcDistributionTable" [disabled]="disablepcButton" (click)="pcProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#pcDistributionTable"
+              aria-expanded="false" aria-controls="pcDistributionTable" [disabled]="disablepcButton" (click)="pcProceedToAllocation()">Proceed To Re-Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.ur | currency:'USD':true:'1.2-2'}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#urDistributionTable"
-              aria-expanded="false" aria-controls="urDistributionTable" [disabled]="disableurButton" (click)="urProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#urDistributionTable"
+              aria-expanded="false" aria-controls="urDistributionTable" [disabled]="disableurButton" (click)="urProceedToAllocation()">Proceed To Re-Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Payout Re-Distribution</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{allocationTableData.payout | currency:'USD':true:'1.2-2'}}</td>
-          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell"><button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable"
-              aria-expanded="false" aria-controls="payoutTable" [disabled]="disablepayoutButton" (click)="payoutProceedToAllocation()">Proceed To Re-Allocations <i class="fa fa-arrow-right"></i></button></td>
+          <td class="center-align" headers="proceed-to-re-allocations" role="gridcell">
+            <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#payoutTable"
+              aria-expanded="false" aria-controls="payoutTable" [disabled]="disablepayoutButton" (click)="payoutProceedToAllocation()">Proceed To Re-Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -86,7 +120,10 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#elAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#elAllocationHistoryModal" (click)="getDistributionHistoryData('el')">
+            <strong>View Allocation History</strong>
+            <i class="fa fa-clone"></i>
+          </a>
         </div>
         <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -99,10 +136,14 @@
           </thead>
           <tbody>
             <tr *ngFor="let elAllocData of elAllocationDataa">
-              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable"
-                  (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')"><i class="fa fa-clone"></i> {{elAllocData.date | date:"MM/dd/yyyy" }}</a></td>
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
+                <a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable" (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')">
+                  <i class="fa fa-clone"></i> {{elAllocData.date | date:"MM/dd/yyyy" }}</a>
+              </td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#elDistributedAmountModal" data-toggle="modal" data-target="#elDistributedAmountModal" (click)="openELHistory(elAllocData.allocationID)">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell">
+                <a class="" href="#elDistributedAmountModal" data-toggle="modal" data-target="#elDistributedAmountModal" (click)="openELHistory(elAllocData.allocationID)">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -122,7 +163,7 @@
               </thead>
               <tbody>
 
-                <tr *ngFor="let data of participantDataValue"> 
+                <tr *ngFor="let data of participantDataValue">
                   <td class="" headers="allocation-participants" role="gridcell">
                     <p-dropdown appendTo="body" [options]="participantsOptions" name="sid" required [(ngModel)]="data.item2" placeholder="Select an SID"
                       filter="filter" [style]="{'width':'100%', 'overflow':'visible'}" #sid="ngModel" (onChange)="selectedParticipant(data.item2)"></p-dropdown>
@@ -162,7 +203,10 @@
     <div class="collapse col-sm-12" id="pcDistributionTable" *ngIf="hidePCSection">
       <div class="row">
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('pc')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('pc')">
+            <strong>View Allocation History</strong>
+            <i class="fa fa-clone"></i>
+          </a>
         </div>
         <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -175,12 +219,16 @@
           </thead>
           <tbody>
             <tr *ngFor="let pcAllocData of pcAllocationDataa">
-              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell"><a data-toggle="collapse" href="#pcParticipantTable" aria-expanded="false" aria-controls="pcParticipantTable"
-                  (click)="openPCRedistributionTable(pcAllocData.allocationID, 'pc')" style="text-decoration: underline">
-                  <i class="fa fa-clone"></i> {{pcAllocData.date | date:"MM/dd/yyyy"}}</a></td>
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
+                <a data-toggle="collapse" href="#pcParticipantTable" aria-expanded="false" aria-controls="pcParticipantTable" (click)="openPCRedistributionTable(pcAllocData.allocationID, 'pc')"
+                  style="text-decoration: underline">
+                  <i class="fa fa-clone"></i> {{pcAllocData.date | date:"MM/dd/yyyy"}}</a>
+              </td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell"><a class="" href="#pcDistributedAmountModal" data-toggle="modal" data-target="#pcDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)"
-                  style="text-decoration: underline">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
+              <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell">
+                <a class="" href="#pcDistributedAmountModal" data-toggle="modal" data-target="#pcDistributedAmountModal" (click)="openPCHistory(pcAllocData.allocationID)"
+                  style="text-decoration: underline">{{pcAllocData.amount | currency:'USD':true:'1.2-2'}}</a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -239,7 +287,10 @@
     <div class="collapse col-sm-12" id="urDistributionTable" *ngIf="hideURSection">
       <div class="row">
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('ur')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('ur')">
+            <strong>View Allocation History</strong>
+            <i class="fa fa-clone"></i>
+          </a>
         </div>
         <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -255,11 +306,13 @@
               <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
                 <a data-toggle="collapse" href="#urParticipantTable" aria-expanded="false" aria-controls="urParticipantTable" (click)="openPCRedistributionTable(urAllocData.allocationID, 'ur')"
                   style="text-decoration: underline">
-                  <i class="fa fa-clone"></i> {{urAllocData.date | date:"MM/dd/yyyy"}}</a></td>
+                  <i class="fa fa-clone"></i> {{urAllocData.date | date:"MM/dd/yyyy"}}</a>
+              </td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{urAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell">
                 <a class="" href="#urDistributedAmountModal" data-toggle="modal" data-target="#urDistributedAmountModal" (click)="openURHistory(urAllocData.allocationID)"
-                  style="text-decoration: underline">{{urAllocData.amount | currency:'USD':true:'1.2-2'}}</a></td>
+                  style="text-decoration: underline">{{urAllocData.amount | currency:'USD':true:'1.2-2'}}</a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -332,9 +385,11 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of payoutGroupedData"> 
-              <td class="" headers="payout-dealer-code" role="gridcell"><a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout"
-                  (click)="createRODetails(data.description)" style="text-decoration: underline">{{insertedDealercode}}</a></td>
+            <tr *ngFor="let data of payoutGroupedData">
+              <td class="" headers="payout-dealer-code" role="gridcell">
+                <a data-toggle="collapse" href="#participantTablePayout" aria-expanded="false" aria-controls="participantTablePayout" (click)="createRODetails(data.description)"
+                  style="text-decoration: underline">{{insertedDealercode}}</a>
+              </td>
               <td class="" headers="payout-category-description" role="gridcell">{{data.description}}</td>
               <td class="right-align" headers="payout-period" role="gridcell">{{data.payoutPeriod}}</td>
               <td class="right-align" headers="payout-reward-amount" role="gridcell">{{data.totalRewardAmount | currency:'USD':true:'1.2-2'}}</td>
@@ -361,7 +416,8 @@
                   <th class="" id="re-allocate-dealer-quantity" role="columnheader" scope="col">Quantity</th>
                   <th class="right-align" id="re-allocate-dealer-reward-amount" role="columnheader" scope="col">Reward Amount</th>
                   <th class="" id="re-allocate-dealer-status" role="columnheader" scope="col">Status</th>
-                  <th class="" id="re-allocate-dealer-approved" role="columnheader" scope="col">Approved?<br>
+                  <th class="" id="re-allocate-dealer-approved" role="columnheader" scope="col">Approved?
+                    <br>
                     <p-checkbox label="" [(ngModel)]="approveAllpayout" (onChange)="approveAllPayoutRedistribution(approveAllpayout)" binary="true"></p-checkbox>
                   </th>
                 </tr>
@@ -397,7 +453,9 @@
 
             <div class="col-sm-12 btn-container">
               <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#payoutCancelationModal">Cancel Changes</button>
-              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#payoutSubmitConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+              <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#payoutSubmitConfirmationModal">Save Changes
+                <i class="fa fa-check"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -420,7 +478,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -437,7 +497,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to cancel changes. Are you sure you want to continue?</p>
@@ -454,7 +516,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to clear changes. Are you sure you want to continue?</p>
@@ -471,7 +535,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -491,7 +557,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -508,7 +576,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to cancel changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -525,7 +595,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to clear changes. Are you sure you want to continue?</p>
@@ -542,7 +614,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -562,7 +636,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -579,7 +655,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to cancel changes. Are you sure you want to continue?</p>
@@ -596,7 +674,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to clear changes. Are you sure you want to continue?</p>
@@ -613,7 +693,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -634,7 +716,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to cancel changes. Are you sure you want to continue?</p>
@@ -652,7 +736,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -675,7 +761,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped" role="grid">
@@ -708,7 +796,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped" role="grid">
@@ -741,7 +831,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped" role="grid">
@@ -778,7 +870,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="pcDistributedAmountModalLabel">Express Lane Distributed Participants</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped" role="grid">
@@ -817,7 +911,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="pcDistributedAmountModalLabel">Parts Counter Distributed Participants </h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped" role="grid">
@@ -856,7 +952,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="pcDistributedAmountModalLabel">UVM Distributed Participants </h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped" role="grid">

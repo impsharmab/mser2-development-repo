@@ -71,8 +71,8 @@
 
     <ul class="nav navbar-nav ml-auto">
         <li class="menuItem">
-            <a *ngIf="booleanAdminToken && (isDealerEmulation=='false')" class=" utility-nav" (click)="endEmulation()" style="cursor:pointer; color:red; margin-right: 15px; ">End SID Emulation</a>
-            <a *ngIf="isDealerEmulation=='true'" class=" utility-nav" (click)="endDealerEmulation()" style="cursor:pointer; color:red; margin-right: 15px; ">End Dealer Emulation</a>
+            <a *ngIf="booleanAdminToken && (isDealerEmulation=='false')" class=" utility-nav" (click)="endEmulation()" style="cursor:pointer; color:red; margin-right: 15px; text-decoration: underline">End Emulation</a>
+            <a *ngIf="isDealerEmulation=='true'" class=" utility-nav" (click)="endDealerEmulation()" style="cursor:pointer; color:red; margin-right: 15px; text-decoration: underline">End Emulation</a>
         </li>
 
         <li class="nav-item refresh-button-container">

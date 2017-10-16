@@ -5,12 +5,32 @@
         <li class="nav-title text-center">
           <span>Dashboard</span>
         </li>
-        <li class="nav-item"><a class="nav-link" routerLink="home" routerLinkActive="active-link">Home </a></li>
-        <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="payoutchart">Payout Chart<span class="badge badge-info"></span></a></li>
-        <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="categorymaintenance">Category Maintenance<span class="badge badge-info"></span></a></li>
-        <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="partadd">Add Part<span class="badge badge-info"></span></a></li>
-        <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="partmaintenance">Part Maintenance<span class="badge badge-info"></span></a></li>
-        <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="adminpayout">Admin Payout </a></li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="home" routerLinkActive="active-link">Home </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="payoutchart">Payout Chart
+            <span class="badge badge-info"></span>
+          </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="categorymaintenance">Category Maintenance
+            <span class="badge badge-info"></span>
+          </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="partadd">Add Part
+            <span class="badge badge-info"></span>
+          </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="partmaintenance">Part Maintenance
+            <span class="badge badge-info"></span>
+          </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="adminpayout">Admin Payout </a>
+        </li>
         <li class="divider"></li>
         <li class="nav-title text-center">
           <span>Resources</span>
@@ -18,12 +38,24 @@
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="mSEREnrollmentPageMatrix()">Enrollment </a>
           <ul class="nav-dropdown-items dopdown-child">
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mserRules', 'pdf':'false'}]">MSER Rules</a></li>
-            <li *ngIf="showMSEREnrollmentForm || isAdmin" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a></li>
-            <li *ngIf="showMSERAutoEnrollmentOpt || isAdmin" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a></li>
-            <li *ngIf="showMSEREnrollmentReport || isAdmin" class="nav-item"><a class="nav-link" routerLink="enrollmentreport">Enrollment Report</a></li>
-            <li *ngIf="showMSEREnrollmentMaintenance || isAdmin" class="nav-item"><a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a></li>
-            <li *ngIf="showMSEROPCodeSetup || isAdmin" class="nav-item"><a class="nav-link" routerLink="opcodesetup">OP Code Setup</a></li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mserRules', 'pdf':'false'}]">MSER Rules</a>
+            </li>
+            <li *ngIf="showMSEREnrollmentForm || isAdmin" class="nav-item">
+              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a>
+            </li>
+            <li *ngIf="showMSERAutoEnrollmentOpt || isAdmin" class="nav-item">
+              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a>
+            </li>
+            <li *ngIf="showMSEREnrollmentReport || isAdmin" class="nav-item">
+              <a class="nav-link" routerLink="enrollmentreport">Enrollment Report</a>
+            </li>
+            <li *ngIf="showMSEREnrollmentMaintenance" class="nav-item">
+              <a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a>
+            </li>
+            <li *ngIf="showMSEROPCodeSetup || isAdmin" class="nav-item">
+              <a class="nav-link" routerLink="opcodesetup">OP Code Setup</a>
+            </li>
             <!--<li class="nav-item"><a class="nav-link" routerLink="payoutedistribution">Payout ReDistribution</a></li>-->
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'MSER_Enrollment_Form.pdf', 'pdf':'true'}]" target="_blank">Enrollment Form</a></li>-->
           </ul>
@@ -31,15 +63,25 @@
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Marketing</a>
           <ul class="nav-dropdown-items dopdown-child">
-            <li class="nav-item"><a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'homeMaintenanceRebates', 'pdf':'false'}]">Home</a></li>
-            <li class="nav-item"><a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'recallRewards', 'pdf':'false'}]">Recall Reward Rules</a></li>
-            <li class="nav-item"><a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'MarketingPrograms', 'pdf':'false'}]">Marketing Programs</a></li>
+            <li class="nav-item">
+              <a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'homeMaintenanceRebates', 'pdf':'false'}]">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'recallRewards', 'pdf':'false'}]">Recall Reward Rules</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'MarketingPrograms', 'pdf':'false'}]">Marketing Programs</a>
+            </li>
             <!--<li class="nav-item"><a class="nav-link">Training</a></li>-->
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Training</a>
               <ul class="">
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="marketingtrainingpresentation">Videos &amp; Presentations</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Full_Deck_v2.pdf" target="_blank">Service Lane Sales Training</a></li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="marketingtrainingpresentation">Videos &amp; Presentations</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Full_Deck_v2.pdf" target="_blank">Service Lane Sales Training</a>
+                </li>
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li> -->
               </ul>
             </li>
@@ -54,15 +96,23 @@
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Part</a>
               <ul class="">
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="partcategorylookup">Part Category Lookup</a></li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="partcategorylookup">Part Category Lookup</a>
+                </li>
               </ul>
             </li>
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">User</a>
               <ul class="">
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="useremulation">User Emulation</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="employeemaintenance">Employee Maintenance</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="userlookup">User Maintenance</a></li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="useremulation">User Emulation</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="employeemaintenance">Employee Maintenance</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="userlookup">User Maintenance</a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -76,185 +126,160 @@
             <li class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">MSER</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="rewardsdepositreport">Reward Deposit Report</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="roreport">RO Report</a></li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="rewardsdepositreport">Reward Deposit Report</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="roreport">RO Report</a>
+                </li>
+                <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li> -->
+              </ul>
+            </li>
+            <li class="nav-item nav-dropdown dopdown-grandchild">
+              <a class="nav-link nav-dropdown-toggle child-link" href="#">BC Reports</a>
+              <ul>
+                <li class="nav-item nav-dropdown dopdown-grandchild">
+                  <a class="nav-link grandchild-link nav-dropdown-toggle child-link only-child">CABC and MABC - Chemical</a>
+                  <ul>
+                    <li class="nav-item">
+                      <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'MACAChemicalSpiffRules', 'pdf':'false'}]">Rules</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a class="nav-link grandchild-link">Reports</a>
+                    </li> -->
+                  </ul>
+                </li>
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li> -->
               </ul>
             </li>
             <li class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Parts</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="partssummaryroreport">Parts Summary Repair Orders</a></li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="partssummaryroreport">Parts Summary Repair Orders</a>
+                </li>
               </ul>
             </li>
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">MVP</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Approved Contracts</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Ineligible Contracts</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Contract Pending Approval</a></li>
-              </ul>
-            </li> -->
+
             <li class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Parts Counter</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="pcdistributionreport">PC Distribution</a></li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="pcdistributionreport">PC Distribution</a>
+                </li>
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="pcinvoicereport">PC Invoice</a></li> -->
               </ul>
             </li>
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">Used Vehicle Manager</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Title</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">Warranty</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Title</a></li>
-              </ul>
-            </li> -->
+
             <li *ngIf="!hideThisReportForParticipant" class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">wiAdvisor MSER</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="wiadvisortirereport">wiAdvisor Tires</a></li>
-                <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">MVP - Management</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">MVP - Status</a></li> -->
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="wiadvisortirereport">wiAdvisor Tires</a>
+                </li>
+
               </ul>
             </li>
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">wiAdvisor MVP</a>
-              <ul> -->
-            <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="wiadvisormanagementreport">wiAdvisor Management Report</a></li> -->
-            <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">MVP - Management</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">MVP - Status</a></li> -->
-            <!-- </ul>
-            </li> -->
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">Management Reporting</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">BC Special Plans</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">BC Dealership Top 25</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">BC SA/ST/SM/PM Top 25</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">BC Tire Sale</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Payout Chart Report</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Enrollment Report</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link  nav-dropdown-toggle child-link" href="#">UConnect</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">UConnect Sales &amp; Service</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">UConnect Manager</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">BC Specific Reporting</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">CA/MA Chemical</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">DN/SE Warranty</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">SW Tire Spins</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link" href="#">Admin Reports</a>
-              <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" routerLink="">Title</a></li>
-              </ul>
-            </li> -->
+
           </ul>
         </li>
         <!-- End Report Center -->
-        <li class="nav-item"><a class="nav-link" routerLink="partslookuppage">Parts Lookup</a></li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="partslookuppage">Parts Lookup</a>
+        </li>
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="mvpPageMatrix()">MVP</a>
           <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link">Home</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a></li>
+            <li class="nav-item">
+              <a class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a>
+            </li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneMaintenance', 'pdf':'false'}]">Approve MVP Plans</a></li>-->
-            <li *ngIf="showMVPChangeApprovalSettings || isAdmin" class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="mvp">Videos &amp; Presentations </a></li>
+            <li *ngIf="showMVPChangeApprovalSettings || isAdmin" class="nav-item">
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="mvp">Videos &amp; Presentations </a>
+            </li>
           </ul>
         </li>
-        <!--<li class="nav-item"><a class="nav-link">MSER</a></li>
-        <li class="nav-item"><a class="nav-link">BC Reports</a></li>
-        <li class="nav-item"><a class="nav-link">BOOST</a></li>-->
+
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Express Lane</a>
           <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link">Home</a></li>
-            <!-- <li class="nav-item"><a class="nav-link" routerLink="dealerteam">Dealer Team</a></li> -->
-            <!--<li class="nav-item"><a class="nav-link">Rewards Re-Distribution</a></li>-->
-            <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="mvp">Videos</a></li>-->
+            <li class="nav-item">
+              <a class="nav-link">Home</a>
+            </li>
+
           </ul>
         </li>
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Parts Counter</a>
           <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link">Home</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'partsCounterRules', 'pdf':'false'}]">Rules</a></li>
-            <!--<li class="nav-item"><a class="nav-link" routerLink="partsCounterRewardsDistribution">Rewards Distribution</a></li>-->
-            <!--<li class="nav-item"><a class="nav-link">Rewards Re-Distribution</a></li>-->
-            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li>
-            <!-- <li class="nav-item"><a class="nav-link">Rejected Invoice Details</a></li> -->
+            <li class="nav-item">
+              <a class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'partsCounterRules', 'pdf':'false'}]">Rules</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a>
+            </li>
 
-            <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="mvp">Videos</a></li>-->
           </ul>
         </li>
 
-        <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'consumerRebates', 'pdf':'false'}]">Consumer Rebates</a></li>
-        <!--<li class="nav-item"><a class="nav-link">Upfits</a></li>-->
-
-        <!-- <li class="nav-item nav-dropdown dopdown-parent">
-          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Warranty Program</a>
-          <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'warrantyProgramRules', 'pdf':'false'}]">Program Rules</a></li>
-            <li class="nav-item"><a class="nav-link">Warranty Rewards Program Report</a></li>
-          </ul>
-        </li> -->
-
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'consumerRebates', 'pdf':'false'}]">Consumer Rebates</a>
+        </li>
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">UConnect</a>
           <ul class="nav-dropdown-items dopdown-child">
-            <li class="nav-item"><a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectHomePage', 'pdf':'false'}]">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectHomePage', 'pdf':'false'}]">Home</a>
+            </li>
             <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link nav-dropdown-toggle child-link only-child" href="#">Rules</a>
+              <a class="nav-link nav-dropdown-toggle child-link only-child" href="#">Program Rules</a>
               <ul>
-                <li class="nav-item"><a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">SM Incentive Program Rules</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectServiceRules', 'pdf':'false'}]">Service Program Rule</a></li>
-                <li class="nav-item"><a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Sales Program Rule</a></li>
-                <!-- <li class="nav-item"><a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a></li> -->
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">SM Winter Program</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Navigate to Higher Profits</a>
+                </li>
               </ul>
             </li>
 
-            <!-- <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">Rules > SM Incentive Program Rules</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectServiceRules', 'pdf':'false'}]">Rules > Service Program Rule</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Rules > Sales Program Rule</a></li> -->
-            <!-- <li class="nav-item"><a class="nav-link child-link">Reports</a></li> -->
-            <li class="nav-item"><a class="nav-link child-link" routerLink="uconnectvideos">Videos &amp; Presentations</a></li>
-            <li class="nav-item"><a class="nav-link child-link" href="/shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process</a></li>
-            <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Sirius XM Activation > Rule</a></li>
-            <li class="nav-item"><a class="nav-link" >Sirius XM Activation > Report</a></li>-->
+            <li class="nav-item">
+              <a class="nav-link child-link" routerLink="uconnectvideos">Videos &amp; Presentations</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link child-link" href="/shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process</a>
+            </li>
+            <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Sirius XM Activation > Rule</a></li>-->
+            <li class="nav-item nav-dropdown dopdown-grandchild">
+              <a class="nav-link  nav-dropdown-toggle child-link only-child">Sirius XM Activation</a>
+              <ul>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Rules</a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </li>
 
-        <!-- <li class="nav-item nav-dropdown">
-          <a class="nav-link nav-dropdown-toggle" style="cursor: pointer">Service Incentive Rewards</a>
-          <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'SIRHome', 'pdf':'false'}]">Home</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'SIRProgramRules', 'pdf':'false'}]">Program Rules</a></li>
-            <li class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/Top10WinnersFrom2016.pdf" target="_blank">Top Earning Advisors:Total 2016 Payouts </a></li>
 
-          </ul>
-        </li> -->
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="uvmPageMatrix()">Used Recon</a>
           <ul class="nav-dropdown-items">
-            <li *ngIf="showuvmHome || isAdmin" class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uvmHome', 'pdf':'false'}]">Home</a></li>
-            <li *ngIf="showuvmProgramRules || isAdmin" class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uvmProgramRules', 'pdf':'false'}]">Program Rules</a></li>
-            <!--<li class="nav-item"><a class="nav-link">Reward Re-Distribution </a></li>-->
+            <li *ngIf="showuvmHome || isAdmin" class="nav-item">
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uvmHome', 'pdf':'false'}]">Home</a>
+            </li>
+            <li *ngIf="showuvmProgramRules || isAdmin" class="nav-item">
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'uvmProgramRules', 'pdf':'false'}]">Program Rules</a>
+            </li>
 
           </ul>
         </li>
@@ -262,33 +287,34 @@
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="excellenceCardMatrix()">Excellence Card</a>
           <ul class="nav-dropdown-items">
-            <li *ngIf="showexcellenceCardIssuance || isAdmin" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/ExcellenceCardIssuanceSchedule.pdf" target="_blank">2017 Excellence Card Issuance Schedule</a></li>
-            <li *ngIf="showexcellenceCardInfo || isAdmin" class="nav-item"><a class="nav-link" href="/shared/imi-cms/MSER/webDocs/VISA%20CAROUSEL%20LINK.pdf" target="_blank">Excellence Card Information</a></li>
+            <li *ngIf="showexcellenceCardIssuance || isAdmin" class="nav-item">
+              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/ExcellenceCardIssuanceSchedule.pdf" target="_blank">2017 Excellence Card Issuance Schedule</a>
+            </li>
+            <li *ngIf="showexcellenceCardInfo || isAdmin" class="nav-item">
+              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/VISA%20CAROUSEL%20LINK.pdf" target="_blank">Excellence Card Information</a>
+            </li>
           </ul>
         </li>
 
         <li *ngIf="showRewardDistributionMainTab || isAdmin" class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="rewardDistributionMatrix()">Reward Distribution</a>
           <ul class="nav-dropdown-items">
-            <li *ngIf="showRewardDistribution" class="nav-item"><a class="nav-link" routerLink="rewardsdistribution">Reward Distribution</a></li>
-            <li *ngIf="isAdmin" class="nav-item"><a class="nav-link" routerLink="rewardsredistribution">Reward Re-Distribution</a></li>
+            <li *ngIf="showRewardDistribution" class="nav-item">
+              <a class="nav-link" routerLink="rewardsdistribution">Reward Distribution</a>
+            </li>
+            <li *ngIf="isAdmin" class="nav-item">
+              <a class="nav-link" routerLink="rewardsredistribution">Reward Re-Distribution</a>
+            </li>
           </ul>
         </li>
 
-        <li class="nav-item"><a class="nav-link"></a></li>
-        <li class="nav-item"><a class="nav-link"></a></li>
+        <li class="nav-item">
+          <a class="nav-link"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"></a>
+        </li>
         <li class="nav-item"></li>
-
-        <!--<li class="nav-item nav-dropdown">
-          <a class="nav-link nav-dropdown-toggle" style="cursor: pointer">Warranty Program</a>
-          <ul class="nav-dropdown-items">
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'warrantyProgramRules', 'pdf':'false'}]">Program Rules</a></li>
-            <li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'partsCounterRules', 'pdf':'false'}]">Warranty Rewards Program Report</a></li>
-
-          </ul>
-        </li>-->
-
-
 
       </ul>
     </nav>

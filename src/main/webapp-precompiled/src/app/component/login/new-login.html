@@ -20,7 +20,7 @@
 </header>
 
 <!-- Main content -->
-<main class="main">
+<main class="main" [hidden]="hideLoginPage">
 
     <!-- Page Title -->
     <div class="page-title">
@@ -47,11 +47,12 @@
 
                 <article class="card animated fadeInUp">
 
-                    <div class="card-block">                      
+                    <div class="card-block">
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
                                 <form class="pageForm" #f="ngForm" novalidate (ngSubmit)="login()">
-                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{loginFailed}} <br> {{errorMessage}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{loginFailed}}
+                                        <br> {{errorMessage}}</p>
                                     <br>
                                     <label>SID/TID: *</label>
                                     <input type="text" name="username" id="username" [(ngModel)]="user.username" #username="ngModel" required minlength="7" maxlength="7"
@@ -64,13 +65,15 @@
 
                                     <!--<a class="resetLink" style="color:blue;text-decoration:underline; cursor: pointer" (click)="resetPassword()">Reset Password</a>-->
                                     <br />
-                                    <p><strong>If your dealership is currently not enrolled in MSER, please choose from the following:</strong></p>
+                                    <p>
+                                        <strong>If your dealership is currently not enrolled in MSER, please choose from the following:</strong>
+                                    </p>
                                     <a class="" style="color:blue;text-decoration:underline; cursor: pointer" (click)="dealerregister()">Dealer Enrollment Form</a>
                                     <br />
                                     <a class="" style="color:blue;text-decoration:underline; cursor: pointer" (click)="fiatEnrollment()">FIAT Dealer Enrollment Form</a>
                                     <br />
                                     <!-- <a class="" style="color:blue;text-decoration:underline; cursor: pointer" routerLink="/resetpassword" >Reset Password</a> -->
-                                    
+
                                     <!-- <a href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" class="resetLink" style="color:blue;text-decoration:underline;"
                                         target="_blank">Enrollment Form</a>
                                     <br />
@@ -103,5 +106,9 @@
         </div>
         <!-- .end FIRST row -->
     </div>
-    
+
 </main>
+
+<div style="display: flex; justify-content: center;" [hidden]="!hideLoginPage">
+    <img class="refreshGlyphImg" src="assets/img/spinner/spinner1.gif" />
+</div>

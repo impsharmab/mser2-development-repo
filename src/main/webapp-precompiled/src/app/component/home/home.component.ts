@@ -12,75 +12,33 @@ import { HomeService } from '../../services/home-service/home-service';
 })
 export class HomeComponent implements OnInit {
   private isDealerManager: any = false;
-  private mserEnrollmentTileData: any = [
-    {
-      "name": "Total Dealers Enrolled",
-      "value": "245",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "number"
-    },
-    {
-      "name": "QTD Survey Count",
-      "value": "18086",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "currency"
-    },
-    {
-      "name": "Total Survey Count",
-      "value": "12014",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "number"
-    },
-    {
-      "name": "Test Count",
-      "value": "32547",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "currency"
-    }
-  ];
+  private isAdmin: any = false;
+  private isTIDUser: any = false;
 
-  private mserEarningTileData: any = [
-    {
-      "name": "Total Dealers Enrolled",
-      "value": "47",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "number"
-    },
-    {
-      "name": "Survey Count",
-      "value": "24701",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "currency"
-    },
-    {
-      "name": "YTD Survey Count",
-      "value": "30111",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "currency"
-    },
-    {
-      "name": "QTD Survey Count",
-      "value": "18086",
-      "tileName": "",
-      "tileHeaderImage": "mser-logo.jpg",
-      "type": "number"
-    }
-  ];
   constructor(private homeService: HomeService, private router: Router) { }
 
   ngOnInit() {
+    this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
+    if (this.isAdmin) {
+      this.isTIDUser = true;
+    } else {
+      this.checkRoles();
+    }
     this.getMSEREnrollmentTileData();
     this.getMSEREarningTileData();
     this.hideEnrollmentTileMatrix();
   }
+  private showEnrollmentMaintenanceButton: boolean = false;
+  private checkRoles() {
+    var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
+    var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
+    var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
+    if (isDealerManager || isPartsManagerOfRecord || isServiceManagerOfRecord) {
+      this.showEnrollmentMaintenanceButton = true;
+    } else {
 
+    }
+  }
   private mserEnrollmentDatum: any = [{
     "name": "",
     "value": 0,
@@ -88,7 +46,7 @@ export class HomeComponent implements OnInit {
     "tileName": "",
     "tileHeaderImage": ""
   }];
-  private getMSEREnrollmentTileData() {   
+  private getMSEREnrollmentTileData() {
     this.homeService.getMSEREnrollmentTileData().subscribe(
       (mserEnrollmentDatum) => {
         this.mserEnrollmentDatum = (mserEnrollmentDatum)

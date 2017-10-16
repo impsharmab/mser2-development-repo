@@ -15,17 +15,19 @@
 
         <div class="card1">
           <!-- <p>{{mserEnrollmentDatum[0].tileName}}</p> -->
-          <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/MSEREnrollment.jpg" style="height: 55px"> </div>
+          <div class="image-frame">
+            <img src="https://www.myfcarewards.com/services/loadrsc/MSEREnrollment.jpg" style="height: 55px"> </div>
           <div class="display-data-set">
             <div class="data-group" *ngFor="let data of mserEnrollmentDatum; let i = index;">
               <p *ngIf="data.type=='number' && data.value!=undefined" class="data-point">{{data.value | commaSeparatedNumber}}</p>
               <p *ngIf="data.type=='currency' && data.value!=undefined" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
-              <p *ngIf="data.type=='text'" class="data-point">{{data.value }}</p>
-              <p class="data-substitle">{{data.name}}</p>
+              <p *ngIf="data.type=='text'" class="data-point" [innerHtml]="data.value"></p>
+              <p class="data-substitle" [innerHtml]="data.name"></p>
             </div>
           </div>
-          <div class="button-container pull-right">
-            <button type="button " class="btn btn-primary btn-sm " (click)="openEnrollmentSite()"><i class="fa fa-arrow-circle-right " aria-hidden="true "></i> Visit Enrollment Maintenance </button>
+          <div [hidden]="!showEnrollmentMaintenanceButton" class="button-container pull-right">
+            <button type="button " class="btn btn-primary btn-sm " (click)="openEnrollmentSite()">
+              <i class="fa fa-arrow-circle-right " aria-hidden="true "></i> Visit Enrollment Maintenance </button>
           </div>
         </div>
       </div>
@@ -35,13 +37,14 @@
       <div class="col-sm-6 box">
         <!-- <div *ngFor="let data of tileData; let i = index;" class="{{(tileData.length%2==1) && (tileData.length== i+1) ? 'col-sm-6 card1':'col-sm card1'}}"> -->
         <div class="card1">
-          <div class="image-frame"><img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
+          <div class="image-frame">
+            <img src="https://www.myfcarewards.com/services/loadrsc/mser-logo.jpg"> </div>
           <div class="display-data-set">
             <div class="data-group" *ngFor="let data of mserEarningDatum; let i = index;">
               <p *ngIf="data.type=='number' && data.value!=undefined" class="data-point">{{data.value | commaSeparatedNumber}}</p>
               <p *ngIf="data.type=='currency'&&  data.value!=undefined" class="data-point">{{data.value | currency:'USD':true:'1.2-2'}}</p>
-              <p *ngIf="data.type=='text'" class="data-point">{{data.value }}</p>
-              <p class="data-substitle">{{data.name}}</p>
+              <p *ngIf="data.type=='text'" class="data-point" [innerHtml]="data.value"></p>
+              <p class="data-substitle" [innerHtml]="data.name"></p>
             </div>
           </div>
         </div>

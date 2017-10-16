@@ -39,7 +39,7 @@ export class PasswordResetComponent implements OnInit {
             this.msg = "Please enter new Password";
             return;
         } else if (password !== confirmpassword) {
-            this.msg = "Password didnot match";
+            this.msg = "Confirmation Password you entered does not match";
             return;
         }
 

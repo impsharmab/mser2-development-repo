@@ -52,6 +52,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
     this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
     if (this.isAdmin) {
+      this.isExecutiveUser = true;
       this.tabNumber = "tab1";
       this.isNational = true;
       this.isAdminByPC = true;
@@ -227,8 +228,6 @@ export class EnrollmentReportComponent implements OnInit {
     this.programName = "Enrollment_BC";
     if (this.isExecutiveUser) {
       var BusinessCenter = "NAT";
-      // var BusinessCenter = "CA&BusinessCenter=DN";      
-
       this.getDistrictByBC(BusinessCenter);
       this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}`;
     } else if (this.isBCUser) {
@@ -242,24 +241,31 @@ export class EnrollmentReportComponent implements OnInit {
   private viewDistrictEnrollmentReport() {
     this.showDistrictEnrollmentReportIframe = true;
     this.programName = "Enrollment_DIST";
-    var District = this.enrollmentReportInterface.district;
-    
 
-    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}`;
+    if (this.isExecutiveUser) {
+      var District = "NAT";
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}`;
+    } else if (this.isBCUser || this.isDistrictUser) {
+      var District1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District1}`;
+    }
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
   private viewDealerEnrollmentReport() {
     this.showDealerEnrollmentReportIframe = true;
     this.programName = "Enrollment_Dealer";
-    var DealerCode = this.enrollmentReportInterface.dealerCode;
 
-    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}`;
+    if (this.isExecutiveUser) {
+      var DealerCode = "NAT";
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}`;
+
+    } else if (this.isBCUser || this.isDistrictUser || this.isDealerUser) {
+      var DealerCode1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode1}`;
+
+    }
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
-
-
-
-
 }

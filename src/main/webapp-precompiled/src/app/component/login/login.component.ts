@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
               "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
             }))
 
-          let url = ["mserHomepage"]
+          let url = ["mserHomepage/home"]
           this.router.navigate(url);
 
         } else {
@@ -167,7 +167,7 @@ export class LoginComponent implements OnInit {
                 }))
 
               if (mserEnrollment && !passwordReset) {
-                let url = ["mserHomepage"]
+                let url = ["mserHomepage/home"]
                 this.router.navigate(url);
               } else if (mserEnrollment && passwordReset) {
                 let url = ["resetpassword"]
@@ -222,7 +222,7 @@ export class LoginComponent implements OnInit {
             }))
 
           if (mserEnrollment && !passwordReset) {
-            let url = ["mserHomepage"]
+            let url = ["mserHomepage/home"]
             this.router.navigate(url);
           } else if (mserEnrollment && passwordReset) {
             let url = ["resetpassword"]

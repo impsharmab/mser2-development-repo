@@ -6,11 +6,11 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            Admin Dashboard
+                            User Emulation
                         </h1>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 
@@ -33,19 +33,26 @@
                         <!--<div class="introHeading">
                   <h1>Admin Dashboard</h1>
                 </div>-->
-                        <div class="heading-line">
+                        <!-- <div class="heading-line">
                             <h2>User Emulation</h2>
-                        </div>
+                        </div> -->
 
                         <div class="content-row row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
+                            <!-- <div class="col-sm-12 col-md-12 col-lg-12"> -->
+                            <div class="col-sm-12">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 col-md-5 col-lg-4 col-xl-6">
+                                            <p style="color: red;">{{emulateusermessage}}</p>
+                                            <label for="emulateUserName" style="font-weight: bold">
+                                                User ID :
+                                            </label>
+                                            <input type="text" id="emulateUserName" name="emulateUserName" pInputText [(ngModel)]="emulateUserID" minlength="5" maxlength="7"
+                                            />
+                                        </div>
+                                    </div>
 
-                                <form class="pageForm">
-                                    <p style="color: red;">{{emulateusermessage}}</p>
-                                    <label>Enter SID/TID/Dealer Code</label>
-                                    <input type="text" id="emulateUserName" name="emulateUserName" pInputText [(ngModel)]="emulateUserID" minlength="5" maxlength="7"
-                                    />
-                                    <br />
+
                                     <button type="button" class="btn btn-primary btn-sm inline" (click)="emulateAllUser(emulateUserID)">Emulate User</button>
                                 </form>
                             </div>
