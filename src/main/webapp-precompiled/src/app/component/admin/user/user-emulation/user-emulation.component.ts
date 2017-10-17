@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 
 import { AdminService } from '../../../../services/admin-service/admin-user/user-emulation.service';
 import { LoginService } from '../../../../services/login-service/login.service';
+
+declare var $: any;
+
 @Component({
     selector: 'user-emulation',
     templateUrl: './user-emulation.html'
@@ -23,9 +26,10 @@ export class UserEmulationComponent implements OnInit {
     }
 
     ngOnInit() {
-
+       
     }
 
+    
     private emulateAllUser(emulateID) {
         if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";

@@ -162,7 +162,7 @@ export class RewardsRedistributionComponent implements OnInit {
         }
         this.allocationTableData.payout = payoutTotalData;
         if (payoutTotalData == 0) {
-            this.disablepayoutButton = false;
+            this.disablepayoutButton = true;
         } else {
             this.disablepayoutButton = false;
         }

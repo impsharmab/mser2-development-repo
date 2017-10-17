@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable'
+
+import * as serviceUrl from '../../global-variable/service-url';
+
 import './../rxjs-operators';
 
 @Injectable()
 export class EnrollmentMaintenanceService {
-  private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
 
   constructor(private http: Http) { }
 
   getEnrollmentData(dealerCode) {
-    var url = 'https://test.myfcarewards.com/mser/enrollments/getDealerEnrollements/' + dealerCode;
+    var url = serviceUrl.baseUrl + 'enrollments/getDealerEnrollements/' + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -23,7 +24,7 @@ export class EnrollmentMaintenanceService {
       .catch(this.handleError);
   }
   getNotEnrolledData(dealerCode) {
-    var url = 'https://test.myfcarewards.com/mser/enrollments/getDealerNonEnrolledParticipants/' + dealerCode;
+    var url = serviceUrl.baseUrl + 'enrollments/getDealerNonEnrolledParticipants/' + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -35,7 +36,7 @@ export class EnrollmentMaintenanceService {
       .catch(this.handleError);
   }
   getPositionCodes() {
-    var url = 'https://test.myfcarewards.com/mser/General/PositionCodeList';
+    var url = serviceUrl.baseUrl + 'General/PositionCodeList';
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -49,7 +50,7 @@ export class EnrollmentMaintenanceService {
 
   saveEnrollmentMaintenanceData(enrollmentDataResponse, myPersonalPositionCode, overriddenpositionCodes, mserData, masData, mmData,
     mvpData, fiatData, tiresData, wiAdvMVPData, wiAdvTireData, uconSalesData, uconServiceData, pcData, elData, usedReconManagerData, usedReconParticipantData): any {
-    var url = this.baseUrl + "enrollments/DealerEnrollements/SET/";
+    var url = serviceUrl.baseUrl + "enrollments/DealerEnrollements/SET/";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     var body = {

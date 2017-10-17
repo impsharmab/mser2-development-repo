@@ -3,16 +3,16 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class PayoutChartService {
-    private baseUrl = "https://test.myfcarewards.com/mser/";
-    // private baseUrl = "./";
 
     constructor(private http: Http) {
     }
 
     getPayoutCMSPage(pageName): any {
-        var url = this.baseUrl + "content/" + pageName;
+        var url = serviceUrl.baseUrl + "content/" + pageName;
 
         return this.http.get(url)
             .map((response: Response) => response.text())
@@ -21,10 +21,15 @@ export class PayoutChartService {
     }
 
     getPayoutChartData(): any {
-        var url = "./payout-chart.json";
+        var url = serviceUrl.baseUrl + "payout/getpayout/";
 
-        return this.http.get(url)
-            .map((response: Response) => response.text())
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers })
+            .map((response: Response) => response.json())
             .catch(this.handleError);
 
     }

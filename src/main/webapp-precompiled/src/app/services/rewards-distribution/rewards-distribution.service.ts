@@ -3,16 +3,16 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class RewardsDistributionService {
-  private baseUrl = "https://test.myfcarewards.com/mser/";
-  // // private baseUrl = "./";
-
+  
   constructor(private http: Http) { }
 
 
   getRewardsDistributionAmount(dealerCode): any {
-    var url = this.baseUrl + "Rewards/" + dealerCode;
+    var url = serviceUrl.baseUrl + "Rewards/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -24,7 +24,7 @@ export class RewardsDistributionService {
       .catch(this.handleError);
   }
   getMVPDistributionData(dealerCode): any {
-    var url = this.baseUrl + "Rewards/MVPApproval/" + dealerCode;
+    var url = serviceUrl.baseUrl + "Rewards/MVPApproval/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -37,7 +37,7 @@ export class RewardsDistributionService {
   }
 
   getParticipantsByDealer(dealerCode, program) {
-    var url = this.baseUrl + "General/ParticipantsByDealer/" + program + "/" + dealerCode;
+    var url = serviceUrl.baseUrl + "General/ParticipantsByDealer/" + program + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -49,7 +49,7 @@ export class RewardsDistributionService {
       .catch(this.handleError);
   }
   saveMVPDistributionDATA(dealerCode, data) {
-    var url = this.baseUrl + "Rewards/MVPApproval/" + dealerCode;
+    var url = serviceUrl.baseUrl + "Rewards/MVPApproval/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = data;
     var headers = new Headers();
@@ -62,7 +62,7 @@ export class RewardsDistributionService {
       .catch(this.handleError);
   }
   getDistributionHistoryData(dealerCode, programName): any {
-    var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
+    var url = serviceUrl.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -75,7 +75,7 @@ export class RewardsDistributionService {
   }
 
   // savePCDistributionData(dealerCode, list) {
-  //   var url = this.baseUrl + "Rewards/PartsCounter/" + dealerCode;
+  //   var url = serviceUrl.baseUrl + "Rewards/PartsCounter/" + dealerCode;
   //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
   //   var body = list;
   //   var headers = new Headers();
@@ -89,7 +89,7 @@ export class RewardsDistributionService {
   // }
 
   // saveELDistributionData(dealerCode, list) {
-  //   var url = this.baseUrl + "Rewards/ExpressLane/" + dealerCode;
+  //   var url = serviceUrl.baseUrl + "Rewards/ExpressLane/" + dealerCode;
   //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
   //   var body = list;
   //   var headers = new Headers();
@@ -103,7 +103,7 @@ export class RewardsDistributionService {
   // }
 
   // saveURDistributionData(dealerCode, list) {
-  //   var url = this.baseUrl + "Rewards/UsedRecon/" + dealerCode;
+  //   var url = serviceUrl.baseUrl + "Rewards/UsedRecon/" + dealerCode;
   //   var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
   //   var body = list;
   //   var headers = new Headers();
@@ -117,7 +117,7 @@ export class RewardsDistributionService {
   // }
 
   saveDistributionData(dealerCode, list, programName) {
-    var url = this.baseUrl + "Rewards/Distribution/" + programName + "/" + dealerCode;
+    var url = serviceUrl.baseUrl + "Rewards/Distribution/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = list;
     var headers = new Headers();
@@ -131,8 +131,8 @@ export class RewardsDistributionService {
   }
 
   getDistributionAllocationHistory(dealerCode, programName) {
-    // old url  var url = this.baseUrl + "Rewards/History/" + programName + "/" + dealerCode; 
-    var url = this.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
+    // old url  var url = serviceUrl.baseUrl + "Rewards/History/" + programName + "/" + dealerCode; 
+    var url = serviceUrl.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
 
     var headers = new Headers();
@@ -146,7 +146,7 @@ export class RewardsDistributionService {
   }
 
   getRewardsAmountData(programName, dealerCode) {
-    var url = this.baseUrl + "Rewards/DistributionInfo/" + programName + "/" + dealerCode;
+    var url = serviceUrl.baseUrl + "Rewards/DistributionInfo/" + programName + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

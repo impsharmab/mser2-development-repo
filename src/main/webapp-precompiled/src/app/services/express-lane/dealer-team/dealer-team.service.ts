@@ -3,15 +3,14 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../../rxjs-operators';
 
+import * as serviceUrl from '../../../global-variable/service-url';
+
 @Injectable()
 export class DealerTeamService {
-   private baseUrl = "https://test.myfcarewards.com/mser/";
-    // private baseUrl = "./";
-
     constructor(private http: Http) { }
 
     getDealerTeamData(dealercode: string): any {
-        var url = this.baseUrl + "enrollments/groupteams/getteams/" + dealercode;
+        var url = serviceUrl.baseUrl + "enrollments/groupteams/getteams/" + dealercode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -25,7 +24,7 @@ export class DealerTeamService {
             .catch(this.handleError);
     }
     editDealerTeamData(name: string, id: number, groupTeamId: number, date: string, user: string, dealercode: string): any {
-        var url = this.baseUrl + "enrollments/groupteams/updateteam";
+        var url = serviceUrl.baseUrl + "enrollments/groupteams/updateteam";
         // var url = "./assets/json/dealerteam.json"
         var body = {
             "GroupTeamID": groupTeamId, "ProgramGroupID": 1, "DealerCode": dealercode, "TeamID": id, "TeamName": name,
@@ -45,7 +44,7 @@ export class DealerTeamService {
     }
 
     deleteDealerTeamData(id: string): any {
-        var url = this.baseUrl + "enrollments/groupteams/deleteteam/" + id;
+        var url = serviceUrl.baseUrl + "enrollments/groupteams/deleteteam/" + id;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -60,7 +59,7 @@ export class DealerTeamService {
     }
 
     addNewDealerTeam(name: string, id: number, date: string, user: string, dealercode: string): any {
-        var url = this.baseUrl + "enrollments/groupteams/addteam";
+        var url = serviceUrl.baseUrl + "enrollments/groupteams/addteam";
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var body = {
             "GroupTeamID": 0, "ProgramGroupID": 1, "DealerCode": dealercode, "TeamID": id, "TeamName": name,
@@ -77,7 +76,7 @@ export class DealerTeamService {
     }
 
     getPowerPointLists(): any {
-        var url = this.baseUrl + "UserProfile/Password";
+        var url = serviceUrl.baseUrl + "UserProfile/Password";
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var body = {};
         var headers = new Headers();
@@ -91,7 +90,7 @@ export class DealerTeamService {
     }
 
     textMessageOption(mobileNumber: string, aggree: string): any {
-        var url = this.baseUrl + "UserProfile/TextAlerts";
+        var url = serviceUrl.baseUrl + "UserProfile/TextAlerts";
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var body = { "item1": mobileNumber, "item2": aggree };
         var headers = new Headers();
@@ -106,7 +105,7 @@ export class DealerTeamService {
     }
 
     getUserProfileData() {
-        var getUserProfileDataServiceUrl: string = this.baseUrl + "UserProfile/Profile";
+        var getUserProfileDataServiceUrl: string = serviceUrl.baseUrl + "UserProfile/Profile";
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Authorization', validToken);

@@ -12,4 +12,5 @@ export interface CodeData {
     isUVMManager: boolean;
     isELEnrolled: string;
     isPCEnrolled: string;
+    bcs: string;
 }

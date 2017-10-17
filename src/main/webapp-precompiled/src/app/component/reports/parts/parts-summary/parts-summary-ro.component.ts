@@ -47,7 +47,9 @@ export class PartsSummaryROReportComponent implements OnInit {
             "dealerCode": ""
         }
         this.openROReportLink();
+
     }
+
 
     private renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/

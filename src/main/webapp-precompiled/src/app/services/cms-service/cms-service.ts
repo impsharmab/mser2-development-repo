@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable'
+
+import * as serviceUrl from '../../global-variable/service-url';
+
 import './../rxjs-operators';
 
 @Injectable()
 export class CMSService {
-     private baseUrl = "https://test.myfcarewards.com/mser/";
-   // private baseUrl = "./";
 
     constructor(private http: Http) {
     }
 
     getCmsContent(page: string): any {
-        var getCmsContentUrl = this.baseUrl + "content/" + page;
+        var getCmsContentUrl = serviceUrl.baseUrl + "content/" + page;
+        // var getCmsContentUrl = "https://test.myfcarewards.com/mser/" + "content/" + page;
 
         return this.http.get(getCmsContentUrl)
             .map((response: Response) => response.text())
@@ -21,7 +23,8 @@ export class CMSService {
     }
 
     getCmsPDF(page: string): any {
-        var getCmsContentUrl = this.baseUrl + "shared/imi-cms/MSER/webDocs/" + page;
+        var getCmsContentUrl = serviceUrl.baseUrl + "shared/imi-cms/MSER/webDocs/" + page;
+        // var getCmsContentUrl = " https://test.myfcarewards.com/mser/" + "shared/imi-cms/MSER/webDocs/" + page;
 
         return this.http.get(getCmsContentUrl)
             .map((response: Response) => response.text())

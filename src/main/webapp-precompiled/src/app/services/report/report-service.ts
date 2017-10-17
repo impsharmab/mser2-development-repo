@@ -3,18 +3,18 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class ReportService {
-    private baseUrl = "https://test.myfcarewards.com/mser/";
-    // private baseUrl = "./";
-
+    
     constructor(private http: Http) {
     }
 
     getDistrictByBC(bc): any {
         // var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         
-        var url = this.baseUrl + "services/admin/districts/" + bc;
+        var url = serviceUrl.baseUrl + "services/admin/districts/" + bc;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         
         var headers = new Headers();

@@ -72,6 +72,7 @@ import { AdminService } from '../../../services/admin-service/admin-user/user-em
 import { HomeService } from '../../../services/home-service/home-service';
 import { ReportService } from '../../../services/report/report-service';
 import { PayoutChartService } from '../../../services/payout-chart/payout-chart.service';
+import {AdminPayoutService} from '../../../services/admin-payout/admin-payout-service';
 
 
 @NgModule({
@@ -102,7 +103,7 @@ import { PayoutChartService } from '../../../services/payout-chart/payout-chart.
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
     RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService, ReportService,
-    PayoutChartService
+    PayoutChartService,AdminPayoutService
   ]
 })
 export class MserModule { }

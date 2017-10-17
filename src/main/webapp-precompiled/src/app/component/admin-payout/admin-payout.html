@@ -28,12 +28,12 @@
                 <div class="form-group col-xs-12 col-md-4">
                   <label for="payout-month">Select Month</label>
                   <select class="form-control" id="payout-month" name="payoutMonth">
-                    <option>JUL-2017</option>
-                    <option>AUG-2017</option>
-                    <option>SEP-2017</option>
-                    <option>OCT-2017</option>
-                    <option>NOV-2017</option>
-                    <option>DEC-2017</option>
+                    <option value="JUL">JUL-2017</option>
+                    <option value="AUG">AUG-2017</option>
+                    <option value="SEP">SEP-2017</option>
+                    <option value="OCT">OCT-2017</option>
+                    <option value="NOV">NOV-2017</option>
+                    <option value="DEC">DEC-2017</option>
                   </select>
                 </div>
               </div>
@@ -77,106 +77,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-1" name="selectRow" value="row1" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">Express Lane</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell">
-                    <!-- <input class="btn btn-primary" id="program-select-1-image" type="submit" value="+" /> -->
-                    <p-fileUpload name="demo[]" mode="basic" (onUpload)="onUpload($event)" accept="image/*" maxFileSize="1000000">
-                      <ng-template pTemplate type="content">
-                        <ul *ngIf="uploadedFiles.length">
-                          <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                        </ul>
-                      </ng-template>
-                    </p-fileUpload>
-                  </td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-2" name="selectRow" value="row2" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">Mopar Accessories</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-3" name="selectRow" value="row3" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">Mopar Parts &amp; Engines</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-3-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-4" name="selectRow" value="row4" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">Magnetti Marelli</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-4-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-5" name="selectRow" value="row5" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">Parts Counter</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-5-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-6" name="selectRow" value="row6" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">wiAdvisor</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-6-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-7" name="selectRow" value="row7" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">FIAT</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-7-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-8" name="selectRow" value="row8" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">Tires</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-8-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-9" name="selectRow" value="row9" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">UConnect</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-9-image" type="submit" value="+" /></td>
-                </tr>
-                <tr scope="row">
-                  <td headers="program-groups-active" role="gridcell">
-                    <p-checkbox id="program-select-10" name="selectRow" value="row10" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="program-groups-select" role="gridcell">wiAdvisor Tire</td>
-                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                  <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                  <td headers="program-groups-modify" role="gridcell"><input class="btn btn-primary" id="program-select-10-image" type="submit" value="+" /></td>
-                </tr>
-              </tbody>
+                  <tr scope="row" *ngFor="let program of programs; let i = index">
+                      <td headers="program-groups-active" role="gridcell">
+                        <p-checkbox id="program-select-{{i}}" name="selectRow" value="row{{i}}" [(ngModel)]="adminPayout"></p-checkbox>
+                      </td>
+                      <td headers="program-groups-select" role="gridcell">{{program.programGroup}}</td>
+                      <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                                          <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                      <td headers="program-groups-modify" role="gridcell">
+                        <input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" />
+                      </td>
+                    </tr>
+                  </tbody>
             </table>
           </p-tabPanel>
           <!-- End Select Program Group -->

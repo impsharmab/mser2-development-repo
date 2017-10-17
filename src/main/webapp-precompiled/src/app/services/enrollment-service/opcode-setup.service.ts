@@ -3,15 +3,15 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class OpcodeSetupService {
- private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
 
   constructor(private http: Http) { }
 
   getOpcodesetupResponse(dealerCode: string): any {
-    var url = this.baseUrl + "enrollments/getopcode/" + dealerCode;
+    var url = serviceUrl.baseUrl + "enrollments/getopcode/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -25,7 +25,7 @@ export class OpcodeSetupService {
   }
 
   getInactiveOpcodesetupResponse(dealerCode: string): any {
-    var url = this.baseUrl + "enrollments/getopcode/inactive/" + dealerCode;
+    var url = serviceUrl.baseUrl + "enrollments/getopcode/inactive/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -38,7 +38,7 @@ export class OpcodeSetupService {
   }
 
   addOpCode(id: number, dealercode: string, opcode: string, source: string, createdDate: string, createdBy: string): any {
-    var url = this.baseUrl + 'enrollments/addopcode';
+    var url = serviceUrl.baseUrl + 'enrollments/addopcode';
     var body = {
       "iD": id, "dealerCode": dealercode, "opCode": opcode, "source": source, "createdDate": createdDate,
       "createdBy": createdBy, "updatedBy": source, "updatedDate": createdDate
@@ -55,7 +55,7 @@ export class OpcodeSetupService {
 
   }
   deactivateOpCode(id: number): any {
-    var deleteOpCodeUrl = this.baseUrl + 'enrollments/deleteopcode/' + id;
+    var deleteOpCodeUrl = serviceUrl.baseUrl + 'enrollments/deleteopcode/' + id;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     // headers.append('Content-Type', 'application/json');
@@ -68,7 +68,7 @@ export class OpcodeSetupService {
 
   }
   activateOpCode(id: number): any {
-    var deleteOpCodeUrl = this.baseUrl + 'enrollments/activateopcode/' + id;
+    var deleteOpCodeUrl = serviceUrl.baseUrl + 'enrollments/activateopcode/' + id;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     // headers.append('Content-Type', 'application/json');

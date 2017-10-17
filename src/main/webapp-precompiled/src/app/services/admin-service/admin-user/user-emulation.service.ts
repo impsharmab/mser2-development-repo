@@ -3,16 +3,15 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../../rxjs-operators';
 
+import * as serviceUrl from '../../../global-variable/service-url';
+
 @Injectable()
 export class AdminService {
-    private baseUrl = "https://test.myfcarewards.com/mser/";
-    // private baseUrl = "./";
-
     constructor(private http: Http) { }
 
 
     getEmulateUserData(sid: string) {
-        var getEmulateUserDataUrl = this.baseUrl + "services/admin/emulate/" + sid;
+        var getEmulateUserDataUrl = serviceUrl.baseUrl + "services/admin/emulate/" + sid;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -23,7 +22,7 @@ export class AdminService {
     }
 
     emulateUserWithDealerCode(dealercode: string) {
-        var getEmulateUserDataUrl = this.baseUrl + "services/admin/dealerEmulation/" + dealercode;
+        var getEmulateUserDataUrl = serviceUrl.baseUrl + "services/admin/dealerEmulation/" + dealercode;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');

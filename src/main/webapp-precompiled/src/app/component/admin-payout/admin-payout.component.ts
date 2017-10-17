@@ -6,14 +6,16 @@ import { DomSanitizer, BrowserModule } from '@angular/platform-browser';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
-import {Message} from 'primeng/components/common/api';
+import { Message } from 'primeng/components/common/api';
 
 //import { SafeHtml } from './safeHtml.pipe';
 import { CMSService } from '../../services/cms-service/cms-service';
 import '../../../assets/js/html2canvas.js';
+import { AdminPayoutService } from '../../services/admin-payout/admin-payout-service';
 
 import * as jsPDF from 'jspdf';
 declare var html2canvas: any;
+declare var $: any;
 
 @Component({
     selector: 'admin-payout',
@@ -28,6 +30,7 @@ export class AdminPayoutComponent implements OnInit {
     private msgs: Message[];
     date: DateModel;
     options: DatePickerOptions;
+    programs: any;
 
 
     calendarOptions = {
@@ -40,12 +43,11 @@ export class AdminPayoutComponent implements OnInit {
     @ViewChild('overrideModal') overrideModal: any;
     @ViewChild('overrideRecordModal') overrideRecordModal: any;
 
-    constructor(private modalService: NgbModal) {
+    constructor(private modalService: NgbModal, private adminPayoutService: AdminPayoutService) {
         this.options = new DatePickerOptions();
     }
 
     ngOnInit() {
-
     }
 
     private onUpload(event) {
@@ -110,10 +112,20 @@ export class AdminPayoutComponent implements OnInit {
 
     openNext() {
         this.index = (this.index === 6) ? 0 : this.index + 1;
+        if (this.index == 1)
+            this.getPrograms();
     }
 
     openPrev() {
         this.index = (this.index === 0) ? 6 : this.index - 1;
+    }
+
+    getPrograms() {
+        console.log("Incentive month selected:" + $('#payout-month').val());
+        this.adminPayoutService.getProgramsByMonth($('#payout-month').val()).subscribe(
+            (programs) => { 
+                this.programs = (programs);
+            });
     }
 
 

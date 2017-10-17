@@ -3,17 +3,17 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class DealerRegisterService {
-  private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
 
   constructor(private http: Http) {
 
   }
 
   submitDealerAndPositionCode(dealerCode, sid) {
-    var url = this.baseUrl + "enrollments/forms/mser/check";
+    var url = serviceUrl.baseUrl + "enrollments/forms/mser/check";
     var body = { dealerCode: dealerCode, sid: sid }
     // var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;   
     var headers = new Headers();
@@ -31,7 +31,7 @@ export class DealerRegisterService {
     selectedPartsManager, partsManagerEmail, selectedServiceManager, serviceManagerEmail,
     isPartsCounter, isUsedRecon, isExpressLane, mvpApprove
   ) {
-    var url = this.baseUrl + "enrollments/forms/mser";
+    var url = serviceUrl.baseUrl + "enrollments/forms/mser";
     var body = {
       dealerCode: dealerCode, sid: sid, email: dealerPrincipalEmail, phone: phone, extension: extention,
       managerP: selectedPartsManager, managerPEmail: partsManagerEmail,
@@ -51,7 +51,7 @@ export class DealerRegisterService {
   }
 
   registerDealership(dealerSID: string, dealerCode: string, dealerPrincipalEmail: string): any {
-    var registerDealershipUrl = this.baseUrl + "Registration/dealerRegistration";
+    var registerDealershipUrl = serviceUrl.baseUrl + "Registration/dealerRegistration";
     var body = { "sid": dealerSID, "dealerCode": dealerCode, "email": dealerPrincipalEmail };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -3,15 +3,15 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class MarketingTrainingService {
-  private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
 
   constructor(private http: Http) { }
 
   getMVPVideoLists(program): any {
-    var url = this.baseUrl + "services/files/Video/" + program;
+    var url = serviceUrl.baseUrl + "services/files/Video/" + program;
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};
@@ -26,7 +26,7 @@ export class MarketingTrainingService {
   }
 
   getVideoLists(program: string): any {
-    var url = this.baseUrl + "services/files/Video/" + program;
+    var url = serviceUrl.baseUrl + "services/files/Video/" + program;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
 
     var headers = new Headers();
@@ -40,7 +40,7 @@ export class MarketingTrainingService {
   }
 
   getPowerPointLists(): any {
-    var url = this.baseUrl + "UserProfile/Password";
+    var url = serviceUrl.baseUrl + "UserProfile/Password";
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};
@@ -54,7 +54,7 @@ export class MarketingTrainingService {
   }
 
   textMessageOption(mobileNumber: string, aggree: string): any {
-    var url = this.baseUrl + "UserProfile/TextAlerts";
+    var url = serviceUrl.baseUrl + "UserProfile/TextAlerts";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item1": mobileNumber, "item2": aggree };
     var headers = new Headers();
@@ -69,7 +69,7 @@ export class MarketingTrainingService {
   }
 
   getUserProfileData() {
-    var getUserProfileDataServiceUrl: string = this.baseUrl + "UserProfile/Profile";
+    var getUserProfileDataServiceUrl: string = serviceUrl.baseUrl + "UserProfile/Profile";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
 
     var headers = new Headers();

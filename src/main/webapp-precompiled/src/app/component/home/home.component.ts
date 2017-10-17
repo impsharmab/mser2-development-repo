@@ -5,6 +5,8 @@ import { CommaSeparatedNumberPipe } from '../number-formatting/comma-separated.c
 
 import { HomeService } from '../../services/home-service/home-service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.html',
@@ -27,7 +29,10 @@ export class HomeComponent implements OnInit {
     this.getMSEREnrollmentTileData();
     this.getMSEREarningTileData();
     this.hideEnrollmentTileMatrix();
+   
   }
+  
+
   private showEnrollmentMaintenanceButton: boolean = false;
   private checkRoles() {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;

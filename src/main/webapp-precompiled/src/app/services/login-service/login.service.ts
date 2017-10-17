@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/http';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
 @Injectable()
 export class LoginService {
-   private baseUrl = "https://test.myfcarewards.com/mser/";
-  //// private baseUrl = "./";
+ 
   private userdata = {};
   private role: string = "";
   constructor(private http: Http, private cookieService: CookieService) { }
@@ -80,7 +81,7 @@ export class LoginService {
   }
 
   getRefreshLoginResponse(token) {
-    var url = this.baseUrl + "login/tokenrefresh/";
+    var url = serviceUrl.baseUrl + "login/tokenrefresh/";
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', token);
@@ -91,11 +92,11 @@ export class LoginService {
   }
 
   getLoginResponse(username, password): any {
-    var url = this.baseUrl + "login/token/";
+    var url = serviceUrl.baseUrl + "login/token/";
     var body = { "username": username, "password": password };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())
@@ -103,7 +104,7 @@ export class LoginService {
   }
 
   resetPassword(userId: string, emailId: string) {
-    var url = this.baseUrl + "UserProfile/ResetPassword";
+    var url = serviceUrl.baseUrl + "UserProfile/ResetPassword";
     var body = { "userId": userId, "email": emailId };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

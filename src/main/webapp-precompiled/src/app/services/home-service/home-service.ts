@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable'
+
+import * as serviceUrl from '../../global-variable/service-url';
+
 import './../rxjs-operators';
 
 @Injectable()
 export class HomeService {
-  private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
 
   constructor(private http: Http) { }
 
@@ -19,7 +20,7 @@ export class HomeService {
     if (positionCode == undefined) {
       positionCode = 0;
     }
-    var url = this.baseUrl + "services/tile/en/" + positionCode + "/" + dealerCode;
+    var url = serviceUrl.baseUrl + "services/tile/en/" + positionCode + "/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};
     var headers = new Headers();
@@ -41,7 +42,7 @@ export class HomeService {
     if (positionCode == undefined) {
       positionCode = 0;
     }
-    var url = this.baseUrl + "services/tile/re/" + positionCode + "/" + dealerCode;
+    var url = serviceUrl.baseUrl + "services/tile/re/" + positionCode + "/" + dealerCode;
 
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = {};

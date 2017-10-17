@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private isUVMManagerSession: any = [];
   private isELEnrolledSession: any = [];
   private isPCEnrolledSession: any = [];
+  private bcsSession: any = [];
   private isELEnrolled: string = "";
   private isPCEnrolled: string = "";
   private isELManager: boolean = false;
@@ -76,6 +77,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.isUVMManagerSession = this.data.uvmManager;
     this.isELEnrolledSession = this.data.elEnrolled;
     this.isPCEnrolledSession = this.data.pcEnrolled;
+    this.bcsSession = this.data.bcs;
 
     // this.poscodesSession = ["01", "03", "05", "08", "09", "05", "06"];
     // this.delcodesSession = ["05002", "05002", "05002", "08625", "08625", "45614", "45614"];
@@ -103,14 +105,19 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       isPCManager: this.isPCManagerSession[this.selectedIndex],
       isUVMManager: this.isUVMManagerSession[this.selectedIndex],
       isELEnrolled: this.isELEnrolledSession[this.selectedIndex],
-      isPCEnrolled: this.isPCEnrolledSession[this.selectedIndex]
+      isPCEnrolled: this.isPCEnrolledSession[this.selectedIndex],
+      bcs: this.bcsSession[this.selectedIndex]
     }
     this.groupbyPCDC();
     var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
-    if (role != undefined && (role == "5" || role == "6" || role == "9" || role == "10" || role == "11" || role == "0")) {
+    if (role != undefined && (role == "5" || role == "6" || role == "9" || role == "10" || role == "0")) {
       this.displayDealerCode = true;
     }
+    
   }
+
+ 
+
   private removeDuplicates(duplicateArray) {
     var cleanArray = [];
     for (var i = 0; i < duplicateArray.length; i++) {
@@ -165,7 +172,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private onPCChange() {
     for (var i = 0; i < this.delcodesSession.length; i++) {
       if (this.delcodesSession[i] == this.codeData.selectedDealerCode && this.codeData.selectedPositionCode == this.poscodesSession[i]) {
-        debugger;
         this.selectedIndex = i;
       }
     }
@@ -363,6 +369,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.codeData.isUVMManager = this.isUVMManagerSession[this.selectedIndex];
     this.codeData.isELEnrolled = this.isELEnrolledSession[this.selectedIndex];
     this.codeData.isPCEnrolled = this.isPCEnrolledSession[this.selectedIndex];
+    this.codeData.bcs = this.bcsSession[this.selectedIndex];
     sessionStorage.setItem("selectedIndex", JSON.stringify(this.selectedIndex));
     this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
     // console.log("Selectes Index: " + this.selectedIndex);

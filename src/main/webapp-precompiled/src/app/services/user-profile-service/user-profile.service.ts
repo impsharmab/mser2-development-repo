@@ -3,10 +3,11 @@ import { Http, Response, Headers, RequestOptions, HttpModule } from '@angular/ht
 import { Observable } from 'rxjs/Observable'
 import './../rxjs-operators';
 
+import * as serviceUrl from '../../global-variable/service-url';
+
 @Injectable()
 export class UserProfileService {
-  private baseUrl = "https://test.myfcarewards.com/mser/";
-  // private baseUrl = "./";
+ 
   private userProfileData: any = {};
   constructor(private http: Http) { }
 
@@ -17,7 +18,7 @@ export class UserProfileService {
     sessionStorage.setItem("UserProfileData", JSON.stringify(userProfileData));
   }
   updateUserProfile(name: string, email: string, sendMail?: string): any {
-    var url = this.baseUrl + "UserProfile/Profile";
+    var url = serviceUrl.baseUrl + "UserProfile/Profile";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "name": name, "email": email, "sendMail": sendMail };
     var headers = new Headers();
@@ -31,7 +32,7 @@ export class UserProfileService {
   }
 
   changeUserPassword(newPassword: string): any {
-    var url = this.baseUrl + "UserProfile/Password";
+    var url = serviceUrl.baseUrl + "UserProfile/Password";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item": newPassword };
     var headers = new Headers();
@@ -45,7 +46,7 @@ export class UserProfileService {
   }
 
   textMessageOption(mobileNumber: string, aggree: string): any {
-    var url = this.baseUrl + "UserProfile/TextAlerts";
+    var url = serviceUrl.baseUrl + "UserProfile/TextAlerts";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var body = { "item1": mobileNumber, "item2": aggree };
     var headers = new Headers();
@@ -61,7 +62,7 @@ export class UserProfileService {
 
   getUserProfileData() {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-    var getUserProfileDataServiceUrl: string = this.baseUrl + "UserProfile/Profile";
+    var getUserProfileDataServiceUrl: string = serviceUrl.baseUrl + "UserProfile/Profile";
     var headers = new Headers();
     headers.append('Authorization', validToken);
    

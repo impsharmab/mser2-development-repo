@@ -125,7 +125,7 @@
             <i class="fa fa-clone"></i>
           </a>
         </div>
-        <!-- Begin Distribution Table -->
+        <!-- Begin Distribution Table --> 
         <table class="table table-bordered table-striped col-sm-12" role="grid">
           <thead>
             <tr>
@@ -391,7 +391,7 @@
                   style="text-decoration: underline">{{insertedDealercode}}</a>
               </td>
               <td class="" headers="payout-category-description" role="gridcell">{{data.description}}</td>
-              <td class="right-align" headers="payout-period" role="gridcell">{{data.payoutPeriod}}</td>
+              <td class="right-align" headers="payout-period" role="gridcell">{{data.payoutPeriod | date:"MM/dd/yyyy"}}</td>
               <td class="right-align" headers="payout-reward-amount" role="gridcell">{{data.totalRewardAmount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="payout-rejected-amount" role="gridcell">{{data.rejectedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>

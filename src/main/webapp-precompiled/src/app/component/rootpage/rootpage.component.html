@@ -5,10 +5,10 @@
     </div>
     <div class="pace-activity"></div>
   </div>
-  <app-header></app-header> 
+  <app-header></app-header>
   <!--<div class="app-body" >-->
   <sidenav></sidenav>
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="resizeMe()"></router-outlet>
   <!--</div>-->
   <!--<profile></profile>-->
   <app-footer></app-footer>

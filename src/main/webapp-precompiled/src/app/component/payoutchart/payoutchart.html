@@ -11,22 +11,13 @@
           <ul class="tabs">
 
             <li class="tab" (click)="openCMSPage('PayoutChartHome')">
-              <a>{{payoutChartDatum[0].tab}}</a>
+              <a>Home</a>
             </li>
             <li class="tab" (click)="openCMSPage('PayoutChartMonthlyHighlights')">
-              <a>{{payoutChartDatum[1].tab}}</a>
+              <a>Monthly</a>
             </li>
-            <li class="tab">
-              <a>{{payoutChartDatum[2].tab}}</a>
-            </li>
-            <li class="tab">
-              <a>{{payoutChartDatum[3].tab}}</a>
-            </li>
-            <li class="tab">
-              <a>{{payoutChartDatum[4].tab}}</a>
-            </li>
-            <li class="tab">
-              <a>{{payoutChartDatum[5].tab}}</a>
+            <li class="tab" *ngFor="let data of payoutChartDatum" (click)="nestedZOZOTab()">
+              <a>{{data.tap}}</a>
             </li>
 
           </ul>
@@ -35,6 +26,9 @@
           <div>
 
             <!-- Home tab -->
+            <!-- <div class="z-content-pad" *ngFor="let data of payoutChartDatum.programs">
+
+            </div> -->
             <div class="z-content-pad">
               <div id="main-content" [innerHTML]="payoutCMSObject"></div>
             </div>
@@ -45,201 +39,50 @@
             </div>
 
             <!-- Service Advisors -->
-            <div class="z-content-pad">
+            <div class="z-content-pad" *ngFor="let data of payoutChartDatum">
               <!-- Zozo Tabs 2 (nested) Start-->
               <div class="nested-tabs">
 
                 <!-- Nested Tab Navigation Menu -->
                 <ul>
-                  <li>
-                    <a>MOPAR PARTS &amp; ENGINES</a>
-                  </li>
-                  <li>
-                    <a>MOPAR UPFITS</a>
-                  </li>
-                  <li>
-                    <a>WIADVISOR</a>
-                  </li>
-                  <li>
-                    <a>MAGNETI MARELLI RETAIL PARTS</a>
-                  </li>
-                  <li>
-                    <a>EXPRESS LANE</a>
-                  </li>
-                  <li>
-                    <a>UCONNECT</a>
+
+                  <li *ngFor="let data1 of data.programs">
+                    <a>{{data1.name}}</a>
                   </li>
                 </ul>
                 <!-- Nested Content container -->
                 <div>
                   <!-- MOPAR Parts &amp; Engines -->
-                  <div>
-                    <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
+                  <div *ngFor="let data2 of data.programs">
+                    <h4 class="payout-chart-heading">{{data2.name}}</h4>
 
-                  </div>
-                  <!-- MOPAR Upfits -->
-                  <div>
-                    <h4 class="payout-chart-heading">MOPAR Upfits</h4>
+                    <ul class="graph graph-list">
+                      <li class="graph-item service-override" *ngFor="let data3 of data2.payouts">
+                        <span class="graph-item-subject">{{data3.name}}</span>
+                        <span class="graph-item-figure">{{data3.value | currency:'USD':true:'1.2-2'}}</span>
 
-                  </div>
-                  <!-- wiAdvisor -->
-                  <div>
-                    <h4 class="payout-chart-heading">wiADVISOR</h4>
+                        <a class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal" (click)="displayInfoModal(data3)">
+                          <i class="fa fa-info-circle"></i>
+                        </a>
 
-                  </div>
-                  <!-- Magneti Marelli Retail Parts -->
-                  <div>
-                    <h4 class="payout-chart-heading">MAGNETI MARELLI RETAIL PARTS</h4>
+                      </li>
+                    </ul>
 
-                  </div>
-                  <!-- Express Lane -->
-                  <div>
-                    <h4 class="payout-chart-heading">EXPRESS LANE</h4>
+                    <p>Select
+                      <i class="legend qualifying-part-number fa fa-info-circle"></i> for qualifying part number(s).</p>
 
+                    <p class="disclaimer graph-disclaimer">Parts &amp; Service manager override is 20% on all above items.</p>
+                    <img alt="MOPAR logo" src="assets/img/logo.png" />
                   </div>
-                  <!-- UConnect -->
-                  <div>
-                    <h4 class="payout-chart-heading">
-                      <span class="hide-me">UConnect</span>
-                      <img alt="UConnect" src="assets/img/uconnect-logo.png" />
-                    </h4>
-                    <h5>New For July!</h5>
 
-                  </div>
                 </div>
               </div>
               <!-- Zozo Tabs 2 (nested) End-->
             </div>
 
-            <!-- Technicians -->
-            <div class="z-content-pad">
-              <div class="nested-tabs">
-                <ul>
-                  <li>
-                    <a href="">MOPAR PARTS & ENGINES</a>
-                  </li>
-                  <li>
-                    <a href="">MOPAR UPFITS</a>
-                  </li>
-                  <li>
-                    <a href="">MAGNETI MARELLI RETAIL PARTS</a>
-                  </li>
-                  <li>
-                    <a href="">EXPRESS LANE</a>
-                  </li>
-                  <li>
-                    <a href="">TOPTECH</a>
-                  </li>
-                </ul>
-                <div>
-                  <!-- MOPAR Parts & Engines -->
-                  <div>
-                    <h4 class="payout-chart-heading">MOPAR PARTS & ENGINES</h4>
 
-                  </div>
-                  <!-- MOPAR Upfits -->
-                  <div>
-                    <h4 class="payout-chart-heading">MOPAR Upfits</h4>
 
-                  </div>
-                  <!-- Magneti Marelli Retail Parts -->
-                  <div>
-                    <h4 class="payout-chart-heading">MAGNETI MARELLI RETAIL PARTS</h4>
 
-                  </div>
-                  <!-- Express Lane -->
-                  <div>
-                    <h4 class="payout-chart-heading">EXPRESS LANE</h4>
-
-                  </div>
-
-                  <div>
-                    <h4 class="payout-chart-heading">MOPAR TOPTECH</h4>
-                    <div class="top-tech">
-                      <img alt="Mopar Top Tech" class="top-tech-logo" src="assets/img/top-tech.png" />
-                      <img alt="Technician working on car" class="top-tech-technician" src="assets/img/payout-chart-MSER-Tech-Oil-Photo.jpg" />
-                      <div class="top-tech-content">
-                        <p>Use your reward points to shop name brand merchandise.</p>
-                        <p>Access FCA Reward Redemption via DealerCONNECT and your My FCA Rewards dashboard.</p>
-                        <p>Visit
-                          <a href="http://mopartoptech.com">MoparTopTech.com</a> for more program details.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Parts Personnel Rewards -->
-            <div class="z-content-pad">
-              <!-- Zozo Tabs 2 (nested) Start-->
-              <div class="nested-tabs">
-
-                <!-- Nested Tab Navigation Menu -->
-                <ul>
-                  <li>
-                    <a>PARTS COUNTER</a>
-                  </li>
-                  <li>
-                    <a>OVER THE COUNTER</a>
-                  </li>
-                </ul>
-
-                <!-- Nested Content container -->
-                <div>
-                  <!-- Parts Counter -->
-                  <div>
-                    <h4 class="payout-chart-heading">PARTS COUNTER</h4>
-
-                  </div>
-                  <!-- Over the Counter -->
-
-                </div>
-              </div>
-              <!-- Zozo Tabs 2 (nested) End-->
-            </div>
-            <!-- UVM -->
-            <div class="z-content-pad">
-              <!-- Zozo Tabs 3 (nested) Start-->
-              <div class="nested-tabs">
-
-                <!-- Nested Tab Navigation Menu -->
-                <ul>
-                  <li>
-                    <a>USED RECON PROMO PARTS</a>
-                  </li>
-                  <li>
-                    <a>PROMO OBJECTIVE</a>
-                  </li>
-                  <li>
-                    <a>UCONNECT</a>
-                  </li>
-                </ul>
-
-                <!-- Nested Content container -->
-                <div>
-                  <!-- Used Recon Promotion Parts -->
-                  <div>
-                    <h4 class="payout-chart-heading">USED RECON PROMOTION PARTS</h4>
-                  </div>
-                  <!-- Promo Objective -->
-                  <div>
-                    <h4 class="payout-chart-heading">PROMO OBJECTIVE</h4>
-
-                  </div>
-                  <!-- UConnect -->
-                  <div>
-                    <h4 class="payout-chart-heading">
-                      <span class="hide-me">UConnect</span>
-                      <img alt="UConnect" src="assets/img/uconnect-logo.png" />
-                    </h4>
-
-                  </div>
-                </div>
-              </div>
-              <!-- Zozo Tabs 3 (nested) End-->
-
-            </div>
           </div>
         </div>
         <!-- Zozo Tabs End-->
@@ -253,18 +96,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="partModalLabel">Qualifying Part Numbers</h5>
+        <h5 class="modal-title" id="partModalLabel">Quservicefying Part Numbers</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <ul class="part-numbers">
-          <li>123456789 </li>
-          <li>234567890 </li>
-          <li>345678901 </li>
-          <li>456789012 </li>
-          <li>567890123 </li>
+          <li *ngFor="let data of iconModalData">{{data}}</li>
         </ul>
       </div>
       <div class="modal-footer">
