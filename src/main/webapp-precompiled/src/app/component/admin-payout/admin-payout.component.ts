@@ -31,6 +31,12 @@ export class AdminPayoutComponent implements OnInit {
     date: DateModel;
     options: DatePickerOptions;
     programs: any;
+<<<<<<< HEAD
+=======
+    selectedIncentives: string[] = [];
+    programCategories: any = [];
+    payoutMonth: string = "JUL";
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
 
 
     calendarOptions = {
@@ -112,21 +118,53 @@ export class AdminPayoutComponent implements OnInit {
 
     openNext() {
         this.index = (this.index === 6) ? 0 : this.index + 1;
+<<<<<<< HEAD
         if (this.index == 1)
             this.getPrograms();
+=======
+        this.setDefaults();
     }
 
     openPrev() {
         this.index = (this.index === 0) ? 6 : this.index - 1;
+        this.setDefaults();
+    }
+
+    setDefaults() {
+        if (this.index == 1) {
+            this.selectedIncentives = [];
+            this.getPrograms();
+        }
+        else if (this.index == 2) {
+            this.programCategories = [];
+            this.getCategories();
+        }
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
     }
 
     getPrograms() {
+<<<<<<< HEAD
         console.log("Incentive month selected:" + $('#payout-month').val());
         this.adminPayoutService.getProgramsByMonth($('#payout-month').val()).subscribe(
             (programs) => { 
+=======
+        console.log("Incentive month selected:" + this.payoutMonth);
+        this.adminPayoutService.getProgramsByMonth(this.payoutMonth).subscribe(
+            (programs) => {
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
                 this.programs = (programs);
             });
     }
 
+<<<<<<< HEAD
+=======
+    getCategories() {
+        console.log("selected incentives are:" + this.selectedIncentives);
+        this.adminPayoutService.getCategoriesByIncentive(this.selectedIncentives, this.payoutMonth).subscribe(
+            (programCategories) => {
+                this.programCategories = (programCategories);
+            });
+    }
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
 
 }

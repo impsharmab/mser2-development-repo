@@ -470,9 +470,9 @@ export class EnrollmentComponent implements OnInit {
         var uconSalesOptions: SelectItem[] = [];
         var uconServiceOptions: SelectItem[] = [];
         var warrantyAdmOptions: SelectItem[] = [];
-        var pcOptions: SelectItem[] = [];
-        var elOptions: SelectItem[] = [];
-        var usedReconManagerOptions: SelectItem[] = [];
+        var pcOptions: SelectItem[] = [{ label: "", value: "" }];
+        var elOptions: SelectItem[] = [{ label: "", value: "" }];
+        var usedReconManagerOptions: SelectItem[] = [{ label: "", value: "" }];
         var usedReconParticipantOptions: SelectItem[] = [];
 
         var pmRecordsData = [];

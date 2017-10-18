@@ -97,8 +97,16 @@
           <!-- Begin Select Category -->
           <p-tabPanel header="Step 3" [disabled]="true">
             <div class="admin-utility-bar">
+<<<<<<< HEAD
               <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
               <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+=======
+              <button class="btn btn-primary" type="button" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext()">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
             </div>
             <!-- Select Category-->
             <h3>Select Category</h3>
@@ -107,6 +115,7 @@
               <input class="btn btn-primary" id="add-category" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)"
               />
             </div>
+<<<<<<< HEAD
             <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
               <thead>
                 <tr scope="row">
@@ -550,6 +559,48 @@
                 </tr>
               </tbody>
             </table>
+=======
+          
+            <p-accordion [multiple]="true">
+              <p-accordionTab *ngFor="let programCategory of programCategories; let i = index" header="{{programCategory.programGroup}}" [selected]="i==0">
+                <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
+                  <thead>
+                    <tr scope="row">
+                      <th class="col-xs-2" id="select-category-checkbox" role="columnheader" scope="col">Select Category</th>
+                      <th class="col-xs-2" id="select-category-column-category-name" role="columnheader" scope="col">Category</th>
+                      <th class="col-xs-2" id="select-category-column-category-description" role="columnheader" scope="col">Category Description</th>
+                      <!-- <th id="" role="columnheader" scope="col">Start Date</th>
+                                                                                                <th id="" role="columnheader" scope="col">End Date</th> -->
+                      <th class="col-xs-2" id="select-category-column-additional-info" role="columnheader" scope="col">Additional Information on Final Payout Chart</th>
+                      <!-- <th id="" role="columnheader" scope="col">Add Image</th> -->
+                      <!-- <th id="" role="columnheader" scope="col">Modify</th>
+                                                                                                <th id="" role="columnheader" scope="col">Amend Plan Code</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="row-program-group" *ngFor="let incentiveCategory of programCategory.categories">
+                      <td headers="select-category-checkbox" role="gridcell">
+                        <p-checkbox name="selectCategory" value="row1" [(ngModel)]="adminPayout"></p-checkbox>
+                      </td>
+                      <td headers="select-category-column-category-name" role="gridcell">{{incentiveCategory.incentiveSubCode}}</td>
+                      <td headers="select-category-column-category-description" role="gridcell">
+                        <form>
+                          <input class="form-control" id="select-category-description-1" name="selectCategoryDescription1" placeholder="" type="text"
+                            value="{{incentiveCategory.description}}" />
+                        </form>
+                      </td>
+                      <td headers="select-category-column-additional-info" role="gridcell">
+                        <form>
+                          <input id="select-category-additional-info-1" class="form-control" name="selectCategoryAdditionalInfo1" placeholder="" type="text"
+                            value="Additional Information" />
+                        </form>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </p-accordionTab>
+            </p-accordion>
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
             <ng-template #addCategory let-c="close" let-d="dismiss">
               <div class="modal-header">
                 <h4 class="modal-title">Add a Category</h4>
@@ -596,7 +647,12 @@
                 <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
               </div>
             </ng-template>
+<<<<<<< HEAD
           </p-tabPanel>
+=======
+            
+            </p-tabPanel>
+>>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
           <!-- End Select Category -->
 
 

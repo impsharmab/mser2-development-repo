@@ -10,8 +10,7 @@ declare var $;
 })
 export class PayoutchartComponent implements OnInit {
     private payoutCMSObject: any;
-    private displayInfoIcon: boolean = false;
-
+    private iconPartsModalData: any = [];
     constructor(
         private payoutChartService: PayoutChartService,
         private sanitizer: DomSanitizer,
@@ -70,10 +69,10 @@ export class PayoutchartComponent implements OnInit {
         });
     }
 
-    private iconModalData: any = [];
-    private displayInfoModal(data) {
-        console.log(data);
-        this.iconModalData.push("234567890", "345678901", "456789012", "567890123")
+    private showIconPartsModal(data) {
+        if (data != undefined && data.parts.length > 0) {
+            this.iconPartsModalData = data.parts;
+        }
 
     }
     private openCMSPage(pageName: string) {
