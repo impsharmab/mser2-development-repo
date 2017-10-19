@@ -10,7 +10,7 @@ import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule,
-  FileUploadModule, CalendarModule, RadioButtonModule
+  FileUploadModule, CalendarModule, RadioButtonModule, AccordionModule
 } from 'primeng/primeng';
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
@@ -82,7 +82,7 @@ import {AdminPayoutService} from '../../../services/admin-payout/admin-payout-se
     BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule,
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
     ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule,
-    RadioButtonModule
+    RadioButtonModule, AccordionModule
     // GetLastDateOfMonth
     //PdfmakeModule
   ],

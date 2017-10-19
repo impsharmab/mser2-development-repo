@@ -19,15 +19,18 @@
           <!-- Begin Select Payout Method -->
           <p-tabPanel header="Step 1" [disabled]="true">
             <div class="admin-utility-bar">
-              <button class="btn btn-primary btn-disabled" disabled type="button"><i class="fa fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+              <button class="btn btn-primary btn-disabled" disabled type="button">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext()">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
             </div>
             <div class="group-payout-month">
               <h3>Select Payout Month</h3>
               <div class="row">
                 <div class="form-group col-xs-12 col-md-4">
                   <label for="payout-month">Select Month</label>
-                  <select class="form-control" id="payout-month" name="payoutMonth">
+                  <select id="payout-month" class="form-control" [(ngModel)]="payoutMonth">
                     <option value="JUL">JUL-2017</option>
                     <option value="AUG">AUG-2017</option>
                     <option value="SEP">SEP-2017</option>
@@ -60,12 +63,15 @@
           <!-- Begin Select Program Group -->
           <p-tabPanel header="Step 2" [disabled]="true">
             <div class="admin-utility-bar">
-              <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+              <button class="btn btn-primary" type="button" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext()">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
             </div>
             <!-- Select Program Group-->
             <h3>Select Program Group</h3>
-            <h4 class="chart-date-display">July 1 2017 - July 31 2017</h4>
+            <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
             <table class="table table-bordered table-striped" id="program-groups" role="grid">
               <thead>
                 <tr scope="row">
@@ -77,18 +83,18 @@
                 </tr>
               </thead>
               <tbody>
-                  <tr scope="row" *ngFor="let program of programs; let i = index">
-                      <td headers="program-groups-active" role="gridcell">
-                        <p-checkbox id="program-select-{{i}}" name="selectRow" value="row{{i}}" [(ngModel)]="adminPayout"></p-checkbox>
-                      </td>
-                      <td headers="program-groups-select" role="gridcell">{{program.programGroup}}</td>
-                      <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                <tr scope="row" *ngFor="let program of programs; let i = index">
+                  <td headers="program-groups-active" role="gridcell">
+                    <p-checkbox id="program-select-{{i}}" value="{{program.incentiveId}}" name="selectRow" [(ngModel)]="selectedIncentives" (onChange)="selectProgramGroup($event, program)"></p-checkbox>
+                  </td>
+                  <td headers="program-groups-select" role="gridcell">{{program.programGroup}}</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
                                           <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
-                      <td headers="program-groups-modify" role="gridcell">
-                        <input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" />
-                      </td>
-                    </tr>
-                  </tbody>
+                  <td headers="program-groups-modify" role="gridcell">
+                    <input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" />
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </p-tabPanel>
           <!-- End Select Program Group -->
@@ -97,472 +103,23 @@
           <!-- Begin Select Category -->
           <p-tabPanel header="Step 3" [disabled]="true">
             <div class="admin-utility-bar">
-<<<<<<< HEAD
-              <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" type="button" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
-=======
               <button class="btn btn-primary" type="button" (click)="openPrev()">
                 <i class="fa fa-chevron-left"></i> Previous</button>
               <button class="btn btn-primary" type="button" (click)="openNext()">Next
                 <i class="fa fa-chevron-right"></i>
               </button>
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
             </div>
             <!-- Select Category-->
             <h3>Select Category</h3>
-            <h4 class="chart-date-display">July 1 2017 - July 31 2017</h4>
+            <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
             <div>
               <input class="btn btn-primary" id="add-category" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)"
               />
             </div>
-<<<<<<< HEAD
-            <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
-              <thead>
-                <tr scope="row">
-                  <th class="col-xs-2" id="select-category-checkbox" role="columnheader" scope="col">Select Category</th>
-                  <th class="col-xs-2" id="select-category-toggle" role="columnheader" scope="col"></th>
-                  <th class="col-xs-2" id="select-category-column-program-group" role="columnheader" scope="col">Program Group</th>
-                  <th class="col-xs-2" id="select-category-column-category-name" role="columnheader" scope="col">Category</th>
-                  <th class="col-xs-2" id="select-category-column-category-description" role="columnheader" scope="col">Category Description</th>
-                  <!-- <th id="" role="columnheader" scope="col">Start Date</th>
-                  <th id="" role="columnheader" scope="col">End Date</th> -->
-                  <th class="col-xs-2" id="select-category-column-additional-info" role="columnheader" scope="col">Additional Information on Final Payout Chart</th>
-                  <!-- <th id="" role="columnheader" scope="col">Add Image</th> -->
-                  <!-- <th id="" role="columnheader" scope="col">Modify</th>
-                  <th id="" role="columnheader" scope="col">Amend Plan Code</th> -->
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="row-program-group">
-                  <td headers="select-category-checkbox" role="gridcell"></td>
 
-                  <!-- Hey, Pay attention to me there's something about me that collapses and stuff -->
-
-                  <td class="program-group-collapse group-mopar" headers="select-category-toggle" role="gridcell"><i class="fa fa-minus"></i></td>
-                  <td headers="select-category-column-program-group" role="gridcell">Mopar Parts &amp; Engines</td>
-                  <td colspan="3" headers="select-category-column-category-name select-category-column-category-description select-category-column-additional-info"
-                    role="gridcell"></td>
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row1" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">T_CASES</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-1" name="selectCategoryDescription1" placeholder="" type="text"
-                        value="Transmissions and T-Cases" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input id="select-category-additional-info-1" class="form-control" name="selectCategoryAdditionalInfo1" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row2" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">BRKE</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-2" name="selectCategoryDescription2" placeholder="" type="text"
-                        value="MSER OE Brake Pad Kits" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input id="select-category-additional-info-2" type="text" class="form-control" name="selectCategoryAdditionalInfo2" placeholder=""
-                        value="Additional Information ">
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row3" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">FLCLR</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-3" name="selectCategoryDescription3" placeholder="" type="text"
-                        value="Fuel System Cleaner (#05019625AB)" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-3" name="selectCategoryAdditionalInfo3" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row4" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">MENG</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-4" name="selectCategoryDescription4" placeholder="" type="text"
-                        value="Mopar Engines" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-4" name="selectCategoryAdditionalInfo4" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row5" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">MOPAC</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-5" name="selectCategoryDescription5" placeholder="" type="text"
-                        value="Mopar AC Compressors" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-5" name="selectCategoryAdditionalInfo5" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row6" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">N45</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-6" name="selectCategoryDescription6" placeholder="" type="text"
-                        value="MSER RECALL - N45" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-6" name="selectCategoryAdditionalInfo6" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row7" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">N46</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-7" name="selectCategoryDescription7" placeholder="" type="text"
-                        value="MSER RECALL - N46" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-7" name="selectCategoryAdditionalInfo7" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row8" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">POTHOLE</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-8" name="selectCategoryDescription8" placeholder="" type="text"
-                        value="Pot Hole Promo" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-8" name="selectCategoryAdditionalInfo8" placeholder="" type="text"
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row9" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">RAMSHOCK</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-9" name="selectCategoryDescription9" placeholder="" type="text"
-                        value="RAM Shock And Struts ($5 for set of 2)" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-9" type="text" name="selectCategoryAdditionalInfo9" placeholder=""
-                        value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-category group-mopar">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row10" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">RR</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-10" name="selectCategoryDescription10" placeholder="" type="text"
-                        value="Rain Repellent (#68194881AA)" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-10" name="selectCategoryAdditionalInfo10" placeholder=""
-                        type="text" value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-                <tr class="row-program-group">
-                  <td headers="select-category-checkbox" role="gridcell"></td>
-                  <td headers="select-category-toggle" role="gridcell" class="program-group-collapse group-magneti"><i class="fa fa-minus"></i></td>
-                  <td headers="select-category-column-program-group" role="gridcell">Magneti Marelli</td>
-                  <td colspan="3" headers="select-category-column-category-name select-category-column-category-description select-category-column-additional-info"
-                    role="gridcell"></td>
-                </tr>
-                <tr class="row-category group-magneti">
-                  <td headers="select-category-checkbox" role="gridcell">
-                    <p-checkbox name="selectCategory" value="row1" [(ngModel)]="adminPayout"></p-checkbox>
-                  </td>
-                  <td headers="select-category-toggle" role="gridcell"></td>
-                  <td headers="select-category-column-program-group" role="gridcell"></td>
-                  <td headers="select-category-column-category-name" role="gridcell">MM_BK</td>
-                  <td headers="select-category-column-category-description" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-description-11" name="selectCategoryDescription11" placeholder="" type="text"
-                        value="Magneti Marelli Brake Pad Kit" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="calendarOptions" name="date"></ng2-datepicker>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
-                  </td> -->
-                  <td headers="select-category-column-additional-info" role="gridcell">
-                    <form>
-                      <input class="form-control" id="select-category-additional-info-11" name="selectCategoryAdditionalInfo11" placeholder=""
-                        type="text" value="Additional Information" />
-                    </form>
-                  </td>
-                  <!-- <td headers="" role="gridcell">
-                      <input id="" class="btn btn-primary" type="submit" value="+" />
-                  </td> -->
-                  <!-- <td headers="" role="gridcell">
-                      <a class="modify-icon" href="#">
-                  <i class="fa fa-pencil"></i>
-                  </a>
-                  </td>
-                  <td headers="" role="gridcell">
-                      <a href="#">Amend Plan Code</a>
-                  </td> -->
-                </tr>
-              </tbody>
-            </table>
-=======
-          
             <p-accordion [multiple]="true">
-              <p-accordionTab *ngFor="let programCategory of programCategories; let i = index" header="{{programCategory.programGroup}}" [selected]="i==0">
+              <p-accordionTab *ngFor="let programCategory of programCategories; let i = index" header="{{programCategory.programGroup}}"
+                [selected]="i==0">
                 <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
                   <thead>
                     <tr scope="row">
@@ -580,7 +137,7 @@
                   <tbody>
                     <tr class="row-program-group" *ngFor="let incentiveCategory of programCategory.categories">
                       <td headers="select-category-checkbox" role="gridcell">
-                        <p-checkbox name="selectCategory" value="row1" [(ngModel)]="adminPayout"></p-checkbox>
+                        <p-checkbox name="selectCategory" value="{{incentiveCategory.incentiveSubCodeId}}" [(ngModel)]="selectedIncentiveSubCodes"></p-checkbox>
                       </td>
                       <td headers="select-category-column-category-name" role="gridcell">{{incentiveCategory.incentiveSubCode}}</td>
                       <td headers="select-category-column-category-description" role="gridcell">
@@ -600,7 +157,6 @@
                 </table>
               </p-accordionTab>
             </p-accordion>
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
             <ng-template #addCategory let-c="close" let-d="dismiss">
               <div class="modal-header">
                 <h4 class="modal-title">Add a Category</h4>
@@ -613,59 +169,49 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <label for="add-category-program-group">Program Group</label>
-                      <select id="add-category-program-group" class="form-control" name="rewardPosition">
-                        <option>Express Lane</option>
-                        <option>Magneti Marelli</option>
-                        <option>Mopar Accessories</option>
-                        <option>Mopar Parts &amp; Engines</option>
-                        <option>Mopar Vehicle Protection</option>
-                        <option>Parts Counter</option>
-                        <option>wiAdvisor</option>
-                        <option>FIAT</option>
-                        <option>UConnect</option>
-                        <option>Tires</option>
-                        <option>wiAdvisor Tire</option>
+                      <select class="form-control" id="add-category-program-group" required name="addCategoryProgramGroup" [(ngModel)]="newCategory.programGroup">
+                        <option disabled value="">Select a Program Group</option>
+                        <option *ngFor="let program of programs" [value]="program.programGroup + ':' + program.incentiveId">{{program.programGroup}}</option>
                       </select>
                     </div>
                     <div class="col-sm-6">
                       <label for="add-category-name">Category</label>
                       <input class="input-category-name form-control" id="add-category-name" name="addCategoryName" placeholder="Category" type="text"
-                        value="" />
+                        value="" [(ngModel)]="newCategory.incentiveSubCode" />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-6">
                       <label for="add-category-description">Category Description</label>
                       <input class="input-category-desc form-control" id="add-category-description" name="addCategoryDescription" placeholder="Category Description"
-                        type="text" value="" />
+                        type="text" value="" [(ngModel)]="newCategory.description" />
                     </div>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="c('Add click')">Add</button>
+                <button type="button" class="btn btn-primary" (click)="addNewCategory();c('Add click')">Add</button>
                 <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
               </div>
             </ng-template>
-<<<<<<< HEAD
+
           </p-tabPanel>
-=======
-            
-            </p-tabPanel>
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
           <!-- End Select Category -->
 
 
           <!-- Begin Add Rewards -->
           <p-tabPanel header="Step 4" [disabled]="true">
             <div class="admin-utility-bar">
-              <button type="button" class="btn btn-primary" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
-              <button type="button" class="btn btn-primary" (click)="openNext()">Next <i class="fa fa-chevron-right"></i></button>
+              <button type="button" class="btn btn-primary" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button type="button" class="btn btn-primary" (click)="openNext()">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
             </div>
 
             <!-- Add Rewards by Position/ Value -->
             <h3>Add Rewards</h3>
-            <h4 class="chart-date-display">July 1 2017 - July 31 2017</h4>
+            <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
             <div>
               <input id="add-reward" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
             </div>
@@ -686,7 +232,9 @@
               </thead>
               <tbody>
                 <tr scope="row">
-                  <td class="program-group-collapse group-mopar" headers="add-reward-toggle" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td class="program-group-collapse group-mopar" headers="add-reward-toggle" role="gridcell">
+                    <i class="fa fa-minus"></i>
+                  </td>
                   <td headers="add-reward-program-group" role="gridcell">Mopar Parts &amp; Engines</td>
                   <td colspan="4" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
                   <td headers="add-reward-override" role="gridcell">
@@ -697,7 +245,9 @@
                 </tr>
                 <tr class="row-category group-mopar" scope="row">
                   <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td class="program-group-collapse group-1" headers="add-reward-program-group" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td class="program-group-collapse group-1" headers="add-reward-program-group" role="gridcell">
+                    <i class="fa fa-minus"></i>
+                  </td>
                   <td headers="add-reward-category" role="gridcell">T_CASES</td>
                   <td headers="add-reward-position" role="gridcell">
                     <select class="form-control" id="add-reward-position-1" name="addRewardPosition1">
@@ -720,15 +270,18 @@
                   </td>
                   <td headers="add-reward-override" role="gridcell">
                     <span class="label override-element override" style="display:none;">
-                      <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)" ></i>
+                      <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
                       <span>ID: 1 5.00% to Service Advisor</span>
                     </span>
                   </td>
                   <td headers="add-reward-labor-type" role="gridcell">
                     <form class="form-control" name="laborType1">
-                      <label><p-checkbox name="laborType1" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label><p-checkbox name="laborType1" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label><p-checkbox name="laborType1" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                      <label>
+                        <p-checkbox name="laborType1" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label>
+                        <p-checkbox name="laborType1" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label>
+                        <p-checkbox name="laborType1" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
                     </form>
                   </td>
                   <td headers="add-reward-quantity" role="gridcell">
@@ -764,15 +317,18 @@
                   </td>
                   <td headers="add-reward-override" role="gridcell">
                     <span class="label override-element reward" style="display:none;">
-                     <span>ID: 1 5.00% from Service Technician</span>
-                    <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
+                      <span>ID: 1 5.00% from Service Technician</span>
+                      <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
                     </span>
                   </td>
                   <td headers="add-reward-labor-type" role="gridcell">
                     <form class="form-control" name="laborType2">
-                      <label><p-checkbox name="laborType2" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label><p-checkbox name="laborType2" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label><p-checkbox name="laborType2" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                      <label>
+                        <p-checkbox name="laborType2" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label>
+                        <p-checkbox name="laborType2" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label>
+                        <p-checkbox name="laborType2" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
                     </form>
                   </td>
                   <td headers="add-reward-quantity" role="gridcell">
@@ -810,9 +366,12 @@
                   </td>
                   <td headers="add-reward-labor-type" role="gridcell">
                     <form class="form-control" name="laborType">
-                      <label><p-checkbox name="laborType3" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label><p-checkbox name="laborType3" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label><p-checkbox name="laborType3" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                      <label>
+                        <p-checkbox name="laborType3" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label>
+                        <p-checkbox name="laborType3" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label>
+                        <p-checkbox name="laborType3" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
                     </form>
                   </td>
                   <td headers="add-reward-quantity" role="gridcell">
@@ -850,9 +409,12 @@
                   </td>
                   <td headers="add-reward-labor-type" role="gridcell">
                     <form class="form-control" name="laborType4">
-                      <label><p-checkbox name="laborType4" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label><p-checkbox name="laborType4" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label><p-checkbox name="laborType4" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                      <label>
+                        <p-checkbox name="laborType4" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label>
+                        <p-checkbox name="laborType4" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label>
+                        <p-checkbox name="laborType4" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
                     </form>
                   </td>
                   <td headers="add-reward-quantity" role="gridcell">
@@ -864,7 +426,9 @@
                   </td>
                 </tr>
                 <tr scope="row">
-                  <td class="program-group-collapse group-magneti" headers="add-reward-toggle" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td class="program-group-collapse group-magneti" headers="add-reward-toggle" role="gridcell">
+                    <i class="fa fa-minus"></i>
+                  </td>
                   <td headers="add-reward-program-group" role="gridcell">Magneti Marelli</td>
                   <td colspan="4" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
                   <td headers="add-reward-override add-reward-quantity" role="gridcell">
@@ -875,7 +439,9 @@
                 </tr>
                 <tr class="row-category group-magneti" scope="row">
                   <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td headers="add-reward-program-group" role="gridcell"><i class="fa fa-minus"></i></td>
+                  <td headers="add-reward-program-group" role="gridcell">
+                    <i class="fa fa-minus"></i>
+                  </td>
                   <td headers="add-reward-category" role="gridcell">MM_BK</td>
                   <td headers="add-reward-position" role="gridcell">
                     <select class="form-control" id="add-reward-position-5" name="addRewardPosition5">
@@ -900,9 +466,12 @@
                   </td>
                   <td headers="add-reward-labor-type" role="gridcell">
                     <form class="form-control" name="laborType5">
-                      <label><p-checkbox name="laborType5" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label><p-checkbox name="laborType5" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label><p-checkbox name="laborType5" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                      <label>
+                        <p-checkbox name="laborType5" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label>
+                        <p-checkbox name="laborType5" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label>
+                        <p-checkbox name="laborType5" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
                     </form>
                   </td>
                   <td headers="add-reward-quantity" role="gridcell">
@@ -940,9 +509,12 @@
                   </td>
                   <td headers="add-reward-labor-type" role="gridcell">
                     <form class="form-control" name="laborType6">
-                      <label><p-checkbox name="laborType6" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label><p-checkbox name="laborType6" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label><p-checkbox name="laborType6" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
+                      <label>
+                        <p-checkbox name="laborType6" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
+                      <label>
+                        <p-checkbox name="laborType6" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
+                      <label>
+                        <p-checkbox name="laborType6" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
                     </form>
                   </td>
                   <td headers="add-reward-quantity" role="gridcell">
@@ -1037,9 +609,12 @@
                     <div class="col-sm-12">
                       <label for="payout-labor-type">Labor Type</label>
                       <form class="form-control" id="payout-labor-type" name="payoutLaborType">
-                        <label><input type="checkbox" /> Customer (C)</label>
-                        <label><input type="checkbox" /> Internal (I)</label>
-                        <label><input type="checkbox" /> Warranty (W)</label>
+                        <label>
+                          <input type="checkbox" /> Customer (C)</label>
+                        <label>
+                          <input type="checkbox" /> Internal (I)</label>
+                        <label>
+                          <input type="checkbox" /> Warranty (W)</label>
                       </form>
                     </div>
                   </div>
@@ -1110,7 +685,9 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
-                      <p><strong>Reward: $5.00 per Set of 2</strong></p>
+                      <p>
+                        <strong>Reward: $5.00 per Set of 2</strong>
+                      </p>
                     </div>
                   </div>
 
@@ -1158,10 +735,10 @@
               <div class="modal-body">
                 <form>
                   <p>
-                    <strong>Mopar Parts & Engines<br/>
-                      T_CASES<br/>
-                      Service Technician<br/>
-                      $5.00 per Set of 2
+                    <strong>Mopar Parts & Engines
+                      <br/> T_CASES
+                      <br/> Service Technician
+                      <br/> $5.00 per Set of 2
                     </strong>
                   </p>
                   <hr/>
@@ -1249,7 +826,8 @@
           <!-- Begin Payout Chart Update Preview -->
           <p-tabPanel header="Step 5" [disabled]="true">
             <div class="admin-utility-bar">
-              <button class="btn btn-primary" type="button" (click)="openPrev()"><i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
             </div>
             <h3>Payout Chart Updates Preview</h3>
             <div>
@@ -1282,7 +860,8 @@
                     <span class="graph-item-figure">$5.00</span>
                   </li>
                 </ul>
-                <p><span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
+                <p>
+                  <span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
                 <h4 class="payout-chart-heading">MAGNETI MARELLI</h4>
                 <h3>MM_BK</h3>
                 <ul class="graph graph-list">

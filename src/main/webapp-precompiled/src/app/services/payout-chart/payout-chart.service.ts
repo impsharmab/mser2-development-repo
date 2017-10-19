@@ -32,6 +32,7 @@ export class PayoutChartService {
             .map((response: Response) => response.json())
             .catch(this.handleError);
 
+
     }
 
     private handleError(error: Response | any) {

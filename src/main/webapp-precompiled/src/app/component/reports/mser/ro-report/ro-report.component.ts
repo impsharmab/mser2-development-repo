@@ -18,6 +18,14 @@ export class ROReportComponent implements OnInit {
     private program = "Enrollment_Admin";
     private fromDate: string = "";
     private toDate: string = "";
+    private isAdmin: boolean = false;
+    private isExecutiveUser: boolean = false;
+    private isBCUser: boolean = false;
+    private isDistrictUser: boolean = false;
+    private isDealerUser: boolean = false;
+    private isManagerUser: boolean = false;
+    private isParticipantUser: boolean = false;
+
     private roReportInterface: ROReportInterface = {
         "from": this.fromDate,
         "to": this.toDate,
@@ -56,6 +64,13 @@ export class ROReportComponent implements OnInit {
             "dealerCode": "",
             "roNumber": ""
         }
+        this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
+
+        if (this.isAdmin) {
+            this.isExecutiveUser = true;
+        }
+
+        this.checkRoles();
         this.openROReportLink();
     }
 
@@ -77,6 +92,24 @@ export class ROReportComponent implements OnInit {
         //event.target.innerWidth; // window width
     }
     private src: any = "";
+
+    private checkRoles() {
+        var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+        if (role == 1) {
+            this.isExecutiveUser = true;
+        } else if (role == 12) {
+            this.isBCUser = true;
+        } else if (role == 11) {
+            this.isDistrictUser = true;
+        } else if (role == 5) {
+            this.isManagerUser = true;
+        } else if (role == 10) {
+            this.isDealerUser = true;
+        } else if (role == 6 || role == 9) {
+            this.isParticipantUser = true;
+
+        }
+    }
     private openROReportLink() {
     }
 
@@ -88,6 +121,10 @@ export class ROReportComponent implements OnInit {
         var RepairOrderED = this.roReportInterface.to;
         var DealerCode = this.roReportInterface.dealerCode;
         var RONumber = this.roReportInterface.roNumber;
+
+        if(this.isExecutiveUser){
+            var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DealerCode}&RONumber=${RONumber}`;
+        }
 
         var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DealerCode}&RONumber=${RONumber}`;
         console.log(src1);

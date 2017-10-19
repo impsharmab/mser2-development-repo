@@ -7,7 +7,7 @@ import * as serviceUrl from '../../global-variable/service-url';
 
 @Injectable()
 export class RewardsDistributionService {
-  
+
   constructor(private http: Http) { }
 
 
@@ -63,6 +63,19 @@ export class RewardsDistributionService {
   }
   getDistributionHistoryData(dealerCode, programName): any {
     var url = serviceUrl.baseUrl + "Rewards/ReHistory/" + programName + "/" + dealerCode;
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.get(url, { headers: headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
+
+  getELDistributionData(dealerCode): any {
+    var url = serviceUrl.baseUrl + "Rewards/Distribution/el/" + dealerCode;
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

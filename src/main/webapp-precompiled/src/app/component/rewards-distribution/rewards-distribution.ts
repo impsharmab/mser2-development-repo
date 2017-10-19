@@ -324,9 +324,153 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
+  private eldistributionData: any = [
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "",
+      "teamId": "SLXX",
+      "updatedBy": "S08784O   ",
+      "sid": "S08784O   ",
+      "updatedDate": "2017-09-27",
+      "allocationID": null,
+      "amount": 2,
+      "firstName": "Holly",
+      "lastName": "Lebel"
+    },
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "",
+      "teamId": "SLXX",
+      "updatedBy": "SLXX",
+      "sid": "SLXX",
+      "updatedDate": "2017-09-27",
+      "allocationID": null,
+      "amount": 2,
+      "firstName": null,
+      "lastName": null
+    },
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "",
+      "teamId": "SLXX",
+      "updatedBy": "S08784O   ",
+      "sid": "S08784O   ",
+      "updatedDate": "2017-07-03",
+      "allocationID": null,
+      "amount": 2,
+      "firstName": "Holly",
+      "lastName": "Lebel"
+    },
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "",
+      "teamId": "SLXX",
+      "updatedBy": "SLXX",
+      "sid": "SLXX",
+      "updatedDate": "2017-07-03",
+      "allocationID": null,
+      "amount": 2,
+      "firstName": null,
+      "lastName": null
+    },
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "test123",
+      "teamId": "123",
+      "updatedBy": "SLXX",
+      "sid": "SLXX",
+      "updatedDate": "2017-07-03",
+      "allocationID": null,
+      "amount": 20,
+      "firstName": null,
+      "lastName": null
+    },
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "test123",
+      "teamId": "123",
+      "updatedBy": "SLXX",
+      "sid": "SLXX",
+      "updatedDate": "2017-07-03",
+      "allocationID": null,
+      "amount": 212,
+      "firstName": null,
+      "lastName": null
+    },
+    {
+      "expectedPayoutDate": "2017-10-19",
+      "teamName": "testabc",
+      "teamId": "abc",
+      "updatedBy": "SLXX",
+      "sid": "SLXX",
+      "updatedDate": "2017-07-03",
+      "allocationID": null,
+      "amount": 15,
+      "firstName": null,
+      "lastName": null
+    }
+  ];
+  private getELDistributionData() {
+    var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+
+    // this.rewardsDistributionService.getELDistributionData(dealerCode).subscribe(
+    //   (eldistributionData) => {
+    //     this.eldistributionData = (eldistributionData)
+    this.groupELdistributionData();
+    //   },
+    //   (error) => {
+    //   }
+    // )
+  }
+
+  private groupedELdistributionData: any = [];
+  private groupELdistributionData() {
+    var uniqueTeamID: any = [];
+    var groupByTeamIDData: any = [];
+
+    for (var i = 0; i < this.eldistributionData.length; i++) {
+      uniqueTeamID.push(this.eldistributionData[i].teamId);
+    }
+    uniqueTeamID = this.removeDuplicates(uniqueTeamID);
+
+    for (var j = 0; j < uniqueTeamID.length; j++) {
+      groupByTeamIDData.push({ teamName: "", teamId: "", amount: 0 })
+      for (var k = 0; k < this.eldistributionData.length; k++) {
+        if (this.eldistributionData[k].teamName == "") {
+          this.eldistributionData[k].teamName = "-";
+        }
+        if (uniqueTeamID[j] == this.eldistributionData[k].teamId) {
+          groupByTeamIDData[j].teamId = this.eldistributionData[k].teamId;
+          groupByTeamIDData[j].teamName = this.eldistributionData[k].teamName;
+          groupByTeamIDData[j].amount += this.eldistributionData[k].amount;
+
+        }
+      }
+    }
+    this.groupedELdistributionData = groupByTeamIDData;
+    console.log(groupByTeamIDData);
+
+
+  }
+
+  private removeDuplicates(duplicateArray) {
+    var cleanArray = [];
+    for (var i = 0; i < duplicateArray.length; i++) {
+      var push = true;
+      for (var j = 0; j < cleanArray.length; j++) {
+        if (cleanArray[j] === duplicateArray[i]) {
+          push = false;
+        }
+      }
+      if (push == true) {
+        cleanArray.push(duplicateArray[i]);
+      }
+    }
+    return cleanArray;
+  }
   private saveDistributionDATUM: any;
   private saveDistributionDATA(programName: string) {
-    
+
     var program = programName;
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var nameValueList: any = [];
@@ -413,7 +557,7 @@ export class RewardsDistributionComponent implements OnInit {
           this.msg = "Internal Server Error";
         }
 
-      }, 
+      },
       (error) => {
         setTimeout(() => {
           if (error != undefined && error.length < 250) {

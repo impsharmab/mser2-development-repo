@@ -1,6 +1,27 @@
 
 'use strict';
 
+// Payout End User
+export const payoutchartHomeMatrix = [
+    "00", "01", "02", "03", "04", "05", "06", "09", "10",
+    "11", "12", "15", "16", "17", "18",  "22",
+     "25", "26", "27", "28", "29", "2A", "30", "31",
+    "33", "35", "36", "37", "38", "39", "41", "42", "46",
+    "47", "52", "65", "74", "75",  "IM", "2S", "IEX",
+    "IDS", "IJM", "IBC", "DLR", "IDM", "IDM", "IAD"
+]
+export const payoutchartServiceAdvisorMatrix = [
+    "13", "ES",
+]
+export const payoutchartServiceTechnicianMatrix = [
+    "20", "23", "24", "79", "ET",
+]
+export const payoutchartPartsCounterMatrix = [
+    "08", "14", "19", "32", "40"
+]
+export const payoutchartUVMMatrix = [
+    "07", "34"
+]
 // Enrollment tab
 
 export const mserRulesPageMatrix = [
@@ -12,7 +33,7 @@ export const mserRulesPageMatrix = [
     "IDS", "IJM", "IBC", "DLR", "IDM", "IDM", "IAD"
 ];
 export const enrollmentReportMatrix: any = [
-    "NAT", "BC", "DOM", "DST", "IAD", "90", "97","8D"
+    "NAT", "BC", "DOM", "DST", "IAD", "90", "97", "8D"
 ];
 export const enrollmentFormMatrix: any = [
     "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
@@ -28,7 +49,6 @@ export const opcodeSetupMatrix: any = ["01", "02", "03", "04",
 export const enrollmentMaintenanceMatrix: any = [
     "01", "02", "08", "09", "32", "33", "35", "37", "40"
 ];
-
 export const autoEnrollmentOptMatrix: any = [
     "01", "02", "08", "09", "32", "33", "35", "37", "40"
 ];

@@ -21,6 +21,18 @@ export class AdminPayoutService {
             .catch(this.handleError);
     }
 
+    getCategoriesByIncentive(selectedIncentives: string[], month: string) {
+        var getCategoryByIncentiveUrl = serviceUrl.baseUrl + "services/adminpayout/getCategoryByIncentive/" + month;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(getCategoryByIncentiveUrl, selectedIncentives, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+
+    }
+
     private handleError(error: Response | any) {
         let errMsg: string = "";
         if (error instanceof Response) {

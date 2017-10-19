@@ -113,10 +113,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (role != undefined && (role == "5" || role == "6" || role == "9" || role == "10" || role == "0")) {
       this.displayDealerCode = true;
     }
-    
   }
-
- 
 
   private removeDuplicates(duplicateArray) {
     var cleanArray = [];

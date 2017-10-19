@@ -57,6 +57,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     // }
     //  console.log(this.selectedPositionCode);
     this.rewardDistributionMatrix();
+    this.caBCMABCReport();
   }
 
   ngAfterViewInit() {
@@ -142,6 +143,16 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
 
   }
+
+  private isCABCMABCUser: boolean = false;
+  private caBCMABCReport() {
+    var bcFromSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
+
+    if (bcFromSession == "CA" || bcFromSession == "MA" || bcFromSession == "NAT") {
+      this.isCABCMABCUser = true;
+    }
+  }
+
   private executeJQueryCode() {
     $.navigation = $('nav > ul.nav');
 

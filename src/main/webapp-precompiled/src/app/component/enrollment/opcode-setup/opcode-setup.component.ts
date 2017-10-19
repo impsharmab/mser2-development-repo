@@ -25,7 +25,7 @@ export class OpcodeSetupComponent implements OnInit {
   private opcodesetupData: any;
   private inactiveOpcodesetupData: any;
   private switchstatusmessage: string = "";
-  private tableName: string = "InActive Table";
+  private tableName: string = "Inactive Table";
   public addopcInterface: AddOpCodeInterface;
   private id: number = 0;
   private date: string = "";
@@ -152,7 +152,7 @@ export class OpcodeSetupComponent implements OnInit {
       this.inactiveopcode = true;
       this.getInactiveOpcodesetupData();
     } else if (!this.activeopcode) {
-      this.tableName = "InActive Table";
+      this.tableName = "Inactive Table";
       this.switchstatusmessage = "";
       this.successOpcodeSetupMessage = "";
       this.errorOpcodeSetupMessage = "";

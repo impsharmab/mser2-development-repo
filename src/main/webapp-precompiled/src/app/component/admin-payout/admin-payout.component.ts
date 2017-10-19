@@ -16,6 +16,7 @@ import { AdminPayoutService } from '../../services/admin-payout/admin-payout-ser
 import * as jsPDF from 'jspdf';
 declare var html2canvas: any;
 declare var $: any;
+declare var moment: any;
 
 @Component({
     selector: 'admin-payout',
@@ -31,12 +32,14 @@ export class AdminPayoutComponent implements OnInit {
     date: DateModel;
     options: DatePickerOptions;
     programs: any;
-<<<<<<< HEAD
-=======
     selectedIncentives: string[] = [];
     programCategories: any = [];
     payoutMonth: string = "JUL";
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
+    selectedIncentiveSubCodes: string[] = [];
+    newCategory: any = {};
+    selectedOpenIncentives: string[] = [];
+    startDate: string = '';
+    endDate: string = ''
 
 
     calendarOptions = {
@@ -77,6 +80,13 @@ export class AdminPayoutComponent implements OnInit {
     }
 
     openCategoryModal() {
+        this.newCategory = {
+            incentiveSubCodeId: 0,
+            programGroup: "",
+            incentiveId: 0,
+            incentiveSubCode: "",
+            description: ""
+        };
         this.modalService.open(this.addCategory).result.then((result) => {
             //this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
@@ -118,16 +128,12 @@ export class AdminPayoutComponent implements OnInit {
 
     openNext() {
         this.index = (this.index === 6) ? 0 : this.index + 1;
-<<<<<<< HEAD
-        if (this.index == 1)
-            this.getPrograms();
-=======
         this.setDefaults();
     }
 
     openPrev() {
         this.index = (this.index === 0) ? 6 : this.index - 1;
-        this.setDefaults();
+        //this.setDefaults();
     }
 
     setDefaults() {
@@ -139,32 +145,74 @@ export class AdminPayoutComponent implements OnInit {
             this.programCategories = [];
             this.getCategories();
         }
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
+    }
+
+    selectProgramGroup(checked: boolean, program) {
+        if (!program.selected) {
+            if (checked)
+                this.selectedOpenIncentives.push(program.incentiveId);
+            else
+                this.selectedOpenIncentives.splice(this.selectedOpenIncentives.indexOf(program.incentiveId), 1);
+        }
     }
 
     getPrograms() {
-<<<<<<< HEAD
-        console.log("Incentive month selected:" + $('#payout-month').val());
-        this.adminPayoutService.getProgramsByMonth($('#payout-month').val()).subscribe(
-            (programs) => { 
-=======
+        this.startDate = moment().month(this.payoutMonth).date(1).format('MMM D YYYY');
+        this.endDate = moment().month(this.payoutMonth).endOf('month').format('MMM D YYYY');
         console.log("Incentive month selected:" + this.payoutMonth);
         this.adminPayoutService.getProgramsByMonth(this.payoutMonth).subscribe(
             (programs) => {
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
                 this.programs = (programs);
+                this.programs.forEach(program => {
+                    if (program.selected) {
+                        this.selectedIncentives.push(program.incentiveId.toString());
+                    }
+                });
             });
     }
 
-<<<<<<< HEAD
-=======
     getCategories() {
+        var $this = this;
+        if (this.selectedOpenIncentives.length > 0) {
+            this.selectedOpenIncentives.forEach(function (openIncentive) {
+                $this.selectedIncentives.splice($this.selectedIncentives.indexOf(openIncentive), 1);
+            });
+        }
         console.log("selected incentives are:" + this.selectedIncentives);
+        console.log("selected incentives are:" + this.selectedOpenIncentives);
         this.adminPayoutService.getCategoriesByIncentive(this.selectedIncentives, this.payoutMonth).subscribe(
             (programCategories) => {
                 this.programCategories = (programCategories);
+                if (this.programCategories.length > 0) {
+                    if (this.selectedOpenIncentives.length > 0) {
+                        this.adminPayoutService.getCategoriesByIncentive(this.selectedOpenIncentives, "NOMONTH").subscribe(
+                            (openProgramCategories) => {
+                                if (openProgramCategories.length > 0)
+                                    Array.prototype.push.apply(this.programCategories, openProgramCategories);
+                            });
+                    }
+                }
             });
     }
->>>>>>> 779a643e51f233ecc1a98cf77f993706e52362e6
+
+    addNewCategory() {
+        var myArr = this.newCategory.programGroup.split(":");
+        this.newCategory.programGroup = myArr[0];
+        this.newCategory.incentiveId = myArr[1];
+        console.log(this.newCategory);
+        var categoryAddedWithinSelections = false;
+        this.programCategories.forEach(programCategory => {
+            if (programCategory.programGroup == this.newCategory.programGroup) {
+                programCategory.categories.push(this.newCategory);
+                categoryAddedWithinSelections = true;
+            }
+        });
+        if (!categoryAddedWithinSelections) {
+            this.programCategories.push({
+                programGroup: this.newCategory.programGroup,
+                categories: [this.newCategory]
+            })
+        }
+    }
 
 }

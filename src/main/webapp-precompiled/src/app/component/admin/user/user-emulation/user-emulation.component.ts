@@ -26,10 +26,17 @@ export class UserEmulationComponent implements OnInit {
     }
 
     ngOnInit() {
-       
+        this.resizeMe();
     }
 
-    
+    public resizeMe() {
+        var blah = window.innerHeight;
+        console.log("window is: ", blah + "px high");
+        /* 302 is the combined height of the header and footer */
+        blah = blah - 302;
+        $("main, mser-cms").css("min-height", "calc(" + blah + "px - 2rem)");
+        console.log("main is now: ", blah + "px high");
+    }
     private emulateAllUser(emulateID) {
         if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";

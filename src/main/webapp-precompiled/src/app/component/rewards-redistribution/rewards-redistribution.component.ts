@@ -196,11 +196,19 @@ export class RewardsRedistributionComponent implements OnInit {
         allocationArray = this.removeDuplicates(allocationArray);
 
         for (var j = 0; j < allocationArray.length; j++) {
-            dataJson.push({ allocationID: allocationArray[j], date: "", amount: 0 });
+            dataJson.push({ allocationID: allocationArray[j], date: "", amount: 0, teamID: "", teamName: "" });
             for (var k = 0; k < this.elRedistributionDataResponse.length; k++) {
                 if (allocationArray[j] == this.elRedistributionDataResponse[k].allocationID) {
                     dataJson[j].date = this.elRedistributionDataResponse[k].updatedDate;
                     dataJson[j].amount += this.elRedistributionDataResponse[k].amount;
+                    dataJson[j].teamID = this.elRedistributionDataResponse[k].teamId;
+                    
+                    if (this.elRedistributionDataResponse[k].teamName == "") {
+                        this.elRedistributionDataResponse[k].teamName = "-"
+                    }
+
+                    dataJson[j].teamName = this.elRedistributionDataResponse[k].teamName;
+
                 }
             }
         }

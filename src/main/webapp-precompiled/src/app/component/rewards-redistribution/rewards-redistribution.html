@@ -26,16 +26,15 @@
       <form>
         <div class="form-group row">
           <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-            <label for="dealer-code" style="font-weight: bold">Dealer Code :</label>
+            <label for="dealer-code" style="font-weight: bold">&nbsp;&nbsp;Dealer Code :</label>
 
-            <input id="dealer-code" name="dealer-code" type="text" required [(ngModel)]="dealerCode" (ngModelChange)="hideValidationDiv()"
+            <input id="dealer-code" name="dealer-code" type="text" required [(ngModel)]="dealerCode"  (ngModelChange)="hideValidationDiv()"
               minlength="5" maxlength="5" pattern="[0-9]{5}" #dealercode="ngModel" />
-
-
-            <div [hidden]=" validDealerCode" class="alert alert-danger">
+            <div [hidden]=" validDealerCode" class="alert alert-danger" style="margin-left: 10px">
               Valid Dealercode is required
             </div>
-            <br>
+          </div>
+          <div>
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" (click)="submitDealerCode(dealerCode)">Submit</button>
 
           </div>
@@ -125,20 +124,25 @@
             <i class="fa fa-clone"></i>
           </a>
         </div>
-        <!-- Begin Distribution Table --> 
+        <!-- Begin Distribution Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
           <thead>
             <tr>
-              <th class="right-align" id="re-allocation-distributed-date" role="columnheader" scope="col">Distributed Date</th>
+              <!-- <th class="right-align" id="re-allocation-distributed-date" role="columnheader" scope="col">Distributed Date</th> -->
+              <th class="right-align" id="re-allocation-distributed-date" role="columnheader" scope="col">Team Name</th>
               <th class="right-align" id="re-allocation-reward-amount" role="columnheader" scope="col">Reward Amount</th>
               <th class="right-align" id="re-allocation-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let elAllocData of elAllocationDataa">
-              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
+              <!-- <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
                 <a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable" (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')">
                   <i class="fa fa-clone"></i> {{elAllocData.date | date:"MM/dd/yyyy" }}</a>
+              </td> -->
+              <td class="right-align" headers="re-allocation-distributed-date" role="gridcell">
+                <a data-toggle="collapse" href="#elParticipantTable" aria-expanded="false" aria-controls="elParticipantTable" (click)="openPCRedistributionTable(elAllocData.allocationID, 'el')">
+                  {{elAllocData.teamName}}</a>
               </td>
               <td class="right-align" headers="re-allocation-reward-amount" role="gridcell">{{elAllocData.amount | currency:'USD':true:'1.2-2'}}</td>
               <td class="right-align" headers="re-allocation-distributed-amount" role="gridcell">

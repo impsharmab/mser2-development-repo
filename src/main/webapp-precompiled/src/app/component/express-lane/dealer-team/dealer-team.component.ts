@@ -13,7 +13,7 @@ declare var $: any;
 export class DealerTeamComponent implements OnInit {
     @ViewChild('addteammodal') addteammodal: any;
     @Output("onSaveNewTeamData") saveEvent: EventEmitter<any> = new EventEmitter<any>();
-   
+
     cities: any = [{ label: 'New York', value: 'New York' }, { label: 'Rome', value: 'Rome' }];
     private newDealerTeamData: any = { "name": "", "id": "", "createdDate": "", "groupTeamId": "" }
     private addNewDealerTeamData: any = {};
@@ -26,10 +26,10 @@ export class DealerTeamComponent implements OnInit {
     private n: string = "none";
     displayDialog: boolean;
     displayAddTeamDialog: boolean;
-    
+
 
     constructor(private dealerTeamService: DealerTeamService, private modalService: NgbModal) {
-       
+
     }
     ngOnInit() {
         var d = new Date;
@@ -37,6 +37,10 @@ export class DealerTeamComponent implements OnInit {
         this.getTeamData();
     }
     private editTeamName(name, id) {
+        this.emptyNameMessage = "";
+        this.emptyIDMessage = "";
+        this.successAddingTeamMessage = "";
+        this.errorAddingTeamMessage = "";
         var user = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
         var dealercode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
 
@@ -47,28 +51,32 @@ export class DealerTeamComponent implements OnInit {
                 this.displayDialog = false;
                 this.successAddingTeamMessage = "Team Name has been updated";
                 this.getTeamData();
-               
+
             },
             (error) => {
-               
+
                 this.errorAddingTeamMessage = "Error in updating Team Name";
             }
             )
     }
     private deleteTeamName(id) {
+        this.emptyNameMessage = "";
+        this.emptyIDMessage = "";
+        this.successAddingTeamMessage = "";
+        this.errorAddingTeamMessage = "";
         this.dealerTeamService.deleteDealerTeamData(id).subscribe(
             (dealerTeamData) => {
-              
+
                 this.displayDialog = false;
                 this.getTeamData();
                 this.errorAddingTeamMessage = "";
                 this.successAddingTeamMessage = "Team has been Deleted";
-               
+
             },
             (error) => {
                 this.successAddingTeamMessage = "";
                 this.errorAddingTeamMessage = "Error in Deleting Team";
-               
+
             }
         )
     }
@@ -79,6 +87,10 @@ export class DealerTeamComponent implements OnInit {
 
     }
     private getTeamData() {
+        this.emptyNameMessage = "";
+        this.emptyIDMessage = "";
+        this.successAddingTeamMessage = "";
+        this.errorAddingTeamMessage = "";
         var dealercode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.dealerTeamService.getDealerTeamData(dealercode).subscribe(
             (dealerTeamData) => {
@@ -89,7 +101,11 @@ export class DealerTeamComponent implements OnInit {
         )
 
     }
-    addTeam(addTeamData: any) {        
+    addTeam(addTeamData: any) {
+        this.emptyNameMessage = "";
+        this.emptyIDMessage = "";
+        this.successAddingTeamMessage = "";
+        this.errorAddingTeamMessage = "";
         this.newDealerTeamData.name = "";
         this.newDealerTeamData.id = "";
         this.successAddingTeamMessage = "";
@@ -112,6 +128,13 @@ export class DealerTeamComponent implements OnInit {
             this.emptyIDMessage = "";
             return;
         }
+        for (var i = 0; i < this.dealerTeamData.length; i++) {
+            if (this.newDealerTeamData.id == this.dealerTeamData[i].teamID) {
+                this.emptyIDMessage = "Team ID already exists";
+                return;
+            }
+        }
+
         this.dealerTeamService.addNewDealerTeam(this.newDealerTeamData.name, this.newDealerTeamData.id, this.date, user, dealercode).subscribe(
             (addNewDealerTeamData) => {
                 this.addNewDealerTeamData = (addNewDealerTeamData)
@@ -121,19 +144,25 @@ export class DealerTeamComponent implements OnInit {
                 this.emptyIDMessage = "";
                 this.errorAddingTeamMessage = "";
                 this.successAddingTeamMessage = "New Team has been added Successfully";
-            
+
             },
             (error) => {
                 this.emptyNameMessage = "";
                 this.emptyIDMessage = "";
                 this.successAddingTeamMessage = "";
                 this.errorAddingTeamMessage = "Error in adding New Team";
-               
+
             }
         )
-      
+
     }
 
+    private ngModelChangeTeamIDName() {
+        this.emptyNameMessage = "";
+        this.emptyIDMessage = "";
+        this.successAddingTeamMessage = "";
+        this.errorAddingTeamMessage = "";
+    }
     showDialogToAdd() {
 
         this.displayDialog = true;

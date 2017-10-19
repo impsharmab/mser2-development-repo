@@ -70,8 +70,8 @@
 
                     <ul class="graph graph-list">
                       <li class="graph-item service-override" *ngFor="let data3 of data2.payouts">
-                        <span class="graph-item-subject">{{data3.name}}</span>
-                        <span class="graph-item-figure">${{data3.value}}</span>
+                        <span class="graph-item-subject" *ngIf="data3.value !='$0'">{{data3.name}}</span>
+                        <span class="graph-item-figure" *ngIf="data3.value !='$0'">${{data3.value}}</span>
 
                         <a *ngIf="data3.parts != undefined && data3.parts.length>0" class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"
                           (click)="showIconPartsModal(data3)">
@@ -79,13 +79,15 @@
                         </a>
                       </li>
                     </ul>
+                    <p>{{data2.firstLegend}}</p>
 
                     <p>Select
                       <i class="legend qualifying-part-number fa fa-info-circle"></i> for qualifying part number(s).</p>
 
                     <div *ngIf="((data2.managerLabel !=undefined)&&(data2.managerLabel.length>0))">
                       <p class="disclaimer graph-disclaimer">{{data2.managerLabel}}</p>
-                      <img alt="MOPAR logo" src='data2.image' />
+
+                      <img alt="" src='data2.image' />
 
                     </div>
 

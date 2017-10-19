@@ -19,7 +19,9 @@
     <li class="breadcrumb-item active" routerLink="#">Rewards-Distribution</li>
   </ol> -->
 
-  <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is: <strong id="participant-id">{{activeProgram}}</strong></div>
+  <div *ngIf="showActiveProgram" class="active-user" id="active-user">The Active Program is:
+    <strong id="participant-id">{{activeProgram}}</strong>
+  </div>
   <!-- Begin Allocation section -->
   <div class="row rewards-program-container">
     <div class="col-sm-12 dealership-identity" id="dealership-identity">
@@ -32,7 +34,9 @@
         <tr>
           <th id="reward-program" scope="col" role="columnheader">Program</th>
           <th class="right-align" id="amount-to-be-distributed" scope="col" role="columnheader">Amount Available To Be Distributed</th>
-          <th id="proceed-to-allocations" scope="col" role="columnheader"><span class="hide-me">Proceed To Allocations</span></th>
+          <th id="proceed-to-allocations" scope="col" role="columnheader">
+            <span class="hide-me">Proceed To Allocations</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -43,7 +47,10 @@
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
               aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()"
-              [disabled]="disableMVPButton">Approve Plans <i class="fa fa-arrow-right"></i></button></td>
+              [disabled]="disableMVPButton">Approve Plans
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
         <!-- end ng-if [disabled]="disableELButton" [disabled]="disablePCButton" [disabled]="disableURButton"-->
         <tr>
@@ -51,21 +58,30 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressLane"
-              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el'); getELDistributionData()">Proceed To Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#partsCounter"
-              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable(); getParticipantsByDealer('pc')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="partsCounter" (click)="pcOpenAllocationTable(); getParticipantsByDealer('pc')">Proceed To Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
         <tr>
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#usedRecon"
-              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable(); getParticipantsByDealer('ur')">Proceed To Allocations <i class="fa fa-arrow-right"></i></button></td>
+              aria-expanded="false" aria-controls="usedRecon" (click)="urOpenAllocationTable(); getParticipantsByDealer('ur')">Proceed To Allocations
+              <i class="fa fa-arrow-right"></i>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -96,8 +112,12 @@
               <th class="" id="allocation-plan-code" scope="col" role="columnheader">Plan Code</th>
               <th class="right-align" id="allocation-reward-amount" scope="col" role="columnheader">Reward Amount</th>
               <th class="" id="allocation-sid-name" scope="col" role="columnheader">SID Name</th>
-              <th class="" id="allocation-approved-status" scope="col" role="columnheader"> Approved?<span><br>
-                <p-checkbox  [(ngModel)]="approveAllMVP" (onChange)="approveAllMVPPlans(approveAllMVP)" binary="true"></p-checkbox></span></th>
+              <th class="" id="allocation-approved-status" scope="col" role="columnheader"> Approved?
+                <span>
+                  <br>
+                  <p-checkbox [(ngModel)]="approveAllMVP" (onChange)="approveAllMVPPlans(approveAllMVP)" binary="true"></p-checkbox>
+                </span>
+              </th>
               <!-- <th class="" id="allocation-notes" scope="col" role="columnheader">Notes</th> -->
             </tr>
           </thead>
@@ -133,8 +153,12 @@
         <!-- End Allocation Table -->
 
         <div class="col-sm-12 btn-container">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpSaveConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpSaveConfirmationModal">Save Changes
+            <i class="fa fa-check"></i>
+          </button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#mvpCancelConfirmationModal">Cancel Changes
+            <i class="fa fa-remove" aria-hidden="true"></i>
+          </button>
         </div>
 
       </div>
@@ -155,26 +179,29 @@
             (onChange)="selectedProgramName(programName)"></p-dropdown> -->
         </div>
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#elAllocationHistoryModal" (click)="getDistributionHistoryData('el')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#elAllocationHistoryModal" (click)="getDistributionHistoryData('el')">
+            <strong>View Allocation History</strong>
+            <i class="fa fa-clone"></i>
+          </a>
         </div>
         <!-- Begin Delearship Details Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
           <thead>
             <tr>
-              <th class="" id="allocation-dealership-details" role="columnheader" scope="col">Dealership Details</th>
+              <th class="" id="allocation-dealership-details" role="columnheader" scope="col">Team Name</th>
               <th class="right-align" id="allocation-reward-amount" role="columnheader" scope="col">Reward Amount</th>
               <th class="right-align" id="allocation-distributed-amount" role="columnheader" scope="col">Distributed Amount</th>
             </tr>
           </thead>
           <tbody>
             <!-- being ng-if -->
-            <tr>
-              <td class="" headers="allocation-dealership-details" role="gridcell">{{getSelectedDealerName()}}</td>
+            <tr *ngFor="let data of groupedELdistributionData">
+              <td class="" headers="allocation-dealership-details" role="gridcell">{{data.teamName}}</td>
               <td *ngIf="!elRewardAmountModal" class="right-align " headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
-                data-target="#" (click)="getRewardsAmountData('el')">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
+                data-target="#" (click)="getRewardsAmountData('el')">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td *ngIf="elRewardAmountModal" class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
-                data-target="#elRewardAmountModal" (click)="getRewardsAmountData('el')">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
+                data-target="#elRewardAmountModal" (click)="getRewardsAmountData('el')">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -205,10 +232,16 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container" [hidden]="hideelParticipantTable">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
 
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elCancelationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elCancelationModal">Cancel Changes
+            <i class="fa fa-remove" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#elConfirmationModal">Save Changes
+            <i class="fa fa-check"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -235,7 +268,10 @@
 
         </div>
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('pc')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#pcAllocationHistoryModal" (click)="getDistributionHistoryData('pc')">
+            <strong>View Allocation History</strong>
+            <i class="fa fa-clone"></i>
+          </a>
         </div>
         <!-- Begin Delearship Details Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -287,10 +323,16 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container" [hidden]="hidepcParticipantTable">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
 
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelConfirmationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcSaveConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcCancelConfirmationModal">Cancel Changes
+            <i class="fa fa-remove" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#pcSaveConfirmationModal">Save Changes
+            <i class="fa fa-check"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -316,7 +358,10 @@
 
         </div>
         <div class="col-sm-12">
-          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('ur')"><strong>View Allocation History</strong> <i class="fa fa-clone"></i></a>
+          <a class="allocation-history-link" href="#" data-toggle="modal" data-target="#urAllocationHistoryModal" (click)="getDistributionHistoryData('ur')">
+            <strong>View Allocation History</strong>
+            <i class="fa fa-clone"></i>
+          </a>
         </div>
         <!-- Begin Delearship Details Table -->
         <table class="table table-bordered table-striped col-sm-12" role="grid">
@@ -369,9 +414,15 @@
           </tbody>
         </table>
         <div class="col-sm-12 btn-container" [hidden]="hideurParticipantTable">
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant <i class="fa fa-plus" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urCancellationModal">Cancel Changes <i class="fa fa-remove" aria-hidden="true"></i></button>
-          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urConfirmationModal">Save Changes <i class="fa fa-check"></i></button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" (click)="addNewRow()">Add Participant
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urCancellationModal">Cancel Changes
+            <i class="fa fa-remove" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all pull-right" data-toggle="modal" data-target="#urConfirmationModal">Save Changes
+            <i class="fa fa-check"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -384,9 +435,11 @@
   <div class="modal fade" id="mvpSaveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header"> 
+        <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to save the changes. Are you sure you want to continue?</p>
@@ -404,7 +457,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to cancel the changes. Are you sure you want to continue?</p>
@@ -421,7 +476,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -438,7 +495,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="elConfirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -455,7 +514,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to cancel changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -472,7 +533,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -489,7 +552,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to cancel the changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -506,7 +571,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <p>You are about to save changes to the rewards available to this dealership. Are you sure you want to continue?</p>
@@ -526,7 +593,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered table-striped" role="grid">
@@ -561,7 +630,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered table-striped" role="grid">
@@ -596,7 +667,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="allocationHistoryModalLabel">Allocation History</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered table-striped" role="grid">
@@ -634,7 +707,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="allocationHistoryModalLabel">Invoice Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered table-striped" role="grid">
@@ -672,7 +747,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="allocationHistoryModalLabel">Invoice Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered table-striped" role="grid">
@@ -710,7 +787,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title" id="allocationHistoryModalLabel">Invoice Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <table class="table table-bordered table-striped" role="grid">

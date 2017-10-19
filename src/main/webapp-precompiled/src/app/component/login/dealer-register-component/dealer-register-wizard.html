@@ -40,7 +40,7 @@
                 <article class="card animated fadeInUp">
                     <div class="card-block">
                         <div class="content-row row">
-                            <div class="col-sm-12" [hidden]="submitted">
+                            <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2" [hidden]="submitted">
                                 <form #enrollmentForm="ngForm">
                                     <fieldset>
                                         <legend>
@@ -52,7 +52,7 @@
                                             <p style="color: red">{{msg}}</p>
                                         </div> -->
                                         <div *ngIf="!successsubmit">
-                                            <p>I have read and agree with these 
+                                            <p>I have read and agree with these
                                                 <span>
                                                     <a href="/shared/imi-cms/MSER/webDocs/MSER_Official_Program_Rules.pdf" target="_blank" style="text-decoration: underline">
                                                         <b> Program Rules</b>
@@ -65,14 +65,14 @@
 
                                             <!-- Dealer Code, SID -->
                                             <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-6">
                                                     <label for="dealercode">*Dealer Code</label>
                                                     <input [disabled]="enableInputs" class="form-control" id="dealercode" minlength="5" maxlength="5" name="dealercode" pattern="[0-9]{5}"
                                                         required type="text" [(ngModel)]="dealerEnrollment.dealerCode" #dealercode="ngModel"
                                                         (ngModelChange)="ngModelChangeDC()" />
                                                     <div class="alert alert-danger" [hidden]=" !showDCErrorHiddenDiv">Valid Dealercode is required</div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-6">
                                                     <label for="sid">*SID</label>
                                                     <input [disabled]="enableInputs" class="form-control" id="sid" minlength="7" maxlength="7" name="sid" pattern="[A-Za-z0-9]{7}"
                                                         required type="text" [(ngModel)]="dealerEnrollment.sid" #sid="ngModel"
@@ -88,7 +88,7 @@
                                             <!-- <div *ngIf="showDiv"> -->
                                             <!-- Dealership Name -->
                                             <div class="form-group row">
-                                                <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+                                                <div class="col-sm-12 ">
                                                     <label for="dealershipname">*Dealership Name</label>
                                                     <input class="form-control" id="dealershipname" name="dealershipname" [disabled]="!enableInputs" pattern="[A-Za-z].{3,}"
                                                         required type="text" [(ngModel)]="submitDealerAndPositionCodeDatum.dealershipName"
@@ -100,7 +100,7 @@
 
                                             <!-- Dealership Principal Name -->
                                             <div class="form-group row">
-                                                <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+                                                <div class="col-sm-12 ">
                                                     <label for="dealershipprincipalname">*Dealer Principal Name</label>
                                                     <input class="form-control" id="dealershipprincipalname" name="dealershipprincipalname" [disabled]="!enableInputs" pattern="[A-Za-z].{3,}"
                                                         required type="text" [(ngModel)]="dealerEnrollment.dealerPrincipalName"
@@ -112,7 +112,7 @@
 
                                             <!-- Email Address, Phone Number -->
                                             <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-5">
                                                     <label for="email">*Email Address</label>
                                                     <input class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required type="email"
                                                         [(ngModel)]="dealerEnrollment.dealerPrincipalEmail" #email="ngModel"
@@ -120,14 +120,14 @@
                                                     />
                                                     <div class="alert alert-danger" [hidden]="!showDealerPrincipalEmailErrorHiddenDiv">Valid email is required.</div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-2">
+                                                <div class="col-sm-12 col-md-5">
                                                     <label for="phone">Phone Number</label>
                                                     <input class="form-control" id="phone" minlength="10" maxlength="10" placeholder="(000)-000-0000" name="phone" [disabled]="!enableInputs"
                                                         pattern="[0-9]{10}" required type="text" [(ngModel)]="dealerEnrollment.phone"
                                                         #phone="ngModel" (ngModelChange)="ngModelChangePhone()" />
                                                     <div class="alert alert-danger" [hidden]="!showPhoneNumberErrorHiddenDiv">Valid phone number is required.</div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-1">
+                                                <div class="col-sm-12 col-md-2">
                                                     <label for="phone">Extension</label>
                                                     <input class="form-control" id="phone" minlength="1" maxlength="10" name="extention" [disabled]="!enableInputs" pattern="[0-9]{10}"
                                                         required type="text" [(ngModel)]="dealerEnrollment.extention" />
@@ -137,7 +137,7 @@
 
                                             <!-- Dealer Principal Signature -->
                                             <div class="form-group row">
-                                                <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+                                                <div class="col-sm-12">
                                                     <label for="signature">*Dealer Principal Signature (or person listed on paragraph 2 of Dealer
                                                         Agreement): Type OK to sign</label>
                                                     <input class="form-control" id="signature" minlength="2" maxlength="2" name="signature" [disabled]="!enableInputs" pattern="[OKok]{2}"
@@ -149,7 +149,7 @@
 
                                             <!-- Date -->
                                             <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12">
                                                     <label for="date">Date</label>
                                                     <input class="form-control" id="todayDate" name="todayDate" type="text" [(ngModel)]="todayDate" [disabled]=true (ngModelChange)="onChangeInput()"
                                                     />
@@ -159,13 +159,13 @@
 
                                             <!-- Eligible Parts Manager, Manager Email -->
                                             <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-6">
                                                     <label for="elligiblemanager">Eligible Parts Manager </label>
                                                     <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Parts Manager" [options]="partsMangerOptions"
                                                         [(ngModel)]="dealerEnrollment.selectedPartsManager" (onChange)="dealerEnrollmentElligiblePartsManagers(dealerEnrollment.selectedPartsManager)"></p-dropdown>
                                                     <div class="alert alert-danger" [hidden]="!showPartsManagerNameErrorHiddenDiv">Select Parts Manager.</div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-6">
                                                     <label for="manageremail">Parts Manager Email</label>
                                                     <input class="form-control" id="manageremail" name="manageremail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" type="email"
                                                         [(ngModel)]="dealerEnrollment.partsManagerEmail" [disabled]="!enableInputs"
@@ -175,13 +175,13 @@
                                             </div>
                                             <!-- Eligible Service Manager, Manager Email -->
                                             <div class="form-group row">
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-6">
                                                     <label for="elligiblemanager">Eligible Service Manager</label>
                                                     <p-dropdown [disabled]="!enableInputs" filter="filter" name="elligiblemanagers" placeholder="Select Service Manager" [options]="ServiceManagerOptions"
                                                         [(ngModel)]="dealerEnrollment.selectedServiceManager" (onChange)="dealerEnrollmentElligibleServiceManagers(dealerEnrollment.selectedServiceManager)"></p-dropdown>
                                                     <div class="alert alert-danger" [hidden]="!showServiceManagerNameErrorHiddenDiv">Select Service Manager.</div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                                                <div class="col-sm-12 col-md-6">
                                                     <label for="manageremail">Service Manager Email</label>
                                                     <input [disabled]="!enableInputs" class="form-control" id="servicemanageremail" name="servicemanageremail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                                                         type="email" [(ngModel)]="dealerEnrollment.serviceManagerEmail" (ngModelChange)="ngModelChangeServiceManagerEmail()"

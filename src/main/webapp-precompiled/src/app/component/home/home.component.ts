@@ -29,9 +29,8 @@ export class HomeComponent implements OnInit {
     this.getMSEREnrollmentTileData();
     this.getMSEREarningTileData();
     this.hideEnrollmentTileMatrix();
-   
+
   }
-  
 
   private showEnrollmentMaintenanceButton: boolean = false;
   private checkRoles() {

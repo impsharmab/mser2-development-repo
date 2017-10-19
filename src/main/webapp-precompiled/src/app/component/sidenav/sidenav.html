@@ -8,7 +8,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="home" routerLinkActive="active-link">Home </a>
         </li>
-        <li *ngIf="isAdmin" class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" routerLink="payoutchart">Payout Chart
             <span class="badge badge-info"></span>
           </a>
@@ -77,7 +77,7 @@
               <a class="nav-link nav-dropdown-toggle child-link" href="#">Training</a>
               <ul class="">
                 <li class="nav-item">
-                  <a class="nav-link grandchild-link" routerLink="marketingtrainingpresentation">Videos &amp; Presentations</a>
+                  <a class="nav-link grandchild-link" routerLink="marketingtrainingpresentation">Video &amp; Presentations</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/Full_Deck_v2.pdf" target="_blank">Service Lane Sales Training</a>
@@ -120,7 +120,7 @@
 
         <!-- Begin Report Center -->
         <li class="nav-item nav-dropdown dopdown-parent">
-          <a class="nav-link nav-dropdown-toggle parent-link">Report Center</a>
+          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Report Center</a>
           <ul class="nav-dropdown-items dopdown-child">
             <!-- <li class="nav-item"><a class="nav-link child-link" routerLink="jasperreport">Reward Deposit Report</a></li> -->
             <li class="nav-item nav-dropdown dopdown-grandchild">
@@ -135,7 +135,7 @@
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li> -->
               </ul>
             </li>
-            <li class="nav-item nav-dropdown dopdown-grandchild">
+            <li *ngIf="isCABCMABCUser || isAdmin" class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">BC Reports</a>
               <ul>
                 <li class="nav-item nav-dropdown dopdown-grandchild">
@@ -201,7 +201,7 @@
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="mvp">Videos &amp; Presentations </a>
+              <a class="nav-link" routerLink="mvp">Video &amp; Presentations </a>
             </li>
           </ul>
         </li>
@@ -253,7 +253,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link child-link" routerLink="uconnectvideos">Videos &amp; Presentations</a>
+              <a class="nav-link child-link" routerLink="uconnectvideos">Video &amp; Presentations</a>
             </li>
             <li class="nav-item">
               <a class="nav-link child-link" href="/shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process</a>
