@@ -13,7 +13,6 @@ import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup
 import { ContactUsComponent } from '../../header/contact-us/contact-us.component';
 import { CMSComponent } from '../../cms/cms.component';
 import { PartsLookupComponent } from '../../parts-lookup/parts-lookup.component';
-import { EnrollmentMaintenanceComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance.component';
 import { RewardsRedistributionComponent } from '../../rewards-redistribution/rewards-redistribution.component';
 import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
 import { MVPComponent } from '../../mvp/mvp.component';
@@ -21,7 +20,7 @@ import { RewardsDistributionComponent } from '../../rewards-distribution/rewards
 import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
-import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
+import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance';
 import { JasperPocComponent } from '../../reports/jsper-report-poc/jasper-component';
 import { CategoryMaintenanceComponent } from '../../category-maintenance/category-maintenance.component';
 import { PartAddComponent } from '../../part-add/part-add.component';

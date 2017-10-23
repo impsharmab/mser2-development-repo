@@ -14,25 +14,25 @@ declare var $: any;
 
 })
 export class SidenavComponent implements OnInit, AfterViewInit {
-  private isAdmin: boolean = false;
-  private cmsContentObject: any;
-  private selectedPositionCode: any = "";
-  private showMSERRulesPage: boolean = false;
-  private showMSEREnrollmentReport: boolean = false;
-  private showMSEREnrollmentForm: boolean = false;
-  private showMSEROPCodeSetup: boolean = false;
-  private showMSEREnrollmentMaintenance: boolean = false;
-  private showMSERAutoEnrollmentOpt: boolean = false;
-  private showuvmHome: boolean = false;
-  private showuvmProgramRules: boolean = false;
-  private showexcellenceCardIssuance: boolean = false;
-  private showexcellenceCardInfo: boolean = false;
-  private showRewardDistribution: boolean = false;
-  private isMSEREnrolled: boolean = false;
-  private showMVPChangeApprovalSettings: boolean = false;
-  private showRewardDistributionMainTab: boolean = false;
-  private roleSession: any = "";
-  private hideThisReportForParticipant: boolean = false;
+  public isAdmin: boolean = false;
+  public cmsContentObject: any;
+  public selectedPositionCode: any = "";
+  public showMSERRulesPage: boolean = false;
+  public showMSEREnrollmentReport: boolean = false;
+  public showMSEREnrollmentForm: boolean = false;
+  public showMSEROPCodeSetup: boolean = false;
+  public showMSEREnrollmentMaintenance: boolean = false;
+  public showMSERAutoEnrollmentOpt: boolean = false;
+  public showuvmHome: boolean = false;
+  public showuvmProgramRules: boolean = false;
+  public showexcellenceCardIssuance: boolean = false;
+  public showexcellenceCardInfo: boolean = false;
+  public showRewardDistribution: boolean = false;
+  public isMSEREnrolled: boolean = false;
+  public showMVPChangeApprovalSettings: boolean = false;
+  public showRewardDistributionMainTab: boolean = false;
+  public roleSession: any = "";
+  public hideThisReportForParticipant: boolean = false;
 
   constructor(private cmsService: CMSService) { }
 
@@ -63,7 +63,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.executeJQueryCode();
   }
-  private mSEREnrollmentPageMatrix() {
+  public mSEREnrollmentPageMatrix() : void {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
@@ -96,7 +96,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
   }
 
-  private mvpPageMatrix() {
+  public mvpPageMatrix() {
     if (userMatrix.mvpChangeApprovalSettings.indexOf(this.selectedPositionCode) > -1) {
       this.showMVPChangeApprovalSettings = true;
     } else {
@@ -104,7 +104,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private uvmPageMatrix() {
+  public uvmPageMatrix() {
     if (userMatrix.uvmHome.indexOf(this.selectedPositionCode) > -1) {
       this.showuvmHome = true;
     } else {
@@ -117,7 +117,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private excellenceCardMatrix() {
+  public excellenceCardMatrix() {
     if (userMatrix.excellenceCardIssuance.indexOf(this.selectedPositionCode) > -1) {
       this.showexcellenceCardIssuance = true;
     } else {
@@ -130,7 +130,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private rewardDistributionMatrix() {
+  public rewardDistributionMatrix() {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
@@ -144,8 +144,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
   }
 
-  private isCABCMABCUser: boolean = false;
-  private caBCMABCReport() {
+  public isCABCMABCUser: boolean = false;
+  public caBCMABCReport() {
     var bcFromSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
 
     if (bcFromSession == "CA" || bcFromSession == "MA" || bcFromSession == "NAT") {
@@ -153,7 +153,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private executeJQueryCode() {
+  public executeJQueryCode() {
     $.navigation = $('nav > ul.nav');
 
     $.panelIconOpened = 'icon-arrow-up';
@@ -230,7 +230,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
 
-  private openCMSPage(pageName) {
+  public openCMSPage(pageName) {
     this.cmsService.getCmsContent(pageName).subscribe(
       (cmsContentObject) => {
         this.cmsContentObject = (cmsContentObject)

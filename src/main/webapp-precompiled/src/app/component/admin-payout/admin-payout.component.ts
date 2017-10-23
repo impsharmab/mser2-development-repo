@@ -14,6 +14,7 @@ import '../../../assets/js/html2canvas.js';
 import { AdminPayoutService } from '../../services/admin-payout/admin-payout-service';
 
 import * as jsPDF from 'jspdf';
+import { SelectItem } from 'primeng/primeng';
 declare var html2canvas: any;
 declare var $: any;
 declare var moment: any;
@@ -34,12 +35,18 @@ export class AdminPayoutComponent implements OnInit {
     programs: any;
     selectedIncentives: string[] = [];
     programCategories: any = [];
+    selectedProgramCategories: any[] = [];
     payoutMonth: string = "JUL";
     selectedIncentiveSubCodes: string[] = [];
     newCategory: any = {};
     selectedOpenIncentives: string[] = [];
     startDate: string = '';
-    endDate: string = ''
+    endDate: string = '';
+    rewards: any[] = [];
+    eligiblePositions: any[] = [];
+    rewardTypeDd: SelectItem[] = [];
+    quantityDd: SelectItem[] = [];
+    overrideModalReward: any;
 
 
     calendarOptions = {
@@ -108,7 +115,12 @@ export class AdminPayoutComponent implements OnInit {
         });
     }
 
-    openOverrideModal() {
+    openOverrideModal(reward, action) {
+        this.overrideModalReward = reward;
+        if (action == 'a')
+            this.overrideModalReward.action = 'Add';
+        else if (action == 'u')
+            this.overrideModalReward.action = 'Update';
         this.modalService.open(this.overrideModal).result.then((result) => {
             //this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
@@ -144,6 +156,13 @@ export class AdminPayoutComponent implements OnInit {
         else if (this.index == 2) {
             this.programCategories = [];
             this.getCategories();
+        }
+        else if (this.index == 3) {
+            this.rewards = [];
+            this.getRewards();
+        }
+        else if (this.index == 4) {
+            this.gotoSummary();
         }
     }
 
@@ -213,6 +232,130 @@ export class AdminPayoutComponent implements OnInit {
                 categories: [this.newCategory]
             })
         }
+    }
+
+    getRewards() {
+        var $this = this;
+        this.selectedProgramCategories = [];
+        console.log("selected categories are:" + $this.selectedIncentiveSubCodes.length);
+        if ($this.selectedIncentiveSubCodes.length > 0) {
+            $this.selectedIncentiveSubCodes.forEach(function (selectedIncentiveSubCode) {
+                $this.programCategories.forEach(programCategory => {
+                    programCategory.categories.forEach(element => {
+                        if (element.incentiveSubCodeId == selectedIncentiveSubCode) {
+                            $this.selectedProgramCategories.push(element);
+                        }
+                    });
+                });
+            })
+        }
+        if (this.selectedProgramCategories.length > 0) {
+            var selectedProgramGroupIds: string[] = [];
+            this.selectedProgramCategories.forEach(function (element) {
+                if (selectedProgramGroupIds.indexOf(element.programGroupId) == -1)
+                    selectedProgramGroupIds.push(element.programGroupId);
+            });
+            if (selectedProgramGroupIds.length > 0) {
+                this.adminPayoutService.getEligiblePositions(selectedProgramGroupIds).subscribe(
+                    (eligiblePositions) => {
+                        this.eligiblePositions = eligiblePositions;
+                        this.adminPayoutService.getRewardTypes().subscribe((rewardTypes) => {
+                            this.rewardTypeDd = this.converToDd(rewardTypes, 'description');
+                            this.adminPayoutService.getQuantities().subscribe((quantities) => {
+                                this.quantityDd = this.converToDd(quantities, 'quantityVal');
+                                this.selectedProgramCategories.forEach(element => {
+                                    var positionDd = this.converToDd(this.getPositionsByProgramLocal(element.programGroupId), 'description');
+                                    this.rewards.push({
+                                        positionDd: positionDd,
+                                        programGroupId: element.programGroupId,
+                                        programGroup: element.programGroup,
+                                        incentiveSubCodeId: element.incentiveSubCodeId,
+                                        incentiveSubCode: element.incentiveSubCode,
+                                        rewardPositions: [{
+                                            position: {},
+                                            rewardAmount: "",
+                                            rewardType: {}
+                                        }],
+                                        overrideModalOptions: {
+                                            rewardPositionDd: []
+                                        },
+                                        laborTypes: [],
+                                        quantity: {}
+                                    });
+                                });
+                                console.log(this.rewards);
+                            });
+                        });
+                    });
+            }
+        }
+    }
+
+    onChangeRewardPosition(reward) {
+        this.setRewardOverrideModalOptions(reward);
+    }
+
+    setRewardOverrideModalOptions(reward) {
+        reward.overrideModalOptions.rewardPositionDd = [];
+        reward.rewardPositions.forEach(element => {
+            if (element.position.positionCode)
+                reward.overrideModalOptions.rewardPositionDd.push({
+                    label: element.position.description,
+                    value: element.position
+                });
+        });
+        if (reward.overrideModalOptions.rewardPositionDd.length > 1)
+            reward.canOverride = true;
+        else
+            reward.canOverride = false;
+    }
+
+    gotoSummary() {
+        console.log(this.rewards);
+    }
+
+    converToDd(list: any[], labelField: string) {
+        var dD: SelectItem[] = [];
+        list.forEach(element => {
+            dD.push({
+                label: element[labelField],
+                value: element
+            })
+        });
+        return dD;
+    }
+
+    getPositionsByProgramLocal(programGroupId) {
+        for (let position of this.eligiblePositions) {
+            if (position.programGroupId == programGroupId) {
+                return position.positions;
+            }
+        }
+    }
+
+    addRewardPosRec(reward) {
+        if (reward.rewardPositions.length < reward.positionDd.length) {
+            reward.rewardPositions.push({
+                position: {},
+                rewardAmount: "",
+                rewardType: {}
+            });
+        }
+        this.setRewardOverrideModalOptions(reward);
+    }
+
+    removeRewardPosRec(reward, indexToDel) {
+        reward.rewardPositions.splice(indexToDel, 1);
+        this.setRewardOverrideModalOptions(reward);
+    }
+
+    setActionState() {
+        if (this.overrideModalReward.position && this.overrideModalReward.recipientPosition
+            && this.overrideModalReward.overrideType && this.overrideModalReward.overrideAmt
+            && this.overrideModalReward.overrideAmt.length > 0)
+            this.overrideModalReward.actionState = true;
+        else
+            this.overrideModalReward.actionState = false;
     }
 
 }

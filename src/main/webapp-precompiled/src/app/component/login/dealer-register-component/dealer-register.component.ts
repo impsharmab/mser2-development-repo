@@ -12,21 +12,19 @@ import { DealerRegisterService } from '../../../services/dealer-register-service
 
 @Component({
   selector: 'dealer-register-component',
-  // templateUrl: './new-dealer-register.html',
   templateUrl: './dealer-register-wizard.html',
   styleUrls: ['./dealer-register.component.css']
 })
 export class DealerRegisterComponent implements OnInit {
   public registerDealer: DealerRegisterFormInterface;
-  selectedValues: string[] = ['val1', 'val2'];
-  value: boolean;
-  date: DateModel;
-  options: DatePickerOptions;
-  submitted = false;
-  // booleanSelectCheckBox: boolean = true;
-
-  private successsubmit: boolean = false;
-  private displayConfirmationModal: boolean = false;
+  public selectedValues: string[] = ['val1', 'val2'];
+  public value: boolean;
+  public date: DateModel;
+  public options: DatePickerOptions;
+  public submitted = false;
+  
+  public successsubmit: boolean = false;
+  public displayConfirmationModal: boolean = false;
   private val;
   private todayDate: string = "";
   private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
@@ -36,12 +34,12 @@ export class DealerRegisterComponent implements OnInit {
     serviceManagerEmail: "", isPartsCounter: false, isUsedRecon: false, isExpressLane: false, autoApproveMVP: ""
   };
   private mserEnrollmentFormData = {}
-  private errorSID: string = "";
-  private errorDealerCode: string = "";
-  private errorDealerEmail: string = "";
-  private invalidCreds: boolean = false;
-  private successDealerRegisterMessage: string = "";
-  private errorDealerRegistrationMessage: string = "";
+  public errorSID: string = "";
+  public errorDealerCode: string = "";
+  public errorDealerEmail: string = "";
+  public invalidCreds: boolean = false;
+  public successDealerRegisterMessage: string = "";
+  public errorDealerRegistrationMessage: string = "";
 
   constructor(private mserEnrollmentService: DealerRegisterService,
     private http: Http,
@@ -74,7 +72,7 @@ export class DealerRegisterComponent implements OnInit {
   //   private onCheckCall(aggrement) {
   // if(aggrement==)
   //   }
-  private dealerEnrollmentAggrement(agrrement: any) {
+  public dealerEnrollmentAggrement(agrrement: any) {
     if (agrrement !== undefined && agrrement.length > 0) {
       this.dealerEnrollment.aggrement = true;
     } else {
@@ -82,19 +80,19 @@ export class DealerRegisterComponent implements OnInit {
     }
 
   }
-  private dealerEnrollmentPCCheckBox() {
+  public dealerEnrollmentPCCheckBox() {
     this.dealerEnrollment.isPartsCounter = true;
   }
-  private dealerEnrollmentUsedReconCheckBox() {
+  public dealerEnrollmentUsedReconCheckBox() {
     this.dealerEnrollment.isUsedRecon = true;
   }
-  private dealerEnrollmentExpressLaneCheckBox() {
+  public dealerEnrollmentExpressLaneCheckBox() {
     this.dealerEnrollment.isExpressLane = true;
   }
 
 
-  private msg: string = "";
-  private submitDealerAndPositionCodeDatum: any = {
+  public msg: string = "";
+  public submitDealerAndPositionCodeDatum: any = {
     "PartsManagers": [{
       "name": "",
       "value": ""
@@ -106,16 +104,16 @@ export class DealerRegisterComponent implements OnInit {
       "value": ""
     }]
   };
-  private showButtonDiv: boolean = false;
-  private showDiv: boolean = false;
-  private partsMangerOptions: SelectItem[] = [{ label: "", value: "" }];
-  private ServiceManagerOptions: SelectItem[] = [{ label: "", value: "" }];
-  private isELValidated: boolean = false;
-  private enableInputs: boolean = false;
-  private enrollmentFee: string = ""
-  private showDCErrorHiddenDiv: boolean = false;
-  private showSIDErrorHiddenDiv: boolean = false;
-  private submitDealerAndPositionCode(valid) {
+  public showButtonDiv: boolean = false;
+  public showDiv: boolean = false;
+  public partsMangerOptions: SelectItem[] = [{ label: "", value: "" }];
+  public ServiceManagerOptions: SelectItem[] = [{ label: "", value: "" }];
+  public isELValidated: boolean = false;
+  public enableInputs: boolean = false;
+  public enrollmentFee: string = ""
+  public showDCErrorHiddenDiv: boolean = false;
+  public showSIDErrorHiddenDiv: boolean = false;
+  public submitDealerAndPositionCode(valid) {
     // var z1 = /^[0-9]{5}/;
     var dealerCodeRegex = /^([0-9]{5})$/;
     var sidRegex = /^([A-Za-z0-9]{7})$/;
@@ -134,43 +132,7 @@ export class DealerRegisterComponent implements OnInit {
       return;
     }
 
-    // if (this.dealerEnrollment.dealerCode.trim() == "" && this.dealerEnrollment.sid.trim() == "") {
-    //   // this.msg = "Please enter Dealer Code and SID";
-    //   this.showDCErrorHiddenDiv = true;
-    //   this.showPCErrorHiddenDiv = true;
-    //   return;
-    // } else if (this.dealerEnrollment.dealerCode.trim() != "" && dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length == 5 && this.dealerEnrollment.sid.trim() == "") {
-    //   this.msg = "Please Enter SID";
-    //   this.showDCErrorHiddenDiv = false;
-    //   this.showPCErrorHiddenDiv = true;
-    //   return;
-    // } else if (this.dealerEnrollment.dealerCode.trim() != "" && !dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length != 5 && this.dealerEnrollment.sid.trim() != "") {
-    //   // this.msg = "Please Enter Valid Dealer Code";
-    //   this.showDCErrorHiddenDiv = true;
-    //   this.showPCErrorHiddenDiv = false;
-    //   return;
-    // } else if (this.dealerEnrollment.dealerCode.trim() != "" && !dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length == 5 && this.dealerEnrollment.sid.trim() != "") {
-    //   // this.msg = "Please Enter Valid Dealer Code";
-    //   this.showDCErrorHiddenDiv = true;
-    //   this.showPCErrorHiddenDiv = false;
-    //   return;
-    // } else if (this.dealerEnrollment.dealerCode.trim() != "" && !dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length != 5 && this.dealerEnrollment.sid.trim() == "") {
-    //   // this.msg = "Please Enter Valid Dealer Code and SID";
-    //   this.showDCErrorHiddenDiv = true;
-    //   this.showPCErrorHiddenDiv = true;
-    //   return;
-    // } else if (this.dealerEnrollment.dealerCode.trim() == "" && this.dealerEnrollment.sid.trim() != "") {
-    //   // this.msg = "Plese Enter Dealer Code";
-    //   this.showDCErrorHiddenDiv = true;
-    //   this.showPCErrorHiddenDiv = false;
-    //   return;
-    // }
-    // if (valid !== undefined && valid === false) {
-    //   this.showValidationDiv = true;
-    //   return;
-    // } else {
-    //   this.showValidationDiv = false;
-    // }
+    
     this.mserEnrollmentService.submitDealerAndPositionCode(this.dealerEnrollment.dealerCode.trim(), this.dealerEnrollment.sid.trim()).subscribe(
       (submitDealerAndPositionCodeDatum) => {
         this.submitDealerAndPositionCodeDatum = (submitDealerAndPositionCodeDatum)
@@ -222,9 +184,9 @@ export class DealerRegisterComponent implements OnInit {
       }
     )
   }
-  private showalert: boolean = true;
-  private showValidationDiv: boolean = false;
-  private errorMobileNumber: string = "";
+  public showalert: boolean = true;
+  public showValidationDiv: boolean = false;
+  public errorMobileNumber: string = "";
   private validateMobileNumber(mobileNumber) {
     var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     if (mobileNumber.match(phoneno)) {
@@ -237,19 +199,19 @@ export class DealerRegisterComponent implements OnInit {
     }
   }
 
-  private showAggrementErrorHiddenDiv: boolean = false;
-  private showDealershipNameErrorHiddenDiv: boolean = false;
-  private showDealerPrincipalNameErrorHiddenDiv: boolean = false;
-  private showDealerPrincipalEmailErrorHiddenDiv: boolean = false;
-  private showPhoneNumberErrorHiddenDiv: boolean = false;
-  private showPartsManagerEmailErrorHiddenDiv: boolean = false;
-  private showServiceManagerEmailErrorHiddenDiv: boolean = false;
-  private showPartsManagerNameErrorHiddenDiv: boolean = false;
-  private showServiceManagerNameErrorHiddenDiv: boolean = false;
-  private showOKErrorHiddenDiv: boolean = false;
-  private successmsg: string = "";
+  public showAggrementErrorHiddenDiv: boolean = false;
+  public showDealershipNameErrorHiddenDiv: boolean = false;
+  public showDealerPrincipalNameErrorHiddenDiv: boolean = false;
+  public showDealerPrincipalEmailErrorHiddenDiv: boolean = false;
+  public showPhoneNumberErrorHiddenDiv: boolean = false;
+  public showPartsManagerEmailErrorHiddenDiv: boolean = false;
+  public showServiceManagerEmailErrorHiddenDiv: boolean = false;
+  public showPartsManagerNameErrorHiddenDiv: boolean = false;
+  public showServiceManagerNameErrorHiddenDiv: boolean = false;
+  public showOKErrorHiddenDiv: boolean = false;
+  public successmsg: string = "";
 
-  private saveDealerEnrollmentForm(valid) {
+  public saveDealerEnrollmentForm(valid) {
     this.msg = "";
     this.errorMobileNumber = "";
     this.showAggrementErrorHiddenDiv = false;
@@ -268,15 +230,7 @@ export class DealerRegisterComponent implements OnInit {
     var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
-    // if (this.booleanSelectCheckBox != undefined && this.booleanSelectCheckBox != true) {
-    //   this.showalert = true;
-    // } else {
-    //   this.showalert = false;
-    // }
-
-    // if (!nameRegex.test(this.dealerEnrollment.dealershipName)) {
-    //   this.showDealershipNameErrorHiddenDiv = true;
-    // }
+    
     if (this.dealerEnrollment.aggrement != true) {
       this.showAggrementErrorHiddenDiv = true;
     }
@@ -320,23 +274,7 @@ export class DealerRegisterComponent implements OnInit {
     if (this.dealerEnrollment.partsManagerEmail.length < 1 && this.dealerEnrollment.serviceManagerEmail.length < 1) {
       return;
     }
-    // if (valid !== undefined && valid === false) {
-    //   this.showValidationDiv = true;
-    // } else {
-    //   this.showValidationDiv = false;
-    // }
-
-
-    // if (this.dealerEnrollment.dealerPrincipalName != undefined && this.dealerEnrollment.dealerPrincipalName.length < 1) {
-    //   this.showDealerPrincipalNameErrorHiddenDiv = true;
-    // }
-    // if (this.dealerEnrollment.dealerPrincipalEmail != undefined && this.dealerEnrollment.dealerPrincipalEmail.length < 1) {
-    //   this.showDealerPrincipalEmailErrorHiddenDiv = true;
-    // }
-
-    // if (!this.validateMobileNumber(this.dealerEnrollment.phone)) {
-    //   this.showPhoneNumberErrorHiddenDiv = true;
-    // }
+    
 
     var aggrement = this.dealerEnrollment.aggrement;
     var dealerCode = this.dealerEnrollment.dealerCode;
@@ -381,7 +319,7 @@ export class DealerRegisterComponent implements OnInit {
       )
   }
 
-  private onChangeInput() {
+  public onChangeInput() {
     this.msg = "";
     // this.errorMobileNumber = "";
     this.showDealershipNameErrorHiddenDiv = false;
@@ -395,53 +333,53 @@ export class DealerRegisterComponent implements OnInit {
     this.showOKErrorHiddenDiv = false;
   }
 
-  private ngModelChangeDC() {
+  public ngModelChangeDC() {
     this.msg = "";
     this.showDCErrorHiddenDiv = false;
   }
-  private ngModelChangeSID() {
+  public ngModelChangeSID() {
     this.msg = "";
     this.showSIDErrorHiddenDiv = false;
   }
-  private ngModelChangeDealershipName() {
+  public ngModelChangeDealershipName() {
     this.msg = "";
     this.showDealershipNameErrorHiddenDiv = false;
   }
-  private ngModelChangeDealerprincipalName() {
+  public ngModelChangeDealerprincipalName() {
     this.msg = "";
     this.showDealerPrincipalNameErrorHiddenDiv = false;
   }
-  private ngModelChangeDealerprincipalEmail() {
+  public ngModelChangeDealerprincipalEmail() {
     this.msg = "";
     this.showDealerPrincipalEmailErrorHiddenDiv = false;
   }
-  private ngModelChangePhone() {
+  public ngModelChangePhone() {
     this.msg = "";
     this.showPhoneNumberErrorHiddenDiv = false;
   }
-  private ngModelChangeOK() {
+  public ngModelChangeOK() {
     this.msg = "";
     this.showOKErrorHiddenDiv = false;
   }
-  private dealerEnrollmentElligiblePartsManagers() {
+  public dealerEnrollmentElligiblePartsManagers() {
     this.showPartsManagerNameErrorHiddenDiv = false;
   }
-  private dealerEnrollmentElligibleServiceManagers() {
+  public dealerEnrollmentElligibleServiceManagers() {
     this.showServiceManagerNameErrorHiddenDiv = false;
   }
-  private ngModelChangePartsManagerEmail() {
+  public ngModelChangePartsManagerEmail() {
     this.showPartsManagerEmailErrorHiddenDiv = false;
   }
-  private ngModelChangeServiceManagerEmail() {
+  public ngModelChangeServiceManagerEmail() {
     this.showServiceManagerEmailErrorHiddenDiv = false;
   }
 
-  private resetForm() {
+  public resetForm() {
     var dealerEnrollmentForm = document.getElementById("dealerEnrollmentForm") as HTMLSelectElement;
     dealerEnrollmentForm.reset();
   }
 
-  private redirectTOLoginPage() {
+  public redirectTOLoginPage() {
     let url = ["login"]
     this.router.navigate(url);
   }

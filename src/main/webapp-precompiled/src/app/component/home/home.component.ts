@@ -13,9 +13,9 @@ declare var $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private isDealerManager: any = false;
-  private isAdmin: any = false;
-  private isTIDUser: any = false;
+  public isDealerManager: any = false;
+  public isAdmin: any = false;
+  public isTIDUser: any = false;
 
   constructor(private homeService: HomeService, private router: Router) { }
 
@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  private showEnrollmentMaintenanceButton: boolean = false;
-  private checkRoles() {
+  public showEnrollmentMaintenanceButton: boolean = false;
+  public checkRoles() {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
@@ -43,14 +43,14 @@ export class HomeComponent implements OnInit {
 
     }
   }
-  private mserEnrollmentDatum: any = [{
+  public mserEnrollmentDatum: any = [{
     "name": "",
     "value": 0,
     "type": "",
     "tileName": "",
     "tileHeaderImage": ""
   }];
-  private getMSEREnrollmentTileData() {
+  public getMSEREnrollmentTileData() {
     this.homeService.getMSEREnrollmentTileData().subscribe(
       (mserEnrollmentDatum) => {
         this.mserEnrollmentDatum = (mserEnrollmentDatum)
@@ -59,14 +59,14 @@ export class HomeComponent implements OnInit {
       }
     )
   }
-  private mserEarningDatum: any = [{
+  public mserEarningDatum: any = [{
     "name": "",
     "value": 0,
     "type": "",
     "tileName": "",
     "tileHeaderImage": ""
   }];
-  private getMSEREarningTileData() {
+  public getMSEREarningTileData() {
     this.homeService.getMSEREarningTileData().subscribe(
       (mserEarningDatum) => {
         this.mserEarningDatum = (mserEarningDatum)
@@ -76,14 +76,14 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  private hideEnrollmentTile: boolean = false;
-  private hideEnrollmentTileMatrix() {
+  public hideEnrollmentTile: boolean = false;
+  public hideEnrollmentTileMatrix() {
     var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
     if (role == 6 || role == 9) {
       this.hideEnrollmentTile = true;
     }
   }
-  private openEnrollmentSite() {
+  public openEnrollmentSite() {
     let url = ["mserHomepage/enrollmentmaintenance"]
     this.router.navigate(url);
   }

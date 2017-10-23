@@ -6,7 +6,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerModule } from 'ng2-datepicker';
-import { PdfmakeModule } from 'ng-pdf-make';
+// import { PdfmakeModule } from 'ng-pdf-make';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule,
@@ -35,16 +35,15 @@ import { OpcodeSetupComponent } from '../../enrollment/opcode-setup/opcode-setup
 import { UserProfileComponent } from '../../header/user-profile/user-profile.component';
 import { ContactUsComponent } from '../../header/contact-us/contact-us.component';
 import { DealercodeModalComponent } from '../../header/dealercode-modal/dealercode-modal.component';
-import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
+// import { MarketingHomeComponent } from '../../marketing/marketing-home/marketing-home.component';
 import { CMSComponent } from '../../cms/cms.component';
 import { PartsLookupComponent } from '../../parts-lookup/parts-lookup.component';
-import { PayoutRedistributionComponent } from '../../enrollment/payout-redistribution/payout-redistribution';
 import { MVPComponent } from '../../mvp/mvp.component';
 import { RewardsDistributionComponent } from '../../rewards-distribution/rewards-distribution';
 import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
-import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/new-enrollment';
+import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance';
 import { RewardsRedistributionComponent } from '../../rewards-redistribution/rewards-redistribution.component';
 import { EmployeeMaintenanceComponent } from '../../admin/user/employee-maintenance/employee-maintenance.component';
 import { UserLookupComponent } from '../../admin/user/user-maintenance/user-lookup.component';
@@ -72,8 +71,10 @@ import { AdminService } from '../../../services/admin-service/admin-user/user-em
 import { HomeService } from '../../../services/home-service/home-service';
 import { ReportService } from '../../../services/report/report-service';
 import { PayoutChartService } from '../../../services/payout-chart/payout-chart.service';
-import {AdminPayoutService} from '../../../services/admin-payout/admin-payout-service';
+import { AdminPayoutService } from '../../../services/admin-payout/admin-payout-service';
 
+// import { RecallRewardsRulesComponent } from '../../../component/marketing/recall-rewards-rules/recall-rewards-rules.component'
+// import { MarketingProgramComponent } from '../../../component/marketing/marketing-program/marketing-program.component';
 
 @NgModule({
   imports: [
@@ -97,13 +98,14 @@ import {AdminPayoutService} from '../../../services/admin-payout/admin-payout-se
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
     ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
     WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent, PCInvoiceReportComponent,
+    //MarketingHomeComponent, RecallRewardsRulesComponent, MarketingProgramComponent
     // PhonePipe
 
   ],
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
     RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService, ReportService,
-    PayoutChartService,AdminPayoutService
+    PayoutChartService, AdminPayoutService
   ]
 })
 export class MserModule { }

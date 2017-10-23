@@ -58,7 +58,7 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#expressLane"
-              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getParticipantsByDealer('el'); getELDistributionData()">Proceed To Allocations
+              aria-expanded="false" aria-controls="expressLane" (click)="elOpenAllocationTable(); getELDistributionData()">Proceed To Allocations
               <i class="fa fa-arrow-right"></i>
             </button>
           </td>
@@ -196,12 +196,12 @@
           <tbody>
             <!-- being ng-if -->
             <tr *ngFor="let data of groupedELdistributionData">
-              <td class="" headers="allocation-dealership-details" role="gridcell">{{data.teamName}}</td>
+              <td class="hyperlink" headers="allocation-dealership-details" role="gridcell" (click)="getELParticipantsByDealer('el', data.teamId ,data.amount);">{{data.teamName}}</td>
               <td *ngIf="!elRewardAmountModal" class="right-align " headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
-                data-target="#" (click)="getRewardsAmountData('el')">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+                data-target="#" (click)="getELRewardsAmountData('el', data.teamId )">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td *ngIf="elRewardAmountModal" class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
-                data-target="#elRewardAmountModal" (click)="getRewardsAmountData('el')">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+                data-target="#elRewardAmountModal" (click)="getELRewardsAmountData('el',data.teamId)">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -218,9 +218,9 @@
           </thead>
           <tbody>
             <!-- begin ng-if -->
-            <tr *ngFor="let data of participantDataValue">
+            <tr *ngFor="let data of elParticipantDataValue">
               <td class="" headers="allocation-participants" role="gridcell">
-                <p-dropdown appendTo="body" [options]="participantsOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
+                <p-dropdown appendTo="body" [options]="elParticipantsOptions" name="participantName" [(ngModel)]="data.name" placeholder="Select Participant"
                   [style]="{'width':'100%', 'overflow':'visible'}" filter="filter" (onChange)="selectedParticipant(data.name)"></p-dropdown>
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
@@ -724,7 +724,7 @@
             </thead>
             <tbody>
               <!-- begin ng-if -->
-              <tr *ngFor="let data of rewardsAmountDatum">
+              <tr *ngFor="let data of elRewardsAmountDatum">
                 <td class="" headers="allocation-history-recipient" role="gridcell">{{data.dealerCode}}</td>
                 <td class="right-align" headers="allocation-history-amount" role="gridcell">{{data.invoiceNumber}}</td>
                 <td class="right-align" headers="allocation-history-date" role="gridcell">{{data.partNumber}}</td>

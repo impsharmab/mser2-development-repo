@@ -94,6 +94,7 @@ export class LoginService {
   getLoginResponse(username, password): any {
     var url = serviceUrl.baseUrl + "login/token/";
     var body = { "username": username, "password": password };
+
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 

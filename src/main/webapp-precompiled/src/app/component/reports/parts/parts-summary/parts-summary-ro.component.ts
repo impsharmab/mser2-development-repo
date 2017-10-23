@@ -15,20 +15,20 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class PartsSummaryROReportComponent implements OnInit {
-    private fromDate: string = "";
-    private toDate: string = "";
-    private partsSummaryROInterface: PartsSummaryRO = {
+    public fromDate: string = "";
+    public toDate: string = "";
+    public partsSummaryROInterface: PartsSummaryRO = {
         "from": this.fromDate,
         "to": this.toDate,
         "dealerCode": ""
     }
-    private partsSummaryROProgramOptions: SelectItem[] = [
+    public partsSummaryROProgramOptions: SelectItem[] = [
         { label: "Mopar Parts & Engines", value: "4" },
         { label: "Magneti Marelli", value: "2" },
         { label: "Express Lane", value: "1" },
         { label: "Mopar Accessories", value: "3" }
     ]
-    private selectedProgramList: any = [];
+    public selectedProgramList: any = [];
 
     constructor(private domSanitizer: DomSanitizer) { }
 
@@ -58,7 +58,7 @@ export class PartsSummaryROReportComponent implements OnInit {
         $("main, mser-cms").css("min-height", "calc(" + blah + "px - 2rem)");
         console.log("main is now: ", blah + "px high");
     }
-    private renderTab() {
+    public renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -75,7 +75,7 @@ export class PartsSummaryROReportComponent implements OnInit {
             orientation: "horizontal"
         });
     }
-    private squarify() {
+    public squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -92,12 +92,12 @@ export class PartsSummaryROReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-    private src: any = "";
-    private openROReportLink() {
+    public src: any = "";
+    public openROReportLink() {
     }
 
-    private showPartsSummaryROReportIframe: boolean = false;
-    private showPartsSummaryROReport() {
+    public showPartsSummaryROReportIframe: boolean = false;
+    public showPartsSummaryROReport() {
         this.showPartsSummaryROReportIframe = true;
         var programName = "SummaryRepairOrder"
         var FromDate = this.partsSummaryROInterface.from;

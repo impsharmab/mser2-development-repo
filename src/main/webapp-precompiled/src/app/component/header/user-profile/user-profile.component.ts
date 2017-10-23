@@ -6,16 +6,16 @@ import { UserProfileTextMessageOptionInterface } from './userProfile-textMessage
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-user-profile',
-  templateUrl: './new-userprofile.html',
+  templateUrl: './userprofile.html',
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
   //@Input() userProfileData: any;
-  private ranOnce = false;
-  private errorProfileChangeMessage: string = "";
-  private errorsPasswordMessage: any = [];
+  public ranOnce = false;
+  public errorProfileChangeMessage: string = "";
+  public errorsPasswordMessage: any = [];
   public userProfileData: any = { name: "", email: "", sendMail: null };
-  private emptyNameMessage: string = "";
+  public emptyNameMessage: string = "";
   //public profileChange: UserProfileChangeInformationInterface;
   public profileChange: any = {
     name: "",
@@ -37,16 +37,16 @@ export class UserProfileComponent implements OnInit {
     agree: ""
   }
   public profileChangeData: any = { name: "", email: "", sendMail: null }
-  private optIn: string = "";
-  private optOut: string = "";
-  private successUpdateUserProfile: string = "";
-  private confirmPasswordMessage: string = "";
-  private errorAgreeTermsAndCondition: string = "";
-  private errorSID: string = "";
-  private errorMobileNumber: string = "";
-  private successPasswordChangedMessage: string = "";
-  private successTextMessageOption: string = "";
-  private errorSuccessTextMessageOption: string = "";
+  public optIn: string = "";
+  public optOut: string = "";
+  public successUpdateUserProfile: string = "";
+  public confirmPasswordMessage: string = "";
+  public errorAgreeTermsAndCondition: string = "";
+  public errorSID: string = "";
+  public errorMobileNumber: string = "";
+  public successPasswordChangedMessage: string = "";
+  public successTextMessageOption: string = "";
+  public errorSuccessTextMessageOption: string = "";
 
   constructor(private userProfileService: UserProfileService) {
   }
@@ -61,7 +61,7 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  private continueInit() {
+  public continueInit() {
     this.profileChange = {
       name: this.userProfileData.name,
       email: this.userProfileData.email,
@@ -70,34 +70,13 @@ export class UserProfileComponent implements OnInit {
       sendMail: this.userProfileData.sendMail
 
     }
-    /*if (this.userProfileData.sendMail === "Y") {
-      this.profileChange.optIn = true;
-      this.profileChange.optOut = false;
-    } else{// if (this.userProfileData.sendMail === "N") {
-      this.profileChange.optOut = true;
-      this.profileChange.optIn = false;
-    }
-    /*else if (this.userProfileData.sendMail == null) {
-      this.profileChange.optOut = true;
-      this.profileChange.optIn = false;
-    }*/
-
-    // this.passwordChange = {
-    //   newPassword: "",
-    //   confirmPassword: ""
-    // }
-    // this.textMsgOption = {
-    //   sid: "",
-    //   mobileNumber: "",
-    //   agreeTermsAndCondition: false,
-    //   agree: ""
-    // }
+   
   }
-  private validateEmail(email) {
+  public validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
-  private validatePassword(password) {
+  public validatePassword(password) {
     var errorsPasswordMessage = [];
     if (password.length < 6) {
       this.errorsPasswordMessage.push("Your password must be at least 6 characters");
@@ -114,7 +93,7 @@ export class UserProfileComponent implements OnInit {
     }
     return true;
   }
-  private validateMobileNumber(mobileNumber) {
+  public validateMobileNumber(mobileNumber) {
     var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
     //alert(mobileNumber.match(phoneno));
     if (mobileNumber.match(phoneno)) {
@@ -128,7 +107,7 @@ export class UserProfileComponent implements OnInit {
       return false;
     }
   }
-  private getUserProfileData1() {
+  public getUserProfileData1() {
     var self = this;
     this.userProfileService.getUserProfileData().subscribe(
       (resUserProfileData) => {
@@ -151,7 +130,7 @@ export class UserProfileComponent implements OnInit {
       }
     )
   }
-  private updateUserProfile() {
+  public updateUserProfile() {
     this.profileChange.sendMail = this.userProfileData.sendMail;
 
     if (this.profileChange.sendMail == null) {
@@ -197,7 +176,7 @@ export class UserProfileComponent implements OnInit {
 
   }
 
-  private changeUserPassword() {
+  public changeUserPassword() {
     if (this.passwordChange.newPassword.trim() == "" || this.passwordChange.confirmPassword.trim() == "") {
       this.confirmPasswordMessage = "Password field should not be empty";
       return;
@@ -220,7 +199,7 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  private textMessageOption() {
+  public textMessageOption() {
 
     if (!this.textMsgOption.agreeTermsAndCondition) {
       this.errorAgreeTermsAndCondition = "You must accept the terms of service";
@@ -269,7 +248,7 @@ export class UserProfileComponent implements OnInit {
       )
   }
 
-  private emailValidator(email: string): boolean {
+  public emailValidator(email: string): boolean {
     var EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!EMAIL_REGEXP.test(email)) {

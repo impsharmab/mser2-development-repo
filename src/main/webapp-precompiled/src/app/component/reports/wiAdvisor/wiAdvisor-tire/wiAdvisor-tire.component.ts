@@ -18,27 +18,30 @@ declare var $: any;
 })
 export class WiAdvisorTireReportComponent implements OnInit {
 
-    private showExecutiveWiAdvisorTireReportIframe: boolean = false;
-    private showBCWiAdvisorTireReportIframe: boolean = false;
-    private showDistrictWiAdvisorTireReportIframe: boolean = false;
-    private showDealerWiAdvisorTireReportIframe: boolean = false;
-    private showParticipantWiAdvisorTireReportIframe: boolean = false;
-    private showDetailWiAdvisorTireReportIframe: boolean = false;
-    private programName: string = "";
-    private src: any;
+    public showExecutiveWiAdvisorTireReportIframe: boolean = false;
+    public showBCWiAdvisorTireReportIframe: boolean = false;
+    public showDistrictWiAdvisorTireReportIframe: boolean = false;
+    public showDealerWiAdvisorTireReportIframe: boolean = false;
+    public showParticipantWiAdvisorTireReportIframe: boolean = false;
+    public showDetailWiAdvisorTireReportIframe: boolean = false;
+    public programName: string = "";
+    public src: any;
+    public selectedProgramList: any;
+    public viewParticipantWiAdvisorTireReport: any;
+    public rewardDepositProgramIDOptions: any;
 
-    private isAdmin: boolean = false;
-    private isExecutive: boolean = false;
-    private isDealer: boolean = false;
-    private isBC: boolean = false;
-    private isDistrict: boolean = false;
-    private isManager: boolean = false;
-    private isParticipant: boolean = false;
-    private tabNumber: any = "tab1";
-    private fromDate: any = "";
-    private toDate: any = "";
+    public isAdmin: boolean = false;
+    public isExecutive: boolean = false;
+    public isDealer: boolean = false;
+    public isBC: boolean = false;
+    public isDistrict: boolean = false;
+    public isManager: boolean = false;
+    public isParticipant: boolean = false;
+    public tabNumber: any = "tab1";
+    public fromDate: any = "";
+    public toDate: any = "";
 
-    private wiAdvisorTireInterface: WiAdvisorTiresInterface = {
+    public wiAdvisorTireInterface: WiAdvisorTiresInterface = {
         from: this.fromDate,
         to: this.toDate,
         bc: "",
@@ -62,7 +65,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         this.viewEXTabOnly();
     }
 
-    private squarify() {
+    public squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -74,7 +77,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
-    private identifyRoles() {
+    public identifyRoles() {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
             this.tabNumber = "tab1";
@@ -141,7 +144,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
             this.isParticipant = true;
         }
     }
-    private renderTab() {
+    public renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -163,7 +166,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         //event.target.innerWidth; // window width
     }
 
-    private viewEXTabOnly() {
+    public viewEXTabOnly() {
         this.showExecutiveWiAdvisorTireReportIframe = false;
         this.showBCWiAdvisorTireReportIframe = false;
         this.showDealerWiAdvisorTireReportIframe = false;
@@ -181,7 +184,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
 
         this.showExDepositReport();
     }
-    private viewBCTabOnly() {
+    public viewBCTabOnly() {
         this.showExecutiveWiAdvisorTireReportIframe = false;
         this.showBCWiAdvisorTireReportIframe = false;
         this.showDealerWiAdvisorTireReportIframe = false;
@@ -198,7 +201,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         }
     }
 
-    private viewDistrictTabOnly() {
+    public viewDistrictTabOnly() {
         this.showExecutiveWiAdvisorTireReportIframe = false;
         this.showBCWiAdvisorTireReportIframe = false;
         this.showDistrictWiAdvisorTireReportIframe = false;
@@ -217,7 +220,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         this.viewDistrictWiAdvisorTireReport();
     }
 
-    private viewDealerTabOnly() {
+    public viewDealerTabOnly() {
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.showExecutiveWiAdvisorTireReportIframe = false;
         this.showBCWiAdvisorTireReportIframe = false;
@@ -234,7 +237,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         // this.viewDealerWiAdvisorTireReport();
     }
 
-    private viewParticipantTabOnly() {
+    public viewParticipantTabOnly() {
         //  this.createBCProgramOptions();
         var sid = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
         this.showExecutiveWiAdvisorTireReportIframe = false;
@@ -254,7 +257,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
 
         // this.viewParticipantWiAdvisorTireReport();
     }
-    private showExDepositReport() {
+    public showExDepositReport() {
         this.showExecutiveWiAdvisorTireReportIframe = true;
         this.programName = "WiAdvisorTires_Executive";
         var FromDate = this.wiAdvisorTireInterface.from;
@@ -264,7 +267,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
 
-    private viewBCWiAdvisorTireReport() {
+    public viewBCWiAdvisorTireReport() {
         this.showBCWiAdvisorTireReportIframe = true;
         this.programName = "WiAdvisorTires_BC";
         var BusinessCenter = this.wiAdvisorTireInterface.bc;
@@ -277,7 +280,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    private viewDistrictWiAdvisorTireReport() {
+    public viewDistrictWiAdvisorTireReport() {
         this.showDistrictWiAdvisorTireReportIframe = true;
         this.programName = "WiAdvisorTires_DIST";
         var District = this.wiAdvisorTireInterface.district;
@@ -288,7 +291,7 @@ export class WiAdvisorTireReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    private viewDealerWiAdvisorTireReport() {
+    public viewDealerWiAdvisorTireReport() {
         this.showDealerWiAdvisorTireReportIframe = true;
         this.programName = "WiAdvisorTires_Dealer";
         var DealerCode = this.wiAdvisorTireInterface.dealerCode;

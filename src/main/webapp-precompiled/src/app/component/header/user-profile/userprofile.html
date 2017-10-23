@@ -1,0 +1,133 @@
+<!-- Main content -->
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Update User Profile Page
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+
+                        <div class="heading-line">
+                            <!--<h2>User Profile</h2>-->
+                        </div>
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+
+                                <form class="pageForm">
+                                    <h5>Change Your Information</h5>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorProfileChangeMessage}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{emptyNameMessage}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successUpdateUserProfile}}</p>
+                                    <br>
+                                    <label>Name:</label>
+                                    <!--<input type="text"  id="name" name="name" [(ngModel)]="profileChange.name" value="{{userProfileData.name}}"/>-->
+                                    <!--<input type="text" id="name" name="name" value="" [(ngModel)]="profileChange.name" />
+                                    -->
+                                    <input type="text" size="25" id="name1" name="name1" value="" [(ngModel)]="profileChange.name" />
+                                    <br />
+                                    <label>Email:</label>
+                                    <input type="text" size="25" id="email" name="email" value="" [(ngModel)]="profileChange.email" />
+                                    <br />
+                                    <p>
+                                        Please update your email address and choose "Opt-In" to receive future MSER emails.
+
+                                        <span style="text-decoration:underline;font-weight:bold;">MSER will use this email to contact you on MSER program updates only.&nbsp;</span>This
+                                        email will not be shared.</p>
+
+                                    <!-- <label>Opt Type:</label> -->
+                                    <ul class="contact-list">
+                                        <li>
+                                            <input type="checkbox" id="optIn" name="optIn" value="" [(ngModel)]="userProfileData.sendMail" />Opt-In
+                                        </li>
+                                        <!--<li>
+                                            <input type="radio" id="optOut" name="optOut" value="N" [(ngModel)]="userProfileData.sendMail" />Opt-Out
+                                        </li>-->
+                                    </ul>
+                                    <br />
+
+                                    <button type="button" class="btn btn-info btn-sm" (click)="updateUserProfile()">Update</button>
+
+                                </form>
+
+                                <!--<form class="pageForm" #passwordChangeForm="ngForm" novalidate (ngSubmit)="changeUserPassword()">
+                                    <h5>Change Your Password</h5>
+                                    <ul>
+                                        <li>Passwords must contain letters and numbers</li>
+                                        <li>Passwords must be at least 6 characters</li>
+                                        <li>Passwords must not match your User ID</li>
+                                    </ul>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{confirmPasswordMessage}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successPasswordChangedMessage}}</p>
+                                    <p *ngFor="let error of errorsPasswordMessage"style="color: red; margin-bottom: auto; margin-left: 205px;">{{error}}</p>
+                                    <label>New Password</label>
+                                    <input type="password" id="passwordInput" name="passwordInput" [(ngModel)]="passwordChange.newPassword" value="" />
+                                    <br />
+                                    <label>Confirm New Password</label>
+                                    <input type="password" id="confirmPasswordInput" name="confirmPasswordInput" [(ngModel)]="passwordChange.confirmPassword"
+                                        value="" />
+                                    <br />
+                                    <button type="submit" class="btn btn-info btn-sm">Change</button>
+                                </form>-->
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <form class="pageForm" #textMsgOptionForm="ngForm" novalidate (ngSubmit)="textMessageOption()">
+                                    <h5>Sign up to Receive Text Messages</h5>
+
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorAgreeTermsAndCondition}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSID}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorMobileNumber}}</p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{successTextMessageOption}} </p>
+                                    <p style="color: red; margin-bottom: auto; margin-left: 205px;">{{errorSuccessTextMessageOption}} </p>
+                                    <br>
+                                    <label>Enter your SID/TID: </label>
+                                    <input type="text" id="sidEntry" name="sidEntry" minlength="7" maxlength="7" [(ngModel)]="textMsgOption.sid" />
+                                    <br />
+                                    <label>Enter your mobile number: </label>
+                                    <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="textMsgOption.mobileNumber" />
+                                    <br />
+
+                                    <p>
+                                        <input type="checkbox" id="agree" name="agree" [(ngModel)]="textMsgOption.agreeTermsAndCondition"
+                                        /> I would like to receive text messages and agree to the
+                                        <a href="//bit.ly/1RsweNh" target="_blank">Terms of Service </a> &amp;
+                                        <a href="//bit.ly/1RsweNh" target="_blank">Privacy Policy</a>
+                                    </p>
+
+                                    <button type="submit" class="btn btn-info btn-sm">Sign Me Up!</button>
+                                </form>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+</main>

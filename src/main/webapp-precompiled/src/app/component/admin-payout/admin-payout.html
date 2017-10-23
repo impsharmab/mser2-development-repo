@@ -78,7 +78,7 @@
                   <th class="col-lg-2" id="program-groups-active" role="columnheader" scope="col">Select</th>
                   <th class="col-lg-6" id="program-groups-group" role="columnheader" scope="col">Program Group</th>
                   <!-- <th id="program-groups-start-date" role="columnheader" scope="col">Effective Start Date</th>
-                  <th id="program-groups-end-date" role="columnheader" scope="col">Effective End Date</th> -->
+                    <th id="program-groups-end-date" role="columnheader" scope="col">Effective End Date</th> -->
                   <th class="col-lg-4" id="program-groups-modify" role="columnheader" scope="col">Image</th>
                 </tr>
               </thead>
@@ -89,7 +89,7 @@
                   </td>
                   <td headers="program-groups-select" role="gridcell">{{program.programGroup}}</td>
                   <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
-                                          <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                                            <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
                   <td headers="program-groups-modify" role="gridcell">
                     <input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" />
                   </td>
@@ -127,11 +127,11 @@
                       <th class="col-xs-2" id="select-category-column-category-name" role="columnheader" scope="col">Category</th>
                       <th class="col-xs-2" id="select-category-column-category-description" role="columnheader" scope="col">Category Description</th>
                       <!-- <th id="" role="columnheader" scope="col">Start Date</th>
-                                                                                                <th id="" role="columnheader" scope="col">End Date</th> -->
+                                                                                                  <th id="" role="columnheader" scope="col">End Date</th> -->
                       <th class="col-xs-2" id="select-category-column-additional-info" role="columnheader" scope="col">Additional Information on Final Payout Chart</th>
                       <!-- <th id="" role="columnheader" scope="col">Add Image</th> -->
                       <!-- <th id="" role="columnheader" scope="col">Modify</th>
-                                                                                                <th id="" role="columnheader" scope="col">Amend Plan Code</th> -->
+                                                                                                  <th id="" role="columnheader" scope="col">Amend Plan Code</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -212,321 +212,84 @@
             <!-- Add Rewards by Position/ Value -->
             <h3>Add Rewards</h3>
             <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
-            <div>
+            <div [hidden]="true">
               <input id="add-reward" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
             </div>
-
-            <table id="add-reward-table" class="table table-bordered table-striped" role="grid">
-              <thead>
-                <tr scope="row">
-                  <th id="add-reward-toggle" role="columnheader" scope="col"></th>
-                  <th id="add-reward-program-group" role="columnheader" scope="col">Program Group</th>
-                  <th id="add-reward-category" role="columnheader" scope="col">Category</th>
-                  <th id="add-reward-position" role="columnheader" scope="col">Position</th>
-                  <th id="add-reward-amount" role="columnheader" scope="col">Reward Amount</th>
-                  <th id="add-reward-types" role="columnheader" scope="col">Reward Type</th>
-                  <th id="add-reward-override" role="columnheader" scope="col">Override</th>
-                  <th id="add-reward-labor-type" role="columnheader" scope="col">Labor Type</th>
-                  <th id="add-reward-quantity" role="columnheader" scope="col">Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr scope="row">
-                  <td class="program-group-collapse group-mopar" headers="add-reward-toggle" role="gridcell">
-                    <i class="fa fa-minus"></i>
-                  </td>
-                  <td headers="add-reward-program-group" role="gridcell">Mopar Parts &amp; Engines</td>
-                  <td colspan="4" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
-                  <td headers="add-reward-override" role="gridcell">
-                    <input class="btn btn-primary" id="add-override-mopar" name="AddOverrideMopar" type="submit" value="Add an Override" (click)="openOverrideModal(overrideModal)"
-                    />
-                  </td>
-                  <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
-                </tr>
-                <tr class="row-category group-mopar" scope="row">
-                  <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td class="program-group-collapse group-1" headers="add-reward-program-group" role="gridcell">
-                    <i class="fa fa-minus"></i>
-                  </td>
-                  <td headers="add-reward-category" role="gridcell">T_CASES</td>
-                  <td headers="add-reward-position" role="gridcell">
-                    <select class="form-control" id="add-reward-position-1" name="addRewardPosition1">
-                      <option>Service Technician (23)</option>
-                      <option>Service Advisor (13)</option>
-                      <option>Parts Manager (08)</option>
-                      <option>Service Manager (09)</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-amount" role="gridcell">
-                    <form>
-                      <input class="form-control" id="add-reward-amount-1" name="addRewardAmount1" placeholder="" type="text" value="$5.00" />
-                    </form>
-                  </td>
-                  <td headers="add-reward-types" role="gridcell">
-                    <select class="form-control" id="add-reward-type-1" name="addRewardType1">
-                      <option>Dollar</option>
-                      <option>Percent</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-override" role="gridcell">
-                    <span class="label override-element override" style="display:none;">
-                      <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
-                      <span>ID: 1 5.00% to Service Advisor</span>
-                    </span>
-                  </td>
-                  <td headers="add-reward-labor-type" role="gridcell">
-                    <form class="form-control" name="laborType1">
-                      <label>
-                        <p-checkbox name="laborType1" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label>
-                        <p-checkbox name="laborType1" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label>
-                        <p-checkbox name="laborType1" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
-                    </form>
-                  </td>
-                  <td headers="add-reward-quantity" role="gridcell">
-                    <select class="form-control" id="add-reward-quantity-1" name="addRewardQuantity1">
-                      <option>Set of 2</option>
-                      <option>Individual</option>
-                      <option>Set of 4</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr class="row-category group-mopar group-1 override-hidden" style="display:none;" scope="row">
-                  <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td headers="add-reward-program-group" role="gridcell"></td>
-                  <td headers="add-reward-category" role="gridcell"></td>
-                  <td headers="add-reward-position" role="gridcell">
-                    <select class="form-control" id="add-reward-payout-2" name="addRewardPosition2">
-                      <option>Service Advisor (13)</option>
-                      <option>Service Technician (23)</option>
-                      <option>Parts Manager (08)</option>
-                      <option>Service Manager (09)</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-amount" role="gridcell">
-                    <form>
-                      <input class="form-control" id="add-reward-amount-2" name="addRewardAmount2" placeholder="" type="text" value="$5.00" />
-                    </form>
-                  </td>
-                  <td headers="add-reward-types" role="gridcell">
-                    <select class="form-control" id="add-reward-type-2" name="addRewardType2">
-                      <option>Dollar</option>
-                      <option>Percent</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-override" role="gridcell">
-                    <span class="label override-element reward" style="display:none;">
-                      <span>ID: 1 5.00% from Service Technician</span>
-                      <i class="fa fa-pencil" (click)="openOverrideRecordModal(overrideRecordModal)"></i>
-                    </span>
-                  </td>
-                  <td headers="add-reward-labor-type" role="gridcell">
-                    <form class="form-control" name="laborType2">
-                      <label>
-                        <p-checkbox name="laborType2" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label>
-                        <p-checkbox name="laborType2" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label>
-                        <p-checkbox name="laborType2" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
-                    </form>
-                  </td>
-                  <td headers="add-reward-quantity" role="gridcell">
-                    <select class="form-control" id="add-reward-quantity-2" name="addRewardQuantity2">
-                      <option>Individual</option>
-                      <option>Set of 2</option>
-                      <option>Set of 4</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr class="row-category group-mopar group-1" scope="row">
-                  <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td headers="add-reward-program-group" role="gridcell"></td>
-                  <td headers="add-reward-category" role="gridcell"></td>
-                  <td headers="add-reward-position" role="gridcell">
-                    <select class="form-control" id="add-reward-position-3" name="addRewardPosition3">
-                      <option>Service Manager (09)</option>
-                      <option>Service Advisor (13)</option>
-                      <option>Service Technician (23)</option>
-                      <option>Parts Manager (08)</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-amount" role="gridcell">
-                    <form>
-                      <input class="form-control" id="add-reward-amount-3" name="addRewardAmount3" placeholder="" type="text" value="$5.00" />
-                    </form>
-                  </td>
-                  <td headers="add-reward-types" role="gridcell">
-                    <select class="form-control" id="add-reward-type-3" name="addRewardType3">
-                      <option>Dollar</option>
-                      <option>Percent</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-override" role="gridcell">
-                  </td>
-                  <td headers="add-reward-labor-type" role="gridcell">
-                    <form class="form-control" name="laborType">
-                      <label>
-                        <p-checkbox name="laborType3" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label>
-                        <p-checkbox name="laborType3" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label>
-                        <p-checkbox name="laborType3" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
-                    </form>
-                  </td>
-                  <td headers="add-reward-quantity" role="gridcell">
-                    <select class="form-control" id="add-reward-quantity-3" name="addRewardQuantity3">
-                      <option>Individual</option>
-                      <option>Set of 2</option>
-                      <option>Set of 4</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr class="row-category group-mopar group-1" scope="row">
-                  <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td headers="add-reward-program-group" role="gridcell"></td>
-                  <td headers="add-reward-category" role="gridcell"></td>
-                  <td headers="add-reward-position" role="gridcell">
-                    <select class="form-control" id="add-reward-position-4" name="addRewardPosition4">
-                      <option>Parts Manager (08)</option>
-                      <option>Service Technician (23)</option>
-                      <option>Service Advisor (13)</option>
-                      <option>Service Manager (09)</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-amount" role="gridcell">
-                    <form>
-                      <input class="form-control" id="add-reward-amount-4" name="addRewardAmount4" placeholder="" type="text" value="$5.00" />
-                    </form>
-                  </td>
-                  <td headers="add-reward-types" role="gridcell">
-                    <select class="form-control" id="add-reward-type-4" name="addRewardType4">
-                      <option>Dollar</option>
-                      <option>Percent</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-override" role="gridcell">
-                  </td>
-                  <td headers="add-reward-labor-type" role="gridcell">
-                    <form class="form-control" name="laborType4">
-                      <label>
-                        <p-checkbox name="laborType4" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label>
-                        <p-checkbox name="laborType4" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label>
-                        <p-checkbox name="laborType4" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
-                    </form>
-                  </td>
-                  <td headers="add-reward-quantity" role="gridcell">
-                    <select class="form-control" id="add-reward-quantity-4" name="addRewardQuantity4">
-                      <option>Individual</option>
-                      <option>Set of 2</option>
-                      <option>Set of 4</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr scope="row">
-                  <td class="program-group-collapse group-magneti" headers="add-reward-toggle" role="gridcell">
-                    <i class="fa fa-minus"></i>
-                  </td>
-                  <td headers="add-reward-program-group" role="gridcell">Magneti Marelli</td>
-                  <td colspan="4" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
-                  <td headers="add-reward-override add-reward-quantity" role="gridcell">
-                    <input class="btn btn-primary" id="add-override-magneti" name="addOverrideMagneti" type="submit" value="Add an Override"
-                      (click)="openOverrideModal(overrideModal)" />
-                  </td>
-                  <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
-                </tr>
-                <tr class="row-category group-magneti" scope="row">
-                  <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td headers="add-reward-program-group" role="gridcell">
-                    <i class="fa fa-minus"></i>
-                  </td>
-                  <td headers="add-reward-category" role="gridcell">MM_BK</td>
-                  <td headers="add-reward-position" role="gridcell">
-                    <select class="form-control" id="add-reward-position-5" name="addRewardPosition5">
-                      <option>Service Technician (23)</option>
-                      <option>Service Advisor (13)</option>
-                      <option>Parts Manager (08)</option>
-                      <option>Service Manager (09)</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-amount" role="gridcell">
-                    <form>
-                      <input class="form-control" id="add-reward-amount-5" name="addRewardAmount5" placeholder="" type="text" value="2.00 %" />
-                    </form>
-                  </td>
-                  <td headers="add-reward-types" role="gridcell">
-                    <select class="form-control" id="add-reward-type-5" name="addRewardType5">
-                      <option>Percent</option>
-                      <option>Dollar</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-override" role="gridcell">
-                  </td>
-                  <td headers="add-reward-labor-type" role="gridcell">
-                    <form class="form-control" name="laborType5">
-                      <label>
-                        <p-checkbox name="laborType5" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label>
-                        <p-checkbox name="laborType5" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label>
-                        <p-checkbox name="laborType5" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
-                    </form>
-                  </td>
-                  <td headers="add-reward-quantity" role="gridcell">
-                    <select class="form-control" id="add-reward-quantity-5" name="addRewardQuantity5">
-                      <option>Individual</option>
-                      <option>Set of 2</option>
-                      <option>Set of 4</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr class="row-category group-magneti" scope="row">
-                  <td headers="add-reward-toggle" role="gridcell"></td>
-                  <td headers="add-reward-program-group" role="gridcell"></td>
-                  <td headers="add-reward-category" role="gridcell"></td>
-                  <td headers="add-reward-position" role="gridcell">
-                    <select class="form-control" id="add-reward-position-6" name="addRewardPosition6">
-                      <option>Parts Manager (08)</option>
-                      <option>Service Advisor (13)</option>
-                      <option>Service Technician (23)</option>
-                      <option>Service Manager (09)</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-amount" role="gridcell">
-                    <form>
-                      <input class="form-control" id="add-reward-amount-6" name="addRewardAmount6" placeholder="" type="text" value="$2.00" />
-                    </form>
-                  </td>
-                  <td headers="add-reward-types" role="gridcell">
-                    <select class="form-control" id="add-reward-type-6" name="addRewardType6">
-                      <option>Dollar</option>
-                      <option>Percent</option>
-                    </select>
-                  </td>
-                  <td headers="add-reward-override" role="gridcell">
-                  </td>
-                  <td headers="add-reward-labor-type" role="gridcell">
-                    <form class="form-control" name="laborType6">
-                      <label>
-                        <p-checkbox name="laborType6" value="c" [(ngModel)]="adminPayout"></p-checkbox> Customer (C)</label>
-                      <label>
-                        <p-checkbox name="laborType6" value="i" [(ngModel)]="adminPayout"></p-checkbox> Internal (I)</label>
-                      <label>
-                        <p-checkbox name="laborType6" value="w" [(ngModel)]="adminPayout"></p-checkbox> Warranty (W)</label>
-                    </form>
-                  </td>
-                  <td headers="add-reward-quantity" role="gridcell">
-                    <select class="form-control" id="add-reward-quantity-6" name="addRewardQuantity6">
-                      <option>Individual</option>
-                      <option>Set of 2</option>
-                      <option>Set of 4</option>
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <p-accordion [multiple]="true">
+              <p-accordionTab [selected]="i==0" *ngFor="let reward of rewards; let i = index">
+                <p-header>
+                  {{reward.programGroup}}
+                  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  {{reward.incentiveSubCode}}
+                </p-header>
+                <table id="add-reward-table" class="table table-bordered table-striped" role="grid">
+                  <thead>
+                    <tr scope="row">
+                      <th id="add-reward-position" role="columnheader" scope="col">Position</th>
+                      <th id="add-reward-amount" role="columnheader" scope="col">Reward Amount</th>
+                      <th id="add-reward-types" role="columnheader" scope="col">Reward Type</th>
+                      <th id="add-reward-override" role="columnheader" scope="col">Override</th>
+                      <th id="add-reward-labor-type" role="columnheader" scope="col">Labor Type</th>
+                      <th id="add-reward-quantity" role="columnheader" scope="col">Quantity</th>
+                      <th id="add-reward-quantity" role="columnheader" scope="col">Add More</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr scope="row">
+                      <td colspan="3" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
+                      <td headers="add-reward-override" role="gridcell">
+                        <input [disabled]="!reward.canOverride" class="btn btn-primary" id="add-override-mopar" name="AddOverrideMopar" type="submit"
+                          value="Add an Override" (click)="openOverrideModal(reward, 'a')" />
+                      </td>
+                      <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
+                      <td colspan="1" headers="add-reward-labor-type add-reward-quantity" role="gridcell">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="addRewardPosRec(reward)">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="row-category group-mopar" scope="row" *ngFor="let rewardPosition of reward.rewardPositions; let j = index">
+                      <td headers="add-reward-position" role="gridcell">
+                        <p-dropdown (onChange)="onChangeRewardPosition(reward)" [options]="reward.positionDd" [(ngModel)]="rewardPosition.position"
+                          placeholder="Select a Position"></p-dropdown>
+                      </td>
+                      <td headers="add-reward-amount" role="gridcell">
+                        <form>
+                          <input class="form-control" [(ngModel)]="rewardPosition.rewardAmount" name="rewardPositionAmt" />
+                        </form>
+                      </td>
+                      <td headers="add-reward-types" role="gridcell">
+                        <p-dropdown [options]="rewardTypeDd" [(ngModel)]="rewardPosition.rewardType" placeholder="Select a Reward Type"></p-dropdown>
+                      </td>
+                      <td headers="add-reward-override" role="gridcell">
+                        <span class="label override-element override" style="display:none;">
+                          <i class="fa fa-pencil" (click)="openOverrideModal(reward, 'u')"></i>
+                          <span>ID: 1 5.00% to Service Advisor</span>
+                        </span>
+                      </td>
+                      <td headers="add-reward-labor-type" role="gridcell">
+                        <form class="form-control" name="laborType1">
+                          <label>
+                            <p-checkbox name="laborType1" value="c" [(ngModel)]="reward.laborTypes"></p-checkbox> Customer (C)</label>
+                          <label>
+                            <p-checkbox name="laborType1" value="i" [(ngModel)]="reward.laborTypes"></p-checkbox> Internal (I)</label>
+                          <label>
+                            <p-checkbox name="laborType1" value="w" [(ngModel)]="reward.laborTypes"></p-checkbox> Warranty (W)</label>
+                        </form>
+                      </td>
+                      <td headers="add-reward-quantity" role="gridcell">
+                        <p-dropdown [options]="quantityDd" [(ngModel)]="reward.quantity" placeholder="Select a Quantity"></p-dropdown>
+                      </td>
+                      <td role="gridcell">
+                        <button [disabled]="j==0" type="button" class="btn btn-primary btn-sm" (click)="removeRewardPosRec(reward, j)">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </p-accordionTab>
+            </p-accordion>
 
             <!-- START Add Reward Modal -->
             <ng-template #addReward let-c="close" let-d="dismiss">
@@ -630,7 +393,7 @@
             <!-- START Override Modal -->
             <ng-template #overrideModal let-c="close" let-d="dismiss">
               <div class="modal-header">
-                <h4 class="modal-title">Add an Override</h4>
+                <h4 class="modal-title">{{overrideModalReward.action}} an Override</h4>
                 <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -639,51 +402,26 @@
                 <form>
                   <h5>Override Source</h5>
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label for="override-program-group">Program Group</label>
-                      <select class="form-control" id="override-payout-group" name="overrideProgramGroup">
-                        <!-- <option>Express Lane</option>
-                        <option>Magneti Marelli</option>
-                        <option>Mopar Accessories</option> -->
-                        <option>Mopar Parts &amp; Engines</option>
-                        <option>Magnetti Marelli</option>
-                        <!-- <option>Mopar Vehicle Protection</option>
-                        <option>Parts Counter</option>
-                        <option>wiAdvisor</option>
-                        <option>FIAT</option>
-                        <option>UConnect</option>
-                        <option>Tires</option>
-                        <option>wiAdvisor Tire</option> -->
-                      </select>
+                    <div class="col-md-4 col-sm-6">
+                      <label for="override-category">
+                        <strong>Program</strong>
+                      </label>
+                      <br> {{overrideModalReward.programGroup}}
                     </div>
-                    <div class="col-sm-6">
-                      <label for="override-category">Category</label>
-                      <select class="form-control" id="override-category" name="overrideCategory">
-                        <!-- <option>MSER OE Brake Pad Kits (BRKE)</option>
-                        <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
-                        <option>Mopar Engines (MENG)</option>
-                        <option>Mopar AC Compressors (MOPAC)</option>
-                        <option>MSER RECALL - N45 (N45)</option>
-                        <option>MSER RECALL - N46 (N46)</option>
-                        <option>Pot Hole Promo (POTHOLE)</option>
-                        <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
-                        <option>Rain Repellent (#68194881AA) (RR)</option> -->
-                        <option>Transmissions and T-Cases (T_CASES)</option>
-                      </select>
+                    <div class="col-md-2 col-sm-6">
+                      <label for="override-category">
+                        <strong>Category</strong>
+                      </label>
+                      <br> {{overrideModalReward.incentiveSubCode}}
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label for="override-position">Position</label>
-                      <select class="form-control" id="override-position" name="overridePosition">
-                        <option>Service Technician (23)</option>
-                        <option>Service Advisor (13)</option>
-                        <option>Parts Manager (08)</option>
-                        <option>Service Manager (09)</option>
-                      </select>
+                  <div class="row mt-1">
+                    <div class="col-md-3 col-sm-6">
+                      <p-dropdown (onChange)="setActionState()" name="overrideModalRewardPosition" [options]="overrideModalReward.overrideModalOptions.rewardPositionDd"
+                        [(ngModel)]="overrideModalReward.position" placeholder="Select a Position"></p-dropdown>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" [hidden]="true">
                     <div class="col-sm-12">
                       <p>
                         <strong>Reward: $5.00 per Set of 2</strong>
@@ -691,34 +429,30 @@
                     </div>
                   </div>
 
-                  <h5>Override Recipient</h5>
+                  <h5 class="mt-1">Override Recipient</h5>
                   <div class="row">
-                    <div class="col-sm-6">
-                      <label for="override-recipient-position">Recipient Position</label>
-                      <select class="form-control" id="override-recipient-position" name="overrideRecipientPosition">
-                        <option>Service Advisor (13)</option>
-                        <option>Parts Manager (08)</option>
-                        <option>Service Manager (09)</option>
-                      </select>
+                    <div class="col-md-3 col-sm-6">
+                      <p-dropdown (onChange)="setActionState()" name="overrideModalRewardRecipientPosition" [options]="overrideModalReward.overrideModalOptions.rewardPositionDd"
+                        [(ngModel)]="overrideModalReward.recipientPosition" placeholder="Select a Recipient Position"></p-dropdown>
                     </div>
-                    <div class="col-sm-6">
-                      <label for="override-type">Override Type</label>
-                      <select class="form-control" id="override-type" name="overrideType">
-                        <option>Percent</option>
-                        <option>Dollar</option>
-                      </select>
+                    <div class="col-md-3  col-sm-6">
+                      <p-dropdown (onChange)="setActionState()" name="overrideModalRewardOverrideType" [options]="rewardTypeDd" [(ngModel)]="overrideModalReward.overrideType"
+                        placeholder="Select an Override Type"></p-dropdown>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label for="override-amount">Override Amount</label>
-                      <input class="form-control" id="override-amount" name="override-amount" placeholder="" type="text" value="5.00%" />
+                  <div class="row mt-1">
+                    <div class="col-sm-6 col-md-2">
+                      <label for="override-amount">
+                        <strong>Override Value</strong>
+                      </label>
+                      <input (input)="setActionState()" class="form-control" name="overrideModalRewardOverrideAmt" [(ngModel)]="overrideModalReward.overrideAmt"
+                      />
                     </div>
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-primary" type="button" (click)="c('Add click')" onclick="(function(){$('.override-element').css('display','inline-block');return false;})();">Add Override</button>
+                <button [disabled]="!overrideModalReward.actionState" class="btn btn-primary" type="button" (click)="c('Add click')" onclick="(function(){$('.override-element').css('display','inline-block');return false;})();">Add Override</button>
                 <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
               </div>
             </ng-template>

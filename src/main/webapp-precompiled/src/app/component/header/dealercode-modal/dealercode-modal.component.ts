@@ -13,15 +13,16 @@ import { DealercodePositioncodeService } from '../../../services/dealercode-posi
 export class DealercodeModalComponent implements OnInit {
   @Output("onSubmit") submitEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output("onCancel") cancelEvent: EventEmitter<any> = new EventEmitter<any>();
-  private code: Code;
-  private pcode: any = [];
-  private dcode: any = [];
-  private codeData: any = { "selectedPositionCode": "", "selectedDealerCode": "", "selectedDealerName": "" };
-  private dealerNamesFromSession: any = [];
-  //private codeData: any = { };
+  public code: Code;
+  public pcode: any = [];
+  public dcode: any = [];
+  public codeData: any = { "selectedPositionCode": "", "selectedDealerCode": "", "selectedDealerName": "" };
+  public dealerNamesFromSession: any = [];
+  public submitSelectedCodes: any;
+  //public codeData: any = { };
 
-  private poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
-  private delcodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerCode;
+  public poscodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).positionCode;
+  public delcodes: any = JSON.parse(sessionStorage.getItem("CurrentUser")).dealerCode;
 
   constructor(private positionCodeService: DealercodePositioncodeService) { }
 
@@ -40,27 +41,27 @@ export class DealercodeModalComponent implements OnInit {
     this.dcode = this.delcodes;
 
   }
-  private selectPositionCode(poscode?: any) {
+  public selectPositionCode(poscode?: any) {
     //this.positionCodeService.setCodeData(this.code);
   }
-  private submitClick() {
+  public submitClick() {
     this.positionCodeService.setCodeData(this.code);
     this.submitEvent.emit("");
   }
-  private cancelClick() {
+  public cancelClick() {
     this.cancelEvent.emit("");
   }
 
-  private arr = [
+  public arr = [
     { "a": "s" },
     { "d": "c" }
   ]
 
-  private dcindex: any = 0;
-  private dnindex: any = 0;
-  private selectDealerCode(delcode?: any) {
+  public dcindex: any = 0;
+  public dnindex: any = 0;
+  public selectDealerCode(delcode?: any) {
     var indexOfSelectedDealerCode = this.dcode.indexOf(delcode);
-    this.code.selectedDealerName = this.dealerNamesFromSession[indexOfSelectedDealerCode]; 
+    this.code.selectedDealerName = this.dealerNamesFromSession[indexOfSelectedDealerCode];
     //alert(indexOfSelectedDealerCode);
     // for (var dcindex in this.dcode) {
     //   console.log(dcindex + ":" + this.dcode[dcindex]);

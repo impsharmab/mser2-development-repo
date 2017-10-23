@@ -13,27 +13,27 @@ declare var $: any;
   // providers:[OpcodesetupService]
 })
 export class OpcodeSetupComponent implements OnInit {
-  private currentuser: any = {};
-  private selectedCodeData: any = {};
-  private addOpcodeResponse: any;
-  private dealercode: string = "";
-  private activeopcode: any = true;
-  private inactiveopcode: any = false;
-  private activateOpCodeResponse: any = {};
-  private activetable: any = true;
-  private inactivetable = false;
-  private opcodesetupData: any;
-  private inactiveOpcodesetupData: any;
-  private switchstatusmessage: string = "";
-  private tableName: string = "Inactive Table";
+  public currentuser: any = {};
+  public selectedCodeData: any = {};
+  public addOpcodeResponse: any;
+  public dealercode: string = "";
+  public activeopcode: any = true;
+  public inactiveopcode: any = false;
+  public activateOpCodeResponse: any = {};
+  public activetable: any = true;
+  public inactivetable = false;
+  public opcodesetupData: any;
+  public inactiveOpcodesetupData: any;
+  public switchstatusmessage: string = "";
+  public tableName: string = "Inactive Table";
   public addopcInterface: AddOpCodeInterface;
-  private id: number = 0;
-  private date: string = "";
-  private source: string = "user";
-  private createdBy: string = "";
-  private successOpcodeSetupMessage: string = "";
-  private errorOpcodeSetupMessage: string = "";
-  private selectedId: any = 0
+  public id: number = 0;
+  public date: string = "";
+  public source: string = "user";
+  public createdBy: string = "";
+  public successOpcodeSetupMessage: string = "";
+  public errorOpcodeSetupMessage: string = "";
+  public selectedId: any = 0
 
 
   constructor(private opcodesetupService: OpcodeSetupService, private router: Router) {
@@ -63,7 +63,7 @@ export class OpcodeSetupComponent implements OnInit {
   }
 
 
-  private opcodesetup() {
+  public opcodesetup() {
     this.opcodesetupService.getOpcodesetupResponse(this.selectedCodeData.selectedDealerCode).subscribe(
       (opcodesetupData) => {
         this.opcodesetupData = (opcodesetupData)
@@ -75,7 +75,7 @@ export class OpcodeSetupComponent implements OnInit {
     )
   }
 
-  private getInactiveOpcodesetupData() {
+  public getInactiveOpcodesetupData() {
     this.opcodesetupService.getInactiveOpcodesetupResponse(this.selectedCodeData.selectedDealerCode).subscribe(
       (inactiveOpcodesetupData) => {
         this.inactiveOpcodesetupData = (inactiveOpcodesetupData)
@@ -87,7 +87,7 @@ export class OpcodeSetupComponent implements OnInit {
     )
   }
 
-  private addOpCode() {
+  public addOpCode() {
     if (this.addopcInterface.opCode === "") {
       this.successOpcodeSetupMessage = "Please enter Op Code";
       return;
@@ -112,7 +112,7 @@ export class OpcodeSetupComponent implements OnInit {
       )
   }
 
-  private inactivateOpCode(iD) {
+  public inactivateOpCode(iD) {
     this.opcodesetupService.deactivateOpCode(iD).subscribe(
       (addOpcodeResponse) => {
         this.addOpcodeResponse = (addOpcodeResponse)
@@ -127,7 +127,7 @@ export class OpcodeSetupComponent implements OnInit {
     )
   }
 
-  private activateOpCode(iD) {
+  public activateOpCode(iD) {
     this.opcodesetupService.activateOpCode(iD).subscribe(
       (activateOpCodeResponse) => {
         this.activateOpCodeResponse = (activateOpCodeResponse)
@@ -172,7 +172,7 @@ export class OpcodeSetupComponent implements OnInit {
     this.inactiveopcode = true;
 
   }
-  private onRowSelect(event) {
+  public onRowSelect(event) {
     this.selectedId = event.data.id;
     console.log(event.data);
   }

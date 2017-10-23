@@ -4,6 +4,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { ROReportInterface } from "./ro-report.interface";
 import { SelectItem } from 'primeng/primeng';
 
+import { ReportService } from "../../../../services/report/report-service";
 declare var $: any;
 
 @Component({
@@ -15,25 +16,28 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class ROReportComponent implements OnInit {
-    private program = "Enrollment_Admin";
-    private fromDate: string = "";
-    private toDate: string = "";
-    private isAdmin: boolean = false;
-    private isExecutiveUser: boolean = false;
-    private isBCUser: boolean = false;
-    private isDistrictUser: boolean = false;
-    private isDealerUser: boolean = false;
-    private isManagerUser: boolean = false;
-    private isParticipantUser: boolean = false;
+    public program = "Enrollment_Admin";
+    public fromDate: string = "";
+    public toDate: string = "";
+    public isAdmin: boolean = false;
+    public isExecutiveUser: boolean = false;
+    public isBCUser: boolean = false;
+    public isDistrictUser: boolean = false;
+    public isDealerUser: boolean = false;
+    public isManagerUser: boolean = false;
+    public isParticipantUser: boolean = false;
 
-    private roReportInterface: ROReportInterface = {
+    public roReportInterface: ROReportInterface = {
         "from": this.fromDate,
         "to": this.toDate,
         "dealerCode": "",
         "roNumber": ""
     }
 
-    constructor(private domSanitizer: DomSanitizer) { }
+    constructor(
+        private domSanitizer: DomSanitizer,
+        private reportService: ReportService
+    ) { }
 
     ngOnInit() {
         this.squarify();
@@ -71,10 +75,9 @@ export class ROReportComponent implements OnInit {
         }
 
         this.checkRoles();
-        this.openROReportLink();
     }
 
-    private squarify() {
+    public squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -91,9 +94,9 @@ export class ROReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-    private src: any = "";
+    public src: any = "";
 
-    private checkRoles() {
+    public checkRoles() {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
             this.isExecutiveUser = true;
@@ -110,23 +113,59 @@ export class ROReportComponent implements OnInit {
 
         }
     }
-    private openROReportLink() {
-    }
 
-    private showROReportIframe: boolean = false;
-    private showROReport() {
-        this.showROReportIframe = true;
+    private dealerCodesBelongsToThisBCOrDist: any = [];
+    private getDealerCodesBelongsToBCAndDIST(bcOrDist) {
+        this.reportService.getDealerCodesBelongsToBCAndDIST(bcOrDist).subscribe(
+            (dealerCodesBelongsToThisBCOrDist) => {
+                this.dealerCodesBelongsToThisBCOrDist = (dealerCodesBelongsToThisBCOrDist)
+                console.log(this.dealerCodesBelongsToThisBCOrDist);
+            },
+            (error) => {
+            }
+        )
+    }
+    public showROReportIframe: boolean = false;
+    public dealerCodeNotBelongsToThisBC: string = "";
+    public msg: string = "";
+    public showROReport() {
+        if (this.roReportInterface.dealerCode == "" && this.roReportInterface.roNumber == "") {
+            this.msg = "Please enter Dealer Code and RO Number to view the report";
+            return;
+        } else if (this.roReportInterface.dealerCode != "" && this.roReportInterface.roNumber == "") {
+            this.msg = "Please enter the valid RO Number";
+            return;
+        } else if (this.roReportInterface.dealerCode == "" && this.roReportInterface.roNumber != "") {
+            this.msg = "Please enter valid Dealer Code";
+            return;
+        }
+
         var programName = "RepairOrder"
         var RepairOrderSD = this.roReportInterface.from;
         var RepairOrderED = this.roReportInterface.to;
         var DealerCode = this.roReportInterface.dealerCode;
         var RONumber = this.roReportInterface.roNumber;
 
-        if(this.isExecutiveUser){
+        if (this.isExecutiveUser) {
+            this.showROReportIframe = false;
             var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DealerCode}&RONumber=${RONumber}`;
-        }
+        } else if (this.isBCUser) {
+            var DEALERCODE = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            var dealerCode = this.roReportInterface.dealerCode;
+            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE);
+            if (dealerCode == "") {
+                this.showROReportIframe = false;
+            } else if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
+                this.dealerCodeNotBelongsToThisBC = "Sorry the SID you have entered does not belongs to this Business Center";
+                this.showROReportIframe = false;
+            } else {
+                var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode}&RONumber=${RONumber}`;
+            }
 
-        var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DealerCode}&RONumber=${RONumber}`;
+        } else if (this.isDistrictUser) {
+
+
+        }
         console.log(src1);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(src1);
     }

@@ -14,9 +14,9 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class IneligibleROReportComponent implements OnInit {
-    private showExecutiveInelligibleROReport: boolean = true;
-    private showDistrictInelligibleROReport: boolean = false;
-    private showDealerInelligibleRODepositReport: boolean = false;
+    public showExecutiveInelligibleROReport: boolean = true;
+    public showDistrictInelligibleROReport: boolean = false;
+    public showDealerInelligibleRODepositReport: boolean = false;
 
 
     constructor(private domSanitizer: DomSanitizer) { }
@@ -58,25 +58,25 @@ export class IneligibleROReportComponent implements OnInit {
         //event.target.innerWidth; // window width
     }
 
-    private openExecutiveInelligibleROReport() {
+    public openExecutiveInelligibleROReport() {
         this.showExecutiveInelligibleROReport = true;
         this.showDistrictInelligibleROReport = false;
         this.showDealerInelligibleRODepositReport = false;
     }
 
-    private openDistrictInelligibleROReport() {
+    public openDistrictInelligibleROReport() {
         this.showExecutiveInelligibleROReport = false;
         this.showDistrictInelligibleROReport = true;
         this.showDealerInelligibleRODepositReport = false;
     }
 
-    private openDealerInelligibleRODepositReport() {
+    public openDealerInelligibleRODepositReport() {
         this.showExecutiveInelligibleROReport = false;
         this.showDistrictInelligibleROReport = false;
         this.showDealerInelligibleRODepositReport = true;
     }
 
-    private openInalegibleROReportLink() {
+    public openInalegibleROReportLink() {
         var programName = "Enrollment_Admin"
         var src = `http://172.25.32.40/reports/ReportServlet?reportPath=MSER&reportName=${programName}`
         return this.domSanitizer.bypassSecurityTrustResourceUrl(src);

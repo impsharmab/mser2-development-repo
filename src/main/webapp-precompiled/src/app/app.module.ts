@@ -18,7 +18,6 @@ import { LoginComponent } from './component/login/login.component';
 import { AppRoutingModule } from './route/route.component';
 import { OpcodeSetupComponent } from './component/enrollment/opcode-setup/opcode-setup.component';
 import { EnrollmentReportComponent } from './component/enrollment/enrollment-report/enrollment-report.component';
-import { EnrollmentMaintenanceComponent } from './component/enrollment/enrollment-maintenance/enrollment-maintenance.component';
 import { ResetPasswordComponent } from './component/login/reset-password/reset-password.component';
 import { HomeComponent } from './component/home/home.component';
 import { MserModule } from './component/rootpage/mser-module/mser.module';
@@ -41,7 +40,7 @@ import { CMSService } from './services/cms-service/cms-service';
 import { MarketingTrainingService } from './services/marketing/marketing-training.service';
 import { PasswordResetService } from './services/login-service/password-reset/password-reset.service';
 
-import { PdfmakeModule } from 'ng-pdf-make';
+// import { PdfmakeModule } from 'ng-pdf-make';
 
 
 export function cookieServiceFactory() { return new CookieService(); }

@@ -20,25 +20,25 @@ declare var $: any;
 })
 export class WiAdvisorManagementReportComponent implements OnInit {
 
-    private showExecutiveWiAdvisorManagementReportIframe: boolean = false;
-    private showBCWiAdvisorManagementReportIframe: boolean = false;
-    private showDistrictWiAdvisorManagementReportIframe: boolean = false;
-    private showDealerWiAdvisorManagementReportIframe: boolean = false;
-    private showParticipantWiAdvisorManagementReportIframe: boolean = false;
-    private showDetailWiAdvisorManagementReportIframe: boolean = false;
-    private programName: string = "";
-    private src: any;
-    private selectedProgramList: any = [];
-    private fromDate: string = "";
-    private toDate: string = "";
-    private wIAdvisorManagementInterface: WIAdvisorManagementInterface = {
+    public showExecutiveWiAdvisorManagementReportIframe: boolean = false;
+    public showBCWiAdvisorManagementReportIframe: boolean = false;
+    public showDistrictWiAdvisorManagementReportIframe: boolean = false;
+    public showDealerWiAdvisorManagementReportIframe: boolean = false;
+    public showParticipantWiAdvisorManagementReportIframe: boolean = false;
+    public showDetailWiAdvisorManagementReportIframe: boolean = false;
+    public programName: string = "";
+    public src: any;
+    public selectedProgramList: any = [];
+    public fromDate: string = "";
+    public toDate: string = "";
+    public wIAdvisorManagementInterface: WIAdvisorManagementInterface = {
         from: this.fromDate,
         to: this.toDate,
         bc: "",
         dealerCode: "",
         district: ""
     }
-    private wiAdvisorManagementBCOptions: SelectItem[] = [
+    public wiAdvisorManagementBCOptions: SelectItem[] = [
         { label: "CA", value: "CA" },
         { label: "DN", value: "DN" },
         { label: "GL", value: "GL" },
@@ -49,22 +49,22 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         { label: "SW", value: "SW" }
 
     ]
-    private wiAdvisorManagementDistrictOptions: SelectItem[] = [
+    public wiAdvisorManagementDistrictOptions: SelectItem[] = [
         { label: "SE-K", value: "SE-K" },
         { label: "NE-S", value: "NE-S" },
         { label: "SE-A", value: "SE-A" },
         { label: "MW-E", value: "MW-E" }
     ]
-    private wiAdvisorManagementDealeCodeOptions: SelectItem[] = [
+    public wiAdvisorManagementDealeCodeOptions: SelectItem[] = [
         { label: "05239", value: "05239" },
         { label: "05551", value: "05551" },
         { label: "07203", value: "07203" },
         { label: "07595", value: "07595" }
     ]
-    private selectedBCList: any = [];
-    private selectedDistrictList: any = [];
-    private selectedDealerCodeList: any = [];
-    private rewardDepositProgramIDOptions: SelectItem[] = [
+    public selectedBCList: any = [];
+    public selectedDistrictList: any = [];
+    public selectedDealerCodeList: any = [];
+    public rewardDepositProgramIDOptions: SelectItem[] = [
         { label: "Used Vehicle Manager", value: "15" },
         { label: "Magneti Marelli", value: "2" },
         { label: "Mopar Accessories", value: "3" },
@@ -75,7 +75,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         { label: "wiAdvisor", value: "7" },
         { label: "wiAdvisor Tire", value: "11" }
     ]
-    private programOptions: SelectItem[] = [];
+    public programOptions: SelectItem[] = [];
     constructor(private domSanitizer: DomSanitizer) { }
 
 
@@ -106,7 +106,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         //  this.createBCProgramOptions();
     }
 
-    private squarify() {
+    public squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -124,7 +124,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         //event.target.innerWidth; // window width
     }
 
-    private viewEXTabOnly() {
+    public viewEXTabOnly() {
         // this.createBCProgramOptions();
         this.showExecutiveWiAdvisorManagementReportIframe = false;
         this.showBCWiAdvisorManagementReportIframe = false;
@@ -141,7 +141,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         }
         this.showExDepositReport();
     }
-    private viewBCTabOnly() {
+    public viewBCTabOnly() {
         //  this.createBCProgramOptions();
         this.showExecutiveWiAdvisorManagementReportIframe = false;
         this.showBCWiAdvisorManagementReportIframe = false;
@@ -160,7 +160,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         this.viewBCWiAdvisorManagementReport();
     }
 
-    private viewDistrictTabOnly() {
+    public viewDistrictTabOnly() {
         //  this.createBCProgramOptions();
         this.showExecutiveWiAdvisorManagementReportIframe = false;
         this.showBCWiAdvisorManagementReportIframe = false;
@@ -180,7 +180,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         this.viewDistrictWiAdvisorManagementReport();
     }
 
-    private viewDealerTabOnly() {
+    public viewDealerTabOnly() {
         //   this.createBCProgramOptions();
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.showExecutiveWiAdvisorManagementReportIframe = false;
@@ -200,7 +200,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         // this.viewDealerWiAdvisorManagementReport();
     }
 
-    private viewParticipantTabOnly() {
+    public viewParticipantTabOnly() {
         //  this.createBCProgramOptions();
         var sid = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
         this.showExecutiveWiAdvisorManagementReportIframe = false;
@@ -220,7 +220,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11"];
         //this.viewParticipantWiAdvisorManagementReport();
     }
-    private showExDepositReport() {
+    public showExDepositReport() {
         this.showExecutiveWiAdvisorManagementReportIframe = true;
         this.programName = "WiadvisorManagement_Executive";
         var WFD = this.wIAdvisorManagementInterface.from;
@@ -231,7 +231,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
 
-    private viewBCWiAdvisorManagementReport() {
+    public viewBCWiAdvisorManagementReport() {
         this.showBCWiAdvisorManagementReportIframe = true;
         this.programName = "WiadvisorManagement_BusinessCenter";
         var WBC = "";
@@ -244,7 +244,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    private viewDistrictWiAdvisorManagementReport() {
+    public viewDistrictWiAdvisorManagementReport() {
         this.showDistrictWiAdvisorManagementReportIframe = true;
         this.programName = "WiAdvisorManagementReport-District";
         var WMDFD = this.wIAdvisorManagementInterface.from;
@@ -261,7 +261,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    // private viewDealerWiAdvisorManagementReport() {
+    // public viewDealerWiAdvisorManagementReport() {
     //     this.showDealerWiAdvisorManagementReportIframe = true;
     //     this.programName = "WiAdvisorManagementreward-Dealer";
     //     var RDDL = this.wIAdvisorManagementInterface.dealerCode;
@@ -276,7 +276,7 @@ export class WiAdvisorManagementReportComponent implements OnInit {
     //     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     // }
 
-    // private viewParticipantWiAdvisorManagementReport() {
+    // public viewParticipantWiAdvisorManagementReport() {
     //     this.showParticipantWiAdvisorManagementReportIframe = true;
     //     this.programName = "WiAdvisorManagementReport-Participant";
     //     var RDP = this.wIAdvisorManagementInterface.sid;

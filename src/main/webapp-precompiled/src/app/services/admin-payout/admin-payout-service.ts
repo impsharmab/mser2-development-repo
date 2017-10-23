@@ -33,6 +33,41 @@ export class AdminPayoutService {
 
     }
 
+    getEligiblePositions(selectedIncentiveSubCodesProgramGroups: string[]) {
+        var getEligiblePositionsUrl = serviceUrl.baseUrl + "services/adminpayout/getEligiblePositions";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(getEligiblePositionsUrl, selectedIncentiveSubCodesProgramGroups, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
+    getQuantities() {
+        var getQuantitiesUrl = serviceUrl.baseUrl + "services/adminpayout/getQuantities";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.get(getQuantitiesUrl, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+
+    }
+
+    getRewardTypes() {
+        var getRewardTypesUrl = serviceUrl.baseUrl + "services/adminpayout/getRewardTypes";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.get(getRewardTypesUrl, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+
+    }
+
     private handleError(error: Response | any) {
         let errMsg: string = "";
         if (error instanceof Response) {

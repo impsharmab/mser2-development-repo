@@ -6,16 +6,16 @@ import { LoginService } from '../../../services/login-service/login.service'
 
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './new-resetpassword.html',
+  templateUrl: './resetpassword.html',
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
   public resetpassword: ResetPasswordInterface;
   private resetPasswordData: any;
-  private errorUserID: string = "";
-  private errorEmailID: string = "";
-  private invalidCreds: boolean = false;
-  private successResetPasswordMessage: string = "";
+  public errorUserID: string = "";
+  public errorEmailID: string = "";
+  public invalidCreds: boolean = false;
+  public successResetPasswordMessage: string = "";
 
   constructor(private router: Router, private loginService: LoginService) { }
 
@@ -30,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
-  private resetPassword() {
+  public resetPassword() {
     if (this.resetpassword.userId.trim() === "" && this.resetpassword.emailId.trim() === "") {
       this.errorUserID = "Please enter your SID/TID.";
       this.errorEmailID = "Email is required.";
@@ -67,7 +67,7 @@ export class ResetPasswordComponent implements OnInit {
     //debugger
   }
 
-  private cancel() {
+  public cancel() {
     let url = ["login"]
     this.router.navigate(url);
   }

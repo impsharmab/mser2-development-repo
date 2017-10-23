@@ -7,7 +7,7 @@
         <!-- Zozo Tabs Start-->
         <div id="tabbed-nav">
 
-          <!-- Tab Navigation Menu -->
+          <!-- Tab Navigation Menu --> 
           <ul class="tabs">
 
             <li class="tab" (click)="openCMSPage('PayoutChartHome')">
@@ -26,9 +26,6 @@
           <div>
 
             <!-- Home tab -->
-            <!-- <div class="z-content-pad" *ngFor="let data of payoutChartDatum.programs">
-
-            </div> -->
             <div class="z-content-pad">
               <div id="main-content" [innerHTML]="payoutCMSObject"></div>
             </div>
@@ -49,18 +46,6 @@
                   <li *ngFor="let data1 of data.programs">
                     <a>{{data1.name}}</a>
                   </li>
-                  <!-- <li>
-                    <a>MOPAR UPFITS</a>
-                  </li>
-                  <li>
-                    <a>WIADVISOR</a>
-                  </li>
-                  <li>
-                    <a>MAGNETI MARELLI RETAIL PARTS</a>
-                  </li>
-                  <li>
-                    <a>EXPRESS LANE</a>
-                  </li> -->
                 </ul>
                 <!-- Nested Content container -->
                 <div>
@@ -69,67 +54,34 @@
                     <h4 class="payout-chart-heading">{{data2.name}}</h4>
 
                     <ul class="graph graph-list">
-                      <li class="graph-item service-override" *ngFor="let data3 of data2.payouts">
-                        <span class="graph-item-subject" *ngIf="data3.value !='$0'">{{data3.name}}</span>
-                        <span class="graph-item-figure" *ngIf="data3.value !='$0'">${{data3.value}}</span>
+                      <li class="graph-item service-override" *ngFor="let data3 of data2.payouts" [hidden]="data3.value == 0">
+                        <span class="graph-item-subject">{{data3.name}}</span>
+                        <span class="graph-item-figure">{{data3.value | currency:'USD':true:'1.2-2'}}</span>
 
-                        <a *ngIf="data3.parts != undefined && data3.parts.length>0" class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"
-                          (click)="showIconPartsModal(data3)">
+                        <a *ngIf="data3.parts != undefined && data3.parts.length>0" (click)="showIconPartsModal(data3, data2.name)" class="graph-item-info" href="#" data-toggle="modal" data-target="#partModal"
+                          >
                           <i class="fa fa-info-circle"></i>
                         </a>
                       </li>
                     </ul>
                     <p>{{data2.firstLegend}}</p>
 
-                    <p>Select
+                    <p *ngIf="data2.name == 'MOPAR VEHICLE PROTECTION'">Click on
+                      <i class="legend qualifying-part-number fa fa-info-circle"></i> for eligible plan code(s).</p>
+
+                    <p *ngIf="data2.name != 'MOPAR VEHICLE PROTECTION'">Click on
                       <i class="legend qualifying-part-number fa fa-info-circle"></i> for qualifying part number(s).</p>
 
                     <div *ngIf="((data2.managerLabel !=undefined)&&(data2.managerLabel.length>0))">
                       <p class="disclaimer graph-disclaimer">{{data2.managerLabel}}</p>
 
                       <img alt="" src='data2.image' />
-
                     </div>
-
-
                   </div>
-                  <!-- MOPAR Upfits -->
-                  <!-- <div>
-                    <h4 class="payout-chart-heading">MOPAR Upfits</h4>
-
-                  </div> -->
-                  <!-- wiAdvisor -->
-                  <!-- <div>
-                    <h4 class="payout-chart-heading">wiADVISOR</h4>
-
-                  </div> -->
-                  <!-- Magneti Marelli Retail Parts -->
-                  <!-- <div>
-                    <h4 class="payout-chart-heading">MAGNETI MARELLI RETAIL PARTS</h4>
-
-                  </div> -->
-                  <!-- Express Lane -->
-                  <!-- <div>
-                    <h4 class="payout-chart-heading">EXPRESS LANE</h4>
-
-                  </div> -->
-                  <!-- UConnect -->
-                  <!-- <div>
-                    <h4 class="payout-chart-heading">
-                      <span class="hide-me">UConnect</span>
-                      <img alt="UConnect" src="assets/img/uconnect-logo.png" />
-                    </h4>
-                    <h5>New For July!</h5>
-
-                  </div> -->
                 </div>
               </div>
               <!-- Zozo Tabs 2 (nested) End-->
             </div>
-
-
-
-
           </div>
         </div>
         <!-- Zozo Tabs End-->
@@ -143,7 +95,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="partModalLabel">Qualifying Part Numbers</h5>
+        <h5 class="modal-title" id="partModalLabel">{{iconPartsModalHeading}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

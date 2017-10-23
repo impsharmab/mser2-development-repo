@@ -112,7 +112,7 @@
 
                                             <!-- Email Address, Phone Number -->
                                             <div class="form-group row">
-                                                <div class="col-sm-12 col-md-5">
+                                                <div class="col-sm-12 col-md-5"> 
                                                     <label for="email">*Email Address</label>
                                                     <input class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required type="email"
                                                         [(ngModel)]="dealerEnrollment.dealerPrincipalEmail" #email="ngModel"
@@ -122,9 +122,10 @@
                                                 </div>
                                                 <div class="col-sm-12 col-md-5">
                                                     <label for="phone">Phone Number</label>
-                                                    <input class="form-control" id="phone" minlength="10" maxlength="10" placeholder="(000)-000-0000" name="phone" [disabled]="!enableInputs"
-                                                        pattern="[0-9]{10}" required type="text" [(ngModel)]="dealerEnrollment.phone"
-                                                        #phone="ngModel" (ngModelChange)="ngModelChangePhone()" />
+                                                    <input class="form-control" id="phone" minlength="14" maxlength="14" placeholder="(000)-000-0000" name="phone" [disabled]="!enableInputs"
+                                                        pattern="[0-9]{10}" required type="text" [ngModel]="dealerEnrollment.phone | phone"
+                                                        #phone="ngModel" (ngModelChange)="dealerEnrollment.phone=$event; ngModelChangePhone()"
+                                                    />
                                                     <div class="alert alert-danger" [hidden]="!showPhoneNumberErrorHiddenDiv">Valid phone number is required.</div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-2">

@@ -9,7 +9,7 @@ import { DataTable } from 'primeng/primeng';
 import { EnrollmentInterface } from './enrollment.interface';
 @Component({
     selector: 'app-enrollment',
-    templateUrl: './freeze.html',
+    templateUrl: './enrollment-maintenance.html',
     styleUrls: ['./enrollment-maintenance.component.css']
 })
 export class EnrollmentComponent implements OnInit {
@@ -18,115 +18,119 @@ export class EnrollmentComponent implements OnInit {
     selectedCars;
     selectedCity;
 
-    private editSingleRow: boolean = false;
-    private expressLaneDealerData: any;
-    private isExpresslaneDealer: boolean = false;
-    private selectedpc: string = "";
-    private notenrolledDataResponse: any = [];
-    private notenrolledsidOptions: SelectItem[] = [];
-    private displayAddNewUserDialog: boolean = false;
-    private displayEnrollmentDialog: boolean;
-    private enableEditable: boolean = false;
-    private showEditButton: boolean = true;;
-    private showCancelButton: boolean = false;
-    private showSaveButton: boolean = false;
-    private positionCodesResponse: any = [];
-    private selectedRowSid: string = "";
-    private dat: any = "";
-    private saveEnrollmentMaintenanceDataResponse: any;
+    public addTeamData: any;
+    public addNewUserData: any;
+    public data:any;
+    public editSingleRow: boolean = false;
+    public disableGlobalFilter: boolean = false;
+    public expressLaneDealerData: any;
+    public isExpresslaneDealer: boolean = false;
+    public selectedpc: string = "";
+    public notenrolledDataResponse: any = [];
+    public notenrolledsidOptions: SelectItem[] = [];
+    public displayAddNewUserDialog: boolean = false;
+    public displayEnrollmentDialog: boolean;
+    public enableEditable: boolean = false;
+    public showEditButton: boolean = true;;
+    public showCancelButton: boolean = false;
+    public showSaveButton: boolean = false;
+    public positionCodesResponse: any = [];
+    public selectedRowSid: string = "";
+    public dat: any = "";
+    public saveEnrollmentMaintenanceDataResponse: any;
 
-    private selectedPMRecordsPCindex: any = 0
-    private selectedPMRecordsPCData: any = "";
-    private selectedSMRecordsPCindex: any = 0
-    private selectedSMRecordsPCData: any = "";
+    public selectedPMRecordsPCindex: any = 0
+    public selectedPMRecordsPCData: any = "";
+    public selectedSMRecordsPCindex: any = 0
+    public selectedSMRecordsPCData: any = "";
 
-    private enrollmentDataCount: string = "";
-    private activeUser: string = "";
-    private confirmCancel: boolean = false;
-    private confirmSave: boolean = false;
-    private editButton: any;
-    private cancelButton: any;
-    private saveButton: any;
-    private rowData: any;
-    private rowIndex: any = 0;
-    private msg: string = "";
-    private openDealerTeamTable: boolean = false;
-    private dealerTeamButton: string = "YES";
+    public enrollmentDataCount: string = "";
+    public activeUser: string = "";
+    public confirmCancel: boolean = false;
+    public confirmSave: boolean = false;
+    public editButton: any;
+    public cancelButton: any;
+    public saveButton: any;
+    public rowData: any;
+    public rowIndex: any = 0;
+    public msg: string = "";
+    public openDealerTeamTable: boolean = false;
+    public dealerTeamButton: string = "YES";
 
-    private pmRecordsElligiblepc: any = ["08"];
-    private smRecordsElligiblepc: any = ["09"];
-    private mserElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    private mmElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    private upFitsElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    private fiatElligpc: any = ["01", "13", "23", "2A"]
-    private tiresElligpc: any = ["01", "13", "23", "2A"];
-    private mvpElligpc: any = ["01", "13", "es"];
-    private wiAdvMVPElligpc: any = ["13"];
-    private wiAdvTirElligepc: any = ["13"];
-    private uconSalesElligpc: any = ["01", "02", "03", "04", "05", "06 ", "07", "11", "12", "15", "22", "25", "26", "30", "31", "34", "36", "37", "38", "39", "41", "42", "46", "47", "49", "50", "52", "74", "4T", "IM"];
-    private uconServiceElligpc: any = ["08", "09", "10", "13", "14", "16", "17", "18", "19", "20", "23", "24", "27", "28", "29", "32", "33", "35", "40", "48", "56", "79", "85", "1F", "2S", "3S", "4S", "7L", "7M", "7N", "7P", "7Q", "ES", "ET"];
-    private pcPartElligpc = ["8", "14", "40", "19"];
-    private pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "37", "40"];
-    private elMElligpc: any = ["09", "17", "33", "35"];
-    private elPElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    private uvmEnrElligpc: any = ["08", "09", "07"];
-    private uvmPartElligpc: any = ["07", "23", "34"];
-    private warrantyAdmElligpc: any = ["29"];
-
-
-    private pmRecordsElligiblepcItem2: any = ["(08)Parts Manager "];
-    private smRecordsElligiblepcItem2: any = ["(09)Service Manager "];
-    private mserElligiblepcItem2: any = [];
-    private mmElligiblepcItem2: any = [];
-    private upFitsElligpcItem2: any = [];
-    private fiatElligpcItem2: any = [];
-    private tiresElligpcItem2: any = [];
-    private mvpElligpcItem2: any = [];
-    private wiAdvMVPElligpcItem2: any = [];
-    private wiAdvTirElligepcItem2: any = [];
-    private uconSalesElligpcItem2: any = [];
-    private uconServiceElligpcItem2: any = [];
-    private pcPartElligpcItem2 = [];
-    private pcMElligpcItem2 = [];
-    private elMElligpcItem2: any = [];
-    private elPElligpcItem2: any = [];
-    private uvmEnrElligpcItem2: any = [];
-    private uvmPartElligpcItem2: any = [];
-    private warrantyAdmElligpcItem2: any = [];
-
-    private pmRecordsOptions: SelectItem[] = [];
-    private smRecordsOptions: SelectItem[] = [];
-    private mserOptions: SelectItem[] = [];
-    private mmOptions: SelectItem[] = [];
-    private upFitsOptions: SelectItem[] = [];
-    private fiatOptions: SelectItem[] = [];
-    private tiresOptions: SelectItem[] = [];
-    private mvpOptions: SelectItem[] = [];
-    private wiAdvMVPOptions: SelectItem[] = [];
-    private wiAdvTireOptions: SelectItem[] = [];
-    private uconSalesOptions: SelectItem[] = [];
-    private uconServiceOptions: SelectItem[] = [];
-    private pcPartOptions: SelectItem[] = [];
-    private pcMOptions: SelectItem[] = [];
-    private elMOptions: SelectItem[] = [];
-    private elPOptions: SelectItem[] = [];
-    private uvmEnrOptions: SelectItem[] = [];
-    private uvmPartOptions: SelectItem[] = [];
-    private warrantyAdmOptions: SelectItem[] = [];
-    private option = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
-    private cars = [{ "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }, { "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }]
+    public pmRecordsElligiblepc: any = ["08"];
+    public smRecordsElligiblepc: any = ["09"];
+    public mserElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    public mmElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    public upFitsElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    public fiatElligpc: any = ["01", "13", "23", "2A"]
+    public tiresElligpc: any = ["01", "13", "23", "2A"];
+    public mvpElligpc: any = ["01", "13", "es"];
+    public wiAdvMVPElligpc: any = ["13"];
+    public wiAdvTirElligepc: any = ["13"];
+    public uconSalesElligpc: any = ["01", "02", "03", "04", "05", "06 ", "07", "11", "12", "15", "22", "25", "26", "30", "31", "34", "36", "37", "38", "39", "41", "42", "46", "47", "49", "50", "52", "74", "4T", "IM"];
+    public uconServiceElligpc: any = ["08", "09", "10", "13", "14", "16", "17", "18", "19", "20", "23", "24", "27", "28", "29", "32", "33", "35", "40", "48", "56", "79", "85", "1F", "2S", "3S", "4S", "7L", "7M", "7N", "7P", "7Q", "ES", "ET"];
+    public pcPartElligpc = ["8", "14", "40", "19"];
+    public pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "37", "40"];
+    public elMElligpc: any = ["09", "17", "33", "35"];
+    public elPElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    public uvmEnrElligpc: any = ["08", "09", "07"];
+    public uvmPartElligpc: any = ["07", "23", "34"];
+    public warrantyAdmElligpc: any = ["29"];
 
 
-    private moparPartsData: any = [{ "pc1": "Service Advisor (13)" }, { "pc2": "Service Advisor (13)" }];
-    private enrollmentData: EnrollmentInterface = {
+    public pmRecordsElligiblepcItem2: any = ["(08)Parts Manager "];
+    public smRecordsElligiblepcItem2: any = ["(09)Service Manager "];
+    public mserElligiblepcItem2: any = [];
+    public mmElligiblepcItem2: any = [];
+    public upFitsElligpcItem2: any = [];
+    public fiatElligpcItem2: any = [];
+    public tiresElligpcItem2: any = [];
+    public mvpElligpcItem2: any = [];
+    public wiAdvMVPElligpcItem2: any = [];
+    public wiAdvTirElligepcItem2: any = [];
+    public uconSalesElligpcItem2: any = [];
+    public uconServiceElligpcItem2: any = [];
+    public pcPartElligpcItem2 = [];
+    public pcMElligpcItem2 = [];
+    public elMElligpcItem2: any = [];
+    public elPElligpcItem2: any = [];
+    public uvmEnrElligpcItem2: any = [];
+    public uvmPartElligpcItem2: any = [];
+    public warrantyAdmElligpcItem2: any = [];
+
+    public pmRecordsOptions: SelectItem[] = [];
+    public smRecordsOptions: SelectItem[] = [];
+    public mserOptions: SelectItem[] = [];
+    public mmOptions: SelectItem[] = [];
+    public upFitsOptions: SelectItem[] = [];
+    public fiatOptions: SelectItem[] = [];
+    public tiresOptions: SelectItem[] = [];
+    public mvpOptions: SelectItem[] = [];
+    public wiAdvMVPOptions: SelectItem[] = [];
+    public wiAdvTireOptions: SelectItem[] = [];
+    public uconSalesOptions: SelectItem[] = [];
+    public uconServiceOptions: SelectItem[] = [];
+    public pcPartOptions: SelectItem[] = [];
+    public pcMOptions: SelectItem[] = [];
+    public elMOptions: SelectItem[] = [];
+    public elPOptions: SelectItem[] = [];
+    public uvmEnrOptions: SelectItem[] = [];
+    public uvmPartOptions: SelectItem[] = [];
+    public warrantyAdmOptions: SelectItem[] = [];
+    public option = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
+    public cars = [{ "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }, { "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }]
+
+
+    public moparPartsData: any = [{ "pc1": "Service Advisor (13)" }, { "pc2": "Service Advisor (13)" }];
+    public enrollmentData: EnrollmentInterface = {
         "sid": "", "name": "", "dmsId": "", "myPersonnelDmsId": "", "myPersonnelPositions": [],
         "moparPartsData": [], "magnetiMarelliData": [], "mvpData": [], "wiAdvisorMVPData": [],
         "wiAdvisorTiresData": [], "posCodeOverrides": [], "pcManager": "", "elManager": "",
         "urManager": "", "urParticipant": ""
     };
 
-    private enrollmentDataResponse: any = [];
-    private enrollmentDataReq: any = [{
+    public enrollmentDataResponse: any = [];
+    public enrollmentDataReq: any = [{
         "dealerCode": "", "myPersonalDMSID": "", "name": "", "email": "", "positionCodes": [""], "overriddenpositionCodes": [],
         "mser": [""], "mas": [" "], "mm": [""], "mvp": [], "wiMvp": [], "wiTires": [], "pc": "", "el": "", "usedRecon": "",
         "usedReconP": [], "sid": "", "dmsid": "", "ucon": []
@@ -142,17 +146,17 @@ export class EnrollmentComponent implements OnInit {
         // this.getExpresslaneDealer();
         this.isEnrolled();
     }
-    private getSelectedDealerCode() {
+    public getSelectedDealerCode() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     }
-    private getSelectedDealerName() {
+    public getSelectedDealerName() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
     }
 
-    private showELColumn: boolean = true;
-    private showPCColumn: boolean = true;
-    private showUVMColumn: boolean = true;
-    private isEnrolled() {
+    public showELColumn: boolean = true;
+    public showPCColumn: boolean = true;
+    public showUVMColumn: boolean = true;
+    public isEnrolled() {
         var isElEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isELEnrolled;
         var isPCEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCEnrolled;
         // var isUVMmanager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isUVMManager;isELEnrolled":false,"isPCEnrolled
@@ -174,7 +178,7 @@ export class EnrollmentComponent implements OnInit {
         //     this.showUVMColumn = false;
         // }
     }
-    private getPositionCodes() {
+    public getPositionCodes() {
         this.enrollmentService.getPositionCodes().subscribe(
             (positionCodesResponse) => {
                 this.positionCodesResponse = (positionCodesResponse)
@@ -184,7 +188,7 @@ export class EnrollmentComponent implements OnInit {
             }
         )
     }
-    private assignElligiblePCItem2() {
+    public assignElligiblePCItem2() {
         var mserElligiblepcItem2: any = [];
         var mmElligiblepcItem2: any = [];
         var upFitsElligpcItem2: any = [];
@@ -317,7 +321,7 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    private getEnrollmentData() {
+    public getEnrollmentData() {
         this.editButton = {};
         this.cancelButton = {};
         this.saveButton = {};
@@ -348,7 +352,7 @@ export class EnrollmentComponent implements OnInit {
             }
         )
     }
-    private readItem1ReturnItem2(data, index) {
+    public readItem1ReturnItem2(data, index) {
         var positionCodes: any = [];
         var overriddenpositionCodes: any = [];
         var mser: any = [];
@@ -455,7 +459,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].el = el;
         this.enrollmentDataResponse[index].usedRecon = usedRecon;
     }
-    private constructSelectItem(data, index) {
+    public constructSelectItem(data, index) {
         var overrideOptionArray: SelectItem[] = [];
         var pmRecordsOptions: SelectItem[] = [];
         var smRecordsOptions: SelectItem[] = [];
@@ -818,7 +822,7 @@ export class EnrollmentComponent implements OnInit {
 
         //  }
     }
-    private removeDuplicates(duplicateArray) {
+    public removeDuplicates(duplicateArray) {
         var cleanArray: SelectItem[] = [];
         for (var i = 0; i < duplicateArray.length; i++) {
             var push = true;
@@ -833,7 +837,7 @@ export class EnrollmentComponent implements OnInit {
         }
         return cleanArray;
     }
-    private selectedPCOverrides(data, index) {
+    public selectedPCOverrides(data, index) {
         var pmRecordsSelectedData = [];
         var smRecordsSelectedData = [];
         var mserSelectedData = [];
@@ -1078,7 +1082,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].usedReconParticipantOptions = this.removeDuplicates(usedReconParticipantOptionss);
 
     }
-    private checkPMPositionCodes(index) {
+    public checkPMPositionCodes(index) {
         var mserPositionCode = [];
         var mmPositionCode = [];
         var masPositionCode = [];
@@ -1142,7 +1146,7 @@ export class EnrollmentComponent implements OnInit {
 
         }
     }
-    private checkSMPositionCodes(index) {
+    public checkSMPositionCodes(index) {
         var mserPositionCode = [];
         var mmPositionCode = [];
         var masPositionCode = [];
@@ -1204,7 +1208,7 @@ export class EnrollmentComponent implements OnInit {
             this.enrollmentDataResponse[index].smPositionCode.push("(09)Service Manager ");
         }
     }
-    private removePMPositionCodesFromMsers(index) {
+    public removePMPositionCodesFromMsers(index) {
         var mserPositionCode = this.enrollmentDataResponse[index].mser;
         var mmPositionCode = this.enrollmentDataResponse[index].mm;
         var masPositionCode = this.enrollmentDataResponse[index].mas;
@@ -1305,7 +1309,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].tires = tiresPositionCode;
 
     }
-    private removeSMPositionCodesFromMsers(index) {
+    public removeSMPositionCodesFromMsers(index) {
         var mserPositionCode = this.enrollmentDataResponse[index].mser;
         var mmPositionCode = this.enrollmentDataResponse[index].mm;
         var masPositionCode = this.enrollmentDataResponse[index].mas;
@@ -1404,7 +1408,7 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    private selectedPMRecordsPC(data, sid) {
+    public selectedPMRecordsPC(data, sid) {
         var enrollmentDataResponse = this.enrollmentDataResponse;
         var selectedPMRecordsPCindex: any = 0;
         for (var i = 0; i < enrollmentDataResponse.length; i++) {
@@ -1414,7 +1418,7 @@ export class EnrollmentComponent implements OnInit {
         }
         this.selectedPMRecordsPCData = data;
     }
-    private selectedSMRecordsPC(data, sid) {
+    public selectedSMRecordsPC(data, sid) {
         var enrollmentDataResponse = this.enrollmentDataResponse;
         var selectedSMRecordsPCindex: any = 0;
         for (var i = 0; i < enrollmentDataResponse.length; i++) {
@@ -1424,7 +1428,7 @@ export class EnrollmentComponent implements OnInit {
         }
         this.selectedPMRecordsPCData = data;
     }
-    private onEditInitE(event: any) {
+    public onEditInitE(event: any) {
         if (!event.data.isEditableR) {
             setTimeout(() => {
                 this.dataTable.closeCell();
@@ -1432,7 +1436,8 @@ export class EnrollmentComponent implements OnInit {
         }
     }
 
-    private edit(rowData, editButton, cancelButton, saveButton) {
+    public edit(rowData, editButton, cancelButton, saveButton) {
+        this.disableGlobalFilter = true;
         if (this.editSingleRow) {
             return;
         } else {
@@ -1447,12 +1452,12 @@ export class EnrollmentComponent implements OnInit {
         this.enableEditable = true;
     }
 
-    private applyRowStyle(rowData: any): string {
+    public applyRowStyle(rowData: any): string {
         // console.log("applyrow");
         return ".rowSelectionColor";
     }
 
-    private cancel(rowData, editButton, cancelButton, saveButton) {
+    public cancel(rowData, editButton, cancelButton, saveButton) {
         //  this.editSingleRow = false;
         this.confirmCancel = true;
         this.editButton = editButton;
@@ -1466,7 +1471,8 @@ export class EnrollmentComponent implements OnInit {
         // rowData.isEditableR = false;
         // this.getEnrollmentData();
     }
-    private continueCancel() {
+    public continueCancel() {
+        this.disableGlobalFilter = false;
         this.editSingleRow = false;
         this.confirmCancel = false;
         this.editButton.style["display"] = "block";
@@ -1477,14 +1483,14 @@ export class EnrollmentComponent implements OnInit {
         // this.getEnrollmentData();
 
     }
-    private discontinueCancel() {
+    public discontinueCancel() {
         this.editSingleRow = true;
         this.confirmCancel = false;
         this.editButton = {};
         this.cancelButton = {};
         this.saveButton = {};
     }
-    private saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
+    public saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
         // this.editSingleRow = false;
         this.confirmSave = true;
         this.editButton = editButton;
@@ -1499,7 +1505,7 @@ export class EnrollmentComponent implements OnInit {
         // rowData.isEditableR = false;
         // this.getEnrollmentData();
     }
-    // private continueSave() {
+    // public continueSave() {
     //     this.confirmCancel = false;
     //     this.editButton.style["display"] = "block";
     //     this.cancelButton.style["display"] = "none";
@@ -1509,7 +1515,7 @@ export class EnrollmentComponent implements OnInit {
     //     this.getEnrollmentData();
 
     // }
-    private discontinueSave() {
+    public discontinueSave() {
         this.editSingleRow = true;
         this.confirmSave = false;
         this.editButton = {};
@@ -1518,10 +1524,11 @@ export class EnrollmentComponent implements OnInit {
     }
 
 
-    private returnItem1(data) {
+    public returnItem1(data) {
         var myPersonal
     }
-    private continueSave() {
+    public continueSave() {
+        this.disableGlobalFilter = false;
         this.editSingleRow = false;
         var rowData = this.rowData;
         var editButton = this.editButton;
@@ -1704,10 +1711,10 @@ export class EnrollmentComponent implements OnInit {
             }
             )
     }
-    private cancelNewUserDataDialogue(data) {
+    public cancelNewUserDataDialogue(data) {
         this.displayAddNewUserDialog = false;
     }
-    // private getExpresslaneDealer() {
+    // public getExpresslaneDealer() {
     //     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     //     this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
     //         (expressLaneDealerData) => {
@@ -1720,7 +1727,7 @@ export class EnrollmentComponent implements OnInit {
     //     )
     // }
 
-    private openDealerTeam() {
+    public openDealerTeam() {
         if (this.dealerTeamButton === 'YES') {
             this.openDealerTeamTable = true;
             this.dealerTeamButton = "NO";
@@ -1731,7 +1738,7 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    private onRowSelect(event) {
+    public onRowSelect(event) {
         // console.log(event);
         event.data.isEditableR = true;
         this.enableEditable = true;

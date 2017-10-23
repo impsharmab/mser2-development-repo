@@ -15,15 +15,17 @@ export class DealerTeamComponent implements OnInit {
     @Output("onSaveNewTeamData") saveEvent: EventEmitter<any> = new EventEmitter<any>();
 
     cities: any = [{ label: 'New York', value: 'New York' }, { label: 'Rome', value: 'Rome' }];
-    private newDealerTeamData: any = { "name": "", "id": "", "createdDate": "", "groupTeamId": "" }
-    private addNewDealerTeamData: any = {};
-    private date: string = "";
-    private dealerTeamData: any;
-    private emptyNameMessage: string = "";
-    private emptyIDMessage: string = "";
-    private successAddingTeamMessage: string = "";
-    private errorAddingTeamMessage: string = "";
-    private n: string = "none";
+    public newDealerTeamData: any = { "name": "", "id": "", "createdDate": "", "groupTeamId": "" }
+    public addNewDealerTeamData: any = {};
+    public date: string = "";
+    public data: any;
+    public addTeamData: any;
+    public dealerTeamData: any;
+    public emptyNameMessage: string = "";
+    public emptyIDMessage: string = "";
+    public successAddingTeamMessage: string = "";
+    public errorAddingTeamMessage: string = "";
+    public n: string = "none";
     displayDialog: boolean;
     displayAddTeamDialog: boolean;
 
@@ -36,7 +38,7 @@ export class DealerTeamComponent implements OnInit {
         this.date = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
         this.getTeamData();
     }
-    private editTeamName(name, id) {
+    public editTeamName(name, id) {
         this.emptyNameMessage = "";
         this.emptyIDMessage = "";
         this.successAddingTeamMessage = "";
@@ -59,7 +61,7 @@ export class DealerTeamComponent implements OnInit {
             }
             )
     }
-    private deleteTeamName(id) {
+    public deleteTeamName(id) {
         this.emptyNameMessage = "";
         this.emptyIDMessage = "";
         this.successAddingTeamMessage = "";
@@ -80,13 +82,13 @@ export class DealerTeamComponent implements OnInit {
             }
         )
     }
-    private cancelTeamName() {
+    public cancelTeamName() {
 
     }
-    private saveTeamName() {
+    public saveTeamName() {
 
     }
-    private getTeamData() {
+    public getTeamData() {
         this.emptyNameMessage = "";
         this.emptyIDMessage = "";
         this.successAddingTeamMessage = "";
@@ -157,7 +159,7 @@ export class DealerTeamComponent implements OnInit {
 
     }
 
-    private ngModelChangeTeamIDName() {
+    public ngModelChangeTeamIDName() {
         this.emptyNameMessage = "";
         this.emptyIDMessage = "";
         this.successAddingTeamMessage = "";

@@ -11,48 +11,48 @@ declare var $: any;
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component-matt.html',
+  templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() data: any;
-  @ViewChild("dealercodeModal") private dealercodeModal: NgbModalRef;
+  @ViewChild("dealercodeModal") public dealercodeModal: NgbModalRef;
   @Output("onProfileChange") profileChange = new EventEmitter<any>();
 
-  private poscodesSession: any = [];
-  private delcodesSession: any = [];
-  private dealerNamesSession: any = [];
-  private dealerManagerSession: any = [];
-  private serviceManagerOfRecordSession: any = []
-  private partsManagerOfRecordSession: any = [];
-  private userProfileData: any = {};
-  private displayDealerCode: any = false;
-  private displayRetweetModal: boolean = false;
-  private selectedDealerCode: any = "";
-  private selectedPositionCode: any = "";
-  private selectedDealerName: any = "";
-  private rolesSession: any;
-  private isDealerManager: boolean = false;
-  private isServiceManagerOfRecord: boolean = false;
-  private isPartsManagerOfRecord: boolean = false;
-  private isAdminSession: boolean = false;
-  private isELManagerSession: any = [];
-  private isPCManagerSession: any = [];
-  private isUVMManagerSession: any = [];
-  private isELEnrolledSession: any = [];
-  private isPCEnrolledSession: any = [];
-  private bcsSession: any = [];
-  private isELEnrolled: string = "";
-  private isPCEnrolled: string = "";
-  private isELManager: boolean = false;
-  private isPCManager: boolean = false;
-  private isUVMManager: boolean = false;
-  private selectedIndex: any = 0;
-  private codeData: CodeData;
+  public poscodesSession: any = [];
+  public delcodesSession: any = [];
+  public dealerNamesSession: any = [];
+  public dealerManagerSession: any = [];
+  public serviceManagerOfRecordSession: any = []
+  public partsManagerOfRecordSession: any = [];
+  public userProfileData: any = {};
+  public displayDealerCode: any = false;
+  public displayRetweetModal: boolean = false;
+  public selectedDealerCode: any = "";
+  public selectedPositionCode: any = "";
+  public selectedDealerName: any = "";
+  public rolesSession: any;
+  public isDealerManager: boolean = false;
+  public isServiceManagerOfRecord: boolean = false;
+  public isPartsManagerOfRecord: boolean = false;
+  public isAdminSession: boolean = false;
+  public isELManagerSession: any = [];
+  public isPCManagerSession: any = [];
+  public isUVMManagerSession: any = [];
+  public isELEnrolledSession: any = [];
+  public isPCEnrolledSession: any = [];
+  public bcsSession: any = [];
+  public isELEnrolled: string = "";
+  public isPCEnrolled: string = "";
+  public isELManager: boolean = false;
+  public isPCManager: boolean = false;
+  public isUVMManager: boolean = false;
+  public selectedIndex: any = 0;
+  public codeData: CodeData;
 
-  private booleanAdminToken: any = this.cookieService.get("adminToken");
-  // private booleanDealerEmulation: any = false;
-  private isDealerEmulation: string = "false";
+  public booleanAdminToken: any = this.cookieService.get("adminToken");
+  // public booleanDealerEmulation: any = false;
+  public isDealerEmulation: string = "false";
 
   constructor(
     private router: Router,
@@ -115,7 +115,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private removeDuplicates(duplicateArray) {
+  public removeDuplicates(duplicateArray) {
     var cleanArray = [];
     for (var i = 0; i < duplicateArray.length; i++) {
       var push = true;
@@ -130,10 +130,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
     return cleanArray;
   }
-  private dcDinstinct = [];
-  private pcMap = {};
+  public dcDinstinct = [];
+  public pcMap = {};
 
-  private groupbyPCDC() {
+  public groupbyPCDC() {
     this.dcDinstinct = this.removeDuplicates(this.delcodesSession);
     // console.log(this.dcDinstinct); 
 
@@ -154,8 +154,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.pcDinstinct = this.pcMap[this.dcDinstinct[0]];
     this.onPCChange();
   }
-  private pcDinstinct = [];
-  private onDCChange() {
+  public pcDinstinct = [];
+  public onDCChange() {
     var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
     var index = htmlObject.selectedIndex
 
@@ -166,7 +166,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.onPCChange();
 
   }
-  private onPCChange() {
+  public onPCChange() {
     for (var i = 0; i < this.delcodesSession.length; i++) {
       if (this.delcodesSession[i] == this.codeData.selectedDealerCode && this.codeData.selectedPositionCode == this.poscodesSession[i]) {
         this.selectedIndex = i;
@@ -287,14 +287,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  private getSelectedDealerCode() {
+  public getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
-  private getSelectedDealerName() {
+  public getSelectedDealerName() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   }
 
-  private openSSOSite(url: any) {
+  public openSSOSite(url: any) {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var positioncodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
     var dealerlcodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -303,9 +303,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  private positionCodeOptions: SelectItem[] = [];
-  private dealerCodeOptions: SelectItem[] = [];
-  private createPCDCOptions() {
+  public positionCodeOptions: SelectItem[] = [];
+  public dealerCodeOptions: SelectItem[] = [];
+  public createPCDCOptions() {
     // var positionCodeOptions = [{ label: "", value: "" }];
     // var dealerCodeOptions = [{ label: "", value: "" }];
     var positionCodeOptions = [];
@@ -320,20 +320,20 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.dealerCodeOptions = dealerCodeOptions;
   }
 
-  private positionCodeCancel() {
+  public positionCodeCancel() {
     this.dealercodeModal.close();
   }
-  private positionCodeSubmit(c: any) {
+  public positionCodeSubmit(c: any) {
     c();
     this.profileChange.emit("")
   }
-  private dropdownDealerCode() {
+  public dropdownDealerCode() {
     // this.modalService.open(this.dealercodeModal, { windowClass: 'dealercode' });
     this.createPCDCOptions();
     this.displayRetweetModal = true;
 
   }
-  private submitRetweetPCDC() {
+  public submitRetweetPCDC() {
     // alert(this.selectedIndex);
     this.onDCChange();
     // this.onPCChange();
@@ -344,11 +344,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
 
-  //private selectedPCIndex: any = 0;
-  //private selectedDCIndex: any = 0;
-  private selectedCodeData: any = [];
-  private role: any = "";
-  private onChangePC() {
+  //public selectedPCIndex: any = 0;
+  //public selectedDCIndex: any = 0;
+  public selectedCodeData: any = [];
+  public role: any = "";
+  public onChangePC() {
     // var index = this.poscodes.indexOf(event.value);
     //var htmlObject = document.getElementById("pcOptions") as HTMLSelectElement;
     //var index = htmlObject.selectedIndex
@@ -371,7 +371,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
     // console.log("Selectes Index: " + this.selectedIndex);
   }
-  /*private onChangeDC(selectedDealerCode) {
+  /*public onChangeDC(selectedDealerCode) {
     var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
     var index = htmlObject.selectedIndex
     this.selectedDCIndex = index;
@@ -385,7 +385,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     console.log(selectedDealerCode + " " + index);
   }*/
 
-  private endEmulation() {
+  public endEmulation() {
     this.cookieService.put("isDealerEmulation", "false");
     var adminToken = this.cookieService.get("adminToken");
     this.cookieService.remove("adminToken");
@@ -401,7 +401,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  private endDealerEmulation() {
+  public endDealerEmulation() {
     this.cookieService.put("isDealerEmulation", "false");
     var adminToken = this.cookieService.get("adminToken");
     this.cookieService.remove("adminToken");
@@ -418,7 +418,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  // private checkDealerToken() {
+  // public checkDealerToken() {
   //   if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
   //     if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
   //       this.booleanDealerEmulation = true;

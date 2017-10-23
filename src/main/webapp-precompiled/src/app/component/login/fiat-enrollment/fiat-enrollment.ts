@@ -13,7 +13,7 @@ import { DealerRegisterService } from '../../../services/dealer-register-service
 @Component({
     selector: 'dealer-register-component',
     // templateUrl: './new-dealer-register.html',
-    templateUrl: './new-fiat-enrollment.html'
+    templateUrl: './fiat-enrollment.html'
     // styleUrls: ['./dealer-register.component.css']
 })
 export class FiatEnrollmentComponent implements OnInit {
@@ -21,31 +21,29 @@ export class FiatEnrollmentComponent implements OnInit {
         dealerSID: "",
         dealerCode: ""
     };
-    selectedValues: string[] = ['val1', 'val2'];
-    value: boolean;
-    date: DateModel;
-    options: DatePickerOptions;
-    submitted = false;
-    // booleanSelectCheckBox1: boolean = false;
-    // booleanSelectCheckBox2: boolean = false;
+    public selectedValues: string[] = ['val1', 'val2'];
+    public value: boolean;
+    public date: DateModel;
+    public  options: DatePickerOptions;
+    public submitted = false;
 
-    private displayConfirmationModal: boolean = false;
-    private successsubmit: boolean = false;
-    private val;
-    private todayDate: string = "";
-    private option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
+    public displayConfirmationModal: boolean = false;
+    public successsubmit: boolean = false;
+    public val;
+    public todayDate: string = "";
+    public option: SelectItem[] = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
     private dealerEnrollment: FiatEnrollmentFormInterface = {
         aggrement1: false, aggrement2: false, dealerCode: "", sid: "", dealershipName: "", dealerPrincipalName: "", dealerPrincipalEmail: "",
         phone: "", extention: "", signature: "", date: "", selectedPartsManager: "", partsManagerEmail: "", selectedServiceManager: "", serviceManagerEmail: "",
         isPartsCounter: false, isUsedRecon: false, isExpressLane: false, autoApproveMVP: ""
     };
     private mserEnrollmentFormData = {}
-    private errorSID: string = "";
-    private errorDealerCode: string = "";
-    private errorDealerEmail: string = "";
-    private invalidCreds: boolean = false;
-    private successDealerRegisterMessage: string = "";
-    private errorDealerRegistrationMessage: string = "";
+    public errorSID: string = "";
+    public errorDealerCode: string = "";
+    public errorDealerEmail: string = "";
+    public invalidCreds: boolean = false;
+    public successDealerRegisterMessage: string = "";
+    public errorDealerRegistrationMessage: string = "";
 
     constructor(private mserEnrollmentService: DealerRegisterService,
         private http: Http,
@@ -74,7 +72,7 @@ export class FiatEnrollmentComponent implements OnInit {
     //   private onCheckCall(aggrement) {
     // if(aggrement==)
     //   }
-    private fiatEnrollmentAggrement1(agrrement: any) {
+    public fiatEnrollmentAggrement1(agrrement: any) {
         if (agrrement !== undefined && agrrement.length > 0) {
             this.dealerEnrollment.aggrement1 = true;
         } else {
@@ -82,7 +80,7 @@ export class FiatEnrollmentComponent implements OnInit {
         }
 
     }
-    private fiatEnrollmentAggrement2(agrrement: any) {
+    public fiatEnrollmentAggrement2(agrrement: any) {
         if (agrrement !== undefined && agrrement.length > 0) {
             this.dealerEnrollment.aggrement2 = true;
 
@@ -91,19 +89,19 @@ export class FiatEnrollmentComponent implements OnInit {
         }
 
     }
-    private dealerEnrollmentPCCheckBox() {
+    public dealerEnrollmentPCCheckBox() {
         this.dealerEnrollment.isPartsCounter = true;
     }
-    private dealerEnrollmentUsedReconCheckBox() {
+    public dealerEnrollmentUsedReconCheckBox() {
         this.dealerEnrollment.isUsedRecon = true;
     }
-    private dealerEnrollmentExpressLaneCheckBox() {
+    public dealerEnrollmentExpressLaneCheckBox() {
         this.dealerEnrollment.isExpressLane = true;
     }
 
 
-    private msg: string = "";
-    private submitDealerAndPositionCodeDatum: any = {
+    public msg: string = "";
+    public submitDealerAndPositionCodeDatum: any = {
         "PartsManagers": [{
             "name": "",
             "value": ""
@@ -115,16 +113,16 @@ export class FiatEnrollmentComponent implements OnInit {
             "value": ""
         }]
     };
-    private showButtonDiv: boolean = false;
-    private showDiv: boolean = false;
-    private partsMangerOptions: SelectItem[] = [{ label: "", value: "" }];
-    private ServiceManagerOptions: SelectItem[] = [{ label: "", value: "" }];
-    private isELValidated: boolean = false;
-    private enableInputs: boolean = false;
-    private enrollmentFee: string = ""
-    private showDCErrorHiddenDiv: boolean = false;
-    private showSIDErrorHiddenDiv: boolean = false;
-    private submitDealerAndPositionCode(valid) {
+    public showButtonDiv: boolean = false;
+    public showDiv: boolean = false;
+    public partsMangerOptions: SelectItem[] = [{ label: "", value: "" }];
+    public ServiceManagerOptions: SelectItem[] = [{ label: "", value: "" }];
+    public isELValidated: boolean = false;
+    public enableInputs: boolean = false;
+    public enrollmentFee: string = ""
+    public showDCErrorHiddenDiv: boolean = false;
+    public showSIDErrorHiddenDiv: boolean = false;
+    public submitDealerAndPositionCode(valid) {
         // var z1 = /^[0-9]{5}/;
         var dealerCodeRegex = /^([0-9]{5})$/;
         var sidRegex = /^([A-Za-z0-9]{7})$/;
@@ -143,43 +141,7 @@ export class FiatEnrollmentComponent implements OnInit {
             return;
         }
 
-        // if (this.dealerEnrollment.dealerCode.trim() == "" && this.dealerEnrollment.sid.trim() == "") {
-        //   // this.msg = "Please enter Dealer Code and SID";
-        //   this.showDCErrorHiddenDiv = true;
-        //   this.showPCErrorHiddenDiv = true;
-        //   return;
-        // } else if (this.dealerEnrollment.dealerCode.trim() != "" && dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length == 5 && this.dealerEnrollment.sid.trim() == "") {
-        //   this.msg = "Please Enter SID";
-        //   this.showDCErrorHiddenDiv = false;
-        //   this.showPCErrorHiddenDiv = true;
-        //   return;
-        // } else if (this.dealerEnrollment.dealerCode.trim() != "" && !dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length != 5 && this.dealerEnrollment.sid.trim() != "") {
-        //   // this.msg = "Please Enter Valid Dealer Code";
-        //   this.showDCErrorHiddenDiv = true;
-        //   this.showPCErrorHiddenDiv = false;
-        //   return;
-        // } else if (this.dealerEnrollment.dealerCode.trim() != "" && !dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length == 5 && this.dealerEnrollment.sid.trim() != "") {
-        //   // this.msg = "Please Enter Valid Dealer Code";
-        //   this.showDCErrorHiddenDiv = true;
-        //   this.showPCErrorHiddenDiv = false;
-        //   return;
-        // } else if (this.dealerEnrollment.dealerCode.trim() != "" && !dealerCodeRegex.test(this.dealerEnrollment.dealerCode) && this.dealerEnrollment.dealerCode.length != 5 && this.dealerEnrollment.sid.trim() == "") {
-        //   // this.msg = "Please Enter Valid Dealer Code and SID";
-        //   this.showDCErrorHiddenDiv = true;
-        //   this.showPCErrorHiddenDiv = true;
-        //   return;
-        // } else if (this.dealerEnrollment.dealerCode.trim() == "" && this.dealerEnrollment.sid.trim() != "") {
-        //   // this.msg = "Plese Enter Dealer Code";
-        //   this.showDCErrorHiddenDiv = true;
-        //   this.showPCErrorHiddenDiv = false;
-        //   return;
-        // }
-        // if (valid !== undefined && valid === false) {
-        //   this.showValidationDiv = true;
-        //   return;
-        // } else {
-        //   this.showValidationDiv = false;
-        // }
+
         this.mserEnrollmentService.submitDealerAndPositionCode(this.dealerEnrollment.dealerCode.trim(), this.dealerEnrollment.sid.trim()).subscribe(
             (submitDealerAndPositionCodeDatum) => {
                 this.submitDealerAndPositionCodeDatum = (submitDealerAndPositionCodeDatum)
@@ -231,12 +193,12 @@ export class FiatEnrollmentComponent implements OnInit {
             }
         )
     }
-    private showalert: boolean = true;
-    private showAgreement1ErrorHiddenDiv: boolean = false;
-    private showAgreement2ErrorHiddenDiv: boolean = false;
-    private showValidationDiv: boolean = false;
-    private errorMobileNumber: string = "";
-    private validateMobileNumber(mobileNumber) {
+    public showalert: boolean = true;
+    public showAgreement1ErrorHiddenDiv: boolean = false;
+    public showAgreement2ErrorHiddenDiv: boolean = false;
+    public showValidationDiv: boolean = false;
+    public errorMobileNumber: string = "";
+    public validateMobileNumber(mobileNumber) {
         var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
         if (mobileNumber.match(phoneno)) {
             this.errorMobileNumber = "";
@@ -248,18 +210,18 @@ export class FiatEnrollmentComponent implements OnInit {
         }
     }
 
-    private showDealershipNameErrorHiddenDiv: boolean = false;
-    private showDealerPrincipalNameErrorHiddenDiv: boolean = false;
-    private showDealerPrincipalEmailErrorHiddenDiv: boolean = false;
-    private showPhoneNumberErrorHiddenDiv: boolean = false;
-    private showPartsManagerEmailErrorHiddenDiv: boolean = false;
-    private showServiceManagerEmailErrorHiddenDiv: boolean = false;
-    private showPartsManagerNameErrorHiddenDiv: boolean = false;
-    private showServiceManagerNameErrorHiddenDiv: boolean = false;
-    private showOKErrorHiddenDiv: boolean = false;
-    private successmsg: string = "";
+    public showDealershipNameErrorHiddenDiv: boolean = false;
+    public showDealerPrincipalNameErrorHiddenDiv: boolean = false;
+    public showDealerPrincipalEmailErrorHiddenDiv: boolean = false;
+    public showPhoneNumberErrorHiddenDiv: boolean = false;
+    public showPartsManagerEmailErrorHiddenDiv: boolean = false;
+    public showServiceManagerEmailErrorHiddenDiv: boolean = false;
+    public showPartsManagerNameErrorHiddenDiv: boolean = false;
+    public showServiceManagerNameErrorHiddenDiv: boolean = false;
+    public showOKErrorHiddenDiv: boolean = false;
+    public successmsg: string = "";
 
-    private saveDealerEnrollmentForm(valid) {
+    public saveDealerEnrollmentForm(valid) {
         this.msg = "";
         this.errorMobileNumber = "";
         this.showDealershipNameErrorHiddenDiv = false;
@@ -289,9 +251,6 @@ export class FiatEnrollmentComponent implements OnInit {
             this.showAgreement2ErrorHiddenDiv = false;
         }
 
-        // if (!nameRegex.test(this.dealerEnrollment.dealershipName)) {
-        //   this.showDealershipNameErrorHiddenDiv = true;
-        // }
         if (this.dealerEnrollment.dealershipName != undefined && this.dealerEnrollment.dealershipName.length < 1) {
             this.showDealershipNameErrorHiddenDiv = true;
         }
@@ -331,24 +290,6 @@ export class FiatEnrollmentComponent implements OnInit {
             (this.dealerEnrollment.partsManagerEmail.length < 1 && this.dealerEnrollment.serviceManagerEmail.length < 1)) {
             return;
         }
-
-        // if (valid !== undefined && valid === false) {
-        //   this.showValidationDiv = true;
-        // } else {
-        //   this.showValidationDiv = false;
-        // }
-
-
-        // if (this.dealerEnrollment.dealerPrincipalName != undefined && this.dealerEnrollment.dealerPrincipalName.length < 1) {
-        //   this.showDealerPrincipalNameErrorHiddenDiv = true;
-        // }
-        // if (this.dealerEnrollment.dealerPrincipalEmail != undefined && this.dealerEnrollment.dealerPrincipalEmail.length < 1) {
-        //   this.showDealerPrincipalEmailErrorHiddenDiv = true;
-        // }
-
-        // if (!this.validateMobileNumber(this.dealerEnrollment.phone)) {
-        //   this.showPhoneNumberErrorHiddenDiv = true;
-        // }
 
         var aggrement = this.dealerEnrollment.aggrement1;
         var dealerCode = this.dealerEnrollment.dealerCode;
@@ -393,7 +334,7 @@ export class FiatEnrollmentComponent implements OnInit {
             )
     }
 
-    private onChangeInput() {
+    public onChangeInput() {
         this.msg = "";
         // this.errorMobileNumber = "";
         this.showDealershipNameErrorHiddenDiv = false;
@@ -407,48 +348,48 @@ export class FiatEnrollmentComponent implements OnInit {
         this.showOKErrorHiddenDiv = false;
     }
 
-    private ngModelChangeDC() {
+    public ngModelChangeDC() {
         this.msg = "";
         this.showDCErrorHiddenDiv = false;
     }
-    private ngModelChangeSID() {
+    public ngModelChangeSID() {
         this.msg = "";
         this.showSIDErrorHiddenDiv = false;
     }
-    private ngModelChangeDealershipName() {
+    public ngModelChangeDealershipName() {
         this.msg = "";
         this.showDealershipNameErrorHiddenDiv = false;
     }
-    private ngModelChangeDealerprincipalName() {
+    public ngModelChangeDealerprincipalName() {
         this.msg = "";
         this.showDealerPrincipalNameErrorHiddenDiv = false;
     }
-    private ngModelChangeDealerprincipalEmail() {
+    public ngModelChangeDealerprincipalEmail() {
         this.msg = "";
         this.showDealerPrincipalEmailErrorHiddenDiv = false;
     }
-    private ngModelChangePhone() {
+    public ngModelChangePhone() {
         this.msg = "";
         this.showPhoneNumberErrorHiddenDiv = false;
     }
-    private ngModelChangeOK() {
+    public ngModelChangeOK() {
         this.msg = "";
         this.showOKErrorHiddenDiv = false;
     }
-    private dealerEnrollmentElligiblePartsManagers() {
+    public dealerEnrollmentElligiblePartsManagers() {
         this.showPartsManagerNameErrorHiddenDiv = false;
     }
-    private dealerEnrollmentElligibleServiceManagers() {
+    public dealerEnrollmentElligibleServiceManagers() {
         this.showServiceManagerNameErrorHiddenDiv = false;
     }
-    private ngModelChangePartsManagerEmail() {
+    public ngModelChangePartsManagerEmail() {
         this.showPartsManagerEmailErrorHiddenDiv = false;
     }
-    private ngModelChangeServiceManagerEmail() {
+    public ngModelChangeServiceManagerEmail() {
         this.showServiceManagerEmailErrorHiddenDiv = false;
     }
 
-    private redirectTOLoginPage() {
+    public redirectTOLoginPage() {
         let url = ["login"]
         this.router.navigate(url);
     }

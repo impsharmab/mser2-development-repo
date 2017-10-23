@@ -3,23 +3,19 @@ import { RouterModule, Router, ActivatedRoute, } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { DomSanitizer, BrowserModule } from '@angular/platform-browser';
 
-//import { SafeHtml } from './safeHtml.pipe';
-
 import { CMSService } from '../../services/cms-service/cms-service';
 
 
 @Component({
     selector: 'mser-cms',
-    templateUrl: './cms.html',
-    //styleUrls: ['./opcode-setup.component.css'],
-    // providers:[OpcodesetupService]
+    templateUrl: './cms.html'
 })
 
 export class CMSComponent implements OnInit {
     @ViewChild('div') private div: ElementRef;
     private firstRouterParameter: string = "";
     private secondRouterParameter: string = "";
-    private cmsContentObject: any = "";
+    public cmsContentObject: any = "";
 
     constructor(private cmsService: CMSService, private route: ActivatedRoute,
         private router: Router, private sanitizer: DomSanitizer) { }
@@ -29,7 +25,7 @@ export class CMSComponent implements OnInit {
 
     }
 
-    private getRouterParameter() {
+    public getRouterParameter() {
         this.route.params.subscribe(params => {
             this.firstRouterParameter = (params['cmsPage']);
             this.secondRouterParameter = (params['pdf']);
@@ -45,7 +41,7 @@ export class CMSComponent implements OnInit {
         )
     }
 
-    private openCMSPage(pageName) {
+    public openCMSPage(pageName) {
         this.cmsService.getCmsContent(pageName).subscribe(
             (cmsContentObject) => {
                 this.cmsContentObject = this.sanitizer.bypassSecurityTrustHtml(cmsContentObject)
@@ -55,7 +51,7 @@ export class CMSComponent implements OnInit {
             }
         )
     }
-    private openCMSPDF(pageName) {
+    public openCMSPDF(pageName) {
         this.cmsService.getCmsPDF(pageName).subscribe(
             (cmsContentObject) => {
                 this.cmsContentObject = (cmsContentObject)
@@ -66,7 +62,7 @@ export class CMSComponent implements OnInit {
         )
     }
 
-    private render(cmsContentObject) {
+    public render(cmsContentObject) {
         this.div.nativeElement.innerHTML = cmsContentObject;
     }
 }

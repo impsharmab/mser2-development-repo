@@ -1,26 +1,56 @@
 <!-- <template ngbModalContainer></template> -->
 
-<template #dealercodeModal let-c="close" let-d="dismiss">
+<ng-template #dealercodeModal let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title"> </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
-        <!--<dealercode-modal></dealercode-modal>-->
         <dealercode-modal (onSubmit)="positionCodeSubmit(c)" (onCancel)="c()"></dealercode-modal>
     </div>
     <div class="modal-footer">
     </div>
-</template>
+</ng-template>
+
+<p-dialog header="Select Position Code - Dealer Code" [(visible)]="displayRetweetModal" modal="modal" width="600" height="200"
+    [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+
+    <div class="form-group row ">
+        <div class=" col-sm-6">
+            <label for="dc">Select Dealer Code:</label>
+            <!-- <p-dropdown id="dc" class="dc" [options]="dealerCodeOptions" [(ngModel)]="selectedDealerCode" (onChange)="onChangeDC($event, selectedDealerCode)"
+                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
+            <select id="dcOptions" name="dcOptions" style="width: 90px" [(ngModel)]="codeData.selectedDealerCode">
+                <option *ngFor="let data of dcDinstinct" [ngValue]="data">{{data}}</option>
+            </select>
+        </div>
+
+        <div class="col-sm-6">
+            <label for="pc">Select Position Code:</label>
+            <!-- <p-dropdown id="pcOptions" class="pcOptions" [options]="positionCodeOptions" [(ngModel)]="selectedPositionCode" (onChange)="onChangePC($event, selectedPositionCode)"
+                value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
+            <select id="pcOptions" name="pcOptions" style="width: 90px" [(ngModel)]="codeData.selectedPositionCode">
+                <option *ngFor="let data of pcDinstinct" [ngValue]="data">{{data}}</option>
+            </select>
+        </div>
+    </div>
+    <!-- </div> -->
+
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="submitRetweetPCDC()" label="Submit"></button>
+        <button type="button" pButton icon="fa-close" (click)="displayRetweetModal=false" label="Cancel"></button>
+    </p-footer>
+</p-dialog>
+
 
 <header class="app-header navbar">
     <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
-    <a class="navbar-brand"></a>
+    <a class="navbar-brand" routerLink="home"></a>
     <ul class="nav navbar-nav hidden-md-down b-r-1">
         <li class="nav-item">
-            <a class="nav-link navbar-toggler sidebar-toggler" (click)="showHideSideNav()" style="cursor: pointer">☰</a>
+            <a class="nav-link navbar-toggler sidebar-toggler" style="cursor: pointer">☰</a>
         </li>
 
     </ul>
@@ -34,59 +64,46 @@
             <span class="menuTarget " data-target="contactUs" routerLink="contactus">Contact Us</span>
         </div>
         <div class="menuItem">
-            <span class="menuTarget currentPage" data-target="fcaRewards" (click)='openSSOSite("https://test.myfcarewards.com/login?token=")'>FCA Rewards Dashboard</span>
+            <span class="menuTarget currentPage" data-target="fcaRewards" (click)='openSSOSite("https://test.myfcarewards.com/login?token=")'>MyFCA Rewards Portal</span>
         </div>
 
-
-        <div class="menuItem">
-            <a *ngIf="booleanAdminToken && !booleanDealerEmulation" class=" utility-nav" (click)="endEmulation()" style="cursor:pointer; color:red ">End Emulation</a>
-            <a *ngIf="booleanDealerEmulation" class=" utility-nav" (click)="endDealerEmulation()" style="cursor:pointer; color:red ">End Emulation</a>
-        </div>
-        <div class="menuItem">
-            <!--<a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownPositionCode()" style="cursor:pointer">
-                <span><img src="./assets/retweet.png" alt="Swith Dealer Code" width="35" height="32" style="cursor: pointer"></span></a>-->
-
-            <a *ngIf="poscodes.length>1 || delcodes.length>1" class="utility-nav active " (click)="dropdownDealerCode()" style="cursor:pointer">
-                <span><img src="./assets/retweet.png" alt="Swith Dealer Code" width="35" height="32" style="cursor: pointer"></span></a>
-
-        </div>
     </nav>
 
     <ul class="nav navbar-nav ml-auto">
+        <li class="menuItem">
+            <a *ngIf="booleanAdminToken && (isDealerEmulation=='false')" class=" utility-nav" (click)="endEmulation()" style="cursor:pointer; color:red; margin-right: 15px; text-decoration: underline">End Emulation</a>
+            <a *ngIf="isDealerEmulation=='true'" class=" utility-nav" (click)="endDealerEmulation()" style="cursor:pointer; color:red; margin-right: 15px; text-decoration: underline">End Emulation</a>
+        </li>
 
-        <li class="nav-item dropdown">
-
-            <div class="salutation">
-                <p>Welcome, {{data.name}}</p>
-                <br>
-                <p *ngIf="displayDealerCode">{{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</p>
-                <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
-            </div>
-            <a class="nav-link nav-pill avatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <!--<img src="./assets/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" style="background-color:#0068b3">-->
-                <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 3em"></i>
-                <!--<span class="badge badge-pill badge-danger"></span>-->
+        <li class="nav-item refresh-button-container">
+            <a *ngIf="poscodesSession.length>1 || delcodesSession.length>1" class="utility-nav active " (click)="dropdownDealerCode()"
+                style="cursor:pointer">
+                <span>
+                    <i class="refresh-button fa fa-retweet"></i>
+                </span>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
-                <!--<div class="dropdown-header text-center">
-                    <strong>Account</strong>
-                </div>-->
-                <!--<a class="dropdown-item"><i class="fa fa-bell-o"></i> Updates<span class="badge badge-info">42</span></a>-->
-                <!-- <a class="dropdown-item" href="#"><i class="fa fa-envelope-o"></i> Messages<span class="badge badge-success">42</span></a> -->
-                <!--  <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i> Tasks<span class="badge badge-danger">42</span></a> -->
-                <!--   <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> Comments<span class="badge badge-warning">42</span></a> -->
+        </li>
+        <li class="nav-item dropdown">
+            <div class="salutation">
+                <div>
+                    <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="welcome-message">Welcome, {{data.name}}
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right user-options">
+                        <a class="dropdown-item" routerLink="userprofile">
+                            <i class="fa fa-user"></i> Profile</a>
+                        <div class="divider"></div>
+                        <a class="dropdown-item" style="cursor: pointer" (click)="logout()">
+                            <i class="fa fa-lock"></i> Logout</a>
+                    </div>
 
-                <!--<div class="dropdown-header text-center">
-                    <strong>Settings</strong>
-                </div>-->
-                <a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>
-                <!--<a class="dropdown-item" (click)="getUserProfileData()" routerLink="userprofile"><i class="fa fa-user" ></i> Profile</a>-->
-                <!-- <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a> -->
-                <!--   <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a> -->
-                <!--   <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a> -->
-                <div class="divider"></div>
-                <!--  <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a> -->
-                <a class="dropdown-item" style="cursor: pointer" (click)="logout()"><i class="fa fa-lock" ></i> Logout</a>
+                </div>
+                <div>
+                    <p *ngIf="displayDealerCode">{{getSelectedDealerName()}} - ({{getSelectedDealerCode()}})</p>
+                </div>
+                <!--<p>Van Aandel-Flikemma Motor Sales (X543G)</p>-->
             </div>
         </li>
 
@@ -95,4 +112,6 @@
         </li>-->
 
     </ul>
+
+
 </header>

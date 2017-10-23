@@ -27,6 +27,33 @@ export class ReportService {
             .catch(this.handleError);
     }
 
+    getDealerCodesBelongsToBCAndDIST(bcOrDist){
+        var url = serviceUrl.baseUrl + "General/Report/Dealers/" + bcOrDist;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleError);
+    }
+
+    getParticipantsByDealer(sid){
+        var url = serviceUrl.baseUrl + "General/Report/Participants/" + sid;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleError);
+    }
     private handleError(error: Response | any) {
         let errMsg: string = "";
         if (error instanceof Response) {

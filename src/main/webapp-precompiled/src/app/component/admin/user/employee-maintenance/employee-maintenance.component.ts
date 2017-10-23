@@ -18,7 +18,7 @@ export class EmployeeMaintenanceComponent implements OnInit {
     ngOnInit() {
 
     }
-    private addEmployee() {        
+    public addEmployee() {        
         let url = ["mserHomepage/addemployeemaintenance"];
         this.router.navigate(url);
     }

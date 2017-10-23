@@ -10,11 +10,11 @@ import { UserProfileTextMessageOptionInterface } from '../user-profile/userProfi
 })
 export class ContactUsComponent implements OnInit {
 
-  private errorAgreeTermsAndCondition: string = "";
-  private errorSID: string = "";
-  private errorMobileNumber: string = "";
-  private successPasswordChangedMessage: string = "";
-  private profileChangeData: any = {};
+  public errorAgreeTermsAndCondition: string = "";
+  public errorSID: string = "";
+  public errorMobileNumber: string = "";
+  public successPasswordChangedMessage: string = "";
+  public profileChangeData: any = {};
   public textMsgOption: UserProfileTextMessageOptionInterface;
 
   constructor(private userProfileService: UserProfileService) { }
@@ -43,7 +43,7 @@ export class ContactUsComponent implements OnInit {
     }
   }
 
-  private textMessageOption() {
+  public textMessageOption() {
     if (!this.textMsgOption.agreeTermsAndCondition) {
       this.errorAgreeTermsAndCondition = "You must accept the terms of service";
       return;

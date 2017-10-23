@@ -19,7 +19,7 @@ export class UserLookupComponent implements OnInit {
 
     }
 
-    addUserMaintenance(){
+   public addUserMaintenance(){
         let url = ["mserHomepage/addusermaintenance"];
         this.router.navigate(url);
     }

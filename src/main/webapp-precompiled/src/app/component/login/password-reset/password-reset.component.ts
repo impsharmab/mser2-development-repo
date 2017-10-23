@@ -13,7 +13,7 @@ import { PasswordResetInterface } from './passwordreset.interface';
 })
 
 export class PasswordResetComponent implements OnInit {
-    private passwordResetInterface: PasswordResetInterface;
+    public passwordResetInterface: PasswordResetInterface;
     constructor(private passwordResetService: PasswordResetService, private router: Router, private cookieService: CookieService) {
 
     }
@@ -24,9 +24,9 @@ export class PasswordResetComponent implements OnInit {
         }
     }
 
-    private msg: string = "";
+    public msg: string = "";
     private passwordResetResponse: any;
-    private confirmResetPassword() {
+    public confirmResetPassword() {
         var password = this.passwordResetInterface.password;
         var confirmpassword = this.passwordResetInterface.confirmpassword;
         if (password.trim() == "" && confirmpassword.trim() == "") {
@@ -59,7 +59,7 @@ export class PasswordResetComponent implements OnInit {
         )
     }
 
-    private ngModelChangePW() {
+    public ngModelChangePW() {
         this.msg = "";
     }
 

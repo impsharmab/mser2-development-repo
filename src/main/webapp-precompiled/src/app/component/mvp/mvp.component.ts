@@ -13,8 +13,8 @@ declare var $: any;
 })
 export class MVPComponent implements OnInit {
 
-  private powerPointLists: any;
-  private videoLists: any = [{
+  public powerPointLists: any;
+  public videoLists: any = [{
     "videoName": "",
     "filePath": "",
     "createdDate": "",
@@ -25,13 +25,15 @@ export class MVPComponent implements OnInit {
     "program": null,
     "status": ""
   }];
-  private selectedVideoName: any = "";
-  private selectedFilePath: any = "";
-  private boolPPT: boolean = false;
-  private boolVideo: boolean = false;
-  private pptLink: string = "";
+  public selectedVideoName: any = "";
+  public selectedFilePath: any = "";
+  public boolPPT: boolean = false;
+  public boolVideo: boolean = false;
+  public pptLink: string = "";
 
-  constructor(private domSanitizer: DomSanitizer, private marketingTrainingService: MarketingTrainingService) { }
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private marketingTrainingService: MarketingTrainingService) { }
 
   ngOnInit() {
     this.getVideoLists("MVP");
@@ -64,14 +66,14 @@ export class MVPComponent implements OnInit {
     // return this.pptLink;
     return this.domSanitizer.bypassSecurityTrustResourceUrl(this.pptLink);
   }
-  private returnValue() {
+  public returnValue() {
     var value = `config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;${this.selectedFilePath}&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;${this.selectedFilePath}&quot;}]}`
     var value1 = `config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;mp4:AlanDAgostini&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;mp4:AlanDAgostini&quot;}]}`;
     console.log(value1);
 
     return this.domSanitizer.bypassSecurityTrustResourceUrl(value1);
   }
-  private getVideoLists(program: string) {
+  public getVideoLists(program: string) {
     this.marketingTrainingService.getVideoLists(program).subscribe(
       (videoLists) => {
         this.videoLists = (videoLists);
@@ -89,7 +91,7 @@ export class MVPComponent implements OnInit {
     )
   }
 
-  private getPowerPointLists() {
+  public getPowerPointLists() {
     this.marketingTrainingService.getPowerPointLists().subscribe(
       (powerPointLists) => {
         this.powerPointLists = (powerPointLists);
@@ -101,7 +103,7 @@ export class MVPComponent implements OnInit {
     )
   }
 
-  private selectVideo(videoName: string, filePath: string) {
+  public selectVideo(videoName: string, filePath: string) {
     this.selectedVideoName = videoName;
     this.selectedFilePath = filePath;
     var substring = this.selectedFilePath.substr(-4);

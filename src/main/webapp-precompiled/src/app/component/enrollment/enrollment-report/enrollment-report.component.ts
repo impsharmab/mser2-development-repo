@@ -15,31 +15,31 @@ declare var $: any;
   styleUrls: ['./enrollment-report.component.css']
 })
 export class EnrollmentReportComponent implements OnInit {
-  private showExecutiveEnrollmentReportIframe: boolean = false;
-  private showBCEnrollmentReportIframe: boolean = false;
-  private showDistrictEnrollmentReportIframe: boolean = false;
-  private showDealerEnrollmentReportIframe: boolean = false;
-  private showParticipantEnrollmentReportIframe: boolean = false;
-  private showDetailEnrollmentReportIframe: boolean = false;
-  private programName: string = "";
-  private src: any;
-  private selectedProgramList: any = [];
-  private selectedPositionCode: any = "";
+  public showExecutiveEnrollmentReportIframe: boolean = false;
+  public showBCEnrollmentReportIframe: boolean = false;
+  public showDistrictEnrollmentReportIframe: boolean = false;
+  public showDealerEnrollmentReportIframe: boolean = false;
+  public showParticipantEnrollmentReportIframe: boolean = false;
+  public showDetailEnrollmentReportIframe: boolean = false;
+  public programName: string = "";
+  public src: any;
+  public selectedProgramList: any = [];
+  public selectedPositionCode: any = "";
 
-  private isAdmin: boolean = false;
-  private isAdminByPC: boolean = false;
-  private isExecutive: boolean = false;
-  private isNational: boolean = false;
-  private isDealer: boolean = false;
-  private isBC: boolean = false;
-  private isDistrict: boolean = false;
-  private isManager: boolean = false;
-  private isParticipant: boolean = false;
-  private tabNumber: any = "";
-  private fromDate: any = "";
-  private toDate: any = "";
+  public isAdmin: boolean = false;
+  public isAdminByPC: boolean = false;
+  public isExecutive: boolean = false;
+  public isNational: boolean = false;
+  public isDealer: boolean = false;
+  public isBC: boolean = false;
+  public isDistrict: boolean = false;
+  public isManager: boolean = false;
+  public isParticipant: boolean = false;
+  public tabNumber: any = "";
+  public fromDate: any = "";
+  public toDate: any = "";
 
-  private enrollmentReportInterface: EnrollmentReportInterface = {
+  public enrollmentReportInterface: EnrollmentReportInterface = {
     programGroup: "",
     businessCenter: "",
     district: "",
@@ -74,7 +74,7 @@ export class EnrollmentReportComponent implements OnInit {
 
   }
 
-  private squarify() {
+  public squarify() {
     var containerWidth = $("#report-center").find(".report-item-link").width();
     //adds two pixels to accommodate for the border
     containerWidth = containerWidth + 2;
@@ -86,7 +86,7 @@ export class EnrollmentReportComponent implements OnInit {
     $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
     $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
   }
-  private renderTab() {
+  public renderTab() {
     /* jQuery activation and setting options for parent tabs with id selector*/
     $(".tabbed-nav").zozoTabs({
       rounded: false,
@@ -107,14 +107,14 @@ export class EnrollmentReportComponent implements OnInit {
     this.squarify();
     //event.target.innerWidth; // window width
   }
-  private selectedRole: any;
-  private isExecutiveUser: boolean = false;
-  private isBCUser: boolean = false;
-  private isDistrictUser: boolean = false;
-  private isDealerUser: boolean = false;
-  private isManagerUser: boolean = false;
-  private isParticipantUser: boolean = false;
-  private checkRole() {
+  public selectedRole: any;
+  public isExecutiveUser: boolean = false;
+  public isBCUser: boolean = false;
+  public isDistrictUser: boolean = false;
+  public isDealerUser: boolean = false;
+  public isManagerUser: boolean = false;
+  public isParticipantUser: boolean = false;
+  public checkRole() {
     this.selectedRole = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
     if (this.selectedRole == 1) {
 
@@ -157,8 +157,8 @@ export class EnrollmentReportComponent implements OnInit {
     // alert("inside checkrole " + this.tabNumber + this.isBC);
 
   }
-  private districtByBCDatum: any;
-  private getDistrictByBC(bc) {
+  public districtByBCDatum: any;
+  public getDistrictByBC(bc) {
     this.reportService.getDistrictByBC(bc).subscribe(
       (districtByBCDatum) => {
         this.districtByBCDatum = (districtByBCDatum)
@@ -171,13 +171,13 @@ export class EnrollmentReportComponent implements OnInit {
     )
 
   }
-  private enrollmentReportProgramOptions: SelectItem[] = [
+  public enrollmentReportProgramOptions: SelectItem[] = [
     { label: "Mopar Parts & Engines", value: "4" },
     { label: "Express Lane", value: "1" },
     { label: "Parts Counter", value: "6" }
   ]
 
-  private viewEXTabOnly() {
+  public viewEXTabOnly() {
     this.showExecutiveEnrollmentReportIframe = true;
     this.showBCEnrollmentReportIframe = false;
     this.showDealerEnrollmentReportIframe = false;
@@ -186,7 +186,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDetailEnrollmentReportIframe = false;
     this.showExDepositReport();
   }
-  private viewBCTabOnly() {
+  public viewBCTabOnly() {
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = true;
     this.showDealerEnrollmentReportIframe = false;
@@ -195,7 +195,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDetailEnrollmentReportIframe = false;
     this.viewBCEnrollmentReport();
   }
-  private viewDistrictTabOnly() {
+  public viewDistrictTabOnly() {
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = false;
     this.showDistrictEnrollmentReportIframe = true;
@@ -204,7 +204,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.showDetailEnrollmentReportIframe = false;
     this.viewDistrictEnrollmentReport();
   }
-  private viewDealerTabOnly() {
+  public viewDealerTabOnly() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = false;
@@ -215,7 +215,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.viewDealerEnrollmentReport();
   }
 
-  private showExDepositReport() {
+  public showExDepositReport() {
     this.showExecutiveEnrollmentReportIframe = true;
     this.programName = "Enrollment_Executive";
     this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}`;
@@ -223,7 +223,7 @@ export class EnrollmentReportComponent implements OnInit {
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
 
-  private viewBCEnrollmentReport() {
+  public viewBCEnrollmentReport() {
     this.showBCEnrollmentReportIframe = true;
     this.programName = "Enrollment_BC";
     if (this.isExecutiveUser) {
@@ -238,7 +238,7 @@ export class EnrollmentReportComponent implements OnInit {
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
-  private viewDistrictEnrollmentReport() {
+  public viewDistrictEnrollmentReport() {
     this.showDistrictEnrollmentReportIframe = true;
     this.programName = "Enrollment_DIST";
 
@@ -252,7 +252,7 @@ export class EnrollmentReportComponent implements OnInit {
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
-  private viewDealerEnrollmentReport() {
+  public viewDealerEnrollmentReport() {
     this.showDealerEnrollmentReportIframe = true;
     this.programName = "Enrollment_Dealer";
 

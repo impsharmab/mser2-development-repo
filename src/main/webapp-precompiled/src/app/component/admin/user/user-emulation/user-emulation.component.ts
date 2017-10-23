@@ -14,8 +14,9 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class UserEmulationComponent implements OnInit {
-    private emulateusermessage: string = "";
+    public emulateusermessage: string = "";
     private emulateUserData: any;
+    public emulateUserID: string = "";
     constructor(
         private cookieService: CookieService,
         private adminService: AdminService,
@@ -37,7 +38,7 @@ export class UserEmulationComponent implements OnInit {
         $("main, mser-cms").css("min-height", "calc(" + blah + "px - 2rem)");
         console.log("main is now: ", blah + "px high");
     }
-    private emulateAllUser(emulateID) {
+    public emulateAllUser(emulateID) {
         if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
@@ -55,7 +56,7 @@ export class UserEmulationComponent implements OnInit {
         }
     }
 
-    private emulateSidTidUser(emulateID) {
+    public emulateSidTidUser(emulateID) {
         this.adminService.getEmulateUserData(emulateID).subscribe(
             (emulateUserData) => {
                 this.emulateUserData = emulateUserData;
@@ -70,12 +71,12 @@ export class UserEmulationComponent implements OnInit {
             }
             ,
             (error) => {
-                this.emulateusermessage = "User Emulation Failed, Maybe due to incorrect SID/TID/Dealer Code";
+                this.emulateusermessage = "There is no user with this ID";
             }
         )
     }
 
-    private emulateDealerCodeUser(dealerCode) {
+    public emulateDealerCodeUser(dealerCode) {
         this.adminService.emulateUserWithDealerCode(dealerCode).subscribe(
             (emulateUserData) => {
                 this.emulateUserData = emulateUserData;
@@ -91,7 +92,7 @@ export class UserEmulationComponent implements OnInit {
             }
             ,
             (error) => {
-                this.emulateusermessage = "User Emulation Failed, Maybe due to incorrect SID/TID/Dealer Code";
+                this.emulateusermessage = "There is no Dealer with this Dealer Code";
             }
         )
     }

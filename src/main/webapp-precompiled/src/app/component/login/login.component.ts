@@ -9,20 +9,19 @@ import { LoginService } from '../../services/login-service/login.service';
 
 @Component({
   selector: 'login',
-  // templateUrl: './mser2-login.component.html',
-  templateUrl: './new-login.html',
+  templateUrl: './login.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   public user: User;
   private userdata: any = {};
-  private errorMessage: string = "";
-  private loginFailed: string = "";
+  public errorMessage: string = ""; 
+  public loginFailed: string = "";
   private ssouserdata: any = {};
   private ssotoken: string = "";
   private ssodealercode: string = "";
   private ssopositioncode: string = "";
-  private hideLoginPage: boolean = false;
+  public hideLoginPage: boolean = false;
   private booleanDealerEmulation: any = false;
   private refreshTokenData: any;
 
@@ -189,7 +188,7 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-  private login() {
+  public login() {
     if (this.user.username.trim() === "" && this.user.password.trim() === "") {
       //this.loginFailed = "Login Failed";
       this.errorMessage = "Please enter your valid SID/TID and Password";

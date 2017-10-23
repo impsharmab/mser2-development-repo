@@ -18,28 +18,28 @@ declare var $: any;
 })
 export class PCDistributionReportComponent implements OnInit {
 
-    private showExecutivePCDistributionReportIframe: boolean = false;
-    private showBCDistributionReportIframe: boolean = false;
-    private showDistrictPCDistributionReportIframe: boolean = false;
-    private showDealerPCDistributionReportIframe: boolean = false;
-    private showParticipantPCDistributionReportIframe: boolean = false;
-    private showDetailPCDistributionReportIframe: boolean = false;
-    private programName: string = "";
-    private src: any;
-    private selectedProgramList: any = [];
+    public showExecutivePCDistributionReportIframe: boolean = false;
+    public showBCDistributionReportIframe: boolean = false;
+    public showDistrictPCDistributionReportIframe: boolean = false;
+    public showDealerPCDistributionReportIframe: boolean = false;
+    public showParticipantPCDistributionReportIframe: boolean = false;
+    public showDetailPCDistributionReportIframe: boolean = false;
+    public programName: string = "";
+    public src: any;
+    public selectedProgramList: any = [];
 
-    private isAdmin: boolean = false;
-    private isExecutive: boolean = false;
-    private isDealer: boolean = false;
-    private isBC: boolean = false;
-    private isDistrict: boolean = false;
-    private isManager: boolean = false;
-    private isParticipant: boolean = false;
-    private tabNumber: any = "tab1";
+    public isAdmin: boolean = false;
+    public isExecutive: boolean = false;
+    public isDealer: boolean = false;
+    public isBC: boolean = false;
+    public isDistrict: boolean = false;
+    public isManager: boolean = false;
+    public isParticipant: boolean = false;
+    public tabNumber: any = "tab1";
 
-    private fromDate: string = "";
-    private toDate: string = "";
-    private pCDistributionReportInterface: PCDistributionReportInterface = {
+    public fromDate: string = "";
+    public toDate: string = "";
+    public pCDistributionReportInterface: PCDistributionReportInterface = {
         from: this.fromDate,
         to: this.toDate,
         bc: "",
@@ -47,8 +47,8 @@ export class PCDistributionReportComponent implements OnInit {
     }
 
 
-    private programOptions: SelectItem[] = [];
-    private pCDistributionBCOptions: SelectItem[] = [
+    public programOptions: SelectItem[] = [];
+    public pCDistributionBCOptions: SelectItem[] = [
         { label: "MA", value: "MA" },
         { label: "DN", value: "DN" },
         { label: "SE", value: "SE" },
@@ -59,21 +59,21 @@ export class PCDistributionReportComponent implements OnInit {
         { label: "CA", value: "CA" },
         { label: "NE", value: "NE" },
     ]
-    private pCDistributionDistrictOptions: SelectItem[] = [
+    public pCDistributionDistrictOptions: SelectItem[] = [
         { label: "SE-K", value: "SE-K" },
         { label: "NE-S", value: "NE-S" },
         { label: "SE-A", value: "SE-A" },
         { label: "MW-E", value: "MW-E" }
     ]
-    private pCDistributionDealeCodeOptions: SelectItem[] = [
+    public pCDistributionDealeCodeOptions: SelectItem[] = [
         { label: "05239", value: "05239" },
         { label: "05551", value: "05551" },
         { label: "07203", value: "07203" },
         { label: "07595", value: "07595" }
     ]
-    private selectedBCList: any = [];
-    private selectedDistrictList: any = [];
-    private selectedDealerCodeList: any = [];
+    public selectedBCList: any = [];
+    public selectedDistrictList: any = [];
+    public selectedDealerCodeList: any = [];
     constructor(private domSanitizer: DomSanitizer) { }
 
     ngOnInit() {
@@ -90,7 +90,7 @@ export class PCDistributionReportComponent implements OnInit {
         //   this.createBCProgramOptions();
     }
 
-    private squarify() {
+    public squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -102,7 +102,7 @@ export class PCDistributionReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
-    private renderTab() {
+    public renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -123,7 +123,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-    private identifyRoles() {
+    public identifyRoles() {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
             this.tabNumber = "tab1";
@@ -191,7 +191,7 @@ export class PCDistributionReportComponent implements OnInit {
         }
     }
 
-    private viewEXTabOnly() {
+    public viewEXTabOnly() {
         // this.createBCProgramOptions();
         this.showExecutivePCDistributionReportIframe = true;
         this.showBCDistributionReportIframe = false;
@@ -207,7 +207,7 @@ export class PCDistributionReportComponent implements OnInit {
         }
         this.showExDepositReport();
     }
-    private viewBCTabOnly() {
+    public viewBCTabOnly() {
         //  this.createBCProgramOptions();
         this.showExecutivePCDistributionReportIframe = false;
         this.showBCDistributionReportIframe = true;
@@ -225,7 +225,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.viewBCPCDistributionReport();
     }
 
-    private viewDistrictTabOnly() {
+    public viewDistrictTabOnly() {
         //  this.createBCProgramOptions();
         this.showExecutivePCDistributionReportIframe = false;
         this.showBCDistributionReportIframe = false;
@@ -243,7 +243,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.viewDistrictPCDistributionReport();
     }
 
-    private viewDealerTabOnly() {
+    public viewDealerTabOnly() {
         //   this.createBCProgramOptions();
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.showExecutivePCDistributionReportIframe = false;
@@ -262,7 +262,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.viewDealerPCDistributionReport();
     }
 
-    private viewParticipantTabOnly() {
+    public viewParticipantTabOnly() {
         //  this.createBCProgramOptions();
         var sid = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
         this.showExecutivePCDistributionReportIframe = false;
@@ -281,7 +281,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11"];
         this.viewParticipantPCDistributionReport();
     }
-    private showExDepositReport() {
+    public showExDepositReport() {
         this.showExecutivePCDistributionReportIframe = true;
         this.programName = "PCDistribution_Executive";
         var PCDFD = this.pCDistributionReportInterface.from;
@@ -292,7 +292,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
 
-    private viewBCPCDistributionReport() {
+    public viewBCPCDistributionReport() {
         this.showBCDistributionReportIframe = true;
         this.programName = "PCDistribution_BusinessCenter";
         var PCDBC = "";
@@ -307,7 +307,7 @@ export class PCDistributionReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    private viewDistrictPCDistributionReport() {
+    public viewDistrictPCDistributionReport() {
         this.showDistrictPCDistributionReportIframe = true;
         this.programName = "PCDistribution_District";
         var PCDD = "";
@@ -321,7 +321,7 @@ export class PCDistributionReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    private viewDealerPCDistributionReport() {
+    public viewDealerPCDistributionReport() {
         this.showDealerPCDistributionReportIframe = true;
         this.programName = "PCDistribution_Dealer";
         var PCDDL = "";
@@ -336,7 +336,7 @@ export class PCDistributionReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
 
-    private viewParticipantPCDistributionReport() {
+    public viewParticipantPCDistributionReport() {
         this.showParticipantPCDistributionReportIframe = true;
         this.programName = "PCDistribution_DistributionDetails";
         var PCDDLDD = "";

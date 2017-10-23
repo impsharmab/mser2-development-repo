@@ -13,21 +13,21 @@
             <span class="badge badge-info"></span>
           </a>
         </li>
-        <li *ngIf="isAdmin" class="nav-item">
+        <!-- <li *ngIf="isAdmin" class="nav-item">
           <a class="nav-link" routerLink="categorymaintenance">Category Maintenance
             <span class="badge badge-info"></span>
           </a>
-        </li>
-        <li *ngIf="isAdmin" class="nav-item">
+        </li> -->
+        <!-- <li *ngIf="isAdmin" class="nav-item">
           <a class="nav-link" routerLink="partadd">Add Part
             <span class="badge badge-info"></span>
           </a>
-        </li>
-        <li *ngIf="isAdmin" class="nav-item">
+        </li> -->
+        <!-- <li *ngIf="isAdmin" class="nav-item">
           <a class="nav-link" routerLink="partmaintenance">Part Maintenance
             <span class="badge badge-info"></span>
           </a>
-        </li>
+        </li> -->
         <li *ngIf="isAdmin" class="nav-item">
           <a class="nav-link" routerLink="adminpayout">Admin Payout </a>
         </li>
@@ -44,7 +44,7 @@
             <li *ngIf="showMSEREnrollmentForm || isAdmin" class="nav-item">
               <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/MSER_Enrollment_Form.pdf" target="_blank">Enrollment Form</a>
             </li>
-            <li *ngIf="showMSERAutoEnrollmentOpt || isAdmin" class="nav-item">
+            <li *ngIf="showMSERAutoEnrollmentOpt" class="nav-item">
               <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/2016MSER_AutomaticEnrollment_Optout_Form.pdf" target="_blank">Automatic Enrollment Opt Out Form </a>
             </li>
             <li *ngIf="showMSEREnrollmentReport || isAdmin" class="nav-item">
@@ -53,7 +53,7 @@
             <li *ngIf="showMSEREnrollmentMaintenance" class="nav-item">
               <a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a>
             </li>
-            <li *ngIf="showMSEROPCodeSetup || isAdmin" class="nav-item">
+            <li *ngIf="showMSEROPCodeSetup" class="nav-item">
               <a class="nav-link" routerLink="opcodesetup">OP Code Setup</a>
             </li>
             <!--<li class="nav-item"><a class="nav-link" routerLink="payoutedistribution">Payout ReDistribution</a></li>-->
@@ -185,13 +185,13 @@
         </li>
         <!-- End Report Center -->
         <li class="nav-item">
-          <a class="nav-link" routerLink="partslookuppage">Parts Lookup</a>
+          <a class="nav-link" routerLink="partslookuppage">Parts/Plan Code Lookup</a>
         </li>
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer" (click)="mvpPageMatrix()">MVP</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">
-              <a class="nav-link">Home</a>
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'homeServiceContracts', 'pdf':'false'}]">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a>
@@ -210,7 +210,7 @@
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Express Lane</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">
-              <a class="nav-link">Home</a>
+              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'expressLane', 'pdf':'false'}]">Home</a>
             </li>
 
           </ul>
@@ -218,9 +218,9 @@
         <li class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Parts Counter</a>
           <ul class="nav-dropdown-items">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link">Home</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'partsCounterRules', 'pdf':'false'}]">Rules</a>
             </li>

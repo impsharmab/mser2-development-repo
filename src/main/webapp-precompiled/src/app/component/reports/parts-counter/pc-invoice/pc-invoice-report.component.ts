@@ -15,10 +15,10 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class PCInvoiceReportComponent implements OnInit {
-    private program = "";
-    private fromDate: string = "";
-    private toDate: string = "";
-    private pcInvoiceInterface: PCInvoiceInterface = {
+    public program = "";
+    public fromDate: string = "";
+    public toDate: string = "";
+    public pcInvoiceInterface: PCInvoiceInterface = {
         "from": this.fromDate,
         "to": this.toDate,
         "dealerCode": ""
@@ -44,7 +44,7 @@ export class PCInvoiceReportComponent implements OnInit {
         this.openPCInvoiceReportLink();
     }
 
-    private squarify() {
+    public squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -56,7 +56,7 @@ export class PCInvoiceReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
-    private renderTab() {
+    public renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -77,18 +77,18 @@ export class PCInvoiceReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-    private src: any = "";
-    private openPCInvoiceReportLink() {
+    public src: any = "";
+    public openPCInvoiceReportLink() {
     }
 
-    private showPCInvoiceReportIframe: boolean = false;
-    private dealerCodeOptions: SelectItem[] = [
+    public showPCInvoiceReportIframe: boolean = false;
+    public dealerCodeOptions: SelectItem[] = [
         { label: "26550", value: "26550" },
         { label: "45614", value: "45614" },
         { label: "86250", value: "86250" }
     ]
-    private selectedDealerList: any = [];
-    private showPCInvoiceReport() {
+    public selectedDealerList: any = [];
+    public showPCInvoiceReport() {
         this.showPCInvoiceReportIframe = true;
         var programName = "PCDistribution_InvoiceDetails"
         var PCDDL="";

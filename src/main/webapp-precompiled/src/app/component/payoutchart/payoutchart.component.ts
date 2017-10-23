@@ -12,9 +12,9 @@ declare var $;
     styleUrls: ['./payoutchart.component.css']
 })
 export class PayoutchartComponent implements OnInit {
-    private payoutCMSObject: any;
-    private iconPartsModalData: any = [];
-    private tabNumber: any = "tab1";
+    public payoutCMSObject: any;
+    public iconPartsModalData: any = [];
+    public tabNumber: any = "tab1";
     constructor(
         private payoutChartService: PayoutChartService,
         private sanitizer: DomSanitizer,
@@ -32,7 +32,7 @@ export class PayoutchartComponent implements OnInit {
         // this.nestedZOZOTab();
 
     }
-    private parentZOZOTab() {
+    public parentZOZOTab() {
         this.identifyTabsPriority();
         /* jQuery activation and setting options for parent tabs with id selector*/
         $("#tabbed-nav").zozoTabs({
@@ -55,7 +55,7 @@ export class PayoutchartComponent implements OnInit {
         }, 1000)
         // this.nestedZOZOTab();
     }
-    private nestedZOZOTab() {
+    public nestedZOZOTab() {
         /* jQuery activation and setting options for nested tabs with class selector*/
         // this.chRef.detectChanges();
         $(".nested-tabs").zozoTabs({
@@ -73,7 +73,7 @@ export class PayoutchartComponent implements OnInit {
         });
     }
 
-    private identifyTabsPriority() {
+    public identifyTabsPriority() {
         var selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
 
         if (userMatrix.payoutchartHomeMatrix.indexOf(selectedPositionCode) > -1) {
@@ -89,13 +89,20 @@ export class PayoutchartComponent implements OnInit {
         }
 
     }
-    private showIconPartsModal(data) {
+    public iconPartsModalHeading: string = "";
+    public showIconPartsModal(data, data2Name) {
+        debugger
         if (data != undefined && data.parts.length > 0) {
             this.iconPartsModalData = data.parts;
         }
+        if (data2Name != 'MOPAR VEHICLE PROTECTION') {
+            this.iconPartsModalHeading = "Qualifying Part Numbers.";
+        } else {
+            this.iconPartsModalHeading = "Eligible Plan Codes.";
+        }
 
     }
-    private openCMSPage(pageName: string) {
+    public openCMSPage(pageName: string) {
         this.payoutChartService.getPayoutCMSPage(pageName).subscribe(
             (payoutCMSObject) => {
                 this.payoutCMSObject = this.sanitizer.bypassSecurityTrustHtml(payoutCMSObject)
@@ -106,8 +113,8 @@ export class PayoutchartComponent implements OnInit {
         )
     }
 
-    private payoutChartDatum: any;
-    private getPayoutChartData() {
+    public payoutChartDatum: any;
+    public getPayoutChartData() {
         this.payoutChartService.getPayoutChartData().subscribe(
             (payoutChartDatum) => {
                 this.payoutChartDatum = (payoutChartDatum)
