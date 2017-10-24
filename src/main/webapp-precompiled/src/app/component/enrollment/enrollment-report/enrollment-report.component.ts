@@ -171,6 +171,17 @@ export class EnrollmentReportComponent implements OnInit {
     )
 
   }
+  private dealerCodesBelongsToThisBCOrDist: any = [];
+  private getDealerCodesBelongsToBCAndDIST(bcOrDist) {
+    this.reportService.getDealerCodesBelongsToBCAndDIST(bcOrDist).subscribe(
+      (dealerCodesBelongsToThisBCOrDist) => {
+        this.dealerCodesBelongsToThisBCOrDist = (dealerCodesBelongsToThisBCOrDist)
+        console.log(this.dealerCodesBelongsToThisBCOrDist);
+      },
+      (error) => {
+      }
+    )
+  }
   public enrollmentReportProgramOptions: SelectItem[] = [
     { label: "Mopar Parts & Engines", value: "4" },
     { label: "Express Lane", value: "1" },
@@ -209,10 +220,9 @@ export class EnrollmentReportComponent implements OnInit {
     this.showExecutiveEnrollmentReportIframe = false;
     this.showBCEnrollmentReportIframe = false;
     this.showDistrictEnrollmentReportIframe = false;
-    this.showDealerEnrollmentReportIframe = true;
+    this.showDealerEnrollmentReportIframe = false;
     this.showParticipantEnrollmentReportIframe = false;
     this.showDetailEnrollmentReportIframe = false;
-    this.viewDealerEnrollmentReport();
   }
 
   public showExDepositReport() {
@@ -252,17 +262,71 @@ export class EnrollmentReportComponent implements OnInit {
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
+  public msg: string = "";
+  public disableDealerButton: boolean = false;
   public viewDealerEnrollmentReport() {
-    this.showDealerEnrollmentReportIframe = true;
+    this.msg = "";
+    this.showDealerEnrollmentReportIframe = false;
     this.programName = "Enrollment_Dealer";
-
     if (this.isExecutiveUser) {
-      var DealerCode = "NAT";
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode}`;
+      this.getDealerCodesBelongsToBCAndDIST("NAT");
+      var DEALERCODE = this.enrollmentReportInterface.dealerCode;
 
-    } else if (this.isBCUser || this.isDistrictUser || this.isDealerUser) {
+      if (DEALERCODE == "") {
+        this.msg = "Please enter Dealer Code to view the report";
+        this.showDealerEnrollmentReportIframe = false;
+      } else if (DEALERCODE != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE) <= -1) {
+        this.msg = "The Dealer Code you have entered does not belongs to any Business Center";
+        this.showDealerEnrollmentReportIframe = false;
+      } else {
+        this.showDealerEnrollmentReportIframe = true;
+      }
+
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE}`;
+
+    } else if (this.isBCUser) {
+      this.msg = "";
+      this.showDealerEnrollmentReportIframe = false;
       var DealerCode1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DealerCode1}`;
+      var DEALERCODE1 = this.enrollmentReportInterface.dealerCode;
+      this.getDealerCodesBelongsToBCAndDIST(DealerCode1);
+      if (DEALERCODE1 == "") {
+        this.msg = "Please enter Dealer Code to view the report";
+        this.showDealerEnrollmentReportIframe = false;
+      } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
+        this.msg = "The Dealer Code you have entered does not belongs to any Business Center";
+        this.showDealerEnrollmentReportIframe = false;
+      } else {
+        this.showDealerEnrollmentReportIframe = true;
+      }
+
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE1}`;
+
+    } else if (this.isDistrictUser) {
+      this.msg = "";
+      this.showDealerEnrollmentReportIframe = false;
+      var DealerCode12 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+      var DEALERCODE2 = this.enrollmentReportInterface.dealerCode;
+      this.getDealerCodesBelongsToBCAndDIST(DealerCode12);
+      if (DEALERCODE2 == "") {
+        this.msg = "Please enter Dealer Code to view the report";
+        this.showDealerEnrollmentReportIframe = false;
+      } else if (DEALERCODE2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE2) <= -1) {
+        this.msg = "The Dealer Code you have entered does not belongs to any Business Center";
+        this.showDealerEnrollmentReportIframe = false;
+      } else {
+        this.showDealerEnrollmentReportIframe = true;
+      }
+
+      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE2}`;
+
+      // } else if (this.isDealerUser) {
+      //   this.msg = "";
+      //   this.showDealerEnrollmentReportIframe = true;
+      //   this.disableDealerButton = true;
+      //   var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+      //   this.enrollmentReportInterface.dealerCode = DEALERCODE123;
+      //   this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE123}`;
 
     }
     console.log(this.src);

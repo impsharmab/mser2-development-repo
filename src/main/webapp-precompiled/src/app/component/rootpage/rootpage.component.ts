@@ -25,9 +25,12 @@ export class RootPageComponent implements OnInit {
     public resizeMe() {
         var blah = window.innerHeight;
         // console.log("window is: ", blah + "px high");
-        /* 302 is the combined height of the header and footer */
-        blah = blah - 302;
-        $("main").css("min-height", "calc(" + blah + "px - 2rem)");
+        /* 375 is the combined height of the header and footer */
+        blah = blah - 375;
+        $("main").css({
+            "min-height": blah + "px",
+            "padding-bottom": "2rem"
+        });
         // console.log("main is now: ", blah + "px high");
     }
     ngOnInit() {

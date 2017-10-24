@@ -30,13 +30,14 @@
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="dc">Dealer Code:</label>
-                            <input id="dc" name="dc" placeholder="Dealer Code" type="text" pInputText [(ngModel)]="roReportInterface.dealerCode" 
-                            minlength="5" maxlength="5"/>
+                            <input id="dc" name="dc" placeholder="Dealer Code" type="text" pInputText [(ngModel)]="roReportInterface.dealerCode" minlength="5"
+                                maxlength="5" (ngModelChange)="dealerCodeNotBelongsToThisBC=''; msg=''" [disabled]="disableDealerCodeInputField"
+                            />
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="ro">RO Number:</label>
-                            <input id="ro" name="ro" placeholder="RO Number" type="text" pInputText [(ngModel)]="roReportInterface.roNumber" 
-                            minlength="" maxlength="24"/>
+                            <input id="ro" name="ro" placeholder="RO Number" type="text" pInputText [(ngModel)]="roReportInterface.roNumber" minlength=""
+                                maxlength="24" (ngModelChange)="dealerCodeNotBelongsToThisBC=''; msg=''" />
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
                             <button icon="fa-check" iconPos="right" label="View Report" pButton type="button" (click)="showROReport()"></button>

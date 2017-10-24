@@ -23,22 +23,63 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
   height: 100%;
   margin: 0;
   overflow: hidden;
-  padding: 0 5px;
+  padding: 0 .33rem;
   width: 100%;
 }
+.card1 .btn-lg,
+.card1 .btn-group-lg>.btn {
+  margin: .66rem 0 0 0;
+  padding: 0.75rem 1.5rem;
+}
+.card1 {
+  margin: .66rem;
+  width: 100%;
+}
+.card1 .btn{
+  padding: 0.5rem !important;
+}
+.card1 .card1-action{
+  float: right;
+  height: auto;
+  margin-top: 1rem;
+  padding: .33rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+.card1 .card1-content{
+  margin-bottom: 2.4rem;
+  padding: 1.24rem;
+}
 .image-frame{
-  margin: 10px;
+  margin: .66rem;
 }
 .data-group{
-  width: calc(50% - 20px)
+  float: left;
+  margin: .66rem;
+  min-height: 130px;
+  padding: .33rem;
+  width: calc(50% - 1.32rem)
 }
 .display-data-set{
   float: none;
-  margin: 0;
+  margin: 0 0 2rem 0;
   overflow: hidden;
-  padding: 0;
-  width:100%;
+  padding: .66rem;
+  width: 100%;
 }
+.data-point {
+  margin-bottom: 0;
+}
+.data-point span {
+  padding-left: .25rem;
+}
+  .display-data-set {
+    float: none;
+    padding: .66rem;
+  }
+
 .button-container {
   margin: 10px;
   width: calc(100% - 20px);
@@ -46,6 +87,17 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
 .button-container button {
   float: right;
   margin-left: .5rem;
+}
+@media screen and (max-width:400px) {
+  .data-group {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 648px) {
+  .data-group {
+    margin: .66rem 0;
+    width: 100%;
+  }
 }
 /* End Home/Dashboard */
 
@@ -344,8 +396,14 @@ input.datepicker-input {
 
 
 /* Begin Enrollment Maintenance*/
+.ui-datatable-resizable thead th, .ui-datatable-resizable tbody td, .ui-datatable-resizable tfoot td {
+  white-space: wrap;
+}
 .ui-datatable-resizable thead th span.ui-cell-data, .ui-datatable-resizable tbody td span.ui-cell-data, .ui-datatable-resizable tfoot td span.ui-cell-data {
     white-space: normal;
+}
+.ui-datatable-scrollable-body {
+  min-height: 250px !important;
 }
 .enrollment-button-container{
   overflow: hidden;
@@ -613,48 +671,91 @@ h1, h2, h3, h4, h5 {
 
 
 /* Begin Footer */
-.app-footer {
+app-footer {
   display: block;
+  min-height:275px;
   overflow: hidden;
-  margin-top: 2rem;
-  padding: 10px;
+  padding-top: 1rem;
 }
-.footer-links {
-  display: inline;
-  padding: 15px;
-  margin: 0;
+.mopar-links {
+  margin-top: .66rem;
+  padding-left: 1.66rem
 }
-.footer-logos {
-  float: right;
-  margin: 0;
-  padding: 10px;
+.mopar-links img {
+  max-width: 100%;
+}
+.mopar-links ul{
+  margin: 1rem 0 0;
+  padding:0;
+}
+.mopar-links li {
+  margin-bottom: .66rem;
+}
+.chrysler-logos {
+  margin-top: .66rem;
+}
+.chrysler-logos ul{
   overflow: hidden;
-  min-width: 350px;
-  width: 30%;
 }
-.footer-logo{
-  box-sizing: border-box;
+.chrysler-logos li {
   float: left;
-  margin: 2% 1%;
-  padding: .36rem;
-  width: 48%;
-}
-.footer-item {
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0 10px;
-  margin-bottom: 5px;
-}
-.footer-link {
-  display: block;
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+.chrysler-logos img {
+  max-width: 100%;
 }
 .copyright-notice {
-  float: left;
-  max-width: calc(100% - 350px);
-  min-width: 50%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  width: 100%;
+}
+.copyright-notice p {
+  margin: 0;
+  padding: 0 0 .88rem 0;
+}
+@media screen and (min-width: 320px) {
+  .chrysler-logos ul {
+    margin: 0;
+    padding: 0;
+  }
+  .chrysler-logos li.logo-string {
+    padding-top: 1rem;
+    width: 100%;
+  }
+  .chrysler-logos li.logo-string li {
+    padding-right: 5px;
+    height: 35px;
+  }
+  .chrysler-logos li.logo-string ul {
+    align-items: center;
+    display: flex;
+  }
+}
+@media screen and (min-width: 768px) {
+  .chrysler-logos li.logo-string li {
+    padding-right: 6px;
+    height: auto;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .chrysler-logos ul {
+    justify-content: space-between;
+    padding:0;
+  }
+  .chrysler-logos li.fca{
+    padding: 0;
+    width:25%;
+  }
+  .chrysler-logos li.logo-string {
+    padding-top: 0;
+    width: 75%;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .chrysler-logos li.logo-string li {
+    padding-right: 0;
+  }
 }
 /* End Footer */
 

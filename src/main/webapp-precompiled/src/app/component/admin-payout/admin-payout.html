@@ -239,7 +239,7 @@
                       <td colspan="3" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
                       <td headers="add-reward-override" role="gridcell">
                         <input [disabled]="!reward.canOverride" class="btn btn-primary" id="add-override-mopar" name="AddOverrideMopar" type="submit"
-                          value="Add an Override" (click)="openOverrideModal(reward, 'a')" />
+                          value="Add an Override" (click)="openOverrideModal(reward)" />
                       </td>
                       <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
                       <td colspan="1" headers="add-reward-labor-type add-reward-quantity" role="gridcell">
@@ -262,9 +262,9 @@
                         <p-dropdown [options]="rewardTypeDd" [(ngModel)]="rewardPosition.rewardType" placeholder="Select a Reward Type"></p-dropdown>
                       </td>
                       <td headers="add-reward-override" role="gridcell">
-                        <span class="label override-element override" style="display:none;">
-                          <i class="fa fa-pencil" (click)="openOverrideModal(reward, 'u')"></i>
-                          <span>ID: 1 5.00% to Service Advisor</span>
+                        <span *ngFor="let override of rewardPosition.overrides; let k = index" class="label override-element mb-1">
+                          <i class="fa fa-pencil mb-1" (click)="openOverrideRecordModal(reward, rewardPosition, override)"></i>
+                          <span class="override-note mb-1">{{override.note}}</span>
                         </span>
                       </td>
                       <td headers="add-reward-labor-type" role="gridcell">
@@ -281,9 +281,9 @@
                         <p-dropdown [options]="quantityDd" [(ngModel)]="reward.quantity" placeholder="Select a Quantity"></p-dropdown>
                       </td>
                       <td role="gridcell">
-                        <button [disabled]="j==0" type="button" class="btn btn-primary btn-sm" (click)="removeRewardPosRec(reward, j)">
+                        <!-- <button [disabled]="j==0" type="button" class="btn btn-primary btn-sm" (click)="removeRewardPosRec(reward, j)">
                           <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
+                        </button> -->
                       </td>
                     </tr>
                   </tbody>
@@ -393,7 +393,7 @@
             <!-- START Override Modal -->
             <ng-template #overrideModal let-c="close" let-d="dismiss">
               <div class="modal-header">
-                <h4 class="modal-title">{{overrideModalReward.action}} an Override</h4>
+                <h4 class="modal-title">{{overrideModalReward.overrideAction}} an Override</h4>
                 <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -418,13 +418,13 @@
                   <div class="row mt-1">
                     <div class="col-md-3 col-sm-6">
                       <p-dropdown (onChange)="setActionState()" name="overrideModalRewardPosition" [options]="overrideModalReward.overrideModalOptions.rewardPositionDd"
-                        [(ngModel)]="overrideModalReward.position" placeholder="Select a Position"></p-dropdown>
+                        [(ngModel)]="overrideModalReward.sourcePosition" placeholder="Select a Position"></p-dropdown>
                     </div>
                   </div>
-                  <div class="row" [hidden]="true">
+                  <div class="row" *ngIf="overrideModalReward.rewardDesc">
                     <div class="col-sm-12">
                       <p>
-                        <strong>Reward: $5.00 per Set of 2</strong>
+                        Reward: {{overrideModalReward.rewardDesc}}
                       </p>
                     </div>
                   </div>
@@ -452,7 +452,7 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button [disabled]="!overrideModalReward.actionState" class="btn btn-primary" type="button" (click)="c('Add click')" onclick="(function(){$('.override-element').css('display','inline-block');return false;})();">Add Override</button>
+                <button [disabled]="!overrideModalReward.actionState" class="btn btn-primary" type="button" (click)="addUpdateOverride(overrideModalReward.overrideAction);c('Add click')">{{overrideModalReward.overrideAction}} Override</button>
                 <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
               </div>
             </ng-template>

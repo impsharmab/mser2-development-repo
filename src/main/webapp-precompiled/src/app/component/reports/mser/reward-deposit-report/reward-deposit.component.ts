@@ -352,7 +352,7 @@ export class RewardsDepositReportComponent implements OnInit {
     }
     public showExDepositReport() {
         this.showExecutiveRewardDepositReportIframe = true;
-        this.programName = "RewardDepositReward-Executive";
+        this.programName = "RewardDeposit_Executive";
         var RDE = "NAT";
         var RDEFromDate = this.bcrewardDeposit.from;
         var RDEToDate = this.bcrewardDeposit.to;
@@ -366,7 +366,7 @@ export class RewardsDepositReportComponent implements OnInit {
     }
     public viewBCRewardDepositReport() {
         this.showBCRewardDepositReportIframe = true;
-        this.programName = "RewardDepositReward-BusinessCenter";
+        this.programName = "RewardDeposit_BC";
         // var RDBC = "CA&RDBC=DN&RDBC=GL&RDBC=MA&RDBC=MW&RDBC=NE&RDBC=SE&RDBC=SW&RDBC=WE";
         var RDBCFromDate = this.bcrewardDeposit.from;
         var RDBCToDate = this.bcrewardDeposit.to;
@@ -387,7 +387,7 @@ export class RewardsDepositReportComponent implements OnInit {
     }
     public viewDistrictRewardDepositReport() {
         this.showDistrictRewardDepositReportIframe = true;
-        this.programName = "RewardDepositReport-District";
+        this.programName = "RewardDeposit_DIST";
         var RDDFromDate = this.bcrewardDeposit.from;
         var RDDToDate = this.bcrewardDeposit.to;
         var RDDPG = "";
@@ -412,7 +412,7 @@ export class RewardsDepositReportComponent implements OnInit {
     public viewDealerRewardDepositReport() {
         this.dealerCodeNotBelongsToThisBCOrDist = "";
         this.showDealerRewardDepositReportIframe = true;
-        this.programName = "RewardDepositreward-Dealer";
+        this.programName = "RewardDeposit_Dealer";
         var RDDFromDate = this.bcrewardDeposit.from;
         var RDDToDate = this.bcrewardDeposit.to;
         var RDDLPG = this.bcrewardDeposit.program;
@@ -465,7 +465,7 @@ export class RewardsDepositReportComponent implements OnInit {
     public sidNotBelongsToThisBC: string = "";
     public viewParticipantRewardDepositReport() {
         this.showParticipantRewardDepositReportIframe = true;
-        this.programName = "RewardDepositReport-Participant";
+        this.programName = "RewardDeposit_Participant";
         // var RDP = this.bcrewardDeposit.sid;
         var RDPFromDate = this.bcrewardDeposit.from;
         var RDPToDate = this.bcrewardDeposit.to;

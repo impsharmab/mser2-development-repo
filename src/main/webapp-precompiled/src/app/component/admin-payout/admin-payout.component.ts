@@ -32,21 +32,24 @@ export class AdminPayoutComponent implements OnInit {
     private msgs: Message[];
     date: DateModel;
     options: DatePickerOptions;
-    programs: any;
-    selectedIncentives: string[] = [];
-    programCategories: any = [];
-    selectedProgramCategories: any[] = [];
-    payoutMonth: string = "JUL";
-    selectedIncentiveSubCodes: string[] = [];
-    newCategory: any = {};
-    selectedOpenIncentives: string[] = [];
-    startDate: string = '';
-    endDate: string = '';
-    rewards: any[] = [];
-    eligiblePositions: any[] = [];
-    rewardTypeDd: SelectItem[] = [];
-    quantityDd: SelectItem[] = [];
-    overrideModalReward: any;
+    public programs: any;
+    public selectedIncentives: string[] = [];
+    public programCategories: any = [];
+    public selectedProgramCategories: any[] = [];
+    public payoutMonth: string = "JUL";
+    public selectedIncentiveSubCodes: string[] = [];
+    public newCategory: any = {};
+    public selectedOpenIncentives: string[] = [];
+    public startDate: string = '';
+    public endDate: string = '';
+    public rewards: any[] = [];
+    public eligiblePositions: any[] = [];
+    public rewardTypeDd: SelectItem[] = [];
+    public quantityDd: SelectItem[] = [];
+    public overrideModalReward: any;
+    selectedRewardForOverride: any;
+    selectedRewardPosForOverride: any;
+    selectedOverrideForOverride: any;
 
 
     calendarOptions = {
@@ -115,12 +118,22 @@ export class AdminPayoutComponent implements OnInit {
         });
     }
 
-    openOverrideModal(reward, action) {
-        this.overrideModalReward = reward;
-        if (action == 'a')
-            this.overrideModalReward.action = 'Add';
-        else if (action == 'u')
-            this.overrideModalReward.action = 'Update';
+
+    openOverrideModal(reward) {
+        this.overrideModalReward = {
+            sourcePosition: {},
+            recipientPosition: {},
+            overrideType: {}
+        };
+        this.selectedRewardForOverride = reward;
+        $.extend(this.overrideModalReward, reward);
+        this.overrideModalReward.overrideAction = 'Add';
+        /* this.overrideModalReward = reward;
+        this.overrideModalReward.overrideAction = 'Add';
+        this.overrideModalReward.sourcePosition = {};
+        this.overrideModalReward.recipientPosition = {};
+        this.overrideModalReward.overrideType = {};
+        this.overrideModalReward.overrideAmt = ''; */
         this.modalService.open(this.overrideModal).result.then((result) => {
             //this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
@@ -128,8 +141,22 @@ export class AdminPayoutComponent implements OnInit {
         });
     }
 
-    openOverrideRecordModal() {
-        this.modalService.open(this.overrideRecordModal).result.then((result) => {
+    openOverrideRecordModal(reward, rewardPosition, override) {
+        this.overrideModalReward = {
+            sourcePosition: {},
+            recipientPosition: {},
+            overrideType: {}
+        };
+        this.selectedRewardForOverride = reward;
+        this.selectedRewardPosForOverride = rewardPosition;
+        this.selectedOverrideForOverride = override;
+        $.extend(this.overrideModalReward, reward);
+        this.overrideModalReward.overrideAction = 'Update';
+        $.extend(this.overrideModalReward.sourcePosition, this.selectedOverrideForOverride.sourcePosition);
+        $.extend(this.overrideModalReward.recipientPosition, this.selectedOverrideForOverride.recipientPosition);
+        $.extend(this.overrideModalReward.overrideType, this.selectedOverrideForOverride.overrideType);
+        this.overrideModalReward.overrideAmt = this.selectedOverrideForOverride.overrideAmt;
+        this.modalService.open(this.overrideModal).result.then((result) => {
             //this.closeResult = `Closed with: ${result}`;
         }, (reason) => {
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -350,12 +377,69 @@ export class AdminPayoutComponent implements OnInit {
     }
 
     setActionState() {
-        if (this.overrideModalReward.position && this.overrideModalReward.recipientPosition
+        if (this.overrideModalReward.sourcePosition && this.overrideModalReward.recipientPosition
             && this.overrideModalReward.overrideType && this.overrideModalReward.overrideAmt
-            && this.overrideModalReward.overrideAmt.length > 0)
+            && this.overrideModalReward.overrideAmt.length > 0) {
+            for (let rewardPos of this.selectedRewardForOverride.rewardPositions) {
+                if (rewardPos.position.positionCode == this.overrideModalReward.sourcePosition.positionCode) {
+                    this.overrideModalReward.rewardDesc = this.overrideModalReward.overrideType.description + " " +
+                        this.overrideModalReward.overrideAmt + " per " + this.selectedRewardForOverride.quantity.quantityVal;
+                    break;
+                }
+            }
             this.overrideModalReward.actionState = true;
+        }
         else
             this.overrideModalReward.actionState = false;
+    }
+
+    addUpdateOverride(action) {
+        if (action == 'Add')
+            this.addOverride();
+        if (action == 'Update')
+            this.updateOverride();
+    }
+
+    addOverride() {
+        for (let rewardPosition of this.overrideModalReward.rewardPositions) {
+            if (rewardPosition.position.positionCode == this.overrideModalReward.recipientPosition.positionCode) {
+                if (!rewardPosition.overrides)
+                    rewardPosition.overrides = [];
+                rewardPosition.overrides.push(this.buildOverrideObj(this.overrideModalReward));
+            }
+        }
+        $.extend(this.selectedRewardForOverride.rewardPositions, this.overrideModalReward.rewardPositions);
+    }
+
+    updateOverride() {
+        var updatedSourcePosCode = this.overrideModalReward.sourcePosition.positionCode;
+        var updatedRecipientPosCode = this.overrideModalReward.recipientPosition.positionCode;
+        if (updatedSourcePosCode != this.selectedOverrideForOverride.sourcePosition.positionCode ||
+            updatedRecipientPosCode != this.selectedOverrideForOverride.recipientPosition.positionCode) {
+            this.selectedRewardPosForOverride.overrides.
+                splice(this.selectedRewardPosForOverride.overrides.indexOf(this.selectedOverrideForOverride), 1);
+            this.addOverride();
+        } else {
+            this.selectedOverrideForOverride.overrideType = this.overrideModalReward.overrideType;
+            this.selectedOverrideForOverride.overrideAmt = this.overrideModalReward.overrideAmt;
+            this.selectedOverrideForOverride.note = this.setOverrideNote(this.overrideModalReward);
+        }
+    }
+
+    buildOverrideObj(overrideModalReward) {
+        return {
+            isOverride: true,
+            sourcePosition: overrideModalReward.sourcePosition,
+            recipientPosition: overrideModalReward.recipientPosition,
+            overrideType: overrideModalReward.overrideType,
+            overrideAmt: overrideModalReward.overrideAmt,
+            note: this.setOverrideNote(overrideModalReward)
+        }
+    }
+
+    setOverrideNote(overrideModalReward) {
+        return overrideModalReward.sourcePosition.description + " : " + overrideModalReward.overrideAmt + " "
+            + overrideModalReward.overrideType.description + " to " + overrideModalReward.recipientPosition.description;
     }
 
 }

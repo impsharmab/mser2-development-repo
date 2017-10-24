@@ -108,8 +108,12 @@ export class ROReportComponent implements OnInit {
             this.isManagerUser = true;
         } else if (role == 10) {
             this.isDealerUser = true;
+            this.disableDealerCodeInputField = true;
+            this.roReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         } else if (role == 6 || role == 9) {
             this.isParticipantUser = true;
+            this.disableDealerCodeInputField = true;
+            this.roReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
 
         }
     }
@@ -128,7 +132,11 @@ export class ROReportComponent implements OnInit {
     public showROReportIframe: boolean = false;
     public dealerCodeNotBelongsToThisBC: string = "";
     public msg: string = "";
+    public disableDealerCodeInputField: boolean = false;
     public showROReport() {
+        this.showROReportIframe = false;
+        this.dealerCodeNotBelongsToThisBC = "";
+        this.msg = "";
         if (this.roReportInterface.dealerCode == "" && this.roReportInterface.roNumber == "") {
             this.msg = "Please enter Dealer Code and RO Number to view the report";
             return;
@@ -147,24 +155,48 @@ export class ROReportComponent implements OnInit {
         var RONumber = this.roReportInterface.roNumber;
 
         if (this.isExecutiveUser) {
-            this.showROReportIframe = false;
-            var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DealerCode}&RONumber=${RONumber}`;
-        } else if (this.isBCUser) {
-            var DEALERCODE = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var dealerCode = this.roReportInterface.dealerCode;
-            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE);
-            if (dealerCode == "") {
-                this.showROReportIframe = false;
-            } else if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
-                this.dealerCodeNotBelongsToThisBC = "Sorry the SID you have entered does not belongs to this Business Center";
+            this.getDealerCodesBelongsToBCAndDIST("NAT");
+            if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
+                this.msg = "Sorry, the dealer code you have entered does not belongs to any Business Center";
                 this.showROReportIframe = false;
             } else {
-                var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode}&RONumber=${RONumber}`;
+                this.showROReportIframe = true;
+            }
+            var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode}&RONumber=${RONumber}`;
+        } else if (this.isBCUser) {
+            var DEALERCODE1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            var dealerCode1 = this.roReportInterface.dealerCode;
+            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE1);
+            if (dealerCode1 == "") {
+                this.showROReportIframe = false;
+            } else if (dealerCode1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode1) <= -1) {
+                this.dealerCodeNotBelongsToThisBC = "Sorry the Dealer Code you have entered does not belongs to this Business Center";
+                this.showROReportIframe = false;
+            } else {
+                this.showROReportIframe = true;
+                var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode1}&RONumber=${RONumber}`;
             }
 
         } else if (this.isDistrictUser) {
+            var DEALERCODE2 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            var dealerCode2 = this.roReportInterface.dealerCode;
+            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE2);
+            if (dealerCode2 == "") {
+                this.showROReportIframe = false;
+            } else if (dealerCode2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode2) <= -1) {
+                this.dealerCodeNotBelongsToThisBC = "Sorry the Dealer Code you have entered does not belongs to this Business Center";
+                this.showROReportIframe = false;
+            } else {
+                this.showROReportIframe = true;
+                var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode2}&RONumber=${RONumber}`;
+            }
 
 
+        } else if (this.isDealerUser || this.isParticipantUser) {
+            var DEALERCODE3 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            this.roReportInterface.dealerCode = DEALERCODE3;
+            var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DEALERCODE3}&RONumber=${RONumber}`;
         }
         console.log(src1);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(src1);

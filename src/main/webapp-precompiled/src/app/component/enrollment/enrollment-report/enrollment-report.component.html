@@ -3,10 +3,18 @@
   <!-- Reward Center Tabs-->
   <div class="tabbed-nav">
     <ul class="tabs">
-      <li [hidden]="!isNational" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-      <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
-      <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
-      <li class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+      <li [hidden]="!isNational" class="tab" (click)="viewEXTabOnly()">
+        <a>Executive</a>
+      </li>
+      <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()">
+        <a>Business Center</a>
+      </li>
+      <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()">
+        <a>District</a>
+      </li>
+      <li class="tab" (click)="viewDealerTabOnly()">
+        <a>Dealer</a>
+      </li>
       <!-- <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li> -->
       <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
     </ul>
@@ -49,19 +57,20 @@
 
       <!-- Begin Dealer Reward Center Report -->
       <div class="z-content-pad">
+        <p style="color: red">{{msg}}</p>
         <h2>Dealer Enrollment Report</h2>
         <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">
-          <!-- <div class="row">
+          <div class="row">
             <div class="form-group col-sm-2">
               <label for="dc-4">Dealer Code:</label>
               <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="enrollmentReportInterface.dealerCode"
-              />
+                [disabled]="disableDealerButton" minlength="5" maxlength="5" (ngModelChange)="msg=''"/>
             </div>
             <div class="form-group col-sm-2 report-button-container">
               <button pButton type="button" (click)="viewDealerEnrollmentReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>
-          </div> -->
+          </div>
           <div class="row" *ngIf="showDealerEnrollmentReportIframe">
             <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
           </div>
