@@ -19,12 +19,12 @@
     <link href="assets/css/genesis-ui.css" rel="stylesheet">
 
     <!--ng-prime css-->
+    <link rel="stylesheet" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/theme.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/primeng.min.css" />
 
     <!-- Custom fonts for this application -->
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600" rel="stylesheet">
-    <link rel="stylesheet" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
 
     <!-- Zozo Tabs css -->
     <link href="assets/css/zozo.tabs.min.css" rel="stylesheet" />
@@ -36,8 +36,15 @@
     <!--link href="assets/css/marketing-presentation.css" rel="stylesheet" /-->
     <!--link href="assets/css/admin-payout-chart.css" rel="stylesheet" /-->
 
+    <!-- for ie issues -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.19/system.js"></script>
+    <script src="https://npmcdn.com/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+    
+    
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
         crossorigin="anonymous"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
@@ -65,8 +72,11 @@
     <!-- GenesisUI main scripts -->
     <!-- <script src="assets/js/app.js"></script> -->
     <script src="assets/js/toastr.js"></script>
-	<script src="assets/js/moment.min.js"></script>
-    
+    <script src="assets/js/moment.min.js"></script>
+
+    <!-- <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script> -->
 </head>
 
 <body>

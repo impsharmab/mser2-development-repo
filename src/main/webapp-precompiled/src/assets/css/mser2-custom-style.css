@@ -174,6 +174,16 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
 .payout-chart-home .payout-chart-heading {
   margin-bottom: .02em;
 }
+.payout-chart-heading{
+  position: relative;
+  width: calc(100% - 13px);
+}
+
+.payout-chart-heading .print-button {
+  position: absolute;
+  top: calc(50% / 2);
+  right: 0;
+}
 .payout-chart-home .payout-chart-subheading{
   margin-bottom: .86em;
 }
@@ -278,9 +288,20 @@ input.datepicker-input {
   width: calc(100% - 1.5rem);
 }
 .label.override-element .fa{
+  position: absolute;
   float: right;
   margin: 0 3px;
+  color: darkslateblue;
+  right: 0.2em;
+  top: 0.2em;
 }
+.override-note {
+  position: relative;
+  margin-top: 1em;
+  background-color: orange;
+  padding: .5rem;
+  border-radius: .25rem;
+} 
 #payout-chart-export{
   width: 760px;
   //if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts
@@ -391,6 +412,9 @@ input.datepicker-input {
 }
 .ui-dropdown .ui-dropdown-label{
   padding: 0.5rem 0.75rem;
+}
+.ui-datatable .ui-datatable-thead>tr>th, .ui-datatable .ui-datatable-tfoot>tr>td, .ui-datatable .ui-datatable-data>tr>td {
+  padding: 0.75rem;
 }
 /* End Dealer Enrollment */
 
@@ -529,8 +553,8 @@ input.datepicker-input {
  .report-iframe {
    box-sizing: border-box;
    height: 625px;
-   margin: 2rem 0 0;
-   padding: 2rem 0 0;
+   margin: .66rem 0 0;
+   padding: .66rem 0 0;
  }
  .report-center .ui-button-icon-only .fa {
    left: 50%;
@@ -675,7 +699,7 @@ app-footer {
   display: block;
   min-height:275px;
   overflow: hidden;
-  padding-top: 1rem;
+  padding-top: 2rem;
 }
 .mopar-links {
   margin-top: .66rem;
@@ -706,8 +730,8 @@ app-footer {
   max-width: 100%;
 }
 .copyright-notice {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 2.66rem;
+  padding-top: 2.66rem;
   width: 100%;
 }
 .copyright-notice p {
@@ -825,21 +849,26 @@ p {
   .visible-print{
     display: block;
   }
-  .z-content-pad.z-content{
-    display: block !important;
-  }
   header.navbar .navbar-brand {
     background-position-x: 1rem;
   }
   .z-tabs > ul, .z-tabs > ul > li > a, .z-tabs > .z-container {
     border: none !important;
   }
-  .sidebar-fixed .sidebar .sidebar-nav, .navMenu .menuItem, .navbar-toggler.mobile-sidebar-toggler, app-footer, .z-tabs-nav{
+  app-header, sidenav, .sidebar-fixed .sidebar .sidebar-nav, .navMenu .menuItem, .navbar-toggler.mobile-sidebar-toggler, app-footer, .z-tabs-nav,.z-content-pad.z-content,.payout-chart-heading .print-button{
     display: none !important;
+  }
+  app-header, sidenav{
+    height: 0 !important;
+    width: 0 !important;
   }
   .sidebar-fixed .main {
     margin: 0;
   }
+  .z-content-pad.z-content.z-active{
+    display: block !important;
+  }
+
   /* this resets the first character in each line from being misaligned with the rest of the word/sentence */
   a::first-letter,
   p::first-letter,

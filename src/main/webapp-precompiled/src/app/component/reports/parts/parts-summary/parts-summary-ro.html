@@ -3,7 +3,9 @@
     <!-- RO Report Tabs -->
     <div class="tabbed-nav">
         <ul class="tabs">
-            <li class="tab"><a>Detail</a></li>
+            <li class="tab">
+                <a>Detail</a>
+            </li>
         </ul>
         <div>
             <div class="z-content-pad">
@@ -14,17 +16,18 @@
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="from-1">From:</label>
-                            <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                                [showTime]="false" dataType="string" [(ngModel)]="partsSummaryROInterface.from"></p-calendar>
+                            <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" [minDate]="minDate" [maxDate]="maxDate" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="partsSummaryROInterface.from"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-1">To:</label>
-                            <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                                dataType="string" [(ngModel)]="partsSummaryROInterface.to"></p-calendar>
+                            <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" [minDate]="minDate" [maxDate]="maxDate" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="partsSummaryROInterface.to"></p-calendar>
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="program-1">Dealer Code:</label>
                             <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="partsSummaryROInterface.dealerCode"
+                                (ngModelChange)="msg=''; showPartsSummaryROReportIframe=false" minlength="5" maxlength="5" [disabled]="isDealerUser || isParticipantUser"
                             />
                         </div>
                         <div class="form-group col-sm-2">
@@ -37,29 +40,16 @@
                     </div>
                     <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                                 filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                </form>
-                <!-- <form>
-                    <div class="form-group row"> 
-                        From:&#160;&#160;
-                        <p-calendar placeholder="From" id="from" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                            [showTime]="false" dataType="string" [(ngModel)]="partsSummaryROInterface.from"></p-calendar> <span style="margin-left:45px; overflow:visible"></span> To:&#160;&#160;
-
-                        <p-calendar placeholder="To" id="to" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                            dataType="string" [(ngModel)]="partsSummaryROInterface.to"></p-calendar> <span style="margin-left:45px"></span> Dealer Code:&#160;
-
-                        <input placeholder="Dealer Code" type="text" id="dc" name="dc" pInputText [(ngModel)]="partsSummaryROInterface.dealerCode"
-                        />
-                        <button pButton type="button" (click)="showPartsSummaryROReport()" icon="fa-check" iconPos="right" label="View Report" style="margin-left:35px"></button>
+                    <div *ngIf="msg.length>0">
+                        <p style="color: red">{{msg}}</p>
                     </div>
-                </form> -->
 
-            </div>
-            <div *ngIf="showPartsSummaryROReportIframe">
-                <iframe height=625px width=950px id="frame1" name="frame1" [src]='src'>
-                </iframe>
+                    <div class="roe" *ngIf="showPartsSummaryROReportIframe">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
+                        </iframe>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-
 </main>

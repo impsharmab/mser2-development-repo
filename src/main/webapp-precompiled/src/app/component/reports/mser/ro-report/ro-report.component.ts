@@ -5,6 +5,7 @@ import { ROReportInterface } from "./ro-report.interface";
 import { SelectItem } from 'primeng/primeng';
 
 import { ReportService } from "../../../../services/report/report-service";
+import * as reportServiceUrl from '../../../../global-variable/service-url';
 declare var $: any;
 
 @Component({
@@ -26,6 +27,9 @@ export class ROReportComponent implements OnInit {
     public isDealerUser: boolean = false;
     public isManagerUser: boolean = false;
     public isParticipantUser: boolean = false;
+
+    public minDate: Date;
+    public maxDate: Date;
 
     public roReportInterface: ROReportInterface = {
         "from": this.fromDate,
@@ -73,6 +77,15 @@ export class ROReportComponent implements OnInit {
         if (this.isAdmin) {
             this.isExecutiveUser = true;
         }
+
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.minDate.setMonth(0);
+        this.minDate.setDate(1);
+        this.minDate.setFullYear(today.getFullYear());
+        this.maxDate.setMonth(d.getMonth());
+        this.maxDate.setFullYear(today.getFullYear());
+        this.maxDate.setDate(lastDayOfMonth.getDate());
 
         this.checkRoles();
     }
@@ -163,7 +176,7 @@ export class ROReportComponent implements OnInit {
             } else {
                 this.showROReportIframe = true;
             }
-            var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode}&RONumber=${RONumber}`;
+            var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode}&RONumber=${RONumber}`;
         } else if (this.isBCUser) {
             var DEALERCODE1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var dealerCode1 = this.roReportInterface.dealerCode;
@@ -175,7 +188,7 @@ export class ROReportComponent implements OnInit {
                 this.showROReportIframe = false;
             } else {
                 this.showROReportIframe = true;
-                var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode1}&RONumber=${RONumber}`;
+                var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode1}&RONumber=${RONumber}`;
             }
 
         } else if (this.isDistrictUser) {
@@ -189,14 +202,14 @@ export class ROReportComponent implements OnInit {
                 this.showROReportIframe = false;
             } else {
                 this.showROReportIframe = true;
-                var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode2}&RONumber=${RONumber}`;
+                var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode2}&RONumber=${RONumber}`;
             }
 
 
         } else if (this.isDealerUser || this.isParticipantUser) {
             var DEALERCODE3 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.roReportInterface.dealerCode = DEALERCODE3;
-            var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DEALERCODE3}&RONumber=${RONumber}`;
+            var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DEALERCODE3}&RONumber=${RONumber}`;
         }
         console.log(src1);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(src1);

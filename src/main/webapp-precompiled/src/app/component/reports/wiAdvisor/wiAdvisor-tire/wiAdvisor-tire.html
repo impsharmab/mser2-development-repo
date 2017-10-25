@@ -3,10 +3,18 @@
     <!-- Reward Center Tabs-->
     <div class="tabbed-nav">
         <ul class="tabs">
-            <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-            <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
-            <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
-            <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
+            <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()">
+                <a>Executive</a>
+            </li>
+            <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()">
+                <a>Business Center</a>
+            </li>
+            <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()">
+                <a>District</a>
+            </li>
+            <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()">
+                <a>Dealer</a>
+            </li>
             <!-- <li class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li> -->
             <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
         </ul>
@@ -22,12 +30,13 @@
                         <div class="form-group col-sm-3">
                             <label for="from-1">From:</label>
                             <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar>
+                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from" [minDate]="minDate"
+                                [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-1">To:</label>
                             <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar>
+                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
                             <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -55,17 +64,19 @@
                     <div class="row">
                         <div class="form-group col-sm-2">
                             <label for="dc-2">Business Center:</label>
-                            <input placeholder="BC" type="text" id="dc-2" name="dc" pInputText [(ngModel)]="wiAdvisorTireInterface.bc" />
+                            <input placeholder="BC" type="text" id="dc-2" name="dc" pInputText [(ngModel)]="wiAdvisorTireInterface.bc" [disabled]="disableBCInputButton"
+                                minlength="2" maxlength="3" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-2">From:</label>
                             <p-calendar placeholder="From" id="from-2" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar>
+                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from" [minDate]="minDate"
+                                [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-2">To:</label>
                             <p-calendar placeholder="To" id="to-2" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar>
+                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="viewBCWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -90,17 +101,18 @@
                         <div class="form-group col-sm-2">
                             <label for="dc-2">District:</label>
                             <input placeholder="district" type="text" id="dist-2" name="dist-2" pInputText [(ngModel)]="wiAdvisorTireInterface.district"
-                            />
+                                [disabled]="disableDISTInputButton" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-3">From:</label>
                             <p-calendar placeholder="From" id="from-3" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar>
+                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from" [minDate]="minDate"
+                                [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-3">To:</label>
                             <p-calendar placeholder="To" id="to-3" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar>
+                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
                             <button pButton type="button" (click)="viewDistrictWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -137,12 +149,13 @@
                         <div class="form-group col-sm-3">
                             <label for="from-4">From:</label>
                             <p-calendar placeholder="From" id="from-4" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar>
+                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from" [minDate]="minDate"
+                                [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-4">To:</label>
                             <p-calendar placeholder="To" id="to-4" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar>
+                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
                             <button pButton type="button" (click)="viewDealerWiAdvisorTireReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -178,12 +191,13 @@
                         <div class="form-group col-sm-3">
                             <label for="from-5">From:</label>
                             <p-calendar placeholder="From" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from"></p-calendar>
+                                [showTime]="false" dataType="string" [(ngModel)]="wiAdvisorTireInterface.from" [minDate]="minDate"
+                                [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-5">To:</label>
                             <p-calendar placeholder="To" id="to-5" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to"></p-calendar>
+                                dataType="string" [(ngModel)]="wiAdvisorTireInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="program-5">Program:</label>

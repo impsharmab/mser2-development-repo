@@ -6,3 +6,9 @@ export const baseUrl: string = "https://test.myfcarewards.com/mser/";
 // export const baseUrl: string = "https://test.moparser.com/";
 
 // export const baseUrl: string = "";
+
+
+// export const reportUrl: string = "https://test-reportservice.imperialm.com/reports/";
+
+
+export const reportUrl: string = "https://reportservice.imperialm.com/reports/";

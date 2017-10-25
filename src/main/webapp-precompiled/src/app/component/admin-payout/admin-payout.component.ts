@@ -234,9 +234,11 @@ export class AdminPayoutComponent implements OnInit {
                         this.adminPayoutService.getCategoriesByIncentive(this.selectedOpenIncentives, "NOMONTH").subscribe(
                             (openProgramCategories) => {
                                 if (openProgramCategories.length > 0)
-                                    Array.prototype.push.apply(this.programCategories, openProgramCategories);
+                                    $.merge(this.programCategories, openProgramCategories);
+                                //Array.prototype.push.apply(this.programCategories, openProgramCategories);
                             });
                     }
+                    this.fixTabDisplayIE11();
                 }
             });
     }
@@ -310,7 +312,7 @@ export class AdminPayoutComponent implements OnInit {
                                         quantity: {}
                                     });
                                 });
-                                console.log(this.rewards);
+                                this.fixTabDisplayIE11();
                             });
                         });
                     });
@@ -382,8 +384,10 @@ export class AdminPayoutComponent implements OnInit {
             && this.overrideModalReward.overrideAmt.length > 0) {
             for (let rewardPos of this.selectedRewardForOverride.rewardPositions) {
                 if (rewardPos.position.positionCode == this.overrideModalReward.sourcePosition.positionCode) {
+                    var rewardDesc = this.getRewardDesc(this.overrideModalReward.overrideType.description,
+                        this.overrideModalReward.overrideAmt);
                     this.overrideModalReward.rewardDesc = this.overrideModalReward.overrideType.description + " " +
-                        this.overrideModalReward.overrideAmt + " per " + this.selectedRewardForOverride.quantity.quantityVal;
+                        rewardDesc + " per " + this.selectedRewardForOverride.quantity.quantityVal;
                     break;
                 }
             }
@@ -405,7 +409,10 @@ export class AdminPayoutComponent implements OnInit {
             if (rewardPosition.position.positionCode == this.overrideModalReward.recipientPosition.positionCode) {
                 if (!rewardPosition.overrides)
                     rewardPosition.overrides = [];
-                rewardPosition.overrides.push(this.buildOverrideObj(this.overrideModalReward));
+                var overrideObj = this.buildOverrideObj(this.overrideModalReward);
+                rewardPosition.overrides.push(overrideObj);
+                /* rewardPosition.rewardType = overrideObj.overrideType;
+                rewardPosition.rewardAmount = overrideObj.overrideAmt; */
             }
         }
         $.extend(this.selectedRewardForOverride.rewardPositions, this.overrideModalReward.rewardPositions);
@@ -423,6 +430,8 @@ export class AdminPayoutComponent implements OnInit {
             this.selectedOverrideForOverride.overrideType = this.overrideModalReward.overrideType;
             this.selectedOverrideForOverride.overrideAmt = this.overrideModalReward.overrideAmt;
             this.selectedOverrideForOverride.note = this.setOverrideNote(this.overrideModalReward);
+            /* this.selectedRewardPosForOverride.rewardType = this.overrideModalReward.overrideType;
+            this.selectedRewardPosForOverride.rewardAmount = this.overrideModalReward.rewardAmt; */
         }
     }
 
@@ -438,8 +447,46 @@ export class AdminPayoutComponent implements OnInit {
     }
 
     setOverrideNote(overrideModalReward) {
-        return overrideModalReward.sourcePosition.description + " : " + overrideModalReward.overrideAmt + " "
-            + overrideModalReward.overrideType.description + " to " + overrideModalReward.recipientPosition.description;
+        var rewardDesc = this.getRewardDesc(overrideModalReward.overrideType.description,
+            overrideModalReward.overrideAmt);
+        return overrideModalReward.sourcePosition.description + " : " + rewardDesc
+            + " to " + overrideModalReward.recipientPosition.description;
+    }
+
+    getRewardDesc(description, amt) {
+        switch (description) {
+            case 'DOLLAR':
+                return '$' + amt;
+            case 'PERCENT':
+                return amt + '%';
+            default:
+                return amt + ' ' + description;
+        }
+    }
+
+    trackProgram(index, program) {
+        return program ? program.incentiveId : undefined;
+    }
+
+    trackCategory(index, category) {
+        return category ? category.programGroup : undefined;
+    }
+
+    trackReward(index, reward) {
+        return reward ? reward.programGroupId : undefined;
+    }
+
+    trackPosition(index, position) {
+        return position ? position.positionCode : undefined;
+    }
+
+    trackOverride(index, override) {
+        return override ? override.sourcePosition.positionCode : undefined;
+    }
+
+    fixTabDisplayIE11() {
+        if (navigator.userAgent.indexOf("rv:11") != -1)
+            window.setTimeout($('li.ui-tabview-selected>a>span.ui-tabview-title').click(), 100);
     }
 
 }

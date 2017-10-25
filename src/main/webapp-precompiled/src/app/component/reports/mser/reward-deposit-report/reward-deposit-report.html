@@ -171,8 +171,8 @@
                 </form>
 
                 <!-- Report Include -->
-                <div>
-                    <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p>
+                <div *ngIf="dealerCodeNotBelongsToThisBCOrDist.length>0">
+                    <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p> 
                 </div>
                 <div *ngIf="showDealerRewardDepositReportIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
@@ -191,7 +191,7 @@
                         <div class="form-group col-sm-2">
                             <label for="dc-5">Sid:</label>
                             <input [disabled]="disableSIDInput" placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid"
-                                minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBC=''"/>
+                                minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBC=''" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-5">From:</label>
@@ -215,7 +215,7 @@
                     <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                             filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
 
-                    <div>
+                    <div *ngIf="sidNotBelongsToThisBC.length>0">
                         <p style="color: red">{{sidNotBelongsToThisBC}}</p>
                     </div>
                     <!-- Report Include -->

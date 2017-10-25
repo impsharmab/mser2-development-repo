@@ -186,6 +186,11 @@ a {
   font-family: "TitlingGothicFB StandardComp", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 2.66em;
 }
+.payout-chart-heading .print-button {
+  color:rgb(0,104,179);
+  cursor: pointer;
+  font-size: 22px;
+}
 .graph-item:nth-child(2n){
   background: rgb(240,240,240);
 }
@@ -418,9 +423,23 @@ table#program-groups.table tbody tr td:last-child {
 .ui-datatable .ui-datatable-data>tr>td{
   vertical-align: top;
 }
-.ui-datatable tbody > tr.ui-widget-content.ui-state-highlight {
-  background: rgba(0,104,179,.125);
-  color: rgb(0,0,0);
+.ui-datatable-thead > tr > th.ui-state-default, .ui-datatable th.ui-sortable-column:not(.ui-state-active):hover {
+  background-color: rgb(179,223,255);
+  border-bottom: 2px solid rgb(225, 230, 239);
+  font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  vertical-align: bottom;
+}
+.ui-datatable tbody > tr.ui-widget-content.ui-datatable-odd {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgb(225, 230, 239);
+}
+.ui-datatable .ui-datatable-thead>tr>th, .ui-datatable .ui-datatable-tfoot>tr>td, .ui-datatable .ui-datatable-data>tr>td {
+  vertical-align: top;
+}
+.ui-datatable tbody > tr.ui-widget-content {
+  border: 1px solid rgb(225, 230, 239);
 }
 /* End Enrollment Maintenance */
 

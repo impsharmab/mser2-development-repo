@@ -3,11 +3,21 @@
   <!-- Parts Counter Distribution Tabs-->
   <div class="tabbed-nav">
     <ul class="tabs">
-      <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()"><a>Executive</a></li>
-      <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()"><a>Business Center</a></li>
-      <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()"><a>District</a></li>
-      <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()"><a>Dealer</a></li>
-      <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()"><a>Participant</a></li>
+      <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()">
+        <a>Executive</a>
+      </li>
+      <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()">
+        <a>Business Center</a>
+      </li>
+      <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()">
+        <a>District</a>
+      </li>
+      <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()">
+        <a>Dealer</a>
+      </li>
+      <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()">
+        <a>Participant</a>
+      </li>
       <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
     </ul>
     <!-- Content container -->
@@ -20,13 +30,13 @@
           <div class="row">
             <div class="form-group col-sm-3">
               <label for="from-1">From:</label>
-              <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+              <p-calendar placeholder="From" id="from-1" name="from" dateFormat="mm/dd/yy" showIcon="true" [minDate]="minDate" [maxDate]="maxDate"
+                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
             </div>
             <div class="form-group col-sm-3">
               <label for="to-1">To:</label>
-              <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+              <p-calendar placeholder="To" id="to-1" name="to" dateFormat="mm/dd/yy" showIcon="true" [minDate]="minDate" [maxDate]="maxDate"
+                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
             </div>
             <div class="form-group col-sm-3 report-button-container">
               <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -46,18 +56,19 @@
         <form class="report-form">
           <div class="row">
             <div class="form-group col-sm-2">
-              <label for="program-2">Program:</label>
-              <p-multiSelect [options]="pCDistributionBCOptions" id="program-2" name="program" [(ngModel)]="selectedBCList" [style]="{minWidth:'175px'}"></p-multiSelect>
+              <label for="program-2">Business Center:</label>
+              <p-multiSelect [options]="pCDistributionBCOptions" id="program-2" name="program" [(ngModel)]="selectedBCList" [style]="{minWidth:'175px'}"
+                [disabled]="disableBCDropdown"></p-multiSelect>
             </div>
             <div class="form-group col-sm-3">
               <label for="from-2">From:</label>
-              <p-calendar placeholder="From" id="from-2" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+              <p-calendar placeholder="From" id="from-2" name="from" dateFormat="mm/dd/yy" [minDate]="minDate" [maxDate]="maxDate" showIcon="true"
+                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
             </div>
             <div class="form-group col-sm-3">
               <label for="to-2">To:</label>
-              <p-calendar placeholder="To" id="to-2" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+              <p-calendar placeholder="To" id="to-2" name="to" dateFormat="mm/dd/yy" [minDate]="minDate" [maxDate]="maxDate" showIcon="true"
+                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
             </div>
             <div class="form-group col-sm-2 report-button-container">
               <button pButton type="button" (click)="viewBCPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -84,12 +95,12 @@
             <div class="form-group col-sm-3">
               <label for="from-3">From:</label>
               <p-calendar placeholder="From" id="from-3" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-3">
               <label for="to-3">To:</label>
               <p-calendar placeholder="To" id="to-3" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-3 report-button-container">
               <button pButton type="button" (click)="viewDistrictPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -119,12 +130,12 @@
             <div class="form-group col-sm-3">
               <label for="from-4">From:</label>
               <p-calendar placeholder="From" id="from-4" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-3">
               <label for="to-4">To:</label>
               <p-calendar placeholder="To" id="to-4" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-3 report-button-container">
               <button pButton type="button" (click)="viewDealerPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -151,12 +162,12 @@
             <div class="form-group col-sm-3">
               <label for="from-5">From:</label>
               <p-calendar placeholder="From" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
-                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from"></p-calendar>
+                [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-3">
               <label for="to-5">To:</label>
               <p-calendar placeholder="To" id="to-5" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
-                dataType="string" [(ngModel)]="pCDistributionReportInterface.to"></p-calendar>
+                dataType="string" [(ngModel)]="pCDistributionReportInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-2 report-button-container">
               <button pButton type="button" (click)="viewParticipantPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>

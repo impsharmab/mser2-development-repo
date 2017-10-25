@@ -57,7 +57,7 @@
 
       <!-- Begin Dealer Reward Center Report -->
       <div class="z-content-pad">
-        <p style="color: red">{{msg}}</p>
+        <p *ngIf="msg.length>0" style="color: red">{{msg}}</p>
         <h2>Dealer Enrollment Report</h2>
         <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">

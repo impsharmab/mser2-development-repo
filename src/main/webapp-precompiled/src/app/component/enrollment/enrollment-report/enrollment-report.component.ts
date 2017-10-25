@@ -4,6 +4,8 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from "@angular/platform-browse
 import { SelectItem } from 'primeng/primeng';
 
 import * as userMatrix from '../../../global-variable/user-matrix';
+import * as reportServiceUrl from '../../../global-variable/service-url';
+
 import { EnrollmentReportInterface } from "./enrollment-report.interface";
 
 import { ReportService } from '../../../services/report/report-service';
@@ -228,7 +230,7 @@ export class EnrollmentReportComponent implements OnInit {
   public showExDepositReport() {
     this.showExecutiveEnrollmentReportIframe = true;
     this.programName = "Enrollment_Executive";
-    this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}`;
+    this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}`;
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
   }
@@ -239,11 +241,11 @@ export class EnrollmentReportComponent implements OnInit {
     if (this.isExecutiveUser) {
       var BusinessCenter = "NAT";
       this.getDistrictByBC(BusinessCenter);
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}`;
+      this.src = reportServiceUrl.reportUrl+`ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter}`;
     } else if (this.isBCUser) {
       var BusinessCenter1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
       this.getDistrictByBC(BusinessCenter1);
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter1}`;
+      this.src = reportServiceUrl.reportUrl+ `ReportServlet?reportPath=MSER&reportName=${this.programName}&BusinessCenter=${BusinessCenter1}`;
     }
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -254,10 +256,10 @@ export class EnrollmentReportComponent implements OnInit {
 
     if (this.isExecutiveUser) {
       var District = "NAT";
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}`;
+      this.src =reportServiceUrl.reportUrl+ `ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District}`;
     } else if (this.isBCUser || this.isDistrictUser) {
       var District1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District1}`;
+      this.src =reportServiceUrl.reportUrl+ `ReportServlet?reportPath=MSER&reportName=${this.programName}&District=${District1}`;
     }
     console.log(this.src);
     this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -282,7 +284,7 @@ export class EnrollmentReportComponent implements OnInit {
         this.showDealerEnrollmentReportIframe = true;
       }
 
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE}`;
+      this.src = reportServiceUrl.reportUrl+`ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE}`;
 
     } else if (this.isBCUser) {
       this.msg = "";
@@ -300,7 +302,7 @@ export class EnrollmentReportComponent implements OnInit {
         this.showDealerEnrollmentReportIframe = true;
       }
 
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE1}`;
+      this.src = reportServiceUrl.reportUrl+`ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE1}`;
 
     } else if (this.isDistrictUser) {
       this.msg = "";
@@ -318,7 +320,7 @@ export class EnrollmentReportComponent implements OnInit {
         this.showDealerEnrollmentReportIframe = true;
       }
 
-      this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE2}`;
+      this.src = reportServiceUrl.reportUrl+ `ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE2}`;
 
       // } else if (this.isDealerUser) {
       //   this.msg = "";
@@ -326,7 +328,7 @@ export class EnrollmentReportComponent implements OnInit {
       //   this.disableDealerButton = true;
       //   var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
       //   this.enrollmentReportInterface.dealerCode = DEALERCODE123;
-      //   this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE123}`;
+      //   this.src = `ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE123}`;
 
     }
     console.log(this.src);

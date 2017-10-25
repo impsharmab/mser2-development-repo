@@ -41,7 +41,7 @@
                 </div>
               </div>
               <label class="custom-control custom-checkbox">
-                <p-checkbox name="copyMonth" value="yes" [(ngModel)]="adminPayout" onclick="(function(){$('#copy-month-container').toggleClass('hide-me');})();"></p-checkbox>
+                <p-checkbox name="copyMonth" value="yes" onclick="(function(){$('#copy-month-container').toggleClass('hide-me');})();"></p-checkbox>
                 <span class="custom-control-description">Would you like to copy the Payout Chart information from a previous month?</span>
               </label>
               <div class="row hide-me" id="copy-month-container">
@@ -83,7 +83,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr scope="row" *ngFor="let program of programs; let i = index">
+                <tr scope="row" *ngFor="let program of programs; trackBy: trackProgram; let i = index">
                   <td headers="program-groups-active" role="gridcell">
                     <p-checkbox id="program-select-{{i}}" value="{{program.incentiveId}}" name="selectRow" [(ngModel)]="selectedIncentives" (onChange)="selectProgramGroup($event, program)"></p-checkbox>
                   </td>
@@ -116,9 +116,8 @@
               <input class="btn btn-primary" id="add-category" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)"
               />
             </div>
-
             <p-accordion [multiple]="true">
-              <p-accordionTab *ngFor="let programCategory of programCategories; let i = index" header="{{programCategory.programGroup}}"
+              <p-accordionTab *ngFor="let programCategory of programCategories; trackBy: trackCategory; let i = index" header="{{programCategory.programGroup}}"
                 [selected]="i==0">
                 <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
                   <thead>
@@ -216,7 +215,7 @@
               <input id="add-reward" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal(addReward)" />
             </div>
             <p-accordion [multiple]="true">
-              <p-accordionTab [selected]="i==0" *ngFor="let reward of rewards; let i = index">
+              <p-accordionTab [selected]="i==0" *ngFor="let reward of rewards; trackBy: trackReward; let i = index">
                 <p-header>
                   {{reward.programGroup}}
                   <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
@@ -248,7 +247,7 @@
                         </button>
                       </td>
                     </tr>
-                    <tr class="row-category group-mopar" scope="row" *ngFor="let rewardPosition of reward.rewardPositions; let j = index">
+                    <tr class="row-category group-mopar" scope="row" *ngFor="let rewardPosition of reward.rewardPositions;trackBy: trackPosition; let j = index">
                       <td headers="add-reward-position" role="gridcell">
                         <p-dropdown (onChange)="onChangeRewardPosition(reward)" [options]="reward.positionDd" [(ngModel)]="rewardPosition.position"
                           placeholder="Select a Position"></p-dropdown>
@@ -262,9 +261,10 @@
                         <p-dropdown [options]="rewardTypeDd" [(ngModel)]="rewardPosition.rewardType" placeholder="Select a Reward Type"></p-dropdown>
                       </td>
                       <td headers="add-reward-override" role="gridcell">
-                        <span *ngFor="let override of rewardPosition.overrides; let k = index" class="label override-element mb-1">
-                          <i class="fa fa-pencil mb-1" (click)="openOverrideRecordModal(reward, rewardPosition, override)"></i>
-                          <span class="override-note mb-1">{{override.note}}</span>
+                        <span *ngFor="let override of rewardPosition.overrides; trackBy: trackOverride; let k = index" class="label override-element">
+                          <span class="override-note">{{override.note}}
+                            <i class="fa fa-pencil" (click)="openOverrideRecordModal(reward, rewardPosition, override)"></i>
+                          </span>
                         </span>
                       </td>
                       <td headers="add-reward-labor-type" role="gridcell">
@@ -452,7 +452,8 @@
                 </form>
               </div>
               <div class="modal-footer">
-                <button [disabled]="!overrideModalReward.actionState" class="btn btn-primary" type="button" (click)="addUpdateOverride(overrideModalReward.overrideAction);c('Add click')">{{overrideModalReward.overrideAction}} Override</button>
+                <button [disabled]="overrideModalReward.overrideAction != 'Update' && !overrideModalReward.actionState" class="btn btn-primary"
+                  type="button" (click)="addUpdateOverride(overrideModalReward.overrideAction);c('Add click')">{{overrideModalReward.overrideAction}} Override</button>
                 <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
               </div>
             </ng-template>
@@ -570,43 +571,21 @@
             </div>
             <!-- START Summary Wrapper-->
             <hr/>
-            <div>
+            <div id="payout-chart-export">
               <!-- MOPAR Parts &amp; Engines -->
-              <div id="payout-chart-export">
+              <div *ngFor="let reward of rewards; trackBy: trackReward; let i = index">
                 <!-- START Service Technician Area -->
-                <h4 class="payout-chart-heading">MOPAR PARTS &amp; ENGINES</h4>
-                <h3>T-Cases</h3>
+                <h5 class="payout-chart-heading">{{reward.programGroup}}</h5>
+                <h4>{{reward.incentiveSubCode}}</h4>
                 <ul class="graph graph-list">
-                  <li class="graph-item service-override">
-                    <span class="graph-item-subject">Service Technician</span>
-                    <span class="graph-item-figure">$5.00</span>
-                  </li>
-                  <li class="graph-item">
-                    <span class="graph-item-subject">Service Advisor</span>
-                    <span class="graph-item-figure">$5.00</span>
-                  </li>
-                  <li class="graph-item">
-                    <span class="graph-item-subject">Service Manager</span>
-                    <span class="graph-item-figure">$5.00</span>
-                  </li>
-                  <li class="graph-item">
-                    <span class="graph-item-subject">Parts Manager</span>
-                    <span class="graph-item-figure">$5.00</span>
+                  <li class="graph-item service-override" *ngFor="let rewardPosition of reward.rewardPositions;trackBy: trackPosition">
+                    <span class="graph-item-subject">{{rewardPosition.position.description}}</span>
+                    <span class="graph-item-figure">{{getRewardDesc(rewardPosition.rewardType.description, rewardPosition.rewardAmount)}}</span>
                   </li>
                 </ul>
-                <p>
-                  <span class="legend service-override"></span> Service Advisor override is 5.00%.</p>
-                <h4 class="payout-chart-heading">MAGNETI MARELLI</h4>
-                <h3>MM_BK</h3>
-                <ul class="graph graph-list">
-                  <li class="graph-item">
-                    <span class="graph-item-subject">Service Technician</span>
-                    <span class="graph-item-figure">2.00%</span>
-                  </li>
-                  <li class="graph-item">
-                    <span class="graph-item-subject">Parts Manager</span>
-                    <span class="graph-item-figure">$2.00</span>
-                  </li>
+                <ul *ngFor="let rewardPosition of reward.rewardPositions;trackBy: trackPosition">
+                  <li *ngFor="let override of rewardPosition.overrides;trackBy: trackOverride">Override
+                    <i class="fa fa-long-arrow-right fa-1" aria-hidden="true"></i>{{override.note}}</li>
                 </ul>
                 <!-- END Service Technician Area -->
               </div>

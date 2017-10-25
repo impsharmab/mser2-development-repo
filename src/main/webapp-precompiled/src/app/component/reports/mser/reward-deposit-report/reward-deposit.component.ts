@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from "@angular/platform-browser";
 
 import * as userMatrix from '../../../../global-variable/user-matrix';
+import * as reportServiceUrl from '../../../../global-variable/service-url';
 
 import { SelectItem } from 'primeng/primeng';
 
@@ -57,7 +58,7 @@ export class RewardsDepositReportComponent implements OnInit {
         { label: "Used Vehicle Manager", value: "15" },
         { label: "Express Lane", value: "1" },
         { label: "Magneti Marelli", value: "2" },
-        { label: "Mopar Accessories", value: "3" },
+        { label: "Mopar Upfits", value: "3" },
         { label: "Mopar Parts & Engines", value: "4" },
         { label: "Mopar Vehicle Protection", value: "5" },
         { label: "Parts Counter", value: "6" },
@@ -357,10 +358,11 @@ export class RewardsDepositReportComponent implements OnInit {
         var RDEFromDate = this.bcrewardDeposit.from;
         var RDEToDate = this.bcrewardDeposit.to;
         var RDEPG = "";
+
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDEPG = RDEPG + "&RDEPG=" + this.selectedProgramList[i];
         }
-        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDEFromDate=${RDEFromDate}&RDEToDate=${RDEToDate}${RDEPG}`;
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDEFromDate=${RDEFromDate}&RDEToDate=${RDEToDate}${RDEPG}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -376,10 +378,10 @@ export class RewardsDepositReportComponent implements OnInit {
         }
         if (this.isExecutiveUser) {
             var RDBC_EX = "NAT";
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDBC=${RDBC_EX}&RDBCFromDate=${RDBCFromDate}&RDBCToDate=${RDBCToDate}${RDBCPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDBC=${RDBC_EX}&RDBCFromDate=${RDBCFromDate}&RDBCToDate=${RDBCToDate}${RDBCPG}`;
         } else {
             var RDBC1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDBC=${RDBC1}&RDBCFromDate=${RDBCFromDate}&RDBCToDate=${RDBCToDate}${RDBCPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDBC=${RDBC1}&RDBCFromDate=${RDBCFromDate}&RDBCToDate=${RDBCToDate}${RDBCPG}`;
 
         }
         console.log(this.src);
@@ -396,14 +398,14 @@ export class RewardsDepositReportComponent implements OnInit {
         }
         if (this.isExecutiveUser) {
             var RDD_EX = "NAT";
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD_EX}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD_EX}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
         } else if (this.isBCUser) {
             var RDD1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD1}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD1}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
 
         } else if (this.isDistrictUser) {
             var RDD1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD1}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDD=${RDD1}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDPG}`;
         }
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -424,7 +426,7 @@ export class RewardsDepositReportComponent implements OnInit {
                 this.showDealerRewardDepositReportIframe = false;
             }
             var RDDL_EX = this.bcrewardDeposit.dealerCode;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL_EX}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL_EX}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
         } else if (this.isBCUser) {
             var RDDL_BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
             var dc = this.bcrewardDeposit.dealerCode;
@@ -438,7 +440,7 @@ export class RewardsDepositReportComponent implements OnInit {
             } else {
                 this.dealerCodeNotBelongsToThisBCOrDist = "";
             }
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${dc}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${dc}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
         } else if (this.isDistrictUser) {
             var RDDL_DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var DEALER_CODE = this.bcrewardDeposit.dealerCode;
@@ -452,12 +454,12 @@ export class RewardsDepositReportComponent implements OnInit {
                 this.dealerCodeNotBelongsToThisBCOrDist = "";
                 this.showDealerRewardDepositReportIframe = true;
             }
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${DEALER_CODE}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
-        } else if (this.isDealerUser) {
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${DEALER_CODE}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
+        } else if (this.isDealerUser || this.isManagerUser) {
             this.disableDealerCodeInput = true;
             var RDDL_DEALER = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.bcrewardDeposit.dealerCode = RDDL_DEALER;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL_DEALER}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDDL=${RDDL_DEALER}&RDDFromDate=${RDDFromDate}&RDDToDate=${RDDToDate}${RDDLPG}`;
         }
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -478,7 +480,7 @@ export class RewardsDepositReportComponent implements OnInit {
                 this.showParticipantRewardDepositReportIframe = false;
             }
             var RDP_EX = this.bcrewardDeposit.sid;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP_EX}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP_EX}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
         } else if (this.isBCUser) {
             var RDP_BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
             var sid = this.bcrewardDeposit.sid;
@@ -489,7 +491,7 @@ export class RewardsDepositReportComponent implements OnInit {
                 this.sidNotBelongsToThisBC = "Sorry the SID you have entered does not belongs to this Business Center";
                 this.showParticipantRewardDepositReportIframe = false;
             }
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${sid}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${sid}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
         } else if (this.isDistrictUser) {
             var RDP_DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var SID = this.bcrewardDeposit.sid;
@@ -500,8 +502,8 @@ export class RewardsDepositReportComponent implements OnInit {
                 this.sidNotBelongsToThisBC = "Sorry the SID you have entered does not belongs to this District";
                 this.showParticipantRewardDepositReportIframe = false;
             }
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${SID}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
-        } else if (this.isDealerUser) {
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${SID}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+        } else if (this.isDealerUser || this.isManagerUser) {
             var RDP_DEALER = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var SID1 = this.bcrewardDeposit.sid;
             this.getParticipantsByDealer(RDP_DEALER);
@@ -511,13 +513,13 @@ export class RewardsDepositReportComponent implements OnInit {
                 this.sidNotBelongsToThisBC = "Sorry the SID you have entered does not belongs to this District";
                 this.showParticipantRewardDepositReportIframe = false;
             }
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${SID1}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${SID1}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
 
         } else if (this.isParticipantUser) {
             this.disableSIDInput = true;
             this.bcrewardDeposit.sid = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
             var RDP_PARTICIPANT = this.bcrewardDeposit.sid;
-            this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP_PARTICIPANT}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDP=${RDP_PARTICIPANT}&RDPFromDate=${RDPFromDate}&RDPToDate=${RDPToDate}${RDPPG}`;
 
         }
         console.log(this.src);

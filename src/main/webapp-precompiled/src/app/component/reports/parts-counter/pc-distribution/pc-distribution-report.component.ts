@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from "@angular/platform-browser";
 
-
 import { SelectItem } from 'primeng/primeng';
+
+import * as reportServiceUrl from '../../../../global-variable/service-url';
 
 import { PCDistributionReportInterface } from './pc-distribution-report.interface';
 
@@ -37,8 +38,20 @@ export class PCDistributionReportComponent implements OnInit {
     public isParticipant: boolean = false;
     public tabNumber: any = "tab1";
 
+    public minDate: Date;
+    public maxDate: Date;
+
     public fromDate: string = "";
     public toDate: string = "";
+
+    public selectedRole: any;
+    public isExecutiveUser: boolean = false;
+    public isBCUser: boolean = false;
+    public isDistrictUser: boolean = false;
+    public isDealerUser: boolean = false;
+    public isManagerUser: boolean = false;
+    public isParticipantUser: boolean = false;
+
     public pCDistributionReportInterface: PCDistributionReportInterface = {
         from: this.fromDate,
         to: this.toDate,
@@ -83,14 +96,38 @@ export class PCDistributionReportComponent implements OnInit {
         var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
         this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
-        /* jQuery activation and setting options for parent tabs with id selector*/
-        this.identifyRoles();
+
+        this.minDate = new Date();
+        this.maxDate = new Date();
+        this.minDate.setMonth(0);
+        this.minDate.setDate(1);
+        this.minDate.setFullYear(today.getFullYear());
+        this.maxDate.setMonth(d.getMonth());
+        this.maxDate.setFullYear(today.getFullYear());
+        this.maxDate.setDate(lastDayOfMonth.getDate());
+
+        this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
+        if (this.isAdmin) {
+            this.tabNumber = "tab1";
+            this.isExecutiveUser = true;
+            this.isExecutive = true;
+            this.isBC = true;
+            this.isDistrict = true;
+            this.isDealer = true;
+            this.isManager = true;
+            this.isParticipant = true;
+            this.viewEXTabOnly();
+        } else {
+            this.identifyRoles();
+        }
+
         this.renderTab();
         this.viewEXTabOnly();
         //   this.createBCProgramOptions();
     }
 
     public squarify() {
+        /* jQuery activation and setting options for parent tabs with id selector*/
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -127,16 +164,7 @@ export class PCDistributionReportComponent implements OnInit {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
             this.tabNumber = "tab1";
-            this.isAdmin = false;
-            this.isExecutive = true;
-            this.isBC = true;
-            this.isDistrict = true;
-            this.isManager = true;
-            this.isDealer = true;
-            this.isParticipant = true;
-        } else if (role == 3) {
-            this.tabNumber = "tab1";
-            this.isAdmin = false;
+            this.isExecutiveUser = true;
             this.isExecutive = true;
             this.isBC = true;
             this.isDistrict = true;
@@ -145,16 +173,18 @@ export class PCDistributionReportComponent implements OnInit {
             this.isParticipant = true;
         } else if (role == 12) {
             this.tabNumber = "tab2";
-            this.isAdmin = false;
+            this.disableBCDropdown = true;
+            this.isBCUser = true;
             this.isExecutive = false;
             this.isBC = true;
             this.isDistrict = true;
             this.isManager = true;
             this.isDealer = true;
             this.isParticipant = true;
+            this.viewBCTabOnly();
         } else if (role == 11) {
             this.tabNumber = "tab3";
-            this.isAdmin = false;
+            this.isDistrictUser = true;
             this.isExecutive = false;
             this.isBC = false;
             this.isDistrict = true;
@@ -163,7 +193,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isParticipant = true;
         } else if (role == 5) {
             this.tabNumber = "tab4";
-            this.isAdmin = false;
+            this.isManagerUser = true;
             this.isExecutive = false;
             this.isBC = false;
             this.isDistrict = false;
@@ -172,7 +202,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isParticipant = true;
         } else if (role == 10) {
             this.tabNumber = "tab4";
-            this.isAdmin = false;
+            this.isDealerUser = true;
             this.isExecutive = false;
             this.isBC = false;
             this.isDistrict = false;
@@ -181,7 +211,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isParticipant = true;
         } else if (role == 6 || role == 9) {
             this.tabNumber = "tab5";
-            this.isAdmin = false;
+            this.isParticipantUser = true;
             this.isExecutive = false;
             this.isBC = false;
             this.isDistrict = false;
@@ -221,7 +251,13 @@ export class PCDistributionReportComponent implements OnInit {
             district: "",
             bc: ""
         }
-        this.selectedBCList = ["MA", "DN", "SE", "WE", "SW", "MW", "GL", "CA", "NE"];
+        if (this.isExecutiveUser) {
+            this.selectedBCList = ["MA", "DN", "SE", "WE", "SW", "MW", "GL", "CA", "NE"];
+        } else if (this.isBCUser) {
+            this.selectedBCList = [JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode];
+            // 
+        }
+
         this.viewBCPCDistributionReport();
     }
 
@@ -287,23 +323,34 @@ export class PCDistributionReportComponent implements OnInit {
         var PCDFD = this.pCDistributionReportInterface.from;
         var PCDTD = this.pCDistributionReportInterface.to;
 
-        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
 
+    public disableBCDropdown: boolean = false;
     public viewBCPCDistributionReport() {
         this.showBCDistributionReportIframe = true;
         this.programName = "PCDistribution_BusinessCenter";
-        var PCDBC = "";
+        var PCDBC1 = "";
         var PCDFD = this.pCDistributionReportInterface.from;
         var PCDTD = this.pCDistributionReportInterface.to;
+        var PCDB = "0";
 
-        for (var i = 0; i < this.selectedBCList.length; i++) {
-            PCDBC = PCDBC + "&PCDBC=" + this.selectedBCList[i];
+        if (this.isExecutiveUser) {
+            if (this.selectedBCList.length == 9) {
+                PCDBC1 = "&PCDBC=NAT";
+            } else {
+                for (var i = 0; i < this.selectedBCList.length; i++) {
+                    PCDBC1 = "&PCDBC=" + this.selectedBCList[i];
+                }
+            }
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDBC1}&PCDFD=${PCDFD}&PCDTD=${PCDTD}&PCDB=${PCDB}`;
+        } else if (this.isBCUser) {
+            var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            var PCDBC2 = "&PCDBC" + dealerCode;
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDBC2}&PCDFD=${PCDFD}&PCDTD=${PCDTD}&PCDB=${PCDB}`;
         }
-        //https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=PCDistributionReward-BusinessCenter&RDBC=CA&RDBCFromDate=2017-07-19&RDBCToDate=2017-09-19&RDBCPG=Mopar%20Service%20Excellence%20Rewards%20-%20Used%20Vehicle%20Manager
-        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDBC=${PCDBC}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -314,12 +361,22 @@ export class PCDistributionReportComponent implements OnInit {
         var PCDDFD = this.pCDistributionReportInterface.from;
         var PCDDTD = this.pCDistributionReportInterface.to;
 
-        for (var i = 0; i < this.selectedDistrictList.length; i++) {
-            PCDD = PCDD + "&PCDD=" + this.selectedDistrictList[i];
+
+        if (this.isExecutiveUser) {
+            if (this.isExecutiveUser) {
+                if (this.selectedBCList.length == 9) {
+                    PCDD = "&PCDBC=NAT";
+                } else {
+                    for (var i = 0; i < this.selectedDistrictList.length; i++) {
+                        PCDD = "&PCDD=" + this.selectedDistrictList[i];
+                    }
+                }
+                this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDD}&PCDDFD=${PCDDFD}&PCDDTD=${PCDDTD}`;
+
+            }
+            console.log(this.src);
+            this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
         }
-        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDD}&PCDDFD=${PCDDFD}&PCDDTD=${PCDDTD}`;
-        console.log(this.src);
-        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
     public viewDealerPCDistributionReport() {
         this.showDealerPCDistributionReportIframe = true;
@@ -331,7 +388,7 @@ export class PCDistributionReportComponent implements OnInit {
         for (var i = 0; i < this.selectedDealerCodeList.length; i++) {
             PCDDL = PCDDL + "&PCDDL=" + this.selectedDealerCodeList[i];
         }
-        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
@@ -346,7 +403,7 @@ export class PCDistributionReportComponent implements OnInit {
         for (var i = 0; i < this.selectedDealerCodeList.length; i++) {
             PCDDLDD = PCDDLDD + "&PCDDLDD=" + this.selectedDealerCodeList[i];
         }
-        this.src = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDLDD}&PCDDLFD=${PCDDLFD}&PCDDLTD=${PCDDLTD}`;
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDDLDD}&PCDDLFD=${PCDDLFD}&PCDDLTD=${PCDDLTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }

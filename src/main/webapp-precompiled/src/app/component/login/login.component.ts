@@ -175,7 +175,7 @@ export class LoginComponent implements OnInit {
                 let url = ["notMserEnrolledPage"]
                 this.router.navigate(url);
               }
-              location.reload();
+              // location.reload();
             } else {
 
             }
@@ -231,7 +231,7 @@ export class LoginComponent implements OnInit {
             let url = ["notMserEnrolledPage"]
             this.router.navigate(url);
           }
-          location.reload();
+          // location.reload();
         }
         else {
 
