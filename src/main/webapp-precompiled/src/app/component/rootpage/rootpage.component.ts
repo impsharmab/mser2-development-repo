@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
@@ -14,7 +14,8 @@ export class RootPageComponent implements OnInit {
     constructor(
         private router: Router,
         private http: Http,
-        private ngZone: NgZone) {
+        private ngZone: NgZone,
+        private chRef: ChangeDetectorRef) {
         window.onresize = (e) => {
             ngZone.run(() => {
                 this.resizeMe();
@@ -34,6 +35,7 @@ export class RootPageComponent implements OnInit {
         // console.log("main is now: ", blah + "px high");
     }
     ngOnInit() {
+        this.chRef.detectChanges();
         this.resizeMe();
         //    this.router.navigate(["mserHomepage/home"]);
     }

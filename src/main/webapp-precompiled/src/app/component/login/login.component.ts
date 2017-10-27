@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterOutlet, ActivatedRoute, Params } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -13,9 +13,12 @@ import { LoginService } from '../../services/login-service/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public user: User;
+  public user: User = {
+    uname: '',
+    pword: ''
+  };
   private userdata: any = {};
-  public errorMessage: string = ""; 
+  public errorMessage: string = "";
   public loginFailed: string = "";
   private ssouserdata: any = {};
   private ssotoken: string = "";
@@ -26,13 +29,10 @@ export class LoginComponent implements OnInit {
   private refreshTokenData: any;
 
   constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService, private chRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.user = {
-      username: '',
-      password: ''
-    }
+    this.chRef.detectChanges();
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.ssotoken = params['token'];
@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
     }
   }
   private ssologin(ssotoken: string, ssopositioncode: string, ssodealercode: string) {
+
     var adminToken = this.cookieService.get("adminToken");
     if (adminToken !== undefined && adminToken !== null && adminToken.length > 1) {
       let url = ["login"]
@@ -189,20 +190,20 @@ export class LoginComponent implements OnInit {
     }
   }
   public login() {
-    if (this.user.username.trim() === "" && this.user.password.trim() === "") {
+    if (this.user.uname.trim() === "" && this.user.pword.trim() === "") {
       //this.loginFailed = "Login Failed";
       this.errorMessage = "Please enter your valid SID/TID and Password";
       return;
-    } else if (this.user.username.trim() === "" && this.user.password.trim() !== null) {
+    } else if (this.user.uname.trim() === "" && this.user.pword.trim() !== null) {
       //this.loginFailed = "Login Failed";
       this.errorMessage = 'Please enter your SID/TID'
       return;
-    } else if (this.user.username.trim() !== null && this.user.password.trim() === "") {
+    } else if (this.user.uname.trim() !== null && this.user.pword.trim() === "") {
       // this.loginFailed = "Login Failed";
       this.errorMessage = 'Please enter your Password'
       return;
     }
-    this.loginService.getLoginResponse(this.user.username, this.user.password).subscribe(
+    this.loginService.getLoginResponse(this.user.uname, this.user.pword).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
         if (resUserData["token"].length > 0) {

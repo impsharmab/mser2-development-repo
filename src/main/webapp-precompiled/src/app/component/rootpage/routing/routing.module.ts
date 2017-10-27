@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, } from '@angular/core';
+import { NgModule, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from "@angular/router";
@@ -40,6 +40,7 @@ import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-di
 import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAdvisor-management/wiAdvisor-management-report.component';
 import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
 import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
+import { MVPAutoApproveComponent } from '../../mvp/mvp-autoapprove/mvp-autoapprove.component';
 
 
 const routes: Routes = [
@@ -212,6 +213,10 @@ const routes: Routes = [
             {
                 path: "pcinvoicereport",
                 component: PCInvoiceReportComponent
+            },
+            {
+                path: "mvpautoapprove",
+                component: MVPAutoApproveComponent
             }
 
 
@@ -236,7 +241,9 @@ const routes: Routes = [
 ]
 @NgModule({
     imports: [RouterModule.forRoot(routes, { useHash: true })],
-           // RouterModule.forRoot(routes, { useHash: true })],
+    // RouterModule.forRoot(routes, { useHash: true })],
     exports: [RouterModule]
 })
-export class RoutingModule { }
+export class RoutingModule {
+    // constructor(private chRef: ChangeDetectorRef) { this.chRef.detectChanges(); }
+}

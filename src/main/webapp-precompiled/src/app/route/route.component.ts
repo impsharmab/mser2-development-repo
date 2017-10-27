@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ChangeDetectorRef } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from '../component/login/login.component';
@@ -60,5 +60,8 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule {
+
+    // constructor(private chRef: ChangeDetectorRef) { this.chRef.detectChanges(); }
+
 
 }

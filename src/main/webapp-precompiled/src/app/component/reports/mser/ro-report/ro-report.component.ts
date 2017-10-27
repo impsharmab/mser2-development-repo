@@ -113,9 +113,14 @@ export class ROReportComponent implements OnInit {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
             this.isExecutiveUser = true;
+            this.getDealerCodesBelongsToBCAndDIST("NAT");
         } else if (role == 12) {
+            var DEALERCODE1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE1);
             this.isBCUser = true;
         } else if (role == 11) {
+            var DEALERCODE12 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE12);
             this.isDistrictUser = true;
         } else if (role == 5) {
             this.isManagerUser = true;
@@ -169,22 +174,22 @@ export class ROReportComponent implements OnInit {
 
         if (this.isExecutiveUser) {
             var dealerCode = this.roReportInterface.dealerCode;
-            this.getDealerCodesBelongsToBCAndDIST("NAT");
+            // this.getDealerCodesBelongsToBCAndDIST("NAT");
             if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
-                this.msg = "Sorry, the dealer code you have entered does not belongs to any Business Center";
+                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showROReportIframe = false;
             } else {
                 this.showROReportIframe = true;
             }
             var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode}&RONumber=${RONumber}`;
         } else if (this.isBCUser) {
-            var DEALERCODE1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // var DEALERCODE1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var dealerCode1 = this.roReportInterface.dealerCode;
-            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE1);
+            // this.getDealerCodesBelongsToBCAndDIST(DEALERCODE1);
             if (dealerCode1 == "") {
                 this.showROReportIframe = false;
             } else if (dealerCode1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode1) <= -1) {
-                this.dealerCodeNotBelongsToThisBC = "Sorry the Dealer Code you have entered does not belongs to this Business Center";
+                this.dealerCodeNotBelongsToThisBC = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showROReportIframe = false;
             } else {
                 this.showROReportIframe = true;
@@ -192,19 +197,18 @@ export class ROReportComponent implements OnInit {
             }
 
         } else if (this.isDistrictUser) {
-            var DEALERCODE2 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // var DEALERCODE2 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var dealerCode2 = this.roReportInterface.dealerCode;
-            this.getDealerCodesBelongsToBCAndDIST(DEALERCODE2);
+            // this.getDealerCodesBelongsToBCAndDIST(DEALERCODE2);
             if (dealerCode2 == "") {
                 this.showROReportIframe = false;
             } else if (dealerCode2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode2) <= -1) {
-                this.dealerCodeNotBelongsToThisBC = "Sorry the Dealer Code you have entered does not belongs to this Business Center";
+                this.dealerCodeNotBelongsToThisBC = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showROReportIframe = false;
             } else {
                 this.showROReportIframe = true;
                 var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${dealerCode2}&RONumber=${RONumber}`;
             }
-
 
         } else if (this.isDealerUser || this.isParticipantUser) {
             var DEALERCODE3 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;

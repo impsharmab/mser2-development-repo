@@ -20,7 +20,7 @@ export class EnrollmentComponent implements OnInit {
 
     public addTeamData: any;
     public addNewUserData: any;
-    public data:any;
+    public data: any;
     public editSingleRow: boolean = false;
     public disableGlobalFilter: boolean = false;
     public expressLaneDealerData: any;
@@ -64,17 +64,17 @@ export class EnrollmentComponent implements OnInit {
     public upFitsElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
     public fiatElligpc: any = ["01", "13", "23", "2A"]
     public tiresElligpc: any = ["01", "13", "23", "2A"];
-    public mvpElligpc: any = ["01", "13", "es"];
+    public mvpElligpc: any = ["01", "13", "ES"];
     public wiAdvMVPElligpc: any = ["13"];
     public wiAdvTirElligepc: any = ["13"];
     public uconSalesElligpc: any = ["01", "02", "03", "04", "05", "06 ", "07", "11", "12", "15", "22", "25", "26", "30", "31", "34", "36", "37", "38", "39", "41", "42", "46", "47", "49", "50", "52", "74", "4T", "IM"];
     public uconServiceElligpc: any = ["08", "09", "10", "13", "14", "16", "17", "18", "19", "20", "23", "24", "27", "28", "29", "32", "33", "35", "40", "48", "56", "79", "85", "1F", "2S", "3S", "4S", "7L", "7M", "7N", "7P", "7Q", "ES", "ET"];
-    public pcPartElligpc = ["8", "14", "40", "19"];
+    public pcPartElligpc = ["08", "14", "40", "19", "32", "33"];
     public pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "37", "40"];
     public elMElligpc: any = ["09", "17", "33", "35"];
     public elPElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
     public uvmEnrElligpc: any = ["08", "09", "07"];
-    public uvmPartElligpc: any = ["07", "23", "34"];
+    public uvmPartElligpc: any = ["07", "12", "34"];
     public warrantyAdmElligpc: any = ["29"];
 
 
@@ -676,11 +676,11 @@ export class EnrollmentComponent implements OnInit {
                     elData.push(this.elMElligpcItem2[i]);
                 }
             }
-            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
-                if (this.elMElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
-                    elData.push(this.elMElligpcItem2[i]);
-                }
-            }
+            // for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+            //     if (this.elMElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+            //         elData.push(this.elMElligpcItem2[i]);
+            //     }
+            // }
         }
         for (var i = 0; i < this.pcMElligpcItem2.length; i++) {
             for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
@@ -688,11 +688,11 @@ export class EnrollmentComponent implements OnInit {
                     pcData.push(this.pcMElligpcItem2[i]);
                 }
             }
-            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
-                if (this.pcMElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
-                    pcData.push(this.pcMElligpcItem2[i]);
-                }
-            }
+            // for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+            //     if (this.pcMElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+            //         pcData.push(this.pcMElligpcItem2[i]);
+            //     }
+            // }
         }
         for (var i = 0; i < this.uvmEnrElligpcItem2.length; i++) {
             for (var k = 0; k < this.enrollmentDataResponse[index].positionCodes.length; k++) {
@@ -700,11 +700,11 @@ export class EnrollmentComponent implements OnInit {
                     usedReconManagerData.push(this.uvmEnrElligpcItem2[i]);
                 }
             }
-            for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
-                if (this.uvmEnrElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
-                    usedReconManagerData.push(this.uvmEnrElligpcItem2[i]);
-                }
-            }
+            // for (var l = 0; l < this.enrollmentDataResponse[index].overriddenpositionCodes.length; l++) {
+            //     if (this.uvmEnrElligpcItem2[i] === this.enrollmentDataResponse[index].overriddenpositionCodes[l]) {
+            //         usedReconManagerData.push(this.uvmEnrElligpcItem2[i]);
+            //     }
+            // }
 
         }
 
@@ -780,12 +780,44 @@ export class EnrollmentComponent implements OnInit {
             warrantyAdmOptions.push({ label: warrantyAdmData[m], value: warrantyAdmData[m] });
         }
         for (var m = 0; m < pcData.length; m++) {
+            // if (pcData[m] == "(08)Parts Manager ") {
+            //     var inpcData = pcData.indexOf("(08)Parts Manager ");
+            //     if (inpcData != -1) {
+            //         pcData.splice(inpcData, 1);
+
+            //     }
+            // }
+            // if (pcData[m] == "(09)Service Manager ") {
+            //     var inPCData09 = pcData.indexOf("(09)Service Manager ");
+            //     if (inPCData09 != -1) {
+            //         pcData.splice(inPCData09, 1);
+            //     }
+            // }
             pcOptions.push({ label: pcData[m], value: pcData[m] });
         }
         for (var m = 0; m < elData.length; m++) {
+            // if (elData[m] == "(09)Service Manager ") {
+            //     var inElData = elData.indexOf("(09)Service Manager ");
+            //     if (inElData != -1) {
+            //         elData.splice(inElData, 1);
+            //     }
+            // }
+
             elOptions.push({ label: elData[m], value: elData[m] });
         }
         for (var m = 0; m < usedReconManagerData.length; m++) {
+            // if (usedReconManagerData[m] == "(08)Parts Manager ") {
+            //     var inusedReconManagerData = usedReconManagerData.indexOf("(08)Parts Manager ");
+            //     if (inusedReconManagerData != -1) {
+            //         usedReconManagerData.splice(inusedReconManagerData, 1);
+            //     }
+            // }
+            // if (usedReconManagerData[m] == "(09)Service Manager ") {
+            //     var inusedReconManagerData09 = usedReconManagerData.indexOf("(09)Service Manager ");
+            //     if (inusedReconManagerData09 != -1) {
+            //         usedReconManagerData.splice(inusedReconManagerData09, 1);
+            //     }
+            // }
             usedReconManagerOptions.push({ label: usedReconManagerData[m], value: usedReconManagerData[m] });
         }
         for (var m = 0; m < usedReconParticipantData.length; m++) {
@@ -986,13 +1018,13 @@ export class EnrollmentComponent implements OnInit {
         //         }
         //     }
         // }
-        // for (var i = 0; i < this.uvmPartElligpcItem2.length; i++) {
-        //     for (var j = 0; j < data.length; j++) {
-        //         if (this.uvmPartElligpcItem2[i] === data[j]) {
-        //             usedReconManagerSelectedData.push(data[j]);
-        //         }
-        //     }
-        // }
+        for (var i = 0; i < this.uvmPartElligpcItem2.length; i++) {
+            for (var j = 0; j < data.length; j++) {
+                if (this.uvmPartElligpcItem2[i] === data[j]) {
+                    usedReconParticipantSelectedData.push(data[j]);
+                }
+            }
+        }
 
         for (var j = 0; j < pmRecordsSelectedData.length; j++) {
             this.enrollmentDataResponse[index].pmRecordsOptions.push({ label: pmRecordsSelectedData[j], value: pmRecordsSelectedData[j] });
@@ -1437,6 +1469,7 @@ export class EnrollmentComponent implements OnInit {
     }
 
     public edit(rowData, editButton, cancelButton, saveButton) {
+        this.msg = "";
         this.disableGlobalFilter = true;
         if (this.editSingleRow) {
             return;
@@ -1694,22 +1727,29 @@ export class EnrollmentComponent implements OnInit {
             usedReconManagerData, usedReconParticipantData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
-                this.msg = "Participant Information has been updated Successfully.";
-                // this.getEnrollmentData();
+
+                this.msg = "Participant Information has been updated successfully.";
+                this.clearMessage();
+                this.getEnrollmentData();
             },
             (error) => {
-                setTimeout(() => {
-                    if (error !== undefined && error.length < 250) {
-                        this.msg = error;
-                    } else {
-                        this.msg = "Error in Updating Participant Information.";
-                    }
-
-                }, 1000)
-
+                if (error !== undefined && error.length < 250) {
+                    this.msg = error;
+                } else {
+                    this.msg = "Error in Updating Participant Information.";
+                }
+                this.clearMessage();
+                this.getEnrollmentData();
                 // alert(error)
             }
             )
+    }
+
+    private clearMessage() {
+        setTimeout(() => {
+            this.msg = "";
+        }, 5000)
+
     }
     public cancelNewUserDataDialogue(data) {
         this.displayAddNewUserDialog = false;

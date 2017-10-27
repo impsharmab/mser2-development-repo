@@ -46,8 +46,7 @@
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp'); getMVPDistributionData()"
-              [disabled]="disableMVPButton">Approve Plans
+              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp');" [disabled]="disableMVPButton">Approve Plans
               <i class="fa fa-arrow-right"></i>
             </button>
           </td>
@@ -91,7 +90,7 @@
 
 
 
-  <div smoothScroll offset="0" id="displayError">
+  <div>
     <p style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{msg}}</p>
   </div>
   <!-- Begin MVP section -->
@@ -445,8 +444,7 @@
           <p>You are about to save the changes. Are you sure you want to continue?</p>
         </div>
         <div class="modal-footer">
-          <button [scrollTo]="'displayError'" type="button" id="clickToDisplayErrorDiv" class="btn btn-primary" data-dismiss="modal"
-            (click)="saveMVPDistributionDATA()">Yes, Continue</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveMVPDistributionDATA()">Yes, Continue</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">No, Take Me Back</button>
         </div>
       </div>

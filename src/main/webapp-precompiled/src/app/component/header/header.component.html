@@ -22,7 +22,7 @@
             <label for="dc">Select Dealer Code:</label>
             <!-- <p-dropdown id="dc" class="dc" [options]="dealerCodeOptions" [(ngModel)]="selectedDealerCode" (onChange)="onChangeDC($event, selectedDealerCode)"
                 value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
-            <select id="dcOptions" name="dcOptions" style="width: 90px" [(ngModel)]="codeData.selectedDealerCode">
+            <select id="dcOptions" name="dcOptions" (change)="onDCChange()" style="width: 90px" [(ngModel)]="codeData.selectedDealerCode">
                 <option *ngFor="let data of dcDinstinct" [ngValue]="data">{{data}}</option>
             </select>
         </div>

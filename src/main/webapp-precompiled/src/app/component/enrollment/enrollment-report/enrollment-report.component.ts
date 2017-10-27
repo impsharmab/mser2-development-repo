@@ -278,7 +278,7 @@ export class EnrollmentReportComponent implements OnInit {
         this.msg = "Please enter Dealer Code to view the report";
         this.showDealerEnrollmentReportIframe = false;
       } else if (DEALERCODE != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE) <= -1) {
-        this.msg = "The Dealer Code you have entered does not belongs to any Business Center";
+        this.msg = "The information entered is invalid, Please change your search criteria and try again.";
         this.showDealerEnrollmentReportIframe = false;
       } else {
         this.showDealerEnrollmentReportIframe = true;
@@ -296,7 +296,7 @@ export class EnrollmentReportComponent implements OnInit {
         this.msg = "Please enter Dealer Code to view the report";
         this.showDealerEnrollmentReportIframe = false;
       } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
-        this.msg = "The Dealer Code you have entered does not belongs to any Business Center";
+        this.msg = "The information entered is invalid, Please change your search criteria and try again.";
         this.showDealerEnrollmentReportIframe = false;
       } else {
         this.showDealerEnrollmentReportIframe = true;
@@ -314,7 +314,7 @@ export class EnrollmentReportComponent implements OnInit {
         this.msg = "Please enter Dealer Code to view the report";
         this.showDealerEnrollmentReportIframe = false;
       } else if (DEALERCODE2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE2) <= -1) {
-        this.msg = "The Dealer Code you have entered does not belongs to any Business Center";
+        this.msg = "The information entered is invalid, Please change your search criteria and try again.";
         this.showDealerEnrollmentReportIframe = false;
       } else {
         this.showDealerEnrollmentReportIframe = true;

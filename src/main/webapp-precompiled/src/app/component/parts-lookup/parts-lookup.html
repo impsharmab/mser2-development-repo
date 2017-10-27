@@ -5,64 +5,124 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            Eligible Parts Lookup
+                            Eligible Parts / Plan Code Lookup
                         </h1>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <!-- Breadcrumb -->
-    <ol class="breadcrumb mb-0">
-        <!--<li class="breadcrumb-item">Home</li>-->
-        <!--<li class="breadcrumb-item"><a href="/mserHomepage/home">Home</a></li>
-        <li class="breadcrumb-item active">
-            Eligible Parts Lookup
-           
-        </li>-->
-    </ol>
-
     <div class="container m-t-md body-container">
         <!-- First row -->
 
         <div class="row m-t-md">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <!--<h1>Eligible Parts Lookup</h1>-->
+                <br>
+                <h3>Part / Plan Categories</h3>
 
-                <h3>Part Categories</h3>
-
-                <p>Enter a full or partial part number (at least 3 characters) to see if a part is eligible for rewards.
+                <p>Enter a full or partial part number / plan code (at least 3 characters) to see if a part/plan is eligible
+                    for rewards.
                 </p>
 
                 <div class="row">
 
                     <div class="form-group col-md-3">
-                        <label for="partNumber">Part Number:</label>
-                        <input type="text" class="form-control" id="partNumber" name="partNumber">
+                        <label for="partNumber">
+                            <strong>Part Number/Plan Code:</strong>
+                        </label>
+                        <input type="text" class="form-control" id="partNumber" [(ngModel)]="part" name="partNumber" (ngModelChange)="category=''">
                     </div>
                     <div class="form-group col-md-12">
-                        <input type="button" class="btn btn-primary" value="Verify Part">
+                        <input type="button" class="btn btn-primary" value="Verify Part" (click)="getPartsInfo(part)">
                     </div>
 
                 </div>
                 <div class="row">
+                    <p style="margin-left: 20px">Or select the part category/plan code for eligible rewards.</p>
+                </div>
+                <div class="row">
 
                     <div class="form-group col-md-6 ">
-                        <label for="partCategory">Part Category:</label>
-                        <select class="form-control" id="partCategory">
-                            <option>option1</option>
-                            <option>option2</option>
-                        </select>
+                        <label for="partCategory">
+                            <strong>Part Category/Plan Code:</strong>
+                        </label>
+
+                        <p-dropdown id="category" name="category" [options]="categoriesListOptions" [(ngModel)]="category" placeholder="Select a Category"
+                            optionField="name" filter='filter' (onChange)="getPartsByCategory(category)"></p-dropdown>
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <!-- <div class="form-group col-md-3">
                         <label for="bonusPartCategory">Bonus Part Category:</label>
                         <select class="form-control" id="bonusPartCategory">
                             <option>option</option>
                         </select>
-                    </div>
+                    </div> -->
 
+                </div>
+
+                <div clsss="content-row row" [hidden]="!hidePartCategoryTable">
+                    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                        <p-dataTable [value]="partsByCategory">
+                            <p-header>{{partCategoryTableHeader}}</p-header>
+                            <p-column styleClass="col-button" [style]="{'text-align':'center','width':'70px'}">
+                                <ng-template pTemplate="header">
+                                    Activity
+                                </ng-template>
+                                <ng-template pTemplate="body" let-data="rowData" let-ri="rowIndex">
+                                    <button type="button" (click)="getPartsInfo(data.partNumber)" style="cursor: pointer;">
+                                        Lookup
+                                    </button>
+                                </ng-template>
+                            </p-column>
+                            <p-column field="partNumber" header="Part Number" [style]="{'width':'100px','text-align':'left'}"></p-column>
+                            <p-column field="description" header="Description" [style]="{'width':'150px','text-align':'left'}"></p-column>
+                            <p-column field="manufacturer" header="Manufacturer" [style]="{'width':'100px','text-align':'left'}"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+
+                <div clsss="content-row row" [hidden]="!hidePartInfoTable">
+                    <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+                        <p-dataTable [value]="partInfoDatum">
+                            <p-headerColumnGroup>
+
+                                <p-row>
+                                    <p-column header="Part Number" rowspan="2"></p-column>
+                                    <p-column header="Category Code" rowspan="2"></p-column>
+                                    <p-column header="Category Name" rowspan="5"></p-column>
+                                    <p-column header="Elligible Periods" colspan="3"></p-column>
+                                </p-row>
+                                <p-row>
+                                    <p-column header="Start Date" colspan="1"></p-column>
+                                    <p-column header="End Date" colspan="1"></p-column>
+                                    <p-column header="Reward Amount" colspan="1"></p-column>
+                                </p-row>
+
+                            </p-headerColumnGroup>
+
+                            <p-column field="partNumber" [style]="{'width':'150px','text-align':'left'}"></p-column>
+
+                            <p-column field="incentiveSubCode" [style]="{'width':'150px','text-align':'left'}"></p-column>
+                            <p-column field="description" [style]="{'width':'250px','text-align':'left'}"></p-column>
+                            <p-column [style]="{'width':'100px','text-align':'left'}">
+                                <ng-template let-data="rowData" pTemplate="body">
+                                    {{data.startDate | date:"MM/dd/yyyy"}}
+                                </ng-template>
+                            </p-column>
+                            <p-column [style]="{'width':'100px','text-align':'left'}">
+                                <ng-template let-data="rowData" pTemplate="body">
+                                    {{data.endDate | date:"MM/dd/yyyy"}}
+                                </ng-template>
+                            </p-column>
+                            <p-column [style]="{'width':'100px','text-align':'left'}">
+                                <ng-template let-data="rowData" pTemplate="body">
+                                    {{data.rewardValue | currency:'USD':true:'1.2-2'}}
+                                </ng-template>
+                            </p-column>
+                        </p-dataTable>
+                    </div>
                 </div>
             </div>
         </div>

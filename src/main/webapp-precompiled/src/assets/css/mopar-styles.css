@@ -489,21 +489,46 @@ table#program-groups.table tbody tr td:last-child {
 /* End Report Center */
 
 
-/* Begin Miscellaneous */
-.modify-icon {
-  font-size: 20px;
-}
+/* Begin CMS*/
 mser-cms{
   background-color: rgb(255,255,255);
 }
 #main-content {
   background-color: rgb(255,255,255);
   color: rgb(0,0,0);
-  font: normal normal 12px/14px arial, helvetica, verdana, sans-serif;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  //font: normal normal 12px/14px arial, helvetica, verdana, sans-serif;
+}
+#main-content h1, #main-content h2, #main-content h3, #main-content h4, #main-content h5, #main-content h6{
+  color: #2f5496;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#main-content h1 {
+  font-size:2rem;
+  margin: 0;
+  padding: 1rem 0;
+}
+#main-content h2 {
+  font-size:1.66rem;
+  margin: 0;
+  padding: .86rem 0;
 }
 #main-content p {
   line-height: normal;
+  margin: 0;
+  padding: .66rem 0;
 }
+#main-content ul, #main-content ol {
+  margin: 0;
+  padding: .66rem 0 .66rem 1.66rem;
+}
+#main-content li {
+  margin: 0;
+  padding: 0  0 .33rem .66rem;
+}
+
 #main-content a:link,
 #main-content a:visited {
   color: rgb(2,69,179);
@@ -515,6 +540,13 @@ mser-cms{
 }
 #main-content h2, #main-content h3, #main-content strong, #main-content b {
   font-weight: bold;
+}
+/* End CMS */
+
+
+/* Begin Miscellaneous */
+.modify-icon {
+  font-size: 20px;
 }
 /* End Miscellaneous */
 

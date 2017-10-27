@@ -177,6 +177,8 @@ export class DealerRegisterComponent implements OnInit {
         setTimeout(() => {
           if (error !== undefined && error.length < 250) {
             this.msg = error;
+            if (this.msg.indexOf("info@moparser.com") != -1)
+              this.msg = this.msg.replace("info@moparser.com", "<a href='mailto:info@moparser.com'>info@moparser.com</a>");
           } else {
             this.msg = "Error in Submitting Dealer Code and SID.";
           }

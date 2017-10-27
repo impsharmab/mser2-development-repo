@@ -17,7 +17,12 @@ export class HomeComponent implements OnInit {
   public isAdmin: any = false;
   public isTIDUser: any = false;
 
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(private homeService: HomeService, private router: Router) {
+    if (navigator.userAgent.indexOf("rv:11") != -1 && !sessionStorage.appReloaded) {
+      sessionStorage.appReloaded = true;
+      location.reload();
+    }
+  }
 
   ngOnInit() {
     this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;

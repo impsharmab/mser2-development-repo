@@ -215,6 +215,9 @@ export class RewardsDistributionComponent implements OnInit {
         for (var i = 0; i < this.mvpDistributionDatum.length; i++) {
           this.mvpDistributionDatum[i].selectedSid = "";
           this.mvpDistributionDatum[i].approved = false;
+          if (this.partcipantItem2SID.indexOf(this.mvpDistributionDatum[i].sid) <= -1) {
+            this.mvpDistributionDatum[i].sid = "";
+          }
         }
         //  console.log(this.mvpDistributionDatum);
       },
@@ -237,6 +240,7 @@ export class RewardsDistributionComponent implements OnInit {
   public participantsList: any = [];
   public participantDataValue: any = [];
   public participantsOptions: SelectItem[] = [];
+  public partcipantItem2SID: any = [];
   public getParticipantsByDealer(program: string) {
     this.participantsOptions = [];
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -246,6 +250,7 @@ export class RewardsDistributionComponent implements OnInit {
       (participantsList) => {
         this.participantsList = (participantsList)
         for (var i = 0; i < this.participantsList.length; i++) {
+          this.partcipantItem2SID.push(this.participantsList[i].item2);
           constructParticipants.push(this.participantsList[i].item2 + " - " + this.participantsList[i].item1);
           this.participantsOptions.push({
             label: this.participantsList[i].item2 + " - " + this.participantsList[i].item1, value: this.participantsList[i].item2
@@ -255,6 +260,7 @@ export class RewardsDistributionComponent implements OnInit {
           this.participantDataValue.push({ name: "", value: 0, teamID: null });
         }
         // console.log(this.participantDataValue);
+        this.getMVPDistributionData();
       },
       (error) => {
       }
@@ -307,12 +313,31 @@ export class RewardsDistributionComponent implements OnInit {
     var mvpDistributionData = this.mvpDistributionDatum;
     var data: any = {};
     var count: any = 0;
+    var countApprovedAll: any = 0;
     for (var i = 0; i < mvpDistributionData.length; i++) {
       if (mvpDistributionData[i].sid.length > 0 && mvpDistributionData[i].approved == true) {
         mvpDistributionData[i].approveDate = this.date;
       } else if (mvpDistributionData[i].approved == false) {
         mvpDistributionData[i].approveDate = null;
         count++;
+      }
+    }
+
+    for (var j = 0; j < mvpDistributionData.length; j++) {
+      if (mvpDistributionData[j].approved == true) {
+        countApprovedAll++;
+      }
+    }
+    if (countApprovedAll == mvpDistributionData.length) {
+      var returnFlag = false;
+      for (var k = 0; k < mvpDistributionData.length; k++) {
+        if (mvpDistributionData[k].sid.length == 0) {
+          this.msg = "Please Select SID to Approve.";
+          returnFlag = true;
+        }
+      }
+      if (returnFlag) {
+        return;
       }
     }
 

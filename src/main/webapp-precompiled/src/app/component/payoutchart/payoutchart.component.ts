@@ -15,6 +15,7 @@ export class PayoutchartComponent implements OnInit {
     public payoutCMSObject: any;
     public iconPartsModalData: any = [];
     public tabNumber: any = "tab1";
+    public testData: any = 0;
     constructor(
         private payoutChartService: PayoutChartService,
         private sanitizer: DomSanitizer,
@@ -24,7 +25,7 @@ export class PayoutchartComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.openCMSPage("PayoutChartHome");
+        this.openCMSPage("PayoutChartMonthlyHighlights");
         // this.parentZOZOTab();
         // this.nestedZOZOTab();
         this.getPayoutChartData();
@@ -79,19 +80,21 @@ export class PayoutchartComponent implements OnInit {
         if (userMatrix.payoutchartHomeMatrix.indexOf(selectedPositionCode) > -1) {
             this.tabNumber = "tab1"
         } else if (userMatrix.payoutchartServiceAdvisorMatrix.indexOf(selectedPositionCode) > -1) {
-            this.tabNumber = "tab3";
+            this.tabNumber = "tab2";
         } else if (userMatrix.payoutchartServiceTechnicianMatrix.indexOf(selectedPositionCode) > -1) {
-            this.tabNumber = "tab4";
+            this.tabNumber = "tab3";
         } else if (userMatrix.payoutchartPartsCounterMatrix.indexOf(selectedPositionCode) > -1) {
-            this.tabNumber = "tab5";
+            this.tabNumber = "tab4";
         } else if (userMatrix.payoutchartUVMMatrix.indexOf(selectedPositionCode) > -1) {
-            this.tabNumber = "tab6";
+            this.tabNumber = "tab5";
         }
 
     }
     public iconPartsModalHeading: string = "";
     public showIconPartsModal(data, data2Name) {
-        debugger
+        this.chRef.detectChanges();
+        this.iconPartsModalData = [];
+        this.iconPartsModalHeading = "";
         if (data != undefined && data.parts.length > 0) {
             this.iconPartsModalData = data.parts;
         }
@@ -100,7 +103,6 @@ export class PayoutchartComponent implements OnInit {
         } else {
             this.iconPartsModalHeading = "Eligible Plan Codes.";
         }
-
     }
     public openCMSPage(pageName: string) {
         this.payoutChartService.getPayoutCMSPage(pageName).subscribe(
@@ -133,4 +135,11 @@ export class PayoutchartComponent implements OnInit {
         )
     }
 
+    public thisMonth: string = "";
+    public addMonthOnPrint() {
+        // this.chRef.detectChanges();
+        this.thisMonth = "Hello Testing";
+        this.chRef.detectChanges();
+        window.print();
+    }
 }

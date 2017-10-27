@@ -44,11 +44,11 @@
                                         <br> {{errorMessage}}</p>
                                     <br>
                                     <label>SID/TID: *</label>
-                                    <input type="text" name="username" id="username" [(ngModel)]="user.username" #username="ngModel" required minlength="7" maxlength="7"
+                                    <input type="text" name="username" id="username" [(ngModel)]="user.uname" minlength="7" maxlength="7"
                                     />
                                     <br />
                                     <label>Password: *</label>
-                                    <input type="password" name="password" id="password" [(ngModel)]="user.password" #password="ngModel" />
+                                    <input type="password" name="password" id="password" [(ngModel)]="user.pword"  />
 
                                     <button style="cursor: pointer" type="submit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#updateProgramsModal">Enter</button>
 

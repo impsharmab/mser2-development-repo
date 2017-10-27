@@ -33,19 +33,33 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   public showRewardDistributionMainTab: boolean = false;
   public roleSession: any = "";
   public hideThisReportForParticipant: boolean = false;
+  public halfAdmin: boolean = false;
 
   constructor(private cmsService: CMSService) { }
 
+  public isDealerManager: boolean = false;
+  public isPartsManagerOfRecords: boolean = false;
+  public isServiceManagerOfRecords: boolean = false;
+  public role: any = "";
   ngOnInit() {
     var mserEnrolled: any = [];
     var mserEnrolled = JSON.parse(sessionStorage.getItem("CurrentUser")).mserEnrollment;
+    this.halfAdmin = JSON.parse(sessionStorage.getItem("CurrentUser")).halfAdmin;
+    var selectedCodeData = JSON.parse(sessionStorage.getItem("selectedCodeData"));
     this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
     this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
     this.roleSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+    this.isDealerManager = selectedCodeData.isDealerManager;
+    this.isPartsManagerOfRecords = selectedCodeData.isPartsManagerOfRecord;
+    this.isServiceManagerOfRecords = selectedCodeData.isServiceManagerOfRecord;
+    this.role = selectedCodeData.role;
+
 
     if (this.roleSession != undefined && (this.roleSession == 6 || this.roleSession == 9)) {
       this.hideThisReportForParticipant = true;
     }
+
+
     if (mserEnrolled) {
       this.isMSEREnrolled = true;
     } else {
@@ -58,12 +72,13 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     //  console.log(this.selectedPositionCode);
     this.rewardDistributionMatrix();
     this.caBCMABCReport();
+    this.showUconnectSMIncentiveProgramRules();
   }
 
   ngAfterViewInit() {
     this.executeJQueryCode();
   }
-  public mSEREnrollmentPageMatrix() : void {
+  public mSEREnrollmentPageMatrix(): void {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
@@ -83,7 +98,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else {
       this.showMSEROPCodeSetup = false;
     }
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true
+      || (userMatrix.enrollmentMaintenanceMatrix(this.selectedPositionCode) > -1)) {
       this.showMSEREnrollmentMaintenance = true;
     } else {
       this.showMSEREnrollmentMaintenance = false;
@@ -97,10 +113,17 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   public mvpPageMatrix() {
-    if (userMatrix.mvpChangeApprovalSettings.indexOf(this.selectedPositionCode) > -1) {
-      this.showMVPChangeApprovalSettings = true;
-    } else {
-      this.showMVPChangeApprovalSettings = false;
+    // if (userMatrix.mvpChangeApprovalSettings.indexOf(this.selectedPositionCode) > -1) {
+    //   this.showMVPChangeApprovalSettings = true;
+    // } else {
+    //   this.showMVPChangeApprovalSettings = false;
+    // }
+
+  }
+  public showUconnectSMIncentiveProgramRulesPage: boolean = false;
+  public showUconnectSMIncentiveProgramRules() {
+    if (this.isDealerManager || this.isServiceManagerOfRecords || (this.role == 1) || (this.role == 11) || (this.role == 12)) {
+      this.showUconnectSMIncentiveProgramRulesPage = true;
     }
   }
 
@@ -135,7 +158,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
 
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true ||
+      userMatrix.rewardsDistributionMainMatrix.indexOf(this.selectedPositionCode) > -1) {
       this.showRewardDistributionMainTab = true;
       this.showRewardDistribution = true;
     } else {

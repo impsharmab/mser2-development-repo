@@ -323,7 +323,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public positionCodeCancel() {
     this.dealercodeModal.close();
   }
-  public positionCodeSubmit(c: any) {
+  public positionCodeSubmit(c: any) { 
     c();
     this.profileChange.emit("")
   }

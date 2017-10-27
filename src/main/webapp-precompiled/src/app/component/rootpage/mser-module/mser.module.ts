@@ -59,6 +59,7 @@ import { WiAdvisorTireReportComponent } from '../../reports/wiAdvisor/wiAdvisor-
 import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-distribution/pc-distribution-report.component';
 import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAdvisor-management/wiAdvisor-management-report.component';
 import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
+import { MVPAutoApproveComponent } from '../../mvp/mvp-autoapprove/mvp-autoapprove.component';
 // import { PhonePipe } from '../../number-formatting/phone-pipe';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
@@ -72,6 +73,8 @@ import { HomeService } from '../../../services/home-service/home-service';
 import { ReportService } from '../../../services/report/report-service';
 import { PayoutChartService } from '../../../services/payout-chart/payout-chart.service';
 import { AdminPayoutService } from '../../../services/admin-payout/admin-payout-service';
+import { MVPAutoApprovalSettingService } from '../../../services/mvp-service/mvp-autoapprove/mvp-autoapprove.service';
+import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.service';
 
 // import { RecallRewardsRulesComponent } from '../../../component/marketing/recall-rewards-rules/recall-rewards-rules.component'
 // import { MarketingProgramComponent } from '../../../component/marketing/marketing-program/marketing-program.component';
@@ -98,6 +101,7 @@ import { AdminPayoutService } from '../../../services/admin-payout/admin-payout-
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
     ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
     WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent, PCInvoiceReportComponent,
+    MVPAutoApproveComponent
     //MarketingHomeComponent, RecallRewardsRulesComponent, MarketingProgramComponent
     // PhonePipe
 
@@ -105,7 +109,7 @@ import { AdminPayoutService } from '../../../services/admin-payout/admin-payout-
   providers: [
     OpcodeSetupService, EnrollmentMaintenanceService, DealerTeamService, RewardsDistributionService,
     RewardsReDistributionService, JasperService, CookieService, AdminService, HomeService, ReportService,
-    PayoutChartService, AdminPayoutService
+    PayoutChartService, AdminPayoutService, MVPAutoApprovalSettingService, PartsLookupService
   ]
 })
 export class MserModule { }

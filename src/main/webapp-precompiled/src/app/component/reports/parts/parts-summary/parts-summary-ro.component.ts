@@ -78,6 +78,7 @@ export class PartsSummaryROReportComponent implements OnInit {
 
         if (this.isAdmin) {
             this.isExecutiveUser = true;
+            this.getDealerCodesBelongsToBCAndDIST("NAT");
         }
 
         this.checkRoles();
@@ -127,10 +128,15 @@ export class PartsSummaryROReportComponent implements OnInit {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {
             this.isExecutiveUser = true;
+            this.getDealerCodesBelongsToBCAndDIST("NAT");
         } else if (role == 12) {
+            var BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.isBCUser = true;
+            this.getDealerCodesBelongsToBCAndDIST(BC);
         } else if (role == 11) {
+            var DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.isDistrictUser = true;
+            this.getDealerCodesBelongsToBCAndDIST(DIST);
         } else if (role == 5) {
             this.isManagerUser = true;
         } else if (role == 10) {
@@ -189,18 +195,14 @@ export class PartsSummaryROReportComponent implements OnInit {
             return;
         }
         if (this.isExecutiveUser) {
-            this.getDealerCodesBelongsToBCAndDIST("NAT");
+            // this.getDealerCodesBelongsToBCAndDIST("NAT");
 
             var DEALERCODE = this.partsSummaryROInterface.dealerCode;
 
             if (DEALERCODE == "") {
                 this.msg = "Please enter the dealer code to view the report"
             }
-            // if (DEALERCODE != "" && this.dealerCodesBelongsToThisBCOrDist.length == 0) {
-            //     setTimeout(() => {
-            //         this.showPartsSummaryROReportIframe = false;
-            //     }, 500);
-            // }
+
             if (DEALERCODE != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
                 this.msg = "Sorry, the dealer code you have entered does not belongs to any Business Center";
@@ -212,11 +214,10 @@ export class PartsSummaryROReportComponent implements OnInit {
         }
 
         if (this.isBCUser) {
-            var BUSINESSCENTER = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.getDealerCodesBelongsToBCAndDIST(BUSINESSCENTER);
+            // var BUSINESSCENTER = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // this.getDealerCodesBelongsToBCAndDIST(BUSINESSCENTER);
 
             var DEALERCODE1 = this.partsSummaryROInterface.dealerCode;
-
             if (DEALERCODE1 == "") {
                 this.msg = "Please enter the dealer code to view the report"
             } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.length == 0) {
@@ -233,8 +234,8 @@ export class PartsSummaryROReportComponent implements OnInit {
             var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${FromDate}&ToDate=${ToDate}&DealerCode=${DEALERCODE1}${ProgramGroup}`;
         }
         if (this.isDistrictUser) {
-            var DISTRICT = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.getDealerCodesBelongsToBCAndDIST(DISTRICT);
+            // var DISTRICT = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // this.getDealerCodesBelongsToBCAndDIST(DISTRICT);
 
             var DEALERCODE12 = this.partsSummaryROInterface.dealerCode;
 

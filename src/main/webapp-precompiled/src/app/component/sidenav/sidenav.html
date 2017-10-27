@@ -90,7 +90,7 @@
           -->
           </ul>
         </li>
-        <li *ngIf="isAdmin" class="nav-item nav-dropdown dopdown-parent">
+        <li *ngIf="isAdmin || halfAdmin" class="nav-item nav-dropdown dopdown-parent">
           <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Admin</a>
           <ul class="nav-dropdown-items">
             <!-- <li class="nav-item nav-dropdown">
@@ -197,8 +197,8 @@
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a>
             </li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneMaintenance', 'pdf':'false'}]">Approve MVP Plans</a></li>-->
-            <li *ngIf="showMVPChangeApprovalSettings || isAdmin" class="nav-item">
-              <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'mvpAutoApprove', 'pdf':'false'}]">Change Approval Settings</a>
+            <li *ngIf="isServiceManagerOfRecords" class="nav-item">
+              <a class="nav-link" routerLink="mvpautoapprove">Change Approval Settings</a> 
             </li>
             <li class="nav-item">
               <a class="nav-link" routerLink="mvp">Video &amp; Presentations </a>
@@ -225,7 +225,7 @@
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'partsCounterRules', 'pdf':'false'}]">Rules</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Set up</a>
+              <a class="nav-link" href="/shared/imi-cms/MSER/webDocs/Parts-Counter-StepxStep.pdf" target="_blank">Parts Counter Setup</a>
             </li>
 
           </ul>
@@ -235,7 +235,7 @@
           <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'consumerRebates', 'pdf':'false'}]">Consumer Rebates</a>
         </li>
         <li class="nav-item nav-dropdown dopdown-parent">
-          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">UConnect</a>
+          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Uconnect</a>
           <ul class="nav-dropdown-items dopdown-child">
             <li class="nav-item">
               <a class="nav-link child-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectHomePage', 'pdf':'false'}]">Home</a>
@@ -244,7 +244,7 @@
               <a class="nav-link nav-dropdown-toggle child-link only-child" href="#">Program Rules</a>
               <ul>
                 <li class="nav-item">
-                  <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">SM Winter Program</a>
+                  <a *ngIf="showUconnectSMIncentiveProgramRulesPage || isAdmin" class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSMIncentive', 'pdf':'false'}]">SM Winter Program</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'uconnectSalesRules', 'pdf':'false'}]">Navigate to Higher Profits</a>
@@ -256,11 +256,11 @@
               <a class="nav-link child-link" routerLink="uconnectvideos">Video &amp; Presentations</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link child-link" href="/shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process</a>
+              <a class="nav-link child-link" href="/shared/imi-cms/MSER/webDocs/UconnectNavigationGuide.pdf" target="_blank">Uconnect Navigation Activation Process Guide</a>
             </li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Sirius XM Activation > Rule</a></li>-->
             <li class="nav-item nav-dropdown dopdown-grandchild">
-              <a class="nav-link  nav-dropdown-toggle child-link only-child">Sirius XM Activation</a>
+              <a class="nav-link  nav-dropdown-toggle child-link only-child">SiriusXM Activation</a>
               <ul>
                 <li class="nav-item">
                   <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Rules</a>

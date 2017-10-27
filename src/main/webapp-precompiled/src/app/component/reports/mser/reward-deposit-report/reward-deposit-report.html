@@ -143,7 +143,7 @@
                         <div class="form-group col-sm-2">
                             <label for="dc-4">Dealer Code:</label>
                             <input [disabled]="disableDealerCodeInput" placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode"
-                                minlength="5" maxlength="5" (ngModelChange)="dealerCodeNotBelongsToThisBCOrDist=''" />
+                                minlength="5" maxlength="5" (ngModelChange)="dealerCodeNotBelongsToThisBCOrDist=''; msg=''" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-4">From:</label>
@@ -172,7 +172,10 @@
 
                 <!-- Report Include -->
                 <div *ngIf="dealerCodeNotBelongsToThisBCOrDist.length>0">
-                    <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p> 
+                    <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p>
+                </div>
+                <div *ngIf="msg.length>0">
+                    <p style="color:red">{{msg}}</p>
                 </div>
                 <div *ngIf="showDealerRewardDepositReportIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
@@ -191,7 +194,7 @@
                         <div class="form-group col-sm-2">
                             <label for="dc-5">Sid:</label>
                             <input [disabled]="disableSIDInput" placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid"
-                                minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBC=''" />
+                                minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBC=''; msg=''" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-5">From:</label>
@@ -217,6 +220,9 @@
 
                     <div *ngIf="sidNotBelongsToThisBC.length>0">
                         <p style="color: red">{{sidNotBelongsToThisBC}}</p>
+                    </div>
+                    <div *ngIf="msg.length>0">
+                        <p style="color:red">{{msg}}</p>
                     </div>
                     <!-- Report Include -->
                     <div class="row" *ngIf="showParticipantRewardDepositReportIframe">

@@ -10,7 +10,7 @@
 
 <p-dialog header="" [(visible)]="displayConfirmationModal" modal="modal" width="600" height="200" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
     <div class="form-group row ">
-        <div id="displayError">
+        <div>
             <p style="margin-left: 15px; margin-right: 15px;"> {{successmsg}}</p>
         </div>
     </div>
@@ -60,7 +60,7 @@
                                                 </span> and allow my dealership personnel to participate in these rewards programs.
                                             </p>
                                             <div smoothScroll offset="0" id="displayError">
-                                                <p style="color: red">{{msg}}</p>
+                                                <p style="color: red" [innerHtml]="msg"></p>
                                             </div>
 
                                             <!-- Dealer Code, SID -->

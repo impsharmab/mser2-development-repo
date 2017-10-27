@@ -36,7 +36,8 @@ export class AdminPayoutComponent implements OnInit {
     public selectedIncentives: string[] = [];
     public programCategories: any = [];
     public selectedProgramCategories: any[] = [];
-    public payoutMonth: string = "JUL";
+    public payoutMonth: string;
+    public payoutCopyMonth: string;
     public selectedIncentiveSubCodes: string[] = [];
     public newCategory: any = {};
     public selectedOpenIncentives: string[] = [];
@@ -50,6 +51,11 @@ export class AdminPayoutComponent implements OnInit {
     selectedRewardForOverride: any;
     selectedRewardPosForOverride: any;
     selectedOverrideForOverride: any;
+    public tabContentLoaded: boolean = false;
+    public payoutMonths: SelectItem[];
+    public payoutCopyMonths: SelectItem[];
+    private postData: any;
+    public programsDd: SelectItem[] = [];
 
 
     calendarOptions = {
@@ -67,6 +73,32 @@ export class AdminPayoutComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.payoutMonths = [
+            {
+                label: 'NOV-2017',
+                value: 'NOV'
+            },
+            {
+                label: 'DEC-2017',
+                value: 'DEC'
+            }
+        ];
+
+        this.payoutCopyMonths = [
+            {
+                label: 'SEP-2017',
+                value: 'SEP'
+            },
+            {
+                label: 'OCT-2017',
+                value: 'OCT'
+            }
+        ];
+
+        this.postData = {
+            incentiveSubCodes: [],
+            incentiveRewards: []
+        }
     }
 
     private onUpload(event) {
@@ -203,81 +235,116 @@ export class AdminPayoutComponent implements OnInit {
     }
 
     getPrograms() {
-        this.startDate = moment().month(this.payoutMonth).date(1).format('MMM D YYYY');
-        this.endDate = moment().month(this.payoutMonth).endOf('month').format('MMM D YYYY');
-        console.log("Incentive month selected:" + this.payoutMonth);
+        this.tabContentLoaded = false;
+        this.startDate = moment().month(this.payoutMonth).date(1).format('MMM D, YYYY');
+        this.endDate = moment().month(this.payoutMonth).endOf('month').format('MMM D, YYYY');
         this.adminPayoutService.getProgramsByMonth(this.payoutMonth).subscribe(
             (programs) => {
                 this.programs = (programs);
-                this.programs.forEach(program => {
-                    if (program.selected) {
-                        this.selectedIncentives.push(program.incentiveId.toString());
-                    }
-                });
+                if (this.payoutCopyMonth) {
+                    this.programs.forEach(program => {
+                        if (program.selected) {
+                            this.selectedIncentives.push(program.incentiveId.toString());
+                        }
+                    });
+                }
+                this.tabContentLoaded = true;
+                if (this.programs.length > 0)
+                    this.programsDd = this.converToDd(this.programs, "programGroup");
             });
     }
 
     getCategories() {
+        this.tabContentLoaded = false;
         var $this = this;
-        if (this.selectedOpenIncentives.length > 0) {
-            this.selectedOpenIncentives.forEach(function (openIncentive) {
+        // remove any open incentives selected from Step-2 from the selected incentives list
+        // as their categories need to be called separately
+        if (this.payoutCopyMonth && this.selectedOpenIncentives.length > 0) {
+            this.selectedOpenIncentives.forEach(openIncentive => {
                 $this.selectedIncentives.splice($this.selectedIncentives.indexOf(openIncentive), 1);
             });
         }
-        console.log("selected incentives are:" + this.selectedIncentives);
-        console.log("selected incentives are:" + this.selectedOpenIncentives);
-        this.adminPayoutService.getCategoriesByIncentive(this.selectedIncentives, this.payoutMonth).subscribe(
-            (programCategories) => {
-                this.programCategories = (programCategories);
-                if (this.programCategories.length > 0) {
-                    if (this.selectedOpenIncentives.length > 0) {
-                        this.adminPayoutService.getCategoriesByIncentive(this.selectedOpenIncentives, "NOMONTH").subscribe(
-                            (openProgramCategories) => {
-                                if (openProgramCategories.length > 0)
-                                    $.merge(this.programCategories, openProgramCategories);
-                                //Array.prototype.push.apply(this.programCategories, openProgramCategories);
-                            });
+        if (this.payoutCopyMonth) {
+            // get the categories for selected incetives(both regular and open) one by one
+            this.adminPayoutService.getCategoriesByIncentive(this.selectedIncentives, this.payoutMonth).subscribe(
+                (programCategories) => {
+                    this.programCategories = (programCategories);
+                    if (this.programCategories.length > 0) {
+                        if (this.selectedOpenIncentives.length > 0) {
+                            this.adminPayoutService.getCategoriesByIncentive(this.selectedOpenIncentives, "NOMONTH").subscribe(
+                                (openProgramCategories) => {
+                                    if (openProgramCategories.length > 0)
+                                        $.merge(this.programCategories, openProgramCategories);
+                                });
+                        }
+                        this.tabContentLoaded = true;
+                        this.fixTabDisplayIE11();
                     }
+                });
+        }
+        else {
+            // get categories for a barnd new payout for selected programs.
+            this.adminPayoutService.getCategoriesByIncentive(this.selectedIncentives, "NOMONTH").subscribe(
+                (programCategories) => {
+                    this.programCategories = programCategories;
+                    this.tabContentLoaded = true;
                     this.fixTabDisplayIE11();
-                }
-            });
+                });
+        }
     }
 
     addNewCategory() {
-        var myArr = this.newCategory.programGroup.split(":");
-        this.newCategory.programGroup = myArr[0];
-        this.newCategory.incentiveId = myArr[1];
-        console.log(this.newCategory);
         var categoryAddedWithinSelections = false;
         this.programCategories.forEach(programCategory => {
-            if (programCategory.programGroup == this.newCategory.programGroup) {
-                programCategory.categories.push(this.newCategory);
+            if (programCategory.programGroup == this.newCategory.program.programGroup) {
+                programCategory.categories.push(this.buildCategoryObj(this.newCategory));
                 categoryAddedWithinSelections = true;
             }
         });
+        // if the user added a category within a program not displayed on Step-3 Programs,
+        // add the selected programs and the entered category under the new programs
+        // and add them to the main list of programCategories
         if (!categoryAddedWithinSelections) {
             this.programCategories.push({
-                programGroup: this.newCategory.programGroup,
-                categories: [this.newCategory]
+                programGroup: this.newCategory.program.programGroup,
+                categories: [this.buildCategoryObj(this.newCategory)]
             })
         }
     }
 
+    private buildCategoryObj(newCategory) {
+        return {
+            incentiveSubCodeId: 0,
+            programGroupId: this.newCategory.program.programGroupId,
+            programGroup: this.newCategory.program.programGroup,
+            incentiveId: this.newCategory.program.incentiveId,
+            incentiveSubCode: this.newCategory.incentiveSubCode,
+            description: this.newCategory.description,
+            notes: this.newCategory.notes
+        };
+    }
+
     getRewards() {
+        this.tabContentLoaded = false;
         var $this = this;
         this.selectedProgramCategories = [];
-        console.log("selected categories are:" + $this.selectedIncentiveSubCodes.length);
+        // selectedIncentiveSubCodes refers to the list of category IDs selected on Step-3
+        // match the list against the programCategories  list from Step-3
+        // and build a list of selected program categories
         if ($this.selectedIncentiveSubCodes.length > 0) {
             $this.selectedIncentiveSubCodes.forEach(function (selectedIncentiveSubCode) {
                 $this.programCategories.forEach(programCategory => {
                     programCategory.categories.forEach(element => {
-                        if (element.incentiveSubCodeId == selectedIncentiveSubCode) {
+                        if (element.incentiveSubCode == selectedIncentiveSubCode) {
                             $this.selectedProgramCategories.push(element);
                         }
                     });
                 });
             })
         }
+        // For Step-4 we need a list of eligible positions per category per program 
+        // and positions are tied to a program so build a list of selected programs per category 
+        // and send it to the server to get a list of positions per program. Build rewards list per program thereafter
         if (this.selectedProgramCategories.length > 0) {
             var selectedProgramGroupIds: string[] = [];
             this.selectedProgramCategories.forEach(function (element) {
@@ -296,10 +363,7 @@ export class AdminPayoutComponent implements OnInit {
                                     var positionDd = this.converToDd(this.getPositionsByProgramLocal(element.programGroupId), 'description');
                                     this.rewards.push({
                                         positionDd: positionDd,
-                                        programGroupId: element.programGroupId,
-                                        programGroup: element.programGroup,
-                                        incentiveSubCodeId: element.incentiveSubCodeId,
-                                        incentiveSubCode: element.incentiveSubCode,
+                                        programCategory: element,
                                         rewardPositions: [{
                                             position: {},
                                             rewardAmount: "",
@@ -312,6 +376,7 @@ export class AdminPayoutComponent implements OnInit {
                                         quantity: {}
                                     });
                                 });
+                                this.tabContentLoaded = true;
                                 this.fixTabDisplayIE11();
                             });
                         });
@@ -340,7 +405,66 @@ export class AdminPayoutComponent implements OnInit {
     }
 
     gotoSummary() {
-        console.log(this.rewards);
+        this.postData.incentiveSubCodes = [];
+        this.postData.incentiveRewards = [];
+        this.rewards.forEach(reward => {
+            this.postData.incentiveSubCodes.push({
+                incentiveId: reward.programCategory.incentiveId,
+                incentiveSubCode: reward.programCategory.incentiveSubCode,
+                description: reward.programCategory.description,
+                quantityId: reward.quantity.quantityID,
+                notes: reward.programCategory.notes
+            })
+            reward.rewardPositions.forEach(rewardPos => {
+                if (reward.laborTypes.length == 1) {
+                    this.buildPostDataIncentiveRewards(reward, rewardPos, reward.laborTypes[0])
+                }
+                else {
+                    reward.laborTypes.forEach(laborType => {
+                        this.buildPostDataIncentiveRewards(reward, rewardPos, laborType);
+                    });
+                }
+            });
+        });
+        console.log(this.postData);
+    }
+
+    private buildPostDataIncentiveRewards(reward, rewardPos, laborType) {
+        if (!rewardPos.overrides) {
+            this.postData.incentiveRewards.push({
+                incentiveId: reward.programCategory.incentiveId,
+                positionCode: rewardPos.position.positionCode,
+                rewardTypeID: rewardPos.rewardType.rewardTypeID,
+                rewardValue: rewardPos.rewardAmount,
+                overridePercentage: '0',
+                laborType: laborType,
+                isOverrideReward: 'N'
+            })
+        }
+        else if (rewardPos.overrides.length == 1) {
+            this.postData.incentiveRewards.push({
+                incentiveId: reward.programCategory.incentiveId,
+                positionCode: rewardPos.position.positionCode,
+                rewardTypeID: rewardPos.rewardType.rewardTypeID,
+                rewardValue: rewardPos.rewardType.rewardTypeID == '1' ? rewardPos.rewardAmount : '0',
+                overridePercentage: rewardPos.rewardType.rewardTypeID == '2' ? rewardPos.rewardAmount : '0',
+                laborType: laborType,
+                isOverrideReward: rewardPos.overrides.length > 0 ? 'Y' : 'N'
+            });
+        }
+        else {
+            rewardPos.overrides.forEach(override => {
+                this.postData.incentiveRewards.push({
+                    incentiveId: reward.programCategory.incentiveId,
+                    positionCode: rewardPos.position.positionCode,
+                    rewardTypeID: override.overrideType.rewardTypeID,
+                    rewardValue: override.overrideType.rewardTypeID == '1' ? override.overrideAmt : '0',
+                    overridePercentage: override.overrideType.rewardTypeID == '2' ? override.overrideAmt : '0',
+                    laborType: laborType,
+                    isOverrideReward: rewardPos.overrides.length > 0 ? 'Y' : 'N'
+                })
+            });
+        }
     }
 
     converToDd(list: any[], labelField: string) {
@@ -411,8 +535,14 @@ export class AdminPayoutComponent implements OnInit {
                     rewardPosition.overrides = [];
                 var overrideObj = this.buildOverrideObj(this.overrideModalReward);
                 rewardPosition.overrides.push(overrideObj);
-                /* rewardPosition.rewardType = overrideObj.overrideType;
-                rewardPosition.rewardAmount = overrideObj.overrideAmt; */
+                if (rewardPosition.overrides.length == 1) {
+                    rewardPosition.rewardType = overrideObj.overrideType;
+                    rewardPosition.rewardAmount = overrideObj.overrideAmt;
+                }
+                else {
+                    rewardPosition.rewardType = {};
+                    rewardPosition.rewardAmount = "";
+                }
             }
         }
         $.extend(this.selectedRewardForOverride.rewardPositions, this.overrideModalReward.rewardPositions);

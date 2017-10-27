@@ -11,10 +11,10 @@ export const payoutchartHomeMatrix = [
     "IDS", "IJM", "IBC", "DLR", "IDM", "IDM", "IAD"
 ]
 export const payoutchartServiceAdvisorMatrix = [
-    "13", "ES",
+    "13", "ES"
 ]
 export const payoutchartServiceTechnicianMatrix = [
-    "20", "23", "24", "79", "ET",
+    "20", "23", "24", "79", "ET"
 ]
 export const payoutchartPartsCounterMatrix = [
     "08", "14", "19", "32", "40"
@@ -22,6 +22,7 @@ export const payoutchartPartsCounterMatrix = [
 export const payoutchartUVMMatrix = [
     "07", "34"
 ]
+
 // Enrollment tab
 
 export const mserRulesPageMatrix = [
@@ -59,6 +60,8 @@ export const autoEnrollmentOptMatrix: any = [
 
 // MVP Tab
 export const mvpChangeApprovalSettings: any = ["09"];
+
+export const smWinterMatrix: any = ["01"];
 
 // Express Lane
 
@@ -142,3 +145,9 @@ export const inallegibleROReport: any = [
 export const enrollmentReport: any = [
     "NAT", "BC", "DOM", "DST", "IAD"
 ];
+
+//Rewards Distribution
+
+export const rewardsDistributionMainMatrix:any=[
+    "01", "02", "08", "09", "32", "33", "35", "37", "40"
+]

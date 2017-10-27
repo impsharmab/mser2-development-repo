@@ -36,7 +36,7 @@ export class EnrollmentMaintenanceService {
       .catch(this.handleError);
   }
   getPositionCodes() {
-    var url = serviceUrl.baseUrl + 'General/PositionCodeList';
+    var url = serviceUrl.baseUrl + 'General/PositionCodeListForEnrollments';
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
