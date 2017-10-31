@@ -21,6 +21,7 @@ export class RewardsDistributionComponent implements OnInit {
   public date: string = "";
   public approveAllMVP: boolean = false;
   public distributedAmount: any = 0;
+  public elDistributedAmount: any = 0;
   public hideelParticipantTable: boolean = false;
   public hidepcParticipantTable: boolean = false;
   public hideurParticipantTable: boolean = false;
@@ -128,7 +129,7 @@ export class RewardsDistributionComponent implements OnInit {
 
     this.displayError = false;
     this.msg = "";
-    this.distributedAmount = 0;
+    this.elDistributedAmount = 0;
     this.hideMVPSection = false;
     this.hideELSection = true;
     this.hideURSection = false;
@@ -176,6 +177,7 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "Parts Counter";
     }
   }
+
   public urOpenAllocationTable() {
     if (this.rewardsAmount.ur != undefined && this.rewardsAmount.ur <= 0) {
       this.hideurParticipantTable = true;
@@ -332,7 +334,7 @@ export class RewardsDistributionComponent implements OnInit {
       var returnFlag = false;
       for (var k = 0; k < mvpDistributionData.length; k++) {
         if (mvpDistributionData[k].sid.length == 0) {
-          this.msg = "Please Select SID to Approve.";
+          this.msg = "Please select SID to approve.";
           returnFlag = true;
         }
       }
@@ -517,7 +519,7 @@ export class RewardsDistributionComponent implements OnInit {
     uniqueTeamID = this.removeDuplicates(uniqueTeamID);
 
     for (var j = 0; j < uniqueTeamID.length; j++) {
-      groupByTeamIDData.push({ teamName: "", teamId: "", amount: 0 })
+      groupByTeamIDData.push({ teamName: "", teamId: "", amount: 0, elDistributedAmount: 0 })
       for (var k = 0; k < this.eldistributionData.length; k++) {
         if (this.eldistributionData[k].teamName == "") {
           this.eldistributionData[k].teamName = "-";
@@ -694,6 +696,23 @@ export class RewardsDistributionComponent implements OnInit {
     }
     this.distributedAmount = this.totalRewardedAmount;
   }
+
+  public totalELRewardedAmount: any = 0;
+  public elRewardedAmount(amount, teamID) {
+    this.totalELRewardedAmount = 0;
+    for (var i = 0; i < this.elParticipantDataValue.length; i++) {
+      for (var j = 0; j < this.groupedELdistributionData.length; j++) {
+        if (this.elParticipantDataValue[i].teamID == this.groupedELdistributionData[j].teamID) {
+          this.totalELRewardedAmount = this.totalELRewardedAmount + this.elParticipantDataValue[i].value
+          this.groupedELdistributionData[j].elDistributedAmount = this.totalELRewardedAmount;
+        }
+      }
+
+    }
+    // this.elDistributedAmount = this.totalELRewardedAmount;
+  }
+
+
 
   public mvpCancellation() {
     this.msg = "";

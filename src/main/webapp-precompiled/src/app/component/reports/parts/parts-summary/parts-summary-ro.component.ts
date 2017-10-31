@@ -27,16 +27,17 @@ export class PartsSummaryROReportComponent implements OnInit {
         "dealerCode": ""
     }
     public partsSummaryROProgramOptions: SelectItem[] = [
-        { label: "Mopar Parts & Engines", value: "4" },
-        { label: "Magneti Marelli", value: "2" },
-        { label: "Express Lane", value: "1" },
-        { label: "Mopar Upfits", value: "3" }
+        // { label: "Mopar Parts & Engines", value: "4" },
+        // { label: "Magneti Marelli", value: "2" },
+        // { label: "Express Lane", value: "1" },
+        // { label: "Mopar Upfits", value: "3" }
     ]
+
 
     public minDate: Date;
     public maxDate: Date;
 
-    public selectedProgramList: any = ["4", "2", "1", "3"];
+    public selectedProgramList: any = [];
     public isAdmin: boolean = false;
     public isExecutiveUser: boolean = false;
     public isBCUser: boolean = false;
@@ -51,6 +52,7 @@ export class PartsSummaryROReportComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.getReportPrograms();
         var d = new Date;
         var today = new Date();
         var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -123,7 +125,29 @@ export class PartsSummaryROReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
+    public repairOrdersReportPrograms: any = [];
+    public getReportPrograms() {
+        this.reportService.getReportPrograms("RepairOrdersReportPrograms").subscribe(
+            (repairOrdersReportPrograms) => {
+                this.repairOrdersReportPrograms = (repairOrdersReportPrograms)
+                this.createPartsSummaryROProgramOptions();
+            },
+            (error) => {
+            }
+        )
+    }
 
+    public createPartsSummaryROProgramOptions() {
+        var partsSummaryROProgramOptions: SelectItem[] = [];
+        for (var i = 0; i < this.repairOrdersReportPrograms.length; i++) {
+            partsSummaryROProgramOptions.push({ label: this.repairOrdersReportPrograms[i].name, value: this.repairOrdersReportPrograms[i].value })
+        }
+        this.partsSummaryROProgramOptions = partsSummaryROProgramOptions;
+        for (var i = 0; i < this.partsSummaryROProgramOptions.length; i++) {
+            this.selectedProgramList.push(this.partsSummaryROProgramOptions[i].value);
+        }
+       
+    }
     public checkRoles() {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (role == 1) {

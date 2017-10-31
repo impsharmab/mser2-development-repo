@@ -49,8 +49,15 @@
                                                 <a href="/shared/imi-cms/MSER/docs/MSER%20Enrollment%20Form%20-%20FIAT.pdf" class="btn btn-primary resetLink" target="_blank">Open as PDF</a>
                                             </h2>
                                         </legend>
-                                        <div smoothScroll offset="0" id="displayError">
+                                        <!-- <div smoothScroll offset="0" id="displayError">
                                             <p style="color: red">{{msg}}</p>
+                                        </div> -->
+                                        <div *ngIf="postDealerCodeSubmitAlert" [hidden]="!postDealerCodeSubmitSuccess" class="alert alert-danger alert-dismissible fade show w-100"
+                                            role="alert">
+                                            {{dealerCodeMessage}}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
                                         <div *ngIf="!successsubmit">
                                             <p>I have read and agree with these
@@ -83,7 +90,11 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="!showButtonDiv" class="btn-container">
-                                                <button [disabled]="enableInputs" class="btn btn-primary pull-left" type="submit" (click)="submitDealerAndPositionCode(enrollmentForm.form.valid)">Verify Dealer Code and SID</button>
+                                                <button [disabled]="enableInputs" class="btn btn-primary pull-left" type="submit" (click)="submitDealerAndPositionCode(enrollmentForm.form.valid)">
+                                                        <span [hidden]="postDealerCodeInProgress">Verify Dealer Code and SID</span>
+                                                        <span [hidden]="!postDealerCodeInProgress">Verifying...
+                                                            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                                        </span></button>
                                                 <!-- <button class="btn btn-primary pull-left" type="button" (click)="cancel()">Cancel</button> -->
                                             </div>
 
@@ -126,7 +137,8 @@
                                                     <label for="phone">Phone Number</label>
                                                     <input class="form-control" id="phone" minlength="14" maxlength="14" placeholder="(000)-000-0000" name="phone" [disabled]="!enableInputs"
                                                         pattern="[0-9]{10}" required type="text" [ngModel]="dealerEnrollment.phone | phone"
-                                                        #phone="ngModel" (ngModelChange)="dealerEnrollment.phone=$event; ngModelChangePhone()" />
+                                                        #phone="ngModel" (ngModelChange)="dealerEnrollment.phone=$event; ngModelChangePhone()"
+                                                    />
                                                     <div class="alert alert-danger" [hidden]="!showPhoneNumberErrorHiddenDiv">Valid phone number is required.</div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-2">
@@ -248,8 +260,27 @@
                                             <!-- Buttons -->
                                             <div class="btn-container">
                                                 <button id="clickToDisplayErrorDiv" class="btn btn-primary pull-left" type="button" (click)="saveDealerEnrollmentForm(enrollmentForm.form.valid)"
-                                                    [disabled]="!enableInputs">Submit</button>
+                                                    [disabled]="!enableInputs">
+                                                    <span [hidden]="postInProgress">Save Updates</span>
+                                                    <span [hidden]="!postInProgress">Saving...
+                                                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                                    </span>
+                                                </button>
                                                 <button class="btn btn-primary pull-left" type="button" (click)="cancel()">Cancel</button>
+                                            </div>
+
+                                            <div *ngIf="postAlert" [hidden]="!postSuccess" class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                                                <strong>Success!</strong> Registration Successful, an email has been sent to the
+                                                one provided with your temporary user id and password.
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div *ngIf="postAlert" [hidden]="postSuccess" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+                                                <strong>Error!</strong> {{msg}}
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
                                             </div>
                                         </div>
                                     </fieldset>

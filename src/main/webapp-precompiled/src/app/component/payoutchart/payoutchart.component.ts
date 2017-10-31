@@ -92,10 +92,11 @@ export class PayoutchartComponent implements OnInit {
     }
     public iconPartsModalHeading: string = "";
     public showIconPartsModal(data, data2Name) {
-        this.chRef.detectChanges();
+
         this.iconPartsModalData = [];
         this.iconPartsModalHeading = "";
         if (data != undefined && data.parts.length > 0) {
+            this.iconPartsModalData = [];
             this.iconPartsModalData = data.parts;
         }
         if (data2Name != 'MOPAR VEHICLE PROTECTION') {
@@ -103,6 +104,7 @@ export class PayoutchartComponent implements OnInit {
         } else {
             this.iconPartsModalHeading = "Eligible Plan Codes.";
         }
+        this.chRef.detectChanges();
     }
     public openCMSPage(pageName: string) {
         this.payoutChartService.getPayoutCMSPage(pageName).subscribe(

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, NgZone, ChangeDetectorRef } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 declare var $: any;
@@ -32,11 +32,16 @@ export class RootPageComponent implements OnInit {
             "min-height": blah + "px",
             "padding-bottom": "2rem"
         });
-        // console.log("main is now: ", blah + "px high");
     }
     ngOnInit() {
         this.chRef.detectChanges();
         this.resizeMe();
+        this.router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0)
+        });
         //    this.router.navigate(["mserHomepage/home"]);
     }
 }

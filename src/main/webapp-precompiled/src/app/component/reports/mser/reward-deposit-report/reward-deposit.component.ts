@@ -55,17 +55,17 @@ export class RewardsDepositReportComponent implements OnInit {
         sid: ""
     }
     public rewardDepositProgramIDOptions: SelectItem[] = [
-        { label: "Used Vehicle Manager", value: "15" },
-        { label: "Express Lane", value: "1" },
-        { label: "Magneti Marelli", value: "2" },
-        { label: "Mopar Upfits", value: "3" },
-        { label: "Mopar Parts & Engines", value: "4" },
-        { label: "Mopar Vehicle Protection", value: "5" },
-        { label: "Parts Counter", value: "6" },
-        { label: "UConnect", value: "9" },
-        { label: "wiAdvisor", value: "7" },
-        { label: "wiAdvisor FRM", value: "17" },
-        { label: "wiAdvisor Tire", value: "11" }
+        // { label: "Used Vehicle Manager", value: "15" },
+        // { label: "Express Lane", value: "1" },
+        // { label: "Magneti Marelli", value: "2" },
+        // { label: "Mopar Upfits", value: "3" },
+        // { label: "Mopar Parts & Engines", value: "4" },
+        // { label: "Mopar Vehicle Protection", value: "5" },
+        // { label: "Parts Counter", value: "6" },
+        // { label: "UConnect", value: "9" },
+        // { label: "wiAdvisor", value: "7" },
+        // { label: "wiAdvisor FRM", value: "17" },
+        // { label: "wiAdvisor Tire", value: "11" }
     ]
 
     public programOptions: SelectItem[] = [];
@@ -80,8 +80,7 @@ export class RewardsDepositReportComponent implements OnInit {
 
 
     ngOnInit() {
-        // this.squarify();
-        // this.renderTab();
+        this.getReportPrograms();
         this.selectedPositionCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
         var d = new Date;
         var today = new Date();
@@ -118,6 +117,7 @@ export class RewardsDepositReportComponent implements OnInit {
         }
         this.squarify();
         this.renderTab();
+       
     }
 
     public squarify() {
@@ -153,7 +153,29 @@ export class RewardsDepositReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width 
     }
+    public rewardDepositPrograms: any = [];
+    public getReportPrograms() {
+        this.reportService.getReportPrograms("RewardDepositPrograms").subscribe(
+            (rewardDepositPrograms) => {
+                this.rewardDepositPrograms = (rewardDepositPrograms)
+                this.createRewardDepositProgramOptions();
+            },
+            (error) => {
+            }
+        )
+    }
 
+    public createRewardDepositProgramOptions() {
+        var rewardDepositProgramIDOptions: SelectItem[] = [];
+        for (var i = 0; i < this.rewardDepositPrograms.length; i++) {
+            rewardDepositProgramIDOptions.push({ label: this.rewardDepositPrograms[i].name, value: this.rewardDepositPrograms[i].value })
+        }
+        this.rewardDepositProgramIDOptions = rewardDepositProgramIDOptions;
+        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
+            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
+        }
+       
+    }
     public selectedRole: any;
     public isExecutiveUser: boolean = false;
     public isBCUser: boolean = false;
@@ -290,7 +312,11 @@ export class RewardsDepositReportComponent implements OnInit {
             dealerCode: "",
             sid: ""
         }
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        this.selectedProgramList = [];
+        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
+            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
+        }
         this.showExDepositReport();
     }
     public viewBCTabOnly() {
@@ -308,7 +334,11 @@ export class RewardsDepositReportComponent implements OnInit {
             dealerCode: "",
             sid: ""
         }
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        this.selectedProgramList = [];
+        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
+            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
+        }
+        // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
         this.viewBCRewardDepositReport();
     }
     public viewDistrictTabOnly() {
@@ -326,7 +356,11 @@ export class RewardsDepositReportComponent implements OnInit {
             dealerCode: "",
             sid: ""
         }
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        this.selectedProgramList = [];
+        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
+            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
+        }
+        // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
         this.viewDistrictRewardDepositReport();
     }
     public viewDealerTabOnly() {
@@ -345,7 +379,11 @@ export class RewardsDepositReportComponent implements OnInit {
             dealerCode: "",
             sid: ""
         }
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        this.selectedProgramList = [];
+        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
+            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
+        }
+        // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
         if (this.isDealerUser || this.isManagerUser) {
             this.viewDealerRewardDepositReport();
         }
@@ -366,8 +404,12 @@ export class RewardsDepositReportComponent implements OnInit {
             dealerCode: "",
             sid: ""
         }
+        this.selectedProgramList = [];
+        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
+            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
+        }
+        // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
 
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
         if (this.isParticipantUser) {
             this.viewParticipantRewardDepositReport();
         }

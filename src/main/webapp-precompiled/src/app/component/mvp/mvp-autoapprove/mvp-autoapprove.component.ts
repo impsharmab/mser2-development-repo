@@ -6,7 +6,7 @@ declare var $: any;
 
 @Component({
     selector: 'mvp-autoapprove',
-    templateUrl: './mvp-autoapprove.html'
+    templateUrl: './mvp-auto-matt.html'
 
 })
 export class MVPAutoApproveComponent implements OnInit {

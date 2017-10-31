@@ -1,0 +1,64 @@
+<main class="main report-center" id="report-center">
+
+    <!-- Reward Center Tabs-->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li [hidden]="!isExecutive" class="tab" (click)="viewEXTabOnly()">
+                <a>Executive</a>
+            </li>
+            <li [hidden]="!isBC" class="tab" (click)="viewBCTabOnly()">
+                <a>Business Center</a>
+            </li>
+            <li [hidden]="!isDistrict" class="tab" (click)="viewDistrictTabOnly()">
+                <a>District</a>
+            </li>
+            <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()">
+                <a>Dealer</a>
+            </li>
+            <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()">
+                <a>Participant</a>
+            </li>
+        </ul>
+        <!-- Begin Content container -->
+        <div>
+            <!-- Begin Executive Reward Center Report-->
+            <div class="z-content-pad">
+                <h2>Executive Sirius XM Activation Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="from-1">From:</label>
+                            <p-calendar placeholder="From" id="from-1" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="reportFrom"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-1">To:</label>
+                            <p-calendar placeholder="To" id="to-1" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="reportTo"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="program-1">Program:</label>
+                            <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList"
+                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                        </div>
+                        <div class="form-group col-sm-3 report-button-container">
+                            <button pButton type="button" (click)="pullExReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                                        filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+                </form>
+                <!-- Report Include -->
+                <div class="row" *ngIf="showExecutiveReport" style="position:relative">
+                    <i [hidden]="iframeLoaded" class="fa fa-spinner fa-spin fa-3x" aria-hidden="true" style="position:absolute;top:75px;right:50%;"></i>
+                    <iframe [hidden]="!iframeLoaded" (load)="funcIframeLoaded($event)" class="report-iframe col-sm-12" id="frame1" name="frame1"
+                        [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Executive Reward Center Report-->
+        </div>
+        <!-- End Content container -->
+    </div>
+</main>

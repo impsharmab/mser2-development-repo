@@ -93,18 +93,19 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else {
       this.showMSEREnrollmentReport = false;
     }
-    if (userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1) {
+    if ((userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1) ) {
       this.showMSEROPCodeSetup = true;
     } else {
       this.showMSEROPCodeSetup = false;
     }
     if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true
-      || (userMatrix.enrollmentMaintenanceMatrix(this.selectedPositionCode) > -1)) {
+      || (userMatrix.enrollmentMaintenanceMatrix.indexOf(this.selectedPositionCode) > -1)) {
       this.showMSEREnrollmentMaintenance = true;
     } else {
       this.showMSEREnrollmentMaintenance = false;
     }
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true
+    || (userMatrix.automaticEnrollmentOptoutFormMatrix.indexOf(this.selectedPositionCode) > -1) ) {
       this.showMSERAutoEnrollmentOpt = true;
     } else {
       this.showMSERAutoEnrollmentOpt = false;

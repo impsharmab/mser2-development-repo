@@ -68,6 +68,17 @@ export class AdminPayoutService {
 
     }
 
+    postRewardData(postData: any) {
+        var postRewardDataUrl = serviceUrl.baseUrl + "services/adminpayout/saveNewAdminPayout";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(postRewardDataUrl, postData, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response | any) {
         let errMsg: string = "";
         if (error instanceof Response) {

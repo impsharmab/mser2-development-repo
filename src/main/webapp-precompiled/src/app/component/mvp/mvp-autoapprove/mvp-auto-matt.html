@@ -1,0 +1,63 @@
+<main class="main">
+    <!-- <div class="main-content"> -->
+
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">Service Lane Rewards Maintenance</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container m-t-md body-container change-approval">
+        <h3 class="important">Important - you must complete this page!</h3>
+        <form id="serviceLaneForm">
+            
+            <h4>You have
+                <span>{{autoApprovalCount}}</span> contracts pending approval.</h4>
+            <p>Service Managers may elect to: continue to approve plans before payments are made
+                <strong>OR</strong> automatically pay the sID entered at the time of sale on the VINDriven "Build a contract" screen.</p>
+            <p>Your selection of
+                <strong>Approval Process</strong> or
+                <strong>Autopay</strong> is required before these contracts can be viewed.</p>
+            <p>
+                <strong>Note:</strong> If you select the
+                <em>Autopay</em> option, payments cannot be stopped or reversed after the file has been sent to the bank.</p>
+            <div class="row approval-form">
+                <div class="col-sm-6">
+                    <div class="block">
+                        <div class="form-group">
+                            <input id="noAutoPay" name="autoPay" type="radio" [checked]="checkedManual" (click)="checkedUncheckedRadio(false)" />
+                            <label for="noAutoPay">I will continue to Approve MVP Plans</label>
+                        </div>
+                        <p>If you elect to continue to approve plans and are confident the sID's have all been entered correctly,
+                            you have the opportunity to approve the plans as submitted at one time. Select the radio button
+                            above then click
+                            <strong>Save</strong>.
+                            <em>This will approve all pending contracts.</em>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="block">
+                        <div class="form-group">
+                            <input id="autoPay" name="autoPay" type="radio" [checked]="checkedAuto" (click)="checkedUncheckedRadio(true)" />
+                            <label class="important" for="autoPay">Autopay sID as indicated at time of sale.</label>
+                        </div>
+                        <p>I understand reward payments will be made automatically to sID submitted on the plan and changes
+                            to the payout cannot be made.</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input class="btn btn-primary" id="save" name="saveAutoPay" type="submit" value="Save" (click)="saveAutoPay()" />
+            </div>
+        </form>
+        <p class="error" style="color:red">{{updatedMessage}}</p>
+    </div>
+
+    <!-- </div> -->
+</main>

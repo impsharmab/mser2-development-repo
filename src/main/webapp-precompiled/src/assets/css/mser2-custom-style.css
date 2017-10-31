@@ -2,6 +2,64 @@
 mser2-custome-style.css should be for structure (position, width, margin, etc)
 ***/
 
+/* Begin Header*/
+/* Portrait iPad*/
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .app-header .navbar-brand{
+    background-size: 90%;
+    margin: 0 0 0 40px !important;
+    max-width: 350px !important;
+  }
+  .navMenu {
+    height: 50px !important;
+    line-height: 35px;
+    margin: 0 !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .navMenu .menuItem .menuTarget {
+    height: 50px !important;
+  }
+  .app-header .nav.navbar-nav {
+    height: 45px;
+    position: absolute;
+    top: 45px;
+    right: 0;
+  }
+}
+/* Landscape iPad*/
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .navMenu .menuItem .menuTarget{
+    padding: 0 10px !important;
+  }
+}
+/* media queries to solve some wrapping issues */
+@media screen and (min-width: 768px) {
+  .app-header .navbar-toggler {
+    width: 40px;
+  }
+}
+@media screen and (min-width: 1024px) {
+    .navMenu .menuItem .menuTarget {
+      font-size: 18px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .navMenu .menuItem .menuTarget {
+      font-size: 20px;
+    }
+}
+/* End Header */
+
+
+/* Begin Sidenav*/
+sidenav {
+  z-index: 999;
+}
+/* End Sidenav */
+
+
 /* Begin links within a nested link collection */
 .sidebar ul.nav li.nav-item.nav-dropdown.open li.nav-item.nav-dropdown.open a.grandchild-link.nav-link {
   padding-left: 3rem;
@@ -52,13 +110,16 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
   margin-bottom: 2.4rem;
   padding: 1.24rem;
 }
+.card1 p {
+  line-height: 1.36;
+}
 .image-frame{
   margin: .66rem;
 }
 .data-group{
   float: left;
   margin: .66rem;
-  min-height: 130px;
+  min-height: 140px;
   padding: .33rem;
   width: calc(50% - 1.32rem)
 }
@@ -70,7 +131,7 @@ mser2-custome-style.css should be for structure (position, width, margin, etc)
   width: 100%;
 }
 .data-point {
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 }
 .data-point span {
   padding-left: .25rem;
@@ -301,7 +362,7 @@ input.datepicker-input {
   background-color: orange;
   padding: .5rem;
   border-radius: .25rem;
-} 
+}
 #payout-chart-export{
   width: 760px;
   //if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts
@@ -320,6 +381,26 @@ input.datepicker-input {
   width: 200px;
 }
 /*End Form Styles*/
+
+
+/* Begin MVP Change Approval Settings */
+.change-approval {
+  padding-top: 1rem;
+}
+.change-approval p {
+  margin-bottom: 1rem;
+}
+.approval-form {
+  margin-bottom: 1rem;
+}
+.approval-form .col-sm-6 {
+  justify-content: stetch;
+}
+.approval-form .block {
+  height: 100%;
+  padding: 1rem;
+}
+/* End MVP Change Approval Settings */
 
 
 /* Begin Marketing Presentation */
@@ -671,7 +752,7 @@ h1, h2, h3, h4, h5 {
 .navMenu .menuItem .menuTarget {
   display: inline-block;
   height: 74px;
-  padding: 0 24px;
+  padding: 0 14px;
 }
 .navbar .nav-item .nav-link.nav-pill.avatar {
   display: inline-block;
@@ -782,6 +863,7 @@ app-footer {
   }
 }
 /* End Footer */
+
 
 /* Begin Miscellaneous */
 .fa.refresh-button {

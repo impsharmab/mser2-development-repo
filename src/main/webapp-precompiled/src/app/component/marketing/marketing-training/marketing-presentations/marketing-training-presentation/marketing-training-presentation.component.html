@@ -3,7 +3,6 @@
         <div class="pageTitle">
             <div class="container">
                 <div class="row">
-
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
                             Video & Presentations
@@ -39,7 +38,7 @@
                         </a>
                         </c:forEach>-->
                         <a *ngFor="let video of videoLists" style="cursor: pointer">
-                            <img src="/mser{{video.videoImageName}}" alt="videos"/> 
+                            <img src="./{{video.videoImageName}}" alt="videos"/> 
                             <strong style="font-size: 11px;" (click)="selectVideo(video.videoName, video.filePath)">{{video.videoName}} </strong>
                         </a>
                     </div>

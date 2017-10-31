@@ -56,6 +56,10 @@ export class AdminPayoutComponent implements OnInit {
     public payoutCopyMonths: SelectItem[];
     private postData: any;
     public programsDd: SelectItem[] = [];
+    public postInProgress: boolean;
+    public postSuccess: boolean;
+    public postAlert: boolean;
+    public onNextMsg: string;
 
 
     calendarOptions = {
@@ -96,8 +100,7 @@ export class AdminPayoutComponent implements OnInit {
         ];
 
         this.postData = {
-            incentiveSubCodes: [],
-            incentiveRewards: []
+            incentiveSubCodes: []
         }
     }
 
@@ -197,14 +200,43 @@ export class AdminPayoutComponent implements OnInit {
 
     index: number = 0;
 
-    openNext() {
+    openNext($event) {
         this.index = (this.index === 6) ? 0 : this.index + 1;
-        this.setDefaults();
+        if (this.validateOnNext(this.index, $event.currentTarget))
+            this.setDefaults();
+        else
+            this.index -= 1;
     }
 
     openPrev() {
         this.index = (this.index === 0) ? 6 : this.index - 1;
         //this.setDefaults();
+    }
+
+    validateOnNext(step, ele) {
+        this.onNextMsg = undefined;
+        switch (step) {
+            case 1:
+                if (!this.payoutMonth) {
+                    this.onNextMsg = "Please select a payout month";
+                    return false;
+                }
+                else return true;
+            case 2:
+                if (this.selectedIncentives.length == 0) {
+                    this.onNextMsg = "Please select at least 1 program to proceed";
+                    return false;
+                }
+                else return true;
+            case 3:
+                if (this.selectedIncentiveSubCodes.length == 0) {
+                    this.onNextMsg = "Please select at least 1 category to proceed";
+                    return false;
+                }
+                else return true;
+            default:
+                return true;
+        }
     }
 
     setDefaults() {
@@ -238,6 +270,8 @@ export class AdminPayoutComponent implements OnInit {
         this.tabContentLoaded = false;
         this.startDate = moment().month(this.payoutMonth).date(1).format('MMM D, YYYY');
         this.endDate = moment().month(this.payoutMonth).endOf('month').format('MMM D, YYYY');
+        this.postData.startDate = moment().month(this.payoutMonth).date(1).format('YYYY-MM-DD 00:00:00.000');
+        this.postData.endDate = moment().month(this.payoutMonth).endOf('month').format('YYYY-MM-DD 00:00:00.000');
         this.adminPayoutService.getProgramsByMonth(this.payoutMonth).subscribe(
             (programs) => {
                 this.programs = (programs);
@@ -406,33 +440,39 @@ export class AdminPayoutComponent implements OnInit {
 
     gotoSummary() {
         this.postData.incentiveSubCodes = [];
-        this.postData.incentiveRewards = [];
         this.rewards.forEach(reward => {
             this.postData.incentiveSubCodes.push({
-                incentiveId: reward.programCategory.incentiveId,
+                incentiveID: reward.programCategory.incentiveId,
                 incentiveSubCode: reward.programCategory.incentiveSubCode,
                 description: reward.programCategory.description,
-                quantityId: reward.quantity.quantityID,
-                notes: reward.programCategory.notes
+                quantityID: reward.quantity.quantityID,
+                notes: reward.programCategory.notes,
+                incentiveRewards: this.buildIncentiveRewards(reward)
             })
-            reward.rewardPositions.forEach(rewardPos => {
-                if (reward.laborTypes.length == 1) {
-                    this.buildPostDataIncentiveRewards(reward, rewardPos, reward.laborTypes[0])
-                }
-                else {
-                    reward.laborTypes.forEach(laborType => {
-                        this.buildPostDataIncentiveRewards(reward, rewardPos, laborType);
-                    });
-                }
-            });
         });
         console.log(this.postData);
     }
 
-    private buildPostDataIncentiveRewards(reward, rewardPos, laborType) {
+    private buildIncentiveRewards(reward) {
+        var incentiveRewards: any[] = [];
+        reward.rewardPositions.forEach(rewardPos => {
+            if (reward.laborTypes.length == 1) {
+                $.merge(incentiveRewards, this.buildIncentiveRewardsByLaborType(reward, rewardPos, reward.laborTypes[0]))
+            }
+            else {
+                reward.laborTypes.forEach(laborType => {
+                    $.merge(incentiveRewards, this.buildIncentiveRewardsByLaborType(reward, rewardPos, laborType));
+                });
+            }
+        });
+        return incentiveRewards;
+    }
+
+    private buildIncentiveRewardsByLaborType(reward, rewardPos, laborType) {
+        var incentiveRewards: any[] = [];
         if (!rewardPos.overrides) {
-            this.postData.incentiveRewards.push({
-                incentiveId: reward.programCategory.incentiveId,
+            incentiveRewards.push({
+                incentiveID: reward.programCategory.incentiveId,
                 positionCode: rewardPos.position.positionCode,
                 rewardTypeID: rewardPos.rewardType.rewardTypeID,
                 rewardValue: rewardPos.rewardAmount,
@@ -442,8 +482,8 @@ export class AdminPayoutComponent implements OnInit {
             })
         }
         else if (rewardPos.overrides.length == 1) {
-            this.postData.incentiveRewards.push({
-                incentiveId: reward.programCategory.incentiveId,
+            incentiveRewards.push({
+                incentiveID: reward.programCategory.incentiveId,
                 positionCode: rewardPos.position.positionCode,
                 rewardTypeID: rewardPos.rewardType.rewardTypeID,
                 rewardValue: rewardPos.rewardType.rewardTypeID == '1' ? rewardPos.rewardAmount : '0',
@@ -454,8 +494,8 @@ export class AdminPayoutComponent implements OnInit {
         }
         else {
             rewardPos.overrides.forEach(override => {
-                this.postData.incentiveRewards.push({
-                    incentiveId: reward.programCategory.incentiveId,
+                incentiveRewards.push({
+                    incentiveID: reward.programCategory.incentiveId,
                     positionCode: rewardPos.position.positionCode,
                     rewardTypeID: override.overrideType.rewardTypeID,
                     rewardValue: override.overrideType.rewardTypeID == '1' ? override.overrideAmt : '0',
@@ -465,6 +505,19 @@ export class AdminPayoutComponent implements OnInit {
                 })
             });
         }
+        return incentiveRewards;
+    }
+
+    saveUpdates() {
+        this.postInProgress = true;
+        this.adminPayoutService.postRewardData(this.postData).subscribe((response) => {
+            this.postInProgress = false;
+            if (response.success)
+                this.postSuccess = true;
+            else this.postSuccess = false
+            this.postAlert = true;
+            console.log(response);
+        })
     }
 
     converToDd(list: any[], labelField: string) {
@@ -560,8 +613,8 @@ export class AdminPayoutComponent implements OnInit {
             this.selectedOverrideForOverride.overrideType = this.overrideModalReward.overrideType;
             this.selectedOverrideForOverride.overrideAmt = this.overrideModalReward.overrideAmt;
             this.selectedOverrideForOverride.note = this.setOverrideNote(this.overrideModalReward);
-            /* this.selectedRewardPosForOverride.rewardType = this.overrideModalReward.overrideType;
-            this.selectedRewardPosForOverride.rewardAmount = this.overrideModalReward.rewardAmt; */
+            this.selectedRewardPosForOverride.rewardType = this.overrideModalReward.overrideType;
+            this.selectedRewardPosForOverride.rewardAmount = this.overrideModalReward.overrideAmt;
         }
     }
 

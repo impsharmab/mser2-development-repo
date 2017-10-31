@@ -355,7 +355,7 @@ export class PCDistributionReportComponent implements OnInit {
         var PCDTD = this.pCDistributionReportInterface.to;
         if (this.pCDistributionReportInterface.dealerCode == "") {
             this.showDealerPCDistributionReportIframe = false;
-            this.msg = "Please enter Dealer Code to view the report";
+            // this.msg = "Please enter Dealer Code to view the report";
             return;
         }
 

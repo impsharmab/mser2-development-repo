@@ -544,6 +544,26 @@ mser-cms{
 /* End CMS */
 
 
+/* Begin MVP Change Approval Settings */
+.change-approval h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+.change-approval .important {
+  color: rgb(205,0,0);
+}
+.approval-form .block {
+  background: rgb(245,245,245);
+  border: 1px solid rgb(215,215,215);
+  border-radius: 1rem;
+}
+
+.approval-form label {
+  font-weight: bold;
+}
+/* End MVP Change Approval Settings */
+
+
 /* Begin Miscellaneous */
 .modify-icon {
   font-size: 20px;
@@ -687,32 +707,19 @@ h2 {
 /* Begin Nav Menu */
 .navMenu:before, .navMenu:after {
   content: " ";
-  display: table;
 }
 .navMenu {
-  display: block;
-  float: left;
-  height: 75px;
   line-height: 68px;
-  margin-left: 20px;
-  margin-top: 26px;
-}
-.navMenu .menuItem {
-  float: left;
-  position: relative;
 }
 .navMenu .menuItem .menuTarget {
   border-bottom: 3px solid rgb(255,255,255);
   border-top: 3px solid rgb(255,255,255);
   color: rgb(104,115,112);
   cursor: pointer;
-  display: inline-block;
-  height: 74px;
   font-family: "TitlingGothicFB StandardComp","Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 20px;
   font-weight:500;
   letter-spacing: .5px;
-  padding: 0 24px;
   transition: 300ms ease-out all;
 }
 .navMenu .menuItem .menuTarget:hover, .nav .navMenu .menuItem .menuTarget.active {
@@ -720,9 +727,6 @@ h2 {
   color: rgb(31,40,51);
 }
 .navbar .nav-item .nav-link.nav-pill.avatar {
-  display: inline-block;
-  margin: 10px 30px 10px 10px;
-  position: relative;
   text-align: center;
 }
 /* End Nav Menu */
@@ -794,7 +798,7 @@ h2 {
   color: rgb(0,0,0);
 }
 .hyperlink {
-  color: rgb(0, 104, 179)
+  color: rgb(0, 104, 179);
   cursor: pointer;
   text-decoration: underline;
 }

@@ -14,16 +14,15 @@
     <div class="row m-t-md">
       <div class="col-xs-12 col-md-12">
         <p-tabView [activeIndex]="index">
-
-
           <!-- Begin Select Payout Method -->
           <p-tabPanel header="Step 1" [disabled]="true">
             <div class="admin-utility-bar">
               <button class="btn btn-primary btn-disabled" disabled type="button">
                 <i class="fa fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" type="button" (click)="openNext()">Next
+              <button class="btn btn-primary" type="button" (click)="openNext($event)">Next
                 <i class="fa fa-chevron-right"></i>
               </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
             </div>
             <div class="group-payout-month">
               <h3>Select Payout Month</h3>
@@ -51,9 +50,10 @@
             <div class="admin-utility-bar">
               <button class="btn btn-primary" type="button" (click)="openPrev()">
                 <i class="fa fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" type="button" (click)="openNext()">Next
+              <button class="btn btn-primary" type="button" (click)="openNext($event)">Next
                 <i class="fa fa-chevron-right"></i>
               </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
             </div>
             <!-- Select Program Group-->
             <h3>Select Program Group</h3>
@@ -94,9 +94,10 @@
             <div class="admin-utility-bar">
               <button class="btn btn-primary" type="button" (click)="openPrev()">
                 <i class="fa fa-chevron-left"></i> Previous</button>
-              <button class="btn btn-primary" type="button" (click)="openNext()">Next
+              <button class="btn btn-primary" type="button" (click)="openNext($event)">Next
                 <i class="fa fa-chevron-right"></i>
               </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
             </div>
             <!-- Select Category-->
             <h3>Select Category</h3>
@@ -192,9 +193,10 @@
             <div class="admin-utility-bar">
               <button type="button" class="btn btn-primary" (click)="openPrev()">
                 <i class="fa fa-chevron-left"></i> Previous</button>
-              <button type="button" class="btn btn-primary" (click)="openNext()">Next
+              <button type="button" class="btn btn-primary" (click)="openNext($event)">Next
                 <i class="fa fa-chevron-right"></i>
               </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
             </div>
 
             <!-- Add Rewards by Position/ Value -->
@@ -262,11 +264,11 @@
                       <td headers="add-reward-labor-type" role="gridcell">
                         <form class="form-control" name="laborType1">
                           <label>
-                            <p-checkbox name="laborType1" value="c" [(ngModel)]="reward.laborTypes"></p-checkbox> Customer (C)</label>
+                            <p-checkbox name="laborTypeC" value="C" [(ngModel)]="reward.laborTypes"></p-checkbox> Customer (C)</label>
                           <label>
-                            <p-checkbox name="laborType1" value="i" [(ngModel)]="reward.laborTypes"></p-checkbox> Internal (I)</label>
+                            <p-checkbox name="laborTypeI" value="I" [(ngModel)]="reward.laborTypes"></p-checkbox> Internal (I)</label>
                           <label>
-                            <p-checkbox name="laborType1" value="w" [(ngModel)]="reward.laborTypes"></p-checkbox> Warranty (W)</label>
+                            <p-checkbox name="laborTypeW" value="W" [(ngModel)]="reward.laborTypes"></p-checkbox> Warranty (W)</label>
                         </form>
                       </td>
                       <td headers="add-reward-quantity" role="gridcell">
@@ -553,13 +555,30 @@
           <!-- Begin Payout Chart Update Preview -->
           <p-tabPanel header="Step 5" [disabled]="true">
             <div class="admin-utility-bar">
-              <button class="btn btn-primary" type="button" (click)="openPrev()">
+              <button *ngIf="!postSuccess" class="btn btn-primary" type="button" (click)="openPrev()">
                 <i class="fa fa-chevron-left"></i> Previous</button>
             </div>
             <h3>Payout Chart Updates Preview</h3>
             <div>
-              <input class="btn btn-primary" id="" type="submit" value="Save Updates" />
+              <button *ngIf="!postSuccess" class="btn btn-primary" (click)="saveUpdates()">
+                <span [hidden]="postInProgress">Save Updates</span>
+                <span [hidden]="!postInProgress">Saving..
+                  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                </span>
+              </button>
               <button class="btn btn-primary" type="button" (click)="downloadPDF('payout-chart-export')">Export to PDF</button>
+            </div>
+            <div *ngIf="postAlert" [hidden]="!postSuccess" class="alert alert-success alert-dismissible fade show w-50" role="alert">
+              <strong>Success!</strong> Admin Payout changes have been saved successfully.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="postAlert" [hidden]="postSuccess" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+              <strong>Error!</strong> There was an error processing your request at this time. Please try again later.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
             <!-- START Summary Wrapper-->
             <hr/>

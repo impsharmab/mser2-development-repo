@@ -8,7 +8,7 @@ declare var $: any;
 
 @Component({
     selector: 'payout-redistribution',
-    templateUrl: './rewards-redistribution.html'
+    templateUrl: './rewards-redistribution.html' 
 
 })
 export class RewardsRedistributionComponent implements OnInit {
@@ -208,8 +208,7 @@ export class RewardsRedistributionComponent implements OnInit {
 
                     if (this.elRedistributionDataResponse[k].teamName == "") {
                         this.elRedistributionDataResponse[k].teamName = "-"
-                    }
-
+                    } 
                     dataJson[j].teamName = this.elRedistributionDataResponse[k].teamName;
 
                 }

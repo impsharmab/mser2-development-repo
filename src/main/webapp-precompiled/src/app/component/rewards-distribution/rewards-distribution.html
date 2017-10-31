@@ -200,7 +200,7 @@
                 data-target="#" (click)="getELRewardsAmountData('el', data.teamId )">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
               <td *ngIf="elRewardAmountModal" class="right-align hyperlink" headers="allocation-reward-amount" role="gridcell" data-toggle="modal"
                 data-target="#elRewardAmountModal" (click)="getELRewardsAmountData('el',data.teamId)">{{data.amount | currency:'USD':true:'1.2-2'}}</td>
-              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{distributedAmount | currency:'USD':true:'1.2-2'}}</td>
+              <td class="right-align" headers="allocation-distributed-amount" role="gridcell">{{data.elDistributedAmount | currency:'USD':true:'1.2-2'}}</td>
             </tr>
             <!-- end ng-if -->
           </tbody>
@@ -224,7 +224,7 @@
               </td>
               <td class="right-align" headers="allocation-participant-distributed-amount" role="gridcell">
                 <input class="form-control right-align" id="distributed-amount-1" name="distributedAmount" type="number" [(ngModel)]="data.value"
-                  (change)="rewardedAmount(data.value)" />
+                  (change)="elRewardedAmount(data.value, data.teamID)" />
               </td>
             </tr>
             <!-- end ng-if -->

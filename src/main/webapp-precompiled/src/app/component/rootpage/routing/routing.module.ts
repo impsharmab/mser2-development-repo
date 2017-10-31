@@ -41,6 +41,7 @@ import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAd
 import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
 import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
 import { MVPAutoApproveComponent } from '../../mvp/mvp-autoapprove/mvp-autoapprove.component';
+import {SxmActivationReportComponent} from '../../uconnect/sxm-activation/sxm-activation-component';
 
 
 const routes: Routes = [
@@ -217,8 +218,11 @@ const routes: Routes = [
             {
                 path: "mvpautoapprove",
                 component: MVPAutoApproveComponent
+            },
+            {
+                path: "sxmactivationreport",
+                component: SxmActivationReportComponent
             }
-
 
 
 

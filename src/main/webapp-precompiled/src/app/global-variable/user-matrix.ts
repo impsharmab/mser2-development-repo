@@ -38,19 +38,23 @@ export const enrollmentReportMatrix: any = [
 ];
 export const enrollmentFormMatrix: any = [
     "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
-    "11", "17", "20", "25", "27", "30", "32", "33", "35", "36",
-    "37", "40", "41", "46", "NAT", "BC", "DLR", "DOM", "DST",
+    "11", "17", "22", "25", "27", "30", "32", "33", "35", "36",
+    "37", "40", "41", "46", "IM", "NAT", "BC", "DLR", "DOM", "DST",
     "IAD"
 ];
-export const opcodeSetupMatrix: any = ["01", "02", "03", "04",
-    "05", "06", "07", "08", "09", "10", "11", "17", "20", "25",
-    "27", "30", "32", "33", "35", "36", "37", "40", "41", "46",
-    "IM"
+export const opcodeSetupMatrix: any = [
+    "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+    "11", "17", "22", "25", "27", "30", "32", "33", "35", "36",
+    "37", "40", "41", "46", "IM"
 ];
 export const enrollmentMaintenanceMatrix: any = [
     "01", "02", "08", "09", "32", "33", "35", "37", "40"
 ];
 export const autoEnrollmentOptMatrix: any = [
+    "01", "02", "08", "09", "32", "33", "35", "37", "40"
+];
+
+export const automaticEnrollmentOptoutFormMatrix: any = [
     "01", "02", "08", "09", "32", "33", "35", "37", "40"
 ];
 
@@ -148,6 +152,6 @@ export const enrollmentReport: any = [
 
 //Rewards Distribution
 
-export const rewardsDistributionMainMatrix:any=[
+export const rewardsDistributionMainMatrix: any = [
     "01", "02", "08", "09", "32", "33", "35", "37", "40"
 ]

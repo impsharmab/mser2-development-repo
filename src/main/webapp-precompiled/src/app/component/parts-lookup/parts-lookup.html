@@ -40,13 +40,13 @@
 
                 </div>
                 <div class="row">
-                    <p style="margin-left: 20px">Or select the part category/plan code for eligible rewards.</p>
+                    <p style="margin-left: 20px">Or select the part category for eligible rewards.</p>
                 </div>
                 <div class="row">
 
                     <div class="form-group col-md-6 ">
                         <label for="partCategory">
-                            <strong>Part Category/Plan Code:</strong>
+                            <strong>Part Category:</strong>
                         </label>
 
                         <p-dropdown id="category" name="category" [options]="categoriesListOptions" [(ngModel)]="category" placeholder="Select a Category"
@@ -61,7 +61,7 @@
                     </div> -->
 
                 </div>
-
+                <hr>
                 <div clsss="content-row row" [hidden]="!hidePartCategoryTable">
                     <div class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                         <p-dataTable [value]="partsByCategory">

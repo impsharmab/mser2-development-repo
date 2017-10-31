@@ -24,7 +24,7 @@ export class FiatEnrollmentComponent implements OnInit {
     public selectedValues: string[] = ['val1', 'val2'];
     public value: boolean;
     public date: DateModel;
-    public  options: DatePickerOptions;
+    public options: DatePickerOptions;
     public submitted = false;
 
     public displayConfirmationModal: boolean = false;
@@ -75,6 +75,7 @@ export class FiatEnrollmentComponent implements OnInit {
     public fiatEnrollmentAggrement1(agrrement: any) {
         if (agrrement !== undefined && agrrement.length > 0) {
             this.dealerEnrollment.aggrement1 = true;
+            this.showAgreement1ErrorHiddenDiv = false;
         } else {
             this.dealerEnrollment.aggrement1 = false;
         }
@@ -83,6 +84,7 @@ export class FiatEnrollmentComponent implements OnInit {
     public fiatEnrollmentAggrement2(agrrement: any) {
         if (agrrement !== undefined && agrrement.length > 0) {
             this.dealerEnrollment.aggrement2 = true;
+            this.showAgreement2ErrorHiddenDiv = false;
 
         } else {
             this.dealerEnrollment.aggrement2 = false;
@@ -122,13 +124,22 @@ export class FiatEnrollmentComponent implements OnInit {
     public enrollmentFee: string = ""
     public showDCErrorHiddenDiv: boolean = false;
     public showSIDErrorHiddenDiv: boolean = false;
+    public postDealerCodeSubmitAlert: boolean = false;
+    public postDealerCodeSubmitSuccess: boolean = false;
+    public dealerCodeMessage: string = "";
+    public postDealerCodeInProgress: boolean = false;
     public submitDealerAndPositionCode(valid) {
+        this.postDealerCodeSubmitAlert = false;
+        this.postDealerCodeSubmitSuccess = false;
         // var z1 = /^[0-9]{5}/;
         var dealerCodeRegex = /^([0-9]{5})$/;
         var sidRegex = /^([A-Za-z0-9]{7})$/;
         // var dcStartsWith =str.substring(0, 2);
         if ((!(this.dealerEnrollment.dealerCode.trim()).startsWith("69")) && dealerCodeRegex.test(this.dealerEnrollment.dealerCode.trim()) && sidRegex.test(this.dealerEnrollment.sid.trim())) {
-            this.msg = "Thank you for choosing to enroll in FIAT.  However, for enrolling a MSER dealership please return to the login screen and utilize the designated Dealer Enrollment Form.";
+            this.dealerCodeMessage = "Thank you for choosing to enroll in FIAT.  However, for enrolling a MSER dealership please return to the login screen and utilize the designated Dealer Enrollment Form.";
+            this.postDealerCodeSubmitAlert = true;
+            this.postDealerCodeSubmitSuccess = true;
+            // this.clearMessage();
         }
 
         if (!dealerCodeRegex.test(this.dealerEnrollment.dealerCode.trim())) {
@@ -141,11 +152,15 @@ export class FiatEnrollmentComponent implements OnInit {
             return;
         }
 
-
+        this.postDealerCodeInProgress = true;
         this.mserEnrollmentService.submitDealerAndPositionCode(this.dealerEnrollment.dealerCode.trim(), this.dealerEnrollment.sid.trim()).subscribe(
             (submitDealerAndPositionCodeDatum) => {
                 this.submitDealerAndPositionCodeDatum = (submitDealerAndPositionCodeDatum)
-                this.msg = "";
+                this.dealerCodeMessage = "";
+                this.postDealerCodeInProgress = false;
+                // this.clearMessage();
+                this.postDealerCodeInProgress = true;
+                this.postDealerCodeSubmitSuccess = true;
                 this.showButtonDiv = true
                 this.showDiv = true;
                 this.enableInputs = true;
@@ -183,16 +198,19 @@ export class FiatEnrollmentComponent implements OnInit {
 
             },
             (error) => {
-                setTimeout(() => {
-                    if (error !== undefined && error.length < 250) {
-                        this.msg = error;
-                    } else {
-                        this.msg = "Error in Submitting Dealer Code and SID.";
-                    }
-                }, 1000)
+                if (error !== undefined && error.length < 250) {
+                    this.dealerCodeMessage = error;
+                } else {
+                    this.dealerCodeMessage = "Error in Submitting Dealer Code and SID.";
+                }
+                this.postDealerCodeSubmitAlert = true;
+                this.postDealerCodeSubmitSuccess = true;               
+                this.postDealerCodeInProgress = false;
             }
         )
     }
+
+
     public showalert: boolean = true;
     public showAgreement1ErrorHiddenDiv: boolean = false;
     public showAgreement2ErrorHiddenDiv: boolean = false;
@@ -220,7 +238,9 @@ export class FiatEnrollmentComponent implements OnInit {
     public showServiceManagerNameErrorHiddenDiv: boolean = false;
     public showOKErrorHiddenDiv: boolean = false;
     public successmsg: string = "";
-
+    public postInProgress: boolean = false;
+    public postAlert: boolean = false;
+    public postSuccess: boolean = false;
     public saveDealerEnrollmentForm(valid) {
         this.msg = "";
         this.errorMobileNumber = "";
@@ -309,7 +329,7 @@ export class FiatEnrollmentComponent implements OnInit {
         var isUsedRecon = this.dealerEnrollment.isUsedRecon;
         var isExpressLane = this.dealerEnrollment.isExpressLane;
         var isMVPAutoApprove = this.dealerEnrollment.autoApproveMVP;
-
+        this.postInProgress = true;
         this.mserEnrollmentService.saveDealerEnrollmentForm(
             dealerCode, sid, dealerPrincipalEmail, phone, extention,
             selectedPartsManager, partsManagerEmail, selectedServiceManager, serviceManagerEmail,
@@ -318,22 +338,38 @@ export class FiatEnrollmentComponent implements OnInit {
             (submitDealerAndPositionCodeDatum) => {
                 this.submitDealerAndPositionCodeDatum = (submitDealerAndPositionCodeDatum)
                 this.successsubmit = true;
+                this.postAlert = true;
+                this.clearMessage();
+                this.postSuccess = true;
                 this.displayConfirmationModal = true;
                 this.enableInputs = true;
+                this.postInProgress = false;
                 this.successmsg = "Registration Successful, an email has been sent to the one provided with your temporary user id and password.";
             },
             (error) => {
-                setTimeout(() => {
-                    if (error !== undefined && error.length < 250) {
-                        this.msg = error;
-                    } else {
-                        this.msg = "Error in Submitting Dealer Code and SID.";
-                    }
-                }, 1000)
+                if (error !== undefined && error.length < 250) {
+                    this.msg = error;
+                } else {
+                    this.msg = "Error in Submitting Dealer Code and SID.";
+                }
+                this.postAlert = true;
+                this.clearMessage();
+                this.postInProgress = false;
+                this.postSuccess = false;
+                // setTimeout(() => {
+
+                // }, 5000)
             }
             )
     }
 
+    private clearMessage() {
+        setTimeout(() => {
+            this.postAlert = false;
+            // this.postDealerCodeSubmitAlert = false;
+        }, 6000)
+
+    }
     public onChangeInput() {
         this.msg = "";
         // this.errorMobileNumber = "";
@@ -351,10 +387,14 @@ export class FiatEnrollmentComponent implements OnInit {
     public ngModelChangeDC() {
         this.msg = "";
         this.showDCErrorHiddenDiv = false;
+        this.postDealerCodeSubmitAlert = false;
+        this.postDealerCodeSubmitSuccess = false;
     }
     public ngModelChangeSID() {
         this.msg = "";
         this.showSIDErrorHiddenDiv = false;
+        this.postDealerCodeSubmitAlert = false;
+        this.postDealerCodeSubmitSuccess = false;
     }
     public ngModelChangeDealershipName() {
         this.msg = "";
@@ -388,6 +428,7 @@ export class FiatEnrollmentComponent implements OnInit {
     public ngModelChangeServiceManagerEmail() {
         this.showServiceManagerEmailErrorHiddenDiv = false;
     }
+
 
     public redirectTOLoginPage() {
         let url = ["login"]
