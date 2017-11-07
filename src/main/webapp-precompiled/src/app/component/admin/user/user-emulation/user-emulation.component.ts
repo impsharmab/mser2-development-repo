@@ -39,6 +39,7 @@ export class UserEmulationComponent implements OnInit {
         console.log("main is now: ", blah + "px high");
     }
     public emulateAllUser(emulateID) {
+
         if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
@@ -46,10 +47,13 @@ export class UserEmulationComponent implements OnInit {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
         }
+
         if (emulateID != undefined && emulateID.length == 5) {
+            //sessionStorage.appReloaded = false;
             this.emulateDealerCodeUser(emulateID);
             this.cookieService.put("dealerCode", emulateID);
         } else {
+            //sessionStorage.appReloaded = false;
             this.emulateSidTidUser(emulateID);
             this.cookieService.put("SID/TID", emulateID);
 
@@ -66,7 +70,14 @@ export class UserEmulationComponent implements OnInit {
                     this.cookieService.put("adminToken", adminToken);
                     this.cookieService.put("token", emulateUserData.item);
                     let url = ["login"]
-                    this.router.navigate(url);
+                    // sessionStorage.appReloaded = false;
+                    // this.router.navigate(url);
+                    // window.location.href = location.protocol + "//" + location.hostname +
+                    //     (location.port && ":" + location.port) + "/"
+                    window.location.href =
+                        window.location.origin
+                            ? window.location.origin + '/'
+                            : window.location.protocol + '/' + window.location.host + '/';
                 }
             }
             ,
@@ -88,7 +99,14 @@ export class UserEmulationComponent implements OnInit {
                 sessionStorage.setItem("hideButton", "true");
                 // this.cookieService.put("token", adminToken);
                 let url = ["login"]
-                this.router.navigate(url);
+                // sessionStorage.appReloaded = false;
+                // this.router.navigate(url);
+                // window.location.href = location.protocol + "//" + location.hostname +
+                //     (location.port && ":" + location.port) + "/"
+                window.location.href =
+                    window.location.origin
+                        ? window.location.origin + '/'
+                        : window.location.protocol + '/' + window.location.host + '/';
             }
             ,
             (error) => {

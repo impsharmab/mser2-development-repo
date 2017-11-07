@@ -28,9 +28,9 @@
             <span class="badge badge-info"></span>
           </a>
         </li> -->
-        <li *ngIf="isAdmin" class="nav-item">
+        <!-- <li *ngIf="isAdmin" class="nav-item">
           <a class="nav-link" routerLink="adminpayout">Admin Payout </a>
-        </li>
+        </li> -->
         <li class="divider"></li>
         <li class="nav-title text-center">
           <span>Resources</span>
@@ -51,7 +51,7 @@
               <a class="nav-link" routerLink="enrollmentreport">Enrollment Report</a>
             </li>
             <li *ngIf="showMSEREnrollmentMaintenance" class="nav-item">
-              <a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a> 
+              <a class="nav-link" routerLink="enrollmentmaintenance">Enrollment Maintenance</a>
             </li>
             <li *ngIf="showMSEROPCodeSetup" class="nav-item">
               <a class="nav-link" routerLink="opcodesetup">OP Code Setup</a>
@@ -170,7 +170,24 @@
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="pcinvoicereport">PC Invoice</a></li> -->
               </ul>
             </li>
+            <li class="nav-item nav-dropdown dopdown-grandchild">
+              <a class="nav-link nav-dropdown-toggle child-link" href="#">Uconnect</a>
+              <ul>
+                <li class="nav-item" [hidden]="hideThisReportForParticipant">
+                  <a class="nav-link grandchild-link" routerLink="smwinterprogramreport">Uconnect - SM Winter Program</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="uconnavigationactivationreport">Uconnect - Navigate to Higher Profits</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="sxmactivationreport">Sirius XM - Activation Report</a>
+                </li>
+                <li class="nav-item" [hidden]="!hideThisReportBelowBCUsers">
+                  <a class="nav-link grandchild-link" routerLink="sxmtop10report">Sirius XM - Top 10 BC Report</a>
+                </li>
 
+              </ul>
+            </li>
             <!-- <li *ngIf="!hideThisReportForParticipant" class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">wiAdvisor MSER</a>
               <ul>
@@ -196,8 +213,8 @@
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a>
             </li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneMaintenance', 'pdf':'false'}]">Approve MVP Plans</a></li>-->
-            <li *ngIf="isServiceManagerOfRecords" class="nav-item">
-              <a class="nav-link" routerLink="mvpautoapprove">Change Approval Settings</a> 
+            <li *ngIf="isServiceManagerOfRecords || isDealerManager" class="nav-item">
+              <a class="nav-link" routerLink="mvpautoapprove">Change Approval Settings</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" routerLink="mvp">Video &amp; Presentations </a>
@@ -264,9 +281,12 @@
                 <li class="nav-item">
                   <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'siriusXMRules', 'pdf':'false'}]">Rules</a>
                 </li>
-                <li>
-                    <a class="nav-link grandchild-link" routerLink="sxmactivationreport">Activation Report</a>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" href="/shared/imi-cms/MSER/webDocs/SXM_Training_Guide.pdf" target="_blank">Training Guide</a>
                 </li>
+                <!-- <li>
+                  <a class="nav-link grandchild-link" routerLink="sxmactivationreport">Activation Report</a>
+                </li> -->
               </ul>
             </li>
           </ul>

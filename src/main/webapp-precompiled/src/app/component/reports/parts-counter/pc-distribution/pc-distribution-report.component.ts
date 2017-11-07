@@ -63,29 +63,8 @@ export class PCDistributionReportComponent implements OnInit {
 
 
     public programOptions: SelectItem[] = [];
-    public pCDistributionBCOptions: SelectItem[] = [
-        { label: "MA", value: "MA" },
-        { label: "DN", value: "DN" },
-        { label: "SE", value: "SE" },
-        { label: "WE", value: "WE" },
-        { label: "SW", value: "SW" },
-        { label: "MW", value: "MW" },
-        { label: "GL", value: "GL" },
-        { label: "CA", value: "CA" },
-        { label: "NE", value: "NE" },
-    ]
-    public pCDistributionDistrictOptions: SelectItem[] = [
-        { label: "SE-K", value: "SE-K" },
-        { label: "NE-S", value: "NE-S" },
-        { label: "SE-A", value: "SE-A" },
-        { label: "MW-E", value: "MW-E" }
-    ]
-    public pCDistributionDealeCodeOptions: SelectItem[] = [
-        { label: "05239", value: "05239" },
-        { label: "05551", value: "05551" },
-        { label: "07203", value: "07203" },
-        { label: "07595", value: "07595" }
-    ]
+    
+    
     public selectedBCList: any = [];
     public selectedDistrictList: any = [];
     public selectedDealerCodeList: any = [];
@@ -121,7 +100,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDistrict = true;
             this.isDealer = true;
             this.isManager = true;
-            this.isParticipant = true;
+            this.isParticipant = false;
             this.viewEXTabOnly();
         } else {
             this.identifyRoles();
@@ -176,7 +155,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDistrict = true;
             this.isManager = true;
             this.isDealer = true;
-            this.isParticipant = true;
+            this.isParticipant = false;
             this.viewEXTabOnly();
         } else if (role == 12) {
             var BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -189,7 +168,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDistrict = true;
             this.isManager = true;
             this.isDealer = true;
-            this.isParticipant = true;
+            this.isParticipant = false;
             this.viewBCTabOnly();
         } else if (role == 11) {
             var DISTRICT = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -201,7 +180,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDistrict = true;
             this.isManager = true;
             this.isDealer = true;
-            this.isParticipant = true;
+            this.isParticipant = false;
             this.viewDistrictTabOnly();
         } else if (role == 5) {
             this.tabNumber = "tab4";
@@ -211,7 +190,7 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDistrict = false;
             this.isManager = true;
             this.isDealer = true;
-            this.isParticipant = true;
+            this.isParticipant = false;
             this.viewDealerTabOnly();
         } else if (role == 10) {
             this.tabNumber = "tab4";
@@ -221,8 +200,19 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDistrict = false;
             this.isManager = false;
             this.isDealer = true;
-            this.isParticipant = true;
+            this.isParticipant = false;
             this.viewDealerTabOnly();
+        }
+        else if (role == 6 || role == 9) {
+            this.tabNumber = "tab5";
+            this.isParticipantUser = true;
+            this.isExecutive = false;
+            this.isBC = false;
+            this.isDistrict = false;
+            this.isManager = false;
+            this.isDealer = false;
+            this.isParticipant = true;
+            this.viewParticipantTabOnly();
         }
     }
     private dealerCodesBelongsToThisBCOrDist: any = [];
@@ -291,6 +281,27 @@ export class PCDistributionReportComponent implements OnInit {
             this.pCDistributionReportInterface.dealerCode = "";
 
         if (this.isDealerUser || this.isManagerUser) {
+            this.disableDealerInput = true;
+            this.pCDistributionReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+
+        }
+        this.viewDealerPCDistributionReport();
+    }
+
+    public viewParticipantTabOnly() {
+        //   this.createBCProgramOptions();
+        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        this.showExecutivePCDistributionReportIframe = false;
+        this.showBCDistributionReportIframe = false;
+        this.showDistrictPCDistributionReportIframe = false;
+        this.showDealerPCDistributionReportIframe = true;
+        this.showParticipantPCDistributionReportIframe = false;
+        this.showDetailPCDistributionReportIframe = false;
+        this.pCDistributionReportInterface.from = this.fromDate,
+            this.pCDistributionReportInterface.to = this.toDate,
+            this.pCDistributionReportInterface.dealerCode = "";
+
+        if (this.isParticipantUser) {
             this.disableDealerInput = true;
             this.pCDistributionReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
 
@@ -367,7 +378,7 @@ export class PCDistributionReportComponent implements OnInit {
                 this.showDealerPCDistributionReportIframe = true;
             }
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDDL=${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
-        } else if (this.isDealerUser || this.isManagerUser) {
+        } else if (this.isDealerUser || this.isManagerUser || this.isParticipantUser) {
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDDL=${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         }
 

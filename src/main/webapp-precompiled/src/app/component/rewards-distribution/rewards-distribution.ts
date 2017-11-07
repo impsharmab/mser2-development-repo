@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/primeng';
 
 import { RewardsDistributionService } from '../../services/rewards-distribution/rewards-distribution.service';
+import { MVPAutoApprovalSettingService } from '../../services/mvp-service/mvp-autoapprove/mvp-autoapprove.service';
+
 
 import { MVPInterface } from './mvpData.interface';
 import { ELDistributionInterface } from './el-distribution.interface';
@@ -25,17 +27,36 @@ export class RewardsDistributionComponent implements OnInit {
   public hideelParticipantTable: boolean = false;
   public hidepcParticipantTable: boolean = false;
   public hideurParticipantTable: boolean = false;
-  constructor(private rewardsDistributionService: RewardsDistributionService) { }
+
+  public isDealerManager: boolean = false;
+  public isServiceManagerOfRecords: boolean = false;
+  constructor(
+    private rewardsDistributionService: RewardsDistributionService,
+    private mvpAutoApprovalSettingService: MVPAutoApprovalSettingService) { }
 
   ngOnInit() {
     this.getRewardsDistributionAmount();
     var d = new Date;
     this.date = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
 
+    var selectedCodeData = JSON.parse(sessionStorage.getItem("selectedCodeData"));
+    this.isDealerManager = selectedCodeData.isDealerManager;
+    this.isServiceManagerOfRecords = selectedCodeData.isServiceManagerOfRecord;
     // this.getParticipantsByDealer();
+    this.getMVPApprovalData();
   }
 
-
+  public mvpApprovalDatum: any;
+  public getMVPApprovalData() {
+    this.mvpAutoApprovalSettingService.getMVPApprovalData().subscribe(
+      (mvpApprovalData) => {
+        this.mvpApprovalDatum = mvpApprovalData
+      },
+      (error) => {
+        this.mvpApprovalDatum = false;
+      }
+    )
+  }
   public getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
@@ -278,7 +299,9 @@ export class RewardsDistributionComponent implements OnInit {
     this.activeTeamID = teamID;
     this.elAmount = amount;
     this.hideelParticipantTable = false;
-
+    for (var i = 0; i < this.groupedELdistributionData.length; i++) {
+      this.groupedELdistributionData[i].elDistributedAmount = 0
+    }
     this.elParticipantsOptions = [];
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.elParticipantDataValue = [];
@@ -702,7 +725,7 @@ export class RewardsDistributionComponent implements OnInit {
     this.totalELRewardedAmount = 0;
     for (var i = 0; i < this.elParticipantDataValue.length; i++) {
       for (var j = 0; j < this.groupedELdistributionData.length; j++) {
-        if (this.elParticipantDataValue[i].teamID == this.groupedELdistributionData[j].teamID) {
+        if (this.elParticipantDataValue[i].teamID == this.groupedELdistributionData[j].teamId) {
           this.totalELRewardedAmount = this.totalELRewardedAmount + this.elParticipantDataValue[i].value
           this.groupedELdistributionData[j].elDistributedAmount = this.totalELRewardedAmount;
         }

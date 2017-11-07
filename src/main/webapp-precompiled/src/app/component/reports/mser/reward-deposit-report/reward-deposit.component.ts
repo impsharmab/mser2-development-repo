@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from "@angular/platform-browser";
 
 import * as userMatrix from '../../../../global-variable/user-matrix';
@@ -75,7 +75,8 @@ export class RewardsDepositReportComponent implements OnInit {
     public disableSIDInput: boolean = false;
     constructor(
         private domSanitizer: DomSanitizer,
-        private reportService: ReportService
+        private reportService: ReportService,
+        private chRef: ChangeDetectorRef
     ) { }
 
 
@@ -97,27 +98,9 @@ export class RewardsDepositReportComponent implements OnInit {
         this.maxDate.setFullYear(today.getFullYear());
         this.maxDate.setDate(lastDayOfMonth.getDate());
 
-        this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
-        if (this.isAdmin) {
-            this.getDealerCodesBelongsToBCAndDIST("NAT");
-            this.getParticipantsByDealer("NAT");
-            this.tabNumber = "tab1";
-            this.isAdminByPC = true;
-            this.isExecutiveUser = true;
-            this.isNational = true;
-            this.isExecutive = true;
-            this.isBC = true;
-            this.isDistrict = true;
-            this.isDealer = true;
-            this.isManager = true;
-            this.isParticipant = true;
-            this.viewEXTabOnly();
-        } else {
-            this.checkRoles();
-        }
-        this.squarify();
-        this.renderTab();
-       
+
+
+
     }
 
     public squarify() {
@@ -153,12 +136,39 @@ export class RewardsDepositReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width 
     }
+    public isAdminCheck() {
+        this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
+        if (this.isAdmin) {
+            this.getDealerCodesBelongsToBCAndDIST("NAT");
+            this.getParticipantsByDealer("NAT");
+            this.tabNumber = "tab1";
+            this.isAdminByPC = true;
+            this.isExecutiveUser = true;
+            this.isNational = true;
+            this.isExecutive = true;
+            this.isBC = true;
+            this.isDistrict = true;
+            this.isDealer = true;
+            this.isManager = true;
+            this.isParticipant = true;
+            this.viewEXTabOnly();
+            this.renderTab();
+        } else {
+            this.checkRoles();
+        }
+        
+    }
     public rewardDepositPrograms: any = [];
     public getReportPrograms() {
         this.reportService.getReportPrograms("RewardDepositPrograms").subscribe(
             (rewardDepositPrograms) => {
                 this.rewardDepositPrograms = (rewardDepositPrograms)
                 this.createRewardDepositProgramOptions();
+                for (var i = 0; i < this.rewardDepositPrograms.length; i++) {
+                    this.selectedProgramList.push(this.rewardDepositPrograms[i].value);
+                }
+                this.isAdminCheck()
+                this.chRef.detectChanges();
             },
             (error) => {
             }
@@ -171,10 +181,9 @@ export class RewardsDepositReportComponent implements OnInit {
             rewardDepositProgramIDOptions.push({ label: this.rewardDepositPrograms[i].name, value: this.rewardDepositPrograms[i].value })
         }
         this.rewardDepositProgramIDOptions = rewardDepositProgramIDOptions;
-        for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
-            this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
-        }
-       
+
+        this.chRef.detectChanges();
+
     }
     public selectedRole: any;
     public isExecutiveUser: boolean = false;
@@ -265,6 +274,8 @@ export class RewardsDepositReportComponent implements OnInit {
             this.isParticipant = true;
             this.viewParticipantTabOnly();
         }
+        this.squarify();
+        this.renderTab();
     }
     public showRewardDepositMatrix: boolean = false;
     public rewardDepositMatrix() {
@@ -305,15 +316,10 @@ export class RewardsDepositReportComponent implements OnInit {
         this.showDistrictRewardDepositReportIframe = false;
         this.showParticipantRewardDepositReportIframe = false;
         this.showDetailRewardDepositReportIframe = false;
-        this.bcrewardDeposit = {
-            from: this.fromDate,
-            to: this.toDate,
-            program: [],
-            dealerCode: "",
-            sid: ""
-        }
-        // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
-        this.selectedProgramList = [];
+        this.bcrewardDeposit.from = this.fromDate,
+            this.bcrewardDeposit.to = this.toDate,
+            // this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+            this.selectedProgramList = [];
         for (var i = 0; i < this.rewardDepositProgramIDOptions.length; i++) {
             this.selectedProgramList.push(this.rewardDepositProgramIDOptions[i].value);
         }
@@ -422,7 +428,9 @@ export class RewardsDepositReportComponent implements OnInit {
         var RDEFromDate = this.bcrewardDeposit.from;
         var RDEToDate = this.bcrewardDeposit.to;
         var RDEPG = "";
-
+        if (this.selectedProgramList.length == 0) {
+            RDEPG = "&RDEPG=0";
+        }
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDEPG = RDEPG + "&RDEPG=" + this.selectedProgramList[i];
         }
@@ -437,6 +445,9 @@ export class RewardsDepositReportComponent implements OnInit {
         var RDBCFromDate = this.bcrewardDeposit.from;
         var RDBCToDate = this.bcrewardDeposit.to;
         var RDBCPG = "";
+        if (this.selectedProgramList.length == 0) {
+            RDBCPG = "&RDBCPG=0";
+        }
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDBCPG = RDBCPG + "&RDBCPG=" + this.selectedProgramList[i];
         }
@@ -457,6 +468,9 @@ export class RewardsDepositReportComponent implements OnInit {
         var RDDFromDate = this.bcrewardDeposit.from;
         var RDDToDate = this.bcrewardDeposit.to;
         var RDDPG = "";
+        if (this.selectedProgramList.length == 0) {
+            RDDPG = "&RDDPG=0";
+        }
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDDPG = RDDPG + "&RDDPG=" + this.selectedProgramList[i];
         }
@@ -484,7 +498,9 @@ export class RewardsDepositReportComponent implements OnInit {
         var RDDFromDate = this.bcrewardDeposit.from;
         var RDDToDate = this.bcrewardDeposit.to;
         var RDDLPG = this.bcrewardDeposit.program;
-
+        if (this.selectedProgramList.length == 0) {
+            RDDLPG = "&RDDLPG=0";
+        }
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDDLPG = RDDLPG + "&RDDLPG=" + this.selectedProgramList[i];
         }
@@ -548,6 +564,9 @@ export class RewardsDepositReportComponent implements OnInit {
         var RDPFromDate = this.bcrewardDeposit.from;
         var RDPToDate = this.bcrewardDeposit.to;
         var RDPPG = this.bcrewardDeposit.program;
+        if (this.selectedProgramList.length == 0) {
+            RDPPG = "&RDPPG=0";
+        }
         for (var i = 0; i < this.selectedProgramList.length; i++) {
             RDPPG = RDPPG + "&RDPPG=" + this.selectedProgramList[i];
         }

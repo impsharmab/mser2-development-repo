@@ -15,8 +15,7 @@ import { EnrollmentInterface } from './enrollment.interface';
 export class EnrollmentComponent implements OnInit {
     isCollapsed = true;
     @ViewChild("datatable") dataTable: DataTable;
-    selectedCars;
-    selectedCity;
+    public tabContentLoaded: boolean = false;
 
     public addTeamData: any;
     public addNewUserData: any;
@@ -117,24 +116,8 @@ export class EnrollmentComponent implements OnInit {
     public uvmEnrOptions: SelectItem[] = [];
     public uvmPartOptions: SelectItem[] = [];
     public warrantyAdmOptions: SelectItem[] = [];
-    public option = [{ label: "S26126I", value: "S26126I" }, { label: "S26126T", value: "S26126T" }, { label: "S26126A", value: "S26126A" }]
-    public cars = [{ "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }, { "vin": "45645", "year": "2014", "brand": "Toyota", "color": "white" }]
-
-
-    public moparPartsData: any = [{ "pc1": "Service Advisor (13)" }, { "pc2": "Service Advisor (13)" }];
-    public enrollmentData: EnrollmentInterface = {
-        "sid": "", "name": "", "dmsId": "", "myPersonnelDmsId": "", "myPersonnelPositions": [],
-        "moparPartsData": [], "magnetiMarelliData": [], "mvpData": [], "wiAdvisorMVPData": [],
-        "wiAdvisorTiresData": [], "posCodeOverrides": [], "pcManager": "", "elManager": "",
-        "urManager": "", "urParticipant": ""
-    };
 
     public enrollmentDataResponse: any = [];
-    public enrollmentDataReq: any = [{
-        "dealerCode": "", "myPersonalDMSID": "", "name": "", "email": "", "positionCodes": [""], "overriddenpositionCodes": [],
-        "mser": [""], "mas": [" "], "mm": [""], "mvp": [], "wiMvp": [], "wiTires": [], "pc": "", "el": "", "usedRecon": "",
-        "usedReconP": [], "sid": "", "dmsid": "", "ucon": []
-    }];
 
     constructor(private enrollmentService: EnrollmentMaintenanceService, private changeDetector: ChangeDetectorRef) { }
 
@@ -157,8 +140,9 @@ export class EnrollmentComponent implements OnInit {
     public showPCColumn: boolean = true;
     public showUVMColumn: boolean = true;
     public isEnrolled() {
-        var isElEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isELEnrolled;
+        var isElEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).elValidated;
         var isPCEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCEnrolled;
+
         // var isUVMmanager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isUVMManager;isELEnrolled":false,"isPCEnrolled
 
         if (isElEnrolled) {
@@ -329,6 +313,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
+                this.tabContentLoaded = true;
                 if (this.enrollmentDataResponse !== undefined) {
                     this.enrollmentDataCount = "Total Number of Employees:" + this.enrollmentDataResponse.length;
                 }
@@ -349,6 +334,7 @@ export class EnrollmentComponent implements OnInit {
                 }
             },
             (error) => {
+                this.tabContentLoaded = true;
             }
         )
     }
@@ -869,7 +855,15 @@ export class EnrollmentComponent implements OnInit {
         }
         return cleanArray;
     }
-    public selectedPCOverrides(data, index) {
+    public getRowIndex(sid) {
+        for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
+            if (this.enrollmentDataResponse[i].sid == sid) {
+                return i;
+            }
+        }
+    }
+    public selectedPCOverrides(data, rowData) {
+        var index = this.getRowIndex(rowData.sid);
         var pmRecordsSelectedData = [];
         var smRecordsSelectedData = [];
         var mserSelectedData = [];
@@ -1170,7 +1164,7 @@ export class EnrollmentComponent implements OnInit {
             //&& mvpPositionCode.length > 0
             //&& wiMvpPositionCode.length > 0
             && wiTiresPositionCode.length > 0
-            //&& tiresPositionCode.length > 0
+            && tiresPositionCode.length > 0
             //&& fiatPositionCode.length > 0
         ) {
 
@@ -1231,10 +1225,10 @@ export class EnrollmentComponent implements OnInit {
         if (mserPositionCode.length > 0
             && mmPositionCode.length > 0
             && masPositionCode.length > 0
-            //&& mvpPositionCode.length > 0
-            //&& wiMvpPositionCode.length > 0
+            && mvpPositionCode.length > 0
+            && wiMvpPositionCode.length > 0
             && wiTiresPositionCode.length > 0
-            //&& tiresPositionCode.length > 0
+            && tiresPositionCode.length > 0
         ) {
 
             this.enrollmentDataResponse[index].smPositionCode.push("(09)Service Manager ");
@@ -1458,7 +1452,7 @@ export class EnrollmentComponent implements OnInit {
                 selectedSMRecordsPCindex = i;
             }
         }
-        this.selectedPMRecordsPCData = data;
+        this.selectedSMRecordsPCData = data;
     }
     public onEditInitE(event: any) {
         if (!event.data.isEditableR) {
@@ -1709,9 +1703,10 @@ export class EnrollmentComponent implements OnInit {
             mserData.push("08");
             mmData.push("08");
             masData.push("08");
-            mvpData.push("08");
-            wiAdvMVPData.push("08");
+            // mvpData.push("08");
+            // wiAdvMVPData.push("08");
             wiAdvTireData.push("08");
+            tiresData.push("08");
         }
         if ((rowData.smPositionCode != undefined && rowData.smPositionCode.length > 0) ||
             (this.selectedSMRecordsPCData != undefined && this.selectedSMRecordsPCData.length > 0)) {
@@ -1721,6 +1716,8 @@ export class EnrollmentComponent implements OnInit {
             mvpData.push("09");
             wiAdvMVPData.push("09");
             wiAdvTireData.push("09");
+            tiresData.push("09");
+
         }
         this.enrollmentService.saveEnrollmentMaintenanceData(rowData, myPersonalPositionCode, overriddenpositionCodes, mserData,
             masData, mmData, mvpData, fiatData, tiresData, wiAdvMVPData, wiAdvTireData, uconSalesData, uconServiceData, pcData, elData,
@@ -1748,7 +1745,7 @@ export class EnrollmentComponent implements OnInit {
     private clearMessage() {
         setTimeout(() => {
             this.msg = "";
-        }, 5000)
+        }, 10000)
 
     }
     public cancelNewUserDataDialogue(data) {

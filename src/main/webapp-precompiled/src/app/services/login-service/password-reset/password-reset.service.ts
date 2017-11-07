@@ -16,7 +16,7 @@ export class PasswordResetService {
 
 
     getPasswordResetResponse(password): any {
-        var url = serviceUrl.baseUrl + "/UserProfile/Password";
+        var url = serviceUrl.baseUrl + "UserProfile/Password"; 
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         var body = { "item": password };

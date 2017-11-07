@@ -1,7 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-
-import { CMSService } from '../../services/cms-service/cms-service';
-
 import * as userMatrix from '../../global-variable/user-matrix';
 
 declare var $: any;
@@ -33,14 +30,21 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   public showRewardDistributionMainTab: boolean = false;
   public roleSession: any = "";
   public hideThisReportForParticipant: boolean = false;
+  public hideThisReportBelowBCUsers: boolean = false;
   public halfAdmin: boolean = false;
 
-  constructor(private cmsService: CMSService) { }
-
+  public showUconnectSMIncentiveProgramRulesPage: boolean = false;
+  public isCABCMABCUser: boolean = false;
   public isDealerManager: boolean = false;
   public isPartsManagerOfRecords: boolean = false;
   public isServiceManagerOfRecords: boolean = false;
+
   public role: any = "";
+
+  constructor() {
+
+  }
+
   ngOnInit() {
     var mserEnrolled: any = [];
     var mserEnrolled = JSON.parse(sessionStorage.getItem("CurrentUser")).mserEnrollment;
@@ -57,6 +61,10 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
     if (this.roleSession != undefined && (this.roleSession == 6 || this.roleSession == 9)) {
       this.hideThisReportForParticipant = true;
+    }
+
+    if (this.roleSession != undefined && (this.roleSession == 1 || this.roleSession == 12 || this.isAdmin)) {
+      this.hideThisReportBelowBCUsers = true;
     }
 
 
@@ -93,19 +101,19 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else {
       this.showMSEREnrollmentReport = false;
     }
-    if ((userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1) ) {
+    if ((userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1)) {
       this.showMSEROPCodeSetup = true;
     } else {
       this.showMSEROPCodeSetup = false;
     }
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true
-      || (userMatrix.enrollmentMaintenanceMatrix.indexOf(this.selectedPositionCode) > -1)) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
       this.showMSEREnrollmentMaintenance = true;
     } else {
       this.showMSEREnrollmentMaintenance = false;
     }
     if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true
-    || (userMatrix.automaticEnrollmentOptoutFormMatrix.indexOf(this.selectedPositionCode) > -1) ) {
+      // || (userMatrix.automaticEnrollmentOptoutFormMatrix.indexOf(this.selectedPositionCode) > -1)
+    ) {
       this.showMSERAutoEnrollmentOpt = true;
     } else {
       this.showMSERAutoEnrollmentOpt = false;
@@ -121,7 +129,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     // }
 
   }
-  public showUconnectSMIncentiveProgramRulesPage: boolean = false;
+
   public showUconnectSMIncentiveProgramRules() {
     if (this.isDealerManager || this.isServiceManagerOfRecords || (this.role == 1) || (this.role == 11) || (this.role == 12)) {
       this.showUconnectSMIncentiveProgramRulesPage = true;
@@ -159,8 +167,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
 
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true ||
-      userMatrix.rewardsDistributionMainMatrix.indexOf(this.selectedPositionCode) > -1) {
+    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
       this.showRewardDistributionMainTab = true;
       this.showRewardDistribution = true;
     } else {
@@ -169,7 +176,6 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
   }
 
-  public isCABCMABCUser: boolean = false;
   public caBCMABCReport() {
     var bcFromSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
 
@@ -252,19 +258,5 @@ export class SidenavComponent implements OnInit, AfterViewInit {
         window.dispatchEvent(new Event('resize'));
       }, 62.5);
     }
-  }
-
-
-  public openCMSPage(pageName) {
-    this.cmsService.getCmsContent(pageName).subscribe(
-      (cmsContentObject) => {
-        this.cmsContentObject = (cmsContentObject)
-
-        alert("Success")
-      },
-      (error) => {
-        alert("could not able to open cms content")
-      }
-    )
   }
 }

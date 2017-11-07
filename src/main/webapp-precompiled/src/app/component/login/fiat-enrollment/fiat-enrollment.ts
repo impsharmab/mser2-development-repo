@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
@@ -47,7 +47,8 @@ export class FiatEnrollmentComponent implements OnInit {
 
     constructor(private mserEnrollmentService: DealerRegisterService,
         private http: Http,
-        private router: Router) {
+        private router: Router,
+        private chRef: ChangeDetectorRef) {
         this.options = new DatePickerOptions();
     }
 
@@ -195,7 +196,7 @@ export class FiatEnrollmentComponent implements OnInit {
                 if (this.submitDealerAndPositionCodeDatum.dealershipName != undefined && this.submitDealerAndPositionCodeDatum.dealershipName.length > 1) {
                     this.dealerEnrollment.dealershipName = this.submitDealerAndPositionCodeDatum.dealershipName;
                 }
-
+                this.chRef.detectChanges();
             },
             (error) => {
                 if (error !== undefined && error.length < 250) {
@@ -204,8 +205,9 @@ export class FiatEnrollmentComponent implements OnInit {
                     this.dealerCodeMessage = "Error in Submitting Dealer Code and SID.";
                 }
                 this.postDealerCodeSubmitAlert = true;
-                this.postDealerCodeSubmitSuccess = true;               
+                this.postDealerCodeSubmitSuccess = true;
                 this.postDealerCodeInProgress = false;
+                this.chRef.detectChanges();
             }
         )
     }
@@ -345,6 +347,7 @@ export class FiatEnrollmentComponent implements OnInit {
                 this.enableInputs = true;
                 this.postInProgress = false;
                 this.successmsg = "Registration Successful, an email has been sent to the one provided with your temporary user id and password.";
+                this.chRef.detectChanges();
             },
             (error) => {
                 if (error !== undefined && error.length < 250) {
@@ -356,9 +359,7 @@ export class FiatEnrollmentComponent implements OnInit {
                 this.clearMessage();
                 this.postInProgress = false;
                 this.postSuccess = false;
-                // setTimeout(() => {
-
-                // }, 5000)
+                this.chRef.detectChanges();
             }
             )
     }

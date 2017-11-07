@@ -6,18 +6,22 @@ import * as reportServiceUrl from '../../../global-variable/service-url';
 
 import { SelectItem } from 'primeng/primeng';
 
+import { BCRewardDepositInterface } from '../../reports/mser/reward-deposit-report/bc-reward-deposit.interface';
+
 import { ReportService } from "../../../services/report/report-service";
 declare var $: any;
 
 @Component({
-    selector: 'sxm-activation-report',
+    selector: 'reward-deposit-report',
     templateUrl: './sxm-activation-report.html',
     host: {
         '(window:resize)': 'onResize($event)'
     }
+    // styleUrls: ['./reward-deposit-report.css'] 
 })
-export class SxmActivationReportComponent implements OnInit {
-    public showExecutiveReport: boolean = false;
+export class SxmActivationReportComponent implements OnInit { 
+
+    public showExecutiveRewardDepositReportIframe: boolean = false;
     public showBCRewardDepositReportIframe: boolean = false;
     public showDistrictRewardDepositReportIframe: boolean = false;
     public showDealerRewardDepositReportIframe: boolean = false;
@@ -43,6 +47,13 @@ export class SxmActivationReportComponent implements OnInit {
     public fromDate: any = "";
     public toDate: any = "";
 
+    public bcrewardDeposit: BCRewardDepositInterface = {
+        from: this.fromDate,
+        to: this.toDate,
+        program: [],
+        dealerCode: "",
+        sid: ""
+    }
     public rewardDepositProgramIDOptions: SelectItem[] = [
         { label: "Used Vehicle Manager", value: "15" },
         { label: "Express Lane", value: "1" },
@@ -233,6 +244,7 @@ export class SxmActivationReportComponent implements OnInit {
             this.viewParticipantTabOnly();
         }
     }
+
     public dealerCodesBelongsToThisBCOrDist: any = [];
     private getDealerCodesBelongsToBCAndDIST(bcOrDist) {
         this.reportService.getDealerCodesBelongsToBCAndDIST(bcOrDist).subscribe(
@@ -258,104 +270,223 @@ export class SxmActivationReportComponent implements OnInit {
     }
     public viewEXTabOnly() {
         // this.createBCProgramOptions();
-        this.showExecutiveReport = false;
+        this.showExecutiveRewardDepositReportIframe = false;
         this.showBCRewardDepositReportIframe = false;
         this.showDealerRewardDepositReportIframe = false;
         this.showDistrictRewardDepositReportIframe = false;
         this.showParticipantRewardDepositReportIframe = false;
         this.showDetailRewardDepositReportIframe = false;
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
-        this.pullExReport();
-        //this.showExDepositReport();
+        this.bcrewardDeposit.from = this.fromDate;
+        this.bcrewardDeposit.to = this.toDate
+        this.showExDepositReport();
     }
     public viewBCTabOnly() {
         //  this.createBCProgramOptions();
-        this.showExecutiveReport = false;
+        this.showExecutiveRewardDepositReportIframe = false;
         this.showBCRewardDepositReportIframe = false;
         this.showDealerRewardDepositReportIframe = false;
         this.showDistrictRewardDepositReportIframe = false;
         this.showParticipantRewardDepositReportIframe = false;
         this.showDetailRewardDepositReportIframe = false;
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
-        //this.viewBCRewardDepositReport();
+        this.bcrewardDeposit.from = this.fromDate;
+        this.bcrewardDeposit.to = this.toDate
+        this.viewBCRewardDepositReport();
     }
     public viewDistrictTabOnly() {
         //  this.createBCProgramOptions();
-        this.showExecutiveReport = false;
+        this.showExecutiveRewardDepositReportIframe = false;
         this.showBCRewardDepositReportIframe = false;
         this.showDistrictRewardDepositReportIframe = false;
         this.showDealerRewardDepositReportIframe = false;
         this.showParticipantRewardDepositReportIframe = false;
         this.showDetailRewardDepositReportIframe = false;
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
-        //this.viewDistrictRewardDepositReport();
+        this.bcrewardDeposit.from = this.fromDate;
+        this.bcrewardDeposit.to = this.toDate
+        this.viewDistrictRewardDepositReport();
     }
     public viewDealerTabOnly() {
+        this.msg = "";
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.showExecutiveReport = false;
+        this.showExecutiveRewardDepositReportIframe = false;
         this.showBCRewardDepositReportIframe = false;
         this.showDistrictRewardDepositReportIframe = false;
         this.showDealerRewardDepositReportIframe = false;
         this.showParticipantRewardDepositReportIframe = false;
         this.showDetailRewardDepositReportIframe = false;
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        this.bcrewardDeposit.from = this.fromDate;
+        this.bcrewardDeposit.to = this.toDate
         if (this.isDealerUser || this.isManagerUser) {
-            //this.viewDealerRewardDepositReport();
+            this.viewDealerRewardDepositReport();
         }
 
     }
     public viewParticipantTabOnly() {
-        this.showExecutiveReport = false;
+        this.msg = "";
+        this.showExecutiveRewardDepositReportIframe = false;
         this.showBCRewardDepositReportIframe = false;
         this.showDistrictRewardDepositReportIframe = false;
         this.showDealerRewardDepositReportIframe = false;
         this.showParticipantRewardDepositReportIframe = false;
         this.showDetailRewardDepositReportIframe = false;
-        this.selectedProgramList = ["15", "2", "3", "4", "5", "6", "9", "7", "11", "1", "17"];
+        this.bcrewardDeposit.from = this.fromDate;
+        this.bcrewardDeposit.to = this.toDate
         if (this.isParticipantUser) {
-            //this.viewParticipantRewardDepositReport();
+            this.viewParticipantRewardDepositReport();
         }
 
     }
-
-    public reportFrom: string;
-    public reportTo: string;
-    public pullExReport() {
-        this.showExecutiveReport = true;
-        this.programName = "SXMSummary";
-        var RDE = "NAT";
-        var RDEFromDate = this.reportFrom != undefined ? this.reportFrom : this.fromDate;
-        var RDEToDate = this.reportTo != undefined ? this.reportFrom : this.toDate;
-        var RDEPG = "";
-
-        for (var i = 0; i < this.selectedProgramList.length; i++) {
-            RDEPG = RDEPG + "&RDEPG=" + this.selectedProgramList[i];
-        }
-        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&StartDate=${RDEFromDate}&EndDate=${RDEToDate}&Parent=NAT&IncentiveID=1016&IncentiveSubCodeID=876`;
-        console.log(this.src);
-        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
-    }
-
     public showExDepositReport() {
-        this.showExecutiveReport = true;
-        this.programName = "RewardDeposit_Executive";
-        var RDE = "NAT";
-        var RDEFromDate = this.reportFrom != undefined ? this.reportFrom : this.fromDate;
-        var RDEToDate = this.reportTo != undefined ? this.reportFrom : this.toDate;
-        var RDEPG = "";
-
-        for (var i = 0; i < this.selectedProgramList.length; i++) {
-            RDEPG = RDEPG + "&RDEPG=" + this.selectedProgramList[i];
+        this.showExecutiveRewardDepositReportIframe = true;
+        this.programName = "SXM-Executive";
+        var SXMFD = this.bcrewardDeposit.from;
+        var SXMTD = this.bcrewardDeposit.to;
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&SXMFD=${SXMFD}&SXMTD=${SXMTD}`;
+        console.log(this.src);
+        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
+        
+    }
+    public viewBCRewardDepositReport() {
+        this.showBCRewardDepositReportIframe = true;
+        this.programName = "SXM_BusinessCenter";
+        var SXMFD = this.bcrewardDeposit.from;
+        var SXMTD = this.bcrewardDeposit.to;
+        var BC = "NAT";
+        if (!this.isExecutiveUser) {
+            BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         }
-        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&RDEFromDate=${RDEFromDate}&RDEToDate=${RDEToDate}${RDEPG}`;
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&SXMFD=${SXMFD}&SXMTD=${SXMTD}&BC=${BC}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    public iframeLoaded: boolean = false;
-    public funcIframeLoaded(evt) {
-        if (evt.target.src != '') {
-            this.iframeLoaded = true;
+    public viewDistrictRewardDepositReport() {
+        this.showDistrictRewardDepositReportIframe = true;
+        this.programName = "SXM-District";
+        var District = "NAT";
+        if (this.isExecutiveUser) {
+            District = "NAT";
+        } else if (this.isBCUser) {
+            District = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        } else if (this.isDistrictUser) {
+            District = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         }
+        var SXMFD = this.bcrewardDeposit.from;
+        var SXMTD = this.bcrewardDeposit.to;
+
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&SXMFD=${SXMFD}&SXMTD=${SXMTD}&District=${District}`;
+        console.log(this.src);
+        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
+    public dealerCodeNotBelongsToThisBCOrDist: string = "";
+    public msg: string = "";
+    public viewDealerRewardDepositReport() {
+        this.msg = "";
+        this.dealerCodeNotBelongsToThisBCOrDist = "";
+        this.showDealerRewardDepositReportIframe = true;
+        this.programName = "SXM-Dealer";
+        var SXMFD = this.bcrewardDeposit.from;
+        var SXMTD = this.bcrewardDeposit.to;
+        var dealerCode = "";
+
+        if (this.isExecutiveUser) {
+            if (this.bcrewardDeposit.dealerCode == "") {
+                this.msg = "Please enter Dealer Code to view the report";
+                this.showDealerRewardDepositReportIframe = false;
+                return;
+            } else if (this.bcrewardDeposit.dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(this.bcrewardDeposit.dealerCode) <= -1) {
+                this.dealerCodeNotBelongsToThisBCOrDist = "The information entered is invalid.  Please change your search criteria and try again.";
+                this.showDealerRewardDepositReportIframe = false;
+            }
+            dealerCode = this.bcrewardDeposit.dealerCode;
+        } else if (this.isBCUser) {
+            // var RDDL_BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
+            dealerCode = this.bcrewardDeposit.dealerCode;
+            // this.getDealerCodesBelongsToBCAndDIST(RDDL_BC);
+            if (dealerCode == "") {
+                this.showDealerRewardDepositReportIframe = false;
+                this.msg = "Please enter Dealer Code to view the report";
+                return;
+            }
+            else if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
+                this.dealerCodeNotBelongsToThisBCOrDist = "The information entered is invalid.  Please change your search criteria and try again.";
+                this.showDealerRewardDepositReportIframe = false;
+            } else {
+                this.dealerCodeNotBelongsToThisBCOrDist = "";
+            }
+        } else if (this.isDistrictUser) {
+            // var RDDL_DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            dealerCode = this.bcrewardDeposit.dealerCode;
+            // this.getDealerCodesBelongsToBCAndDIST(RDDL_DIST);
+            if (dealerCode == "") {
+                this.showDealerRewardDepositReportIframe = false;
+                this.msg = "Please enter Dealer Code to view the report";
+                return;
+            } else if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
+                this.dealerCodeNotBelongsToThisBCOrDist = "The information entered is invalid.  Please change your search criteria and try again.";
+                this.showDealerRewardDepositReportIframe = false;
+            } else {
+                this.dealerCodeNotBelongsToThisBCOrDist = "";
+                this.showDealerRewardDepositReportIframe = true;
+            }
+        } else if (this.isDealerUser || this.isManagerUser) {
+            this.disableDealerCodeInput = true;
+            dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            this.bcrewardDeposit.dealerCode = dealerCode;
+        }
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&SXMFD=${SXMFD}&SXMTD=${SXMTD}&Dealercode=${dealerCode}`;
+        console.log(this.src);
+        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
+    }
+    public sidNotBelongsToThisBC: string = "";
+    public viewParticipantRewardDepositReport() {
+        this.showParticipantRewardDepositReportIframe = true;
+        this.programName = "SXm-participant";
+        // var RDP = this.bcrewardDeposit.sid;
+        var SXMFD = this.bcrewardDeposit.from;
+        var SXMTD = this.bcrewardDeposit.to;
+        var dealerCode = this.bcrewardDeposit.dealerCode;
+        var sid = this.bcrewardDeposit.sid;
+        if (this.isExecutiveUser) {
+            if (sid == "") {
+                this.msg = "Please enter SID to view the report.";
+                this.showParticipantRewardDepositReportIframe = false;
+                return;
+            }
+        } else if (this.isBCUser) {
+            if (sid == "") {
+                this.msg = "Please enter SID to view the report."
+                this.showParticipantRewardDepositReportIframe = false;
+                return;
+            } else if (sid != "" && this.sidsBelongsToThisDealer.indexOf(sid) <= -1) {
+                this.sidNotBelongsToThisBC = "The information entered is invalid.  Please change your search criteria and try again.";
+                this.showParticipantRewardDepositReportIframe = false;
+            }
+        } else if (this.isDistrictUser) {
+            if (sid == "") {
+                this.msg = "Please enter SID to view the report."
+                this.showParticipantRewardDepositReportIframe = false;
+                return;
+            } else if (sid != "" && this.sidsBelongsToThisDealer.indexOf(sid) <= -1) {
+                this.sidNotBelongsToThisBC = "The information entered is invalid.  Please change your search criteria and try again.";
+                this.showParticipantRewardDepositReportIframe = false;
+            }
+        } else if (this.isDealerUser || this.isManagerUser) {
+            if (sid == "") {
+                this.msg = "Please enter SID to view the report."
+                this.showParticipantRewardDepositReportIframe = false;
+                return;
+            } else if (sid != "" && this.sidsBelongsToThisDealer.indexOf(sid) <= -1) {
+                this.sidNotBelongsToThisBC = "The information entered is invalid.  Please change your search criteria and try again.";
+                this.showParticipantRewardDepositReportIframe = false;
+            }
+        } else if (this.isParticipantUser) {
+            this.disableSIDInput = true;
+            this.bcrewardDeposit.sid = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
+            sid = this.bcrewardDeposit.sid;
+        }
+        this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&SXMFD=${SXMFD}&SXMTD=${SXMTD}&SID=${sid}`;
+        console.log(this.src);
+        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
+    }
+
 
 }

@@ -24,21 +24,24 @@ export class LoginComponent implements OnInit {
   private ssotoken: string = "";
   private ssodealercode: string = "";
   private ssopositioncode: string = "";
+  private origin: string = "";
   public hideLoginPage: boolean = false;
   private booleanDealerEmulation: any = false;
   private refreshTokenData: any;
 
   constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,
-    private cookieService: CookieService, private chRef: ChangeDetectorRef) { }
+    private cookieService: CookieService, private chRef: ChangeDetectorRef) {
+
+  }
 
   ngOnInit() {
-    this.chRef.detectChanges();
-
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.ssotoken = params['token'];
       this.ssodealercode = params['dc'];
       this.ssopositioncode = params['pc'];
-      if (this.ssotoken !== undefined && this.ssotoken !== "") {
+      this.origin = params['origin'];
+
+      if (this.ssotoken != undefined && this.ssotoken != null && this.ssotoken != "") {
         this.hideLoginPage = true;
         this.ssologin(
           this.ssotoken,
@@ -47,10 +50,21 @@ export class LoginComponent implements OnInit {
         )
       }
     });
+    this.getRouterParameter();
     this.checkDealerToken();
     this.refreshLogin();
   }
 
+  public emulateRouter: string = "";
+  public getRouterParameter() {
+    this.activatedRoute.params.subscribe(params => {
+      this.emulateRouter = (params['emulation']);
+    },
+      (error) => {
+        alert("could not pass router parameter")
+      }
+    )
+  }
   private checkDealerToken() {
     if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
       if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
@@ -59,7 +73,6 @@ export class LoginComponent implements OnInit {
     }
   }
   private ssologin(ssotoken: string, ssopositioncode: string, ssodealercode: string) {
-
     var adminToken = this.cookieService.get("adminToken");
     if (adminToken !== undefined && adminToken !== null && adminToken.length > 1) {
       let url = ["login"]
@@ -79,10 +92,11 @@ export class LoginComponent implements OnInit {
       (resUserData) => {
         this.userdata = (resUserData)
         if (resUserData["token"].length > 0) {
-          this.loginService.setUserData(this.userdata);
+          this.loginService.setUserData(this.userdata, this.origin);
           var poscodes: any = this.userdata.positionCode;
           var delcodes: any = this.userdata.dealerCode;
           var delnames: any = this.userdata.dealerName;
+          var mserEnrollment: any = this.userdata.mserEnrollment;
           // var userid: any = this.userdata.userId;
           // ga('set', 'userId', userid);
           sessionStorage.setItem("selectedCodeData", JSON.stringify(
@@ -92,8 +106,13 @@ export class LoginComponent implements OnInit {
               "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
             }))
 
-          let url = ["mserHomepage/home"]
-          this.router.navigate(url);
+          if (!mserEnrollment) {
+            let url = ["notMserEnrolledPage"]
+            this.router.navigate(url);
+          } else if (mserEnrollment) {
+            let url = ["mserHomepage/home"]
+            this.router.navigate(url);
+          }
 
         } else {
           let url = ["login"]
@@ -105,88 +124,72 @@ export class LoginComponent implements OnInit {
         window.open("./loginerror.html", "_self");
       }
       )
+    // this.cookieService.put("origin", this.origin);
   }
   private refreshLogin() {
     var user = this.cookieService.get("token");
     var isDealerEmulation = this.cookieService.get("isDealerEmulation");
-    if (user !== undefined) {
-      if (user !== undefined && user.length > 1) {
-        this.hideLoginPage = true;
-        this.loginService.getRefreshLoginResponse(user).subscribe(
-          (refreshTokenData) => {
-            this.refreshTokenData = (refreshTokenData)
-            if (refreshTokenData !== undefined && refreshTokenData.token.length > 1) {
-              sessionStorage.setItem("showWelcomePopup", "false");
-              if (isDealerEmulation == "true") {
-                var poscodes: any = ["01"];
-                var delcodes: any = [this.cookieService.get("dealercode")];
-                var delnames: any = this.refreshTokenData.dealerName;
-                var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
-                var passwordReset: any = this.refreshTokenData.passwordReset;
-                var roles: any = ["10"];
-                // this.loginService.setUserData(this.refreshTokenData);
-                // sessionStorage.setItem("CurrentUser", JSON.stringify(
-                //   {
-                //     "token": this.refreshTokenData.token,
-                //     "name": this.refreshTokenData.name,
-                //     "positionCode": poscodes,
-                //     "dealerCode": delcodes,
-                //     "dealerName": [],
-                //     "mserEnrollment": this.refreshTokenData.mserEnrollment,
-                //     "roles": roles,
-                //     "userId": "",
-                //     "dealerManager": this.refreshTokenData.dealerManager,
-                //     "serviceManagerOfRecord": this.refreshTokenData.serviceManagerOfRecord,
-                //     "partsManagerOfRecord": this.refreshTokenData.partsManagerOfRecord,
-                //     "elManager": this.refreshTokenData.elManager,
-                //     "pcManager": this.refreshTokenData.pcManager,
-                //     "uvmManager": this.refreshTokenData.uvmManager,
-                //     "elEnrolled": this.refreshTokenData.elEnrolled,
-                //     "pcEnrolled": this.refreshTokenData.pcEnrolled,
-                //     "passwordReset": false,
-                //     "admin": false
-                //   }
-                // )
-                // )
 
-              } else {
-                this.loginService.setUserData(this.refreshTokenData);
-                var poscodes: any = this.refreshTokenData.positionCode;
-                var delcodes: any = this.refreshTokenData.dealerCode;
-                var delnames: any = this.refreshTokenData.dealerName;
-                var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
-                var passwordReset: any = this.refreshTokenData.passwordReset;
-              }
-              // var userid: any = this.refreshTokenData.userId;
-              // ga('set', 'userId', userid);
-              sessionStorage.setItem("selectedCodeData", JSON.stringify(
-                {
-                  "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
-                  "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
-                  "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
-                }))
+    if (user !== undefined && user.length > 1) {
+      this.hideLoginPage = true;
+      this.loginService.getRefreshLoginResponse(user).subscribe(
+        (refreshTokenData) => {
+          this.refreshTokenData = (refreshTokenData)
+          if (refreshTokenData !== undefined && refreshTokenData.token.length > 1) {
+            sessionStorage.setItem("showWelcomePopup", "false");
+            if (isDealerEmulation == "true") {
+              var poscodes: any = ["01"];
+              var delcodes: any = [this.cookieService.get("dealercode")];
+              var delnames: any = this.refreshTokenData.dealerName;
+              var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
+              var passwordReset: any = this.refreshTokenData.passwordReset;
+              var roles: any = ["10"];
 
-              if (mserEnrollment && !passwordReset) {
-                let url = ["mserHomepage/home"]
-                this.router.navigate(url);
-              } else if (mserEnrollment && passwordReset) {
-                let url = ["resetpassword"]
-                this.router.navigate(url);
-              } else if (!mserEnrollment) {
-                let url = ["notMserEnrolledPage"]
-                this.router.navigate(url);
-              }
-              // location.reload();
             } else {
-
+              this.loginService.setUserData(this.refreshTokenData);
+              var poscodes: any = this.refreshTokenData.positionCode;
+              var delcodes: any = this.refreshTokenData.dealerCode;
+              var delnames: any = this.refreshTokenData.dealerName;
+              var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
+              var passwordReset: any = this.refreshTokenData.passwordReset;
             }
-          },
-          (error) => {
-            this.cookieService.removeAll();
-            location.reload();
+            // var userid: any = this.refreshTokenData.userId;
+            // ga('set', 'userId', userid);
+            sessionStorage.setItem("selectedCodeData", JSON.stringify(
+              {
+                "selectedPositionCode": poscodes === undefined ? 0 : poscodes[0] === "" ? "0" : poscodes.length > 0 ? poscodes[0] : 0,
+                "selectedDealerCode": delcodes === undefined ? 0 : delcodes[0] === "" ? "0" : delcodes.length > 0 ? delcodes[0] : 0,
+                "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
+              }))
+
+            if ((this.emulateRouter != undefined && this.emulateRouter == "emulate") && mserEnrollment && !passwordReset) {
+              let url = ["mserHomepage/useremulation"]
+              this.router.navigate(url);
+            } else if (mserEnrollment && !passwordReset) {
+              let url = ["mserHomepage/home"]
+              this.router.navigate(url);
+            } else if (mserEnrollment && passwordReset) {
+              let url = ["resetpassword"]
+              this.router.navigate(url);
+            } else if (!mserEnrollment) {
+              let url = ["notMserEnrolledPage"]
+              this.router.navigate(url);
+            }
+            // location.reload();
+          } else {
+
           }
-        )
-      }
+        },
+        (error) => {
+          this.cookieService.removeAll();
+          location.reload();
+        }
+      )
+    }
+    else {
+      this.cookieService.removeAll();
+      let url = ["login"]
+      this.router.navigate(url);
     }
   }
   public login() {
@@ -247,7 +250,7 @@ export class LoginComponent implements OnInit {
 
     )
   }
-  private resetPassword() {
+  public resetPassword() {
     let url = ["resetpassword"]
     this.router.navigate(url);
   }

@@ -116,6 +116,7 @@ export class MVPComponent implements OnInit {
       // var src1 = "https://view.officeapps.live.com/op/view.aspx?src=http://www.moparser.com/shared/imi-cms/MSER/presentations/";
 
       this.pptLink = `https://view.officeapps.live.com/op/view.aspx?src=http://www.moparser.com/shared/imi-cms/MSER/presentations/${this.selectedFilePath}`
+      this.domSanitizer.bypassSecurityTrustResourceUrl(this.pptLink);
       //this.pptLink = src1.concat(this.selectedFilePath);
 
 

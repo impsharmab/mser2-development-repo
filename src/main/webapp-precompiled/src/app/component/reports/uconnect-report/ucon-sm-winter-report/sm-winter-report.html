@@ -1,0 +1,101 @@
+<main class="main report-center" id="report-center">
+
+    <!-- Reward Center Tabs-->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li [hidden]="!viewExecutiveTab" class="tab" (click)="viewEXTabOnly()">
+                <a>Executive</a>
+            </li>
+            <li [hidden]="!viewBCTab" class="tab" (click)="viewBCTabOnly()">
+                <a>Business Center</a>
+            </li>
+            <li [hidden]="!viewDistrictTab" class="tab" (click)="viewDistrictTabOnly()">
+                <a>District</a>
+            </li>
+            <li [hidden]="!viewDealerTab" class="tab" (click)="viewDealerTabOnly()">
+                <a>Dealer</a>
+            </li>
+            <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
+        </ul>
+        <!-- Content container -->
+        <div>
+            <!-- Begin Executive SM Winter Program Report -->
+            <div [hidden]="!viewExecutiveTab" class="z-content-pad">
+                <h2>Executive SM Winter Program Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <!-- <form class="report-form">
+        
+                        </form> -->
+                <div class="row" *ngIf="showExIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Executive SM Winter Program Report -->
+
+            <!-- Begin Business Center SM Winter Program Report -->
+            <div [hidden]="!viewBCTab" class="z-content-pad">
+                <h2>Business Center SM Winter Program Report</h2>
+                <!-- <form class="report-form">
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <p-dropdown [options]="bcOptions" id="bcNavAct" name="bcNavAct" [(ngModel)]="selectedBC" placeholder="Select" [style]="{'width':'250px'}"></p-dropdown>
+                                </div>
+                                <div class="form-group col-sm-2 report-button-container">
+                                    <button pButton type="button" (click)="viewBCSM Winter ProgramReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                                </div>
+        
+                            </div>
+                        </form> -->
+                <div class="row" *ngIf="showBCIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Business Center SM Winter Program Report -->
+
+            <!-- Begin District Reward Center Report -->
+            <div [hidden]="!viewDistrictTab" class="z-content-pad">
+                <h2>District Uconnect - SM Winter Program Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row" *ngIf="showDISTIFrame">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    </div>
+                </form>
+            </div>
+            <!-- End District Reward Center Report -->
+
+            <!-- Begin Dealer Reward Center Report -->
+            <div [hidden]="!viewDealerTab" class="z-content-pad" >
+                <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h2>Dealer Uconnect - SM Winter Program Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row" [hidden]="hideDealerTab">
+                        <div class="form-group col-sm-2">
+                            <label for="dc-4">Dealer Code:</label>
+                            <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerButton"
+                                minlength="5" maxlength="5" (ngModelChange)="msg=''" />
+                        </div>
+                        <!-- <div class="form-group col-sm-3">
+                                    <p-dropdown [options]="dealerOptions" id="dcNavAct" name="dcNavAct" [(ngModel)]="selectedDC" filter="filter" placeholder="Select"
+                                        [style]="{'width':'250px'}"></p-dropdown>
+                                </div> -->
+                        <div class="form-group col-sm-2 report-button-container">
+                            <button pButton type="button" (click)="viewDealerReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showDealerIFrame">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    </div>
+                </form>
+            </div>
+            <!-- End Dealer Reward Center Report -->
+        </div>
+    </div>
+</main>

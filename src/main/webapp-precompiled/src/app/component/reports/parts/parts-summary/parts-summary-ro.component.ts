@@ -131,6 +131,9 @@ export class PartsSummaryROReportComponent implements OnInit {
             (repairOrdersReportPrograms) => {
                 this.repairOrdersReportPrograms = (repairOrdersReportPrograms)
                 this.createPartsSummaryROProgramOptions();
+                for (var i = 0; i < this.repairOrdersReportPrograms.length; i++) {
+                    this.selectedProgramList.push(this.repairOrdersReportPrograms[i].value);
+                }
             },
             (error) => {
             }
@@ -143,10 +146,8 @@ export class PartsSummaryROReportComponent implements OnInit {
             partsSummaryROProgramOptions.push({ label: this.repairOrdersReportPrograms[i].name, value: this.repairOrdersReportPrograms[i].value })
         }
         this.partsSummaryROProgramOptions = partsSummaryROProgramOptions;
-        for (var i = 0; i < this.partsSummaryROProgramOptions.length; i++) {
-            this.selectedProgramList.push(this.partsSummaryROProgramOptions[i].value);
-        }
-       
+
+
     }
     public checkRoles() {
         var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
@@ -205,12 +206,12 @@ export class PartsSummaryROReportComponent implements OnInit {
         var FromDate = this.partsSummaryROInterface.from;
         var ToDate = this.partsSummaryROInterface.to;
         var DealerCode = this.partsSummaryROInterface.dealerCode;
-        var ProgramGroup;
+        var ProgramGroup = "";
         if (this.selectedProgramList.length == 0) {
             ProgramGroup = "&ProgramGroup=0";
         } else {
             for (var i = 0; i < this.selectedProgramList.length; i++) {
-                ProgramGroup = "&ProgramGroup=" + this.selectedProgramList[i];
+                ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
             }
         }
         if (this.partsSummaryROInterface.dealerCode == "") {
@@ -229,7 +230,7 @@ export class PartsSummaryROReportComponent implements OnInit {
 
             if (DEALERCODE != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
-                this.msg = "Sorry, the dealer code you have entered does not belongs to any Business Center";
+                this.msg = "The information entered is invalid. Please change your search criteria and try again.";
 
             } else {
                 this.showPartsSummaryROReportIframe = true;
@@ -251,7 +252,7 @@ export class PartsSummaryROReportComponent implements OnInit {
                 // }, 1000);
             } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
-                this.msg = "Sorry, the dealer code you have entered does not belongs to any Business Center";
+                this.msg = "The information entered is invalid. Please change your search criteria and try again.";
             } else {
                 this.showPartsSummaryROReportIframe = true;
             }
@@ -270,7 +271,7 @@ export class PartsSummaryROReportComponent implements OnInit {
                 }, 500);
             } else if (DEALERCODE12 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE12) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
-                this.msg = "Sorry, the dealer code you have entered does not belongs to any Business Center";
+                this.msg = "The information entered is invalid. Please change your search criteria and try again.";
             } else {
                 this.showPartsSummaryROReportIframe = true;
             }

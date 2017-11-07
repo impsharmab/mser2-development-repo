@@ -9,7 +9,7 @@ import './../rxjs-operators';
 
 @Injectable()
 export class LoginService {
- 
+
   private userdata = {};
   private role: string = "";
   constructor(private http: Http, private cookieService: CookieService) { }
@@ -56,12 +56,14 @@ export class LoginService {
     return this.role;
   }
 
-  setUserData(userdata: any) {
+  setUserData(userdata: any, origin?: any) {
     sessionStorage.setItem("CurrentUser", "");
     sessionStorage.removeItem('CurrentUser');
     sessionStorage.removeItem('selectedCodeData');
     sessionStorage.setItem("CurrentUser", JSON.stringify(userdata));
     this.cookieService.put("token", (userdata.token));
+    this.cookieService.put("origin", (origin));
+
   }
 
   getUsersData() {
@@ -69,7 +71,7 @@ export class LoginService {
   }
 
   getSSOLoginResponse(ssotoken, ssodealercode, ssopositioncode): any {
-    var url = "./login/token/" + ssotoken + "/" + ssodealercode + "/" + ssopositioncode;
+    var url = serviceUrl.baseUrl + "login/token/" + ssotoken + "/" + ssodealercode + "/" + ssopositioncode;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append("Cache-Control", "no-cache");

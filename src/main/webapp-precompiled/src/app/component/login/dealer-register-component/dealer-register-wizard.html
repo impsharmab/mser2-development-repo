@@ -53,7 +53,7 @@
                                         </div> -->
                                         <div *ngIf="!successsubmit">
                                             <p>I have read and agree with these
-                                                <span>
+                                                <span> 
                                                     <a href="/shared/imi-cms/MSER/webDocs/MSER_Official_Program_Rules.pdf" target="_blank" style="text-decoration: underline">
                                                         <b> Program Rules</b>
                                                     </a>
@@ -63,11 +63,7 @@
                                                 <p style="color: red" [innerHtml]="msg"></p>
                                             </div> -->
                                             <div *ngIf="postDealerCodeSubmitAlert" [hidden]="!postDealerCodeSubmitSuccess" class="alert alert-danger alert-dismissible fade show w-100"
-                                                role="alert" [innerHtml]='dealerCodeMessage'>
-                                                <!-- <p ></p>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button> -->
+                                                role="alert" [innerHtml]='dealerCodeMessage'>                                               
                                             </div>
 
                                             <!-- Dealer Code, SID -->

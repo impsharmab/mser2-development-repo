@@ -71,7 +71,7 @@
                                     Activity
                                 </ng-template>
                                 <ng-template pTemplate="body" let-data="rowData" let-ri="rowIndex">
-                                    <button type="button" (click)="getPartsInfo(data.partNumber)" style="cursor: pointer;">
+                                    <button type="button" (click)="getPartsInfoAndCatogory(data.partNumber, data.incentiveSubCode)" style="cursor: pointer;">
                                         Lookup
                                     </button>
                                 </ng-template>
@@ -92,7 +92,7 @@
                                     <p-column header="Part Number" rowspan="2"></p-column>
                                     <p-column header="Category Code" rowspan="2"></p-column>
                                     <p-column header="Category Name" rowspan="5"></p-column>
-                                    <p-column header="Elligible Periods" colspan="3"></p-column>
+                                    <p-column header="Eligible Periods" colspan="3"></p-column>
                                 </p-row>
                                 <p-row>
                                     <p-column header="Start Date" colspan="1"></p-column>

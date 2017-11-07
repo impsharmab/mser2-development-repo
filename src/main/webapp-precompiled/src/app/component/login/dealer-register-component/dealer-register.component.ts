@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
@@ -44,7 +44,8 @@ export class DealerRegisterComponent implements OnInit {
 
   constructor(private mserEnrollmentService: DealerRegisterService,
     private http: Http,
-    private router: Router) {
+    private router: Router,
+    private chRef: ChangeDetectorRef) {
     this.options = new DatePickerOptions();
   }
 
@@ -185,20 +186,20 @@ export class DealerRegisterComponent implements OnInit {
         if (this.submitDealerAndPositionCodeDatum.dealershipName != undefined && this.submitDealerAndPositionCodeDatum.dealershipName.length > 1) {
           this.dealerEnrollment.dealershipName = this.submitDealerAndPositionCodeDatum.dealershipName;
         }
-
+        this.chRef.detectChanges();
       },
-      (error) => {        
-          if (error !== undefined && error.length < 250) {
-            this.dealerCodeMessage = error;
-            if (this.dealerCodeMessage.indexOf("info@moparser.com") != -1)
-              this.dealerCodeMessage = this.dealerCodeMessage.replace("info@moparser.com", "<a href='mailto:info@moparser.com'>info@moparser.com</a>");
-          } else {
-            this.dealerCodeMessage = "Error in Submitting Dealer Code and SID.";
-          }
-          this.postDealerCodeSubmitAlert = true;
-          this.postDealerCodeSubmitSuccess = true;               
-          this.postDealerCodeInProgress = false;
-        
+      (error) => {
+        if (error !== undefined && error.length < 250) {
+          this.dealerCodeMessage = error;
+          if (this.dealerCodeMessage.indexOf("info@moparser.com") != -1)
+            this.dealerCodeMessage = this.dealerCodeMessage.replace("info@moparser.com", "<a href='mailto:info@moparser.com'>info@moparser.com</a>");
+        } else {
+          this.dealerCodeMessage = "Error in Submitting Dealer Code and SID.";
+        }
+        this.postDealerCodeSubmitAlert = true;
+        this.postDealerCodeSubmitSuccess = true;
+        this.postDealerCodeInProgress = false;
+        this.chRef.detectChanges();
       }
     )
   }
@@ -335,6 +336,7 @@ export class DealerRegisterComponent implements OnInit {
         this.enablemanualInputs = true;
         this.postInProgress = false;
         this.successmsg = "Registration Successful, an email has been sent to the one provided with your temporary user id and password.";
+        this.chRef.detectChanges();
       },
       (error) => {
         this.postAlert = true;
@@ -348,6 +350,7 @@ export class DealerRegisterComponent implements OnInit {
             this.msg = "Error in Submitting Dealer Code and SID.";
           }
         }, 1000)
+        this.chRef.detectChanges();
       }
       )
   }

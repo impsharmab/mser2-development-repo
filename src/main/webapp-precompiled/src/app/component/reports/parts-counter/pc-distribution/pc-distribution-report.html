@@ -15,9 +15,9 @@
       <li [hidden]="!isDealer" class="tab" (click)="viewDealerTabOnly()">
         <a>Dealer</a>
       </li>
-      <!-- <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()">
+      <li [hidden]="!isParticipant" class="tab" (click)="viewParticipantTabOnly()">
         <a>Participant</a>
-      </li> -->
+      </li>
       <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
     </ul>
     <!-- Content container -->
@@ -159,35 +159,45 @@
       <!-- End Dealer Parts Counter Distribution Report-->
 
       <!-- Begin Participant Parts Counter Distribution Report -->
-      <!-- <div [hidden]="!isParticipant" class="z-content-pad">
-        <h2>Participant PC Distribution Report</h2>
-        <p class="report-description">Total excellence card rewards deposited through MSER</p>
+      <div [hidden]="!isParticipant" class="z-content-pad">
+        <h2>Dealer PC Distribution Report</h2>
+        <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
         <form class="report-form">
           <div class="row">
-            <div class="form-group col-sm-2">
-              <label for="program-5">Dealer Code:</label>
-              <p-multiSelect [options]="pCDistributionDealeCodeOptions" id="program-5" name="program" [(ngModel)]="selectedDealerCodeList"
+            <!-- <div class="form-group col-sm-2">
+              <label for="program-4">Dealer Code:</label>
+              <p-multiSelect [options]="pCDistributionDealeCodeOptions" id="program-4" name="program" [(ngModel)]="selectedDealerCodeList"
                 [style]="{minWidth:'175px'}"></p-multiSelect>
+
+            </div> -->
+            <div class="form-group col-sm-2">
+              <label for="ro">Dealer Code:</label>
+              <input id="dc" name="dc" placeholder="Dealer Code" type="text" pInputText [(ngModel)]="pCDistributionReportInterface.dealerCode"
+                minlength="5" maxlength="5" (ngModelChange)="dealerCodeNotBelongsToThisBC=''; msg=''" [disabled]="disableDealerInput"
+              />
             </div>
             <div class="form-group col-sm-3">
-              <label for="from-5">From:</label>
-              <p-calendar placeholder="From" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+              <label for="from-4">From:</label>
+              <p-calendar placeholder="From" id="from-4" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
                 [showTime]="false" dataType="string" [(ngModel)]="pCDistributionReportInterface.from" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
             <div class="form-group col-sm-3">
-              <label for="to-5">To:</label>
-              <p-calendar placeholder="To" id="to-5" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
+              <label for="to-4">To:</label>
+              <p-calendar placeholder="To" id="to-4" name="to" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}" [showTime]="false"
                 dataType="string" [(ngModel)]="pCDistributionReportInterface.to" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
             </div>
-            <div class="form-group col-sm-2 report-button-container">
-              <button pButton type="button" (click)="viewParticipantPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+            <div class="form-group col-sm-3 report-button-container">
+              <button pButton type="button" (click)="viewDealerPCDistributionReport()" icon="fa-check" iconPos="right" label="View Report"></button>
             </div>
           </div>
-          <div class="row" *ngIf="showParticipantPCDistributionReportIframe">
-            <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-          </div>
         </form>
-      </div> -->
+        <div *ngIf="msg.length>0">
+          <p style="color:red">{{msg}}</p>
+        </div>
+        <div class="row" *ngIf="showDealerPCDistributionReportIframe">
+          <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+        </div>
+      </div>
       <!-- End Participant Parts Counter Distribution Report -->
 
     </div>

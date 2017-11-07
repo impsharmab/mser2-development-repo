@@ -1,0 +1,86 @@
+<main class="main report-center" id="report-center">
+
+    <!-- Reward Center Tabs-->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li [hidden]="!viewExecutiveTab" class="tab" (click)="viewEXTabOnly()">
+                <a>Executive</a>
+            </li>
+            <li [hidden]="!viewBCTab" class="tab" (click)="viewBCTabOnly()">
+                <a>Business Center</a>
+            </li>
+
+            <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
+        </ul>
+        <!-- Content container -->
+        <div>
+            <!-- Begin Executive Uconnect - Navigate to Higher Profits Report -->
+            <div [hidden]="!viewExecutiveTab" class="z-content-pad">
+                <h2>Executive Sirius XM - Top 10 BC Report</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="from-5">From:</label>
+                            <p-calendar placeholder="From" id="from-5" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="fromDate"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-5">To:</label>
+                            <p-calendar placeholder="To" id="to-5" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="toDate"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-2 report-button-container">
+                            <button pButton type="button" (click)="showExReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" *ngIf="showExIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Executive Uconnect - Navigate to Higher Profits Report -->
+
+            <!-- Begin Business Center Uconnect - Navigate to Higher Profits Report -->
+            <div [hidden]="!viewBCTab" class="z-content-pad">
+                <h2>Business Center Sirius XM - Top 10 BC Report </h2>
+                <form class="report-form">
+                    <div class="row">
+
+                        <div class="form-group col-sm-3">
+                            <label for="dc-5">Business Center:</label>
+                            <p-dropdown [disabled]="disableBCInput" id="dc-5" name="dc" [options]="bcOptions" [(ngModel)]="selectedBC" placeholder="Select Business Center"></p-dropdown>
+
+                            <!-- <input [disabled]="disableBCInput" placeholder="" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="selectedBC" minlength="7"
+                                maxlength="7" (ngModelChange)="msg=''" /> -->
+                        </div>
+                        <!-- <div class="form-group col-sm-2">
+                            <label for="dc-5">Business Center:</label>
+                            <input [disabled]="disableBCInput" placeholder="Business Center" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="selectedBC"
+                                minlength="7" maxlength="7" (ngModelChange)="msg=''" />
+                        </div> -->
+                        <div class="form-group col-sm-3">
+                            <label for="from-5">From:</label>
+                            <p-calendar placeholder="From" id="from-5" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="fromDate"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-5">To:</label>
+                            <p-calendar placeholder="To" id="to-5" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="toDate"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-2 report-button-container">
+                            <button pButton type="button" (click)="viewBCReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" *ngIf="showBCIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Business Center Uconnect - Navigate to Higher Profits Report -->
+
+
+        </div>
+    </div>
+</main>

@@ -12,7 +12,7 @@ export class PartsLookupService {
     }
 
     getCategoriesList(): any {
-        var url = serviceUrl.baseUrl + "/Partslookup/Category";
+        var url = serviceUrl.baseUrl + "Partslookup/NewCategory/";
 
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
@@ -26,7 +26,7 @@ export class PartsLookupService {
 
     }
     getPartsByCategory(category): any {
-        var url = serviceUrl.baseUrl + "/Partslookup/CatagoryCode/" + category;
+        var url = serviceUrl.baseUrl + "Partslookup/CatagoryCode/" + category;
 
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
@@ -41,6 +41,20 @@ export class PartsLookupService {
     }
     getPartsInfo(part): any {
         var url = serviceUrl.baseUrl + "Partslookup/PartNumber/" + part;
+
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+
+
+    }
+    getPartsInfoAndCatogory(partNumber, incentiveSubCode): any {
+        var url = serviceUrl.baseUrl + "Partslookup/PartNumber/" + partNumber + "/" + incentiveSubCode;
 
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();

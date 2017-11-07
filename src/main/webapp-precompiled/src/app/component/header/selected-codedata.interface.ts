@@ -13,4 +13,5 @@ export interface CodeData {
     isELEnrolled: string;
     isPCEnrolled: string;
     bcs: string;
+    elValidated: string;
 }

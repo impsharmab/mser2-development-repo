@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -41,12 +41,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public isUVMManagerSession: any = [];
   public isELEnrolledSession: any = [];
   public isPCEnrolledSession: any = [];
+  public iselValidatedSession: any = [];
+
   public bcsSession: any = [];
   public isELEnrolled: string = "";
   public isPCEnrolled: string = "";
   public isELManager: boolean = false;
   public isPCManager: boolean = false;
   public isUVMManager: boolean = false;
+  public iselValidated: string = "";
   public selectedIndex: any = 0;
   public codeData: CodeData;
 
@@ -58,7 +61,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private router: Router,
     private userProfileService: UserProfileService,
     private modalService: NgbModal,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private chRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -78,6 +82,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.isELEnrolledSession = this.data.elEnrolled;
     this.isPCEnrolledSession = this.data.pcEnrolled;
     this.bcsSession = this.data.bcs;
+    this.iselValidatedSession = this.data.elValidated;
 
     // this.poscodesSession = ["01", "03", "05", "08", "09", "05", "06"];
     // this.delcodesSession = ["05002", "05002", "05002", "08625", "08625", "45614", "45614"];
@@ -106,7 +111,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       isUVMManager: this.isUVMManagerSession[this.selectedIndex],
       isELEnrolled: this.isELEnrolledSession[this.selectedIndex],
       isPCEnrolled: this.isPCEnrolledSession[this.selectedIndex],
-      bcs: this.bcsSession[this.selectedIndex]
+      bcs: this.bcsSession[this.selectedIndex],
+      elValidated: this.iselValidatedSession[this.selectedIndex]
+
     }
     this.groupbyPCDC();
     var role = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
@@ -151,8 +158,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.pcDinstinct = this.pcMap[this.dcDinstinct[0]];
+    var index = sessionStorage.getItem("selectedIndex")
+    if (index != undefined && index.length > 0) {
+      var selecteddealerdm = this.delcodesSession[index];
+      this.pcDinstinct = this.pcMap[this.dcDinstinct[this.dcDinstinct.indexOf(selecteddealerdm)]];
+    } else {
+      this.pcDinstinct = this.pcMap[this.dcDinstinct[0]];
+    }
+
     this.onPCChange();
+
   }
   public pcDinstinct = [];
   public onDCChange() {
@@ -160,13 +175,25 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     var index = htmlObject.selectedIndex
 
     this.pcDinstinct = this.pcMap[this.dcDinstinct[index]];
-    // this.codeData.selectedPositionCode = this.pcDinstinct[0];
+    this.codeData.selectedPositionCode = this.pcDinstinct[0];
     // alert(this.pcDinstinct[0]);
 
     this.onPCChange();
-
+    this.chRef.detectChanges();
   }
+
+  public onDCChangeSubmit() {
+    var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
+    var index = htmlObject.selectedIndex
+    this.pcDinstinct = this.pcMap[this.dcDinstinct[index]];
+
+    this.onPCChange();
+    this.chRef.detectChanges();
+  }
+
+
   public onPCChange() {
+    //this.chRef.detectChanges();
     for (var i = 0; i < this.delcodesSession.length; i++) {
       if (this.delcodesSession[i] == this.codeData.selectedDealerCode && this.codeData.selectedPositionCode == this.poscodesSession[i]) {
         this.selectedIndex = i;
@@ -299,7 +326,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     var positioncodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
     var dealerlcodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
 
-    window.open(url + validToken + "&positioncode=" + positioncodes + "&dealercode=" + dealerlcodes, "_self")
+    window.open(url + validToken + "&pc=" + positioncodes + "&dc=" + dealerlcodes, "_self")
 
   }
 
@@ -323,7 +350,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public positionCodeCancel() {
     this.dealercodeModal.close();
   }
-  public positionCodeSubmit(c: any) { 
+  public positionCodeSubmit(c: any) {
     c();
     this.profileChange.emit("")
   }
@@ -335,7 +362,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
   public submitRetweetPCDC() {
     // alert(this.selectedIndex);
-    this.onDCChange();
+    this.onDCChangeSubmit();
     // this.onPCChange();
     this.displayRetweetModal = false;
     //alert(this.selectedIndex);
@@ -367,8 +394,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.codeData.isELEnrolled = this.isELEnrolledSession[this.selectedIndex];
     this.codeData.isPCEnrolled = this.isPCEnrolledSession[this.selectedIndex];
     this.codeData.bcs = this.bcsSession[this.selectedIndex];
+    this.codeData.elValidated = this.iselValidatedSession[this.selectedIndex];
     sessionStorage.setItem("selectedIndex", JSON.stringify(this.selectedIndex));
     this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
+    this.chRef.detectChanges();
     // console.log("Selectes Index: " + this.selectedIndex);
   }
   /*public onChangeDC(selectedDealerCode) {
@@ -396,7 +425,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     //document.sessionStorage.clear();
 
     this.cookieService.put("token", adminToken)
-    let url = ["login"]
+    let url = ["login", { "emulation": "emulate" }];
     this.router.navigate(url);
 
   }
@@ -413,7 +442,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     //document.sessionStorage.clear();
 
     this.cookieService.put("token", adminToken)
-    let url = ["login"]
+    let url = ["login", { "emulation": "emulate" }];
     this.router.navigate(url);
 
   }
@@ -427,11 +456,27 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   // }
 
   logout() {
+    var origin = this.cookieService.get("origin");
     sessionStorage.removeItem('CurrentUser');
     sessionStorage.removeItem('selectedCodeData');
     sessionStorage.clear();
     this.cookieService.removeAll();
-    let url = ["login"]
-    this.router.navigate(url);
+    // sessionStorage.appReloaded = true;
+    // if(origin !=undefined && origin == "dealerconnect"){
+    //   window.open("https://dealerconnect.chrysler.com/login/login.html", '_self')
+    // }else{
+    // let url = ["login"]
+    // this.router.navigate(url);
+    // }
+    if (origin != undefined && origin.length > 1) {
+      window.open("https://dealerconnect.chrysler.com/login/login.html", '_self');
+    } else {
+      window.location.href =
+        window.location.origin
+          ? window.location.origin + '/'
+          : window.location.protocol + '/' + window.location.host + '/';
+    }
+
+
   }
 }

@@ -16,11 +16,22 @@ export class HomeComponent implements OnInit {
   public isDealerManager: any = false;
   public isAdmin: any = false;
   public isTIDUser: any = false;
+  public ssotoken: string = "";
+  public isssotoken: boolean = false;
 
-  constructor(private homeService: HomeService, private router: Router) {
-    if (navigator.userAgent.indexOf("rv:11") != -1 && !sessionStorage.appReloaded) {
-      sessionStorage.appReloaded = true;
-      location.reload();
+  constructor(private homeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.ssotoken = params['token'];
+      if (this.ssotoken != undefined && this.ssotoken.length > 0) {
+        this.isssotoken = true;
+      }
+
+    });
+    if (!this.isssotoken) {
+      if (navigator.userAgent.indexOf("rv:11") != -1 && !sessionStorage.appReloaded) {
+        sessionStorage.appReloaded = true;
+        location.reload();
+      }
     }
   }
 

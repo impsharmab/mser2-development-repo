@@ -1,8 +1,9 @@
+import { OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes, Router } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { RootPageComponent } from "../rootpage.component";
 
@@ -41,8 +42,10 @@ import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAd
 import { PartsSummaryROReportComponent } from '../../reports/parts/parts-summary/parts-summary-ro.component';
 import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
 import { MVPAutoApproveComponent } from '../../mvp/mvp-autoapprove/mvp-autoapprove.component';
-import {SxmActivationReportComponent} from '../../uconnect/sxm-activation/sxm-activation-component';
-
+import { SxmActivationReportComponent } from '../../uconnect/sxm-activation/sxm-activation-component';
+import { UCONNavigationActivationReportComponent } from '../../reports/uconnect-report/ucon-navigate-to-higherprofits/ucon-navigate-to-higherprofit.component';
+import { UCONSMWinterProgramReportComponent } from '../../reports/uconnect-report/ucon-sm-winter-report/sm-winter-report.component';
+import { SXMTop10BCReportComponent } from '../../reports/uconnect-report/ucon-sxm-top10bc/sxm-top10bc-report.component';
 
 const routes: Routes = [
 
@@ -222,20 +225,19 @@ const routes: Routes = [
             {
                 path: "sxmactivationreport",
                 component: SxmActivationReportComponent
+            },
+            {
+                path: "uconnavigationactivationreport",
+                component: UCONNavigationActivationReportComponent
+            },
+            {
+                path: "smwinterprogramreport",
+                component: UCONSMWinterProgramReportComponent
+            },
+            {
+                path: "sxmtop10report",
+                component: SXMTop10BCReportComponent
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         ]
     }
@@ -244,10 +246,27 @@ const routes: Routes = [
 
 ]
 @NgModule({
+
     imports: [RouterModule.forRoot(routes, { useHash: true })],
     // RouterModule.forRoot(routes, { useHash: true })],
     exports: [RouterModule]
 })
-export class RoutingModule {
-    // constructor(private chRef: ChangeDetectorRef) { this.chRef.detectChanges(); }
+export class RoutingModule implements OnInit {
+
+    ngOnInit() {
+
+    }
+    constructor(private router: Router) {
+        var isCurrentUser = JSON.parse(sessionStorage.getItem("CurrentUser"));
+        if (isCurrentUser == undefined) {
+            let url = ["login"]
+            this.router.navigate(url);
+        }
+
+        // if (!sessionStorage.appReloaded) {
+        //     location.reload();
+        // }
+    }
+
+
 }

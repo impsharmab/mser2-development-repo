@@ -41,12 +41,12 @@
       </thead>
       <tbody>
         <!-- begin ng-if -->
-        <tr>
+        <tr [hidden]="mvpApprovalDatum">
           <td headers="reward-program" role="gridcell">MVP</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">* {{rewardsAmount.MVP | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
             <button class="btn btn-primary ui-button ui-widget ui-state-default ui-corner-all" data-toggle="collapse" href="#mvp" aria-expanded="false"
-              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp');" [disabled]="disableMVPButton">Approve Plans
+              aria-controls="mvp" (click)="mvpOpenAllocationTable(); getParticipantsByDealer('mvp');" [disabled]="disableMVPButton || !(isDealerManager || isServiceManagerOfRecords)">Approve Plans
               <i class="fa fa-arrow-right"></i>
             </button>
           </td>

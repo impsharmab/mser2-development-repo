@@ -38,7 +38,7 @@ export class PartsLookupComponent implements OnInit {
         this.createCategoriesOptions();
       },
       (error) => {
-
+ 
       }
     )
   }
@@ -65,6 +65,19 @@ export class PartsLookupComponent implements OnInit {
   public getPartsInfo(parts) {
     this.part = parts;
     this.partsLookupService.getPartsInfo(parts).subscribe(
+      (partInfoDatum) => {
+        this.partInfoDatum = partInfoDatum
+        this.hidePartCategoryTable = false;
+        this.hidePartInfoTable = true;
+      },
+      (error) => {
+
+      }
+    )
+  }
+
+  public getPartsInfoAndCatogory(partNumber, incentiveSubCode){
+    this.partsLookupService.getPartsInfoAndCatogory(partNumber, incentiveSubCode).subscribe(
       (partInfoDatum) => {
         this.partInfoDatum = partInfoDatum
         this.hidePartCategoryTable = false;

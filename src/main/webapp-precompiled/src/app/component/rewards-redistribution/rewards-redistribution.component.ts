@@ -8,7 +8,7 @@ declare var $: any;
 
 @Component({
     selector: 'payout-redistribution',
-    templateUrl: './rewards-redistribution.html' 
+    templateUrl: './rewards-redistribution.html'
 
 })
 export class RewardsRedistributionComponent implements OnInit {
@@ -17,7 +17,7 @@ export class RewardsRedistributionComponent implements OnInit {
     public hidepcParticipantTable: boolean = false;
     public hideurParticipantTable: boolean = false;
     public hidepayoutParticipantTable: boolean = false;
-    public dealerCode:any;
+    public dealerCode: any;
 
     constructor(
         private rewardsReDistributionService: RewardsReDistributionService,
@@ -208,7 +208,7 @@ export class RewardsRedistributionComponent implements OnInit {
 
                     if (this.elRedistributionDataResponse[k].teamName == "") {
                         this.elRedistributionDataResponse[k].teamName = "-"
-                    } 
+                    }
                     dataJson[j].teamName = this.elRedistributionDataResponse[k].teamName;
 
                 }
@@ -406,10 +406,7 @@ export class RewardsRedistributionComponent implements OnInit {
     public rewardsAmount: any = {};
     public msg: string = "";
     public savePCRedistributionData() {
-        this.hidepcParticipantTable = true;
-        this.hideelParticipantTable = true;
-        this.hideurParticipantTable = true;
-        this.hidePayoutDistributionTable = true;
+
         var nameValueList: any = [];
         var nameValues: any = {};
         var rewardsAmount = this.rewardsAmount;
@@ -425,6 +422,10 @@ export class RewardsRedistributionComponent implements OnInit {
             (savePCDATUM) => {
                 this.savePCDATUM = (savePCDATUM)
                 if (this.savePCDATUM == true) {
+                    this.hidepcParticipantTable = true;
+                    this.hideelParticipantTable = true;
+                    this.hideurParticipantTable = true;
+                    this.hidePayoutDistributionTable = true;
                     this.msg = "Successfully Allocated the Rewards Amount";
                     this.getELRedistributionData(this.insertedDealercode, "el");
                     this.getPCRedistributionData(this.insertedDealercode, "pc");

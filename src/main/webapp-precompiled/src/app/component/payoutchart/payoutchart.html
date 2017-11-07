@@ -1,7 +1,9 @@
 <main class="main">
   <div class="container m-t-md">
-
-    <div class="row m-t-md">
+    <div style="position:relative" [hidden]= "tabContentLoaded">
+      <i class="fa fa-spinner fa-spin fa-4x" aria-hidden="true" style="position:absolute;top:50%;left:50%"></i>
+    </div>
+    <div class="row m-t-md" [hidden]="!tabContentLoaded">
       <div class="col-xs-12 col-md-12">
 
         <!-- Zozo Tabs Start-->
@@ -33,7 +35,7 @@
             <!-- Monthly Highlights -->
             <div class="z-content-pad">
               <div class="payout-chart-heading">
-                  <i class="fa fa-print print-button" title="Print this page" onclick="window.print()"></i>
+                <i class="fa fa-print print-button" title="Print this page" onclick="window.print()"></i>
               </div>
 
               <div id="main-content" [innerHTML]="payoutCMSObject"></div>
@@ -64,8 +66,9 @@
 
                     <ul class="graph graph-list">
                       <li class="graph-item service-override" *ngFor="let data3 of data2.payouts" [hidden]="data3.value == 0">
-                        <span class="graph-item-subject">{{data3.name}} </span>
-                        <span> {{ data3.labels }} </span>
+                        <span class="graph-item-subject">{{data3.name}}
+                          <sup> {{ data3.labels }} </sup>
+                        </span>
                         <span class="graph-item-figure">{{data3.value | currency:'USD':true:'1.2-2'}}</span>
 
                         <a *ngIf="data3.parts != undefined && data3.parts.length>0" (click)="showIconPartsModal(data3, data2.name)" class="graph-item-info"

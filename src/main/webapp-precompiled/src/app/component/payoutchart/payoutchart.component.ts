@@ -12,6 +12,7 @@ declare var $;
     styleUrls: ['./payoutchart.component.css']
 })
 export class PayoutchartComponent implements OnInit {
+    public tabContentLoaded: boolean = false;
     public payoutCMSObject: any;
     public iconPartsModalData: any = [];
     public tabNumber: any = "tab1";
@@ -100,9 +101,9 @@ export class PayoutchartComponent implements OnInit {
             this.iconPartsModalData = data.parts;
         }
         if (data2Name != 'MOPAR VEHICLE PROTECTION') {
-            this.iconPartsModalHeading = "Qualifying Part Numbers.";
+            this.iconPartsModalHeading = "Qualifying Part Numbers";
         } else {
-            this.iconPartsModalHeading = "Eligible Plan Codes.";
+            this.iconPartsModalHeading = "Eligible Plan Codes";
         }
         this.chRef.detectChanges();
     }
@@ -122,6 +123,7 @@ export class PayoutchartComponent implements OnInit {
         this.payoutChartService.getPayoutChartData().subscribe(
             (payoutChartDatum) => {
                 this.payoutChartDatum = (payoutChartDatum)
+                this.tabContentLoaded = true;
                 // console.log(this.payoutChartDatum);
                 // console.log(this.payoutChartDatum.length);
                 this.chRef.detectChanges();
@@ -132,7 +134,8 @@ export class PayoutchartComponent implements OnInit {
 
             },
             (error) => {
-                alert("could not get object")
+                // alert("could not get object");
+                this.tabContentLoaded = true;
             }
         )
     }

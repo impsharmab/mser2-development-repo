@@ -55,7 +55,6 @@ export class PasswordResetComponent implements OnInit {
             (error) => {
                 this.msg = "Internal Server Error";
             }
-
         )
     }
 
@@ -71,6 +70,4 @@ export class PasswordResetComponent implements OnInit {
         let url = ["/login"]
         this.router.navigate(url);
     }
-
-
 }

@@ -14,7 +14,7 @@ import {
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-import { GetLastDateOfMonth } from 'get-last-date-of-month';
+// import { GetLastDateOfMonth } from 'get-last-date-of-month';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { RoutingModule } from './../routing/routing.module';
@@ -64,7 +64,15 @@ import { PCDistributionReportComponent } from '../../reports/parts-counter/pc-di
 import { WiAdvisorManagementReportComponent } from '../../reports/wiAdvisor/wiAdvisor-management/wiAdvisor-management-report.component';
 import { PCInvoiceReportComponent } from '../../reports/parts-counter/pc-invoice/pc-invoice-report.component';
 import { MVPAutoApproveComponent } from '../../mvp/mvp-autoapprove/mvp-autoapprove.component';
-import {SxmActivationReportComponent} from '../../uconnect/sxm-activation/sxm-activation-component';
+import { SxmActivationReportComponent } from '../../uconnect/sxm-activation/sxm-activation-component';
+import { UCONNavigationActivationReportComponent } from '../../reports/uconnect-report/ucon-navigate-to-higherprofits/ucon-navigate-to-higherprofit.component';
+import { UCONSMWinterProgramReportComponent } from '../../reports/uconnect-report/ucon-sm-winter-report/sm-winter-report.component';
+import { SXMTop10BCReportComponent } from '../../reports/uconnect-report/ucon-sxm-top10bc/sxm-top10bc-report.component';
+
+// import { VgCoreModule } from 'videogular2/core';
+// import { VgControlsModule } from 'videogular2/controls';
+// import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+// import { VgBufferingModule } from 'videogular2/buffering';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -88,7 +96,11 @@ import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.
     BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule, SimpleNotificationsModule.forRoot(),
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
     ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule,
-    RadioButtonModule, AccordionModule
+    RadioButtonModule, AccordionModule,
+    // VgCoreModule,
+    // VgControlsModule,
+    // VgOverlayPlayModule,
+    // VgBufferingModule
     // GetLastDateOfMonth
     //PdfmakeModule
   ],
@@ -103,7 +115,8 @@ import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
     ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
     WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent, PCInvoiceReportComponent,
-    MVPAutoApproveComponent, SxmActivationReportComponent
+    MVPAutoApproveComponent, SxmActivationReportComponent, UCONNavigationActivationReportComponent, UCONSMWinterProgramReportComponent,
+    SXMTop10BCReportComponent
     //MarketingHomeComponent, RecallRewardsRulesComponent, MarketingProgramComponent
     // PhonePipe
 

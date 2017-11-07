@@ -24,52 +24,34 @@
                 background-color: transparent !important;
             }
         </style>
-
-        <!--<h4 align="center" style="padding-left: 200px; margin-top: 40px">${videoTitle}</h4>-->
         <h4 align="center" style="padding-left: 200px; margin-top: 40px">{{selectedVideoName}}</h4>
         <table style="width: 95%; height:auto; background-color: #EEE; border-collapse: collapse;">
             <tr>
                 <td style="width: 260px;">
                     <div id="playlist">
-                        <!--<c:forEach items="${videos}" var="video" varStatus="x">
-                            <a href="playVideo.do?filePath=${video.filePath}&&videoTitle=${video.videoTitle}&&page=${program}" id="${fn:replace(fn:substring(video.filePath,4, fn:length(video.filePath)),'.','')}">
-                            <img src="${video.videoImageName}" alt="videos"/>
-                            <strong style="font-size: 11px;">${video.videoName}</strong>
-                        </a>
-                        </c:forEach>-->
                         <a *ngFor="let video of videoLists" style="cursor: pointer">
-                            <img src="./{{video.videoImageName}}" alt="videos"/> 
+                            <img src="./{{video.videoImageName}}" alt="videos" />
                             <strong style="font-size: 11px;" (click)="selectVideo(video.videoName, video.filePath)">{{video.videoName}} </strong>
                         </a>
                     </div>
                 </td>
-
                 <td style="vertical-align: middle;">
-
-                    <!--<c:choose>
-                    <c:when test="${fn:containsIgnoreCase(filePath, '.ppt')}">-->
-                    <div>
-                        <iframe *ngIf="boolPPT" [src]='openPPTLink()' style="width:640px; height: 360px; display: block; margin: auto;" frameborder='0'></iframe>
+                    <div *ngIf="boolPPT">
+                        <iframe [src]='' style="width:640px; height: 360px; display: block; margin: auto;" frameborder='0'></iframe>
                     </div>
-                    <!--</c:when> 
-                    <c:otherwise>-->
                     <div *ngIf="boolVideo">
-                        <!--<a id="player" href="mp4:MSP15-4-MVP" style="width:640px; height: 360px; display: block; margin: auto;"></a>-->
                         <a id="player" href={{selectedFilePath}} style="width:640px; height: 360px; display: block; margin: auto;">
-                            <object width="100%" height="100%" id="player_api" name="player_api" 
-                                data="https://www.moparser.com/mser/themes/mser/flash/player.Container-3.2.16.swf" 
-                                type="application/x-shockwave-flash"><param name="allowfullscreen" value="true">
-                                <param name="allowscriptaccess" value="always"><param name="quality" value="high">
-                                <param name="bgcolor" value="#000000"><param name="wmode" value="opaque">
-                                <param name="flashvars" value="config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;}]}">
-                                
-                                <!--<param name="flashvars" [value]="returnValue()">-->
+                            <object width="100%" height="100%" id="player_api" name="player_api" data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf"
+                                type="application/x-shockwave-flash">
+                                <param name="allowfullscreen" value="true">
+                                <param name="allowscriptaccess" value="always">
+                                <param name="quality" value="high">
+                                <param name="bgcolor" value="#000000">
+                                <param name="wmode" value="opaque">
+                                <param name="flashvars" value='config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;http://releases.flowplayer.org/swf/flowplayer.rtmp-3.2.13.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;}]}'>
                             </object>
                         </a>
                     </div>
-                    <!--</c:otherwise>
-                </c:choose>-->
-
                 </td>
             </tr>
         </table>
@@ -81,7 +63,7 @@
             var selVideo = '${fn:replace(fn:substring(filePath,4, fn:length(filePath)), "."," ")}';
             $('#' + selVideo).attr('class', 'selectedVideo');
             $('#' + selVideo).focus();
-            $f("player", "https://www.moparser.com/mser/themes/mser/flash/player.Container-3.2.16.swf", {
+            $f("player", "http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf", {
                 clip: {
                     provider: 'rtmp',
                     baseUrl: '',
@@ -94,15 +76,11 @@
                 },
                 plugins: {
                     rtmp: {
-                        url: 'https://www.moparser.com/mser/themes/mser/flash/player.stream.rtmp-3.2.12.swf',
-
-                        // Replace STREAMING-DISTRIBUTION-DOMAIN-NAME with the domain name of your
-                        // CloudFront streaming distribution, for example, s5c39gqb8ow64r.cloudfront.net.
+                        url: 'http://releases.flowplayer.org/swf/flowplayer.rtmp-3.2.13.swf',
                         netConnectionUrl: 'rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st'
                     }
                 }
-
-            })//.playlist("#playlist");
+            })
         })
     </script>
     <style type="text/css" scoped>

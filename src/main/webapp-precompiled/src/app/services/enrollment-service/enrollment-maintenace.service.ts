@@ -49,21 +49,18 @@ export class EnrollmentMaintenanceService {
   }
 
   saveEnrollmentMaintenanceData(enrollmentDataResponse, myPersonalPositionCode, overriddenpositionCodes, mserData, masData, mmData,
-    mvpData, fiatData, tiresData, wiAdvMVPData, wiAdvTireData, uconSalesData, uconServiceData, pcData, elData, usedReconManagerData, usedReconParticipantData): any {
+    mvpData, fiatData, tiresData, wiAdvMVPData, wiAdvTireData, uconSalesData, uconServiceData, pcData, elData, usedReconManagerData,
+    usedReconParticipantData): any {
     var url = serviceUrl.baseUrl + "enrollments/DealerEnrollements/SET/";
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     var body = {
       "dealerCode": enrollmentDataResponse.dealerCode, "myPersonalDMSID": enrollmentDataResponse.myPersonalDMSID,
-      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email,
-      "positionCodes": myPersonalPositionCode,
-      "overriddenpositionCodes": overriddenpositionCodes, "mser": mserData,
-      "mas": masData, "mm": mmData, "mvp": mvpData,
-      "fiat": fiatData, "tires": tiresData,
-      "wiMvp": wiAdvMVPData, "wiTires": wiAdvTireData,
-      "pc": pcData, "el": elData, "usedRecon": usedReconManagerData,
-      "usedReconP": usedReconParticipantData, "sid": enrollmentDataResponse.sid, "dmsid": enrollmentDataResponse.dmsid,
-      "ucon": uconSalesData
+      "name": enrollmentDataResponse.name, "email": enrollmentDataResponse.email, "positionCodes": myPersonalPositionCode,
+      "overriddenpositionCodes": overriddenpositionCodes, "mser": mserData, "mas": masData, "mm": mmData, "mvp": mvpData,
+      "fiat": fiatData, "tires": tiresData, "wiMvp": wiAdvMVPData, "wiTires": wiAdvTireData, "pc": pcData, "el": elData,
+      "usedRecon": usedReconManagerData, "usedReconP": usedReconParticipantData, "sid": enrollmentDataResponse.sid,
+      "dmsid": enrollmentDataResponse.dmsid, "ucon": uconSalesData
     };
     console.log("body" + ": " + body);
     headers.append('Content-Type', 'application/json');
