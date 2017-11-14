@@ -1,5 +1,6 @@
 export interface CodeData {
     selectedPositionCode: string;
+    selectedPositionCodeDesc: string;
     selectedDealerCode: string;
     selectedDealerName: string;
     isDealerManager: boolean;

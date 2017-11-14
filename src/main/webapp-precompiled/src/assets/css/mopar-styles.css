@@ -183,7 +183,10 @@ a {
     border: 1px solid rgb(91, 136, 219);
     text-align: center;
 }
-
+.data-group-info {
+    border: 1px solid rgb(91, 136, 219);
+    text-align: center;
+}
 .data-point {
     color: rgb(91, 136, 219) !important;
     font-size: 1.4em;
@@ -798,7 +801,7 @@ h5 {
 }
 
 h2 {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .introHeading h1 {

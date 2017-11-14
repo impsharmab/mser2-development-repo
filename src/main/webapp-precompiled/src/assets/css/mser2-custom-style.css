@@ -123,6 +123,12 @@ sidenav {
   padding: .33rem;
   width: calc(50% - 1.32rem)
 }
+.data-group-info{
+  float: left;
+  margin: .66rem;
+  padding: .33rem;
+  width: calc(50% - 1.32rem)
+}
 .display-data-set{
   float: none;
   margin: 0 0 2rem 0;
@@ -778,7 +784,7 @@ h1, h2, h3, h4, h5 {
 /* Begin Footer */
 app-footer {
   display: block;
-  min-height:275px;
+  /* min-height:275px; */
   overflow: hidden;
   padding-top: 2rem;
 }

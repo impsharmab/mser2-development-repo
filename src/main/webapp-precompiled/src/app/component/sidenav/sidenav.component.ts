@@ -81,6 +81,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     this.rewardDistributionMatrix();
     this.caBCMABCReport();
     this.showUconnectSMIncentiveProgramRules();
+    this.swbcTireSpinReportMatrix();
+    this.swbcSpinDetailsROSummaryReportMatrix();
   }
 
   ngAfterViewInit() {
@@ -177,13 +179,35 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   public caBCMABCReport() {
-    var bcFromSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
+    var bcFromSession = "";
+    bcFromSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
 
-    if (bcFromSession == "CA" || bcFromSession == "MA" || bcFromSession == "NAT") {
+    if (bcFromSession != undefined && (bcFromSession == "CA" || bcFromSession == "MA" ||
+      bcFromSession == "NAT" || bcFromSession.includes("CA") || bcFromSession.includes("MA"))) {
       this.isCABCMABCUser = true;
     }
   }
 
+  public showReportForSWBCUsersOnly: boolean = false;
+  public swbcTireSpinReportMatrix() {
+    var TERRITORY = "";
+    TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
+    if (TERRITORY != undefined && (TERRITORY == "NAT" || TERRITORY == "SW" || TERRITORY.includes("SW"))) {
+      this.showReportForSWBCUsersOnly = true;
+    }
+  }
+  public showswbcSpinDetailsROSummaryReport: boolean = false;
+  public swbcSpinDetailsROSummaryReportMatrix() {
+    var TERRITORY = "";
+    var ROLE = "";
+    TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
+    ROLE = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
+    if (ROLE != undefined && (ROLE == "1" || ROLE == "12" || this.isAdmin)) {
+      if (TERRITORY != undefined && (TERRITORY == "NAT" || TERRITORY == "SW")) {
+        this.showswbcSpinDetailsROSummaryReport = true;
+      }
+    }
+  }
   public executeJQueryCode() {
     $.navigation = $('nav > ul.nav');
 

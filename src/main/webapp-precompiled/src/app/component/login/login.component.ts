@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
   public hideLoginPage: boolean = false;
   private booleanDealerEmulation: any = false;
   private refreshTokenData: any;
+  private endEmulationFromCookie: string = "";
+  public originFromCookie: string = "";
 
   constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,
     private cookieService: CookieService, private chRef: ChangeDetectorRef) {
@@ -35,36 +37,44 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.endEmulationFromCookie = this.cookieService.get("endEmulation");
+    this.cookieService.remove("endEmulation");
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.ssotoken = params['token'];
       this.ssodealercode = params['dc'];
       this.ssopositioncode = params['pc'];
       this.origin = params['origin'];
-
       if (this.ssotoken != undefined && this.ssotoken != null && this.ssotoken != "") {
         this.hideLoginPage = true;
         this.ssologin(
           this.ssotoken,
           this.ssopositioncode,
-          this.ssodealercode
+          this.ssodealercode,
+          this.origin
         )
       }
     });
-    this.getRouterParameter();
+
+    var tokenFromCookie = this.cookieService.get("token");
+    var dcFromCookie = this.cookieService.get("dc");
+    var pcFromCookie = this.cookieService.get("pc");
+    var originFromCookie = this.cookieService.get("origin");
+    this.originFromCookie = originFromCookie;
+    if (tokenFromCookie != undefined && dcFromCookie != undefined && pcFromCookie != undefined) {
+      this.hideLoginPage = true;
+      this.ssologin(
+        tokenFromCookie,
+        pcFromCookie,
+        dcFromCookie,
+        originFromCookie
+      )
+    }
     this.checkDealerToken();
     this.refreshLogin();
+
   }
 
-  public emulateRouter: string = "";
-  public getRouterParameter() {
-    this.activatedRoute.params.subscribe(params => {
-      this.emulateRouter = (params['emulation']);
-    },
-      (error) => {
-        alert("could not pass router parameter")
-      }
-    )
-  }
+
   private checkDealerToken() {
     if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
       if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
@@ -72,7 +82,7 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-  private ssologin(ssotoken: string, ssopositioncode: string, ssodealercode: string) {
+  private ssologin(ssotoken: string, ssopositioncode: string, ssodealercode: string, originFromCookie?: string) {
     var adminToken = this.cookieService.get("adminToken");
     if (adminToken !== undefined && adminToken !== null && adminToken.length > 1) {
       let url = ["login"]
@@ -86,13 +96,13 @@ export class LoginComponent implements OnInit {
     this.cookieService.remove("token");
     this.cookieService.removeAll();
     this.loginService.getSSOLoginResponse(
-      this.ssotoken,
-      this.ssopositioncode,
-      this.ssodealercode).subscribe(
+      ssotoken,
+      ssopositioncode,
+      ssodealercode).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
         if (resUserData["token"].length > 0) {
-          this.loginService.setUserData(this.userdata, this.origin);
+          this.loginService.setUserData(this.userdata, originFromCookie);
           var poscodes: any = this.userdata.positionCode;
           var delcodes: any = this.userdata.dealerCode;
           var delnames: any = this.userdata.dealerName;
@@ -108,6 +118,9 @@ export class LoginComponent implements OnInit {
 
           if (!mserEnrollment) {
             let url = ["notMserEnrolledPage"]
+            this.router.navigate(url);
+          } else if (mserEnrollment && originFromCookie != undefined && originFromCookie == "payout") {
+            let url = ["mserHomepage/payoutchart"]
             this.router.navigate(url);
           } else if (mserEnrollment) {
             let url = ["mserHomepage/home"]
@@ -146,7 +159,7 @@ export class LoginComponent implements OnInit {
               var roles: any = ["10"];
 
             } else {
-              this.loginService.setUserData(this.refreshTokenData);
+              this.loginService.setUserData(this.refreshTokenData, this.origin);
               var poscodes: any = this.refreshTokenData.positionCode;
               var delcodes: any = this.refreshTokenData.dealerCode;
               var delnames: any = this.refreshTokenData.dealerName;
@@ -162,8 +175,11 @@ export class LoginComponent implements OnInit {
                 "selectedDealerName": delnames === undefined ? "" : delnames[0] === "" ? "" : delnames.length > 0 ? delnames[0] : 0
               }))
 
-            if ((this.emulateRouter != undefined && this.emulateRouter == "emulate") && mserEnrollment && !passwordReset) {
+            if ((this.endEmulationFromCookie != undefined && this.endEmulationFromCookie == "endEmulate") && mserEnrollment && !passwordReset) {
               let url = ["mserHomepage/useremulation"]
+              this.router.navigate(url);
+            } else if (mserEnrollment && this.originFromCookie != undefined && this.originFromCookie == "payout") {
+              let url = ["mserHomepage/payoutchart"]
               this.router.navigate(url);
             } else if (mserEnrollment && !passwordReset) {
               let url = ["mserHomepage/home"]
@@ -182,14 +198,22 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           this.cookieService.removeAll();
-          location.reload();
+          this.hideLoginPage = false;
+          // let url = ["login"]
+          // this.router.navigate(url);
+          // location.reload();
         }
       )
     }
     else {
       this.cookieService.removeAll();
-      let url = ["login"]
-      this.router.navigate(url);
+      this.hideLoginPage = false;
+      // let url = ["login"]
+      // this.router.navigate(url);
+      // window.location.href =
+      //   window.location.origin
+      //     ? window.location.origin + '/'
+      //     : window.location.protocol + '/' + window.location.host + '/';
     }
   }
   public login() {

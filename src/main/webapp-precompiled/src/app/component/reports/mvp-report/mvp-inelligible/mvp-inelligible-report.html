@@ -1,0 +1,55 @@
+<main class="main report-center" id="report-center">
+
+    <!-- CABC MABC Chemical Tabs-->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li class="tab">
+                <a>Detail</a>
+            </li>
+            <!-- <li class="tab" (click)="viewDetailsTabOnly()"><a>Detail</a></li> -->
+        </ul>
+        <!-- Content container -->
+        <div>
+            <!-- Begin Executive CABC MABC Chemical Report -->
+            <div class="z-content-pad">
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h2>MVP - Ineligible Contracts Report</h2>
+
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3" [hidden]="hideInput">
+                            <!-- <label for="dc-5">Business Center:</label>
+                            <p-dropdown id="dc-5" name="dc" [options]="bcOptions" [(ngModel)]="selectedBC" placeholder="Select Business Center"></p-dropdown> -->
+                            <label for="ro">Dealer Code:</label>
+                            <input [disabled]="disableInput" id="ro" name="ro" placeholder="Dealer Code" type="text" pInputText [(ngModel)]="selectedDC"
+                                minlength="5" maxlength="5" (ngModelChange)="msg=''" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="from-1">From:</label>
+                            <p-calendar placeholder="From" id="from-1" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="fromDate"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="to-1">To:</label>
+                            <p-calendar placeholder="To" id="to-1" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="toDate"></p-calendar>
+                        </div>
+                        <div class="form-group col-sm-3 report-button-container">
+                            <button pButton type="button" (click)="verifyInputs()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" *ngIf="showIframe">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Executive CABC MABC Chemical Report -->
+        </div>
+    </div>
+</main>

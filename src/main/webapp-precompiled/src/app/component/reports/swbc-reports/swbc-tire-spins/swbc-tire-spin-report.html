@@ -1,0 +1,141 @@
+<main class="main report-center" id="report-center">
+
+    <!-- SWBC Tire Spin Tabs-->
+    <div class="tabbed-nav">
+        <ul class="tabs">
+            <li [hidden]="!viewBCTab" class="tab" (click)="viewBCTabOnly()">
+                <a>Business Center</a>
+            </li>
+            <li [hidden]="!viewDistrictTab" class="tab" (click)="viewDistrictTabOnly()">
+                <a>District</a>
+            </li>
+            <li [hidden]="!viewDealerTab" class="tab" (click)="viewDealerTabOnly()">
+                <a>Dealer</a>
+            </li>
+            <li [hidden]="!viewParticipantTab" class="tab" (click)="viewParticipantTabOnly()">
+                <a>Participant</a>
+            </li>
+        </ul>
+        <!-- Content container -->
+        <div>
+            <!-- Begin Business Center SWBC Tire Spin Report -->
+            <div [hidden]="!viewBCTab" class="z-content-pad">
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h2>Business Center SWBC - Tire Spins Program</h2>
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="dc-5">Select Week:</label>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                        </div>
+                        <div class="form-group col-sm-3 report-button-container">
+                            <button pButton type="button" (click)="viewBCReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row" *ngIf="showBCIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
+            </div>
+            <!-- End Business Center SWBC Tire Spin Report -->
+
+            <!-- Begin District SWBC Tire Spin Report -->
+            <div [hidden]="!viewDistrictTab" class="z-content-pad">
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h2>District SWBC - Tire Spins Program</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="dc-5">Select Week:</label>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                        </div>
+                        <div class="form-group col-sm-3 report-button-container">
+                            <button pButton type="button" (click)="viewDistrictReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showDISTIFrame">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    </div>
+                </form>
+            </div>
+            <!-- End District SWBC Tire Spin Report -->
+
+            <!-- Begin Dealer SWBC Tire Spin Report -->
+            <div [hidden]="!viewDealerTab" class="z-content-pad">
+                <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h2>Dealer SWBC - Tire Spins Program</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="dc-4">Dealer Code:</label>
+                            <input placeholder="Dealer Code" type="text" id="dcc" name="dcc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerInput"
+                                minlength="5" maxlength="5" (ngModelChange)="msg=''" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="dc-5">Select Week:</label>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                        </div>
+                        <div class="form-group col-sm-3 report-button-container">
+                            <button pButton type="button" (click)="getDealerCodeValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showDealerIFrame">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    </div>
+                </form>
+            </div>
+            <!-- End Dealer SWBC Tire Spin Report -->
+
+            <!-- Begin Participant SWBC Tire Spin Report -->
+            <div [hidden]="!viewParticipantTab" class="z-content-pad">
+                <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <h2>Participant SWBC - Tire Spins Program</h2>
+                <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+                <form class="report-form">
+                    <div class="row">
+                        <div class="form-group col-sm-2">
+                            <label for="dc-5">SID:</label>
+                            <input placeholder="SID" type="text" id="sidd" name="sidd" pInputText [(ngModel)]="selectedSID" [disabled]="disableParticipantInput"
+                                minlength="7" maxlength="7" (ngModelChange)="msg=''" />
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="dc-5">Select Week:</label>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                        </div>
+                        <div class="form-group col-sm-3 report-button-container">
+                            <button pButton type="button" (click)="getSIDValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showParticipantIFrame">
+                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                    </div>
+                </form>
+            </div>
+            <!-- End Participant SWBC Tire Spin Report -->
+        </div>
+    </div>
+</main>

@@ -46,7 +46,7 @@ export class RewardsDistributionComponent implements OnInit {
     this.getMVPApprovalData();
   }
 
-  public mvpApprovalDatum: any;
+  public mvpApprovalDatum: any = true;
   public getMVPApprovalData() {
     this.mvpAutoApprovalSettingService.getMVPApprovalData().subscribe(
       (mvpApprovalData) => {

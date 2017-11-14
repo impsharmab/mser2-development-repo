@@ -135,18 +135,48 @@
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li> -->
               </ul>
             </li>
-            <li *ngIf="isCABCMABCUser || isAdmin" class="nav-item nav-dropdown dopdown-grandchild">
+            <li class="nav-item nav-dropdown dopdown-grandchild">
+              <a class="nav-link nav-dropdown-toggle child-link" href="#">MVP</a>
+              <ul>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="mvpapprovedcontractreport">MVP - Approved Contracts Report</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="mvpinelligiblecontractsreport">MVP - Ineligible Contracts Report</a>
+                </li>
+                <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li> -->
+              </ul>
+            </li>
+            <li *ngIf="isCABCMABCUser || isAdmin || showReportForSWBCUsersOnly" class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">BC Reports</a>
               <ul>
-                <li class="nav-item nav-dropdown dopdown-grandchild">
-                  <a class="nav-link grandchild-link nav-dropdown-toggle child-link only-child">CABC and MABC - Chemical</a>
+                <li class="nav-item nav-dropdown dopdown-grandchild" *ngIf="isCABCMABCUser">
+                  <a class="nav-link grandchild-link nav-dropdown-toggle child-link only-child" href="#">CABC and MABC - Chemical</a>
                   <ul>
                     <li class="nav-item">
                       <a class="nav-link grandchild-link" [routerLink]="['cmsrouter', {'cmsPage': 'MACAChemicalSpiffRules', 'pdf':'false'}]">Rules</a>
                     </li>
-                    <!-- <li class="nav-item">
-                      <a class="nav-link grandchild-link">Reports</a>
-                    </li> -->
+                    <li class="nav-item">
+                      <a class="nav-link grandchild-link" routerLink="macachemicalreportcomponent">CABC and MABC - Chemical Report</a>
+                    </li>
+                  </ul>
+                </li> 
+
+                <li class="nav-item nav-dropdown dopdown-grandchild" [hidden]="!showReportForSWBCUsersOnly">
+                  <a class="nav-link grandchild-link nav-dropdown-toggle child-link only-child" href="#">SWBC - Reports</a>
+                  <ul>
+                    <li class="nav-item">
+                      <a class="nav-link grandchild-link" routerLink="swbctirespinsreport">Tire Spins Program Report</a>
+                    </li>
+                    <li class="nav-item" [hidden]="!showswbcSpinDetailsROSummaryReport">
+                      <a class="nav-link grandchild-link" routerLink="spinsummaryreport">Spin Summary Report</a>
+                    </li>
+                    <li class="nav-item" [hidden]="!showswbcSpinDetailsROSummaryReport">
+                      <a class="nav-link grandchild-link" routerLink="swbcspinsummaryroreport">Spin Summary Report with RO Number</a>
+                    </li>
+                    <li class="nav-item" [hidden]="!showswbcSpinDetailsROSummaryReport">
+                      <a class="nav-link grandchild-link" routerLink="swbcspindetailreport">Spin Detailed Report</a>
+                    </li>
                   </ul>
                 </li>
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="ineligibleroreport">Ineligible Repair Orders</a></li> -->
@@ -188,6 +218,7 @@
 
               </ul>
             </li>
+
             <!-- <li *ngIf="!hideThisReportForParticipant" class="nav-item nav-dropdown dopdown-grandchild">
               <a class="nav-link nav-dropdown-toggle child-link" href="#">wiAdvisor MSER</a>
               <ul>

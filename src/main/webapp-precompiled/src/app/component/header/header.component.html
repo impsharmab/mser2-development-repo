@@ -14,11 +14,11 @@
     </div>
 </ng-template>
 
-<p-dialog header="Select Position Code - Dealer Code" [(visible)]="displayRetweetModal" modal="modal" width="600" height="200"
+<p-dialog header="Select Position Code - Dealer Code" [(visible)]="displayRetweetModal" modal="modal" width="750" height="200"
     [responsive]="true" [contentStyle]="{'overflow':'visible'}">
 
     <div class="form-group row ">
-        <div class=" col-sm-6">
+        <div class=" col-sm-4">
             <label for="dc">Select Dealer Code:</label>
             <!-- <p-dropdown id="dc" class="dc" [options]="dealerCodeOptions" [(ngModel)]="selectedDealerCode" (onChange)="onChangeDC($event, selectedDealerCode)"
                 value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
@@ -27,12 +27,12 @@
             </select>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <label for="pc">Select Position Code:</label>
             <!-- <p-dropdown id="pcOptions" class="pcOptions" [options]="positionCodeOptions" [(ngModel)]="selectedPositionCode" (onChange)="onChangePC($event, selectedPositionCode)"
                 value=" " placeholder="Select" [style]="{'width':'150px'}" [filter]="true"></p-dropdown> -->
-            <select id="pcOptions" name="pcOptions" style="width: 90px" [(ngModel)]="codeData.selectedPositionCode">
-                <option *ngFor="let data of pcDinstinct" [ngValue]="data">{{data}}</option>
+            <select id="pcOptions" name="pcOptions" style="width: 250px" [(ngModel)]="codeData.selectedPositionCodeDesc">
+                <option *ngFor="let data of pcDescDistinct" [ngValue]="data">{{data}}</option>
             </select>
         </div>
     </div>

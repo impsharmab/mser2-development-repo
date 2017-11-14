@@ -29,9 +29,9 @@
             <tr>
                 <td style="width: 260px;">
                     <div id="playlist">
-                        <a *ngFor="let video of videoLists" style="cursor: pointer">
+                        <a *ngFor="let video of videoLists" style="cursor: pointer" (click)="selectVideo(video.videoName, video.filePath)">
                             <img src="./{{video.videoImageName}}" alt="videos" />
-                            <strong style="font-size: 11px;" (click)="selectVideo(video.videoName, video.filePath)">{{video.videoName}} </strong>
+                            <strong style="font-size: 11px;">{{video.videoName}} </strong>
                         </a>
                     </div>
                 </td>
@@ -40,16 +40,7 @@
                         <iframe [src]='' style="width:640px; height: 360px; display: block; margin: auto;" frameborder='0'></iframe>
                     </div>
                     <div *ngIf="boolVideo">
-                        <a id="player" href={{selectedFilePath}} style="width:640px; height: 360px; display: block; margin: auto;">
-                            <object width="100%" height="100%" id="player_api" name="player_api" data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf"
-                                type="application/x-shockwave-flash">
-                                <param name="allowfullscreen" value="true">
-                                <param name="allowscriptaccess" value="always">
-                                <param name="quality" value="high">
-                                <param name="bgcolor" value="#000000">
-                                <param name="wmode" value="opaque">
-                                <param name="flashvars" value='config={&quot;clip&quot;:{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;},&quot;plugins&quot;:{&quot;rtmp&quot;:{&quot;url&quot;:&quot;http://releases.flowplayer.org/swf/flowplayer.rtmp-3.2.13.swf&quot;,&quot;netConnectionUrl&quot;:&quot;rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st&quot;}},&quot;playerId&quot;:&quot;player&quot;,&quot;playlist&quot;:[{&quot;provider&quot;:&quot;rtmp&quot;,&quot;baseUrl&quot;:&quot;&quot;,&quot;url&quot;:&quot;{{selectedFilePath}}&quot;}]}'>
-                            </object>
+                        <a id="player" [href]="domSanitizer.bypassSecurityTrustResourceUrl(selectedFilePath)" style="width:640px; height: 360px; display: block; margin: auto;">
                         </a>
                     </div>
                 </td>
@@ -58,31 +49,6 @@
 
 
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var selVideo = '${fn:replace(fn:substring(filePath,4, fn:length(filePath)), "."," ")}';
-            $('#' + selVideo).attr('class', 'selectedVideo');
-            $('#' + selVideo).focus();
-            $f("player", "http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf", {
-                clip: {
-                    provider: 'rtmp',
-                    baseUrl: '',
-                    onStart: function () {
-                        var videoName = $('#player').attr("href");
-                        var d = new Date();
-                        var starttime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
-                        s = starttime;
-                    }
-                },
-                plugins: {
-                    rtmp: {
-                        url: 'http://releases.flowplayer.org/swf/flowplayer.rtmp-3.2.13.swf',
-                        netConnectionUrl: 'rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st'
-                    }
-                }
-            })
-        })
-    </script>
     <style type="text/css" scoped>
         #playlist {
             overflow-y: auto;

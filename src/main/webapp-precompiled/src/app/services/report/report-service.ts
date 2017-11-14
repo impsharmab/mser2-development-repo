@@ -7,16 +7,16 @@ import * as serviceUrl from '../../global-variable/service-url';
 
 @Injectable()
 export class ReportService {
-    
+
     constructor(private http: Http) {
     }
 
     getDistrictByBC(bc): any {
         // var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        
+
         var url = serviceUrl.baseUrl + "services/admin/districts/" + bc;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        
+
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
@@ -27,10 +27,10 @@ export class ReportService {
             .catch(this.handleError);
     }
 
-    getDealerCodesBelongsToBCAndDIST(bcOrDist){
+    getDealerCodesBelongsToBCAndDIST(bcOrDist) {
         var url = serviceUrl.baseUrl + "General/Report/Dealers/" + bcOrDist;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        
+
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
@@ -41,10 +41,49 @@ export class ReportService {
             .catch(this.handleError);
     }
 
-    getReportPrograms(programName){
+    getDealerCodeValidation(territory, dealer) {
+        var dc = "";
+        if (dealer == "") {
+            dc = "0";
+        } else {
+            dc = dealer;
+        }
+        var url = serviceUrl.baseUrl + "General/Report/CheckDealer/" + territory + "/" + dc;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleError);
+    }
+    getSIDValidation(territory, sid) {
+        var SID = "";
+        if (sid == "") {
+            SID = "0";
+        } else {
+            SID = sid;
+        }
+        var url = serviceUrl.baseUrl + "General/Report/CheckParticipants/" + territory + "/" + SID;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleError);
+    }
+
+    getReportPrograms(programName) {
         var url = serviceUrl.baseUrl + "General/Report/" + programName;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        
+
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
@@ -55,10 +94,24 @@ export class ReportService {
             .catch(this.handleError);
     }
 
-    getParticipantsByDealer(sid){
+    getPeriod() {
+        var url = serviceUrl.baseUrl + "General/Report/SWReport/Period";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+
+        return this.http.get(url, { headers: headers })
+            .map((response: Response) =>
+                response.json())
+            .catch(this.handleError);
+    }
+
+    getParticipantsByDealer(sid) {
         var url = serviceUrl.baseUrl + "General/Report/Participants/" + sid;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
-        
+
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);

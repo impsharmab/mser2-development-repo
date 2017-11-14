@@ -46,6 +46,13 @@ import { SxmActivationReportComponent } from '../../uconnect/sxm-activation/sxm-
 import { UCONNavigationActivationReportComponent } from '../../reports/uconnect-report/ucon-navigate-to-higherprofits/ucon-navigate-to-higherprofit.component';
 import { UCONSMWinterProgramReportComponent } from '../../reports/uconnect-report/ucon-sm-winter-report/sm-winter-report.component';
 import { SXMTop10BCReportComponent } from '../../reports/uconnect-report/ucon-sxm-top10bc/sxm-top10bc-report.component';
+import { MACAChemicalReportComponent } from '../../reports/caba-mabc-chemical/maca-chemical-report.component';
+import { MVPApprovedContractsReportComponent } from "../../reports/mvp-report/mvp-approved-contract/mvp-approved-contract-report.component";
+import { MVPInelligibleContractsReportComponent } from "../../reports/mvp-report/mvp-inelligible/mvp-inelligible-contracts.component";
+import { SWBCTireSpinsReportComponent } from '../../reports/swbc-reports/swbc-tire-spins/swbc-tire-spins.component';
+import { SWBCSpinSummaryReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-report/spin-summary-report.component';
+import { SWBCSpinSummaryROReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-ro-report/spin-summary-ro-report.component';
+import { SWBCSpinDetailReportComponent } from "../../reports/swbc-reports/spin-detail-report/swbc-spin-detail.component";
 
 const routes: Routes = [
 
@@ -237,6 +244,34 @@ const routes: Routes = [
             {
                 path: "sxmtop10report",
                 component: SXMTop10BCReportComponent
+            },
+            {
+                path: "macachemicalreportcomponent",
+                component: MACAChemicalReportComponent
+            },
+            {
+                path: "mvpapprovedcontractreport",
+                component: MVPApprovedContractsReportComponent
+            },
+            {
+                path: "mvpinelligiblecontractsreport",
+                component: MVPInelligibleContractsReportComponent
+            },
+            {
+                path: "swbctirespinsreport",
+                component: SWBCTireSpinsReportComponent
+            },
+            {
+                path: "spinsummaryreport",
+                component: SWBCSpinSummaryReportComponent
+            },
+            {
+                path: "swbcspinsummaryroreport",
+                component: SWBCSpinSummaryROReportComponent
+            },
+            {
+                path:"swbcspindetailreport",
+                component:SWBCSpinDetailReportComponent
             }
 
         ]

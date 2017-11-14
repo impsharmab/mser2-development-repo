@@ -68,11 +68,13 @@ import { SxmActivationReportComponent } from '../../uconnect/sxm-activation/sxm-
 import { UCONNavigationActivationReportComponent } from '../../reports/uconnect-report/ucon-navigate-to-higherprofits/ucon-navigate-to-higherprofit.component';
 import { UCONSMWinterProgramReportComponent } from '../../reports/uconnect-report/ucon-sm-winter-report/sm-winter-report.component';
 import { SXMTop10BCReportComponent } from '../../reports/uconnect-report/ucon-sxm-top10bc/sxm-top10bc-report.component';
-
-// import { VgCoreModule } from 'videogular2/core';
-// import { VgControlsModule } from 'videogular2/controls';
-// import { VgOverlayPlayModule } from 'videogular2/overlay-play';
-// import { VgBufferingModule } from 'videogular2/buffering';
+import { MACAChemicalReportComponent } from '../../reports/caba-mabc-chemical/maca-chemical-report.component';
+import { MVPApprovedContractsReportComponent } from "../../reports/mvp-report/mvp-approved-contract/mvp-approved-contract-report.component";
+import { MVPInelligibleContractsReportComponent } from "../../reports/mvp-report/mvp-inelligible/mvp-inelligible-contracts.component";
+import { SWBCTireSpinsReportComponent } from '../../reports/swbc-reports/swbc-tire-spins/swbc-tire-spins.component';
+import { SWBCSpinSummaryReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-report/spin-summary-report.component';
+import { SWBCSpinSummaryROReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-ro-report/spin-summary-ro-report.component';
+import { SWBCSpinDetailReportComponent } from "../../reports/swbc-reports/spin-detail-report/swbc-spin-detail.component";
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -116,7 +118,8 @@ import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.
     ROReportComponent, RewardsDepositReportComponent, IneligibleROReportComponent, PartsSummaryROReportComponent,
     WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent, PCInvoiceReportComponent,
     MVPAutoApproveComponent, SxmActivationReportComponent, UCONNavigationActivationReportComponent, UCONSMWinterProgramReportComponent,
-    SXMTop10BCReportComponent
+    SXMTop10BCReportComponent, MACAChemicalReportComponent, MVPApprovedContractsReportComponent, MVPInelligibleContractsReportComponent,
+    SWBCTireSpinsReportComponent, SWBCSpinSummaryReportComponent, SWBCSpinSummaryROReportComponent, SWBCSpinDetailReportComponent
     //MarketingHomeComponent, RecallRewardsRulesComponent, MarketingProgramComponent
     // PhonePipe
 

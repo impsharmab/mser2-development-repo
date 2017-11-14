@@ -1,0 +1,230 @@
+<main class="main">
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Video & Presentations
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="content-table" cellpadding="0">
+        <tbody>
+            <tr>
+                <!--<td class="sidebar">
+        </td>-->
+                <td id="content" style="width: 90%;">
+                    <div id="main-content" style="height: 470px; padding-left: 3%;">
+                        <script src="http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min.js" type="text/javascript" charset="utf-8"></script>
+                        <script src="themes/mser/js/flowplayer.playlist-3.2.10.js" type="text/javascript"></script>
+                        <script src="themes/mser/js/flowplayer-3.2.12.min.js" type="text/javascript"></script>
+
+
+                        <script type="text/javascript">
+                            if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+                                if (document.cookie.indexOf("iphone_redirect=false") == -1) {
+                                    window.location = "playVideo.do?page=ipad";
+                                }
+                            }
+                            IS_IPAD = navigator.userAgent.match(/iPad/i) != null;
+                            IS_IPHONE = (navigator.userAgent.match(/iPhone/i) != null) || (navigator.userAgent.match(/iPod/i) != null);
+                            if (IS_IPAD) {
+                                IS_IPHONE = false;
+                            }
+                        </script>
+
+                        <style type="text/css">
+                            .selectedVideo {
+                                border: 1px solid black !important;
+                                background-image: url("/shared/imi-cms/MSER/images/webImages/back_images.jpg") !important;
+                            }
+
+                            .selectedVideo:hover {
+                                background-color: transparent !important;
+                            }
+                        </style>
+
+                        <h4 align="center" style="padding-left: 200px; margin-top: 40px;">MSER Highlights</h4>
+
+                        <table style="width: 95%; height: auto; border-collapse: collapse; background-color: rgb(238, 238, 238);">
+                            <tbody>
+                                <tr>
+                                    <td style="width: 260px;">
+                                        <div id="playlist">
+
+                                            <a class="selectedVideo" id="MSP4-MSER" href="https://test.moparser.com/mser?filePath=mp4:MSP4-MSER&amp;&amp;videoTitle=MSER Highlights&amp;&amp;page=">
+                                                <img alt="videos" src="/shared/imi-cms/MSER/images/webImages/moparIcon.png">
+                                                <strong style="font-size: 11px;">MSER Highlights</strong>
+                                            </a>
+
+                                            <a id="PartsCounterRewardDistributionTake21" href="https://test.moparser.com/mser?filePath=mp4:PartsCounterRewardDistributionTake2.1&amp;&amp;videoTitle=Parts Counter Reward Distribution&amp;&amp;page=">
+                                                <img alt="videos" src="/shared/imi-cms/MSER/images/webImages/moparIcon.png">
+                                                <strong style="font-size: 11px;">Parts Counter Reward Distribution</strong>
+                                            </a>
+
+                                        </div>
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+
+
+
+                                        <div>
+                                            <a id="player" style="margin: auto; width: 640px; height: 360px; display: block;" href="mp4:MSP4-MSER">
+                                                <object name="player_api" width="100%" height="100%" id="player_api" data="https://test.moparser.com/mser/assets/flash-player/player.Container-3.2.16.swf"
+                                                    type="application/x-shockwave-flash">
+                                                    <param name="allowfullscreen" value="true">
+                                                    <param name="allowscriptaccess" value="always">
+                                                    <param name="quality" value="high">
+                                                    <param name="bgcolor" value="#000000">
+                                                    <param name="wmode" value="opaque">
+                                                    <param name="flashvars" value='config={"clip":{"provider":"rtmp","baseUrl":"","url":"mp4:MSP4-MSER"},"plugins":{"rtmp":{"url":"https://test.moparser.com/mser/assets/flash-player/player.stream.rtmp-3.2.12.swf","netConnectionUrl":"rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st"}},"playerId":"player","playlist":[{"provider":"rtmp","baseUrl":"","url":"mp4:MSP4-MSER"}]}'>
+                                                </object>
+                                            </a>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                var selVideo = 'MSP4-MSER';
+                                $('#' + selVideo).attr('class', 'selectedVideo');
+                                $('#' + selVideo).focus();
+                            })
+
+
+                            $f("player", "themes/mser/flash/player.Container-3.2.16.swf", {
+                                clip: {
+                                    provider: 'rtmp',
+                                    baseUrl: '',
+                                    onStart: function () {
+                                        var videoName = $('#player').attr("href");
+                                        var d = new Date();
+                                        var starttime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
+                                        s = starttime;
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/mser_old/flowPlayer/init.do?videoName=' + videoName + '&&event=start&&starttime=' + starttime,
+                                            dataType: "text",
+                                            cache: false,
+                                            success: function (response) { },
+                                            error: function (jqXHR, exception) { }
+                                        })
+                                    },
+
+                                    onPause: function () {
+                                        var videoName = $('#player').attr("href");
+                                        var d = new Date();
+                                        var pausetime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
+                                        var duration = this.getTime();
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/mser_old/flowPlayer/init.do?videoName=' + videoName + '&&event=pause&&pausetime=' + pausetime + '&&duration=' + duration + '&&starttime=' + s,
+                                            dataType: "text",
+                                            cache: false,
+                                            success: function (response) { },
+                                            error: function (jqXHR, exception) { }
+                                        })
+                                    },
+
+                                    onFinish: function () {
+                                        var videoName = $('#player').attr("href");
+                                        this.unload();
+                                        var d = new Date();
+                                        var endtime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "." + d.getMilliseconds();
+                                        var fullduration = this.getClip().fullDuration;
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '/mser_old/flowPlayer/init.do?videoName=' + videoName + '&&event=end&&endtime=' + endtime + '&&duration=' + fullduration + '&&starttime=' + s,
+                                            dataType: "text",
+                                            cache: false,
+                                            success: function (response) { },
+                                            error: function (jqXHR, exception) { }
+                                        })
+
+                                    }
+                                },
+                                plugins: {
+                                    rtmp: {
+                                        url: 'themes/mser/flash/player.stream.rtmp-3.2.12.swf',
+
+                                        // Replace STREAMING-DISTRIBUTION-DOMAIN-NAME with the domain name of your
+                                        // CloudFront streaming distribution, for example, s5c39gqb8ow64r.cloudfront.net.
+                                        netConnectionUrl: 'rtmp://s1dyl1mb4e8k0v.cloudfront.net/cfx/st'
+                                    }
+                                }
+
+                            })//.playlist("#playlist");
+
+                        </script>
+                    </div>
+                    <style type="text/css">
+                        #playlist {
+                            overflow-y: auto;
+                            overflow-x: hidden;
+                            border: 1px solid #ccc;
+                            background-color: #efefef;
+                            /*        padding:0px 15px 0px 5px;*/
+                            height: 400px;
+                            float: left;
+                            width: 100% !important;
+                        }
+
+                        #playlist a {
+                            display: block;
+                            width: 85%;
+                            height: 54px;
+                            padding: 5px;
+                            background-color: #fff;
+                            border: 1px solid #ccc;
+                            font: 11px "bitstream vera sans", "lucida grande", verdana;
+                            text-decoration: none;
+                            margin: 9px 0px 0px 10px;
+                            color: #666;
+                        }
+
+                        #playlist a:hover {
+                            background-color: #ffc;
+                        }
+
+                        #playlist a.progress {
+                            background-color: #efefef;
+                        }
+
+                        #playlist a.playing {
+                            border: 1px solid #666;
+                            background-color: #ffc;
+                        }
+
+                        #playlist a.paused {
+                            border: 1px solid #666;
+                            background-color: #ffc;
+                        }
+
+                        #playlist a img {
+                            border: 0;
+                            float: left;
+                            margin-right: 10px;
+                            width: 50px;
+                            height: 50px;
+                        }
+
+                        #playlist a strong {
+                            color: #000;
+                            padding-bottom: 5px;
+                        }
+                    </style>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
