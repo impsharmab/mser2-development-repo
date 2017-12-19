@@ -9,9 +9,9 @@ import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { Message } from 'primeng/components/common/api';
 
 //import { SafeHtml } from './safeHtml.pipe';
-import { CMSService } from '../../services/cms-service/cms-service';
-import '../../../assets/js/html2canvas.js';
-import { AdminPayoutService } from '../../services/admin-payout/admin-payout-service';
+import { CMSService } from '../../../services/cms-service/cms-service';
+import '../../../../assets/js/html2canvas.js';
+import { AdminPayoutService } from '../../../services/admin-payout/admin-payout-service';
 
 import * as jsPDF from 'jspdf';
 import { SelectItem } from 'primeng/primeng';
@@ -20,46 +20,46 @@ declare var $: any;
 declare var moment: any;
 
 @Component({
-    selector: 'admin-payout',
-    templateUrl: './admin-payout.html',
+    selector: 'edit-admin-payout',
+    templateUrl: './edit-admin-payout.html',
     //styleUrls: ['./admin-payout.css']
-    // providers:[OpcodesetupService]
+    // providers:[OpcodesetupService] 
 })
 
 
-export class AdminPayoutComponent implements OnInit {
+export class EditAdminPayoutComponent implements OnInit {
     uploadedFiles: any[] = [];
     private msgs: Message[];
     date: DateModel;
     options: DatePickerOptions;
-    public programs: any;
-    public selectedIncentives: string[] = [];
-    public programCategories: any = [];
-    public selectedProgramCategories: any[] = [];
-    public payoutMonth: string;
-    public payoutCopyMonth: string;
-    public selectedIncentiveSubCodes: string[] = [];
-    public newCategory: any = {};
-    public selectedOpenIncentives: string[] = [];
-    public startDate: string = '';
-    public endDate: string = '';
-    public rewards: any[] = [];
-    public eligiblePositions: any[] = [];
-    public rewardTypeDd: SelectItem[] = [];
-    public quantityDd: SelectItem[] = [];
-    public overrideModalReward: any;
+    programs: any[] = [];
+    selectedIncentives: string[] = [];
+    programCategories: any = [];
+    selectedProgramCategories: any[] = [];
+    payoutMonth: string;
+    payoutCopyMonth: string;
+    selectedIncentiveSubCodes: string[] = [];
+    newCategory: any = {};
+    selectedOpenIncentives: string[] = [];
+    startDate: string = '';
+    endDate: string = '';
+    rewards: any[] = [];
+    eligiblePositions: any[] = [];
+    rewardTypeDd: SelectItem[] = [];
+    quantityDd: SelectItem[] = [];
+    overrideModalReward: any;
     selectedRewardForOverride: any;
     selectedRewardPosForOverride: any;
     selectedOverrideForOverride: any;
-    public tabContentLoaded: boolean = false;
-    public payoutMonths: SelectItem[];
-    public payoutCopyMonths: SelectItem[];
+    tabContentLoaded: boolean = false;
+    payoutMonths: SelectItem[] = [];
+    payoutCopyMonths: SelectItem[] = [];
     private postData: any;
-    public programsDd: SelectItem[] = [];
-    public postInProgress: boolean;
-    public postSuccess: boolean;
-    public postAlert: boolean;
-    public onNextMsg: string;
+    programsDd: SelectItem[] = [];
+    postInProgress: boolean;
+    postSuccess: boolean;
+    postAlert: boolean;
+    onNextMsg: string;
 
 
     calendarOptions = {
@@ -87,7 +87,7 @@ export class AdminPayoutComponent implements OnInit {
                 value: 'DEC'
             }
         ];
-
+        // this.getMonths();
         this.payoutCopyMonths = [
             {
                 label: 'SEP-2017',
@@ -103,7 +103,22 @@ export class AdminPayoutComponent implements OnInit {
             incentiveSubCodes: []
         }
     }
+    private payoutMonthsData: any[] = [];
+    private getMonths() {
+        this.adminPayoutService.getNewPayoutDates().subscribe(
+            (payoutMonthsData) => {
+                this.payoutMonthsData = (payoutMonthsData);
+                this.payoutMonthsData.forEach(month => {
+                    this.payoutMonths.push({
+                        label: month.name,
+                        value: month.value
+                    })
+                });
+            },
+            (error) => {
 
+            });
+    }
     private onUpload(event) {
         for (let file of event.files) {
             this.uploadedFiles.push(file);
@@ -246,6 +261,7 @@ export class AdminPayoutComponent implements OnInit {
         }
         else if (this.index == 2) {
             this.programCategories = [];
+            this.createprogramsDd();
             this.getCategories();
         }
         else if (this.index == 3) {
@@ -264,8 +280,22 @@ export class AdminPayoutComponent implements OnInit {
             else
                 this.selectedOpenIncentives.splice(this.selectedOpenIncentives.indexOf(program.incentiveId), 1);
         }
+        // console.log(this.selectedOpenIncentives);
     }
+    createprogramsDd() {
+        var selectedPrograms: any[] = [];
+        for (var i = 0; i < this.selectedIncentives.length; i++) {
+            for (var j = 0; j < this.programs.length; j++) {
+                if (this.selectedIncentives[i] == this.programs[j].incentiveId) {
+                    selectedPrograms.push(this.programs[j]);
+                }
+            }
+        }
+        if (selectedPrograms.length > 0) {
+            this.programsDd = this.converToDd(selectedPrograms, "programGroup");
+        }
 
+    }
     getPrograms() {
         this.tabContentLoaded = false;
         this.startDate = moment().month(this.payoutMonth).date(1).format('MMM D, YYYY');
@@ -283,8 +313,8 @@ export class AdminPayoutComponent implements OnInit {
                     });
                 }
                 this.tabContentLoaded = true;
-                if (this.programs.length > 0)
-                    this.programsDd = this.converToDd(this.programs, "programGroup");
+                // if (this.programs.length > 0)
+                //     this.programsDd = this.converToDd(this.programs, "programGroup");
             });
     }
 
@@ -450,7 +480,7 @@ export class AdminPayoutComponent implements OnInit {
                 incentiveRewards: this.buildIncentiveRewards(reward)
             })
         });
-        console.log(this.postData);
+        // console.log(this.postData);
     }
 
     private buildIncentiveRewards(reward) {
@@ -510,13 +540,14 @@ export class AdminPayoutComponent implements OnInit {
 
     saveUpdates() {
         this.postInProgress = true;
+        // console.log(this.postData);
         this.adminPayoutService.postRewardData(this.postData).subscribe((response) => {
             this.postInProgress = false;
             if (response.success)
                 this.postSuccess = true;
             else this.postSuccess = false
             this.postAlert = true;
-            console.log(response);
+            // console.log(response);
         })
     }
 

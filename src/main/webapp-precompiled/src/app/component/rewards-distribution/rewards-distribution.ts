@@ -30,6 +30,11 @@ export class RewardsDistributionComponent implements OnInit {
 
   public isDealerManager: boolean = false;
   public isServiceManagerOfRecords: boolean = false;
+
+  public elManagerExists: boolean = true;
+  public pcManagerExists: boolean = true;
+  public uvmManagerExists: boolean = true;
+
   constructor(
     private rewardsDistributionService: RewardsDistributionService,
     private mvpAutoApprovalSettingService: MVPAutoApprovalSettingService) { }
@@ -42,9 +47,14 @@ export class RewardsDistributionComponent implements OnInit {
     var selectedCodeData = JSON.parse(sessionStorage.getItem("selectedCodeData"));
     this.isDealerManager = selectedCodeData.isDealerManager;
     this.isServiceManagerOfRecords = selectedCodeData.isServiceManagerOfRecord;
+
+    this.elManagerExists = selectedCodeData.elManagerExists;
+    this.pcManagerExists = selectedCodeData.pcManagerExists;
+    this.uvmManagerExists = selectedCodeData.uvmManagerExists;
     // this.getParticipantsByDealer();
     this.getMVPApprovalData();
   }
+
 
   public mvpApprovalDatum: any = true;
   public getMVPApprovalData() {
@@ -368,7 +378,7 @@ export class RewardsDistributionComponent implements OnInit {
 
     if (count == mvpDistributionData.length) {
       this.displayError = true;
-      this.msg = "Approve atleast one Plan.";
+      this.msg = "Approve atleast one plan.";
       return;
     }
     for (var j = 0; j < mvpDistributionData.length; j++) {
@@ -383,7 +393,7 @@ export class RewardsDistributionComponent implements OnInit {
         this.mvpCancellation();
         this.getRewardsDistributionAmount();
         this.displayError = true;
-        this.msg = "Successfully Approved";
+        this.msg = "Successfully approved";
       },
       (error) => {
         this.mvpCancellation();
@@ -407,116 +417,6 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-  // public eldistributionData: any = [
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "",
-  //     "teamId": "SLXX",
-  //     "updatedBy": "S08784O   ",
-  //     "sid": "S08784O   ",
-  //     "updatedDate": "2017-09-27",
-  //     "allocationID": null,
-  //     "amount": 2,
-  //     "firstName": "Holly",
-  //     "lastName": "Lebel"
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "",
-  //     "teamId": "SLXX",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-09-27",
-  //     "allocationID": null,
-  //     "amount": 2,
-  //     "firstName": null,
-  //     "lastName": null
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "",
-  //     "teamId": "SLXX",
-  //     "updatedBy": "S08784O   ",
-  //     "sid": "S08784O   ",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 2,
-  //     "firstName": "Holly",
-  //     "lastName": "Lebel"
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "",
-  //     "teamId": "SLXX",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 2,
-  //     "firstName": null,
-  //     "lastName": null
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "test123",
-  //     "teamId": "123",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 20,
-  //     "firstName": null,
-  //     "lastName": null
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "test123",
-  //     "teamId": "123",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 212,
-  //     "firstName": null,
-  //     "lastName": null
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "testabc",
-  //     "teamId": "abc",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 15,
-  //     "firstName": null,
-  //     "lastName": null
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "testabc",
-  //     "teamId": "abc",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 1.1,
-  //     "firstName": null,
-  //     "lastName": null
-  //   },
-  //   {
-  //     "expectedPayoutDate": "2017-10-19",
-  //     "teamName": "testabc",
-  //     "teamId": "abc1",
-  //     "updatedBy": "SLXX",
-  //     "sid": "SLXX",
-  //     "updatedDate": "2017-07-03",
-  //     "allocationID": null,
-  //     "amount": 1.9,
-  //     "firstName": null,
-  //     "lastName": null
-  //   }
-  // ];
   public eldistributionData: any = [];
   public getELDistributionData() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -537,7 +437,7 @@ export class RewardsDistributionComponent implements OnInit {
     var groupByTeamIDData: any = [];
 
     for (var i = 0; i < this.eldistributionData.length; i++) {
-      uniqueTeamID.push(this.eldistributionData[i].teamId);
+      uniqueTeamID.push(this.eldistributionData[i].teamId.toUpperCase());
     }
     uniqueTeamID = this.removeDuplicates(uniqueTeamID);
 
@@ -547,7 +447,7 @@ export class RewardsDistributionComponent implements OnInit {
         if (this.eldistributionData[k].teamName == "") {
           this.eldistributionData[k].teamName = "-";
         }
-        if (uniqueTeamID[j] == this.eldistributionData[k].teamId) {
+        if (uniqueTeamID[j].toUpperCase() == this.eldistributionData[k].teamId.toUpperCase()) {
           groupByTeamIDData[j].teamId = this.eldistributionData[k].teamId;
           groupByTeamIDData[j].teamName = this.eldistributionData[k].teamName;
           groupByTeamIDData[j].amount += this.eldistributionData[k].amount;
@@ -636,16 +536,16 @@ export class RewardsDistributionComponent implements OnInit {
 
     if (totalValues == 0) {
       this.displayError = true;
-      this.msg = "Please select a participant and indicate the amount to be paid. The total Reward Amount available must be distributed to participants in order to proceed.";
+      this.msg = "Please select a participant and indicate the amount to be paid. The total reward amount available must be distributed to participants in order to proceed.";
       return;
     }
     else if (totalValues > amount) {
       this.displayError = true;
-      this.msg = "Distributions should not exceed total Reward Amount";
+      this.msg = "Distributions should not exceed total reward amount";
       return;
     } else if (totalValues < amount) {
       this.displayError = true;
-      this.msg = "Additional funds remain, Please continue Reward Distribution";
+      this.msg = "Additional funds remain, please continue reward distribution";
       return;
     }
 
@@ -663,13 +563,13 @@ export class RewardsDistributionComponent implements OnInit {
           this.hideelParticipantTable = true;
           this.hidepcParticipantTable = true;
           this.hideurParticipantTable = true;
-          this.msg = "Successfully Allocated the Reward Amount";
+          this.msg = "Successfully allocated the reward amount";
         } else if (this.saveDistributionDATUM == false) {
           this.displayError = true;
           this.hideelParticipantTable = true;
           this.hidepcParticipantTable = true;
           this.hideurParticipantTable = true;
-          this.msg = "Internal Server Error";
+          this.msg = "Internal server error";
         }
 
       },
@@ -679,7 +579,7 @@ export class RewardsDistributionComponent implements OnInit {
             this.msg = error;
           } else {
             this.displayError = true;
-            this.msg = "Error in Distribution.";
+            this.msg = "Error in distribution.";
             this.hideelParticipantTable = true;
             this.hidepcParticipantTable = true;
             this.hideurParticipantTable = true;

@@ -91,7 +91,7 @@ export class SWBCSpinSummaryROReportComponent implements OnInit {
     public viewReport() {
         if (this.selectedPeriod == "") {
             this.showIFrame = false;
-            this.msg = "Please select period to view the report";
+            this.msg = "Please select week to view the report";
             return;
         } else {
             this.msg = "";

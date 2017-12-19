@@ -52,7 +52,8 @@
           </td>
         </tr>
         <!-- end ng-if [disabled]="disableELButton" [disabled]="disablePCButton" [disabled]="disableURButton"-->
-        <tr>
+        <tr *ngIf="elManagerExists">
+          <!-- <tr> -->
           <td headers="reward-program" role="gridcell">Express Lane</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.el | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
@@ -62,7 +63,9 @@
             </button>
           </td>
         </tr>
-        <tr>
+
+        <tr *ngIf="pcManagerExists">
+          <!-- <tr> -->
           <td headers="reward-program" role="gridcell">Parts Counter</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.pc | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
@@ -72,7 +75,9 @@
             </button>
           </td>
         </tr>
-        <tr>
+
+        <tr *ngIf="uvmManagerExists">
+          <!-- <tr> -->
           <td headers="reward-program" role="gridcell">Used Recon</td>
           <td class="right-align" headers="amount-to-be-distributed" role="gridcell">{{rewardsAmount.ur | currency:'USD':true:'1.2-2'}}</td>
           <td class="center-align" headers="proceed-to-allocations" role="gridcell">
@@ -86,7 +91,7 @@
     </table>
   </div>
   <!-- End Allocation Section -->
-  <p style="margin-left: 20px">* Potential Amount to be distributed</p>
+  <p style="margin-left: 20px">* Potential amount to be distributed</p>
 
 
 

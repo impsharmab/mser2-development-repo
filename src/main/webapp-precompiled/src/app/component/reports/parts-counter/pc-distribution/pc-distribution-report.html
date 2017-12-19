@@ -149,8 +149,8 @@
             </div>
           </div>
         </form>
-        <div *ngIf="msg.length>0">
-          <p style="color:red">{{msg}}</p>
+        <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+          {{msg}}
         </div>
         <div class="row" *ngIf="showDealerPCDistributionReportIframe">
           <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
@@ -191,8 +191,8 @@
             </div>
           </div>
         </form>
-        <div *ngIf="msg.length>0">
-          <p style="color:red">{{msg}}</p>
+        <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+          {{msg}}
         </div>
         <div class="row" *ngIf="showDealerPCDistributionReportIframe">
           <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>

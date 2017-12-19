@@ -15,131 +15,136 @@ import { EnrollmentInterface } from './enrollment.interface';
 export class EnrollmentComponent implements OnInit {
     isCollapsed = true;
     @ViewChild("datatable") dataTable: DataTable;
-    public tabContentLoaded: boolean = false;
+    tabContentLoaded: boolean = false;
 
-    public addTeamData: any;
-    public addNewUserData: any;
-    public data: any;
-    public editSingleRow: boolean = false;
-    public disableGlobalFilter: boolean = false;
-    public expressLaneDealerData: any;
-    public isExpresslaneDealer: boolean = false;
-    public selectedpc: string = "";
-    public notenrolledDataResponse: any = [];
-    public notenrolledsidOptions: SelectItem[] = [];
-    public displayAddNewUserDialog: boolean = false;
-    public displayEnrollmentDialog: boolean;
-    public enableEditable: boolean = false;
-    public showEditButton: boolean = true;;
-    public showCancelButton: boolean = false;
-    public showSaveButton: boolean = false;
-    public positionCodesResponse: any = [];
-    public selectedRowSid: string = "";
-    public dat: any = "";
-    public saveEnrollmentMaintenanceDataResponse: any;
+    addTeamData: any;
+    addNewUserData: any;
+    data: any;
+    editSingleRow: boolean = false;
+    disableGlobalFilter: boolean = false;
+    expressLaneDealerData: any;
+    isExpresslaneDealer: boolean = false;
+    selectedpc: string = "";
+    notenrolledDataResponse: any = [];
+    notenrolledsidOptions: SelectItem[] = [];
+    displayAddNewUserDialog: boolean = false;
+    displayEnrollmentDialog: boolean;
+    enableEditable: boolean = false;
+    showEditButton: boolean = true;;
+    showCancelButton: boolean = false;
+    showSaveButton: boolean = false;
+    positionCodesResponse: any = [];
+    selectedRowSid: string = "";
+    dat: any = "";
+    saveEnrollmentMaintenanceDataResponse: any;
 
-    public selectedPMRecordsPCindex: any = 0
-    public selectedPMRecordsPCData: any = "";
-    public selectedSMRecordsPCindex: any = 0
-    public selectedSMRecordsPCData: any = "";
+    selectedPMRecordsPCindex: any = 0
+    selectedPMRecordsPCData: any = "";
+    selectedSMRecordsPCindex: any = 0
+    selectedSMRecordsPCData: any = "";
 
-    public enrollmentDataCount: string = "";
-    public activeUser: string = "";
-    public confirmCancel: boolean = false;
-    public confirmSave: boolean = false;
-    public editButton: any;
-    public cancelButton: any;
-    public saveButton: any;
-    public rowData: any;
-    public rowIndex: any = 0;
-    public msg: string = "";
-    public openDealerTeamTable: boolean = false;
-    public dealerTeamButton: string = "YES";
+    enrollmentDataCount: string = "";
+    activeUser: string = "";
+    confirmCancel: boolean = false;
+    confirmSave: boolean = false;
+    editButton: any;
+    cancelButton: any;
+    saveButton: any;
+    rowData: any;
+    rowIndex: any = 0;
+    msg: string = "";
+    openDealerTeamTable: boolean = false;
+    dealerTeamButton: string = "YES";
 
-    public pmRecordsElligiblepc: any = ["08"];
-    public smRecordsElligiblepc: any = ["09"];
-    public mserElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    public mmElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    public upFitsElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    public fiatElligpc: any = ["01", "13", "23", "2A"]
-    public tiresElligpc: any = ["01", "13", "23", "2A"];
-    public mvpElligpc: any = ["01", "13", "ES"];
-    public wiAdvMVPElligpc: any = ["13"];
-    public wiAdvTirElligepc: any = ["13"];
-    public uconSalesElligpc: any = ["01", "02", "03", "04", "05", "06 ", "07", "11", "12", "15", "22", "25", "26", "30", "31", "34", "36", "37", "38", "39", "41", "42", "46", "47", "49", "50", "52", "74", "4T", "IM"];
-    public uconServiceElligpc: any = ["08", "09", "10", "13", "14", "16", "17", "18", "19", "20", "23", "24", "27", "28", "29", "32", "33", "35", "40", "48", "56", "79", "85", "1F", "2S", "3S", "4S", "7L", "7M", "7N", "7P", "7Q", "ES", "ET"];
-    public pcPartElligpc = ["08", "14", "40", "19", "32", "33"];
-    public pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "37", "40"];
-    public elMElligpc: any = ["09", "17", "33", "35"];
-    public elPElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
-    public uvmEnrElligpc: any = ["08", "09", "07"];
-    public uvmPartElligpc: any = ["07", "12", "34"];
-    public warrantyAdmElligpc: any = ["29"];
+    pmRecordsElligiblepc: any = ["08"];
+    smRecordsElligiblepc: any = ["09"];
+    mserElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    mmElligiblepc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    upFitsElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    fiatElligpc: any = ["01", "13", "23", "2A"]
+    tiresElligpc: any = ["01", "13", "23", "2A"];
+    mvpElligpc: any = ["01", "13", "ES"];
+    wiAdvMVPElligpc: any = ["13"];
+    wiAdvTirElligepc: any = ["13"];
+    uconSalesElligpc: any = ["01", "02", "03", "04", "05", "06 ", "07", "11", "12", "15", "22", "25", "26", "30", "31", "34", "36", "37", "38", "39", "41", "42", "46", "47", "49", "50", "52", "74", "4T", "IM"];
+    uconServiceElligpc: any = ["08", "09", "10", "13", "14", "16", "17", "18", "19", "20", "23", "24", "27", "28", "29", "32", "33", "35", "40", "48", "56", "79", "85", "1F", "2S", "3S", "4S", "7L", "7M", "7N", "7P", "7Q", "ES", "ET"];
+    pcPartElligpc = ["08", "14", "40", "19", "32", "33"];
+    pcMElligpc = ["01", "02", "08", "09", "32", "33", "35", "37", "40"];
+    elMElligpc: any = ["09", "17", "33", "35"];
+    elPElligpc: any = ["01", "13", "23", "2A", "ES", "ET"];
+    uvmEnrElligpc: any = ["08", "09", "07"];
+    uvmPartElligpc: any = ["07", "12", "34"];
+    warrantyAdmElligpc: any = ["29"];
 
 
-    public pmRecordsElligiblepcItem2: any = ["(08)Parts Manager "];
-    public smRecordsElligiblepcItem2: any = ["(09)Service Manager "];
-    public mserElligiblepcItem2: any = [];
-    public mmElligiblepcItem2: any = [];
-    public upFitsElligpcItem2: any = [];
-    public fiatElligpcItem2: any = [];
-    public tiresElligpcItem2: any = [];
-    public mvpElligpcItem2: any = [];
-    public wiAdvMVPElligpcItem2: any = [];
-    public wiAdvTirElligepcItem2: any = [];
-    public uconSalesElligpcItem2: any = [];
-    public uconServiceElligpcItem2: any = [];
-    public pcPartElligpcItem2 = [];
-    public pcMElligpcItem2 = [];
-    public elMElligpcItem2: any = [];
-    public elPElligpcItem2: any = [];
-    public uvmEnrElligpcItem2: any = [];
-    public uvmPartElligpcItem2: any = [];
-    public warrantyAdmElligpcItem2: any = [];
+    pmRecordsElligiblepcItem2: any = ["Parts Manager(08) "];
+    smRecordsElligiblepcItem2: any = ["Service Manager(09) "];
+    mserElligiblepcItem2: any = [];
+    mmElligiblepcItem2: any = [];
+    upFitsElligpcItem2: any = [];
+    fiatElligpcItem2: any = [];
+    tiresElligpcItem2: any = [];
+    mvpElligpcItem2: any = [];
+    wiAdvMVPElligpcItem2: any = [];
+    wiAdvTirElligepcItem2: any = [];
+    uconSalesElligpcItem2: any = [];
+    uconServiceElligpcItem2: any = [];
+    pcPartElligpcItem2 = [];
+    pcMElligpcItem2 = [];
+    elMElligpcItem2: any = [];
+    elPElligpcItem2: any = [];
+    uvmEnrElligpcItem2: any = [];
+    uvmPartElligpcItem2: any = [];
+    warrantyAdmElligpcItem2: any = [];
 
-    public pmRecordsOptions: SelectItem[] = [];
-    public smRecordsOptions: SelectItem[] = [];
-    public mserOptions: SelectItem[] = [];
-    public mmOptions: SelectItem[] = [];
-    public upFitsOptions: SelectItem[] = [];
-    public fiatOptions: SelectItem[] = [];
-    public tiresOptions: SelectItem[] = [];
-    public mvpOptions: SelectItem[] = [];
-    public wiAdvMVPOptions: SelectItem[] = [];
-    public wiAdvTireOptions: SelectItem[] = [];
-    public uconSalesOptions: SelectItem[] = [];
-    public uconServiceOptions: SelectItem[] = [];
-    public pcPartOptions: SelectItem[] = [];
-    public pcMOptions: SelectItem[] = [];
-    public elMOptions: SelectItem[] = [];
-    public elPOptions: SelectItem[] = [];
-    public uvmEnrOptions: SelectItem[] = [];
-    public uvmPartOptions: SelectItem[] = [];
-    public warrantyAdmOptions: SelectItem[] = [];
+    pmRecordsOptions: SelectItem[] = [];
+    smRecordsOptions: SelectItem[] = [];
+    mserOptions: SelectItem[] = [];
+    mmOptions: SelectItem[] = [];
+    upFitsOptions: SelectItem[] = [];
+    fiatOptions: SelectItem[] = [];
+    tiresOptions: SelectItem[] = [];
+    mvpOptions: SelectItem[] = [];
+    wiAdvMVPOptions: SelectItem[] = [];
+    wiAdvTireOptions: SelectItem[] = [];
+    uconSalesOptions: SelectItem[] = [];
+    uconServiceOptions: SelectItem[] = [];
+    pcPartOptions: SelectItem[] = [];
+    pcMOptions: SelectItem[] = [];
+    elMOptions: SelectItem[] = [];
+    elPOptions: SelectItem[] = [];
+    uvmEnrOptions: SelectItem[] = [];
+    uvmPartOptions: SelectItem[] = [];
+    warrantyAdmOptions: SelectItem[] = [];
 
-    public enrollmentDataResponse: any = [];
+    enrollmentDataResponse: any = [];
 
     constructor(private enrollmentService: EnrollmentMaintenanceService, private changeDetector: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.getSelectedDealerCode();
         this.getSelectedDealerName();
-        this.getPositionCodes();
+        this.getElligiblePositionCodes();
+        this.getAllPositionCodes();
         this.getEnrollmentData();
         // this.getExpresslaneDealer();
         this.isEnrolled();
     }
-    public getSelectedDealerCode() {
+    getSelectedDealerCode() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     }
-    public getSelectedDealerName() {
+    getSelectedDealerName() {
         return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
     }
 
-    public showELColumn: boolean = true;
-    public showPCColumn: boolean = true;
-    public showUVMColumn: boolean = true;
-    public isEnrolled() {
+    showInfoModal: boolean = false;
+    openInfoModal() {
+        this.showInfoModal = true;
+    }
+    showELColumn: boolean = true;
+    showPCColumn: boolean = true;
+    showUVMColumn: boolean = true;
+    isEnrolled() {
         var isElEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).elValidated;
         var isPCEnrolled = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCEnrolled;
 
@@ -162,17 +167,29 @@ export class EnrollmentComponent implements OnInit {
         //     this.showUVMColumn = false;
         // }
     }
-    public getPositionCodes() {
-        this.enrollmentService.getPositionCodes().subscribe(
+    getElligiblePositionCodes() {
+        this.enrollmentService.getElligiblePositionCodes().subscribe(
             (positionCodesResponse) => {
                 this.positionCodesResponse = (positionCodesResponse)
+                // console.log(this.positionCodesResponse)
+                // this.assignElligiblePCItem2();
+            },
+            (error) => {
+            }
+        )
+    }
+    allPositionCodesResponse: any = [];
+    getAllPositionCodes() {
+        this.enrollmentService.getAllPositionCodes().subscribe(
+            (allPositionCodesResponse) => {
+                this.allPositionCodesResponse = (allPositionCodesResponse)
                 this.assignElligiblePCItem2();
             },
             (error) => {
             }
         )
     }
-    public assignElligiblePCItem2() {
+    assignElligiblePCItem2() {
         var mserElligiblepcItem2: any = [];
         var mmElligiblepcItem2: any = [];
         var upFitsElligpcItem2: any = [];
@@ -191,90 +208,90 @@ export class EnrollmentComponent implements OnInit {
         var uvmPartElligpcItem2: any = [];
         var warrantyAdmElligpcItem2: any = [];
 
-        for (var i = 0; i < this.positionCodesResponse.length; i++) {
+        for (var i = 0; i < this.allPositionCodesResponse.length; i++) {
             for (var j = 0; j < this.mserElligiblepc.length; j++) {
-                if (this.mserElligiblepc[j] === this.positionCodesResponse[i].item1) {
-                    mserElligiblepcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.mserElligiblepc[j] === this.allPositionCodesResponse[i].item1) {
+                    mserElligiblepcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.mmElligiblepc.length; j++) {
-                if (this.mmElligiblepc[j] === this.positionCodesResponse[i].item1) {
-                    mmElligiblepcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.mmElligiblepc[j] === this.allPositionCodesResponse[i].item1) {
+                    mmElligiblepcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.upFitsElligpc.length; j++) {
-                if (this.upFitsElligpc[j] === this.positionCodesResponse[i].item1) {
-                    upFitsElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.upFitsElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    upFitsElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.tiresElligpc.length; j++) {
-                if (this.tiresElligpc[j] === this.positionCodesResponse[i].item1) {
-                    tiresElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.tiresElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    tiresElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.fiatElligpc.length; j++) {
-                if (this.fiatElligpc[j] === this.positionCodesResponse[i].item1) {
-                    fiatElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.fiatElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    fiatElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.mvpElligpc.length; j++) {
-                if (this.mvpElligpc[j] === this.positionCodesResponse[i].item1) {
-                    mvpElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.mvpElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    mvpElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.wiAdvMVPElligpc.length; j++) {
-                if (this.wiAdvMVPElligpc[j] === this.positionCodesResponse[i].item1) {
-                    wiAdvMVPElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.wiAdvMVPElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    wiAdvMVPElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.wiAdvTirElligepc.length; j++) {
-                if (this.wiAdvTirElligepc[j] === this.positionCodesResponse[i].item1) {
-                    wiAdvTirElligepcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.wiAdvTirElligepc[j] === this.allPositionCodesResponse[i].item1) {
+                    wiAdvTirElligepcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.uconSalesElligpc.length; j++) {
-                if (this.uconSalesElligpc[j] === this.positionCodesResponse[i].item1) {
-                    uconSalesElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.uconSalesElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    uconSalesElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.uconServiceElligpc.length; j++) {
-                if (this.uconServiceElligpc[j] === this.positionCodesResponse[i].item1) {
-                    uconServiceElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.uconServiceElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    uconServiceElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.pcPartElligpc.length; j++) {
-                if (this.pcPartElligpc[j] === this.positionCodesResponse[i].item1) {
-                    pcPartElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.pcPartElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    pcPartElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.pcMElligpc.length; j++) {
-                if (this.pcMElligpc[j] === this.positionCodesResponse[i].item1) {
-                    pcMElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.pcMElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    pcMElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.elMElligpc.length; j++) {
-                if (this.elMElligpc[j] === this.positionCodesResponse[i].item1) {
-                    elMElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.elMElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    elMElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.elPElligpc.length; j++) {
-                if (this.elPElligpc[j] === this.positionCodesResponse[i].item1) {
-                    elPElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.elPElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    elPElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.uvmEnrElligpc.length; j++) {
-                if (this.uvmEnrElligpc[j] === this.positionCodesResponse[i].item1) {
-                    uvmEnrElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.uvmEnrElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    uvmEnrElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.uvmPartElligpc.length; j++) {
-                if (this.uvmPartElligpc[j] === this.positionCodesResponse[i].item1) {
-                    uvmPartElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.uvmPartElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    uvmPartElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
             for (var j = 0; j < this.warrantyAdmElligpc.length; j++) {
-                if (this.warrantyAdmElligpc[j] === this.positionCodesResponse[i].item1) {
-                    warrantyAdmElligpcItem2.push(this.positionCodesResponse[i].item2)
+                if (this.warrantyAdmElligpc[j] === this.allPositionCodesResponse[i].item1) {
+                    warrantyAdmElligpcItem2.push(this.allPositionCodesResponse[i].item2)
                 }
             }
 
@@ -305,7 +322,7 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    public getEnrollmentData() {
+    getEnrollmentData() {
         this.editButton = {};
         this.cancelButton = {};
         this.saveButton = {};
@@ -313,9 +330,10 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentService.getEnrollmentData(dealerCode).subscribe(
             (enrollmentDataResponse) => {
                 this.enrollmentDataResponse = (enrollmentDataResponse)
+                console.log(this.enrollmentDataResponse);
                 this.tabContentLoaded = true;
                 if (this.enrollmentDataResponse !== undefined) {
-                    this.enrollmentDataCount = "Total Number of Employees:" + this.enrollmentDataResponse.length;
+                    this.enrollmentDataCount = "Total number of employees:" + this.enrollmentDataResponse.length;
                 }
                 // this.somthing();
                 for (var a11 = 0; a11 < this.enrollmentDataResponse.length; a11++) {
@@ -338,7 +356,7 @@ export class EnrollmentComponent implements OnInit {
             }
         )
     }
-    public readItem1ReturnItem2(data, index) {
+    readItem1ReturnItem2(data, index) {
         var positionCodes: any = [];
         var overriddenpositionCodes: any = [];
         var mser: any = [];
@@ -356,76 +374,76 @@ export class EnrollmentComponent implements OnInit {
         var usedRecon = "";
 
 
-        for (var a2 = 0; a2 < this.positionCodesResponse.length; a2++) {
+        for (var a2 = 0; a2 < this.allPositionCodesResponse.length; a2++) {
             for (var a3 = 0; a3 < data.positionCodes.length; a3++) {
-                if (data.positionCodes[a3] === this.positionCodesResponse[a2].item1) {
-                    positionCodes.push(this.positionCodesResponse[a2].item2)
+                if (data.positionCodes[a3] === this.allPositionCodesResponse[a2].item1) {
+                    positionCodes.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.overriddenpositionCodes.length; a3++) {
-                if (data.overriddenpositionCodes[a3] === this.positionCodesResponse[a2].item1) {
-                    overriddenpositionCodes.push(this.positionCodesResponse[a2].item2)
+                if (data.overriddenpositionCodes[a3] === this.allPositionCodesResponse[a2].item1) {
+                    overriddenpositionCodes.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.mser.length; a3++) {
-                if (data.mser[a3] === this.positionCodesResponse[a2].item1) {
-                    mser.push(this.positionCodesResponse[a2].item2)
+                if (data.mser[a3] === this.allPositionCodesResponse[a2].item1) {
+                    mser.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.mas.length; a3++) {
-                if (data.mas[a3] === this.positionCodesResponse[a2].item1) {
-                    mas.push(this.positionCodesResponse[a2].item2)
+                if (data.mas[a3] === this.allPositionCodesResponse[a2].item1) {
+                    mas.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.mm.length; a3++) {
-                if (data.mm[a3] === this.positionCodesResponse[a2].item1) {
-                    mm.push(this.positionCodesResponse[a2].item2)
+                if (data.mm[a3] === this.allPositionCodesResponse[a2].item1) {
+                    mm.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.mvp.length; a3++) {
-                if (data.mvp[a3] === this.positionCodesResponse[a2].item1) {
-                    mvp.push(this.positionCodesResponse[a2].item2)
+                if (data.mvp[a3] === this.allPositionCodesResponse[a2].item1) {
+                    mvp.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.wiMvp.length; a3++) {
-                if (data.wiMvp[a3] === this.positionCodesResponse[a2].item1) {
-                    wiMvp.push(this.positionCodesResponse[a2].item2)
+                if (data.wiMvp[a3] === this.allPositionCodesResponse[a2].item1) {
+                    wiMvp.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.wiTires.length; a3++) {
-                if (data.wiTires[a3] === this.positionCodesResponse[a2].item1) {
-                    wiTires.push(this.positionCodesResponse[a2].item2)
+                if (data.wiTires[a3] === this.allPositionCodesResponse[a2].item1) {
+                    wiTires.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.fiat.length; a3++) {
-                if (data.fiat[a3] === this.positionCodesResponse[a2].item1) {
-                    fiat.push(this.positionCodesResponse[a2].item2)
+                if (data.fiat[a3] === this.allPositionCodesResponse[a2].item1) {
+                    fiat.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.tires.length; a3++) {
-                if (data.tires[a3] === this.positionCodesResponse[a2].item1) {
-                    tires.push(this.positionCodesResponse[a2].item2)
+                if (data.tires[a3] === this.allPositionCodesResponse[a2].item1) {
+                    tires.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.usedReconP.length; a3++) {
-                if (data.usedReconP[a3] === this.positionCodesResponse[a2].item1) {
-                    usedReconP.push(this.positionCodesResponse[a2].item2)
+                if (data.usedReconP[a3] === this.allPositionCodesResponse[a2].item1) {
+                    usedReconP.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
             for (var a3 = 0; a3 < data.ucon.length; a3++) {
-                if (data.ucon[a3] === this.positionCodesResponse[a2].item1) {
-                    ucon.push(this.positionCodesResponse[a2].item2)
+                if (data.ucon[a3] === this.allPositionCodesResponse[a2].item1) {
+                    ucon.push(this.allPositionCodesResponse[a2].item2)
                 }
             }
 
-            if (data.pc == this.positionCodesResponse[a2].item1) {
-                pc = this.positionCodesResponse[a2].item2;
+            if (data.pc == this.allPositionCodesResponse[a2].item1) {
+                pc = this.allPositionCodesResponse[a2].item2;
             }
-            if (data.el == this.positionCodesResponse[a2].item1) {
-                el = this.positionCodesResponse[a2].item2;
+            if (data.el == this.allPositionCodesResponse[a2].item1) {
+                el = this.allPositionCodesResponse[a2].item2;
             }
-            if (data.usedRecon == this.positionCodesResponse[a2].item1) {
-                usedRecon = this.positionCodesResponse[a2].item2;
+            if (data.usedRecon == this.allPositionCodesResponse[a2].item1) {
+                usedRecon = this.allPositionCodesResponse[a2].item2;
             }
         }
 
@@ -445,7 +463,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].el = el;
         this.enrollmentDataResponse[index].usedRecon = usedRecon;
     }
-    public constructSelectItem(data, index) {
+    constructSelectItem(data, index) {
         var overrideOptionArray: SelectItem[] = [];
         var pmRecordsOptions: SelectItem[] = [];
         var smRecordsOptions: SelectItem[] = [];
@@ -766,15 +784,15 @@ export class EnrollmentComponent implements OnInit {
             warrantyAdmOptions.push({ label: warrantyAdmData[m], value: warrantyAdmData[m] });
         }
         for (var m = 0; m < pcData.length; m++) {
-            // if (pcData[m] == "(08)Parts Manager ") {
-            //     var inpcData = pcData.indexOf("(08)Parts Manager ");
+            // if (pcData[m] == "Parts Manager(08) ") {
+            //     var inpcData = pcData.indexOf("Parts Manager(08) ");
             //     if (inpcData != -1) {
             //         pcData.splice(inpcData, 1);
 
             //     }
             // }
-            // if (pcData[m] == "(09)Service Manager ") {
-            //     var inPCData09 = pcData.indexOf("(09)Service Manager ");
+            // if (pcData[m] == "Service Manager(09) ") {
+            //     var inPCData09 = pcData.indexOf("Service Manager(09) ");
             //     if (inPCData09 != -1) {
             //         pcData.splice(inPCData09, 1);
             //     }
@@ -782,8 +800,8 @@ export class EnrollmentComponent implements OnInit {
             pcOptions.push({ label: pcData[m], value: pcData[m] });
         }
         for (var m = 0; m < elData.length; m++) {
-            // if (elData[m] == "(09)Service Manager ") {
-            //     var inElData = elData.indexOf("(09)Service Manager ");
+            // if (elData[m] == "Service Manager(09) ") {
+            //     var inElData = elData.indexOf("Service Manager(09) ");
             //     if (inElData != -1) {
             //         elData.splice(inElData, 1);
             //     }
@@ -792,14 +810,14 @@ export class EnrollmentComponent implements OnInit {
             elOptions.push({ label: elData[m], value: elData[m] });
         }
         for (var m = 0; m < usedReconManagerData.length; m++) {
-            // if (usedReconManagerData[m] == "(08)Parts Manager ") {
-            //     var inusedReconManagerData = usedReconManagerData.indexOf("(08)Parts Manager ");
+            // if (usedReconManagerData[m] == "Parts Manager(08) ") {
+            //     var inusedReconManagerData = usedReconManagerData.indexOf("Parts Manager(08) ");
             //     if (inusedReconManagerData != -1) {
             //         usedReconManagerData.splice(inusedReconManagerData, 1);
             //     }
             // }
-            // if (usedReconManagerData[m] == "(09)Service Manager ") {
-            //     var inusedReconManagerData09 = usedReconManagerData.indexOf("(09)Service Manager ");
+            // if (usedReconManagerData[m] == "Service Manager(09) ") {
+            //     var inusedReconManagerData09 = usedReconManagerData.indexOf("Service Manager(09) ");
             //     if (inusedReconManagerData09 != -1) {
             //         usedReconManagerData.splice(inusedReconManagerData09, 1);
             //     }
@@ -840,7 +858,7 @@ export class EnrollmentComponent implements OnInit {
 
         //  }
     }
-    public removeDuplicates(duplicateArray) {
+    removeDuplicates(duplicateArray) {
         var cleanArray: SelectItem[] = [];
         for (var i = 0; i < duplicateArray.length; i++) {
             var push = true;
@@ -855,14 +873,14 @@ export class EnrollmentComponent implements OnInit {
         }
         return cleanArray;
     }
-    public getRowIndex(sid) {
+    getRowIndex(sid) {
         for (var i = 0; i < this.enrollmentDataResponse.length; i++) {
             if (this.enrollmentDataResponse[i].sid == sid) {
                 return i;
             }
         }
     }
-    public selectedPCOverrides(data, rowData) {
+    selectedPCOverrides(data, rowData) {
         var index = this.getRowIndex(rowData.sid);
         var pmRecordsSelectedData = [];
         var smRecordsSelectedData = [];
@@ -1108,7 +1126,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].usedReconParticipantOptions = this.removeDuplicates(usedReconParticipantOptionss);
 
     }
-    public checkPMPositionCodes(index) {
+    checkPMPositionCodes(index) {
         var mserPositionCode = [];
         var mmPositionCode = [];
         var masPositionCode = [];
@@ -1119,38 +1137,38 @@ export class EnrollmentComponent implements OnInit {
         var tiresPositionCode = [];
 
         for (var i = 0; i < this.enrollmentDataResponse[index].mser.length; i++) {
-            if (this.enrollmentDataResponse[index].mser[i] == "(08)Parts Manager ") {
-                mserPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].mser[i] == "Parts Manager(08) ") {
+                mserPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mm.length; i++) {
-            if (this.enrollmentDataResponse[index].mm[i] == "(08)Parts Manager ") {
-                mmPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].mm[i] == "Parts Manager(08) ") {
+                mmPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mas.length; i++) {
-            if (this.enrollmentDataResponse[index].mas[i] == "(08)Parts Manager ") {
-                masPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].mas[i] == "Parts Manager(08) ") {
+                masPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mvp.length; i++) {
-            if (this.enrollmentDataResponse[index].mvp[i] == "(08)Parts Manager ") {
-                mvpPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].mvp[i] == "Parts Manager(08) ") {
+                mvpPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiMvp.length; i++) {
-            if (this.enrollmentDataResponse[index].wiMvp[i] == "(08)Parts Manager ") {
-                wiMvpPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].wiMvp[i] == "Parts Manager(08) ") {
+                wiMvpPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiTires.length; i++) {
-            if (this.enrollmentDataResponse[index].wiTires[i] == "(08)Parts Manager ") {
-                wiTiresPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].wiTires[i] == "Parts Manager(08) ") {
+                wiTiresPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].tires.length; i++) {
-            if (this.enrollmentDataResponse[index].tires[i] == "(08)Parts Manager ") {
-                tiresPositionCode.push("(08)Parts Manager ");
+            if (this.enrollmentDataResponse[index].tires[i] == "Parts Manager(08) ") {
+                tiresPositionCode.push("Parts Manager(08) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].fiat.length; i++) {
@@ -1168,11 +1186,11 @@ export class EnrollmentComponent implements OnInit {
             //&& fiatPositionCode.length > 0
         ) {
 
-            this.enrollmentDataResponse[index].pmPositionCode.push("(08)Parts Manager ");
+            this.enrollmentDataResponse[index].pmPositionCode.push("Parts Manager(08) ");
 
         }
     }
-    public checkSMPositionCodes(index) {
+    checkSMPositionCodes(index) {
         var mserPositionCode = [];
         var mmPositionCode = [];
         var masPositionCode = [];
@@ -1183,38 +1201,38 @@ export class EnrollmentComponent implements OnInit {
         var tiresPositionCode = [];
 
         for (var i = 0; i < this.enrollmentDataResponse[index].mser.length; i++) {
-            if (this.enrollmentDataResponse[index].mser[i] == "(09)Service Manager ") {
-                mserPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mser[i] == "Service Manager(09) ") {
+                mserPositionCode.push("Service Manager(09) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mm.length; i++) {
-            if (this.enrollmentDataResponse[index].mm[i] == "(09)Service Manager ") {
-                mmPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mm[i] == "Service Manager(09) ") {
+                mmPositionCode.push("Service Manager(09) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mas.length; i++) {
-            if (this.enrollmentDataResponse[index].mas[i] == "(09)Service Manager ") {
-                masPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mas[i] == "Service Manager(09) ") {
+                masPositionCode.push("Service Manager(09) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mvp.length; i++) {
-            if (this.enrollmentDataResponse[index].mvp[i] == "(09)Service Manager ") {
-                mvpPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mvp[i] == "Service Manager(09) ") {
+                mvpPositionCode.push("Service Manager(09) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiMvp.length; i++) {
-            if (this.enrollmentDataResponse[index].wiMvp[i] == "(09)Service Manager ") {
-                wiMvpPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].wiMvp[i] == "Service Manager(09) ") {
+                wiMvpPositionCode.push("Service Manager(09) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiTires.length; i++) {
-            if (this.enrollmentDataResponse[index].wiTires[i] == "(09)Service Manager ") {
-                wiTiresPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].wiTires[i] == "Service Manager(09) ") {
+                wiTiresPositionCode.push("Service Manager(09) ");
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].tires.length; i++) {
-            if (this.enrollmentDataResponse[index].tires[i] == "(09)Service Manager ") {
-                tiresPositionCode.push("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].tires[i] == "Service Manager(09) ") {
+                tiresPositionCode.push("Service Manager(09) ");
             }
         }
         // for (var i = 0; i < this.enrollmentDataResponse[index].fiat.length; i++) {
@@ -1231,10 +1249,10 @@ export class EnrollmentComponent implements OnInit {
             && tiresPositionCode.length > 0
         ) {
 
-            this.enrollmentDataResponse[index].smPositionCode.push("(09)Service Manager ");
+            this.enrollmentDataResponse[index].smPositionCode.push("Service Manager(09) ");
         }
     }
-    public removePMPositionCodesFromMsers(index) {
+    removePMPositionCodesFromMsers(index) {
         var mserPositionCode = this.enrollmentDataResponse[index].mser;
         var mmPositionCode = this.enrollmentDataResponse[index].mm;
         var masPositionCode = this.enrollmentDataResponse[index].mas;
@@ -1244,11 +1262,11 @@ export class EnrollmentComponent implements OnInit {
         // var fiatPositionCode = this.enrollmentDataResponse[index].mm;
         var tiresPositionCode = this.enrollmentDataResponse[index].tires;
 
-        // if (this.enrollmentDataResponse[index].pmPositionCode[0] == "(08)Parts Manager ") {
+        // if (this.enrollmentDataResponse[index].pmPositionCode[0] == "Parts Manager(08) ") {
         for (var i = 0; i < this.enrollmentDataResponse[index].mser.length; i++) {
-            if (this.enrollmentDataResponse[index].mser[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].mser[i] == "Parts Manager(08) ") {
                 // mserPositionCode.push(this.enrollmentDataResponse[index].mser[i]);
-                var indmser = mserPositionCode.indexOf("(08)Parts Manager ");
+                var indmser = mserPositionCode.indexOf("Parts Manager(08) ");
                 if (indmser != -1) {
                     mserPositionCode.splice(indmser, 1);
                     // delete mserPositionCode[indmser];
@@ -1257,62 +1275,62 @@ export class EnrollmentComponent implements OnInit {
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mm.length; i++) {
-            if (this.enrollmentDataResponse[index].mm[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].mm[i] == "Parts Manager(08) ") {
                 // mmPositionCode.push(this.enrollmentDataResponse[index].mm[i]);
-                var indmm = mmPositionCode.indexOf("(08)Parts Manager ");
+                var indmm = mmPositionCode.indexOf("Parts Manager(08) ");
                 if (indmm != -1) {
                     mmPositionCode.splice(indmm, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mas.length; i++) {
-            if (this.enrollmentDataResponse[index].mas[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].mas[i] == "Parts Manager(08) ") {
                 // masPositionCode.push(this.enrollmentDataResponse[index].mas[i]);
-                var indmas = masPositionCode.indexOf("(08)Parts Manager ");
+                var indmas = masPositionCode.indexOf("Parts Manager(08) ");
                 if (indmas != -1) {
                     masPositionCode.splice(indmas, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mvp.length; i++) {
-            if (this.enrollmentDataResponse[index].mvp[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].mvp[i] == "Parts Manager(08) ") {
                 // mvpPositionCode.push(this.enrollmentDataResponse[index].mvp[i]);
-                var indmvp = mvpPositionCode.indexOf("(08)Parts Manager ");
+                var indmvp = mvpPositionCode.indexOf("Parts Manager(08) ");
                 if (indmvp != -1) {
                     mvpPositionCode.splice(indmvp, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiMvp.length; i++) {
-            if (this.enrollmentDataResponse[index].wiMvp[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].wiMvp[i] == "Parts Manager(08) ") {
                 // wiMvpPositionCode.push(this.enrollmentDataResponse[index].wiMvp[i]);
-                var indwiMvp = wiMvpPositionCode.indexOf("(08)Parts Manager ");
+                var indwiMvp = wiMvpPositionCode.indexOf("Parts Manager(08) ");
                 if (indwiMvp != -1) {
                     wiMvpPositionCode.splice(indwiMvp, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiTires.length; i++) {
-            if (this.enrollmentDataResponse[index].wiTires[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].wiTires[i] == "Parts Manager(08) ") {
                 // wiTiresPositionCode.push(this.enrollmentDataResponse[index].wiTires[i]);
-                var indwiTires = wiTiresPositionCode.indexOf("(08)Parts Manager ");
+                var indwiTires = wiTiresPositionCode.indexOf("Parts Manager(08) ");
                 if (indwiTires != -1) {
                     wiTiresPositionCode.splice(indwiTires, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].tires.length; i++) {
-            if (this.enrollmentDataResponse[index].tires[i] == "(08)Parts Manager ") {
+            if (this.enrollmentDataResponse[index].tires[i] == "Parts Manager(08) ") {
                 // tiresPositionCode.push(this.enrollmentDataResponse[index].tires[i]);
-                var indtires = tiresPositionCode.indexOf("(08)Parts Manager ");
+                var indtires = tiresPositionCode.indexOf("Parts Manager(08) ");
                 if (indtires != -1) {
                     tiresPositionCode.splice(indtires, 1);
                 }
             }
         }
         // for (var i = 0; i < this.enrollmentDataResponse[index].fiat.length; i++) {
-        //     if (this.enrollmentDataResponse[index].fiat[i] == "(08)Parts Manager ") {
-        //         var indfiat = fiatPositionCode.indexOf("(08)Parts Manager ");
+        //     if (this.enrollmentDataResponse[index].fiat[i] == "Parts Manager(08) ") {
+        //         var indfiat = fiatPositionCode.indexOf("Parts Manager(08) ");
         //         if (indfiat != -1) {
         //             fiatPositionCode.splice(indfiat, 1);
         //         }
@@ -1335,7 +1353,7 @@ export class EnrollmentComponent implements OnInit {
         this.enrollmentDataResponse[index].tires = tiresPositionCode;
 
     }
-    public removeSMPositionCodesFromMsers(index) {
+    removeSMPositionCodesFromMsers(index) {
         var mserPositionCode = this.enrollmentDataResponse[index].mser;
         var mmPositionCode = this.enrollmentDataResponse[index].mm;
         var masPositionCode = this.enrollmentDataResponse[index].mas;
@@ -1345,26 +1363,26 @@ export class EnrollmentComponent implements OnInit {
         // var fiatPositionCode = this.enrollmentDataResponse[index].mm;
         var tiresPositionCode = this.enrollmentDataResponse[index].tires;
 
-        // if (this.enrollmentDataResponse[index].pmPositionCode[0] == "(08)Parts Manager ") {
+        // if (this.enrollmentDataResponse[index].pmPositionCode[0] == "Parts Manager(08) ") {
         for (var i = 0; i < this.enrollmentDataResponse[index].mser.length; i++) {
-            if (this.enrollmentDataResponse[index].mser[i] == "(09)Service Manager ") {
-                var indmser = mserPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mser[i] == "Service Manager(09) ") {
+                var indmser = mserPositionCode.indexOf("Service Manager(09) ");
                 if (indmser != -1) {
                     mserPositionCode.splice(indmser, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mm.length; i++) {
-            if (this.enrollmentDataResponse[index].mm[i] == "(09)Service Manager ") {
-                var indmm = mmPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mm[i] == "Service Manager(09) ") {
+                var indmm = mmPositionCode.indexOf("Service Manager(09) ");
                 if (indmm != -1) {
                     mmPositionCode.splice(indmm, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].mas.length; i++) {
-            if (this.enrollmentDataResponse[index].mas[i] == "(09)Service Manager ") {
-                var indmas = masPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mas[i] == "Service Manager(09) ") {
+                var indmas = masPositionCode.indexOf("Service Manager(09) ");
                 if (indmas != -1) {
                     masPositionCode.splice(indmas, 1);
                 }
@@ -1372,40 +1390,40 @@ export class EnrollmentComponent implements OnInit {
         }
         //For mvp they want to see in the 09
         for (var i = 0; i < this.enrollmentDataResponse[index].mvp.length; i++) {
-            if (this.enrollmentDataResponse[index].mvp[i] == "(09)Service Manager ") {
-                var indmvp = mvpPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].mvp[i] == "Service Manager(09) ") {
+                var indmvp = mvpPositionCode.indexOf("Service Manager(09) ");
                 if (indmvp != -1) {
                     mvpPositionCode.splice(indmvp, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiMvp.length; i++) {
-            if (this.enrollmentDataResponse[index].wiMvp[i] == "(09)Service Manager ") {
-                var indwiMvp = wiMvpPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].wiMvp[i] == "Service Manager(09) ") {
+                var indwiMvp = wiMvpPositionCode.indexOf("Service Manager(09) ");
                 if (indwiMvp != -1) {
                     wiMvpPositionCode.splice(indwiMvp, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].wiTires.length; i++) {
-            if (this.enrollmentDataResponse[index].wiTires[i] == "(09)Service Manager ") {
-                var indwiTires = wiTiresPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].wiTires[i] == "Service Manager(09) ") {
+                var indwiTires = wiTiresPositionCode.indexOf("Service Manager(09) ");
                 if (indwiTires != -1) {
                     wiTiresPositionCode.splice(indwiTires, 1);
                 }
             }
         }
         for (var i = 0; i < this.enrollmentDataResponse[index].tires.length; i++) {
-            if (this.enrollmentDataResponse[index].tires[i] == "(09)Service Manager ") {
-                var indtires = tiresPositionCode.indexOf("(09)Service Manager ");
+            if (this.enrollmentDataResponse[index].tires[i] == "Service Manager(09) ") {
+                var indtires = tiresPositionCode.indexOf("Service Manager(09) ");
                 if (indtires != -1) {
                     tiresPositionCode.splice(indtires, 1);
                 }
             }
         }
         // for (var i = 0; i < this.enrollmentDataResponse[index].fiat.length; i++) {
-        //     if (this.enrollmentDataResponse[index].fiat[i] == "(08)Parts Manager ") {
-        //         var indfiat = fiatPositionCode.indexOf("(08)Parts Manager ");
+        //     if (this.enrollmentDataResponse[index].fiat[i] == "Parts Manager(08) ") {
+        //         var indfiat = fiatPositionCode.indexOf("Parts Manager(08) ");
         //         if (indfiat != -1) {
         //             fiatPositionCode.splice(indfiat, 1);
         //         }
@@ -1434,7 +1452,7 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    public selectedPMRecordsPC(data, sid) {
+    selectedPMRecordsPC(data, sid) {
         var enrollmentDataResponse = this.enrollmentDataResponse;
         var selectedPMRecordsPCindex: any = 0;
         for (var i = 0; i < enrollmentDataResponse.length; i++) {
@@ -1444,7 +1462,7 @@ export class EnrollmentComponent implements OnInit {
         }
         this.selectedPMRecordsPCData = data;
     }
-    public selectedSMRecordsPC(data, sid) {
+    selectedSMRecordsPC(data, sid) {
         var enrollmentDataResponse = this.enrollmentDataResponse;
         var selectedSMRecordsPCindex: any = 0;
         for (var i = 0; i < enrollmentDataResponse.length; i++) {
@@ -1454,7 +1472,7 @@ export class EnrollmentComponent implements OnInit {
         }
         this.selectedSMRecordsPCData = data;
     }
-    public onEditInitE(event: any) {
+    onEditInitE(event: any) {
         if (!event.data.isEditableR) {
             setTimeout(() => {
                 this.dataTable.closeCell();
@@ -1462,7 +1480,7 @@ export class EnrollmentComponent implements OnInit {
         }
     }
 
-    public edit(rowData, editButton, cancelButton, saveButton) {
+    edit(rowData, editButton, cancelButton, saveButton) {
         this.msg = "";
         this.disableGlobalFilter = true;
         if (this.editSingleRow) {
@@ -1479,12 +1497,12 @@ export class EnrollmentComponent implements OnInit {
         this.enableEditable = true;
     }
 
-    public applyRowStyle(rowData: any): string {
+    applyRowStyle(rowData: any): string {
         // console.log("applyrow");
         return ".rowSelectionColor";
     }
 
-    public cancel(rowData, editButton, cancelButton, saveButton) {
+    cancel(rowData, editButton, cancelButton, saveButton) {
         //  this.editSingleRow = false;
         this.confirmCancel = true;
         this.editButton = editButton;
@@ -1498,7 +1516,7 @@ export class EnrollmentComponent implements OnInit {
         // rowData.isEditableR = false;
         // this.getEnrollmentData();
     }
-    public continueCancel() {
+    continueCancel() {
         this.disableGlobalFilter = false;
         this.editSingleRow = false;
         this.confirmCancel = false;
@@ -1510,14 +1528,14 @@ export class EnrollmentComponent implements OnInit {
         // this.getEnrollmentData();
 
     }
-    public discontinueCancel() {
+    discontinueCancel() {
         this.editSingleRow = true;
         this.confirmCancel = false;
         this.editButton = {};
         this.cancelButton = {};
         this.saveButton = {};
     }
-    public saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
+    saveEnrollmentMaintenanceData(rowData, editButton, cancelButton, saveButton, index) {
         // this.editSingleRow = false;
         this.confirmSave = true;
         this.editButton = editButton;
@@ -1532,7 +1550,7 @@ export class EnrollmentComponent implements OnInit {
         // rowData.isEditableR = false;
         // this.getEnrollmentData();
     }
-    // public continueSave() {
+    //  continueSave() {
     //     this.confirmCancel = false;
     //     this.editButton.style["display"] = "block";
     //     this.cancelButton.style["display"] = "none";
@@ -1542,7 +1560,7 @@ export class EnrollmentComponent implements OnInit {
     //     this.getEnrollmentData();
 
     // }
-    public discontinueSave() {
+    discontinueSave() {
         this.editSingleRow = true;
         this.confirmSave = false;
         this.editButton = {};
@@ -1551,10 +1569,10 @@ export class EnrollmentComponent implements OnInit {
     }
 
 
-    public returnItem1(data) {
+    returnItem1(data) {
         var myPersonal
     }
-    public continueSave() {
+    continueSave() {
         this.disableGlobalFilter = false;
         this.editSingleRow = false;
         var rowData = this.rowData;
@@ -1586,115 +1604,115 @@ export class EnrollmentComponent implements OnInit {
         var usedReconManagerData = "";
         var usedReconParticipantData = [];
 
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.positionCodes.length; a2++) {
-                if (rowData.positionCodes[a2] === this.positionCodesResponse[a1].item2) {
-                    myPersonalPositionCode.push(this.positionCodesResponse[a1].item1)
+                if (rowData.positionCodes[a2] === this.allPositionCodesResponse[a1].item2) {
+                    myPersonalPositionCode.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
 
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.overriddenpositionCodes.length; a2++) {
-                if (rowData.overriddenpositionCodes[a2] === this.positionCodesResponse[a1].item2) {
-                    overriddenpositionCodes.push(this.positionCodesResponse[a1].item1)
+                if (rowData.overriddenpositionCodes[a2] === this.allPositionCodesResponse[a1].item2) {
+                    overriddenpositionCodes.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
 
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.mser.length; a2++) {
-                if (rowData.mser[a2] === this.positionCodesResponse[a1].item2) {
-                    mserData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.mser[a2] === this.allPositionCodesResponse[a1].item2) {
+                    mserData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.mas.length; a2++) {
-                if (rowData.mas[a2] === this.positionCodesResponse[a1].item2) {
-                    masData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.mas[a2] === this.allPositionCodesResponse[a1].item2) {
+                    masData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.mm.length; a2++) {
-                if (rowData.mm[a2] === this.positionCodesResponse[a1].item2) {
-                    mmData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.mm[a2] === this.allPositionCodesResponse[a1].item2) {
+                    mmData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.fiat.length; a2++) {
-                if (rowData.fiat[a2] === this.positionCodesResponse[a1].item2) {
-                    fiatData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.fiat[a2] === this.allPositionCodesResponse[a1].item2) {
+                    fiatData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.tires.length; a2++) {
-                if (rowData.tires[a2] === this.positionCodesResponse[a1].item2) {
-                    tiresData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.tires[a2] === this.allPositionCodesResponse[a1].item2) {
+                    tiresData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.mvp.length; a2++) {
-                if (rowData.mvp[a2] === this.positionCodesResponse[a1].item2) {
-                    mvpData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.mvp[a2] === this.allPositionCodesResponse[a1].item2) {
+                    mvpData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.wiMvp.length; a2++) {
-                if (rowData.wiMvp[a2] === this.positionCodesResponse[a1].item2) {
-                    wiAdvMVPData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.wiMvp[a2] === this.allPositionCodesResponse[a1].item2) {
+                    wiAdvMVPData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.wiTires.length; a2++) {
-                if (rowData.wiTires[a2] === this.positionCodesResponse[a1].item2) {
-                    wiAdvTireData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.wiTires[a2] === this.allPositionCodesResponse[a1].item2) {
+                    wiAdvTireData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.ucon.length; a2++) {
-                if (rowData.ucon[a2] === this.positionCodesResponse[a1].item2) {
-                    uconSalesData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.ucon[a2] === this.allPositionCodesResponse[a1].item2) {
+                    uconSalesData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.ucon.length; a2++) {
-                if (rowData.ucon[a2] === this.positionCodesResponse[a1].item2) {
-                    uconServiceData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.ucon[a2] === this.allPositionCodesResponse[a1].item2) {
+                    uconServiceData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.ucon.length; a2++) {
-                if (rowData.ucon[a2] === this.positionCodesResponse[a1].item2) {
-                    warrantyAdmData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.ucon[a2] === this.allPositionCodesResponse[a1].item2) {
+                    warrantyAdmData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a1 = 0; a1 < this.positionCodesResponse.length; a1++) {
+        for (var a1 = 0; a1 < this.allPositionCodesResponse.length; a1++) {
             for (var a2 = 0; a2 < rowData.usedReconP.length; a2++) {
-                if (rowData.usedReconP[a2] === this.positionCodesResponse[a1].item2) {
-                    usedReconParticipantData.push(this.positionCodesResponse[a1].item1)
+                if (rowData.usedReconP[a2] === this.allPositionCodesResponse[a1].item2) {
+                    usedReconParticipantData.push(this.allPositionCodesResponse[a1].item1)
                 }
             }
         }
-        for (var a2 = 0; a2 < this.positionCodesResponse.length; a2++) {
-            if (rowData.pc == this.positionCodesResponse[a2].item2) {
-                pcData = this.positionCodesResponse[a2].item1;
+        for (var a2 = 0; a2 < this.allPositionCodesResponse.length; a2++) {
+            if (rowData.pc == this.allPositionCodesResponse[a2].item2) {
+                pcData = this.allPositionCodesResponse[a2].item1;
             }
-            if (rowData.el == this.positionCodesResponse[a2].item2) {
-                elData = this.positionCodesResponse[a2].item1;
+            if (rowData.el == this.allPositionCodesResponse[a2].item2) {
+                elData = this.allPositionCodesResponse[a2].item1;
             }
-            if (rowData.usedRecon == this.positionCodesResponse[a2].item2) {
-                usedReconManagerData = this.positionCodesResponse[a2].item1;
+            if (rowData.usedRecon == this.allPositionCodesResponse[a2].item2) {
+                usedReconManagerData = this.allPositionCodesResponse[a2].item1;
             }
         }
 
@@ -1724,8 +1742,7 @@ export class EnrollmentComponent implements OnInit {
             usedReconManagerData, usedReconParticipantData).subscribe(
             (saveEnrollmentMaintenanceDataResponse) => {
                 this.saveEnrollmentMaintenanceDataResponse = (saveEnrollmentMaintenanceDataResponse)
-
-                this.msg = "Participant Information has been updated successfully.";
+                this.msg = "Participant information has been updated successfully.";
                 this.clearMessage();
                 this.getEnrollmentData();
             },
@@ -1733,7 +1750,7 @@ export class EnrollmentComponent implements OnInit {
                 if (error !== undefined && error.length < 250) {
                     this.msg = error;
                 } else {
-                    this.msg = "Error in Updating Participant Information.";
+                    this.msg = "Error in updating participant information.";
                 }
                 this.clearMessage();
                 this.getEnrollmentData();
@@ -1748,10 +1765,10 @@ export class EnrollmentComponent implements OnInit {
         }, 10000)
 
     }
-    public cancelNewUserDataDialogue(data) {
+    cancelNewUserDataDialogue(data) {
         this.displayAddNewUserDialog = false;
     }
-    // public getExpresslaneDealer() {
+    //  getExpresslaneDealer() {
     //     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     //     this.enrollmentService.getExpresslaneDealer(dealerCode).subscribe(
     //         (expressLaneDealerData) => {
@@ -1764,7 +1781,7 @@ export class EnrollmentComponent implements OnInit {
     //     )
     // }
 
-    public openDealerTeam() {
+    openDealerTeam() {
         if (this.dealerTeamButton === 'YES') {
             this.openDealerTeamTable = true;
             this.dealerTeamButton = "NO";
@@ -1775,7 +1792,7 @@ export class EnrollmentComponent implements OnInit {
 
     }
 
-    public onRowSelect(event) {
+    onRowSelect(event) {
         // console.log(event);
         event.data.isEditableR = true;
         this.enableEditable = true;

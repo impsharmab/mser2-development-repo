@@ -56,7 +56,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
         // { label: "Week4 (21 Oct to 27 Oct)", value: "4" },
         // { label: "Week5 (28 Oct to 03 Nov)", value: "5" },
         // { label: "Week6 (04 Nov to 10 Nov)", value: "6" },
-        // { label: "Week7 (11 Nov to 17 Nov)", value: "7" },
+        // { label: "Week7 (11 Nov to 17 Nov)", value: "7" }, 
         // { label: "Week8 (18 Nov to 24 Nov)", value: "8" },
         // { label: "Week9 (25 Nov to 30 Nov)", value: "9" }
     //]
@@ -245,7 +245,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
     public viewBCReport() {
         if (this.selectedPeriod == "") {
             this.showBCIFrame = false;
-            this.msg = "Please select period to view the report";
+            this.msg = "Please select week to view the report";
             return;
         }
         this.showBCIFrame = true;
@@ -257,7 +257,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
     public viewDistrictReport() {
         if (this.selectedPeriod == "") {
             this.showDISTIFrame = false;
-            this.msg = "Please select period to view the report";
+            this.msg = "Please select week to view the report";
             return;
         }
         if (this.isExecutiveUser) {
@@ -280,7 +280,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
     public viewDealerReport() {
         if (this.selectedPeriod == "" && this.selectedDC == "") {
             this.showDealerIFrame = false;
-            this.msg = "Please select Period and Dealer Code to view the report";
+            this.msg = "Please select week and Dealer Code to view the report";
             return;
         } else if (this.selectedPeriod != "" && this.selectedDC == "") {
             this.showDealerIFrame = false;
@@ -288,7 +288,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
             return;
         } else if (this.selectedPeriod == "" && this.selectedDC != "") {
             this.showDealerIFrame = false;
-            this.msg = "Please select Period to view the report";
+            this.msg = "Please select week to view the report";
             return;
         }
         if (this.isExecutiveUser || this.isBCUser || this.isDistrictUser) {
@@ -317,7 +317,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
     public viewParticipantReport() {
         if (this.selectedPeriod == "" && this.selectedSID == "") {
             this.showDealerIFrame = false;
-            this.msg = "Please select Period and SID to view the report";
+            this.msg = "Please select week and SID to view the report";
             return;
         } else if (this.selectedPeriod != "" && this.selectedSID == "") {
             this.showDealerIFrame = false;
@@ -325,7 +325,7 @@ export class SWBCTireSpinsReportComponent implements OnInit {
             return;
         } else if (this.selectedPeriod == "" && this.selectedSID != "") {
             this.showDealerIFrame = false;
-            this.msg = "Please select Period to view the report";
+            this.msg = "Please select week to view the report";
             return;
 
         } if (this.isExecutiveUser || this.isBCUser || this.isDistrictUser || this.isDealerUser) {

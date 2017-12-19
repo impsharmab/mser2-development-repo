@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, BrowserModule } from '@angular/platform-browser';
-
 import { PayoutChartService } from '../../services/payout-chart/payout-chart.service';
 
 import * as userMatrix from '../../global-variable/user-matrix';

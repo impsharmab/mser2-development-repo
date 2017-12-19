@@ -1,0 +1,236 @@
+[
+    {
+        "canOverride": true,
+        "laborTypes": [],
+        "overrideModalOptions": {
+            "rewardPositionDd": [
+                {
+                    "label": "Parts Manager (08)",
+                    "value": {
+                        "description": "Parts Manager (08)",
+                        "positionCode": "08"
+                    }
+                },
+                {
+                    "label": "Service Advisor (13)",
+                    "value": {
+                        "description": "Service Advisor (13)",
+                        "positionCode": "13"
+                    }
+                }
+            ]
+        },
+        "positionDd": [
+            {
+                "label": "Parts Manager (08)",
+                "value": {
+                    "description": "Parts Manager (08)",
+                    "positionCode": "08"
+                }
+            },
+            {
+                "label": "Service Manager (09)",
+                "value": {
+                    "description": "Service Manager (09)",
+                    "positionCode": "09"
+                }
+            },
+            {
+                "label": "Service Advisor (13)",
+                "value": {
+                    "description": "Service Advisor (13)",
+                    "positionCode": "13"
+                }
+            },
+            {
+                "label": "Service Technician (23)",
+                "value": {
+                    "description": "Service Technician (23)",
+                    "positionCode": "23"
+                }
+            }
+        ],
+        "programCategory": {
+            "description": "EL",
+            "incentiveId": 1001,
+            "incentiveSubCode": "EL",
+            "incentiveSubCodeId": 0,
+            "notes": null,
+            "programGroup": "Mopar Service Excellence Rewards-Express Lane",
+            "programGroupId": 1,
+            "quantityId": null,
+            "selected": false
+        },
+        "quantity": {
+            "createdBy": "System",
+            "createdDate": 1486674476387,
+            "delFlag": "0",
+            "description": "SET",
+            "quantityID": "2",
+            "quantityVal": "SET of 2",
+            "updateDate": 1486674476387,
+            "updatedBy": "System",
+            "value": 2
+        },
+        "rewardPositions": [
+            {
+                "position": {
+                    "description": "Parts Manager (08)",
+                    "positionCode": "08"
+                },
+                "rewardAmount": "14",
+                "rewardType": {
+                    "createdBy": "Sai",
+                    "createdDate": 1486394883153,
+                    "delFlag": "N",
+                    "description": "DOLLAR",
+                    "rewardTypeID": 1,
+                    "updateDate": null,
+                    "updatedBy": null
+                },
+                "overrides": [
+                    {
+                        "isOverride": true,
+                        "note": "Parts Manager (08) : 32 POINTS to Service Advisor (13)",
+                        "overrideAmt": "32",
+                        "overrideType": {
+                            "createdBy": "SAI",
+                            "createdDate": 1501256357783,
+                            "delFlag": "N",
+                            "description": "POINTS",
+                            "rewardTypeID": 3,
+                            "updateDate": null,
+                            "updatedBy": null
+                        },
+                        "recipientPosition": {
+                            "positionCode": "13",
+                            "description": "Service Advisor (13)"
+                        },
+                        "sourcePosition": {
+                            "positionCode": "08",
+                            "description": "Parts Manager (08)"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "canOverride": true,
+        "laborTypes": [
+            "C"
+        ],
+        "overrideModalOptions": {
+            "rewardPositionDd": [
+                {
+                    "label": "Parts Manager (08)",
+                    "value": {
+                        "description": "Parts Manager (08)",
+                        "positionCode": "08"
+                    }
+                },
+                {
+                    "label": "Service Advisor (13)",
+                    "value": {
+                        "description": "Service Advisor (13)",
+                        "positionCode": "13"
+                    }
+                }
+            ]
+        },
+        "positionDd": [
+            {
+                "label": "Parts Manager (08)",
+                "value": {
+                    "description": "Parts Manager (08)",
+                    "positionCode": "08"
+                }
+            },
+            {
+                "label": "Service Manager (09)",
+                "value": {
+                    "description": "Service Manager (09)",
+                    "positionCode": "09"
+                }
+            },
+            {
+                "label": "Service Advisor (13)",
+                "value": {
+                    "description": "Service Advisor (13)",
+                    "positionCode": "13"
+                }
+            },
+            {
+                "label": "Service Technician (23)",
+                "value": {
+                    "description": "Service Technician (23)",
+                    "positionCode": "23"
+                }
+            }
+        ],
+        "programCategory": {
+            "description": "EL",
+            "incentiveId": 1001,
+            "incentiveSubCode": "EL",
+            "incentiveSubCodeId": 0,
+            "notes": null,
+            "programGroup": "Mopar Service Excellence Rewards-Express Lane",
+            "programGroupId": 1,
+            "quantityId": null,
+            "selected": false
+        },
+        "quantity": {
+            "createdBy": "System",
+            "createdDate": 1486674476387,
+            "delFlag": "0",
+            "description": "SET",
+            "quantityID": "2",
+            "quantityVal": "SET of 2",
+            "updateDate": 1486674476387,
+            "updatedBy": "System",
+            "value": 2
+        },
+        "rewardPositions": [
+            {
+                "position": {
+                    "description": "Parts Manager (08)",
+                    "positionCode": "08"
+                },
+                "rewardAmount": "100",
+                "rewardType": {
+                    "createdBy": "Sai",
+                    "createdDate": 1486394883153,
+                    "delFlag": "N",
+                    "description": "DOLLAR",
+                    "rewardTypeID": 1,
+                    "updateDate": null,
+                    "updatedBy": null
+                },
+                "overrides": [
+                    {
+                        "isOverride": true,
+                        "note": "Parts Manager (08) : 32 POINTS to Service Advisor (13)",
+                        "overrideAmt": "32",
+                        "overrideType": {
+                            "createdBy": "SAI",
+                            "createdDate": 1501256357783,
+                            "delFlag": "N",
+                            "description": "POINTS",
+                            "rewardTypeID": 3,
+                            "updateDate": null,
+                            "updatedBy": null
+                        },
+                        "recipientPosition": {
+                            "positionCode": "13",
+                            "description": "Service Advisor (13)"
+                        },
+                        "sourcePosition": {
+                            "positionCode": "08",
+                            "description": "Parts Manager (08)"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

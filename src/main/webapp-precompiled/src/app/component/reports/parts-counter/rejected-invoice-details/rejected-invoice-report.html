@@ -1,0 +1,211 @@
+<main class="main report-center" id="report-center">
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Rejected Invoice Details Report
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <h2></h2> -->
+    <br>
+    <br>
+    <div style="margin:15px">
+        <div *ngIf="dealerCodeNotBelongsToThisBCOrDist.length>0">
+            <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p>
+        </div>
+        <div *ngIf="msg.length>0">
+            <p style="color:red">{{msg}}</p>
+        </div>
+        <form class="report-form">
+            <div class="row">
+                <div class="form-group col-sm-2">
+                    <label for="dc-4">Dealer Code:</label>
+                    <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" minlength="5" maxlength="5"
+                        (ngModelChange)="dealerCodeNotBelongsToThisBCOrDist=''; msg=''; saveErrorMsg=''; saveMsg=''; showRejectedInvoiceDatatable= false"
+                    />
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="from-4">From:</label>
+                    <p-calendar placeholder="From" id="from-4" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                        [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="fromDate"></p-calendar>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="to-4">To:</label>
+                    <p-calendar placeholder="To" id="to-4" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
+                        [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="toDate"></p-calendar>
+                </div>
+                <div class="form-group col-sm-2 report-button-container">
+                    <button pButton type="button" (click)="getRejectedInvoiceData()" icon="fa-check" iconPos="right" label="View Report"></button>
+                </div>
+            </div>
+
+        </form>
+
+        <hr>
+        <div *ngIf="saveMsg.length>0" class="alert alert-success alert-dismissible fade show w-100" role="alert" [innerHtml]='saveMsg'>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div [hidden]="!showRejectedInvoiceDatatable" class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input #gb type="text" pInputText size="50" placeholder="Global Filter">
+        </div>
+        <p-dataTable [value]="rejectedInvoiceDatum" selectionMode="single" [(selection)]="selectedRow" (onRowSelect)="onRowSelect($event)"
+            [paginator]="true" rows="15" [responsive]="true" *ngIf="showRejectedInvoiceDatatable" [globalFilter]="gb" #dt>
+            <p-column field="invoiceNumber" header="Invoice Number" [sortable]="true"></p-column>
+            <p-column field="invoiceDate" header="Invoice Date" [sortable]="true"></p-column>
+            <p-column field="partNumber" header="Part Number" [sortable]="true"></p-column>
+            <p-column field="saleQuantity" header="Sale Quantity" [sortable]="true"></p-column>
+            <p-column field="statusCode" header="Status" [sortable]="true"></p-column>
+            <p-column field="description" header="Reason" [sortable]="true"></p-column>
+
+            <!-- <p-footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button>
+            </div>
+        </p-footer> -->
+        </p-dataTable>
+
+        <p-dialog header="EDIT Rejected Invoice Details" [(visible)]="displayEDITRejectedInvoiceDialog" [responsive]="true" showEffect="fade"
+            [modal]="true">
+            <div class="ui-grid ui-grid-responsive ui-fluid">
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="vin">Invoice Number</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <label  id="vin">{{editRejectedInvoiceDatum.invoiceNumber}}</label>
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="year">Invoice Date</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <label  id="year">{{editRejectedInvoiceDatum.invoiceDate | date:"MM/dd/yyyy"}}</label>
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="brand">Part Number</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <input pInputText id="brand" [(ngModel)]="editRejectedInvoiceDatum.partNumber" (ngModelChange)="saveErrorMsg=''" />
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="color">Quantity</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <label  id="color">{{editRejectedInvoiceDatum.saleQuantity}}</label>
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="color">Sale Type</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <label  id="color">{{editRejectedInvoiceDatum.saleType}}</label>
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8 ">
+                        <label for="color">Exception Code</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <label id="color">{{editRejectedInvoiceDatum.exceptionCode}}</label>
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="color">Transaction Type</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <!-- <input pInputText id="color" [(ngModel)]="editRejectedInvoiceDatum.transactionType" /> -->
+                        <p-dropdown [options]="transactionTypeOptions" [(ngModel)]="editRejectedInvoiceDatum.transactionType" [style]="{'width':'250px'}"
+                            (ngModelChange)="saveErrorMsg=''"></p-dropdown>
+
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="color">D2D Indicator</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <!-- <input pInputText id="color" [(ngModel)]="editRejectedInvoiceDatum.d2DIndicator" /> -->
+                        <p-dropdown [options]="d2dIndicatorOptions" [(ngModel)]="editRejectedInvoiceDatum.d2DIndicator" [style]="{'width':'250px'}"
+                            (ngModelChange)="saveErrorMsg=''"></p-dropdown>
+
+                    </div>
+                </div>
+                <div class="ui-grid-row uniform-bottom-margin">
+                    <div class="ui-grid-col-8">
+                        <label for="color">Notes</label>
+                    </div>
+                    <div class="ui-grid-col-12">
+                        <!-- <input pInputText id="color" [(ngModel)]="editRejectedInvoiceDatum.invoiceNumber" /> -->
+                        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="editRejectedInvoiceDatum.notes" (ngModelChange)="saveErrorMsg=''"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <p-footer>
+                <div *ngIf="saveErrorMsg.length>0" class="alert alert-danger alert-dismissible fade show w-100" role="alert" [innerHtml]='saveErrorMsg'>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-close" (click)="cancelEdit()" label="Cancel"></button>
+                    <button type="button" pButton icon="fa-check" (click)="saveRejectedInvoice()" label="Save"></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+        <p-dialog [(visible)]="displaycontinueCancelRejectedInvoiceDialog" [responsive]="true" showEffect="fade" [modal]="true">
+            <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+            <div class="modal-body">
+                <p>You are about to cancel the changes. Are you sure you want to continue?</p>
+            </div>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa-close" (click)="continueCancel()" label="Yes, Continue"></button>
+                    <button type="button" pButton icon="fa-check" (click)=" disContinueCancel()" label="No, Take Me Back"></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+
+        <p-dialog [(visible)]="displaycontinueSaveRejectedInvoiceDialog" [responsive]="true" showEffect="fade" [modal]="true">
+            <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+            <div class="modal-body">
+                <p>You are about to save the changes. Are you sure you want to continue?</p>
+            </div>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <!-- <button class=" pull-left" type="button" pButton icon="fa-check" (click)="continueSave()">
+                    <span [hidden]="postSaveInProgress">Yes, Continue</span>
+                    <span [hidden]="!postSaveInProgress">Saving...
+                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                    </span>
+                </button> -->
+                    <button [hidden]="postSaveInProgress" type="button" pButton icon="fa-check" (click)="continueSave()" label="Yes, Continue"></button>
+                    <button [hidden]="!postSaveInProgress" type="button" pButton icon="fa-check" label="Saving...">
+                        <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+
+                    </button>
+                    <button type="button" pButton icon="fa-close" (click)=" disContinueSave()" label="No, Take Me Back"></button>
+                </div>
+            </p-footer>
+        </p-dialog>
+    </div>
+</main>

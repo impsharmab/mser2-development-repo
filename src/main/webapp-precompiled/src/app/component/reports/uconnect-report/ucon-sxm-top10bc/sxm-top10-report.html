@@ -49,7 +49,8 @@
 
                         <div class="form-group col-sm-3">
                             <label for="dc-5">Business Center:</label>
-                            <p-dropdown [disabled]="disableBCInput" id="dc-5" name="dc" [options]="bcOptions" [(ngModel)]="selectedBC" placeholder="Select Business Center"></p-dropdown>
+                            <p-dropdown [disabled]="disableBCInput" id="dc-5" name="dc" [options]="bcOptions" [(ngModel)]="selectedBC" placeholder="Select Business Center"
+                                (onChange)="msg=''"></p-dropdown>
 
                             <!-- <input [disabled]="disableBCInput" placeholder="" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="selectedBC" minlength="7"
                                 maxlength="7" (ngModelChange)="msg=''" /> -->
@@ -74,6 +75,9 @@
                         </div>
                     </div>
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
                 <div class="row" *ngIf="showBCIFrame">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                 </div>

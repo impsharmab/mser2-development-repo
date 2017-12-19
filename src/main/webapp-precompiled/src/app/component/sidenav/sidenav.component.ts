@@ -103,12 +103,12 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else {
       this.showMSEREnrollmentReport = false;
     }
-    if ((userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1)) {
+    if (this.isMSEREnrolled && (userMatrix.opcodeSetupMatrix.indexOf(this.selectedPositionCode) > -1)) {
       this.showMSEROPCodeSetup = true;
     } else {
       this.showMSEROPCodeSetup = false;
     }
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
+    if (this.isMSEREnrolled && (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true)) {
       this.showMSEREnrollmentMaintenance = true;
     } else {
       this.showMSEREnrollmentMaintenance = false;
@@ -169,7 +169,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
 
-    if (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true) {
+    if (this.isMSEREnrolled && (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true)) {
       this.showRewardDistributionMainTab = true;
       this.showRewardDistribution = true;
     } else {

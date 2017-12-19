@@ -35,8 +35,21 @@ export class EnrollmentMaintenanceService {
         response.json())
       .catch(this.handleError);
   }
-  getPositionCodes() {
+  getElligiblePositionCodes() {
     var url = serviceUrl.baseUrl + 'General/PositionCodeListForEnrollments';
+    var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', validToken);
+
+    return this.http.get(url, { headers })
+      .map((response: Response) =>
+        response.json())
+      .catch(this.handleError);
+  }
+
+  getAllPositionCodes() {
+    var url = serviceUrl.baseUrl + 'General/PositionCodeList';
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

@@ -18,7 +18,8 @@ import { RewardsRedistributionComponent } from '../../rewards-redistribution/rew
 import { MarketingTrainingPresentationComponent } from '../../marketing/marketing-training/marketing-presentations/marketing-training-presentation/marketing-training-presentation.component';
 import { MVPComponent } from '../../mvp/mvp.component';
 import { RewardsDistributionComponent } from '../../rewards-distribution/rewards-distribution';
-import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
+import { AddNewAdminPayoutComponent } from '../../admin-payout/add-new-admin-payout/add-admin-payout.component';
+import { EditAdminPayoutComponent } from '../../admin-payout/edit-view-admin-payout/edit-admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
 import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance';
@@ -53,6 +54,9 @@ import { SWBCTireSpinsReportComponent } from '../../reports/swbc-reports/swbc-ti
 import { SWBCSpinSummaryReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-report/spin-summary-report.component';
 import { SWBCSpinSummaryROReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-ro-report/spin-summary-ro-report.component';
 import { SWBCSpinDetailReportComponent } from "../../reports/swbc-reports/spin-detail-report/swbc-spin-detail.component";
+import { RejectedInvoiceReportComponent } from "../../reports/parts-counter/rejected-invoice-details/rejected-invoice-component";
+import { DealerMaintenanceComponent } from '../../admin/user/dealer-maintenance/dealer-maintenance.component';
+import { NotMSEREnrolledAdminComponent } from '../../login/not-mserEnrolled-admin/not-mserenrolled-admin.component';
 
 const routes: Routes = [
 
@@ -125,8 +129,13 @@ const routes: Routes = [
 
             },
             {
-                path: "adminpayout",
-                component: AdminPayoutComponent
+                path: "addnewadminpayout",
+                component: AddNewAdminPayoutComponent
+
+            },
+            {
+                path: "editadminpayout",
+                component: EditAdminPayoutComponent
 
             },
             {
@@ -270,8 +279,20 @@ const routes: Routes = [
                 component: SWBCSpinSummaryROReportComponent
             },
             {
-                path:"swbcspindetailreport",
-                component:SWBCSpinDetailReportComponent
+                path: "swbcspindetailreport",
+                component: SWBCSpinDetailReportComponent
+            },
+            {
+                path: "rejectedinvoicereport",
+                component: RejectedInvoiceReportComponent
+            },
+            {
+                path: "dealermaintenance",
+                component: DealerMaintenanceComponent
+            },
+            {
+                path: "notmserenrolledadminpage",
+                component: NotMSEREnrolledAdminComponent
             }
 
         ]

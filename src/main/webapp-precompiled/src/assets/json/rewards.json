@@ -1,0 +1,162 @@
+[
+    {
+        "programCategory": {
+            "programGroup": "Mopar Service Excellence Rewards-Express Lane",
+            "incentiveSubCode": "EL_B"
+        },
+        "rewardPositions": [
+            {
+                "position": {
+                    "positionCode": "23",
+                    "description": "Service Technician (23)"
+                },
+                "rewardAmount": "10",
+                "rewardType": {
+                    "createdBy": "Sai",
+                    "createdDate": 1486397249943,
+                    "delFlag": "N",
+                    "description": "PERCENT",
+                    "rewardTypeID": 2,
+                    "updateDate": null,
+                    "updatedBy": null
+                },
+                "overrides": [
+                    {
+                        "isOverride": true,
+                        "note": "Parts Manager (08) : 10% to Service Technician (23)",
+                        "overrideAmt": "10",
+                        "overrideType": {
+                            "createdBy": "Sai",
+                            "createdDate": 1486397249943,
+                            "delFlag": "N",
+                            "description": "PERCENT",
+                            "rewardTypeID": 2,
+                            "updateDate": null,
+                            "updatedBy": null
+                        },
+                        "recipientPosition": {
+                            "positionCode": "23",
+                            "description": "Service Technician (23)"
+                        },
+                        "sourcePosition": {
+                            "positionCode": "08",
+                            "description": "Parts Manager (08)"
+                        }
+                    }
+                ]
+            },
+            {
+                "position": {
+                    "positionCode": "13",
+                    "description": "Service Advisor (13)"
+                },
+                "rewardAmount": "21",
+                "rewardType": {
+                    "createdBy": "Sai",
+                    "createdDate": 1486397249943,
+                    "delFlag": "N",
+                    "description": "PERCENT",
+                    "rewardTypeID": 2,
+                    "updateDate": null,
+                    "updatedBy": null
+                },
+                "overrides": [
+                    {
+                        "isOverride": true,
+                        "note": "Parts Manager (08) : 10% to Service Technician (23)",
+                        "overrideAmt": "10",
+                        "overrideType": {
+                            "createdBy": "Sai",
+                            "createdDate": 1486397249943,
+                            "delFlag": "N",
+                            "description": "PERCENT",
+                            "rewardTypeID": 2,
+                            "updateDate": null,
+                            "updatedBy": null
+                        },
+                        "recipientPosition": {
+                            "positionCode": "23",
+                            "description": "Service Technician (23)"
+                        },
+                        "sourcePosition": {
+                            "positionCode": "08",
+                            "description": "Parts Manager (08)"
+                        }
+                    }
+                ]
+            }
+        ],
+        "laborTypes": "C",
+        "quantity": {
+            "createdBy": "System",
+            "createdDate": 1486674476387,
+            "delFlag": "0",
+            "description": "IND",
+            "quantityID": "1",
+            "quantityVal": "IND",
+            "updateDate": 1486674476387,
+            "updatedBy": "System",
+            "value": 1
+        }
+    },
+    {
+        "programCategory": {
+            "programGroup": "Mopar Service Excellence Rewards-Express Lane",
+            "incentiveSubCode": "EL_MMV1"
+        },
+        "rewardPositions": [
+            {
+                "position": {
+                    "description": "Parts Manager (08)",
+                    "positionCode": "08"
+                },
+                "rewardAmount": "11",
+                "rewardType": {
+                    "createdBy": "Sai",
+                    "createdDate": 1486397249943,
+                    "delFlag": "N",
+                    "description": "PERCENT",
+                    "rewardTypeID": 2,
+                    "updateDate": null,
+                    "updatedBy": null
+                },
+                "overrides": [
+                    {
+                        "isOverride": true,
+                        "note": "Parts Manager (08) : 10% to Service Technician (23)",
+                        "overrideAmt": "10",
+                        "overrideType": {
+                            "createdBy": "Sai",
+                            "createdDate": 1486397249943,
+                            "delFlag": "N",
+                            "description": "PERCENT",
+                            "rewardTypeID": 2,
+                            "updateDate": null,
+                            "updatedBy": null
+                        },
+                        "recipientPosition": {
+                            "positionCode": "23",
+                            "description": "Service Technician (23)"
+                        },
+                        "sourcePosition": {
+                            "positionCode": "08",
+                            "description": "Parts Manager (08)"
+                        }
+                    }
+                ]
+            }
+        ],
+        "laborTypes": "C",
+        "quantity": {
+            "createdBy": "System",
+            "createdDate": 1486674476387,
+            "delFlag": "0",
+            "description": "IND",
+            "quantityID": "1",
+            "quantityVal": "IND",
+            "updateDate": 1486674476387,
+            "updatedBy": "System",
+            "value": 1
+        }
+    }
+]

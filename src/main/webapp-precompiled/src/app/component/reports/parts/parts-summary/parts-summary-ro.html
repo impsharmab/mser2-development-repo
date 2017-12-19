@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="program-1">Program:</label>
-                            <p-multiSelect [options]="partsSummaryROProgramOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'170px'}"></p-multiSelect>
+                            <p-multiSelect [options]="partsSummaryROProgramOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList" [style]="{minWidth:'170px'}" (onChange)="msg=''"></p-multiSelect>
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
                             <button pButton type="button" (click)="showPartsSummaryROReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -40,15 +40,19 @@
                     </div>
                     <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                                 filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
-                    <div *ngIf="msg.length>0">
+                    <!-- <div *ngIf="msg.length>0">
                         <p style="color: red">{{msg}}</p>
-                    </div>
+                    </div> -->
 
-                    <div class="roe" *ngIf="showPartsSummaryROReportIframe">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
-                        </iframe>
-                    </div>
+
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="roe" *ngIf="showPartsSummaryROReportIframe">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
+                    </iframe>
+                </div>
             </div>
         </div>
     </div>

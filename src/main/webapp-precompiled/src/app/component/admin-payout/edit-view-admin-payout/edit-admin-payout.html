@@ -1,0 +1,620 @@
+<main class="main">
+  <div class="page-title">
+    <div class="pageTitle">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h1 class="heading-xl">Payout Chart Wizard</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container m-t-md">
+    <div class="row m-t-md">
+      <div class="col-xs-12 col-md-12">
+        <p-tabView [activeIndex]="index">
+          <!--STEP 1 - Begin Select Payout Method -->
+          <p-tabPanel header="Step 1" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary btn-disabled" disabled type="button">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext($event)">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
+            </div>
+            <div class="group-payout-month">
+              <h3>Select Payout Month</h3>
+              <div class="row">
+                <div class="form-group col-xs-12 col-md-4">
+                  <p-dropdown [options]="payoutMonths" [(ngModel)]="payoutMonth" placeholder="Select a month"></p-dropdown>
+                </div>
+              </div>
+              <label class="custom-control custom-checkbox">
+                <p-checkbox name="copyMonth" value="yes" onclick="(function(){$('#copy-month-container').toggleClass('hide-me');})(); "></p-checkbox>
+                <span class="custom-control-description">Would you like to copy the Payout Chart information from a previous month?</span>
+              </label>
+              <div class="row hide-me" id="copy-month-container">
+                <div class="form-group col-xs-12 col-md-4">
+                  <p-dropdown id="payout-month-copy" [options]="payoutCopyMonths" [(ngModel)]="payoutCopyMonth" placeholder="Select a month to copy"></p-dropdown>
+                </div>
+              </div>
+            </div>
+          </p-tabPanel>
+          <!-- End Select Payout Method -->
+
+          <!-- STEP 2 - Begin Select Program Group -->
+          <p-tabPanel header="Step 2" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary" type="button" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext($event)">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
+            </div>
+            <!-- Select Program Group-->
+            <h3>Select Program Group</h3>
+            <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
+            <div style="position:relative" *ngIf="!tabContentLoaded">
+              <i class="fa fa-spinner fa-spin fa-4x" aria-hidden="true" style="position:absolute;top:50%;left:50%"></i>
+            </div>
+            <table class="table table-bordered table-striped" id="program-groups" role="grid" *ngIf="tabContentLoaded">
+              <thead>
+                <tr scope="row">
+                  <th class="col-lg-2" id="program-groups-active" role="columnheader" scope="col">Select</th>
+                  <th class="col-lg-6" id="program-groups-group" role="columnheader" scope="col">Program Group</th>
+                  <!-- <th id="program-groups-start-date" role="columnheader" scope="col">Effective Start Date</th>
+                    <th id="program-groups-end-date" role="columnheader" scope="col">Effective End Date</th> -->
+                  <th class="col-lg-4" id="program-groups-modify" role="columnheader" scope="col" [hidden]="true">Image</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr scope="row" *ngFor="let program of programs; trackBy: trackProgram; let i = index">
+                  <td headers="program-groups-active" role="gridcell">
+                    <p-checkbox id="program-select-{{i}}" value="{{program.incentiveId}}" name="selectRow" [(ngModel)]="selectedIncentives" (onChange)="selectProgramGroup($event, program)"></p-checkbox>
+                  </td>
+                  <td headers="program-groups-select" role="gridcell">{{program.programGroup}}</td>
+                  <!-- <td headers="program-groups-start-date" role="gridcell">JUL 2017</td>
+                                            <td headers="program-groups-end-date" role="gridcell">AUG 2017</td> -->
+                  <td headers="program-groups-modify" role="gridcell" [hidden]="true">
+                    <input class="btn btn-primary" id="program-select-2-image" type="submit" value="+" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </p-tabPanel>
+          <!-- End Select Program Group -->
+
+          <!-- STEP 3 -Begin Select Category -->
+          <p-tabPanel header="Step 3" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button class="btn btn-primary" type="button" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button class="btn btn-primary" type="button" (click)="openNext($event)">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
+            </div>
+            <!-- Select Category-->
+            <h3>Select Category</h3>
+            <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
+            <div style="position:relative" *ngIf="!tabContentLoaded">
+              <i class="fa fa-spinner fa-spin fa-4x" aria-hidden="true" style="position:absolute;top:50%;left:50%"></i>
+            </div>
+            <div *ngIf="tabContentLoaded">
+              <input class="btn btn-primary" id="add-category" type="submit" value="Add a Category" (click)="openCategoryModal(addCategory)"
+              />
+            </div>
+            <p-accordion [multiple]="true" *ngIf="tabContentLoaded">
+              <p-accordionTab *ngFor="let programCategory of programCategories; trackBy: trackCategory; let i = index" header="{{programCategory.programGroup}}"
+                [selected]="i==0">
+                <table class="table table-bordered table-striped" id="admin-category-table" role="grid">
+                  <thead>
+                    <tr scope="row">
+                      <th class="col-xs-2" id="select-category-checkbox" role="columnheader" scope="col">Select Category</th>
+                      <th class="col-xs-2" id="select-category-column-category-name" role="columnheader" scope="col">Category</th>
+                      <th class="col-xs-2" id="select-category-column-category-description" role="columnheader" scope="col">Category Description</th>
+                      <!-- <th id="" role="columnheader" scope="col">Start Date</th>
+                                                                                                  <th id="" role="columnheader" scope="col">End Date</th> -->
+                      <th class="col-xs-2" id="select-category-column-additional-info" role="columnheader" scope="col">Additional Information on Final Payout Chart</th>
+                      <!-- <th id="" role="columnheader" scope="col">Add Image</th> -->
+                      <!-- <th id="" role="columnheader" scope="col">Modify</th>
+                                                                                                  <th id="" role="columnheader" scope="col">Amend Plan Code</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="row-program-group" *ngFor="let incentiveCategory of programCategory.categories">
+                      <td headers="select-category-checkbox" role="gridcell">
+                        <p-checkbox name="selectCategory" value="{{incentiveCategory.incentiveSubCode}}" [(ngModel)]="selectedIncentiveSubCodes"></p-checkbox>
+                      </td>
+                      <td headers="select-category-column-category-name" role="gridcell">{{incentiveCategory.incentiveSubCode}}</td>
+                      <td headers="select-category-column-category-description" role="gridcell">
+                        <form>
+                          <input class="form-control" id="select-category-description-1" name="selectCategoryDescription1" placeholder="Description"
+                            [(ngModel)]="incentiveCategory.description" />
+                        </form>
+                      </td>
+                      <td headers="select-category-column-additional-info" role="gridcell">
+                        <form>
+                          <input id="select-category-additional-info-1" class="form-control" name="selectCategoryAdditionalInfo1" placeholder="Additional Information"
+                            [(ngModel)]="incentiveCategory.notes" />
+                        </form>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </p-accordionTab>
+            </p-accordion>
+            <ng-template #addCategory let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Add a Category</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="add-category-program-group">Program Group</label>
+                      <p-dropdown name="addCategoryProgram" [options]="programsDd" [(ngModel)]="newCategory.program" placeholder="Select a Program"></p-dropdown>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="add-category-name">Category</label>
+                      <input class="input-category-name form-control" id="add-category-name" name="addCategoryName" placeholder="Category" type="text"
+                        value="" [(ngModel)]="newCategory.incentiveSubCode" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="add-category-description">Category Description</label>
+                      <input class="input-category-desc form-control" id="add-category-description" name="addCategoryDescription" placeholder="Category Description"
+                        type="text" value="" [(ngModel)]="newCategory.description" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="addNewCategory();c('Add click')">Add</button>
+                <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+              </div>
+            </ng-template>
+
+          </p-tabPanel>
+          <!-- End Select Category -->
+
+          <!-- STEP 4 - Begin Add Rewards -->
+          <p-tabPanel header="Step 4" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button type="button" class="btn btn-primary" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+              <button type="button" class="btn btn-primary" (click)="openNext($event)">Next
+                <i class="fa fa-chevron-right"></i>
+              </button>
+              <span [hidden]="!onNextMsg" style='color:red'>{{onNextMsg}}</span>
+            </div>
+
+            <!-- Add Rewards by Position/ Value -->
+            <h3>Add Rewards</h3>
+            <h4 class="chart-date-display">{{startDate}} - {{endDate}}</h4>
+            <div [hidden]="true">
+              <input id="add-reward" class="btn btn-primary" type="submit" value="Add a Reward" (click)="openRewardModal()" />
+            </div>
+            <div style="position:relative" *ngIf="!tabContentLoaded">
+              <i class="fa fa-spinner fa-spin fa-4x" aria-hidden="true" style="position:absolute;top:50%;left:50%"></i>
+            </div>
+            <p-accordion [multiple]="true" *ngIf="tabContentLoaded">
+              <p-accordionTab [selected]="i==0" *ngFor="let reward of rewards; trackBy: trackReward; let i = index">
+                <p-header>
+                  {{reward.programCategory.programGroup}}
+                  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  {{reward.programCategory.incentiveSubCode}}
+                </p-header>
+                <table id="add-reward-table" class="table table-bordered table-striped" role="grid">
+                  <thead>
+                    <tr scope="row">
+                      <th id="add-reward-position" role="columnheader" scope="col">Position</th>
+                      <th id="add-reward-amount" role="columnheader" scope="col">Reward Amount</th>
+                      <th id="add-reward-types" role="columnheader" scope="col">Reward Type</th>
+                      <th id="add-reward-override" role="columnheader" scope="col">Override</th>
+                      <th id="add-reward-labor-type" role="columnheader" scope="col">Labor Type</th>
+                      <th id="add-reward-quantity" role="columnheader" scope="col">Quantity</th>
+                      <th id="add-reward-quantity" role="columnheader" scope="col">Add More</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr scope="row">
+                      <td colspan="3" headers="add-reward-category add-reward-position add-reward-amount add-reward-types" role="gridcell"></td>
+                      <td headers="add-reward-override" role="gridcell">
+                        <input [disabled]="!reward.canOverride" class="btn btn-primary" id="add-override-mopar" name="AddOverrideMopar" type="submit"
+                          value="Add an Override" (click)="openOverrideModal(reward)" />
+                      </td>
+                      <td colspan="2" headers="add-reward-labor-type add-reward-quantity" role="gridcell"></td>
+                      <td colspan="1" headers="add-reward-labor-type add-reward-quantity" role="gridcell">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="addRewardPosRec(reward)">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="row-category group-mopar" scope="row" *ngFor="let rewardPosition of reward.rewardPositions;trackBy: trackPosition; let j = index">
+                      <td headers="add-reward-position" role="gridcell">
+                        <p-dropdown (onChange)="onChangeRewardPosition(reward)" [options]="reward.positionDd" [(ngModel)]="rewardPosition.position"
+                          placeholder="Select a Position"></p-dropdown>
+                      </td>
+                      <td headers="add-reward-amount" role="gridcell">
+                        <form>
+                          <input class="form-control" [(ngModel)]="rewardPosition.rewardAmount" name="rewardPositionAmt" />
+                        </form>
+                      </td>
+                      <td headers="add-reward-types" role="gridcell">
+                        <p-dropdown [options]="rewardTypeDd" [(ngModel)]="rewardPosition.rewardType" placeholder="Select a Reward Type"></p-dropdown>
+                      </td>
+                      <td headers="add-reward-override" role="gridcell">
+                        <span *ngFor="let override of rewardPosition.overrides; trackBy: trackOverride; let k = index" class="label override-element">
+                          <span class="override-note">{{override.note}}
+                            <i class="fa fa-pencil" (click)="openOverrideRecordModal(reward, rewardPosition, override)"></i>
+                          </span>
+                        </span>
+                      </td>
+                      <td headers="add-reward-labor-type" role="gridcell">
+                        <form class="form-control" name="laborType1">
+                          <label>
+                            <p-checkbox name="laborTypeC" value="C" [(ngModel)]="reward.laborTypes"></p-checkbox> Customer (C)</label>
+                          <label>
+                            <p-checkbox name="laborTypeI" value="I" [(ngModel)]="reward.laborTypes"></p-checkbox> Internal (I)</label>
+                          <label>
+                            <p-checkbox name="laborTypeW" value="W" [(ngModel)]="reward.laborTypes"></p-checkbox> Warranty (W)</label>
+                        </form>
+                      </td>
+                      <td headers="add-reward-quantity" role="gridcell">
+                        <p-dropdown [options]="quantityDd" [(ngModel)]="reward.quantity" placeholder="Select a Quantity"></p-dropdown>
+                      </td>
+                      <td role="gridcell">
+                        <!-- <button [disabled]="j==0" type="button" class="btn btn-primary btn-sm" (click)="removeRewardPosRec(reward, j)">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button> -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </p-accordionTab>
+            </p-accordion>
+
+            <!-- START Add Reward Modal -->
+            <ng-template #addReward let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Add a Reward</h4>
+                <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="payout-reward-group">Program Group</label>
+                      <select class="form-control" id="payout-reward-group" name="payoutRewardPosition">
+                        <option>Express Lane</option>
+                        <option>Magneti Marelli</option>
+                        <option>Mopar Accessories</option>
+                        <option>Mopar Parts &amp; Engines</option>
+                        <option>Mopar Vehicle Protection</option>
+                        <option>Parts Counter</option>
+                        <option>wiAdvisor</option>
+                        <option>FIAT</option>
+                        <option>UConnect</option>
+                        <option>Tires</option>
+                        <option>wiAdvisor Tire</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="payout-reward-category">Category</label>
+                      <select class="form-control" id="payout-reward-category" name="payoutRewardCategory">
+                        <option>MSER OE Brake Pad Kits (BRKE)</option>
+                        <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                        <option>Mopar Engines (MENG)</option>
+                        <option>Mopar AC Compressors (MOPAC)</option>
+                        <option>MSER RECALL - N45 (N45)</option>
+                        <option>MSER RECALL - N46 (N46)</option>
+                        <option>Pot Hole Promo (POTHOLE)</option>
+                        <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                        <option>Rain Repellent (#68194881AA) (RR)</option>
+                        <option>Transmissions and T-Cases (T_CASES)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="payout-reward-position">Position</label>
+                      <select class="form-control" id="payout-reward-position" name="payoutRewardPosition">
+                        <option>Service Technician (23)</option>
+                        <option>Service Advisor (13)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="payout-reward-type">Reward Type</label>
+                      <select class="form-control" id="payout-reward-type" name="payoutRewardType">
+                        <option>Dollar</option>
+                        <option>Percent</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label for="payout-reward-amount">Reward Amount</label>
+                    </div>
+                    <input class="form-control" id="payout-reward-amount" name="payoutRewardAmount" placeholder="Enter reward amount" type="text"
+                      value="" />
+                    <div class="col-sm-6">
+                      <label for="payout-reward-quantity">Quantity</label>
+                      <select class="form-control" id="payout-reward-quantity" name="payoutRewardQuantity">
+                        <option>Individual</option>
+                        <option>Set of 2</option>
+                        <option>Set of 4</option>
+                      </select>
+                      <!-- <input id="msg" type="text" class="form-control" name="msg" placeholder="" value="Enter a quantity number"> -->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label for="payout-labor-type">Labor Type</label>
+                      <form class="form-control" id="payout-labor-type" name="payoutLaborType">
+                        <label>
+                          <input type="checkbox" /> Customer (C)</label>
+                        <label>
+                          <input type="checkbox" /> Internal (I)</label>
+                        <label>
+                          <input type="checkbox" /> Warranty (W)</label>
+                      </form>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="c('Add click')" onclick="(function(){$('.override-hidden').css('display','table-row');return false;})();">Add Reward</button>
+                <button class="btn btn-primary" type="button" (click)="c('Close click')">Close</button>
+              </div>
+            </ng-template>
+            <!-- END Add Reward Modal-->
+
+            <!-- START Override Modal -->
+            <ng-template #overrideModal let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">{{overrideModalReward.overrideAction}} an Override</h4>
+                <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <h5>Override Source</h5>
+                  <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                      <label for="override-category">
+                        <strong>Program</strong>
+                      </label>
+                      <br> {{overrideModalReward.programCategory.programGroup}}
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                      <label for="override-category">
+                        <strong>Category</strong>
+                      </label>
+                      <br> {{overrideModalReward.programCategory.incentiveSubCode}}
+                    </div>
+                  </div>
+                  <div class="row mt-1">
+                    <div class="col-md-3 col-sm-6">
+                      <p-dropdown (onChange)="setActionState()" name="overrideModalRewardPosition" [options]="overrideModalReward.overrideModalOptions.rewardPositionDd"
+                        [(ngModel)]="overrideModalReward.sourcePosition" placeholder="Select a Position"></p-dropdown>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="overrideModalReward.rewardDesc">
+                    <div class="col-sm-12">
+                      <p>
+                        Reward: {{overrideModalReward.rewardDesc}}
+                      </p>
+                    </div>
+                  </div>
+
+                  <h5 class="mt-1">Override Recipient</h5>
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                      <p-dropdown (onChange)="setActionState()" name="overrideModalRewardRecipientPosition" [options]="overrideModalReward.overrideModalOptions.rewardPositionDd"
+                        [(ngModel)]="overrideModalReward.recipientPosition" placeholder="Select a Recipient Position"></p-dropdown>
+                    </div>
+                    <div class="col-md-3  col-sm-6">
+                      <p-dropdown (onChange)="setActionState()" name="overrideModalRewardOverrideType" [options]="rewardTypeDd" [(ngModel)]="overrideModalReward.overrideType"
+                        placeholder="Select an Override Type"></p-dropdown>
+                    </div>
+                  </div>
+                  <div class="row mt-1">
+                    <div class="col-sm-6 col-md-2">
+                      <label for="override-amount">
+                        <strong>Override Value</strong>
+                      </label>
+                      <input (input)="setActionState()" class="form-control" name="overrideModalRewardOverrideAmt" [(ngModel)]="overrideModalReward.overrideAmt"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button [disabled]="overrideModalReward.overrideAction != 'Update' && !overrideModalReward.actionState" class="btn btn-primary"
+                  type="button" (click)="addUpdateOverride(overrideModalReward.overrideAction);c('Add click')">{{overrideModalReward.overrideAction}} Override</button>
+                <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
+              </div>
+            </ng-template>
+            <!-- END Override Modal-->
+
+            <!-- START EXISTING Override Modal -->
+            <ng-template #overrideRecordModal let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Override</h4>
+                <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <p>
+                    <strong>Mopar Parts & Engines
+                      <br/> T_CASES
+                      <br/> Service Technician
+                      <br/> $5.00 per Set of 2
+                    </strong>
+                  </p>
+                  <hr/>
+                  <h5>Override Source</h5>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label for="override-record-payout-month">Program Group</label>
+                      <select class="form-control" id="override-record-payout-month" name="rewardPosition">
+                        <option>Mopar Parts &amp; Engines</option>
+                        <option>Express Lane</option>
+                        <option>Magneti Marelli</option>
+                        <option>Mopar Accessories</option>
+                        <option>Mopar Vehicle Protection</option>
+                        <option>Parts Counter</option>
+                        <option>wiAdvisor</option>
+                        <option>FIAT</option>
+                        <option>UConnect</option>
+                        <option>Tires</option>
+                        <option>wiAdvisor Tire</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-add-reward-category">Category</label>
+                      <select class="form-control" id="override-record-add-reward-category" name="">
+                        <option>Transmissions and T-Cases (T_CASES)</option>
+                        <option>MSER OE Brake Pad Kits (BRKE)</option>
+                        <option>Fuel System Cleaner (#05019625AB) (FLCLR)</option>
+                        <option>Mopar Engines (MENG)</option>
+                        <option>Mopar AC Compressors (MOPAC)</option>
+                        <option>MSER RECALL - N45 (N45)</option>
+                        <option>MSER RECALL - N46 (N46)</option>
+                        <option>Pot Hole Promo (POTHOLE)</option>
+                        <option>RAM Shock And Struts ($5 for set of 2) (RAMSHOCK)</option>
+                        <option>Rain Repellent (#68194881AA) (RR)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-add-reward-category">Position</label>
+                      <select class="form-control" id="override-record-add-reward-category" name="">
+                        <option>Service Technician (23)</option>
+                        <option>Service Advisor (13)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                  </div>
+                  <hr/>
+                  <h5>Override Recipient</h5>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <label for="override-record-add-reward-category">Recipient Position</label>
+                      <select class="form-control" id="override-record-add-reward-category" name="">
+                        <option>Service Advisor (13)</option>
+                        <option>Service Technician (23)</option>
+                        <option>Parts Manager (08)</option>
+                        <option>Service Manager (09)</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-payout-month">Override Type</label>
+                      <select class="form-control" id="override-record-payout-month" name="rewardType">
+                        <option>Percent</option>
+                        <option>Dollar</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label for="override-record-amount">Override Amount</label>
+                      <input class="form-control" id="override-record-amount" name="msg" placeholder="" type="text" value="5.00%" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="button" (click)="c('Add click')">Delete</button>
+                <button class="btn btn-primary" type="button" (click)="c('Add click')">Save Changes</button>
+                <button class="btn btn-primary" type="button" (click)="c('Close click')">Cancel</button>
+              </div>
+            </ng-template>
+            <!-- END EXISTING Override Modal-->
+
+          </p-tabPanel>
+          <!-- End Add Rewards -->
+
+          <!-- STEP 5 - Begin Payout Chart Update Preview -->
+          <p-tabPanel header="Step 5" [disabled]="true">
+            <div class="admin-utility-bar">
+              <button *ngIf="!postSuccess" class="btn btn-primary" type="button" (click)="openPrev()">
+                <i class="fa fa-chevron-left"></i> Previous</button>
+            </div>
+            <h3>Payout Chart Updates Preview</h3>
+            <div>
+              <button *ngIf="!postSuccess" class="btn btn-primary" (click)="saveUpdates()">
+                <span [hidden]="postInProgress">Save Updates</span>
+                <span [hidden]="!postInProgress">Saving..
+                  <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                </span>
+              </button>
+              <button class="btn btn-primary" type="button" (click)="downloadPDF('payout-chart-export')">Export to PDF</button>
+            </div>
+            <div *ngIf="postAlert" [hidden]="!postSuccess" class="alert alert-success alert-dismissible fade show w-50" role="alert">
+              <strong>Success!</strong> Admin Payout changes have been saved successfully.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf="postAlert" [hidden]="postSuccess" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+              <strong>Error!</strong> There was an error processing your request at this time. Please try again later.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <!-- START Summary Wrapper-->
+            <hr/>
+            <div id="payout-chart-export">
+              <!-- MOPAR Parts &amp; Engines -->
+              <div *ngFor="let reward of rewards; trackBy: trackReward; let i = index">
+                <!-- START Service Technician Area -->
+                <h5 class="payout-chart-heading">{{reward.programCategory.programGroup}}</h5>
+                <h4>{{reward.programCategory.incentiveSubCode}}</h4>
+                <ul class="graph graph-list">
+                  <li class="graph-item service-override" *ngFor="let rewardPosition of reward.rewardPositions;trackBy: trackPosition">
+                    <span class="graph-item-subject">{{rewardPosition.position.description}}</span>
+                    <span class="graph-item-figure">{{getRewardDesc(rewardPosition.rewardType.description, rewardPosition.rewardAmount)}}</span>
+                  </li>
+                </ul>
+                <ul *ngFor="let rewardPosition of reward.rewardPositions;trackBy: trackPosition">
+                  <li *ngFor="let override of rewardPosition.overrides;trackBy: trackOverride">Override
+                    <i class="fa fa-long-arrow-right fa-1" aria-hidden="true"></i>{{override.note}}</li>
+                </ul>
+                <!-- END Service Technician Area -->
+              </div>
+            </div>
+            <!-- END Summary Wrapper -->
+          </p-tabPanel>
+          <!-- End Payout Chart Update Preview -->
+
+
+        </p-tabView>
+
+
+        <!-- Zozo Tabs Start-->
+        <div id="tabbed-nav">
+          <!-- Content container -->
+          <div>
+          </div>
+        </div>
+        <!-- Zozo Tabs End-->
+
+
+      </div>
+    </div>
+  </div>
+</main>

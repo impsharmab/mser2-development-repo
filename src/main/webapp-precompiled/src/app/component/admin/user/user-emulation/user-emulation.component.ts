@@ -38,12 +38,12 @@ export class UserEmulationComponent implements OnInit {
         $("main, mser-cms").css("min-height", "calc(" + blah + "px - 2rem)");
         console.log("main is now: ", blah + "px high");
     }
-    public emulateAllUser(emulateID) {
-
+    public emulateAllUser(id) {
+        var emulateID = id.trim();
         if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
-        } else if (emulateID != undefined && emulateID.trim().length < 5) {
+        } else if (emulateID != undefined && (emulateID.trim().length < 5 || emulateID.trim().length == 6)) {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
             return;
         }
@@ -82,7 +82,11 @@ export class UserEmulationComponent implements OnInit {
             }
             ,
             (error) => {
-                this.emulateusermessage = "There is no user with this ID";
+                if (error !== undefined && error.length < 250) {
+                    this.emulateusermessage = error;
+                } else {
+                    this.emulateusermessage = "User does not exist.";
+                }
             }
         )
     }
@@ -110,7 +114,11 @@ export class UserEmulationComponent implements OnInit {
             }
             ,
             (error) => {
-                this.emulateusermessage = "There is no Dealer with this Dealer Code";
+                if (error !== undefined && error.length < 250) {
+                    this.emulateusermessage = error;
+                } else {
+                    // this.emulateusermessage = "User doesnot exists.";
+                }
             }
         )
     }

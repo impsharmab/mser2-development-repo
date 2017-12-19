@@ -9,6 +9,29 @@ import * as serviceUrl from '../../global-variable/service-url';
 export class AdminPayoutService {
     constructor(private http: Http) { }
 
+    getPayoutDates() {
+        var getProgramsByMonthUrl = serviceUrl.baseUrl + "services/adminpayout/getPayoutDates";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.get(getProgramsByMonthUrl, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
+    getNewPayoutDates() {
+        var getProgramsByMonthUrl = serviceUrl.baseUrl + "services/adminpayout/getNewPayoutDates";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.get(getProgramsByMonthUrl, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
+
 
     getProgramsByMonth(month: string) {
         var getProgramsByMonthUrl = serviceUrl.baseUrl + "services/adminpayout/getPrograms/" + month;
@@ -32,6 +55,17 @@ export class AdminPayoutService {
             .catch(this.handleError);
 
     }
+    getRewardsObject() {
+        var getCategoryByIncentiveUrl = "src/app/component/admin-payout/add-new-admin-payout/rewards.json";
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(getCategoryByIncentiveUrl, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+
+    }
 
     getEligiblePositions(selectedIncentiveSubCodesProgramGroups: string[]) {
         var getEligiblePositionsUrl = serviceUrl.baseUrl + "services/adminpayout/getEligiblePositions";
@@ -40,6 +74,18 @@ export class AdminPayoutService {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
         return this.http.post(getEligiblePositionsUrl, selectedIncentiveSubCodesProgramGroups, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
+    getRewardsObjForCopyMonth(rewardsObj: string[], date) {
+        var getEligiblePositionsUrl = serviceUrl.baseUrl + "services/adminpayout/getRewardsByCategory/" + date;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        // var body = { rewardsObj: rewardsObj }
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.post(getEligiblePositionsUrl, rewardsObj, { headers })
             .map((response: Response) => response.json())
             .catch(this.handleError);
     }
@@ -75,6 +121,17 @@ export class AdminPayoutService {
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
         return this.http.post(postRewardDataUrl, postData, { headers })
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
+    getFinalPayoutData(date?) {
+        var getFinalPayoutDataUrl = serviceUrl.baseUrl + "payout/getpayout/" + date;
+        var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', validToken);
+        return this.http.get(getFinalPayoutDataUrl, { headers })
             .map((response: Response) => response.json())
             .catch(this.handleError);
     }

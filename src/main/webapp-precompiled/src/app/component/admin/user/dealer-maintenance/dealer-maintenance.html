@@ -1,0 +1,172 @@
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+        <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="heading-xl">
+                            Admin Dealer Maintenance
+                        </h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <!-- <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">Admin</li>
+                <li class="breadcrumb-item">User</li>
+                <li class="breadcrumb-item active"><a href="#">dealer Maintenance</a></li>
+            </ol> -->
+
+    <!-- <a name="payoutchart"></a>
+        
+            <a name="dashboard"></a> -->
+    <div class="container m-t-md body-container">
+        <!-- First row -->
+
+        <div class="row m-t-md">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                <article class="card animated fadeInUp">
+
+                    <div class="card-block">
+
+                        <div class="heading-line">
+                            <h2>Dealer Lookup</h2>
+                        </div>
+
+                        <div class="content-row row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 col-md-2">
+                                            <label for="DC">Enter Dealer Code: </label>
+                                            <input class="form-control" id="DC" minlength="5" maxlength="5" name="DC" type="text" [(ngModel)]="selectedDC" (ngModelChange)="showDCErrorHiddenDiv=false; showdealerSearchResultDatatable=false"/>                                            
+                                        </div>
+                                        <div class="col-sm-12 col-md-2" style="margin-top: 30px">
+                                            <!-- <label for="search">S </label> -->
+                                            <button id="search" class="btn btn-primary pull-left" type="submit" (click)="searchDC()">
+                                                <span [hidden]="postDCInProgress">Search</span>
+                                                <span [hidden]="!postDCInProgress">Searching...
+                                                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 col-md-12">
+                                                <div *ngIf="successUserMessage.length >0" class="alert alert-success alert-dismissible fade show w-100" role="alert" [innerHtml]='successUserMessage'></div>
+                                                <div class="alert alert-danger" [hidden]="!showDCErrorHiddenDiv">{{errorUserMessage}}</div>
+                                        </div>                                        
+                                    </div>
+                                </form>
+                                <hr>
+
+                            </div>
+                        </div>
+
+                        <div *ngIf="showdealerSearchResultDatatable" class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <div class="ui-grid ui-grid-responsive ui-fluid">
+                                    <div class="ui-grid-row uniform-bottom-margin">
+                                        <div class="ui-grid-col-8">
+                                            <label for="brand">Dealer Name:</label>
+                                        </div>
+                                        <div class="ui-grid-col-12">
+                                            <label id="brand">{{searchDealersData.name}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-row uniform-bottom-margin">
+                                        <div class="ui-grid-col-8">
+                                            <label for="brand">District:</label>
+                                        </div>
+                                        <div class="ui-grid-col-12">
+                                            <label id="brand">{{searchDealersData.district}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-row uniform-bottom-margin">
+                                        <div class="ui-grid-col-8">
+                                            <label *ngIf="searchDealersDatum.status == 'E'" for="brand">Date of Enrollment:</label>
+                                            <label *ngIf="searchDealersDatum.status != 'E'" for="brand">Updated Date:</label>
+                                        </div>
+                                        <div class="ui-grid-col-12">
+                                            <label id="brand">{{searchDealersDatum.updateDate | date:"MM/dd/yyyy"}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-row" *ngIf="searchDealersDatum.status == 'E'">
+                                        <div class="ui-grid-col-8">
+                                            <label for="color">Status:</label>
+                                        </div>
+                                        <div class="ui-grid-col-12">
+                                            <label id="color">Enrolled</label>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-row uniform-bottom-margin" *ngIf="searchDealersDatum.status == 'E'">
+                                            <div class="ui-grid-col-8">
+                                            </div>
+                                            <div class="ui-grid-col-12">
+                                                <input type="checkbox" [(ngModel)]="unenrollflag" />
+                                                <label for="unenrollflag">To unenroll this dealership, Please check </label>
+                                            </div>
+                                        </div>
+                                    <div class="ui-grid-row uniform-bottom-margin">
+                                        <div class="ui-grid-col-8">
+                                            <label for="color">Updated By:</label>
+                                        </div>
+                                        <div class="ui-grid-col-12">
+                                            <label id="color">{{searchDealersDatum.updatedBy}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-row uniform-bottom-margin" *ngIf="searchDealersDatum.status == 'E' && !unenrollflag">
+                                        <div class="ui-grid-col-8">
+                                            <label for="color">Enrollment Back Date:</label>
+                                        </div>
+                                        <div class="ui-grid-col-5">
+                                            <p-calendar placeholder="Choose Date" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                                [showTime]="false" dataType="string" [(ngModel)]="back90Date" (onSelect)="backDateChanged()" (change)="backDateChanged()"></p-calendar>
+                                        </div>
+                                        <div class="ui-grid-col-7"></div>
+                                    </div>
+                                    <div class="ui-grid-row uniform-bottom-margin" *ngIf="searchDealersDatum.status != 'E'">
+                                        <div class="ui-grid-col-12">
+                                            <label>Dealership is not enrolled,  please use Dealer Enrollment form to enroll</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p-footer>
+                                    <div *ngIf="saveErrorMsg.length >0" class="alert alert-danger alert-dismissible fade show w-100" role="alert" [innerHtml]='saveErrorMsg'>
+                                    </div>
+                                    <div class="ui-dialog-buttonpane ui-helper-clearfix" *ngIf="searchDealersDatum.status == 'E'">
+                                        <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+                                    </div>
+                                </p-footer>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+
+                        <p-dialog [(visible)]="displaycontinueSaveDialog" [responsive]="true" showEffect="fade" [modal]="true">
+                            <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+                            <div class="modal-body">
+                                <p>You are about to save the changes. Are you sure you want to continue?</p>
+                            </div>
+                            <p-footer>
+                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                    <button [hidden]="postSaveInProgress" type="button" pButton icon="fa-check" (click)="continueSave()" label="Yes, Continue"></button>
+                                    <button type="button" pButton icon="fa-close" (click)="disContinueSave()" label="No, Take Me Back"></button>
+                                </div>
+                            </p-footer>
+                        </p-dialog>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+        <!-- .end FIRST row -->
+    </div>
+</main>

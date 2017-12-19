@@ -63,8 +63,8 @@ export class PCDistributionReportComponent implements OnInit {
 
 
     public programOptions: SelectItem[] = [];
-    
-    
+
+
     public selectedBCList: any = [];
     public selectedDistrictList: any = [];
     public selectedDealerCodeList: any = [];
@@ -182,7 +182,9 @@ export class PCDistributionReportComponent implements OnInit {
             this.isDealer = true;
             this.isParticipant = false;
             this.viewDistrictTabOnly();
-        } else if (role == 5) {
+        } else if (role == 5 || role == 10) {
+            this.disableDealerInput = true;
+            this.pCDistributionReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.tabNumber = "tab4";
             this.isManagerUser = true;
             this.isExecutive = false;
@@ -227,86 +229,42 @@ export class PCDistributionReportComponent implements OnInit {
         )
     }
     public viewEXTabOnly() {
-        // this.createBCProgramOptions();
-        this.showExecutivePCDistributionReportIframe = true;
-        this.showBCDistributionReportIframe = false;
-        this.showDealerPCDistributionReportIframe = false;
-        this.showDistrictPCDistributionReportIframe = false;
-        this.showParticipantPCDistributionReportIframe = false;
-        this.showDetailPCDistributionReportIframe = false;
-        this.pCDistributionReportInterface.from = this.fromDate,
-            this.pCDistributionReportInterface.to = this.toDate,
-
-            this.showExDepositReport();
-    }
-    public viewBCTabOnly() {
-        //  this.createBCProgramOptions();
         this.showExecutivePCDistributionReportIframe = false;
-        this.showBCDistributionReportIframe = true;
-        this.showDealerPCDistributionReportIframe = false;
-        this.showDistrictPCDistributionReportIframe = false;
-        this.showParticipantPCDistributionReportIframe = false;
-        this.showDetailPCDistributionReportIframe = false;
         this.pCDistributionReportInterface.from = this.fromDate;
         this.pCDistributionReportInterface.to = this.toDate;
-        this.viewBCPCDistributionReport();
+    }
+    public viewBCTabOnly() {
+        this.showBCDistributionReportIframe = false;
+        this.pCDistributionReportInterface.from = this.fromDate;
+        this.pCDistributionReportInterface.to = this.toDate;
     }
 
     public viewDistrictTabOnly() {
-        //  this.createBCProgramOptions();
-        this.showExecutivePCDistributionReportIframe = false;
-        this.showBCDistributionReportIframe = false;
-        this.showDistrictPCDistributionReportIframe = true;
-        this.showDealerPCDistributionReportIframe = false;
-        this.showParticipantPCDistributionReportIframe = false;
-        this.showDetailPCDistributionReportIframe = false;
+        this.showDistrictPCDistributionReportIframe = false;
         this.pCDistributionReportInterface.from = this.fromDate;
         this.pCDistributionReportInterface.to = this.toDate;
-
-
-        this.viewDistrictPCDistributionReport();
     }
 
     public viewDealerTabOnly() {
-        //   this.createBCProgramOptions();
-        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.showExecutivePCDistributionReportIframe = false;
-        this.showBCDistributionReportIframe = false;
-        this.showDistrictPCDistributionReportIframe = false;
-        this.showDealerPCDistributionReportIframe = true;
-        this.showParticipantPCDistributionReportIframe = false;
-        this.showDetailPCDistributionReportIframe = false;
+        this.showDealerPCDistributionReportIframe = false;
         this.pCDistributionReportInterface.from = this.fromDate,
             this.pCDistributionReportInterface.to = this.toDate,
             this.pCDistributionReportInterface.dealerCode = "";
-
         if (this.isDealerUser || this.isManagerUser) {
             this.disableDealerInput = true;
             this.pCDistributionReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-
         }
-        this.viewDealerPCDistributionReport();
     }
 
     public viewParticipantTabOnly() {
-        //   this.createBCProgramOptions();
-        var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.showExecutivePCDistributionReportIframe = false;
-        this.showBCDistributionReportIframe = false;
-        this.showDistrictPCDistributionReportIframe = false;
-        this.showDealerPCDistributionReportIframe = true;
-        this.showParticipantPCDistributionReportIframe = false;
-        this.showDetailPCDistributionReportIframe = false;
+        this.showDealerPCDistributionReportIframe = false;
         this.pCDistributionReportInterface.from = this.fromDate,
             this.pCDistributionReportInterface.to = this.toDate,
             this.pCDistributionReportInterface.dealerCode = "";
-
         if (this.isParticipantUser) {
             this.disableDealerInput = true;
             this.pCDistributionReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-
         }
-        this.viewDealerPCDistributionReport();
     }
 
 
@@ -315,7 +273,6 @@ export class PCDistributionReportComponent implements OnInit {
         this.programName = "PCDistribution_Executive";
         var PCDFD = this.pCDistributionReportInterface.from;
         var PCDTD = this.pCDistributionReportInterface.to;
-
         this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
@@ -329,7 +286,6 @@ export class PCDistributionReportComponent implements OnInit {
         var PCDFD = this.pCDistributionReportInterface.from;
         var PCDTD = this.pCDistributionReportInterface.to;
         var PCDB = "0";
-
         if (this.isExecutiveUser) {
             PCDBC1 = "&PCDBC=NAT";
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}${PCDBC1}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
@@ -366,10 +322,9 @@ export class PCDistributionReportComponent implements OnInit {
         var PCDTD = this.pCDistributionReportInterface.to;
         if (this.pCDistributionReportInterface.dealerCode == "") {
             this.showDealerPCDistributionReportIframe = false;
-            // this.msg = "Please enter Dealer Code to view the report";
+            this.msg = "Please enter Dealer Code to view the report";
             return;
         }
-
         if (this.isExecutiveUser || this.isBCUser || this.isDistrictUser) {
             if (this.pCDistributionReportInterface.dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(PCDDL) <= -1) {
                 this.msg = "The information entered is invalid, Please change your search criteria and try again.";
@@ -379,6 +334,7 @@ export class PCDistributionReportComponent implements OnInit {
             }
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDDL=${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         } else if (this.isDealerUser || this.isManagerUser || this.isParticipantUser) {
+            this.showDealerPCDistributionReportIframe = true;
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&PCDDL=${PCDDL}&PCDFD=${PCDFD}&PCDTD=${PCDTD}`;
         }
 

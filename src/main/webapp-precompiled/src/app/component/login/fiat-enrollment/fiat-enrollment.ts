@@ -257,7 +257,7 @@ export class FiatEnrollmentComponent implements OnInit {
         this.showOKErrorHiddenDiv = false;
 
 
-        var nameRegex = /^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/;
+        // var nameRegex = /^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/;
         var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
@@ -276,9 +276,9 @@ export class FiatEnrollmentComponent implements OnInit {
         if (this.dealerEnrollment.dealershipName != undefined && this.dealerEnrollment.dealershipName.length < 1) {
             this.showDealershipNameErrorHiddenDiv = true;
         }
-        if (!nameRegex.test(this.dealerEnrollment.dealerPrincipalName)) {
-            this.showDealerPrincipalNameErrorHiddenDiv = true;
-        }
+        // if (!nameRegex.test(this.dealerEnrollment.dealerPrincipalName)) {
+        //     this.showDealerPrincipalNameErrorHiddenDiv = true;
+        // }
         if (!emailRegex.test(this.dealerEnrollment.dealerPrincipalEmail)) {
             this.showDealerPrincipalEmailErrorHiddenDiv = true;
         }
@@ -302,8 +302,7 @@ export class FiatEnrollmentComponent implements OnInit {
             this.showServiceManagerNameErrorHiddenDiv = true;
         }
 
-        if (this.dealerEnrollment.dealershipName.length < 1 || !nameRegex.test(this.dealerEnrollment.dealerPrincipalName) ||
-            !emailRegex.test(this.dealerEnrollment.dealerPrincipalEmail) || !phoneRegex.test(this.dealerEnrollment.phone) ||
+        if (!emailRegex.test(this.dealerEnrollment.dealerPrincipalEmail) || !phoneRegex.test(this.dealerEnrollment.phone) ||
             this.dealerEnrollment.signature.toLowerCase() != "ok" || this.dealerEnrollment.aggrement1 == false ||
             this.dealerEnrollment.aggrement2 == false) {
             return;
@@ -346,14 +345,16 @@ export class FiatEnrollmentComponent implements OnInit {
                 this.displayConfirmationModal = true;
                 this.enableInputs = true;
                 this.postInProgress = false;
-                this.successmsg = "Registration Successful, an email has been sent to the one provided with your temporary user id and password.";
+                this.successmsg = `Your dealership is now enrolled! An email has been sent to the manager entered on this form. 
+                S/he will now need to log in and confirm your service department employees DMS IDs are correct and set up all Inspection Op Codes used by your dealership.
+                If you have any questions please contact Program Headquarters by calling 866-909-6737.`;
                 this.chRef.detectChanges();
             },
             (error) => {
                 if (error !== undefined && error.length < 250) {
                     this.msg = error;
                 } else {
-                    this.msg = "Error in Submitting Dealer Code and SID.";
+                    this.msg = "Error in submitting Dealer Code and SID.";
                 }
                 this.postAlert = true;
                 this.clearMessage();

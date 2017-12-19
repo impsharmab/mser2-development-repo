@@ -371,7 +371,7 @@ input.datepicker-input {
 }
 #payout-chart-export{
   width: 760px;
-  //if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts
+  /*if you change the width, make sure to change the corresponding value in downloadPDF() in admin-payout.component.ts */
 }
 /* End Payout Chart Admin */
 

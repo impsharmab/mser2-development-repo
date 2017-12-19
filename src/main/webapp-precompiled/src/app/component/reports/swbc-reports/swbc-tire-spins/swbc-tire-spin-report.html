@@ -20,24 +20,21 @@
         <div>
             <!-- Begin Business Center SWBC Tire Spin Report -->
             <div [hidden]="!viewBCTab" class="z-content-pad">
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Business Center SWBC - Tire Spins Program</h2>
                 <form class="report-form">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="dc-5">Select Week:</label>
-                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week" (onChange)="msg=''"></p-dropdown>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="viewBCReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
                 <div class="row" *ngIf="showBCIFrame">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                 </div>
@@ -46,40 +43,32 @@
 
             <!-- Begin District SWBC Tire Spin Report -->
             <div [hidden]="!viewDistrictTab" class="z-content-pad">
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>District SWBC - Tire Spins Program</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="dc-5">Select Week:</label>
-                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week" (onChange)="msg=''"></p-dropdown>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
-                            <button pButton type="button" (click)="viewDistrictReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="viewDistrictReport()" icon="fa-check" iconPos="right" label="View Report" ></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showDISTIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
+
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showDISTIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End District SWBC Tire Spin Report -->
 
             <!-- Begin Dealer SWBC Tire Spin Report -->
             <div [hidden]="!viewDealerTab" class="z-content-pad">
                 <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Dealer SWBC - Tire Spins Program</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
@@ -91,28 +80,26 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="dc-5">Select Week:</label>
-                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week" (onChange)="msg=''"></p-dropdown>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="getDealerCodeValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showDealerIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
+
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showDealerIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End Dealer SWBC Tire Spin Report -->
 
             <!-- Begin Participant SWBC Tire Spin Report -->
             <div [hidden]="!viewParticipantTab" class="z-content-pad">
                 <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Participant SWBC - Tire Spins Program</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
@@ -124,16 +111,20 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="dc-5">Select Week:</label>
-                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week"></p-dropdown>
+                            <p-dropdown id="dc-5" name="dc" [options]="weekOptions" [(ngModel)]="selectedPeriod" placeholder="Select Week" (onChange)="msg=''"></p-dropdown>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="getSIDValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showParticipantIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
+
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showParticipantIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End Participant SWBC Tire Spin Report -->
         </div>

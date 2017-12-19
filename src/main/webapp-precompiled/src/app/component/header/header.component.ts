@@ -35,6 +35,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   public positionCodeDescSession: any = [];
   public rolesSession: any;
   public bcsSession: any = [];
+  public elManagerExistsSession: any = [];
+  public pcManagerExistsSession: any = [];
+  public uvmManagerExistsSession: any = [];
 
   public userProfileData: any = {};
   public displayDealerCode: any = false;
@@ -88,6 +91,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.bcsSession = this.data.bcs;
     this.iselValidatedSession = this.data.elValidated;
     this.positionCodeDescSession = this.data.positionCodeDesc;
+    this.elManagerExistsSession = this.data.elManagerExists;
+    this.pcManagerExistsSession = this.data.pcManagerExists;
+    this.uvmManagerExistsSession = this.data.uvmManagerExists;
 
     // this.poscodesSession = ["01", "03", "05", "08", "09", "05", "06"];
     // this.delcodesSession = ["05002", "05002", "05002", "08625", "08625", "45614", "45614"];
@@ -106,7 +112,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       selectedPositionCode: this.poscodesSession[this.selectedIndex],
       selectedPositionCodeDesc: this.positionCodeDescSession[this.selectedIndex],
       selectedDealerCode: this.delcodesSession[this.selectedIndex],
-      selectedDealerName: this.selectedDealerName[this.selectedIndex],
+      selectedDealerName: this.dealerNamesSession[this.selectedIndex],
       isDealerManager: this.dealerManagerSession[this.selectedIndex],
       isPartsManagerOfRecord: this.partsManagerOfRecordSession[this.selectedIndex],
       isServiceManagerOfRecord: this.serviceManagerOfRecordSession[this.selectedIndex],
@@ -118,7 +124,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       isELEnrolled: this.isELEnrolledSession[this.selectedIndex],
       isPCEnrolled: this.isPCEnrolledSession[this.selectedIndex],
       bcs: this.bcsSession[this.selectedIndex],
-      elValidated: this.iselValidatedSession[this.selectedIndex]
+      elValidated: this.iselValidatedSession[this.selectedIndex],
+      elManagerExists: this.elManagerExistsSession[this.selectedIndex],
+      pcManagerExists: this.pcManagerExistsSession[this.selectedIndex],
+      uvmManagerExists: this.uvmManagerExistsSession[this.selectedIndex]
 
     }
     this.groupbyPCDC();
@@ -417,6 +426,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.codeData.isPCEnrolled = this.isPCEnrolledSession[this.selectedIndex];
     this.codeData.bcs = this.bcsSession[this.selectedIndex];
     this.codeData.elValidated = this.iselValidatedSession[this.selectedIndex];
+    this.codeData.elManagerExists = this.elManagerExistsSession[this.selectedIndex];
+    this.codeData.pcManagerExists = this.pcManagerExistsSession[this.selectedIndex];
+    this.codeData.uvmManagerExists = this.uvmManagerExistsSession[this.selectedIndex];
+
     sessionStorage.setItem("selectedIndex", JSON.stringify(this.selectedIndex));
     this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
     this.chRef.detectChanges();
@@ -464,7 +477,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.cookieService.remove("token");
     this.cookieService.remove("dealercode");
     this.cookieService.removeAll();
-    sessionStorage.clear(); 
+    sessionStorage.clear();
     window.sessionStorage.clear();
     //document.sessionStorage.clear();
 

@@ -1,6 +1,6 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, ViewChild, Pipe, PipeTransform } from '@angular/core';
 import { Router, RouterOutlet, ActivatedRoute, Params } from '@angular/router';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CommaSeparatedNumberPipe } from '../number-formatting/comma-separated.component';
 
 import { HomeService } from '../../services/home-service/home-service';
@@ -19,7 +19,9 @@ export class HomeComponent implements OnInit {
   public ssotoken: string = "";
   public isssotoken: boolean = false;
 
-  constructor(private homeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute) {
+  @ViewChild("content") private model: any;
+
+  constructor(private modalService: NgbModal, private homeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.ssotoken = params['token'];
       if (this.ssotoken != undefined && this.ssotoken.length > 0) {
@@ -36,6 +38,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    var showWelcomePopup = sessionStorage.getItem("showWelcomePopup");
+    if (showWelcomePopup == undefined) {
+      Promise.resolve().then(() =>  this.modalService.open(this.model, { size: "lg" }));
+    }
+    sessionStorage.setItem("showWelcomePopup", "false");
+    
     this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
     if (this.isAdmin) {
       this.isTIDUser = true;
@@ -45,7 +53,6 @@ export class HomeComponent implements OnInit {
     this.getMSEREnrollmentTileData();
     this.getMSEREarningTileData();
     this.hideEnrollmentTileMatrix();
-
   }
 
   public showEnrollmentMaintenanceButton: boolean = false;

@@ -26,7 +26,6 @@
             <div [hidden]="!isExecutive" class="z-content-pad">
                 <h2>Executive Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
-
                 <form class="report-form">
                     <div class="row">
                         <div class="form-group col-sm-3">
@@ -42,7 +41,7 @@
                         <div class="form-group col-sm-3">
                             <label for="program-1">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-1" name="program" [(ngModel)]="selectedProgramList"
-                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                                [style]="{minWidth:'100%'}" (onFocus)="msg=''"></p-multiSelect>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
                             <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
@@ -52,7 +51,13 @@
                                 filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
                 <!-- Report Include -->
-                <div class="row" *ngIf="showExecutiveRewardDepositReportIframe">
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row" *ngIf="showExecutiveIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                 </div>
             </div>
@@ -62,7 +67,6 @@
             <div [hidden]="!isBC" class="z-content-pad">
                 <h2>Business Center Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
-
                 <form class="report-form">
                     <div class="row">
                         <div class="form-group col-sm-3">
@@ -78,17 +82,23 @@
                         <div class="form-group col-sm-3">
                             <label for="program-2">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-2" name="program" [(ngModel)]="selectedProgramList"
-                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                                [style]="{minWidth:'100%'}" (onFocus)="msg=''"></p-multiSelect>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
-                            <button pButton type="button" (click)="viewBCRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="viewBC()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                     <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                                 filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
                 <!-- Report Include -->
-                <div class="row" *ngIf="showBCRewardDepositReportIframe">
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row" *ngIf="showBCIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
                     </iframe>
                 </div>
@@ -99,6 +109,7 @@
             <div [hidden]="!isDistrict" class="z-content-pad">
                 <h2>District Reward Deposit Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
+
                 <form class="report-form">
                     <div class="row">
                         <div class="form-group col-sm-3">
@@ -114,11 +125,11 @@
                         <div class="form-group col-sm-3">
                             <label for="program-3">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-3" name="program" [(ngModel)]="selectedProgramList"
-                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                                [style]="{minWidth:'100%'}" (onFocus)="msg=''"></p-multiSelect>
                         </div>
                         <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode" /> -->
                         <div class="col-sm-3 form-group report-button-container">
-                            <button pButton type="button" (click)="viewDistrictRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="viewDistrict()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                     <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
@@ -126,7 +137,13 @@
                 </form>
 
                 <!-- Report Include -->
-                <div class="row" *ngIf="showDistrictRewardDepositReportIframe">
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row" *ngIf="showDistrictIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
                     </iframe>
                 </div>
@@ -158,10 +175,10 @@
                         <div class="form-group col-sm-2">
                             <label for="program-4">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-4" name="program" [(ngModel)]="selectedProgramList"
-                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                                [style]="{minWidth:'100%'}" (onFocus)="msg=''"></p-multiSelect>
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
-                            <button pButton type="button" (click)="viewDealerRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="validateDealerCode()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                     <!-- <div class="row"> -->
@@ -171,15 +188,16 @@
                 </form>
 
                 <!-- Report Include -->
-                <div *ngIf="dealerCodeNotBelongsToThisBCOrDist.length>0">
-                    <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p>
+                <div *ngIf="dealerCodeNotBelongsToThisBCOrDist.length>0" [hidden]="dealerCodeNotBelongsToThisBCOrDist.length<1" class="alert alert-danger alert-dismissible fade show w-50"
+                    role="alert">
+                    {{dealerCodeNotBelongsToThisBCOrDist}}
                 </div>
-                <div *ngIf="msg.length>0">
-                    <p style="color:red">{{msg}}</p>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
                 </div>
-                <div *ngIf="showDealerRewardDepositReportIframe">
+                <div *ngIf="showDealerIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    <!-- <iframe *ngIf="showDealerRewardDepositReportIframe" height=625px width=950px id="frame1" name="frame1" [src]=' openRewardDepositReport()'>
+                    <!-- <iframe *ngIf="showDealerIframe" height=625px width=950px id="frame1" name="frame1" [src]=' open()'>
                     </iframe> -->
                 </div>
             </div>
@@ -194,7 +212,7 @@
                         <div class="form-group col-sm-2">
                             <label for="dc-5">Sid:</label>
                             <input [disabled]="disableSIDInput" placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid"
-                                minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBC=''; msg=''" />
+                                minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBCOrDist=''; msg=''" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-5">From:</label>
@@ -209,23 +227,24 @@
                         <div class="form-group col-sm-2">
                             <label for="program-5">Program:</label>
                             <p-multiSelect [options]="rewardDepositProgramIDOptions" id="program-5" name="program" [(ngModel)]="selectedProgramList"
-                                [style]="{minWidth:'100%'}"></p-multiSelect>
+                                [style]="{minWidth:'100%'}" (onFocus)="msg=''; sidNotBelongsToThisBCOrDist=''"></p-multiSelect>
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
-                            <button pButton type="button" (click)="viewParticipantRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="validateSID()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                     <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
                             filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
+                    <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                        {{msg}}
 
-                    <div *ngIf="sidNotBelongsToThisBC.length>0">
-                        <p style="color: red">{{sidNotBelongsToThisBC}}</p>
                     </div>
-                    <div *ngIf="msg.length>0">
-                        <p style="color:red">{{msg}}</p>
+                    <div *ngIf="sidNotBelongsToThisBCOrDist.length>0" [hidden]="sidNotBelongsToThisBCOrDist.length<1" class="alert alert-danger alert-dismissible fade show w-50"
+                        role="alert">
+                        {{sidNotBelongsToThisBCOrDist}}
                     </div>
                     <!-- Report Include -->
-                    <div class="row" *ngIf="showParticipantRewardDepositReportIframe">
+                    <div class="row" *ngIf="showParticipantIframe">
                         <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                     </div>
                 </form>

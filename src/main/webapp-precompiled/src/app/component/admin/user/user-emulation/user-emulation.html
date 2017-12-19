@@ -33,7 +33,7 @@
                                                 User ID :
                                             </label>
                                             <input type="text" id="emulateUserName" name="emulateUserName" pInputText [(ngModel)]="emulateUserID" minlength="5" maxlength="7"
-                                            />
+                                            (ngModelChange)="emulateusermessage=''"/>
                                         </div>
                                     </div>
 

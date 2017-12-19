@@ -70,7 +70,7 @@ export class UserProfileComponent implements OnInit {
       sendMail: this.userProfileData.sendMail
 
     }
-   
+
   }
   public validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -103,7 +103,7 @@ export class UserProfileComponent implements OnInit {
     }
     else {
       //alert("did not match");
-      this.errorMobileNumber = "Please provide a valid Mobile Number";
+      this.errorMobileNumber = "Please provide a valid mobile number";
       return false;
     }
   }
@@ -135,9 +135,9 @@ export class UserProfileComponent implements OnInit {
 
     if (this.profileChange.sendMail == null) {
       this.profileChange.sendMail = "N"
-    }else if (this.profileChange.sendMail == false) {
+    } else if (this.profileChange.sendMail == false) {
       this.profileChange.sendMail = "N"
-    }else if (this.profileChange.sendMail == true) {
+    } else if (this.profileChange.sendMail == true) {
       this.profileChange.sendMail = "Y"
     }
 
@@ -209,7 +209,7 @@ export class UserProfileComponent implements OnInit {
     } else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber === "") {
       this.errorAgreeTermsAndCondition = "";
       this.errorSID = "You must provide your SID/TID.";
-      this.errorMobileNumber = "Please provide a valid Mobile Number";
+      this.errorMobileNumber = "Please provide a valid mobile number";
       return;
     } else if (this.textMsgOption.sid.trim() === "" && this.textMsgOption.mobileNumber !== "") {
       this.errorAgreeTermsAndCondition = "";
@@ -223,7 +223,7 @@ export class UserProfileComponent implements OnInit {
     } else if (this.textMsgOption.sid.trim() !== "" && this.textMsgOption.mobileNumber === "") {
       this.errorAgreeTermsAndCondition = "";
       this.errorSID = "";
-      this.errorMobileNumber = "Please provide a valid Mobile Number";
+      this.errorMobileNumber = "Please provide a valid mobile number";
       return;
     }
 
@@ -240,10 +240,10 @@ export class UserProfileComponent implements OnInit {
         this.errorAgreeTermsAndCondition = "";
         this.errorSID = "";
         this.errorMobileNumber = "";
-        this.successTextMessageOption = "Successfully updated Text Message Option";
+        this.successTextMessageOption = "Successfully updated text message option";
 
       }, (error) => {
-        this.errorSuccessTextMessageOption = "Error in updating Text Message Option.";
+        this.errorSuccessTextMessageOption = "Error in updating text message option.";
       }
       )
   }

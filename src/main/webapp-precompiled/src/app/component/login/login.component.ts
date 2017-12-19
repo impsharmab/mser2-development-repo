@@ -139,10 +139,15 @@ export class LoginComponent implements OnInit {
       )
     // this.cookieService.put("origin", this.origin);
   }
+  private isEmulation: boolean = false;
   private refreshLogin() {
     var user = this.cookieService.get("token");
+    var adminToken = this.cookieService.get("adminToken");
     var isDealerEmulation = this.cookieService.get("isDealerEmulation");
 
+    if (adminToken != undefined && adminToken.length > 0) {
+      this.isEmulation = true;
+    }
     if (user !== undefined && user.length > 1) {
       this.hideLoginPage = true;
       this.loginService.getRefreshLoginResponse(user).subscribe(
@@ -152,10 +157,11 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem("showWelcomePopup", "false");
             if (isDealerEmulation == "true") {
               var poscodes: any = ["01"];
+              var currentUser: any = JSON.parse(sessionStorage.getItem("CurrentUser"));
               var delcodes: any = [this.cookieService.get("dealercode")];
               var delnames: any = this.refreshTokenData.dealerName;
-              var mserEnrollment: any = this.refreshTokenData.mserEnrollment;
-              var passwordReset: any = this.refreshTokenData.passwordReset;
+              var mserEnrollment: any = currentUser.mserEnrollment;
+              var passwordReset: any = currentUser.passwordReset;
               var roles: any = ["10"];
 
             } else {
@@ -184,8 +190,14 @@ export class LoginComponent implements OnInit {
             } else if (mserEnrollment && !passwordReset) {
               let url = ["mserHomepage/home"]
               this.router.navigate(url);
+            } else if (mserEnrollment && passwordReset && this.isEmulation) {
+              let url = ["mserHomepage/home"]
+              this.router.navigate(url);
             } else if (mserEnrollment && passwordReset) {
               let url = ["resetpassword"]
+              this.router.navigate(url);
+            } else if (!mserEnrollment && this.isEmulation) {
+              let url = ["mserHomepage/notmserenrolledadminpage"]
               this.router.navigate(url);
             } else if (!mserEnrollment) {
               let url = ["notMserEnrolledPage"]
@@ -219,7 +231,7 @@ export class LoginComponent implements OnInit {
   public login() {
     if (this.user.uname.trim() === "" && this.user.pword.trim() === "") {
       //this.loginFailed = "Login Failed";
-      this.errorMessage = "Please enter your valid SID/TID and Password";
+      this.errorMessage = "Please enter your valid SID/TID and password";
       return;
     } else if (this.user.uname.trim() === "" && this.user.pword.trim() !== null) {
       //this.loginFailed = "Login Failed";
@@ -227,14 +239,14 @@ export class LoginComponent implements OnInit {
       return;
     } else if (this.user.uname.trim() !== null && this.user.pword.trim() === "") {
       // this.loginFailed = "Login Failed";
-      this.errorMessage = 'Please enter your Password'
+      this.errorMessage = 'Please enter your password'
       return;
     }
     this.loginService.getLoginResponse(this.user.uname, this.user.pword).subscribe(
       (resUserData) => {
         this.userdata = (resUserData)
         if (resUserData["token"].length > 0) {
-          this.loginService.setUserdata(this.userdata);
+          this.loginService.setUserData(this.userdata);
           this.loginService.setUserRole(this.userdata.roles);
           var poscodes: any = this.userdata.positionCode;
           var delcodes: any = this.userdata.dealerCode;
@@ -268,7 +280,7 @@ export class LoginComponent implements OnInit {
         // alert(msg);
       },
       (error) => {
-        this.loginFailed = "Login Failed";
+        this.loginFailed = "Login failed";
         this.errorMessage = "Please enter your valid SID/TID and password";
       }
 

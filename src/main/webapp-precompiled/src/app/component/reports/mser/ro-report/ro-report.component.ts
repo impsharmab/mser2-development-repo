@@ -122,9 +122,7 @@ export class ROReportComponent implements OnInit {
             var DEALERCODE12 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.getDealerCodesBelongsToBCAndDIST(DEALERCODE12);
             this.isDistrictUser = true;
-        } else if (role == 5) {
-            this.isManagerUser = true;
-        } else if (role == 10) {
+        } else if (role == 10 || role == 5) {
             this.isDealerUser = true;
             this.disableDealerCodeInputField = true;
             this.roReportInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -148,7 +146,7 @@ export class ROReportComponent implements OnInit {
         )
     }
     public showROReportIframe: boolean = false;
-    public dealerCodeNotBelongsToThisBC: string = "";
+    public dealerCodeNotBelongsToThisBC: string = ""; 
     public msg: string = "";
     public disableDealerCodeInputField: boolean = false;
     public showROReport() {
@@ -156,13 +154,13 @@ export class ROReportComponent implements OnInit {
         this.dealerCodeNotBelongsToThisBC = "";
         this.msg = "";
         if (this.roReportInterface.dealerCode == "" && this.roReportInterface.roNumber == "") {
-            this.msg = "Please enter Dealer Code and RO Number to view the report";
+            this.msg = "Please enter dealer code and RO number to view the report";
             return;
         } else if (this.roReportInterface.dealerCode != "" && this.roReportInterface.roNumber == "") {
-            this.msg = "Please enter the valid RO Number";
+            this.msg = "Please enter the valid RO number";
             return;
         } else if (this.roReportInterface.dealerCode == "" && this.roReportInterface.roNumber != "") {
-            this.msg = "Please enter valid Dealer Code";
+            this.msg = "Please enter valid dealer code";
             return;
         }
 
@@ -176,7 +174,7 @@ export class ROReportComponent implements OnInit {
             var dealerCode = this.roReportInterface.dealerCode;
             // this.getDealerCodesBelongsToBCAndDIST("NAT");
             if (dealerCode != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(dealerCode) <= -1) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
+                this.msg = "The information entered is invalid, please change your search criteria and try again.";
                 this.showROReportIframe = false;
             } else {
                 this.showROReportIframe = true;
@@ -211,6 +209,7 @@ export class ROReportComponent implements OnInit {
             }
 
         } else if (this.isDealerUser || this.isParticipantUser) {
+            this.showROReportIframe = true;
             var DEALERCODE3 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.roReportInterface.dealerCode = DEALERCODE3;
             var src1 = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&RepairOrderSD=${RepairOrderSD}&RepairOrderED=${RepairOrderED}&DealerCode=${DEALERCODE3}&RONumber=${RONumber}`;

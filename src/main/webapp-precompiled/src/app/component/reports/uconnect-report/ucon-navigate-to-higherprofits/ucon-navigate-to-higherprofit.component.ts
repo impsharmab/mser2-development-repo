@@ -38,6 +38,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
     public viewDealerTab: boolean = false;
     public viewManagerTab: boolean = false;
     public viewParticipantTab: boolean = false;
+    public hideDealerTab: boolean = false;
 
     public disableDealerInput: boolean = false;
     public disableParticipantInput: boolean = false;
@@ -118,7 +119,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
     public checkRole() {
         this.isAdminUser = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
         this.selectedRole = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
-        if (this.isAdminUser) {
+        if (this.isAdminUser || this.selectedRole == 1) {
             this.isExecutiveUser = true;
             this.tabNumber = "tab1";
             this.viewExecutiveTab = true;
@@ -127,21 +128,11 @@ export class UCONNavigationActivationReportComponent implements OnInit {
             this.viewDealerTab = true;
             this.viewParticipantTab = true;
             // this.getDistrictByBC("NAT");
-            this.getDealerCodesBelongsToBCAndDIST("NAT");
-        } else if (this.selectedRole == 1) {
-            this.getDealerCodesBelongsToBCAndDIST("NAT");
-            this.tabNumber = "tab1";
-            this.isExecutiveUser = true;
-            this.viewExecutiveTab = true;
-            this.viewBCTab = true;
-            this.viewDistrictTab = true;
-            this.viewManagerTab = true;
-            this.viewDealerTab = true;
-            this.viewParticipantTab = true;
-            // this.viewEXTabOnly();
+            // this.getDealerCodesBelongsToBCAndDIST("NAT");        
+            this.viewEXTabOnly();
         } else if (this.selectedRole == 12) {
-            var BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.getDistrictByBC(BC);
+            // var BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // this.getDistrictByBC(BC);
             this.tabNumber = "tab2";
             this.isBCUser = true;
             this.viewExecutiveTab = false;
@@ -149,19 +140,20 @@ export class UCONNavigationActivationReportComponent implements OnInit {
             this.viewDistrictTab = true;
             this.viewDealerTab = true;
             this.viewParticipantTab = true;
-            // this.viewBCTabOnly();
+            this.viewBCTabOnly();
         } else if (this.selectedRole == 11) {
             this.isDistrictUser = true;
-            var DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.getDealerCodesBelongsToBCAndDIST(DIST);
+            // var DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // this.getDealerCodesBelongsToBCAndDIST(DIST);
             this.tabNumber = "tab3";
             this.viewExecutiveTab = false;
             this.viewBCTab = false;
             this.viewDistrictTab = true;
             this.viewDealerTab = true;
             this.viewParticipantTab = true;
-            // this.viewDistrictTabOnly();
+            this.viewDistrictTabOnly();
         } else if (this.selectedRole == 10 || this.selectedRole == 5) {
+            this.hideDealerTab = true;
             var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.getParticipantsByDealer(dealerCode);
             this.disableDealerInput = true;
@@ -271,11 +263,12 @@ export class UCONNavigationActivationReportComponent implements OnInit {
         this.selectedDC = "";
         this.selectedSID = "";
         this.showDealerIFrame = false;
-        if (this.isDealerUser) {
-            this.viewDealerReport();
-        }
+        this.disableDealerButton = true;
+        // if (this.isDealerUser) {
+        this.viewDealerReport();
+        // }
     }
-    public viewParticipantTabOnly() {
+    public viewParticipantTabOnly() { 
         this.msg = "";
         this.selectedDC = "";
         this.selectedSID = "";
@@ -285,6 +278,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
             this.selectedDC = DEALERCODE123;
         }
         if (this.isParticipantUser) {
+            this.hideParticipantTab = true;
             var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             var SID = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
             this.selectedDC = DEALERCODE123;
@@ -336,64 +330,64 @@ export class UCONNavigationActivationReportComponent implements OnInit {
         this.msg = "";
         var programName = "UConnectSalesService_Dealer";
         if (this.isExecutiveUser) {
-            if (this.selectedDC == "") {
-                this.msg = "Please enter Dealer Code to view the report "
-                this.showDealerIFrame = false;
-                return;
-            }
-            else if (this.selectedDC != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(this.selectedDC) <= -1) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                this.showDealerIFrame = false;
-                return;
-            } else {
-                this.showDealerIFrame = true;
-            }
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${this.selectedDC}`;
-
-        } else if (this.isBCUser) {
-            var DealerCode1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            var DEALERCODE1 = this.selectedDC;
-            if (DEALERCODE1 == "") {
-                this.msg = "Please enter Dealer Code to view the report";
-                this.showDealerIFrame = false;
-                return;
-            } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                this.showDealerIFrame = false;
-                return;
-            } else {
-                this.showDealerIFrame = true;
-            }
-
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE1}`;
-
-        } else if (this.isDistrictUser) {
-            this.msg = "";
-            this.showDealerIFrame = false;
-            var DealerCode12 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            var DEALERCODE2 = this.selectedDC;
-            if (DEALERCODE2 == "") {
-                this.msg = "Please enter Dealer Code to view the report";
-                this.showDealerIFrame = false;
-                return;
-            } else
-                if (DEALERCODE2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE2) <= -1) {
-                    this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                    this.showDealerIFrame = false;
-                    return;
-                } else {
-                    this.showDealerIFrame = true;
-                }
-
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE2}`;
-
-        } else if (this.isDealerUser) {
-            this.msg = "";
+            // if (this.selectedDC == "") {
+            //     this.msg = "Please enter Dealer Code to view the report "
+            //     this.showDealerIFrame = false;
+            //     return;
+            // }
+            // else if (this.selectedDC != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(this.selectedDC) <= -1) {
+            //     this.msg = "The information entered is invalid, Please change your search criteria and try again.";
+            //     this.showDealerIFrame = false;
+            //     return;
+            // } else {
             this.showDealerIFrame = true;
-            this.disableDealerButton = true;
-            var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.selectedDC = DEALERCODE123;
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE123}`;
+            // }
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=NAT`;
+
+        } else if (this.isBCUser || this.isDistrictUser || this.isDealerUser) {
+            var DEALERCODE101 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // var DEALERCODE1 = this.selectedDC;
+            // if (DEALERCODE1 == "") {
+            //     this.msg = "Please enter Dealer Code to view the report";
+            //     this.showDealerIFrame = false;
+            //     return;
+            // } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
+            //     this.msg = "The information entered is invalid, Please change your search criteria and try again.";
+            //     this.showDealerIFrame = false;
+            //     return;
+            // } else {
+            this.showDealerIFrame = true;
+            // }
+
+            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE101}`;
+
+            // } else if (this.isDistrictUser) {
+            //     this.msg = "";
+            //     this.showDealerIFrame = false;
+            //     var DealerCode12 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            //     var DEALERCODE2 = this.selectedDC;
+            //     if (DEALERCODE2 == "") {
+            //         this.msg = "Please enter Dealer Code to view the report";
+            //         this.showDealerIFrame = false;
+            //         return;
+            //     } else
+            //         if (DEALERCODE2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE2) <= -1) {
+            //             this.msg = "The information entered is invalid, Please change your search criteria and try again.";
+            //             this.showDealerIFrame = false;
+            //             return;
+            //         } else {
+            //             this.showDealerIFrame = true;
+            //         }
+
+            //     this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE2}`;
+
+            // } else if (this.isDealerUser) {
+            // this.msg = "";
+            // this.showDealerIFrame = true;
+            // this.disableDealerButton = true;
+            // var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            // this.selectedDC = DEALERCODE123;
+            // this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE123}`;
 
         }
         console.log(this.src);
@@ -416,7 +410,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
                 this.msg = "Please enter Dealer Code  to view the report "
                 this.showParticipantIFrame = false;
                 return;
-            } else if (this.selectedDC != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(this.selectedDC) <= -1) {
+            } else if (this.selectedDC != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(this.selectedDC.toUpperCase()) <= -1) {
                 this.msg = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showParticipantIFrame = false;
             } else {
@@ -439,7 +433,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
                 this.msg = "Please enter Dealer Code  to view the report "
                 this.showParticipantIFrame = false;
                 return;
-            } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
+            } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1.toUpperCase()) <= -1) {
                 this.msg = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showParticipantIFrame = false;
             } else {
@@ -465,7 +459,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
                 this.msg = "Please enter Dealer Code  to view the report "
                 this.showParticipantIFrame = false;
                 return;
-            } else if (DEALERCODE2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE2) <= -1) {
+            } else if (DEALERCODE2 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE2.toUpperCase()) <= -1) {
                 this.msg = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showParticipantIFrame = false;
             } else {
@@ -482,7 +476,7 @@ export class UCONNavigationActivationReportComponent implements OnInit {
             if (this.selectedSID == "") {
                 this.msg = "Please enter SID to view the report";
                 this.showParticipantIFrame = false;
-            } else if (this.selectedSID != "" && this.sidsBelongsToThisDealer.indexOf(this.selectedSID) <= -1) {
+            } else if (this.selectedSID != "" && this.sidsBelongsToThisDealer.indexOf(this.selectedSID.toUpperCase()) <= -1) {
                 this.msg = "The information entered is invalid, Please change your search criteria and try again.";
                 this.showParticipantIFrame = false;
             } else {
@@ -493,9 +487,6 @@ export class UCONNavigationActivationReportComponent implements OnInit {
         } else if (this.isParticipantUser) {
             this.msg = "";
             this.showParticipantIFrame = true;
-            this.disableDealerButton = true;
-            this.disableParticipantButton = true;
-            this.hideParticipantTab = true;
             var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.selectedDC = DEALERCODE123;
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&DealerCode=${DEALERCODE123}&SID=${this.selectedSID}`;

@@ -9,7 +9,7 @@ import { DatePickerModule } from 'ng2-datepicker';
 import {
   DialogModule, InputTextModule, DataTableModule, MultiSelectModule, DataListModule,
   TabViewModule, ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule,
-  FileUploadModule, CalendarModule, RadioButtonModule, AccordionModule
+  FileUploadModule, CalendarModule, RadioButtonModule, AccordionModule, InputTextareaModule
 } from 'primeng/primeng';
 
 import { SmoothScrollToDirective, SmoothScrollDirective } from "ng2-Smooth-Scroll";
@@ -44,7 +44,8 @@ import { CMSComponent } from '../../cms/cms.component';
 import { PartsLookupComponent } from '../../parts-lookup/parts-lookup.component';
 import { MVPComponent } from '../../mvp/mvp.component';
 import { RewardsDistributionComponent } from '../../rewards-distribution/rewards-distribution';
-import { AdminPayoutComponent } from '../../admin-payout/admin-payout.component';
+import { AddNewAdminPayoutComponent } from '../../admin-payout/add-new-admin-payout/add-admin-payout.component';
+import { EditAdminPayoutComponent } from '../../admin-payout/edit-view-admin-payout/edit-admin-payout.component';
 import { UconnectComponent } from '../../uconnect/uconnect-videos/uconnect-video.component';
 import { DealerTeamComponent } from '../../express-lane/dealer-team/dealer-team.component';
 import { EnrollmentComponent } from '../../enrollment/enrollment-maintenance/enrollment-maintenance';
@@ -75,6 +76,9 @@ import { SWBCTireSpinsReportComponent } from '../../reports/swbc-reports/swbc-ti
 import { SWBCSpinSummaryReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-report/spin-summary-report.component';
 import { SWBCSpinSummaryROReportComponent } from '../../reports/swbc-reports/swbc-spin-summary-ro-report/spin-summary-ro-report.component';
 import { SWBCSpinDetailReportComponent } from "../../reports/swbc-reports/spin-detail-report/swbc-spin-detail.component";
+import { RejectedInvoiceReportComponent } from '../../reports/parts-counter/rejected-invoice-details/rejected-invoice-component';
+import { DealerMaintenanceComponent } from '../../admin/user/dealer-maintenance/dealer-maintenance.component';
+import { NotMSEREnrolledAdminComponent } from '../../login/not-mserEnrolled-admin/not-mserenrolled-admin.component';
 
 import { OpcodeSetupService } from '../../../services/enrollment-service/opcode-setup.service';
 import { EnrollmentMaintenanceService } from '../../../services/enrollment-service/enrollment-maintenace.service';
@@ -98,7 +102,7 @@ import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.
     BrowserModule, FormsModule, HttpModule, RoutingModule, DataTableModule, SimpleNotificationsModule.forRoot(),
     DialogModule, DatePickerModule, MultiSelectModule, InputTextModule, DataListModule, TabViewModule,
     ButtonModule, DropdownModule, SharedModule, CheckboxModule, TooltipModule, FileUploadModule, CalendarModule,
-    RadioButtonModule, AccordionModule,
+    RadioButtonModule, AccordionModule, InputTextareaModule
     // VgCoreModule,
     // VgControlsModule,
     // VgOverlayPlayModule,
@@ -111,7 +115,7 @@ import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.
     SidenavComponent, FooterComponent, BodyComponent, HeaderComponent, RootPageComponent, HomeComponent,
     PayoutchartComponent, OpcodeSetupComponent, UserProfileComponent, ContactUsComponent,
     DealercodeModalComponent, CMSComponent, PartsLookupComponent, RewardsRedistributionComponent, MVPComponent,
-    RewardsDistributionComponent, AdminPayoutComponent, UconnectComponent, DealerTeamComponent,
+    RewardsDistributionComponent, AddNewAdminPayoutComponent, EditAdminPayoutComponent, UconnectComponent, DealerTeamComponent,
     EnrollmentComponent, JasperPocComponent, CategoryMaintenanceComponent, PartAddComponent, PartMaintenanceComponent,
     SmoothScrollToDirective, SmoothScrollDirective, UserEmulationComponent, EmployeeMaintenanceComponent, UserLookupComponent,
     AddEmployeeMaintenanceComponent, AddUserMaintenanceComponent, PartCategoryLookupComponent, CommaSeparatedNumberPipe,
@@ -119,7 +123,8 @@ import { PartsLookupService } from '../../../services/parts-lookup/parts-lookup.
     WiAdvisorTireReportComponent, PCDistributionReportComponent, WiAdvisorManagementReportComponent, PCInvoiceReportComponent,
     MVPAutoApproveComponent, SxmActivationReportComponent, UCONNavigationActivationReportComponent, UCONSMWinterProgramReportComponent,
     SXMTop10BCReportComponent, MACAChemicalReportComponent, MVPApprovedContractsReportComponent, MVPInelligibleContractsReportComponent,
-    SWBCTireSpinsReportComponent, SWBCSpinSummaryReportComponent, SWBCSpinSummaryROReportComponent, SWBCSpinDetailReportComponent
+    SWBCTireSpinsReportComponent, SWBCSpinSummaryReportComponent, SWBCSpinSummaryROReportComponent, SWBCSpinDetailReportComponent,
+    RejectedInvoiceReportComponent, DealerMaintenanceComponent, NotMSEREnrolledAdminComponent
     //MarketingHomeComponent, RecallRewardsRulesComponent, MarketingProgramComponent
     // PhonePipe
 

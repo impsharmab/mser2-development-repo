@@ -55,7 +55,7 @@ export function cookieServiceFactory() { return new CookieService(); }
   ],
   declarations: [
     AppComponent, ResetPasswordComponent, LoginComponent, DealerRegisterComponent, EnrollmentReportComponent,
-    MarketingTrainingPresentationComponent, FiatEnrollmentComponent, PasswordResetComponent, 
+    MarketingTrainingPresentationComponent, FiatEnrollmentComponent, PasswordResetComponent,
     NotMSEREnrolledComponent, PhonePipe
   ],
   providers: [

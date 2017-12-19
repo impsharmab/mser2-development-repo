@@ -38,7 +38,7 @@ export class PartsLookupComponent implements OnInit {
         this.createCategoriesOptions();
       },
       (error) => {
- 
+
       }
     )
   }
@@ -62,7 +62,13 @@ export class PartsLookupComponent implements OnInit {
     )
   }
 
+  public msg: string = "";
+  public showgetPartsInfoErrorDiv: boolean = false;
   public getPartsInfo(parts) {
+    if (parts != undefined && parts == "") {
+      this.showgetPartsInfoErrorDiv = true;
+      this.msg = "Please enter part number/plan code";
+    }
     this.part = parts;
     this.partsLookupService.getPartsInfo(parts).subscribe(
       (partInfoDatum) => {
@@ -76,7 +82,7 @@ export class PartsLookupComponent implements OnInit {
     )
   }
 
-  public getPartsInfoAndCatogory(partNumber, incentiveSubCode){
+  public getPartsInfoAndCatogory(partNumber, incentiveSubCode) {
     this.partsLookupService.getPartsInfoAndCatogory(partNumber, incentiveSubCode).subscribe(
       (partInfoDatum) => {
         this.partInfoDatum = partInfoDatum

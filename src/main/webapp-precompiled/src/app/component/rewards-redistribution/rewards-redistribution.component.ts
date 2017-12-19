@@ -276,7 +276,7 @@ export class RewardsRedistributionComponent implements OnInit {
                 this.redistributeAmountDatum = (redistributeAmountDatum)
                 // alert(this.insertedDealercode + " , " + this.activeAllocationID)
                 if (this.redistributeAmountDatum == true) {
-                    this.msg = "Distribution has been successfully Reset.";
+                    this.msg = "Distribution has been successfully reset.";
                     this.hideELSection = false;
                     this.hidePCSection = false;
                     this.hideURSection = false;
@@ -294,7 +294,7 @@ export class RewardsRedistributionComponent implements OnInit {
                     if (error !== undefined && error.length < 250) {
                         this.msg = error;
                     } else {
-                        this.msg = "Error in Re-Distribution.";
+                        this.msg = "Error in Re-distribution.";
                         this.hideELSection = false;
                         this.hidePCSection = false;
                         this.hideURSection = false;
@@ -426,7 +426,7 @@ export class RewardsRedistributionComponent implements OnInit {
                     this.hideelParticipantTable = true;
                     this.hideurParticipantTable = true;
                     this.hidePayoutDistributionTable = true;
-                    this.msg = "Successfully Allocated the Rewards Amount";
+                    this.msg = "Successfully allocated the reward amount";
                     this.getELRedistributionData(this.insertedDealercode, "el");
                     this.getPCRedistributionData(this.insertedDealercode, "pc");
                     this.getURRedistributionData(this.insertedDealercode, "ur");
@@ -438,7 +438,7 @@ export class RewardsRedistributionComponent implements OnInit {
                     if (error !== undefined && error.length < 250) {
                         this.msg = error;
                     } else {
-                        this.msg = "Error in Distribution.";
+                        this.msg = "Error in distribution.";
                     }
 
                 }, 1000)
@@ -709,22 +709,19 @@ export class RewardsRedistributionComponent implements OnInit {
             (savePayoutDATUM) => {
                 this.savePayoutDATUM = (savePayoutDATUM)
                 if (this.savePayoutDATUM == true) {
-                    this.msg = "Successfully Approved.";
+                    this.msg = "Successfully approved.";
                     this.getPayoutRedistributionData(this.insertedDealercode, "payout");
                 } else {
-                    this.msg = "Internal Server error.";
+                    this.msg = "Internal server error.";
                 }
 
             },
             (error) => {
-                setTimeout(() => {
-                    if (error !== undefined && error.length < 250) {
-                        this.msg = error;
-                    } else {
-                        this.msg = "Internal Server error.";
-                    }
-
-                }, 1000)
+                if (error !== undefined && error.length < 250) {
+                    this.msg = error;
+                } else {
+                    this.msg = "Internal server error.";
+                }
             }
         )
     }

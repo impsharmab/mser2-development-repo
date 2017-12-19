@@ -125,7 +125,7 @@
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3" [hidden]="true">
                             <label for="dc-4">Dealer Code:</label>
                             <input [disabled]="disableDealerCodeInput" placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode"
                                 minlength="5" maxlength="5" (ngModelChange)="dealerCodeNotBelongsToThisBCOrDist=''; msg=''" />
@@ -154,8 +154,8 @@
                 <div *ngIf="dealerCodeNotBelongsToThisBCOrDist.length>0">
                     <p style="color:red">{{dealerCodeNotBelongsToThisBCOrDist}}</p>
                 </div>
-                <div *ngIf="msg.length>0">
-                    <p style="color:red">{{msg}}</p>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
                 </div>
                 <div *ngIf="showDealerRewardDepositReportIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
@@ -196,8 +196,8 @@
                     <div *ngIf="sidNotBelongsToThisBC.length>0">
                         <p style="color: red">{{sidNotBelongsToThisBC}}</p>
                     </div>
-                    <div *ngIf="msg.length>0">
-                        <p style="color:red">{{msg}}</p>
+                    <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                        {{msg}}
                     </div>
                     <!-- Report Include -->
                     <div class="row" *ngIf="showParticipantRewardDepositReportIframe">

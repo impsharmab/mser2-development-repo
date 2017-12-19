@@ -15,4 +15,7 @@ export interface CodeData {
     isPCEnrolled: string;
     bcs: string;
     elValidated: string;
+    elManagerExists: string;
+    pcManagerExists: string;
+    uvmManagerExists: String;
 }

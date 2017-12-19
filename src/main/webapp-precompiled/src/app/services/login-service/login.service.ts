@@ -14,13 +14,14 @@ export class LoginService {
   private role: string = "";
   constructor(private http: Http, private cookieService: CookieService) { }
 
-  setUserdata(userdata: any) {
+  setUserData(userdata: any, origin?: any) {
     this.userdata = userdata;
     sessionStorage.setItem("CurrentUser", "");
     sessionStorage.removeItem('CurrentUser');
     sessionStorage.removeItem('selectedCodeData');
     sessionStorage.setItem("CurrentUser", JSON.stringify(userdata));
     this.cookieService.put("token", (userdata.token));
+    this.cookieService.put("origin", (origin));
   }
   getUserdata() {
     return this.userdata;
@@ -54,17 +55,7 @@ export class LoginService {
 
   getUserRole() {
     return this.role;
-  }
-
-  setUserData(userdata: any, origin?: any) {
-    sessionStorage.setItem("CurrentUser", "");
-    sessionStorage.removeItem('CurrentUser');
-    sessionStorage.removeItem('selectedCodeData');
-    sessionStorage.setItem("CurrentUser", JSON.stringify(userdata));
-    this.cookieService.put("token", (userdata.token));
-    this.cookieService.put("origin", (origin));
-
-  }
+  } 
 
   getUsersData() {
     return this.userdata;
@@ -96,10 +87,8 @@ export class LoginService {
   getLoginResponse(username, password): any {
     var url = serviceUrl.baseUrl + "login/token/";
     var body = { "username": username, "password": password };
-
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())

@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         <h1 class="heading-xl">
-                            Admin Dashboard
+                            Admin Employee Maintenance
                         </h1>
                     </div>
 
@@ -18,14 +18,14 @@
 
     <!-- Breadcrumb -->
     <!-- <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item">Admin</li>
-        <li class="breadcrumb-item">User</li>
-        <li class="breadcrumb-item active"><a href="#">Employee Maintenance</a></li>
-    </ol> -->
+            <li class="breadcrumb-item">Admin</li>
+            <li class="breadcrumb-item">User</li>
+            <li class="breadcrumb-item active"><a href="#">Employee Maintenance</a></li>
+        </ol> -->
 
-    <a name="payoutchart"></a>
-
-    <a name="dashboard"></a>
+    <!-- <a name="payoutchart"></a>
+    
+        <a name="dashboard"></a> -->
     <div class="container m-t-md body-container">
         <!-- First row -->
 
@@ -42,56 +42,180 @@
 
                         <div class="content-row row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
+                                <form>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 col-md-2">
+                                            <label for="sid">Enter SID: </label>
+                                            <input class="form-control" id="sid" minlength="7" maxlength="7" name="sid" type="text" [(ngModel)]="selectedSID" (ngModelChange)="showSIDErrorHiddenDiv=false; showemployeeSearchResultDatatable=false"
+                                            />
+                                            <div class="alert alert-danger" [hidden]="!showSIDErrorHiddenDiv">Valid SID is required</div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2" style="margin-top: 30px">
+                                            <!-- <label for="search">S </label> -->
+                                            <button id="search" class="btn btn-primary pull-left" type="submit" (click)="searchSID()">
+                                                <span [hidden]="postSIDInProgress">Search</span>
+                                                <span [hidden]="!postSIDInProgress">Searching...
+                                                    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                <form class="pageForm">
-
-                                    <button type="button" class="btn btn-info btn-sm" (click)="addEmployee()">Add Employee</button>
-
-                                    <label>Participant ID</label>
-                                    <input type="text" id="participantID" />
-                                    <br />
-                                    <label>Name</label>
-                                    <input type="text" id="name" />
-                                    <br />
-                                    <label>Dealer Code</label>
-                                    <input type="text" id="dealerCode" />
-                                    <br />
-                                    <label>Dealer Employee ID</label>
-                                    <input type="text" id="dealerEmployeeID" />
-                                    <br />
-
-                                    <button type="button" class="btn btn-info btn-sm inline">Search</button>
                                 </form>
-
-
-                                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Participant ID</th>
-                                            <th>Dealer Code</th>
-                                            <th>Dealer Employee ID</th>
-                                            <th>Name (employee name)</th>
-                                            <th>BU Type</th>
-                                            <th>Enrollment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>456 <i class="fa fa-chevron-right"></i></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <hr>
+                                <!-- <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Participant ID</th>
+                                                <th>Dealer Code</th>
+                                                <th>Dealer Employee ID</th>
+                                                <th>Name (employee name)</th>
+                                                <th>BU Type</th>
+                                                <th>Enrollment</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>456
+                                                    <i class="fa fa-chevron-right"></i>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table> -->
 
 
 
                             </div>
                         </div>
 
+                        <p-dataTable [value]="searchEmployeesDatum" selectionMode="single" [(selection)]="selectedRow" (onRowSelect)="onRowSelect($event)"
+                            [responsive]="true" *ngIf="showemployeeSearchResultDatatable">
+                            <p-column field="dealerCode" header="Dealer Code"></p-column>
+                            <p-column field="dealerName" header="Dealer Name"></p-column>
+                            <p-column field="positionCodeName" header="Position"></p-column>
+                            <p-column field="programGroupName" header="Program Group"></p-column>
+                            <p-column field="updateDate" header="Enrollment Date"></p-column>
+
+                            <!-- <p-footer>
+                            <div class="ui-helper-clearfix" style="width:100%">
+                                <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button>
+                            </div>
+                        </p-footer> -->
+                        </p-dataTable>
+
+                        <p-dialog header="EDIT Employee Maintenance" [(visible)]="displayEDITDialog" [responsive]="true" showEffect="fade" [width]="550"
+                            [modal]="true">
+                            <div class="ui-grid ui-grid-responsive ui-fluid">
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="year">Dealer Code: </label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <label id="year">{{editEmployeeMaintenaceDatum.dealerCode }}</label>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="year">Dealer Name: </label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <label id="year">{{editEmployeeMaintenaceDatum.dealerName }}</label>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="color">Back Date</label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <p-calendar placeholder="Choose Date" id="from-5" name="from" dateFormat="mm/dd/yy" showIcon="true" [style]="{'overflow':'visible'}"
+                                            [showTime]="false" dataType="string" [(ngModel)]="back90Date"></p-calendar>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="vin">Program Group:</label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <label id="vin">{{editEmployeeMaintenaceDatum.programGroupName}}</label>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="year">Position Name: </label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <label id="year">{{editEmployeeMaintenaceDatum.positionCodeName }}</label>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="brand">Date of Enrollment</label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <label id="year">{{editEmployeeMaintenaceDatum.updateDate }}</label>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row uniform-bottom-margin">
+                                    <div class="ui-grid-col-8">
+                                        <label for="color">Amended By</label>
+                                    </div>
+                                    <div class="ui-grid-col-12">
+                                        <label id="color">{{editEmployeeMaintenaceDatum.updatedBy }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p-footer>
+                                <div *ngIf="saveErrorMsg.length>0" class="alert alert-danger alert-dismissible fade show w-100" role="alert" [innerHtml]='saveErrorMsg'>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                    <button type="button" pButton icon="fa-close" (click)="cancelEdit()" label="Cancel"></button>
+                                    <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+                                </div>
+                            </p-footer>
+                        </p-dialog>
+
+                        <!-- <p-dialog [(visible)]="displaycontinueCancelDialog" [responsive]="true" showEffect="fade" [modal]="true">
+                                <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+                                <div class="modal-body">
+                                    <p>You are about to cancel the changes. Are you sure you want to continue?</p>
+                                </div>
+                                <p-footer>
+                                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                        <button type="button" pButton icon="fa-close" (click)="continueCancel()" label="Yes, Continue"></button>
+                                        <button type="button" pButton icon="fa-check" (click)=" disContinueCancel()" label="No, Take Me Back"></button>
+                                    </div>
+                                </p-footer>
+                            </p-dialog>
+    
+                            <p-dialog [(visible)]="displaycontinueSaveDialog" [responsive]="true" showEffect="fade" [modal]="true">
+                                <h4 class="modal-title" id="confirmationModalLabel">Are you sure you want to continue?</h4>
+                                <div class="modal-body">
+                                    <p>You are about to save the changes. Are you sure you want to continue?</p>
+                                </div>
+                                <p-footer>
+                                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                         <button class=" pull-left" type="button" pButton icon="fa-check" (click)="continueSave()">
+                                            <span [hidden]="postSaveInProgress">Yes, Continue</span>
+                                            <span [hidden]="!postSaveInProgress">Saving...
+                                                <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                            </span>
+                                        </button> -->
+                        <!-- <p     <button [hidden]="postSaveInProgress" type="button" pButton icon="fa-check" (click)="continueSave()" label="Yes, Continue"></button>
+                                        <button [hidden]="!postSaveInProgress" type="button" pButton icon="fa-check" label="Saving...">
+                                            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+                                        </button>
+                                        <button type="button" pButton icon="fa-close" (click)=" disContinueSave()" label="No, Take Me Back"></button>
+                                    </div>
+                                </p-footer>
+                            </p-dialog> -->
                     </div>
                 </article>
             </div>

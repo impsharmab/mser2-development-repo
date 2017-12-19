@@ -70,16 +70,10 @@
             <!-- Begin Dealer Reward Center Report -->
             <div [hidden]="!viewDealerTab" class="z-content-pad">
                 <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Dealer Uconnect - Navigate to Higher Profits Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
-                    <div class="row">
+                    <div class="row" [hidden]="true">
                         <div class="form-group col-sm-2">
                             <label for="dc-4">Dealer Code:</label>
                             <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerButton"
@@ -93,21 +87,18 @@
                             <button pButton type="button" (click)="viewDealerReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showDealerIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showDealerIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End Dealer Reward Center Report -->
             <!-- Begin Dealer Reward Center Report -->
             <div [hidden]="!viewParticipantTab" class="z-content-pad">
                 <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Participant Uconnect - Navigate to Higher Profits Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
@@ -126,10 +117,13 @@
                             <button pButton type="button" (click)="viewParticipantReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showParticipantIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showParticipantIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End Dealer Reward Center Report -->
         </div>

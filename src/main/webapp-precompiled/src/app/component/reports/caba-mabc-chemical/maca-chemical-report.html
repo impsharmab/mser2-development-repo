@@ -104,27 +104,21 @@
                             <button pButton type="button" (click)="viewDistrictReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showDISTIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
                 </form>
+                <div class="row" *ngIf="showDISTIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End District CABC and MABC - Chemical Report -->
 
             <!-- Begin Dealer CABC and MABC - Chemical Report -->
             <div [hidden]="!viewDealerTab" class="z-content-pad">
                 <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Dealer CABC and MABC - Chemical Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-3" [hidden]="true">
                             <label for="dc-5">Dealer Code:</label>
                             <input [disabled]="disableDealerInput" placeholder="" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="selectedDC"
                                 minlength="5" maxlength="5" (ngModelChange)="msg=''" />
@@ -143,21 +137,18 @@
                             <button pButton type="button" (click)="getDealerCodeValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showDealerIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showDealerIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End Dealer CABC and MABC - Chemical Report -->
             <!-- Begin Dealer CABC and MABC - Chemical Report -->
             <div [hidden]="!viewParticipantTab" class="z-content-pad">
                 <!-- <p *ngIf="msg.length>0" style="color: red">{{msg}}</p> -->
-                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
                 <h2>Participant CABC and MABC - Chemical Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
@@ -181,10 +172,14 @@
                             <button pButton type="button" (click)="getSIDValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="showParticipantIFrame">
-                        <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    </div>
+
                 </form>
+                <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                    {{msg}}
+                </div>
+                <div class="row" *ngIf="showParticipantIFrame">
+                    <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
+                </div>
             </div>
             <!-- End Dealer CABC and MABC - Chemical Report -->
         </div>

@@ -42,17 +42,17 @@ export class SXMTop10BCReportComponent implements OnInit {
     public toDate: any = "";
 
     public bcOptions: SelectItem[] =
-    [
-        { label: "CA", value: "CA" },
-        { label: "DN", value: "DN" },
-        { label: "GL", value: "GL" },
-        { label: "MA", value: "MA" },
-        { label: "MW", value: "MW" },
-        { label: "NE", value: "NE" },
-        { label: "SE", value: "SE" },
-        { label: "SW", value: "SW" },
-        { label: "WE", value: "WE" }
-    ]
+        [
+            { label: "CA", value: "CA" },
+            { label: "DN", value: "DN" },
+            { label: "GL", value: "GL" },
+            { label: "MA", value: "MA" },
+            { label: "MW", value: "MW" },
+            { label: "NE", value: "NE" },
+            { label: "SE", value: "SE" },
+            { label: "SW", value: "SW" },
+            { label: "WE", value: "WE" }
+        ]
 
     constructor(private domSanitizer: DomSanitizer, private reportService: ReportService, private chRef: ChangeDetectorRef) {
 
@@ -117,15 +117,9 @@ export class SXMTop10BCReportComponent implements OnInit {
     public checkRole() {
         this.isAdminUser = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
         this.selectedRole = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
-        if (this.isAdminUser) {
+        if (this.isAdminUser || this.selectedRole == 1) {
             this.isExecutiveUser = true;
             this.tabNumber = "tab1";
-            this.viewExecutiveTab = true;
-            this.viewBCTab = true;
-            this.viewEXTabOnly();
-        } else if (this.selectedRole == 1) {
-            this.tabNumber = "tab1";
-            this.isExecutiveUser = true;
             this.viewExecutiveTab = true;
             this.viewBCTab = true;
             this.viewEXTabOnly();
@@ -146,13 +140,19 @@ export class SXMTop10BCReportComponent implements OnInit {
 
     public viewEXTabOnly() {
         this.msg = "";
-        this.showExIFrame = true;
-        this.showExReport();
+        this.showExIFrame = false;
+
     }
     public viewBCTabOnly() {
         this.msg = "";
+        if (this.isBCUser) {
+            this.selectedBC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            this.disableBCInput = true;
+        } else {
+            this.selectedBC = "";
+        }
         this.showBCIFrame = false;
-        this.viewBCReport();
+
     }
 
     public showExReport() {
@@ -165,15 +165,18 @@ export class SXMTop10BCReportComponent implements OnInit {
     }
 
     public viewBCReport() {
-        this.showBCIFrame = true;
+
         var programName = "SXMTop10BC";
         if (this.isExecutiveUser) {
             if (this.selectedBC == "") {
+                this.msg = "Please select business center to view the report";
                 this.showBCIFrame = false;
                 return;
             }
+            this.showBCIFrame = true;
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&BusinessCenter=${this.selectedBC}&FromDate=${this.fromDate}&ToDate=${this.toDate}`;
         } else if (this.isBCUser) {
+            this.showBCIFrame = true;
             var BusinessCenter1 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&BusinessCenter=${BusinessCenter1}&FromDate=${this.fromDate}&ToDate=${this.toDate}`;
         }

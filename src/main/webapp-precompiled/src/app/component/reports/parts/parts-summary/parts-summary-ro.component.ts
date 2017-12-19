@@ -162,9 +162,7 @@ export class PartsSummaryROReportComponent implements OnInit {
             var DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
             this.isDistrictUser = true;
             this.getDealerCodesBelongsToBCAndDIST(DIST);
-        } else if (role == 5) {
-            this.isManagerUser = true;
-        } else if (role == 10) {
+        } else if (role == 10 || role == 5) {
             this.isDealerUser = true;
             this.disableDealerCodeInputField = true;
             this.partsSummaryROInterface.dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -207,8 +205,15 @@ export class PartsSummaryROReportComponent implements OnInit {
         var ToDate = this.partsSummaryROInterface.to;
         var DealerCode = this.partsSummaryROInterface.dealerCode;
         var ProgramGroup = "";
-        if (this.selectedProgramList.length == 0) {
-            ProgramGroup = "&ProgramGroup=0";
+        if (this.selectedProgramList.length == 0 && this.partsSummaryROInterface.dealerCode == "") {
+            this.msg = "Please enter dealer code and select program to view the report";
+            this.showPartsSummaryROReportIframe = false;
+            return;
+        }
+        else if (this.selectedProgramList.length == 0) {
+            this.msg = "Please select program to view the report";
+            this.showPartsSummaryROReportIframe = false;
+            return;
         } else {
             for (var i = 0; i < this.selectedProgramList.length; i++) {
                 ProgramGroup = ProgramGroup + "&ProgramGroup=" + this.selectedProgramList[i];
@@ -221,17 +226,11 @@ export class PartsSummaryROReportComponent implements OnInit {
         }
         if (this.isExecutiveUser) {
             // this.getDealerCodesBelongsToBCAndDIST("NAT");
-
             var DEALERCODE = this.partsSummaryROInterface.dealerCode;
-
-            if (DEALERCODE == "") {
-                this.msg = "Please enter the dealer code to view the report"
-            }
-
             if (DEALERCODE != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
                 this.msg = "The information entered is invalid. Please change your search criteria and try again.";
-
+                return;
             } else {
                 this.showPartsSummaryROReportIframe = true;
             }
@@ -239,39 +238,22 @@ export class PartsSummaryROReportComponent implements OnInit {
         }
 
         if (this.isBCUser) {
-            // var BUSINESSCENTER = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // this.getDealerCodesBelongsToBCAndDIST(BUSINESSCENTER);
-
             var DEALERCODE1 = this.partsSummaryROInterface.dealerCode;
-            if (DEALERCODE1 == "") {
-                this.msg = "Please enter the dealer code to view the report"
-            } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.length == 0) {
-                this.showPartsSummaryROReportIframe = true;
-                // setTimeout(() => {
-                //     this.getDealerCodesBelongsToBCAndDIST(BUSINESSCENTER);
-                // }, 1000);
-            } else if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
+            if (DEALERCODE1 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE1) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
                 this.msg = "The information entered is invalid. Please change your search criteria and try again.";
+                return;
             } else {
                 this.showPartsSummaryROReportIframe = true;
             }
             var src1 = `https://reportservice.imperialm.com/reports/ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${FromDate}&ToDate=${ToDate}&DealerCode=${DEALERCODE1}${ProgramGroup}`;
         }
         if (this.isDistrictUser) {
-            // var DISTRICT = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // this.getDealerCodesBelongsToBCAndDIST(DISTRICT);
-
             var DEALERCODE12 = this.partsSummaryROInterface.dealerCode;
-
-            if (DEALERCODE12 == "") {
-                this.msg = "Please enter the dealer code to view the report"
-            } else if (DEALERCODE12 != "" && this.dealerCodesBelongsToThisBCOrDist.length == 0) {
-                setTimeout(() => {
-                }, 500);
-            } else if (DEALERCODE12 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE12) <= -1) {
+            if (DEALERCODE12 != "" && this.dealerCodesBelongsToThisBCOrDist.indexOf(DEALERCODE12) <= -1) {
                 this.showPartsSummaryROReportIframe = false;
                 this.msg = "The information entered is invalid. Please change your search criteria and try again.";
+                return;
             } else {
                 this.showPartsSummaryROReportIframe = true;
             }

@@ -178,7 +178,7 @@ export class MVPInelligibleContractsReportComponent implements OnInit {
     public showExReport() {
         if (this.selectedDC == "") {
             this.showIframe = false;
-            this.msg = "Please select Dealer Code to view the report";
+            this.msg = "Please enter Dealer Code to view the report";
             return;
         } else if (!this.dealerCodesBelongsToThisBCOrDist) {
             this.showIframe = false;
@@ -194,7 +194,7 @@ export class MVPInelligibleContractsReportComponent implements OnInit {
     public viewBCReport() {
         if (this.selectedDC == "") {
             this.showIframe = false;
-            this.msg = "Please select Dealer Code to view the report";
+            this.msg = "Please enter Dealer Code to view the report";
             return;
         } else if (!this.dealerCodesBelongsToThisBCOrDist) {
             this.showIframe = false;
@@ -211,7 +211,7 @@ export class MVPInelligibleContractsReportComponent implements OnInit {
     public viewDistrictReport() {
         if (this.selectedDC == "") {
             this.showIframe = false;
-            this.msg = "Please select Dealer Code to view the report";
+            this.msg = "Please enter Dealer Code to view the report";
             return;
         } else if (!this.dealerCodesBelongsToThisBCOrDist) {
             this.showIframe = false;

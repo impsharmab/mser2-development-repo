@@ -13,9 +13,9 @@
             <div class="z-content-pad">
                 <h2>RO Report</h2>
                 <!-- <p class="report-description">Use to look up a specifc RO and how MSER processed.</p> -->
-                <div *ngIf="msg.length>0">
+                <!-- <div *ngIf="msg.length>0">
                     <p style="color: red;">{{msg}}</p>
-                </div>
+                </div>  -->
                 <form class="report-form">
                     <div class="row">
                         <div class="form-group col-sm-3">
@@ -43,8 +43,11 @@
                             <button icon="fa-check" iconPos="right" label="View Report" pButton type="button" (click)="showROReport()"></button>
                         </div>
                     </div>
-                    <div *ngIf="dealerCodeNotBelongsToThisBC.length>0">
-                        <p style="color:red">{{dealerCodeNotBelongsToThisBC}}</p>
+                    <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                        {{msg}}
+                    </div>
+                    <div *ngIf="dealerCodeNotBelongsToThisBC.length>0" [hidden]="dealerCodeNotBelongsToThisBC.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+                        {{dealerCodeNotBelongsToThisBC}}
                     </div>
                     <div class="row" *ngIf="showROReportIframe">
                         <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>

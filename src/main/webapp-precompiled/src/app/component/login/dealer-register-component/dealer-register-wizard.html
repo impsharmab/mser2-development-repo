@@ -8,7 +8,7 @@
     </form>
 </header>
 
-<p-dialog header="" [(visible)]="displayConfirmationModal" modal="modal" width="600" height="200" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
+<p-dialog header="" [(visible)]="displayConfirmationModal" modal="modal" width="600" height="300" [responsive]="true" [contentStyle]="{'overflow':'visible'}">
     <div class="form-group row ">
         <div>
             <p style="margin-left: 15px; margin-right: 15px;"> {{successmsg}}</p>
@@ -53,7 +53,7 @@
                                         </div> -->
                                         <div *ngIf="!successsubmit">
                                             <p>I have read and agree with these
-                                                <span> 
+                                                <span>
                                                     <a href="/shared/imi-cms/MSER/webDocs/MSER_Official_Program_Rules.pdf" target="_blank" style="text-decoration: underline">
                                                         <b> Program Rules</b>
                                                     </a>
@@ -63,7 +63,7 @@
                                                 <p style="color: red" [innerHtml]="msg"></p>
                                             </div> -->
                                             <div *ngIf="postDealerCodeSubmitAlert" [hidden]="!postDealerCodeSubmitSuccess" class="alert alert-danger alert-dismissible fade show w-100"
-                                                role="alert" [innerHtml]='dealerCodeMessage'>                                               
+                                                role="alert" [innerHtml]='dealerCodeMessage'>
                                             </div>
 
                                             <!-- Dealer Code, SID -->
@@ -97,12 +97,12 @@
                                             <!-- Dealership Name -->
                                             <div class="form-group row">
                                                 <div class="col-sm-12 ">
-                                                    <label for="dealershipname">*Dealership Name</label>
-                                                    <input class="form-control" id="dealershipname" name="dealershipname" [disabled]="!enableInputs" pattern="[A-Za-z].{3,}"
-                                                        required type="text" [(ngModel)]="submitDealerAndPositionCodeDatum.dealershipName"
+                                                    <label for="dealershipname">Dealership Name</label>
+                                                    <input class="form-control" id="dealershipname" name="dealershipname" [disabled]="true" pattern="[A-Za-z].{3,}" required
+                                                        type="text" [(ngModel)]="submitDealerAndPositionCodeDatum.dealershipName"
                                                         #dealershipname="ngModel" (ngModelChange)="ngModelChangeDealershipName()"
                                                     />
-                                                    <div class="alert alert-danger" [hidden]="!showDealershipNameErrorHiddenDiv">Dealership Name is required</div>
+                                                    <!-- <div class="alert alert-danger" [hidden]="!showDealershipNameErrorHiddenDiv">Dealership Name is required</div> -->
                                                 </div>
                                             </div>
 
@@ -248,13 +248,16 @@
                                                     <span [hidden]="!postInProgress">Saving...
                                                         <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
                                                     </span>
-                                                </button>
+                                                </button> 
 
                                                 <button class="btn btn-primary pull-left" type="button" (click)="cancel()">Cancel</button>
                                             </div>
                                             <div *ngIf="postAlert" [hidden]="!postSuccess" class="alert alert-success alert-dismissible fade show w-100" role="alert">
-                                                <strong>Success!</strong> Registration Successful, an email has been sent to the
-                                                one provided with your temporary user id and password.
+                                                <strong>Success!</strong> Your dealership is now enrolled! An email has been sent
+                                                to the manager entered on this form. S/he will now need to log in and confirm
+                                                your service department employees DMS IDs are correct and set up all Inspection
+                                                Op Codes used by your dealership. If you have any questions please contact
+                                                Program Headquarters by calling 866-909-6737.
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>

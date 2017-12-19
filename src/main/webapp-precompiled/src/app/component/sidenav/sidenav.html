@@ -29,8 +29,21 @@
           </a>
         </li> -->
         <!-- <li *ngIf="isAdmin" class="nav-item">
-          <a class="nav-link" routerLink="adminpayout">Admin Payout </a>
+          <a class="nav-link" routerLink="addnewadminpayout">Admin Payout </a>
         </li> -->
+
+        <li class="nav-item nav-dropdown dopdown-parent">
+          <a class="nav-link nav-dropdown-toggle parent-link" style="cursor: pointer">Admin Payout</a>
+          <ul class="nav-dropdown-items dopdown-child">
+            <li class="nav-item">
+              <a class="nav-link child-link" routerLink="addnewadminpayout">Add New Payout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link child-link" routerLink="editadminpayout">Edit/View Payout</a>
+            </li>
+          </ul>
+        </li>
+
         <li class="divider"></li>
         <li class="nav-title text-center">
           <span>Resources</span>
@@ -109,10 +122,10 @@
                 </li>
                 <!-- <li class="nav-item">
                   <a class="nav-link grandchild-link" routerLink="employeemaintenance">Employee Maintenance</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link grandchild-link" routerLink="userlookup">User Maintenance</a>
                 </li> -->
+                <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="dealermaintenance">Dealer Maintenance</a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -160,7 +173,7 @@
                       <a class="nav-link grandchild-link" routerLink="macachemicalreportcomponent">CABC and MABC - Chemical Report</a>
                     </li>
                   </ul>
-                </li> 
+                </li>
 
                 <li class="nav-item nav-dropdown dopdown-grandchild" [hidden]="!showReportForSWBCUsersOnly">
                   <a class="nav-link grandchild-link nav-dropdown-toggle child-link only-child" href="#">SWBC - Reports</a>
@@ -197,6 +210,9 @@
                 <li class="nav-item">
                   <a class="nav-link grandchild-link" routerLink="pcdistributionreport">PC Distribution</a>
                 </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link grandchild-link" routerLink="rejectedinvoicereport">Rejected Invoice Report</a>
+                </li> -->
                 <!-- <li class="nav-item"><a class="nav-link grandchild-link" routerLink="pcinvoicereport">PC Invoice</a></li> -->
               </ul>
             </li>
@@ -244,7 +260,7 @@
               <a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneReward', 'pdf':'false'}]">MVP Rules</a>
             </li>
             <!--<li class="nav-item"><a class="nav-link" [routerLink]="['cmsrouter', {'cmsPage': 'serviceLaneMaintenance', 'pdf':'false'}]">Approve MVP Plans</a></li>-->
-            <li *ngIf="isServiceManagerOfRecords || isDealerManager" class="nav-item">
+            <li *ngIf="this.isMSEREnrolled && (isServiceManagerOfRecords || isDealerManager)" class="nav-item">
               <a class="nav-link" routerLink="mvpautoapprove">Change Approval Settings</a>
             </li>
             <li class="nav-item">
