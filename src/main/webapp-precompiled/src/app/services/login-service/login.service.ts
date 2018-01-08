@@ -55,7 +55,7 @@ export class LoginService {
 
   getUserRole() {
     return this.role;
-  } 
+  }
 
   getUsersData() {
     return this.userdata;
@@ -89,6 +89,8 @@ export class LoginService {
     var body = { "username": username, "password": password };
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', 'http://localhost:4201');
+    // headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.post(url, body, { headers: headers })
       .map((response: Response) =>
         response.json())

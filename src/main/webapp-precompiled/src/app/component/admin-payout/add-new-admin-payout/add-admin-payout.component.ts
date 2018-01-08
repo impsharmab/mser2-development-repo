@@ -400,8 +400,8 @@ export class AddNewAdminPayoutComponent implements OnInit {
             if (this.payoutCopyMonth) {
                 // this.getRewardsObjForCopyMonth();
                 this.a();
-            } else {
-                this.getRewards();
+                // } else {
+                //     this.getRewards();
             }
 
         }
@@ -536,237 +536,6 @@ export class AddNewAdminPayoutComponent implements OnInit {
 
     rewardsObj: any = [];
 
-    //     [
-    //{
-    //         "canOverride": true,
-    //         "laborTypes": [],
-    //         "overrideModalOptions": {
-    //             "rewardPositionDd": [
-    //                 {
-    //                     "label": "Parts Manager (08)",
-    //                     "value": {
-    //                         "description": "Parts Manager (08)",
-    //                         "positionCode": "08"
-    //                     }
-    //                 },
-    //                 {
-    //                     "label": "Service Advisor (13)",
-    //                     "value": {
-    //                         "description": "Service Advisor (13)",
-    //                         "positionCode": "13"
-    //                     }
-    //                 }
-    //             ]
-    //         },
-    //         "positionDd": [
-    //             {
-    //                 "label": "Parts Manager (08)",
-    //                 "value": {
-    //                     "description": "Parts Manager (08)",
-    //                     "positionCode": "08"
-    //                 }
-    //             },
-    //             {
-    //                 "label": "Service Manager (09)",
-    //                 "value": {
-    //                     "description": "Service Manager (09)",
-    //                     "positionCode": "09"
-    //                 }
-    //             },
-    //             {
-    //                 "label": "Service Advisor (13)",
-    //                 "value": {
-    //                     "description": "Service Advisor (13)",
-    //                     "positionCode": "13"
-    //                 }
-    //             },
-    //             {
-    //                 "label": "Service Technician (23)",
-    //                 "value": {
-    //                     "description": "Service Technician (23)",
-    //                     "positionCode": "23"
-    //                 }
-    //             }
-    //         ],
-    //         "programCategory": {
-    //             "description": "EL",
-    //             "incentiveId": 1001,
-    //             "incentiveSubCode": "EL",
-    //             "incentiveSubCodeId": 0,
-    //             "note": null,
-    //             "programGroup": "Mopar Service Excellence Rewards-Express Lane",
-    //             "programGroupId": 1,
-    //             "quantityId": null,
-    //             "selected": false
-    //         },
-    //         "quantity": {
-    //             "createdBy": "System",
-    //             "createdDate": 1486674476387,
-    //             "delFlag": "0",
-    //             "description": "SET",
-    //             "quantityID": "2",
-    //             "quantityVal": "SET of 2",
-    //             "updateDate": 1486674476387,
-    //             "updatedBy": "System",
-    //             "value": 2
-    //         },
-    //         "rewardPositions": [
-    //             {
-    //                 "position": {
-    //                     "description": "Parts Manager (08)",
-    //                     "positionCode": "08"
-    //                 },
-    //                 "rewardAmount": "14",
-    //                 "rewardType": {
-    //                     "createdBy": "Sai",
-    //                     "createdDate": 1486394883153,
-    //                     "delFlag": "N",
-    //                     "description": "DOLLAR",
-    //                     "rewardTypeID": 1,
-    //                     "updateDate": null,
-    //                     "updatedBy": null
-    //                 },
-    //                 "overrides": [{
-    //                     "isOverride": true,
-    //                     "note": "Parts Manager (08) : 32 POINTS to Service Advisor (13)",
-    //                     "overrideAmt": "32",
-    //                     "overrideType": {
-    //                         "createdBy": "SAI",
-    //                         "createdDate": 1501256357783,
-    //                         "delFlag": "N",
-    //                         "description": "POINTS",
-    //                         "rewardTypeID": 3,
-    //                         "updateDate": null,
-    //                         "updatedBy": null
-    //                     },
-    //                     "recipientPosition": {
-    //                         "positionCode": "13",
-    //                         "description": "Service Advisor (13)"
-    //                     },
-    //                     "sourcePosition": {
-    //                         "positionCode": "08",
-    //                         "description": "Parts Manager (08)"
-    //                     }
-    //                 }]
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         "canOverride": true,
-    //         "laborTypes": ["C"],
-    //         "overrideModalOptions": {
-    //             "rewardPositionDd": [
-    //                 {
-    //                     "label": "Parts Manager (08)",
-    //                     "value": {
-    //                         "description": "Parts Manager (08)",
-    //                         "positionCode": "08"
-    //                     }
-    //                 },
-    //                 {
-    //                     "label": "Service Advisor (13)",
-    //                     "value": {
-    //                         "description": "Service Advisor (13)",
-    //                         "positionCode": "13"
-    //                     }
-    //                 }
-    //             ]
-    //         },
-    //         "positionDd": [
-    //             {
-    //                 "label": "Parts Manager (08)",
-    //                 "value": {
-    //                     "description": "Parts Manager (08)",
-    //                     "positionCode": "08"
-    //                 }
-    //             },
-    //             {
-    //                 "label": "Service Manager (09)",
-    //                 "value": {
-    //                     "description": "Service Manager (09)",
-    //                     "positionCode": "09"
-    //                 }
-    //             },
-    //             {
-    //                 "label": "Service Advisor (13)",
-    //                 "value": {
-    //                     "description": "Service Advisor (13)",
-    //                     "positionCode": "13"
-    //                 }
-    //             },
-    //             {
-    //                 "label": "Service Technician (23)",
-    //                 "value": {
-    //                     "description": "Service Technician (23)",
-    //                     "positionCode": "23"
-    //                 }
-    //             }
-    //         ],
-    //         "programCategory": {
-    //             "description": "EL",
-    //             "incentiveId": 1001,
-    //             "incentiveSubCode": "EL",
-    //             "incentiveSubCodeId": 0,
-    //             "note": null,
-    //             "programGroup": "Mopar Service Excellence Rewards-Express Lane",
-    //             "programGroupId": 1,
-    //             "quantityId": null,
-    //             "selected": false
-    //         },
-    //         "quantity": {
-    //             "createdBy": "System",
-    //             "createdDate": 1486674476387,
-    //             "delFlag": "0",
-    //             "description": "SET",
-    //             "quantityID": "2",
-    //             "quantityVal": "SET of 2",
-    //             "updateDate": 1486674476387,
-    //             "updatedBy": "System",
-    //             "value": 2
-    //         },
-    //         "rewardPositions": [
-    //             {
-    //                 "position": {
-    //                     "description": "Parts Manager (08)",
-    //                     "positionCode": "08"
-    //                 },
-    //                 "rewardAmount": "100",
-    //                 "rewardType": {
-    //                     "createdBy": "Sai",
-    //                     "createdDate": 1486394883153,
-    //                     "delFlag": "N",
-    //                     "description": "DOLLAR",
-    //                     "rewardTypeID": 1,
-    //                     "updateDate": null,
-    //                     "updatedBy": null
-    //                 },
-    //                 "overrides": [{
-    //                     "isOverride": true,
-    //                     "note": "Parts Manager (08) : 32 POINTS to Service Advisor (13)",
-    //                     "overrideAmt": "32",
-    //                     "overrideType": {
-    //                         "createdBy": "SAI",
-    //                         "createdDate": 1501256357783,
-    //                         "delFlag": "N",
-    //                         "description": "POINTS",
-    //                         "rewardTypeID": 3,
-    //                         "updateDate": null,
-    //                         "updatedBy": null
-    //                     },
-    //                     "recipientPosition": {
-    //                         "positionCode": "13",
-    //                         "description": "Service Advisor (13)"
-    //                     },
-    //                     "sourcePosition": {
-    //                         "positionCode": "08",
-    //                         "description": "Parts Manager (08)"
-    //                     }
-    //                 }]
-    //             }
-    //         ]
-    //     }
-
-    // ]
     removeDuplicates(duplicateArray) {
         var cleanArray: any[] = [];
         for (var i = 0; i < duplicateArray.length; i++) {
@@ -782,7 +551,7 @@ export class AddNewAdminPayoutComponent implements OnInit {
         }
         return cleanArray;
     }
-    rawRewardsObj: any = [];
+    rawRewardsObj: any[] = [];
     selectedCopyMonthProgramCategories: any[] = [];
     // getRewardsObjForCopyMonth() {
     //     var $this = this;
@@ -940,6 +709,7 @@ export class AddNewAdminPayoutComponent implements OnInit {
     createRewardsObjForCopyMonth() {
         this.rawRewardsObj.forEach(element => {
             element.programCategory = {};
+            element.canOverride = false;
             this.selectedCopyMonthProgramCategories.forEach(item => {
                 var csss;
                 if (element.incentiveID == item.incentiveId) {
@@ -961,38 +731,30 @@ export class AddNewAdminPayoutComponent implements OnInit {
                 }
             }
             )
-
         }
         )
         this.rawRewardsObj.forEach(element => {
             element.overrideModalOptions = {};
             element.overrideModalOptions.rewardPositionDd = element.positionDd;
-            element.canOverride = false;
 
             element.incentiveRewards.forEach(reward => {
                 if (reward.isOverrideReward == "Y") {
                     element.canOverride = true;
                 }
-
                 element.laborType.push(reward.laborType);
                 element.laborType = this.removeDuplicates(element.laborType);
-
                 // if (element.rewardPositions == undefined || element.rewardPositions.length == 0) {
                 //     element.rewardPositions = [];
                 // }
-
             });
-
-
         });
         this.rawRewardsObj.forEach(element => {
             var rpObj: any = {};
             rpObj.position = {};
             rpObj.rewardAmount = "";
             rpObj.rewardType = {};
-            rpObj.overrides = [];
+            rpObj.overrides = null;
             rpObj.incentiveSubCodeID = 0;
-
             element.incentiveRewards.forEach(incentiveR => {
                 if (incentiveR.isOverrideReward == "N") {
                     // rpObj.overrides.push({
@@ -1012,7 +774,10 @@ export class AddNewAdminPayoutComponent implements OnInit {
                     });
                     //rewardtypes ajax call then do exactly like quantity 
                     this.rewardTypes.forEach(rewardTypesObj => {
-                        rpObj.rewardType == rewardTypesObj;
+                        if (incentiveR.rewardTypeID == rewardTypesObj.rewardTypeID) {
+                            rpObj.rewardType = rewardTypesObj;
+                        }
+
                     });
                 }
 
@@ -1023,7 +788,6 @@ export class AddNewAdminPayoutComponent implements OnInit {
         this.rawRewardsObj.forEach(element => {
             element.incentiveRewards.forEach(incentiveR => {
                 if (incentiveR.isOverrideReward == "Y") {
-
                     element.rewardPositions.forEach(rewardsPos => {
                         if (rewardsPos.incentiveSubCodeID == incentiveR.incentiveSubCodeID) {
                             var overrideObj: any = {};
@@ -1033,25 +797,36 @@ export class AddNewAdminPayoutComponent implements OnInit {
                             overrideObj.recipientPosition = {};
                             overrideObj.sourcePosition = {};
                             overrideObj.note = "";
-
                             this.rewardTypes.forEach(rewardTypesObj => {
-                                overrideObj.overrideType = rewardTypesObj;
-                            });
+                                // check reward type and assign
+                                if (incentiveR.rewardTypeID == rewardTypesObj.rewardTypeID) {
+                                    overrideObj.overrideType = rewardTypesObj;
+                                }
 
+                            });
                             element.positionDd.forEach(positiondd => {
                                 if (rewardsPos.position.positionCode == positiondd.value.positionCode) {
                                     overrideObj.recipientPosition = positiondd.value;
                                     overrideObj.sourcePosition = rewardsPos.position;
-
                                     overrideObj.note = overrideObj.sourcePosition.description + " : "
                                         + overrideObj.overrideAmt + " " + overrideObj.overrideType.description + " to " +
                                         overrideObj.recipientPosition.description;
                                 }
-
                             });
-
+                            if (rewardsPos.overrides == null) {
+                                // var overrideObj: any = {};
+                                // overrideObj.isOverride = false;
+                                // overrideObj.overrideAmt = 0;
+                                // overrideObj.overrideType = {};
+                                // overrideObj.recipientPosition = {};
+                                // overrideObj.sourcePosition = {};
+                                // overrideObj.note = null;
+                                // rewardsPos.overrides = [];
+                                // rewardsPos.overrides.push(overrideObj);
+                                rewardsPos.overrides = [];
+                            }
+                            rewardsPos.overrides.push(overrideObj);
                         }
-                        rewardsPos.overrides.push(overrideObj);
 
                     });
                 }
@@ -1059,9 +834,20 @@ export class AddNewAdminPayoutComponent implements OnInit {
         })
 
         this.rawRewardsObj.forEach(element => {
+            var testDebugger;
             element.rewardPositions.forEach(rewardPos => {
-                if (rewardPos.overrides.length > 0) {
+                if (rewardPos.overrides != null && rewardPos.overrides.length > 0) {
                     rewardPos.canOverride = true;
+                } else {
+                    var overrideObj: any = {};
+                    overrideObj.isOverride = false;
+                    overrideObj.overrideAmt = 0;
+                    overrideObj.overrideType = {};
+                    overrideObj.recipientPosition = {};
+                    overrideObj.sourcePosition = {};
+                    overrideObj.note = "";
+                    rewardPos.overrides = [];
+                    rewardPos.overrides.push(overrideObj);
                 }
             });
         }
@@ -1070,14 +856,28 @@ export class AddNewAdminPayoutComponent implements OnInit {
 
         for (var i = 0; i < this.rewards.length; i++) {
             for (var j = 0; j < this.rawRewardsObj.length; j++) {
-                if (i == j) {
-                    this.rewards[i]["positionDd"] = this.rawRewardsObj[j].positionDd;
-                    this.rewards[i]["programCategory"] = this.rawRewardsObj[j].programCategory;
-                    this.rewards[i]["quantity"] = this.rawRewardsObj[j].quantity;
-                    this.rewards[i]["rewardPositions"] = this.rawRewardsObj[j].rewardPositions;
-                    this.rewards[i]["overrideModalOptions"] = this.rawRewardsObj[j].overrideModalOptions;
-                    this.rewards[i]["laborTypes"] = this.rawRewardsObj[j].laborTypes;
+                if (this.rewards[i].programCategory.incentiveId == this.rawRewardsObj[j].programCategory.incentiveId &&
+                    this.rewards[i].programCategory.incentiveSubCode == this.rawRewardsObj[j].programCategory.incentiveSubCode) {
+                    this.rewards[i].canOverride = this.rawRewardsObj[j].canOverride;
+                    // this.rewards[i].laborTypes = this.rawRewardsObj[j].laborTypes;
+                    // this.rewards[i].overrideModalOptions = this.rawRewardsObj[j].overrideModalOptions;
+                    // this.rewards[i].positionDd = this.rawRewardsObj[j].positionDd;
+                    // this.rewards[i].programCategory = this.rawRewardsObj[j].programCategory;
+                    // this.rewards[i].quantity = this.rawRewardsObj[j].quantity;
+                    // this.rewards[i].rewardPositions = this.rawRewardsObj[j].rewardPositions;
+
+                    this.rewards[i].laborTypes = Object.assign([], this.rawRewardsObj[j].laborTypes);
+                    this.rewards[i].overrideModalOptions = Object.assign({}, this.rawRewardsObj[j].overrideModalOptions);
+                    this.rewards[i].positionDd = Object.assign([], this.rawRewardsObj[j].positionDd);
+                    this.rewards[i].programCategory = Object.assign({}, this.rawRewardsObj[j].programCategory);
+                    this.rewards[i].quantity = Object.assign({}, this.rawRewardsObj[j].quantity);
+                    this.rewards[i].rewardPositions = Object.assign([], this.rawRewardsObj[j].rewardPositions);
+                    var aa = 0;
+                    aa * 2;
+
+
                 }
+
             }
 
         }
@@ -1089,7 +889,7 @@ export class AddNewAdminPayoutComponent implements OnInit {
             rew.rewardPositions.forEach(ele => {
                 count++;
                 if (ele.overrides == undefined) {
-                    alert(count);
+                    console.log(count);
                 }
 
             });
@@ -1114,9 +914,6 @@ export class AddNewAdminPayoutComponent implements OnInit {
                 });
             })
         }
-
-
-
         // if (this.payoutCopyMonth) {
         //     this.getRewardsObjForCopyMonth();
         // }
@@ -1153,27 +950,19 @@ export class AddNewAdminPayoutComponent implements OnInit {
                                         laborTypes: [],
                                         quantity: {}
                                     });
-                                    // if (this.payoutCopyMonth) {
-                                    //     for (var i = 0; i < this.rewards.length; i++) {
-                                    //         for (var j = 0; j < this.rewardsObj.length; j++) {
-                                    //             if (i == j) {
-                                    //                 this.rewards[i]["positionDd"] = this.rewardsObj[j].positionDd;
-                                    //                 $.extend(this.rewards[i]["programCategory"], this.rewardsObj[j].programCategory);
-                                    //                 $.extend(this.rewards[i]["quantity"], this.rewardsObj[j].quantity);
-                                    //                 this.rewards[i]["rewardPositions"] = this.rewardsObj[j].rewardPositions;
-                                    //                 $.extend(this.rewards[i]["overrideModalOptions"], this.rewardsObj[j].overrideModalOptions);
-                                    //                 this.rewards[i]["laborTypes"] = this.rewardsObj[j].laborTypes;
-                                    //             }
 
-                                    //         }
-                                    //     }
-                                    // }
                                 });
                                 this.tabContentLoaded = true;
                                 this.fixTabDisplayIE11();
                             });
                         });
+                        // if (this.payoutCopyMonth) {
+                        //     this.a();
+                        // }
+                        // this.tabContentLoaded = true;
+                        // this.fixTabDisplayIE11();
                     });
+
             }
         }
     }

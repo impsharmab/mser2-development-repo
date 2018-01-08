@@ -16,30 +16,50 @@ declare var $: any;
   //styleUrls: ['./marketing-home.component.css'] 
 })
 export class RewardsDistributionComponent implements OnInit {
-  public mvpInterface: MVPInterface = { approved: "No", sid: "" };
-  public eldistInterface: ELDistributionInterface = { name: "", amount: "" }
+  mvpInterface: MVPInterface = { approved: "No", sid: "" };
+  eldistInterface: ELDistributionInterface = { name: "", amount: "" }
   booleanYesNoOptions: SelectItem[] = [{ label: "Yes", value: "Yes" }, { label: "No", value: "No" }];
   programNameOptions: SelectItem[] = [{ label: "Express Lane", value: "Express Lane" }, { label: "Parts Counter", value: "Parts Counter" }, { label: "Used Recon", value: "Used Recon" }];
-  public date: string = "";
-  public approveAllMVP: boolean = false;
-  public distributedAmount: any = 0;
-  public elDistributedAmount: any = 0;
-  public hideelParticipantTable: boolean = false;
-  public hidepcParticipantTable: boolean = false;
-  public hideurParticipantTable: boolean = false;
+  date: string = "";
+  approveAllMVP: boolean = false;
+  distributedAmount: any = 0;
+  elDistributedAmount: any = 0;
+  hideelParticipantTable: boolean = false;
+  hidepcParticipantTable: boolean = false;
+  hideurParticipantTable: boolean = false;
 
-  public isDealerManager: boolean = false;
-  public isServiceManagerOfRecords: boolean = false;
+  isDealerManager: boolean = false;
+  isServiceManagerOfRecords: boolean = false;
+  isELManager: boolean = false;
+  isPCManager: boolean = false;
+  isUVMManager: boolean = false;
+  elManagerExists: boolean = true;
+  pcManagerExists: boolean = true;
+  uvmManagerExists: boolean = true;
 
-  public elManagerExists: boolean = true;
-  public pcManagerExists: boolean = true;
-  public uvmManagerExists: boolean = true;
+  mvpApproval: boolean = false;
+  selectedPositionCode: string = "";
 
+  rewardsAmount: any = {}
+  disableMVPButton: boolean = true;
+  hideMVPTab: boolean = true;
+  disableELButton: boolean = false;
+  disablePCButton: boolean = false;
+  disableURButton: boolean = false;
+  elRewardAmountModal: boolean = false;
+  pcRewardAmountModal: boolean = false;
+  urRewardAmountModal: boolean = false;
+
+  showELTab: boolean = false;
+  showPCTab: boolean = false;
+  showUVMTab: boolean = false;
+  
   constructor(
     private rewardsDistributionService: RewardsDistributionService,
     private mvpAutoApprovalSettingService: MVPAutoApprovalSettingService) { }
 
   ngOnInit() {
+    this.getMVPApprovalData();
     this.getRewardsDistributionAmount();
     var d = new Date;
     this.date = new Date().getFullYear() + "-" + (d.getMonth() + 1) + "-" + new Date().getDate();
@@ -47,50 +67,81 @@ export class RewardsDistributionComponent implements OnInit {
     var selectedCodeData = JSON.parse(sessionStorage.getItem("selectedCodeData"));
     this.isDealerManager = selectedCodeData.isDealerManager;
     this.isServiceManagerOfRecords = selectedCodeData.isServiceManagerOfRecord;
-
+    this.isELManager = selectedCodeData.isElManager;
+    this.isPCManager = selectedCodeData.isPCManager;
+    this.isUVMManager = selectedCodeData.isUVMManager;
     this.elManagerExists = selectedCodeData.elManagerExists;
     this.pcManagerExists = selectedCodeData.pcManagerExists;
     this.uvmManagerExists = selectedCodeData.uvmManagerExists;
+    this.mvpApproval = selectedCodeData.mvpApproval;
+    this.selectedPositionCode = selectedCodeData.selectedPositionCode;
     // this.getParticipantsByDealer();
-    this.getMVPApprovalData();
+    this.showDistributionTabPerManager();
+
   }
 
+  showDistributionTabPerManager() {
+    if (this.isDealerManager) {
+      if (this.elManagerExists) {
+        this.showELTab = true;
+      }
+      if (this.pcManagerExists) {
+        this.showPCTab = true;
+      }
+      if (this.uvmManagerExists) {
+        this.showUVMTab = true;
+      }
+    }
 
-  public mvpApprovalDatum: any = true;
-  public getMVPApprovalData() {
-    this.mvpAutoApprovalSettingService.getMVPApprovalData().subscribe(
+    if (this.isELManager) {
+      this.showELTab = true;
+    }
+    if (this.isPCManager) {
+      this.showPCTab = true;
+    }
+    if (this.isUVMManager) {
+      this.showUVMTab = true;
+    }
+
+  }
+
+  mvpApprovalDatum: any = true;
+  getMVPApprovalData() {
+    this.mvpAutoApprovalSettingService.getMVPApprovalData().subscribe( 
       (mvpApprovalData) => {
         this.mvpApprovalDatum = mvpApprovalData
+        // if mvpautoapproval is checked this.mvpApprovalDatum will return true 
+        // manual-false
+        if (!this.mvpApprovalDatum && (this.isDealerManager || this.isServiceManagerOfRecords || this.selectedPositionCode == "02" ||
+          this.selectedPositionCode == "17" || this.selectedPositionCode == "33" || this.selectedPositionCode == "35")) {
+          this.hideMVPTab = false;
+        }
       },
       (error) => {
         this.mvpApprovalDatum = false;
       }
     )
   }
-  public getSelectedDealerCode() {
+
+  getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
 
-  public getSelectedDealerName() {
+  getSelectedDealerName() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   }
 
-  public rewardsAmount: any = {}
-  public disableMVPButton: boolean = false;
-  public disableELButton: boolean = false;
-  public disablePCButton: boolean = false;
-  public disableURButton: boolean = false;
-  public elRewardAmountModal: boolean = false;
-  public pcRewardAmountModal: boolean = false;
-  public urRewardAmountModal: boolean = false;
-  public getRewardsDistributionAmount() {
+  getRewardsDistributionAmount() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getRewardsDistributionAmount(dealerCode).subscribe(
       (rewardsAmount) => {
         this.rewardsAmount = (rewardsAmount)
+       
         if (this.rewardsAmount.MVP != undefined && this.rewardsAmount.MVP <= 0) {
-          this.disableMVPButton = true;
-          this.rewardsAmount.MVP = 0;
+          this.disableMVPButton = true; 
+          this.rewardsAmount.MVP = 0; // because in some case the value is negative from service
+        } else {
+          this.disableMVPButton = false;
         }
         if (this.rewardsAmount.el != undefined && this.rewardsAmount.el <= 0) {
           this.disableELButton = true;
@@ -126,14 +177,14 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-  public showActiveProgram: boolean = false;
-  public activeProgram: string = "";
-  public lastClick: string = "";
-  public hideMVPSection: boolean = true;
-  public hideELSection: boolean = true;
-  public hidePCSection: boolean = true;
-  public hideURSection: boolean = true;
-  public mvpOpenAllocationTable() {
+  showActiveProgram: boolean = false;
+  activeProgram: string = "";
+  lastClick: string = "";
+  hideMVPSection: boolean = true;
+  hideELSection: boolean = true;
+  hidePCSection: boolean = true;
+  hideURSection: boolean = true;
+  mvpOpenAllocationTable() {
     this.displayError = false;
     this.msg = "";
     this.hideMVPSection = true;
@@ -155,7 +206,8 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "MVP";
     }
   }
-  public elOpenAllocationTable() {
+
+  elOpenAllocationTable() {
     this.hideelParticipantTable = true;
 
     this.displayError = false;
@@ -180,7 +232,8 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "Express Lane";
     }
   }
-  public pcOpenAllocationTable() {
+
+  pcOpenAllocationTable() {
     if (this.rewardsAmount.pc != undefined && this.rewardsAmount.pc <= 0) {
       this.hidepcParticipantTable = true;
     } else {
@@ -209,7 +262,7 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
 
-  public urOpenAllocationTable() {
+  urOpenAllocationTable() {
     if (this.rewardsAmount.ur != undefined && this.rewardsAmount.ur <= 0) {
       this.hideurParticipantTable = true;
     } else {
@@ -238,8 +291,8 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
 
-  public mvpDistributionDatum: any = [];
-  public getMVPDistributionData() {
+  mvpDistributionDatum: any = [];
+  getMVPDistributionData() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getMVPDistributionData(dealerCode).subscribe(
       (mvpDistributionDatum) => {
@@ -258,8 +311,9 @@ export class RewardsDistributionComponent implements OnInit {
       }
     )
   }
-  public distributionAllocationHistoryDatum: any;
-  public getDistributionAllocationHistory(programName: string) {
+
+  distributionAllocationHistoryDatum: any;
+  getDistributionAllocationHistory(programName: string) {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getDistributionAllocationHistory(dealerCode, programName).subscribe(
       (distributionAllocationHistoryDatum) => {
@@ -270,11 +324,11 @@ export class RewardsDistributionComponent implements OnInit {
       }
     )
   }
-  public participantsList: any = [];
-  public participantDataValue: any = [];
-  public participantsOptions: SelectItem[] = [];
-  public partcipantItem2SID: any = [];
-  public getParticipantsByDealer(program: string) {
+  participantsList: any = [];
+  participantDataValue: any = [];
+  participantsOptions: SelectItem[] = [];
+  partcipantItem2SID: any = [];
+  getParticipantsByDealer(program: string) {
     this.participantsOptions = [];
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.participantDataValue = [];
@@ -300,12 +354,12 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-  public elParticipantsList: any = [];
-  public elParticipantDataValue: any = [];
-  public elParticipantsOptions: SelectItem[] = [];
-  public activeTeamID: any = "";
-  public elAmount: any = 0;
-  public getELParticipantsByDealer(program: string, teamID: string, amount: any) {
+  elParticipantsList: any = [];
+  elParticipantDataValue: any = [];
+  elParticipantsOptions: SelectItem[] = [];
+  activeTeamID: any = "";
+  elAmount: any = 0;
+  getELParticipantsByDealer(program: string, teamID: string, amount: any) {
     this.activeTeamID = teamID;
     this.elAmount = amount;
     this.hideelParticipantTable = false;
@@ -336,14 +390,15 @@ export class RewardsDistributionComponent implements OnInit {
 
 
   }
-  public addNewRow() {
+
+  addNewRow() {
     this.participantDataValue.push({ name: "", value: 0 });
-    this.elParticipantDataValue.push({ name: "", value: 0, teamID: this.activeTeamID });
+    this.elParticipantDataValue.push({ name: "", value: 0, teamID: this.activeTeamID.trim() });
   }
 
-  public saveMVPDistributionDatum: any;
-  public displayError: boolean = false;
-  public saveMVPDistributionDATA() {
+  saveMVPDistributionDatum: any;
+  displayError: boolean = false;
+  saveMVPDistributionDATA() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     var mvpDistributionData = this.mvpDistributionDatum;
     var data: any = {};
@@ -402,8 +457,8 @@ export class RewardsDistributionComponent implements OnInit {
     )
 
   }
-  public distributionHistoryData: any = [];
-  public getDistributionHistoryData(programName: string) {
+  distributionHistoryData: any = [];
+  getDistributionHistoryData(programName: string) {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
 
     this.rewardsDistributionService.getDistributionHistoryData(dealerCode, programName).subscribe(
@@ -417,8 +472,8 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-  public eldistributionData: any = [];
-  public getELDistributionData() {
+  eldistributionData: any = [];
+  getELDistributionData() {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
 
     this.rewardsDistributionService.getELDistributionData(dealerCode).subscribe(
@@ -431,13 +486,13 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-  public groupedELdistributionData: any = [];
-  public groupELdistributionData() {
+  groupedELdistributionData: any = [];
+  groupELdistributionData() {
     var uniqueTeamID: any = [];
     var groupByTeamIDData: any = [];
 
     for (var i = 0; i < this.eldistributionData.length; i++) {
-      uniqueTeamID.push(this.eldistributionData[i].teamId.toUpperCase());
+      uniqueTeamID.push(this.eldistributionData[i].teamId.toUpperCase().trim());
     }
     uniqueTeamID = this.removeDuplicates(uniqueTeamID);
 
@@ -447,21 +502,19 @@ export class RewardsDistributionComponent implements OnInit {
         if (this.eldistributionData[k].teamName == "") {
           this.eldistributionData[k].teamName = "-";
         }
-        if (uniqueTeamID[j].toUpperCase() == this.eldistributionData[k].teamId.toUpperCase()) {
-          groupByTeamIDData[j].teamId = this.eldistributionData[k].teamId;
-          groupByTeamIDData[j].teamName = this.eldistributionData[k].teamName;
+        if (uniqueTeamID[j].toUpperCase().trim() == this.eldistributionData[k].teamId.toUpperCase().trim()) {
+          groupByTeamIDData[j].teamId = this.eldistributionData[k].teamId.trim();
+          groupByTeamIDData[j].teamName = this.eldistributionData[k].teamName.trim();
           groupByTeamIDData[j].amount += this.eldistributionData[k].amount;
 
         }
       }
     }
     this.groupedELdistributionData = groupByTeamIDData;
-    console.log(groupByTeamIDData);
-
-
+    // console.log(groupByTeamIDData);
   }
 
-  public removeDuplicates(duplicateArray) {
+  removeDuplicates(duplicateArray) {
     var cleanArray = [];
     for (var i = 0; i < duplicateArray.length; i++) {
       var push = true;
@@ -476,8 +529,9 @@ export class RewardsDistributionComponent implements OnInit {
     }
     return cleanArray;
   }
-  public saveDistributionDATUM: any;
-  public saveDistributionDATA(programName: string) {
+
+  saveDistributionDATUM: any;
+  saveDistributionDATA(programName: string) {
 
     var program = programName;
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -501,7 +555,7 @@ export class RewardsDistributionComponent implements OnInit {
     if (programName == "el") {
       for (var j = 0; j < this.elParticipantDataValue.length; j++) {
         if (this.elParticipantDataValue[j].name != undefined && this.elParticipantDataValue[j].name.length > 0 && this.elParticipantDataValue[j].value > 0) {
-          nameValueList.push({ name: this.elParticipantDataValue[j].name, value: parseFloat(this.elParticipantDataValue[j].value), teamId: this.elParticipantDataValue[j].teamID })
+          nameValueList.push({ name: this.elParticipantDataValue[j].name, value: parseFloat(this.elParticipantDataValue[j].value), teamId: this.elParticipantDataValue[j].teamID.trim() })
         }
       }
     } else {
@@ -593,26 +647,21 @@ export class RewardsDistributionComponent implements OnInit {
     )
   }
 
-
-  public msg: String = "";
-  public selectedProgramName(programName: string) {
-
-
-
+  msg: String = "";
+  selectedProgramName(programName: string) {
   }
-  public mvpSelectedSID(sid) {
+
+  mvpSelectedSID(sid) {
     // alert(sid)
   }
-
-  public mvpApproved(approve) {
+  mvpApproved(approve) {
     // alert(approve)
   }
-  public selectedParticipant(participantName) {
-
+  selectedParticipant(participantName) {
     //alert(participantName);
   }
-  public totalRewardedAmount: any = 0;
-  public rewardedAmount(amount) {
+  totalRewardedAmount: any = 0;
+  rewardedAmount(amount) {
     this.totalRewardedAmount = 0;
     for (var i = 0; i < this.participantDataValue.length; i++) {
       this.totalRewardedAmount = this.totalRewardedAmount + this.participantDataValue[i].value
@@ -620,12 +669,12 @@ export class RewardsDistributionComponent implements OnInit {
     this.distributedAmount = this.totalRewardedAmount;
   }
 
-  public totalELRewardedAmount: any = 0;
-  public elRewardedAmount(amount, teamID) {
+  totalELRewardedAmount: any = 0;
+  elRewardedAmount(amount, teamID) {
     this.totalELRewardedAmount = 0;
     for (var i = 0; i < this.elParticipantDataValue.length; i++) {
       for (var j = 0; j < this.groupedELdistributionData.length; j++) {
-        if (this.elParticipantDataValue[i].teamID == this.groupedELdistributionData[j].teamId) {
+        if (this.elParticipantDataValue[i].teamID == this.groupedELdistributionData[j].teamId.trim()) {
           this.totalELRewardedAmount = this.totalELRewardedAmount + this.elParticipantDataValue[i].value
           this.groupedELdistributionData[j].elDistributedAmount = this.totalELRewardedAmount;
         }
@@ -637,7 +686,7 @@ export class RewardsDistributionComponent implements OnInit {
 
 
 
-  public mvpCancellation() {
+  mvpCancellation() {
     this.msg = "";
     this.displayError = false;
     this.approveAllMVP = false;
@@ -657,7 +706,7 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "MVP";
     }
   }
-  public elCancellation() {
+  elCancellation() {
     this.msg = "";
     this.displayError = false;
     this.hideELSection = false;
@@ -676,7 +725,7 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "Express Lane";
     }
   }
-  public pcCancellation() {
+  pcCancellation() {
     this.displayError = false;
     this.msg = "";
     this.hidePCSection = false;
@@ -695,7 +744,7 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "Parts Counter";
     }
   }
-  public urCancellation() {
+  urCancellation() {
     this.displayError = false;
     this.msg = "";
     this.hideURSection = false;
@@ -714,7 +763,7 @@ export class RewardsDistributionComponent implements OnInit {
       this.lastClick = "Used Recon";
     }
   }
-  public approveAllMVPPlans(approveAllMVP) {
+  approveAllMVPPlans(approveAllMVP) {
     // alert(approveAllMVP);
     if (approveAllMVP != undefined && approveAllMVP == true) {
       this.approveAllMVP = true;
@@ -733,8 +782,8 @@ export class RewardsDistributionComponent implements OnInit {
     }
   }
 
-  public rewardsAmountDatum: any;
-  public getRewardsAmountData(programName) {
+  rewardsAmountDatum: any;
+  getRewardsAmountData(programName) {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
     this.rewardsDistributionService.getRewardsAmountData(programName, dealerCode).subscribe(
       (rewardsAmountDatum) => {
@@ -746,10 +795,10 @@ export class RewardsDistributionComponent implements OnInit {
       }
     )
   }
-  public elRewardsAmountDatum: any;
-  public getELRewardsAmountData(programName, teamID) {
+  elRewardsAmountDatum: any;
+  getELRewardsAmountData(programName, teamID) {
     var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-    this.rewardsDistributionService.getELRewardsAmountData(programName, dealerCode, teamID).subscribe(
+    this.rewardsDistributionService.getELRewardsAmountData(programName, dealerCode, teamID.trim()).subscribe(
       (elRewardsAmountDatum) => {
         this.elRewardsAmountDatum = (elRewardsAmountDatum)
         // console.log(this.elRewardsAmountDatum);

@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
   private refreshTokenData: any;
   private endEmulationFromCookie: string = "";
   public originFromCookie: string = "";
+  mvpAutoApprovePage: string = "";
+  donotshowMVPPage: string = "";
 
   constructor(private loginService: LoginService, private router: Router, private activatedRoute: ActivatedRoute,
     private cookieService: CookieService, private chRef: ChangeDetectorRef) {
@@ -59,6 +61,8 @@ export class LoginComponent implements OnInit {
     var dcFromCookie = this.cookieService.get("dc");
     var pcFromCookie = this.cookieService.get("pc");
     var originFromCookie = this.cookieService.get("origin");
+    this.mvpAutoApprovePage = this.cookieService.get("mvpAutoApprovePage");
+    this.donotshowMVPPage = this.cookieService.get("donotshowMVPPage");
     this.originFromCookie = originFromCookie;
     if (tokenFromCookie != undefined && dcFromCookie != undefined && pcFromCookie != undefined) {
       this.hideLoginPage = true;
@@ -187,6 +191,9 @@ export class LoginComponent implements OnInit {
             } else if (mserEnrollment && this.originFromCookie != undefined && this.originFromCookie == "payout") {
               let url = ["mserHomepage/payoutchart"]
               this.router.navigate(url);
+              // } else if (mserEnrollment && this.mvpAutoApprovePage != undefined && this.mvpAutoApprovePage == "mvpAutoApprovePage") {
+              //   let url = ["mserHomepage/mvpautoapprove"]
+              //   this.router.navigate(url);
             } else if (mserEnrollment && !passwordReset) {
               let url = ["mserHomepage/home"]
               this.router.navigate(url);

@@ -16,52 +16,54 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   @Input() data: any;
-  @ViewChild("dealercodeModal") public dealercodeModal: NgbModalRef;
+  @ViewChild("dealercodeModal") dealercodeModal: NgbModalRef;
   @Output("onProfileChange") profileChange = new EventEmitter<any>();
 
-  public poscodesSession: any = [];
-  public delcodesSession: any = [];
-  public dealerNamesSession: any = [];
-  public dealerManagerSession: any = [];
-  public serviceManagerOfRecordSession: any = []
-  public partsManagerOfRecordSession: any = [];
-  public isAdminSession: boolean = false;
-  public isELManagerSession: any = [];
-  public isPCManagerSession: any = [];
-  public isUVMManagerSession: any = [];
-  public isELEnrolledSession: any = [];
-  public isPCEnrolledSession: any = [];
-  public iselValidatedSession: any = [];
-  public positionCodeDescSession: any = [];
-  public rolesSession: any;
-  public bcsSession: any = [];
-  public elManagerExistsSession: any = [];
-  public pcManagerExistsSession: any = [];
-  public uvmManagerExistsSession: any = [];
+  poscodesSession: any = [];
+  delcodesSession: any = [];
+  dealerNamesSession: any = [];
+  dealerManagerSession: any = [];
+  serviceManagerOfRecordSession: any = []
+  partsManagerOfRecordSession: any = [];
+  isAdminSession: boolean = false;
+  isELManagerSession: any = [];
+  isPCManagerSession: any = [];
+  isUVMManagerSession: any = [];
+  isELEnrolledSession: any = [];
+  isPCEnrolledSession: any = [];
+  iselValidatedSession: any = [];
+  positionCodeDescSession: any = [];
+  rolesSession: any;
+  bcsSession: any = [];
+  elManagerExistsSession: any = [];
+  pcManagerExistsSession: any = [];
+  uvmManagerExistsSession: any = [];
+  mvpApprovalSession: any = [];
 
-  public userProfileData: any = {};
-  public displayDealerCode: any = false;
-  public displayRetweetModal: boolean = false;
-  public selectedDealerCode: any = "";
-  public selectedPositionCode: any = "";
-  public selectedDealerName: any = "";
+  userProfileData: any = {};
+  displayDealerCode: any = false;
+  displayRetweetModal: boolean = false;
+  selectedDealerCode: any = "";
+  selectedPositionCode: any = "";
+  selectedDealerName: any = "";
 
 
-  public isDealerManager: boolean = false;
-  public isServiceManagerOfRecord: boolean = false;
-  public isPartsManagerOfRecord: boolean = false;
-  public isELManager: boolean = false;
-  public isPCManager: boolean = false;
-  public isUVMManager: boolean = false;
-  public isELEnrolled: string = "";
-  public isPCEnrolled: string = "";
-  public iselValidated: string = "";
-  public isDealerEmulation: string = "false";
+  isDealerManager: boolean = false;
+  isServiceManagerOfRecord: boolean = false;
+  isPartsManagerOfRecord: boolean = false;
+  isELManager: boolean = false;
+  isPCManager: boolean = false;
+  isUVMManager: boolean = false;
+  ismvpApproval: boolean = false;
+  isELEnrolled: string = "";
+  isPCEnrolled: string = "";
+  iselValidated: string = "";
+  isDealerEmulation: string = "false";
 
-  public selectedIndex: any = 0;
-  public codeData: CodeData;
+  selectedIndex: any = 0;
+  codeData: CodeData;
 
-  public booleanAdminToken: any = this.cookieService.get("adminToken");
+  booleanAdminToken: any = this.cookieService.get("adminToken");
 
 
   constructor(
@@ -94,6 +96,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.elManagerExistsSession = this.data.elManagerExists;
     this.pcManagerExistsSession = this.data.pcManagerExists;
     this.uvmManagerExistsSession = this.data.uvmManagerExists;
+    this.mvpApprovalSession = this.data.mvpApproval;
 
     // this.poscodesSession = ["01", "03", "05", "08", "09", "05", "06"];
     // this.delcodesSession = ["05002", "05002", "05002", "08625", "08625", "45614", "45614"];
@@ -127,7 +130,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       elValidated: this.iselValidatedSession[this.selectedIndex],
       elManagerExists: this.elManagerExistsSession[this.selectedIndex],
       pcManagerExists: this.pcManagerExistsSession[this.selectedIndex],
-      uvmManagerExists: this.uvmManagerExistsSession[this.selectedIndex]
+      uvmManagerExists: this.uvmManagerExistsSession[this.selectedIndex],
+      mvpApproval: this.mvpApprovalSession[this.selectedIndex]
 
     }
     this.groupbyPCDC();
@@ -137,7 +141,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public removeDuplicates(duplicateArray) {
+  removeDuplicates(duplicateArray) {
     var cleanArray = [];
     for (var i = 0; i < duplicateArray.length; i++) {
       var push = true;
@@ -152,11 +156,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
     return cleanArray;
   }
-  public dcDinstinct = [];
-  public pcDescDistinct = [];
-  public pcMap = {};
-  public pcDescMap = {};
-  public groupbyPCDC() {
+  dcDinstinct = [];
+  pcDescDistinct = [];
+  pcMap = {};
+  pcDescMap = {};
+  groupbyPCDC() {
     this.dcDinstinct = this.removeDuplicates(this.delcodesSession);
     // console.log(this.dcDinstinct); 
 
@@ -197,9 +201,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.onPCChange();
 
   }
-  public pcDinstinct = [];
-  public pcDistinctOption = [];
-  public onDCChange() {
+  pcDinstinct = [];
+  pcDistinctOption = [];
+  onDCChange() {
     var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
     var index = htmlObject.selectedIndex
 
@@ -213,7 +217,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.chRef.detectChanges();
   }
 
-  public onDCChangeSubmit() {
+  onDCChangeSubmit() {
     var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
     var index = htmlObject.selectedIndex
     this.pcDinstinct = this.pcMap[this.dcDinstinct[index]];
@@ -224,7 +228,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
 
-  public onPCChange() {
+  onPCChange() {
     //this.chRef.detectChanges();
     // for (var i = 0; i < this.delcodesSession.length; i++) {
     //   if (this.delcodesSession[i] == this.codeData.selectedDealerCode && this.codeData.selectedPositionCode == this.poscodesSession[i]) {
@@ -352,14 +356,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  public getSelectedDealerCode() {
+  getSelectedDealerCode() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
   }
-  public getSelectedDealerName() {
+  getSelectedDealerName() {
     return JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerName;
   }
 
-  public openSSOSite(url: any) {
+  openSSOSite(url: any) {
     var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
     var positioncodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedPositionCode;
     var dealerlcodes: any = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
@@ -368,9 +372,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  public positionCodeOptions: SelectItem[] = [];
-  public dealerCodeOptions: SelectItem[] = [];
-  public createPCDCOptions() {
+  positionCodeOptions: SelectItem[] = [];
+  dealerCodeOptions: SelectItem[] = [];
+  createPCDCOptions() {
     // var positionCodeOptions = [{ label: "", value: "" }];
     // var dealerCodeOptions = [{ label: "", value: "" }];
     var positionCodeOptions = [];
@@ -385,34 +389,46 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.dealerCodeOptions = dealerCodeOptions;
   }
 
-  public positionCodeCancel() {
+  positionCodeCancel() {
     this.dealercodeModal.close();
   }
-  public positionCodeSubmit(c: any) {
+  positionCodeSubmit(c: any) {
     c();
     this.profileChange.emit("")
   }
-  public dropdownDealerCode() {
+  dropdownDealerCode() {
     // this.modalService.open(this.dealercodeModal, { windowClass: 'dealercode' });
     this.createPCDCOptions();
     this.displayRetweetModal = true;
 
   }
-  public submitRetweetPCDC() {
+
+  submitRetweetPCDC() {
+    var donotshowMVPPage = this.cookieService.get("donotshowMVPPage");
     // alert(this.selectedIndex);
     this.onDCChangeSubmit();
     // this.onPCChange();
     this.displayRetweetModal = false;
     //alert(this.selectedIndex);
-    location.reload();
+    // if (donotshowMVPPage != undefined && donotshowMVPPage == "hideMVPPage") {
+    window.location.href =
+      window.location.origin
+        ? window.location.origin + '/'
+        : window.location.protocol + '/' + window.location.host + '/';
+    // } else {
+    //   this.cookieService.remove("donotshowMVPPage");
+    // location.reload();
+
+    // }
+
   }
 
 
-  //public selectedPCIndex: any = 0;
-  //public selectedDCIndex: any = 0;
-  public selectedCodeData: any = [];
-  public role: any = "";
-  public onChangePC() {
+  // selectedPCIndex: any = 0;
+  // selectedDCIndex: any = 0;
+  selectedCodeData: any = [];
+  role: any = "";
+  onChangePC() {
     this.codeData.selectedDealerName = this.selectedDealerName = this.dealerNamesSession[this.selectedIndex];
     this.codeData.isDealerManager = this.isDealerManager = this.dealerManagerSession[this.selectedIndex];
     this.codeData.isServiceManagerOfRecord = this.isServiceManagerOfRecord = this.serviceManagerOfRecordSession[this.selectedIndex];
@@ -429,12 +445,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.codeData.elManagerExists = this.elManagerExistsSession[this.selectedIndex];
     this.codeData.pcManagerExists = this.pcManagerExistsSession[this.selectedIndex];
     this.codeData.uvmManagerExists = this.uvmManagerExistsSession[this.selectedIndex];
+    this.codeData.mvpApproval = this.mvpApprovalSession[this.selectedIndex];
 
     sessionStorage.setItem("selectedIndex", JSON.stringify(this.selectedIndex));
     this.selectedCodeData = sessionStorage.setItem("selectedCodeData", JSON.stringify(this.codeData));
     this.chRef.detectChanges();
   }
-  /*public onChangeDC(selectedDealerCode) {
+  /* onChangeDC(selectedDealerCode) {
     var htmlObject = document.getElementById("dcOptions") as HTMLSelectElement;
     var index = htmlObject.selectedIndex
     this.selectedDCIndex = index;
@@ -448,7 +465,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     console.log(selectedDealerCode + " " + index);
   }*/
 
-  public endEmulation() {
+  endEmulation() {
     this.cookieService.put("isDealerEmulation", "false");
     var adminToken = this.cookieService.get("adminToken");
     this.cookieService.remove("adminToken");
@@ -470,7 +487,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  public endDealerEmulation() {
+  endDealerEmulation() {
     this.cookieService.put("isDealerEmulation", "false");
     var adminToken = this.cookieService.get("adminToken");
     this.cookieService.remove("adminToken");
@@ -493,7 +510,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  // public checkDealerToken() {
+  //  checkDealerToken() {
   //   if (this.cookieService.get("adminToken") == this.cookieService.get("token")) {
   //     if ((this.cookieService.get("token") !== undefined) && this.cookieService.get("token") !== null) {
   //       this.booleanDealerEmulation = true;

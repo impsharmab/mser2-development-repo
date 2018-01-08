@@ -18,4 +18,5 @@ export interface CodeData {
     elManagerExists: string;
     pcManagerExists: string;
     uvmManagerExists: String;
+    mvpApproval: boolean;
 }

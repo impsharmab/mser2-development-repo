@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-
+import { Router, RouterOutlet } from '@angular/router';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { MVPAutoApprovalSettingService } from '../../../services/mvp-service/mvp-autoapprove/mvp-autoapprove.service';
 
 declare var $: any;
@@ -18,7 +19,9 @@ export class MVPAutoApproveComponent implements OnInit {
     public mvpAutoApprovalData: any;
     public updatedMessage: string = "";
     constructor(
-        private mvpAutoApprovalSettingService: MVPAutoApprovalSettingService
+        private mvpAutoApprovalSettingService: MVPAutoApprovalSettingService,
+        private router: Router,
+        private cookieService: CookieService,
     ) {
 
     }
@@ -62,8 +65,13 @@ export class MVPAutoApproveComponent implements OnInit {
         this.mvpAutoApprovalSettingService.getMVPAutoApprovalData(this.mvpApprovalData).subscribe(
             (mvpAutoApprovalData) => {
                 this.mvpAutoApprovalData = mvpAutoApprovalData
-
                 this.updatedMessage = "Successfully updated the changes";
+                // to reload the page
+                this.cookieService.put("mvpAutoApprovePage", "mvpAutoApprovePage");
+                window.location.href =
+                    window.location.origin
+                        ? window.location.origin + '/'
+                        : window.location.protocol + '/' + window.location.host + '/';
 
                 if (this.mvpApprovalData != undefined && this.mvpApprovalData == true) {
                     this.checkedManual = null;

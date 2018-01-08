@@ -32,22 +32,22 @@
                         <div class="form-group col-sm-4">
                             <label for="from-1">From:</label>
                             <p-calendar placeholder="From" id="from-1" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.from"></p-calendar>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="to-1">To:</label>
                             <p-calendar placeholder="To" id="to-1" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.to"></p-calendar>
                         </div>
                         <div class="form-group col-sm-4 report-button-container">
                             <button pButton type="button" (click)="showExDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bc.program" [style]="{'width':'400px'}"
                                         filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
                 <!-- Report Include -->
-                <div class="row" *ngIf="showExecutiveRewardDepositReportIframe">
+                <div class="row" *ngIf="showExecutiveIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                 </div>
             </div>
@@ -63,22 +63,22 @@
                         <div class="form-group col-sm-4">
                             <label for="from-2">From:</label>
                             <p-calendar placeholder="From" id="from-2" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.from"></p-calendar>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="to-2">To:</label>
                             <p-calendar placeholder="To" id="to-2" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.to"></p-calendar>
                         </div>
                         <div class="form-group col-sm-4 report-button-container">
-                            <button pButton type="button" (click)="viewBCRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="viewBCReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bc.program" [style]="{'width':'400px'}"
                                         filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
                 <!-- Report Include -->
-                <div class="row" *ngIf="showBCRewardDepositReportIframe">
+                <div class="row" *ngIf="showBCIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
                     </iframe>
                 </div>
@@ -94,24 +94,24 @@
                         <div class="form-group col-sm-4">
                             <label for="from-3">From:</label>
                             <p-calendar placeholder="From" id="from-3" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.from"></p-calendar>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="to-3">To:</label>
                             <p-calendar placeholder="To" id="to-3" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.to"></p-calendar>
                         </div>
-                        <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode" /> -->
+                        <!-- <input type="text" id="dc" name="dc" pInputText [(ngModel)]="bc.dealerCode" /> -->
                         <div class="col-sm-4 form-group report-button-container">
-                            <button pButton type="button" (click)="viewDistrictRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="viewDistrictReport()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bc.program" [style]="{'width':'400px'}"
                               filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                 </form>
 
                 <!-- Report Include -->
-                <div class="row" *ngIf="showDistrictRewardDepositReportIframe">
+                <div class="row" *ngIf="showDistrictIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'>
                     </iframe>
                 </div>
@@ -125,27 +125,27 @@
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
                     <div class="row">
-                        <div class="form-group col-sm-3" [hidden]="true">
+                        <div class="form-group col-sm-3">
                             <label for="dc-4">Dealer Code:</label>
-                            <input [disabled]="disableDealerCodeInput" placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="bcrewardDeposit.dealerCode"
+                            <input [disabled]="disableDealerCodeInput" placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="bc.dealerCode"
                                 minlength="5" maxlength="5" (ngModelChange)="dealerCodeNotBelongsToThisBCOrDist=''; msg=''" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-4">From:</label>
                             <p-calendar placeholder="From" id="from-4" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.from"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-4">To:</label>
                             <p-calendar placeholder="To" id="to-4" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.to"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
-                            <button pButton type="button" (click)="viewDealerRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="getDealerCodeValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                     <!-- <div class="row"> -->
-                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bc.program" [style]="{'width':'400px'}"
                                         filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
                     <!-- </div> -->
                 </form>
@@ -157,9 +157,9 @@
                 <div *ngIf="msg.length>0" [hidden]="msg.length<1" class="alert alert-danger alert-dismissible fade show w-50" role="alert">
                     {{msg}}
                 </div>
-                <div *ngIf="showDealerRewardDepositReportIframe">
+                <div *ngIf="showDealerIframe">
                     <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
-                    <!-- <iframe *ngIf="showDealerRewardDepositReportIframe" height=625px width=950px id="frame1" name="frame1" [src]=' openRewardDepositReport()'>
+                    <!-- <iframe *ngIf="showDealerIframe" height=625px width=950px id="frame1" name="frame1" [src]=' openReport()'>
                             </iframe> -->
                 </div>
             </div>
@@ -173,24 +173,24 @@
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <label for="dc-5">Sid:</label>
-                            <input [disabled]="disableSIDInput" placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bcrewardDeposit.sid"
+                            <input [disabled]="disableSIDInput" placeholder="Sid" type="text" id="dc-5" name="dc" pInputText [(ngModel)]="bc.sid"
                                 minlength="7" maxlength="7" (ngModelChange)="sidNotBelongsToThisBC=''; msg=''" />
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="from-5">From:</label>
                             <p-calendar placeholder="From" id="from-5" name="from" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.from"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.from"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="to-5">To:</label>
                             <p-calendar placeholder="To" id="to-5" name="to" [minDate]="minDate" [maxDate]="maxDate" dateFormat="mm/dd/yy" showIcon="true"
-                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bcrewardDeposit.to"></p-calendar>
+                                [style]="{'overflow':'visible'}" [showTime]="false" dataType="string" [(ngModel)]="bc.to"></p-calendar>
                         </div>
                         <div class="form-group col-sm-3 report-button-container">
-                            <button pButton type="button" (click)="viewParticipantRewardDepositReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="getSIDValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
-                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bcrewardDeposit.program" [style]="{'width':'400px'}"
+                    <!-- <p-dropdown [options]="programOptions" id="program" name="program" [(ngModel)]="bc.program" [style]="{'width':'400px'}"
                                     filter="filter" placeholder="Select a Program"><span style="margin-left:45px; overflow:visible"></span> </p-dropdown> -->
 
                     <div *ngIf="sidNotBelongsToThisBC.length>0">
@@ -200,7 +200,7 @@
                         {{msg}}
                     </div>
                     <!-- Report Include -->
-                    <div class="row" *ngIf="showParticipantRewardDepositReportIframe">
+                    <div class="row" *ngIf="showParticipantIframe">
                         <iframe class="report-iframe col-sm-12" id="frame1" name="frame1" [src]='src'></iframe>
                     </div>
                 </form>

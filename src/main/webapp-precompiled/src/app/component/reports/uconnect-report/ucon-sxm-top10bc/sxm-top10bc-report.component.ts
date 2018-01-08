@@ -70,7 +70,7 @@ export class SXMTop10BCReportComponent implements OnInit {
         this.maxDate = new Date();
         this.minDate.setMonth(0);
         this.minDate.setDate(1);
-        this.minDate.setFullYear(today.getFullYear());
+        this.minDate.setFullYear(today.getFullYear() - 1);
         this.maxDate.setMonth(d.getMonth());
         this.maxDate.setFullYear(today.getFullYear());
         this.maxDate.setDate(lastDayOfMonth.getDate());

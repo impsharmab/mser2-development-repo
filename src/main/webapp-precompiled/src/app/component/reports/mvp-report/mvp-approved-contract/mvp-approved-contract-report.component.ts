@@ -14,29 +14,29 @@ declare var $: any;
 })
 export class MVPApprovedContractsReportComponent implements OnInit {
 
-    public selectedRole: any;
-    public isAdminUser: boolean = false;
-    public isExecutiveUser: boolean = false;
-    public isBCUser: boolean = false;
-    public isDistrictUser: boolean = false;
-    public isDealerUser: boolean = false;
-    public isManagerUser: boolean = false;
-    public isParticipantUser: boolean = false;
+    selectedRole: any;
+    isAdminUser: boolean = false;
+    isExecutiveUser: boolean = false;
+    isBCUser: boolean = false;
+    isDistrictUser: boolean = false;
+    isDealerUser: boolean = false;
+    isManagerUser: boolean = false;
+    isParticipantUser: boolean = false;
 
-    public hideInput: boolean = false;
+    hideInput: boolean = false;
 
-    public src: any;
+    src: any;
 
-    public selectedPositionCode: any = "";
+    selectedPositionCode: any = "";
 
-    public minDate: Date;
-    public maxDate: Date;
+    minDate: Date;
+    maxDate: Date;
 
-    public selectedDC: string = "";
-    public selectedMonth: any = "";
-    public selectedYear: any = "";
+    selectedDC: string = "";
+    selectedMonth: any = "";
+    selectedYear: any = "";
 
-    public bcOptions: SelectItem[] = [
+    bcOptions: SelectItem[] = [
         { label: "CA", value: "CA" },
         { label: "DN", value: "DN" },
         { label: "GL", value: "GL" },
@@ -47,7 +47,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         { label: "SW", value: "SW" },
         { label: "WE", value: "WE" }
     ]
-    public monthOptions: SelectItem[] = [
+    monthOptions: SelectItem[] = [
         { label: "January", value: "01" },
         { label: "February", value: "02" },
         { label: "March", value: "03" },
@@ -62,16 +62,17 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         { label: "December", value: "12" }
     ];
 
-    public currentYear: any = "";
-    public yearOptions: SelectItem[] = [];
-    public showIframe: boolean = false;
-    public fromDate: any = "";
-    public toDate: any = "";
-    public from: any = "";
-    public to: any = "";
+    currentYear: any = "";
+    previousYear: any = "";
+    yearOptions: SelectItem[] = [];
+    showIframe: boolean = false;
+    fromDate: any = "";
+    toDate: any = "";
+    from: any = "";
+    to: any = "";
 
-    public programName: string = "MVPApprovedContracts";
-    public msg: string = "";
+    programName: string = "MVPApprovedContracts";
+    msg: string = "";
 
     constructor(private domSanitizer: DomSanitizer, private reportService: ReportService, private chRef: ChangeDetectorRef) {
 
@@ -85,14 +86,15 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         // this.fromDate = (d.getMonth() + 1) + "/1/" + new Date().getFullYear();
         // this.toDate = (d.getMonth() + 1) + "/" + lastDayOfMonth.getDate() + "/" + new Date().getFullYear();
         this.currentYear = new Date().getFullYear();
+        this.previousYear = this.currentYear - 1;
         // this.from = this.fromDate;
         // this.to = this.toDate;
-        this.yearOptions.push({ label: this.currentYear, value: this.currentYear });
+        this.yearOptions.push({ label: this.previousYear, value: this.previousYear }, { label: this.currentYear, value: this.currentYear });
         this.minDate = new Date();
         this.maxDate = new Date();
         this.minDate.setMonth(0);
         this.minDate.setDate(1);
-        this.minDate.setFullYear(today.getFullYear());
+        this.minDate.setFullYear(today.getFullYear() - 1);
         this.maxDate.setMonth(d.getMonth());
         this.maxDate.setFullYear(today.getFullYear());
         this.maxDate.setDate(lastDayOfMonth.getDate());
@@ -102,7 +104,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         this.squarify();
     }
 
-    public squarify() {
+    squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -114,7 +116,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
-    public renderTab() {
+    renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -135,8 +137,8 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         this.squarify();
         //event.target.innerWidth; // window width
     }
-    public diableInput: boolean = false;
-    public checkRole() {
+    diableInput: boolean = false;
+    checkRole() {
         this.isAdminUser = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
         this.selectedRole = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
         if (this.isAdminUser) {
@@ -164,7 +166,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
     }
 
     private dealerCodesBelongsToThisBCOrDist: boolean = false;
-    public verifyInputs() {
+    verifyInputs() {
         this.msg = "";
         if (this.isParticipantUser) {
             this.viewParticipantReport();
@@ -191,7 +193,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
 
     }
 
-    public createDates() {
+    createDates() {
         if (this.selectedMonth == "" && this.selectedYear == "") {
             this.msg = errorMessage.selectYearAndMonth;
             this.showIframe = false;
@@ -213,7 +215,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         this.toDate = this.selectedMonth + "/" + lastDayOfSelectedMonth + "/" + this.selectedYear;
     }
 
-    public showExReport() {
+    showExReport() {
         this.createDates();
         // if (this.selectedDC == "") {
         //     this.showIframe = false;
@@ -229,7 +231,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         // }
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    public viewBCReport() {
+    viewBCReport() {
         this.createDates();
         // if (this.selectedDC == "") {
         //     this.showIframe = false;
@@ -246,7 +248,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
         // }
     }
-    public viewDistrictReport() {
+    viewDistrictReport() {
         this.createDates();
         // if (this.selectedDC == "") {
         //     this.showIframe = false;
@@ -263,7 +265,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
         // }
     }
-    public viewDealerReport() {
+    viewDealerReport() {
         this.createDates();
         var DEALERCODE980 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${DEALERCODE980}&FromDate=${this.fromDate}&ToDate=${this.toDate}`;
@@ -271,7 +273,7 @@ export class MVPApprovedContractsReportComponent implements OnInit {
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
 
-    public viewParticipantReport() {
+    viewParticipantReport() {
         this.createDates();
         var SID = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
         this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${this.programName}&DealerCode=${SID}&FromDate=${this.fromDate}&ToDate=${this.toDate}`; console.log(this.src);

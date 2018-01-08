@@ -1,26 +1,11 @@
 <main class="main">
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <h4 class="modal-title">Outage</h4>
-          <button aria-label="Close" class="close" type="button" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>On Monday, December 18th our telephone and voice mail system will be unavailable between 6:00 PM-9:00 PM. We will be
-            operational at 8:00 a.m. on Tuesday morning, December 19, 2017.</p>
-          <p> Thank you for your patience.</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" type="button" (click)="c('Close click')">Close</button>
-        </div>
-      </ng-template>  
 
   <!-- Breadcrumb -->
   <!-- <ol class="breadcrumb mb-0">
     <li class="breadcrumb-item" routerLink="home" >Home</li>
     <li class="breadcrumb-item active" routerLink="home">Dashboard</li>
   </ol> -->
+
   <div class="container m-t-md">
     <div class="row m-t-md">
       <br>
@@ -34,7 +19,7 @@
       <div *ngIf="!hideEnrollmentTile" class="col-sm-6 box">
         <!-- <div *ngFor="let data of tileData; let i = index;" class="{{(tileData.length%2==1) && (tileData.length== i+1) ? 'col-sm-6 card1':'col-sm card1'}}"> -->
 
-        <div class="card1">        
+        <div class="card1">
           <!-- <p>{{mserEnrollmentDatum[0].tileName}}</p> -->
           <div class="image-frame">
             <img src="/shared/imi-cms/MSER/images/MSEREnrollment.jpg" style="height: 55px"> </div>
@@ -71,6 +56,7 @@
         </div>
       </div>
       <!-- Begin Second Block -->
+
     </div>
   </div>
 </main>

@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, Pipe, PipeTransform } from '@angular/core';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Router, RouterOutlet, ActivatedRoute, Params } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 import { CommaSeparatedNumberPipe } from '../number-formatting/comma-separated.component';
 
 import { HomeService } from '../../services/home-service/home-service';
@@ -19,9 +20,7 @@ export class HomeComponent implements OnInit {
   public ssotoken: string = "";
   public isssotoken: boolean = false;
 
-  @ViewChild("content") private model: any;
-
-  constructor(private modalService: NgbModal, private homeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private homeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.ssotoken = params['token'];
       if (this.ssotoken != undefined && this.ssotoken.length > 0) {
@@ -38,21 +37,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    var showWelcomePopup = sessionStorage.getItem("showWelcomePopup");
-    if (showWelcomePopup == undefined) {
-      Promise.resolve().then(() =>  this.modalService.open(this.model, { size: "lg" }));
-    }
-    sessionStorage.setItem("showWelcomePopup", "false");
-    
+    // this.cookieService.remove("donotshowMVPPage");
     this.isAdmin = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
     if (this.isAdmin) {
       this.isTIDUser = true;
     } else {
-      this.checkRoles();
+      this.checkRoles(); 
     }
     this.getMSEREnrollmentTileData();
     this.getMSEREarningTileData();
     this.hideEnrollmentTileMatrix();
+
   }
 
   public showEnrollmentMaintenanceButton: boolean = false;
@@ -60,10 +55,17 @@ export class HomeComponent implements OnInit {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
-    if (isDealerManager || isPartsManagerOfRecord || isServiceManagerOfRecord) {
+    var isElManger = JSON.parse(sessionStorage.getItem("selectedCodeData")).isElManager;
+    var isPCManger = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCManager;
+    var isUVMManger = JSON.parse(sessionStorage.getItem("selectedCodeData")).isUVMManager;
+    var isELManagerExist = JSON.parse(sessionStorage.getItem("selectedCodeData")).elManagerExists;
+    var isPCMnanagerExist = JSON.parse(sessionStorage.getItem("selectedCodeData")).pcManagerExists;
+    var isUVMManagerExist = JSON.parse(sessionStorage.getItem("selectedCodeData")).uvmManagerExists;
+
+    if (isDealerManager || isPartsManagerOfRecord || isServiceManagerOfRecord || isElManger || isPCManger || isUVMManger) {
       this.showEnrollmentMaintenanceButton = true;
     } else {
-
+      this.showEnrollmentMaintenanceButton = false;
     }
   }
   public mserEnrollmentDatum: any = [{

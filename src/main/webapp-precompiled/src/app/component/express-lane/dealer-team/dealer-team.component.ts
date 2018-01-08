@@ -27,7 +27,7 @@ export class DealerTeamComponent implements OnInit {
     public errorAddingTeamMessage: string = "";
     public n: string = "none";
     displayDialog: boolean;
-    displayAddTeamDialog: boolean;
+    displayAddTeamDialog: boolean; 
 
 
     constructor(private dealerTeamService: DealerTeamService, private modalService: NgbModal) {
@@ -137,7 +137,7 @@ export class DealerTeamComponent implements OnInit {
             }
         }
 
-        this.dealerTeamService.addNewDealerTeam(this.newDealerTeamData.name, this.newDealerTeamData.id, this.date, user, dealercode).subscribe(
+        this.dealerTeamService.addNewDealerTeam(this.newDealerTeamData.name.trim(), this.newDealerTeamData.id.trim(), this.date, user, dealercode).subscribe(
             (addNewDealerTeamData) => {
                 this.addNewDealerTeamData = (addNewDealerTeamData)
                 this.displayAddTeamDialog = false;

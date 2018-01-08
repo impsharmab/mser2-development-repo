@@ -90,7 +90,7 @@ export class RewardsDepositReportComponent implements OnInit {
         this.maxDate = new Date();
         this.minDate.setMonth(0);
         this.minDate.setDate(1);
-        this.minDate.setFullYear(today.getFullYear());
+        this.minDate.setFullYear(today.getFullYear() - 1);
         this.maxDate.setMonth(d.getMonth());
         this.maxDate.setFullYear(today.getFullYear());
         this.maxDate.setDate(lastDayOfMonth.getDate());
@@ -242,16 +242,16 @@ export class RewardsDepositReportComponent implements OnInit {
         var territory = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         var dc = this.bcrewardDeposit.dealerCode;
         if (dc == "" && this.selectedProgramList.length == 0) {
-            this.showDealerIframe=false;
+            this.showDealerIframe = false;
             this.msg = errorMessage.selectProgramAndDealerCode;
             return;
         } else if (dc == "" && this.selectedProgramList.length > 0) {
-            this.showDealerIframe=false;
+            this.showDealerIframe = false;
             this.msg = errorMessage.selectDealerCode;
             return;
         } else if (dc != "" && this.selectedProgramList.length == 0) {
             this.msg = errorMessage.selectProgram;
-            this.showDealerIframe=false;
+            this.showDealerIframe = false;
             return;
         }
         if (this.isDealerUser || this.isManagerUser) {
@@ -274,15 +274,15 @@ export class RewardsDepositReportComponent implements OnInit {
         var sid = this.bcrewardDeposit.sid;
         if (sid == "" && this.selectedProgramList.length == 0) {
             this.msg = errorMessage.enterProgramAndSID;
-            this.showParticipantIframe=false;
+            this.showParticipantIframe = false;
             return;
         } else if (sid == "" && this.selectedProgramList.length > 0) {
             this.msg = errorMessage.enterSID;
-            this.showParticipantIframe=false;
+            this.showParticipantIframe = false;
             return;
         } else if (sid != "" && this.selectedProgramList.length == 0) {
             this.msg = errorMessage.selectProgram;
-            this.showParticipantIframe=false;
+            this.showParticipantIframe = false;
             return;
         }
         if (this.isParticipantUser) {

@@ -63,7 +63,7 @@ export const automaticEnrollmentOptoutFormMatrix: any = [
 // Admin tab
 
 // MVP Tab
-export const mvpChangeApprovalSettings: any = ["09"];
+export const mvpChangeApprovalSettings: any = ["02", "17", "33", "35"];
 
 export const smWinterMatrix: any = ["01"];
 

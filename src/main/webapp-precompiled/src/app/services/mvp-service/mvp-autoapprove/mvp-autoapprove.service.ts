@@ -14,52 +14,38 @@ export class MVPAutoApprovalSettingService {
     getAutoApprovalCount(): any {
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode
         var url = serviceUrl.baseUrl + "Rewards/MVP/getAutoApprovalCount/" + dealerCode;
-
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-
         return this.http.get(url, { headers })
             .map((response: Response) => response.json())
             .catch(this.handleError);
-
-
     }
 
     getMVPApprovalData(): any {
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode
         var url = serviceUrl.baseUrl + "Rewards/MVP/getAutoApproval/" + dealerCode + "/";
-
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-
         return this.http.get(url, { headers })
             .map((response: Response) => response.json())
             .catch(this.handleError);
-
-
     }
 
     getMVPAutoApprovalData(auto): any {
         var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode
         var url = serviceUrl.baseUrl + "Rewards/MVP/Auto/" + dealerCode + "/" + auto;
-
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', validToken);
-
         return this.http.get(url, { headers })
             .map((response: Response) => response.json())
             .catch(this.handleError);
-
-
     }
-
-
 
     private handleError(error: Response | any) {
         let errMsg: string = "";

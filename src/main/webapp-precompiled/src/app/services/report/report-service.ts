@@ -54,7 +54,7 @@ export class ReportService {
                 response.json())
             .catch(this.handleError);
     }
-
+ 
     getRejectedInvoiceData(dc, fromDate, toDate) {
         var url = serviceUrl.baseUrl + "service/RejectedInvoices/Get/" + dc;
         var validToken: any = JSON.parse(sessionStorage.getItem("CurrentUser")).token;

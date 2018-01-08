@@ -1,5 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+
 import * as userMatrix from '../../global-variable/user-matrix';
+import { RewardsDistributionService } from '../../services/rewards-distribution/rewards-distribution.service';
+import { MVPAutoApprovalSettingService } from '../../services/mvp-service/mvp-autoapprove/mvp-autoapprove.service';
 
 declare var $: any;
 
@@ -7,41 +11,51 @@ declare var $: any;
   selector: 'sidenav',
   // templateUrl: './mser2-sidenav.component.html',
   templateUrl: './sidenav.html',
-  styleUrls: ['./sidenav.component.css'],
+  styleUrls: ['./sidenav.component.css']
 
 })
 export class SidenavComponent implements OnInit, AfterViewInit {
-  public isAdmin: boolean = false;
-  public cmsContentObject: any;
-  public selectedPositionCode: any = "";
-  public showMSERRulesPage: boolean = false;
-  public showMSEREnrollmentReport: boolean = false;
-  public showMSEREnrollmentForm: boolean = false;
-  public showMSEROPCodeSetup: boolean = false;
-  public showMSEREnrollmentMaintenance: boolean = false;
-  public showMSERAutoEnrollmentOpt: boolean = false;
-  public showuvmHome: boolean = false;
-  public showuvmProgramRules: boolean = false;
-  public showexcellenceCardIssuance: boolean = false;
-  public showexcellenceCardInfo: boolean = false;
-  public showRewardDistribution: boolean = false;
-  public isMSEREnrolled: boolean = false;
-  public showMVPChangeApprovalSettings: boolean = false;
-  public showRewardDistributionMainTab: boolean = false;
-  public roleSession: any = "";
-  public hideThisReportForParticipant: boolean = false;
-  public hideThisReportBelowBCUsers: boolean = false;
-  public halfAdmin: boolean = false;
+  isAdmin: boolean = false;
+  cmsContentObject: any;
+  selectedPositionCode: any = "";
+  showMSERRulesPage: boolean = false;
+  showMSEREnrollmentReport: boolean = false;
+  showMSEREnrollmentForm: boolean = false;
+  showMSEROPCodeSetup: boolean = false;
+  showMSEREnrollmentMaintenance: boolean = false;
+  showMSERAutoEnrollmentOpt: boolean = false;
+  showuvmHome: boolean = false;
+  showuvmProgramRules: boolean = false;
+  showexcellenceCardIssuance: boolean = false;
+  showexcellenceCardInfo: boolean = false;
+  showRewardDistribution: boolean = false;
+  isMSEREnrolled: boolean = false;
+  showMVPChangeApprovalSettings: boolean = false;
+  showRewardDistributionMainTab: boolean = false;
+  roleSession: any = "";
+  hideThisReportForParticipant: boolean = false;
+  hideThisReportBelowBCUsers: boolean = false;
+  halfAdmin: boolean = false;
+  mvpApproval: boolean = false;
 
-  public showUconnectSMIncentiveProgramRulesPage: boolean = false;
-  public isCABCMABCUser: boolean = false;
-  public isDealerManager: boolean = false;
-  public isPartsManagerOfRecords: boolean = false;
-  public isServiceManagerOfRecords: boolean = false;
+  showUconnectSMIncentiveProgramRulesPage: boolean = false;
+  isCABCMABCUser: boolean = false;
+  hideMVPTab: boolean = true;
 
-  public role: any = "";
+  isDealerManager: boolean = false;
+  isPartsManagerOfRecords: boolean = false;
+  isServiceManagerOfRecords: boolean = false;
+  isELManager: boolean = false;
+  isPCManager: boolean = false;
+  isUVMManager: boolean = false;
+  elManagerExists: boolean = true;
+  pcManagerExists: boolean = true;
+  uvmManagerExists: boolean = true;
 
-  constructor() {
+  role: any = "";
+
+  constructor(private mvpAutoApprovalSettingService: MVPAutoApprovalSettingService,
+    private cookieService: CookieService) {
 
   }
 
@@ -56,8 +70,12 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     this.isDealerManager = selectedCodeData.isDealerManager;
     this.isPartsManagerOfRecords = selectedCodeData.isPartsManagerOfRecord;
     this.isServiceManagerOfRecords = selectedCodeData.isServiceManagerOfRecord;
-    this.role = selectedCodeData.role;
+    this.isELManager = selectedCodeData.isElManager;
+    this.isPCManager = selectedCodeData.isPCManager;
+    this.isUVMManager = selectedCodeData.isUVMManager;
 
+    this.role = selectedCodeData.role;
+    this.mvpApproval = selectedCodeData.mvpApproval;
 
     if (this.roleSession != undefined && (this.roleSession == 6 || this.roleSession == 9)) {
       this.hideThisReportForParticipant = true;
@@ -78,7 +96,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     //   this.showMSEREnrollmentReport = true;
     // }
     //  console.log(this.selectedPositionCode);
-    this.rewardDistributionMatrix();
+    this.getMVPApprovalData();
+
     this.caBCMABCReport();
     this.showUconnectSMIncentiveProgramRules();
     this.swbcTireSpinReportMatrix();
@@ -88,10 +107,16 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.executeJQueryCode();
   }
-  public mSEREnrollmentPageMatrix(): void {
+  mSEREnrollmentPageMatrix(): void {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
+    var isElManger = JSON.parse(sessionStorage.getItem("selectedCodeData")).isElManager;
+    var isPCManger = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCManager;
+    var isUVMManger = JSON.parse(sessionStorage.getItem("selectedCodeData")).isUVMManager;
+    var isELManagerExist = JSON.parse(sessionStorage.getItem("selectedCodeData")).elManagerExists;
+    var isPCMnanagerExist = JSON.parse(sessionStorage.getItem("selectedCodeData")).pcManagerExists;
+    var isUVMManagerExist = JSON.parse(sessionStorage.getItem("selectedCodeData")).uvmManagerExists;
 
     if (userMatrix.enrollmentFormMatrix.indexOf(this.selectedPositionCode) > -1) {
       this.showMSEREnrollmentForm = true;
@@ -108,7 +133,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else {
       this.showMSEROPCodeSetup = false;
     }
-    if (this.isMSEREnrolled && (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true)) {
+    if (this.isMSEREnrolled && (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true ||
+      isElManger || isPCManger || isUVMManger)) {
       this.showMSEREnrollmentMaintenance = true;
     } else {
       this.showMSEREnrollmentMaintenance = false;
@@ -123,22 +149,21 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
   }
 
-  public mvpPageMatrix() {
-    // if (userMatrix.mvpChangeApprovalSettings.indexOf(this.selectedPositionCode) > -1) {
-    //   this.showMVPChangeApprovalSettings = true;
-    // } else {
-    //   this.showMVPChangeApprovalSettings = false;
-    // }
-
+  mvpPageMatrix() {
+    if (userMatrix.mvpChangeApprovalSettings.indexOf(this.selectedPositionCode) > -1) {
+      this.showMVPChangeApprovalSettings = true;
+    } else {
+      this.showMVPChangeApprovalSettings = false;
+    }
   }
 
-  public showUconnectSMIncentiveProgramRules() {
+  showUconnectSMIncentiveProgramRules() {
     if (this.isDealerManager || this.isServiceManagerOfRecords || (this.role == 1) || (this.role == 11) || (this.role == 12)) {
       this.showUconnectSMIncentiveProgramRulesPage = true;
     }
   }
 
-  public uvmPageMatrix() {
+  uvmPageMatrix() {
     if (userMatrix.uvmHome.indexOf(this.selectedPositionCode) > -1) {
       this.showuvmHome = true;
     } else {
@@ -151,7 +176,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public excellenceCardMatrix() {
+  excellenceCardMatrix() {
     if (userMatrix.excellenceCardIssuance.indexOf(this.selectedPositionCode) > -1) {
       this.showexcellenceCardIssuance = true;
     } else {
@@ -164,21 +189,81 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public rewardDistributionMatrix() {
+  mvpApprovalDatum: any = true;
+  getMVPApprovalData() {
+    this.mvpAutoApprovalSettingService.getMVPApprovalData().subscribe(
+      (mvpApprovalData) => {
+        this.mvpApprovalDatum = mvpApprovalData
+        // if mvpautoapproval is checked this.mvpApprovalDatum will return true 
+        // manual-false
+        if (this.mvpApprovalDatum) {
+          this.hideMVPTab = true;
+        } else if (!this.mvpApprovalDatum && (this.selectedPositionCode == "02" || this.selectedPositionCode == "17" ||
+          this.selectedPositionCode == "33" || this.selectedPositionCode == "35")) {
+          this.hideMVPTab = false;
+        }
+        this.rewardDistributionMatrix();
+      },
+      (error) => {
+        this.mvpApprovalDatum = false;
+        this.rewardDistributionMatrix();
+      }
+    )
+  }
+
+  showDistributionMainTabPerRoleAndPC: boolean = false;
+  showDistributionTabPerManager() {
+    if (this.isDealerManager) {
+      if (this.elManagerExists) {
+        this.showDistributionMainTabPerRoleAndPC = true;
+      }
+      if (this.pcManagerExists) {
+        this.showDistributionMainTabPerRoleAndPC = true;
+      }
+      if (this.uvmManagerExists) {
+        this.showDistributionMainTabPerRoleAndPC = true;
+      }
+    }
+
+    if (this.isELManager) {
+      this.showDistributionMainTabPerRoleAndPC = true;
+    }
+    if (this.isPCManager) {
+      this.showDistributionMainTabPerRoleAndPC = true;
+    }
+    if (this.isUVMManager) {
+      this.showDistributionMainTabPerRoleAndPC = true;
+    }
+
+  }
+
+  showChangeApprovalSetting: boolean = false;
+  rewardDistributionMatrix() {
     var isDealerManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isDealerManager;
     var isPartsManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPartsManagerOfRecord;
     var isServiceManagerOfRecord = JSON.parse(sessionStorage.getItem("selectedCodeData")).isServiceManagerOfRecord;
+    var isELManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isElManager;
+    var isPCMnanager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isPCManager;
+    var isUVMManager = JSON.parse(sessionStorage.getItem("selectedCodeData")).isUVMManager;
 
-    if (this.isMSEREnrolled && (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true)) {
+    if (this.isMSEREnrolled && (isDealerManager == true || isPartsManagerOfRecord == true || isServiceManagerOfRecord == true ||
+      isELManager == true || isPCMnanager == true || isUVMManager == true || !this.hideMVPTab)) {
       this.showRewardDistributionMainTab = true;
       this.showRewardDistribution = true;
     } else {
       this.showRewardDistribution = false;
     }
 
+    if (this.isMSEREnrolled && (isDealerManager == true || isServiceManagerOfRecord == true ||
+      this.selectedPositionCode == "02" || this.selectedPositionCode == "17" || this.selectedPositionCode == "33" || this.selectedPositionCode == "35")) {
+      // isELManager == true || isPCMnanager == true || isUVMManager == true || !this.hideMVPTab)) {
+      this.showChangeApprovalSetting = true;
+    } else {
+      this.cookieService.put("donotshowMVPPage", "hideMVPPage");
+    }
   }
 
-  public caBCMABCReport() {
+  caBCMABCReport() {
     var bcFromSession = "";
     bcFromSession = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
 
@@ -188,16 +273,16 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public showReportForSWBCUsersOnly: boolean = false;
-  public swbcTireSpinReportMatrix() {
+  showReportForSWBCUsersOnly: boolean = false;
+  swbcTireSpinReportMatrix() {
     var TERRITORY = "";
     TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
     if (TERRITORY != undefined && (TERRITORY == "NAT" || TERRITORY == "SW" || TERRITORY.includes("SW"))) {
       this.showReportForSWBCUsersOnly = true;
     }
   }
-  public showswbcSpinDetailsROSummaryReport: boolean = false;
-  public swbcSpinDetailsROSummaryReportMatrix() {
+  showswbcSpinDetailsROSummaryReport: boolean = false;
+  swbcSpinDetailsROSummaryReportMatrix() {
     var TERRITORY = "";
     var ROLE = "";
     TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).bcs;
@@ -208,7 +293,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  public executeJQueryCode() {
+  executeJQueryCode() {
     $.navigation = $('nav > ul.nav');
 
     $.panelIconOpened = 'icon-arrow-up';

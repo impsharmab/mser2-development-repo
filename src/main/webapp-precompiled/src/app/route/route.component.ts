@@ -61,28 +61,33 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule {
-    public ssotoken: string = "";
-    public origin: string = "";
-    public endEmulation: string = "";
-    public isssodealercode: boolean = false;
-    public isssopositioncode: boolean = false;
-    public ssodealercode: string = "0"
-    public ssopositioncode: string = "0";
-    public isssotoken: boolean = false;
+    ssotoken: string = "";
+    origin: string = "";
+    endEmulation: string = "";
+    mvpAutoApprovePage: string = "";
+    donotshowMVPPage: string = "";
+    isssodealercode: boolean = false;
+    isssopositioncode: boolean = false;
+    ssodealercode: string = "0"
+    ssopositioncode: string = "0";
+    isssotoken: boolean = false;
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute, private cookieService: CookieService) {
         this.ssotoken = this.getParameterByName("token");
         this.origin = this.getParameterByName("origin");
         this.endEmulation = this.getParameterByName("endEmulation");
+        this.mvpAutoApprovePage = this.getParameterByName("mvpAutoApprovePage");
         this.ssodealercode = this.getParameterByName("dc");
         this.ssopositioncode = this.getParameterByName("pc");
+        // this.donotshowMVPPage = this.getParameterByName("donotshowMVPPage");
         if (this.ssotoken != undefined && this.ssotoken != null && this.ssotoken.length > 0) {
             this.cookieService.put("token", this.ssotoken);
             this.cookieService.put("origin", this.origin);
             this.cookieService.put("endEmulation", this.endEmulation);
             this.cookieService.put("dc", this.ssodealercode);
             this.cookieService.put("pc", this.ssopositioncode);
-
+            this.cookieService.put("mvpAutoApprovePage", this.mvpAutoApprovePage);
+            // this.cookieService.put("donotshowMVPPage", this.donotshowMVPPage);
         }
     }
 

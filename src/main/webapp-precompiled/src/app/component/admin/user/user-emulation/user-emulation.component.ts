@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { AdminService } from '../../../../services/admin-service/admin-user/user-emulation.service';
 import { LoginService } from '../../../../services/login-service/login.service';
+import { ReportService } from './../../../../services/report/report-service';
 
 declare var $: any;
 
@@ -14,14 +15,15 @@ declare var $: any;
     //styleUrls: ['./marketing-home.component.css'] 
 })
 export class UserEmulationComponent implements OnInit {
-    public emulateusermessage: string = "";
+    emulateusermessage: string = "";
     private emulateUserData: any;
-    public emulateUserID: string = "";
+    emulateUserID: string = "";
     constructor(
         private cookieService: CookieService,
         private adminService: AdminService,
         private router: Router,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private reportService: ReportService
     ) {
 
     }
@@ -30,7 +32,7 @@ export class UserEmulationComponent implements OnInit {
         this.resizeMe();
     }
 
-    public resizeMe() {
+    resizeMe() {
         var blah = window.innerHeight;
         console.log("window is: ", blah + "px high");
         /* 302 is the combined height of the header and footer */
@@ -38,7 +40,7 @@ export class UserEmulationComponent implements OnInit {
         $("main, mser-cms").css("min-height", "calc(" + blah + "px - 2rem)");
         console.log("main is now: ", blah + "px high");
     }
-    public emulateAllUser(id) {
+    emulateAllUser(id) {
         var emulateID = id.trim();
         if (emulateID != undefined && emulateID.trim() == "") {
             this.emulateusermessage = "Please enter valid SID/TID/Dealer Code";
@@ -50,17 +52,55 @@ export class UserEmulationComponent implements OnInit {
 
         if (emulateID != undefined && emulateID.length == 5) {
             //sessionStorage.appReloaded = false;
+            // this.validateDealerCode(emulateID);
             this.emulateDealerCodeUser(emulateID);
             this.cookieService.put("dealerCode", emulateID);
         } else {
             //sessionStorage.appReloaded = false;
+            // this.validateSID(emulateID);
             this.emulateSidTidUser(emulateID);
             this.cookieService.put("SID/TID", emulateID);
 
         }
     }
 
-    public emulateSidTidUser(emulateID) {
+    isValidSID: boolean = false;
+    validateSID(emulateID) {
+        var territory = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        this.reportService.getSIDValidation(territory, emulateID).subscribe(
+            (isValidSID) => {
+                this.isValidSID = isValidSID
+                if (this.isValidSID) {
+                    this.emulateSidTidUser(emulateID);
+                } else {
+                    this.emulateusermessage = "The information entered is invalid. Please change your criteria and try again";
+                }
+
+            },
+            (error) => {
+
+            })
+    }
+
+    isValidDealerCode: string = "";
+    validateDealerCode(emulateID) {
+        var territory = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        this.reportService.getDealerCodeValidation(territory, emulateID).subscribe(
+            (isValidDealerCode) => {
+                this.isValidDealerCode = isValidDealerCode
+                if (this.isValidDealerCode) {
+                    this.emulateDealerCodeUser(emulateID);
+                } else {
+                    this.emulateusermessage = "The information entered is invalid. Please change your criteria and try again"
+                }
+
+            },
+            (error) => {
+
+            })
+    }
+
+    emulateSidTidUser(emulateID) {
         this.adminService.getEmulateUserData(emulateID).subscribe(
             (emulateUserData) => {
                 this.emulateUserData = emulateUserData;
@@ -91,7 +131,7 @@ export class UserEmulationComponent implements OnInit {
         )
     }
 
-    public emulateDealerCodeUser(dealerCode) {
+    emulateDealerCodeUser(dealerCode) {
         this.adminService.emulateUserWithDealerCode(dealerCode).subscribe(
             (emulateUserData) => {
                 this.emulateUserData = emulateUserData;

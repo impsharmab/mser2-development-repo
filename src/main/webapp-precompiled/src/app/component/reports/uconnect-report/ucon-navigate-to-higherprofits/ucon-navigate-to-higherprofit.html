@@ -73,10 +73,10 @@
                 <h2>Dealer Uconnect - Navigate to Higher Profits Report</h2>
                 <!-- <p class="report-description">Total excellence card rewards deposited through MSER</p> -->
                 <form class="report-form">
-                    <div class="row" [hidden]="true">
+                    <div class="row">
                         <div class="form-group col-sm-2">
                             <label for="dc-4">Dealer Code:</label>
-                            <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerButton"
+                            <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerInput"
                                 minlength="5" maxlength="5" (ngModelChange)="msg=''" />
                         </div>
                         <!-- <div class="form-group col-sm-3">
@@ -84,7 +84,7 @@
                                 [style]="{'width':'250px'}"></p-dropdown>
                         </div> -->
                         <div class="form-group col-sm-2 report-button-container">
-                            <button pButton type="button" (click)="viewDealerReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="getDealerCodeValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                 </form>
@@ -105,16 +105,16 @@
                     <div class="row" [hidden]="hideParticipantTab">
                         <div class="form-group col-sm-2">
                             <label for="dc-4">Dealer Code:</label>
-                            <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerButton"
+                            <input placeholder="Dealer Code" type="text" id="dc-4" name="dc" pInputText [(ngModel)]="selectedDC" [disabled]="disableDealerInput"
                                 minlength="5" maxlength="5" (ngModelChange)="msg=''" />
                         </div>
                         <div class="form-group col-sm-2">
                             <label for="dc-4">SID:</label>
-                            <input placeholder="SID" type="text" id="sid" name="sid" pInputText [(ngModel)]="selectedSID" [disabled]="disableParticipantButton"
+                            <input placeholder="SID" type="text" id="sid" name="sid" pInputText [(ngModel)]="selectedSID" [disabled]="disableParticipantInput"
                                 minlength="7" maxlength="7" (ngModelChange)="msg=''" />
                         </div>
                         <div class="form-group col-sm-2 report-button-container">
-                            <button pButton type="button" (click)="viewParticipantReport()" icon="fa-check" iconPos="right" label="View Report"></button>
+                            <button pButton type="button" (click)="getSIDValidation()" icon="fa-check" iconPos="right" label="View Report"></button>
                         </div>
                     </div>
                 </form>

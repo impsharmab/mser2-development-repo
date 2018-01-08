@@ -17,54 +17,54 @@ declare var $: any;
 })
 export class MACAChemicalReportComponent implements OnInit {
 
-    public showExIFrame: boolean = false;
-    public showBCIFrame: boolean = false;
-    public showDISTIFrame: boolean = false;
-    public showDealerIFrame: boolean = false;
-    public showParticipantIFrame: boolean = false;
+    showExIFrame: boolean = false;
+    showBCIFrame: boolean = false;
+    showDISTIFrame: boolean = false;
+    showDealerIFrame: boolean = false;
+    showParticipantIFrame: boolean = false;
 
-    public selectedRole: any;
-    public isAdminUser: boolean = false;
-    public isExecutiveUser: boolean = false;
-    public isBCUser: boolean = false;
-    public isDistrictUser: boolean = false;
-    public isDealerUser: boolean = false;
-    public isManagerUser: boolean = false;
-    public isParticipantUser: boolean = false;
+    selectedRole: any;
+    isAdminUser: boolean = false;
+    isExecutiveUser: boolean = false;
+    isBCUser: boolean = false;
+    isDistrictUser: boolean = false;
+    isDealerUser: boolean = false;
+    isManagerUser: boolean = false;
+    isParticipantUser: boolean = false;
 
-    public viewExecutiveTab: boolean = false;
-    public viewBCTab: boolean = false;
-    public viewDistrictTab: boolean = false;
-    public viewDealerTab: boolean = false;
-    public viewManagerTab: boolean = false;
-    public viewParticipantTab: boolean = false;
+    viewExecutiveTab: boolean = false;
+    viewBCTab: boolean = false;
+    viewDistrictTab: boolean = false;
+    viewDealerTab: boolean = false;
+    viewManagerTab: boolean = false;
+    viewParticipantTab: boolean = false;
 
-    public disableBCInput: boolean = false;
-    public disableDISTInput: boolean = false;
-    public disableDealerInput: boolean = false;
-    public disableParticipantInput: boolean = false;
+    disableBCInput: boolean = false;
+    disableDISTInput: boolean = false;
+    disableDealerInput: boolean = false;
+    disableParticipantInput: boolean = false;
 
-    public src: any;
+    src: any;
 
-    public selectedPositionCode: any = "";
+    selectedPositionCode: any = "";
 
-    public minDate: Date;
-    public maxDate: Date;
+    minDate: Date;
+    maxDate: Date;
 
-    public selectedBC: string = "";
-    public selectedDIST: string = "";
-    public selectedDC: string = "";
-    public selectedSID: string = ""
-    public bcOptions: SelectItem[] = [
+    selectedBC: string = "";
+    selectedDIST: string = "";
+    selectedDC: string = "";
+    selectedSID: string = ""
+    bcOptions: SelectItem[] = [
         { label: "CA", value: "CA" },
         { label: "MA", value: "MA" }
     ]
 
-    public tabNumber: any = "";
-    public fromDate: any = "";
-    public toDate: any = "";
-    public from: any = "";
-    public to: any = "";
+    tabNumber: any = "";
+    fromDate: any = "";
+    toDate: any = "";
+    from: any = "";
+    to: any = "";
 
     constructor(private domSanitizer: DomSanitizer, private reportService: ReportService, private chRef: ChangeDetectorRef) {
 
@@ -82,7 +82,7 @@ export class MACAChemicalReportComponent implements OnInit {
         this.maxDate = new Date();
         this.minDate.setMonth(0);
         this.minDate.setDate(1);
-        this.minDate.setFullYear(today.getFullYear());
+        this.minDate.setFullYear(today.getFullYear() - 1);
         this.maxDate.setMonth(d.getMonth());
         this.maxDate.setFullYear(today.getFullYear());
         this.maxDate.setDate(lastDayOfMonth.getDate());
@@ -92,7 +92,7 @@ export class MACAChemicalReportComponent implements OnInit {
         this.squarify();
     }
 
-    public squarify() {
+    squarify() {
         var containerWidth = $("#report-center").find(".report-item-link").width();
         //adds two pixels to accommodate for the border
         containerWidth = containerWidth + 2;
@@ -104,7 +104,7 @@ export class MACAChemicalReportComponent implements OnInit {
         $("#report-center").find(".report-item-link").css("font-size", fontSize + "px");
         $("#report-center").find(".report-item-link span").css("height" + headingHeight + "px");
     }
-    public renderTab() {
+    renderTab() {
         /* jQuery activation and setting options for parent tabs with id selector*/
         $(".tabbed-nav").zozoTabs({
             rounded: false,
@@ -126,10 +126,10 @@ export class MACAChemicalReportComponent implements OnInit {
         //event.target.innerWidth; // window width
     }
 
-    public checkRole() {
+    checkRole() {
         this.isAdminUser = JSON.parse(sessionStorage.getItem("selectedCodeData")).isAdmin;
         this.selectedRole = JSON.parse(sessionStorage.getItem("selectedCodeData")).role;
-        if (this.isAdminUser) {
+        if (this.isAdminUser || this.selectedRole == 1) {
             this.isExecutiveUser = true;
             this.tabNumber = "tab1";
             this.viewExecutiveTab = true;
@@ -137,24 +137,9 @@ export class MACAChemicalReportComponent implements OnInit {
             this.viewDistrictTab = true;
             this.viewDealerTab = true;
             this.viewParticipantTab = true;
-            this.viewEXTabOnly();
-            // this.getDistrictByBC("NAT");
-            // this.getDealerCodesBelongsToBCAndDIST("NAT");
-        } else if (this.selectedRole == 1) {
-            // this.getDealerCodesBelongsToBCAndDIST("NAT");
-            this.tabNumber = "tab1";
-            this.isExecutiveUser = true;
-            this.viewExecutiveTab = true;
-            this.viewBCTab = true;
-            this.viewDistrictTab = true;
-            this.viewManagerTab = true;
-            this.viewDealerTab = true;
-            this.viewParticipantTab = true;
-
             this.viewEXTabOnly();
         } else if (this.selectedRole == 12) {
             var BC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // this.getDistrictByBC(BC);
             this.tabNumber = "tab2";
             this.isBCUser = true;
             this.viewExecutiveTab = false;
@@ -166,7 +151,6 @@ export class MACAChemicalReportComponent implements OnInit {
         } else if (this.selectedRole == 11) {
             this.isDistrictUser = true;
             var DIST = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // this.getDealerCodesBelongsToBCAndDIST(DIST);
             this.tabNumber = "tab3";
             this.viewExecutiveTab = false;
             this.viewBCTab = false;
@@ -176,7 +160,7 @@ export class MACAChemicalReportComponent implements OnInit {
             this.viewDistrictTabOnly();
         } else if (this.selectedRole == 10 || this.selectedRole == 5) {
             var dealerCode = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // this.getParticipantsByDealer(dealerCode);
+            this.selectedDC = dealerCode;
             this.disableDealerInput = true;
             this.isDealerUser = true;
             this.tabNumber = "tab4";
@@ -187,6 +171,8 @@ export class MACAChemicalReportComponent implements OnInit {
             this.viewParticipantTab = true;
             this.viewDealerTabOnly();
         } else if (this.selectedRole == 6 || this.selectedRole == 9) {
+            var SID = JSON.parse(sessionStorage.getItem("CurrentUser")).userId;
+            this.selectedSID = SID;
             this.disableParticipantInput = true;
             this.isParticipantUser = true;
             this.tabNumber = "tab5";
@@ -201,8 +187,8 @@ export class MACAChemicalReportComponent implements OnInit {
         this.renderTab();
         // this.chRef.detectChanges();
     }
-    public districtByBCDatum: any = [];
-    // public getDistrictByBC(bc) {
+    districtByBCDatum: any = [];
+    //  getDistrictByBC(bc) {
     //     this.reportService.getDistrictByBC(bc).subscribe(
     //         (districtByBCDatum) => {
     //             this.districtByBCDatum = (districtByBCDatum)
@@ -228,7 +214,7 @@ export class MACAChemicalReportComponent implements OnInit {
     //         }
     //     )
     // }
-    // public sidsBelongsToThisDealer: any = [];
+    //  sidsBelongsToThisDealer: any = [];
     // private getParticipantsByDealer(sid) {
     //     this.reportService.getParticipantsByDealer(sid).subscribe(
     //         (sidsBelongsToThisDealer) => {
@@ -266,33 +252,62 @@ export class MACAChemicalReportComponent implements OnInit {
 
     private dealerCodesBelongsToThisBCOrDist: any = false;
     private sidBelongsToThisBCOrDist: any = false;
-    public getDealerCodeValidation() {
+    displayDealerReportWODealerCode: boolean = false;
+    getDealerCodeValidation() {
         if (this.isDealerUser) {
             this.viewDealerReport();
         } else {
             var TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.reportService.getDealerCodeValidation(TERRITORY, this.selectedDC).subscribe(
-                (dealerCodesBelongsToThisBCOrDist) => {
-                    this.dealerCodesBelongsToThisBCOrDist = (dealerCodesBelongsToThisBCOrDist)
-                    this.viewDealerReport();
-                },
-                (error) => {
+            if (this.selectedDC == "") {
+                this.displayDealerReportWODealerCode = true;
+                // this.selectedDC = TERRITORY
+                this.msg = "";
+                this.viewDealerReport();
+            } else {
+                this.displayDealerReportWODealerCode = false;
+                this.reportService.getDealerCodeValidation(TERRITORY, this.selectedDC).subscribe(
+                    (dealerCodesBelongsToThisBCOrDist) => {
+                        this.dealerCodesBelongsToThisBCOrDist = (dealerCodesBelongsToThisBCOrDist)
+                        if (!this.dealerCodesBelongsToThisBCOrDist) {
+                            this.msg = "The information entered is invalid, Please change your search criteria and try again.";
+                            this.showDealerIFrame = false;
+                            return;
+                        } else {
+                            this.msg = "";
+                            this.viewDealerReport();
+                        }
+                    },
+                    (error) => {
 
-                }
-            )
+                    }
+                )
+            }
+
         }
     }
 
-    public getSIDValidation() {
+    getSIDValidation() {
         if (this.isParticipantUser) {
             this.viewParticipantReport();
         } else {
+            if (this.selectedSID == "") {
+                this.msg = "Please enter SID  to view the report "
+                this.showParticipantIFrame = false;
+                return;
+            }
             var TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-
             this.reportService.getSIDValidation(TERRITORY, this.selectedSID).subscribe(
                 (sidBelongsToThisBCOrDist) => {
                     this.sidBelongsToThisBCOrDist = (sidBelongsToThisBCOrDist)
-                    this.viewParticipantReport();
+                    if (!this.sidBelongsToThisBCOrDist) {
+                        this.msg = "The information entered is invalid, Please change your search criteria and try again.";
+                        this.showParticipantIFrame = false;
+                        return;
+                    } else {
+                        this.msg = "";
+                        this.viewParticipantReport();
+                    }
+
                 },
                 (error) => {
 
@@ -300,25 +315,25 @@ export class MACAChemicalReportComponent implements OnInit {
             )
         }
     }
-    public viewEXTabOnly() {
+    viewEXTabOnly() {
         this.fromDate = this.from;
         this.toDate = this.to;
         this.msg = "";
         this.showExIFrame = false;
         // this.showExDepositReport();
     }
-    public viewBCTabOnly() {
+    viewBCTabOnly() {
         this.fromDate = this.from;
         this.toDate = this.to;
         this.msg = "";
         this.showBCIFrame = false;
         // if (this.isExecutiveUser || this.isBCUser) {
-            this.selectedBC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+        this.selectedBC = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
         //     this.viewBCReport();
         // }
 
     }
-    public viewDistrictTabOnly() {
+    viewDistrictTabOnly() {
         this.fromDate = this.from;
         this.toDate = this.to;
         this.msg = "";
@@ -329,18 +344,17 @@ export class MACAChemicalReportComponent implements OnInit {
         // }
 
     }
-    public viewDealerTabOnly() {
+    viewDealerTabOnly() {
         this.fromDate = this.from;
         this.toDate = this.to;
         this.msg = "";
-        this.selectedDC = "";
-        this.selectedSID = "";
         this.showDealerIFrame = false;
-        // if (this.isDealerUser) {
-        //     this.viewDealerReport();
-        // }
+        if (!this.isDealerUser) {
+            this.selectedDC = "";
+            this.selectedSID = "";
+        }
     }
-    public viewParticipantTabOnly() {
+    viewParticipantTabOnly() {
         this.fromDate = this.from;
         this.toDate = this.to;
         this.msg = "";
@@ -359,7 +373,7 @@ export class MACAChemicalReportComponent implements OnInit {
             // this.viewParticipantReport();
         }
     }
-    public showExDepositReport() {
+    showExDepositReport() {
         this.showExIFrame = true;
         var programName = "MACAChemical_Executive";
         this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}`;
@@ -368,7 +382,7 @@ export class MACAChemicalReportComponent implements OnInit {
         // this.chRef.detectChanges();
     }
 
-    public viewBCReport() {
+    viewBCReport() {
         this.showBCIFrame = false;
         var programName = "MACAChemical_BC";
         if (this.isExecutiveUser) {
@@ -384,7 +398,7 @@ export class MACAChemicalReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    public viewDistrictReport() {
+    viewDistrictReport() {
         this.showDISTIFrame = false;
         var programName = "MACAChemical_DIST";
         if (this.isExecutiveUser) {
@@ -413,162 +427,52 @@ export class MACAChemicalReportComponent implements OnInit {
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    public msg: string = "";
-    public disableDealerButton: boolean = false;
-    public disableParticipantButton: boolean = false;
-    public viewDealerReport() {
-        var DEALERCODE980 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-        this.msg = "";
+    msg: string = "";
+    viewDealerReport() {
         var programName = "MACAChemical_Dealer";
-        if (this.isExecutiveUser) {
-            // if (this.selectedDC == "") {
-            //     this.msg = "Please enter Dealer Code to view the report "
-            //     this.showDealerIFrame = false;
-            //     return;
-            // }
-            // if (this.selectedDC != "") {
-            //     if (!this.dealerCodesBelongsToThisBCOrDist) { 
-            //         this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-            //         this.showDealerIFrame = false;
-            //         return;
-            //     } else {
-            //         this.showDealerIFrame = true;
-            //     }
-            this.showDealerIFrame = true;
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=NAT`;
-            // }
-
-        } else if (this.isBCUser) {
-            var DealerCode12342 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // if (DEALERCODE1 == "") {
-            //     this.msg = "Please enter Dealer Code to view the report";
-            //     this.showDealerIFrame = false;
-            //     return;
-            // } else if (DEALERCODE1 != "") {
-            //     if (!this.dealerCodesBelongsToThisBCOrDist) {
-            //         this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-            //         this.showDealerIFrame = false;
-            //         return;
-            //     } else {
-            //         this.showDealerIFrame = true;
-            //     }
-            this.showDealerIFrame = true;
-
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${DealerCode12342}`;
-
-
-        } else if (this.isDistrictUser) {
-            this.msg = "";
-            this.showDealerIFrame = true;
-            var DealerCode12312 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            // if (DEALERCODE2 == "") {
-            //     this.msg = "Please enter Dealer Code to view the report";
-            //     this.showDealerIFrame = false;
-            //     return;
-            // } else if (DEALERCODE1 != "") {
-            //     if (!this.dealerCodesBelongsToThisBCOrDist) {
-            //         this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-            //         this.showDealerIFrame = false;
-            //         return;
-            //     } else {
-            //         this.showDealerIFrame = true;
-            //     }
-
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${DealerCode12312}`;
-            // }
-        } else if (this.isDealerUser) {
-            this.msg = "";
-            this.showDealerIFrame = true;
-            this.disableDealerButton = true;
-            var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.selectedDC = DEALERCODE123;
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${DEALERCODE123}`;
-
+        if (this.displayDealerReportWODealerCode) {
+            var TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+            if (this.isExecutiveUser || this.isBCUser || this.isDistrictUser) {
+                this.showDealerIFrame = true;
+                this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${TERRITORY}`;
+            } else if (this.isDealerUser) {
+                this.msg = "";
+                this.showDealerIFrame = true;
+                var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+                this.selectedDC = DEALERCODE123;
+                this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${DEALERCODE123}`;
+            }
+            console.log(this.src);
+            this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
+        } else {
+            if (this.isExecutiveUser || this.isBCUser || this.isDistrictUser) {
+                this.showDealerIFrame = true;
+                this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${this.selectedDC}`;
+            } else if (this.isDealerUser) {
+                this.msg = "";
+                this.showDealerIFrame = true;
+                var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
+                this.selectedDC = DEALERCODE123;
+                this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&DealerCode=${DEALERCODE123}`;
+            }
+            console.log(this.src);
+            this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
         }
-        console.log(this.src);
-        this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
+
     }
 
-    public viewParticipantReport() {
+    viewParticipantReport() {
         this.msg = "";
         var programName = "MACAChemical_SID";
-        if (this.isExecutiveUser) {
-            var TERRITORY = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            if (this.selectedSID == "") {
-                this.msg = "Please enter SID  to view the report "
-                this.showParticipantIFrame = false;
-                return;
-            } else if (!this.sidBelongsToThisBCOrDist) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                this.showParticipantIFrame = false;
-                return;
-            } else {
-                this.showParticipantIFrame = true;
-            }
+        this.showParticipantIFrame = true;
+        if (this.isExecutiveUser || this.isBCUser || this.isDistrictUser || this.isDealerUser) {
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&SID=${this.selectedSID}`;
-
-        } else if (this.isBCUser) {
-            if (this.selectedSID == "") {
-                this.msg = "Please enter SID to view the report "
-                this.showParticipantIFrame = false;
-                return;
-            } else if (!this.sidBelongsToThisBCOrDist) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                this.showParticipantIFrame = false;
-                return;
-            } else {
-                this.showParticipantIFrame = true;
-            }
-
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&&FromDate=${this.fromDate}&ToDate=${this.toDate}&SID=${this.selectedSID}`;
-
-        } else if (this.isDistrictUser) {
-            this.msg = "";
-            this.showParticipantIFrame = false;
-            var DealerCode12 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            var DEALERCODE2 = this.selectedDC;
-            if (this.selectedSID == "") {
-                this.msg = "Please enter SID to view the report "
-                this.showParticipantIFrame = false;
-                return;
-            } else if (!this.sidBelongsToThisBCOrDist) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                this.showParticipantIFrame = false;
-                return;
-            } else {
-                this.showParticipantIFrame = true;
-            }
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&&FromDate=${this.fromDate}&ToDate=${this.toDate}&SID=${this.selectedSID}`;
-
-        } else if (this.isDealerUser) {
-            this.msg = "";
-            this.showDealerIFrame = true;
-            this.disableDealerButton = true;
-            var DEALERCODE123 = JSON.parse(sessionStorage.getItem("selectedCodeData")).selectedDealerCode;
-            this.selectedDC = DEALERCODE123;
-            if (this.selectedSID == "") {
-                this.msg = "Please enter SID to view the report";
-                this.showParticipantIFrame = false;
-            } else if (!this.sidBelongsToThisBCOrDist) {
-                this.msg = "The information entered is invalid, Please change your search criteria and try again.";
-                this.showParticipantIFrame = false;
-            } else {
-                this.showParticipantIFrame = true;
-            }
-            this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&&FromDate=${this.fromDate}&ToDate=${this.toDate}&SID=${this.selectedSID}`;
-
         } else if (this.isParticipantUser) {
-            this.msg = "";
-            this.showParticipantIFrame = true;
-
-            this.disableParticipantButton = true;
-            this.hideParticipantTab = true;
-
-            this.selectedDC = DEALERCODE123;
+            // this.selectedSID = DEALERCODE123;
             this.src = reportServiceUrl.reportUrl + `ReportServlet?reportPath=MSER&reportName=${programName}&FromDate=${this.fromDate}&ToDate=${this.toDate}&SID=${this.selectedSID}`;
         }
         console.log(this.src);
         this.src = this.domSanitizer.bypassSecurityTrustResourceUrl(this.src);
     }
-    public hideParticipantTab: boolean = false;
+    hideParticipantTab: boolean = false;
 }
