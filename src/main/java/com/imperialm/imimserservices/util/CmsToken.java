@@ -5,27 +5,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import org.apache.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CmsToken {
 
     private final long ALLOWABLE_TIME_FRAME = 6 * 60 * 1000;   // minutes * seconds * millisconds
     private final DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss z");
     private final TimeZone timeZone = TimeZone.getTimeZone("America/Detroit");
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    //private final Log log = LogFactory.getLog(this.getClass());
 
     public String create() throws Exception {
         // Get the date to encrypt
         GregorianCalendar cal = new GregorianCalendar(timeZone);
         String dateString = dateFormat.format(cal.getTime());
-        log.debug("Token string: " + dateString);
+        //log.debug("Token string: " + dateString);
 
         String encodedEncryptedString = null;
         try {
             // Encrypt the data
             CipherUtil cipherUtil = new CipherUtil();
             encodedEncryptedString = cipherUtil.encrypt(dateString);
-            log.debug("Encrypted string: " + encodedEncryptedString);
+            //log.debug("Encrypted string: " + encodedEncryptedString);
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -38,14 +40,14 @@ public class CmsToken {
             // Decrypt the data
             CipherUtil cipherUtil = new CipherUtil();
             String decryptedString = cipherUtil.decrypt(token);
-            log.debug("Client time: " + decryptedString);
+            //log.debug("Client time: " + decryptedString);
 
             // Test the integrity of the data by parsing it as a date object
             Date date = null;
             try {
                 date = dateFormat.parse(decryptedString);
             } catch (NullPointerException npe) {
-                log.debug("***Token is invalid");
+                //slog.debug("***Token is invalid");
                 return false;
             }
 
@@ -55,23 +57,23 @@ public class CmsToken {
             long now = (cal.getTimeInMillis());
 
             long milliseconds = now - sent;
-            if (log.isDebugEnabled()) {
+            /*if (log.isDebugEnabled()) {
                 log.debug("Server time: " + dateFormat.format(cal.getTime()));
                 log.debug("Client     milliseconds: " + sent);
                 log.debug("Server     milliseconds: " + now);
                 log.debug("Difference milliseconds: " + milliseconds);
-            }
+            }*/
 
             // The decrypted date must be within the proper time range or the token is not valid
             if (milliseconds >= -ALLOWABLE_TIME_FRAME && milliseconds <= ALLOWABLE_TIME_FRAME) {
-                log.debug("Token is valid");
+            //    log.debug("Token is valid");
                 return true;
             }
         } catch (Exception e) {
             throw new Exception(e);
         }
 
-        log.debug("***Token is invalid");
+        //log.debug("***Token is invalid");
         return false;
     }
 }

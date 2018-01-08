@@ -144,5 +144,34 @@ public class DealerPersonnelPositionsDAOImpl implements DealerPersonnelPositions
 		}
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getEnrollmentPCs() {
+        List<String> result = new ArrayList<String>();
+        try {
+            final Query query = this.em.createNativeQuery("select distinct positionCode from EligiblePositions");
+            List<String> rows = (List<String>) query.getResultList();
+            result = rows;
+        } catch (final Exception ex) {
+            logger.error("error occured in getEnrollmentPCs", ex);
+        }
+        return result;
+    }
+	
+	@SuppressWarnings("unchecked")
+	public List<String> getDistrictsByBC(String bc) {
+        List<String> result = new ArrayList<String>();
+        try {
+            final Query query = this.em.createNativeQuery(GET_DISTRICTS_BY_BC);
+            query.setParameter(0, bc);
+            List<String> rows = (List<String>) query.getResultList();
+            result = rows;
+        } catch (final Exception ex) {
+            logger.error("error occured in getAllPositionCodes", ex);
+        }
+        return result;
+    }
+	
 
 }

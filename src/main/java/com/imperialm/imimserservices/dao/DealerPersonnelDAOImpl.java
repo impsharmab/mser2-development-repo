@@ -12,11 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.imperialm.imimserservices.dto.DealerPersonnelDTO;
+import com.imperialm.imimserservices.dto.DealerPersonnelDTOWithEmail;
 
 @Repository
 public class DealerPersonnelDAOImpl implements DealerPersonnelDAO{
 	
-	private static Logger logger = LoggerFactory.getLogger(GroupSIDEnrollmentsDAOImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(DealerPersonnelDAOImpl.class);
 
 	@PersistenceContext
 	private EntityManager em;
@@ -115,7 +116,10 @@ public class DealerPersonnelDAOImpl implements DealerPersonnelDAO{
 			int programGroupId) {
 		List<DealerPersonnelDTO> result = new ArrayList<>();
 		try {
-			final Query query = this.em.createNativeQuery("Select dp.* from [DealerPersonnel] dp join GroupSIDEnrollments ep on ep.PositionCode = dp.PositionCode and ep.SID = dp.SID and dp.DealerCode = ep.DealerCode and ep.Status = 'E' and dp.DealerCode = ?0 and ep.ProgramGroupID = (?1)",DealerPersonnelDTO.class);
+			//final Query query = this.em.createNativeQuery("Select dp.* from [DealerPersonnel] dp join GroupSIDEnrollments ep on ep.SID = dp.SID and dp.DealerCode = ep.DealerCode and ep.Status = 'E' and dp.DealerCode = ?0 and ep.ProgramGroupID = (?1)",DealerPersonnelDTO.class);
+			//final Query query = this.em.createNativeQuery("Select dp.* from [DealerPersonnel] dp join GroupSIDEnrollments ep on ep.PositionCode = dp.PositionCode and ep.SID = dp.SID and dp.DealerCode = ep.DealerCode and ep.Status = 'E' and dp.DealerCode = ?0 and ep.ProgramGroupID = (?1)",DealerPersonnelDTO.class);
+			//final Query query = this.em.createNativeQuery("Select distinct dp.* from GroupSIDEnrollments ep join [DealerPersonnel] dp on ep.SID = dp.SID and dp.DealerCode = ep.DealerCode where ep.Status = 'E' and dp.DealerCode = ?0 and ep.ProgramGroupID = (?1)",DealerPersonnelDTO.class);
+			final Query query = this.em.createNativeQuery("Select distinct dp.Address, dp.City, dp.CorpHireDate, dp.DealerCode, dp.DealerHireDate, dp.DMS_ID, dp.FirstName, dp.IsPrimaryDealer, dp.isPrimaryPosition, dp.Last4, dp.LastName, dp.MiddleName, ep.PositionCode, dp.SID, dp.STATE, dp.Suffix, dp.ZipCode from GroupSIDEnrollments ep left join [DealerPersonnel] dp on ep.SID = dp.SID and dp.DealerCode = ep.DealerCode where ep.Status = 'E' and dp.DealerCode = ?0 and ep.ProgramGroupID = (?1)",DealerPersonnelDTO.class);
 			query.setParameter(0, dealerCode);
 			query.setParameter(1, programGroupId);
 			result = query.getResultList();
@@ -156,6 +160,90 @@ public class DealerPersonnelDAOImpl implements DealerPersonnelDAO{
 		}
 		return result;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getDealerByTerritory(String territory) {
+		List<String> result = new ArrayList<>();
+		try {
+			final Query query = this.em.createNativeQuery(GET_DEALER_BY_TERRITORY);
+			query.setParameter(0, territory);
+			result = query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getDealerByTerritory", ex);
+		}
+		return result;
+	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getParticipantsByDealerList(List<String> dealers) {
+		List<String> result = new ArrayList<>();
+		try {
+			final Query query = this.em.createNativeQuery("select distinct sid from DealerPersonnel where DealerCode IN (?0)");
+			query.setParameter(0, dealers);
+			result = query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getParticipantsByDealerList", ex);
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getParticipantsNATList() {
+		List<String> result = new ArrayList<>();
+		try {
+			final Query query = this.em.createNativeQuery("select distinct sid from DealerPersonnel");
+			result = query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getParticipantsNATList", ex);
+		}
+		return result;
+	}
+
+	@Override
+	public List<DealerPersonnelDTOWithEmail> getSIDInfoByDealerCodeWithEmail(String dealerCode) {
+		List<DealerPersonnelDTOWithEmail> result = new ArrayList<>();
+		try {
+			final Query query = this.em.createNativeQuery(GET_SID_INFO_BY_DEALERCODE_WITH_EMAIL,DealerPersonnelDTOWithEmail.class);
+			query.setParameter(0, dealerCode);
+			result = query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getSIDInfoByDealerCodeWithEmail", ex);
+		}
+		return result;
+	}
+
+	@Override
+	public List<DealerPersonnelDTO> getParticipantsEnrolledByDealerCodeForDistributions(String dealerCode) {
+		List<DealerPersonnelDTO> result = new ArrayList<>();
+		try {
+			final Query query = this.em.createNativeQuery("Select distinct ep.PositionCode, dp.Address, dp.City, dp.CorpHireDate, dp.DealerCode, dp.DealerHireDate, dp.DMS_ID, dp.FirstName, dp.IsPrimaryDealer, dp.isPrimaryPosition, dp.Last4, dp.LastName, dp.MiddleName, dp.SID, dp.STATE, dp.Suffix, dp.ZipCode from GroupSIDEnrollments ep left join [DealerPersonnel] dp on ep.SID = dp.SID and dp.DealerCode = ep.DealerCode join ProgramGroups pg on pg.ProgramID = 1 where ep.Status = 'E' and dp.DealerCode = ?0",DealerPersonnelDTO.class);
+			query.setParameter(0, dealerCode);
+			result = query.getResultList();
+		} catch (final Exception ex) {
+			logger.error("error occured in getParticipantsEnrolledByDealerCodeForDistributions", ex);
+		}
+		return result;
+	}
+	
+	@Override
+	public boolean mvpApprovalByDealerAndSID(String dealerCode, String sid){
+		boolean result = false;
+		try {
+			
+			final Query query = this.em.createNativeQuery("select SID from DealerPersonnel where DealerCode = ?0 and SID = ?1 and PositionCode IN ('01','02','33','35','17')");
+			query.setParameter(0, dealerCode);
+			query.setParameter(1, sid);
+			List<String> row = query.getResultList();
+			if(row.size()>0){
+				result= true;
+			}
+		} catch (final Exception ex) {
+			logger.error("error occured in mvpApprovalByDealerAndSID", ex);
+		}
+		return result;
+	}
 	
 }

@@ -250,7 +250,46 @@ public class MSERTilesDAOImpl {
 		} catch (final NoResultException ex) {
 			logger.info("result in else " + result);
 		} catch (final Exception ex) {
-			logger.error("error occured in getMSERCountNATByType", ex);
+			logger.error("error occured in getEnrollementSummaryByProgramGroupAndTerritory", ex);
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public EnrollmentSummaryDTO getEnrollementSummaryByProgramGroupAndParentTerritory(String territory, int programId) {
+		EnrollmentSummaryDTO result = null;
+		try {
+				Query query = this.em.createNativeQuery("select * from EnrollmentSummary where Parent = ?0 and ProgramGroupID =(?1)", EnrollmentSummaryDTO.class);
+				query.setParameter(0, territory);
+				query.setParameter(1, programId);
+				List<EnrollmentSummaryDTO> rows = query.getResultList();
+				EnrollmentSummaryDTO temp = new EnrollmentSummaryDTO();
+				temp.setTotalDealers(0);
+				temp.setTotalEnrolled(0);
+				for(EnrollmentSummaryDTO r: rows){
+					temp.setChild(r.getChild());
+					temp.setEnrollmentSummaryID(r.getEnrollmentSummaryID());
+					temp.setExpressLaneValidated(r.getExpressLaneValidated());
+					temp.setParent(r.getParent());
+					temp.setProgramGroupID(r.getProgramGroupID());
+					
+					int tampTotalDealers = temp.getTotalDealers();
+					if(r.getTotalDealers() != null){
+						tampTotalDealers = tampTotalDealers + r.getTotalDealers();
+					}
+					temp.setTotalDealers(tampTotalDealers);
+					
+					int tempTotalEnrolled = temp.getTotalEnrolled();
+					if(r.getTotalEnrolled() != null){
+						tempTotalEnrolled = tempTotalEnrolled + r.getTotalEnrolled();
+					}
+					temp.setTotalEnrolled(tempTotalEnrolled);
+				}
+				if(rows.size()>0){
+					result = temp; 
+				}
+		} catch (final Exception ex) {
+			logger.error("error occured in getEnrollementSummaryByProgramGroupAndParentTerritory", ex);
 		}
 		return result;
 	}

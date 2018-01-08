@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imperialm.imimserservices.services.CMSService;
+import com.imperialm.imimserservices.util.IMIServicesUtil;
 
 @RestController
 public class CMSController {
@@ -34,22 +35,9 @@ public class CMSController {
 	 
 	 @RequestMapping(value ="/content/{page}", method = RequestMethod.GET)
 		public @ResponseBody Object getContenct(@PathVariable(value="page") String page, HttpServletRequest request) {
-			/*UserDetailsImpl user = null;
-		    
-			//get token extract user info and use for the calls
-			try{
-			 String token = request.getHeader(tokenHeader);
-		     String username = jwtTokenUtil.getUsernameFromToken(token);
-		     user = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
-		     if(!jwtTokenUtil.validateToken(token, user)){
-		    	 //token is expired/invalid token
-		    	 return ResponseEntity.status(500).body("Invalid Token");
-		     }
-			}catch(Exception e){
-				//token is expired/invalid token
-		    	 return ResponseEntity.status(500).body("Failed to check Token");
-			}*/
-			
+		 
+		 //IMIServicesUtil.checkToken(request);
+	
 			return cmsService.getContent(pathName, page);
 			
 	    }

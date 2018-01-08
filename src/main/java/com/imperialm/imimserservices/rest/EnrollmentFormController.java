@@ -12,22 +12,25 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.imperialm.imimserservices.dao.DealerPersonnelDAO;
 import com.imperialm.imimserservices.dao.DealerPersonnelPositionsDAO;
+import com.imperialm.imimserservices.dao.GroupSIDEnrollmentsDAOImpl;
 import com.imperialm.imimserservices.dao.ProgramEnrollmentsDAO;
 import com.imperialm.imimserservices.dto.DealerPersonnelDTO;
 import com.imperialm.imimserservices.dto.UserDetailsImpl;
+import com.imperialm.imimserservices.entities.EmailProperties;
 import com.imperialm.imimserservices.model.MSERRegistrationForm;
 import com.imperialm.imimserservices.model.NameValue;
+import com.imperialm.imimserservices.repositories.EmailPropetiesRepo;
+import com.imperialm.imimserservices.services.EmailService;
 import com.imperialm.imimserservices.services.UserServiceImpl;
+import com.imperialm.imimserservices.util.IMIServicesConstants;
 import com.imperialm.imimserservices.util.IMIServicesUtil;
 
 @RestController
@@ -56,56 +59,70 @@ public class EnrollmentFormController {
 
 	@Autowired
 	private com.imperialm.imimserservices.dao.GroupSIDEnrollmentsDAO GroupSIDEnrollmentsDAO;
-	
+
 	@Autowired
 	private com.imperialm.imimserservices.dao.UserInfoDAOImpl UserInfoDAO;
-	
+
 	@Autowired
 	private com.imperialm.imimserservices.dao.UserDAOImpl UserDAOImpl;
-	
+
 	@Autowired
 	private com.imperialm.imimserservices.dao.ProgramGroupEnrollmentsDAO ProgramGroupEnrollmentsDAO;
 
+	@Autowired
+	private com.imperialm.imimserservices.ttta.dao.TTTAUsersDAO TTTAUsersDAO;
 
-	@RequestMapping(value ="/enrollments/forms/mser", method = RequestMethod.POST)
-	public @ResponseBody Object submitMserForm(@RequestBody final MSERRegistrationForm input, HttpServletRequest request) {
+	@Autowired
+	private EmailService mailService;
 
-		//List<String> eligiblePC = new ArrayList<String>();
-		Map<String,Object> map = new HashMap<>();
+	@Autowired
+	private EmailPropetiesRepo mailPropertiesRepo;
+
+	private static Logger logger = LoggerFactory.getLogger(EnrollmentFormController.class);
+
+	@RequestMapping(value = "/enrollments/forms/mser", method = RequestMethod.POST)
+	public @ResponseBody Object submitMserForm(@RequestBody final MSERRegistrationForm input,
+			HttpServletRequest request) {
+
+		// List<String> eligiblePC = new ArrayList<String>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("dealerCode", input.getDealerCode());
 		map.put("sid", input.getSid());
 
 		boolean partsManager = false;
 		boolean serviceManager = false;
 		Object check = this.checkDealership(map, request);
-		if(check.getClass().equals( HashMap.class)){
-			
-			if(!IMIServicesUtil.isValidEmail(input.getEmail().trim())){
+		if (check.getClass().equals(HashMap.class)) {
+
+			if (!IMIServicesUtil.isValidEmail(input.getEmail().trim())) {
 				return ResponseEntity.status(500).body("Must provide a valid dealers email");
 			}
-			
-			if(input.getManagerP() != null && !input.getManagerP().trim().isEmpty() && IMIServicesUtil.isValidEmail(input.getManagerPEmail().trim())){
-				partsManager = true;
-			}else if(input.getManagerS() != null && !input.getManagerS().trim().isEmpty() && !IMIServicesUtil.isValidEmail(input.getManagerS().trim())){
-				return ResponseEntity.status(500).body("Must provide a valid managers email");
-			}
-			
 
-			if(input.getManagerS() != null && !input.getManagerS().trim().isEmpty() && IMIServicesUtil.isValidEmail(input.getManagerSEmail().trim())){
-				serviceManager = true;
-			}else if(input.getManagerS() != null && !input.getManagerS().trim().isEmpty() && !IMIServicesUtil.isValidEmail(input.getManagerS().trim())){
+			if (input.getManagerP() != null && !input.getManagerP().trim().isEmpty()
+					&& IMIServicesUtil.isValidEmail(input.getManagerPEmail().trim())) {
+				partsManager = true;
+			} else if (input.getManagerP() != null && !input.getManagerP().trim().isEmpty()
+					&& !IMIServicesUtil.isValidEmail(input.getManagerP().trim())) {
 				return ResponseEntity.status(500).body("Must provide a valid managers email");
 			}
-			
-			if(!serviceManager && !partsManager){
+
+			if (input.getManagerS() != null && !input.getManagerS().trim().isEmpty()
+					&& IMIServicesUtil.isValidEmail(input.getManagerSEmail().trim())) {
+				serviceManager = true;
+			} else if (input.getManagerS() != null && !input.getManagerS().trim().isEmpty()
+					&& !IMIServicesUtil.isValidEmail(input.getManagerS().trim())) {
+				return ResponseEntity.status(500).body("Must provide a valid managers email");
+			}
+
+			if (!serviceManager && !partsManager) {
 				return ResponseEntity.status(500).body("Must select at 1 Service Manager and/or 1 Parts Manager");
 			}
-			
+
 			List<DealerPersonnelDTO> dpUser = DealerPersonnelDAO.getSIDInfoByDealerCode(input.getDealerCode());
-			
+
 			Map<String, List<String>> eligableCodes = new HashMap<>();
-			
-			List<String> defaultPrograms = Arrays.asList("2","3","4","5","7","10","11");
+
+			//List<String> defaultPrograms = Arrays.asList("2","3","4","5","7","10","11");
 			eligableCodes.put("2", Arrays.asList("01","13","23","2A","ES","ET"));
 			eligableCodes.put("3", Arrays.asList("01","13","23","2A","ES","ET"));
 			eligableCodes.put("4", Arrays.asList("01","13","23","2A","ES","ET"));
@@ -113,128 +130,290 @@ public class EnrollmentFormController {
 			eligableCodes.put("7", Arrays.asList("13"));
 			eligableCodes.put("10", Arrays.asList("13","01","23","2A"));
 			eligableCodes.put("11", Arrays.asList("13"));
-			
-			Map<String, List<String>> userCodes = new HashMap<>();
-			
+
+			Map<String, ArrayList<String>> userCodes = new HashMap<>();
+
 			for(DealerPersonnelDTO user: dpUser){
 				if(userCodes.containsKey(user.getSID().trim())){
 					userCodes.get(user.getSID().trim()).add(user.getPositionCode().trim());
 				}else{
-					userCodes.put(user.getSID().trim(), Arrays.asList(user.getPositionCode().trim()));
+					userCodes.put(user.getSID().trim(), new ArrayList<String>(Arrays.asList(user.getPositionCode().trim())));
 				}
 			}
-			
+
 			Set<String> users =  userCodes.keySet();
-			
-			programEnrollments.enrollDealership(input.getDealerCode().trim());
-			
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 2);
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 3);
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 4);
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 5);
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 7);
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 10);
-			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 11);
-			
+
+			programEnrollments.enrollDealership(input.getDealerCode().trim(), input.getSid());
+
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 2, input.getSid());
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 3, input.getSid());
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 4, input.getSid());
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 5, input.getSid());
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 7, input.getSid());
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 10, input.getSid());
+			ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 11, input.getSid());
+
 			if(input.isEnrollExpressLane()){
-				ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 1);
+				ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 1, input.getSid());
 			}
-			
+
 			if(input.isEnrollPartsCounter()){
-				ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 6);
+				ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 6, input.getSid());
 			}
-			
+
 			if(input.isMvpAuto()){
-				ProgramGroupEnrollmentsDAO.setAutoApprovalMVP(input.getDealerCode().trim(), true);
+				ProgramGroupEnrollmentsDAO.setAutoApprovalMVP(input.getDealerCode().trim(), true, input.getSid());
 			}
-			
+
 			if(input.isEnrollUsedRecon()){
-				ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 15);
+				ProgramGroupEnrollmentsDAO.enrollDealership(input.getDealerCode().trim(), 15, input.getSid());
 			}
-			
+
 			for(String user: users){
 				GroupSIDEnrollmentsDAO.enrollUserDefault(input.getDealerCode().trim(), user, userCodes.get(user), eligableCodes);
 			}
-			
+
+
+			//create accounts for the whole dealership, remove the managers and enrolled person sids
+			//this.createParticipantAccount(users, input.getDealerCode().trim(), input.getSid());
+
+
+			if(!input.getSid().equalsIgnoreCase(input.getManagerP()) && !input.getSid().equalsIgnoreCase(input.getManagerS())){
+
+				new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+
+						UserDetailsImpl sid = null;
+
+						try{
+							sid = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getSid());
+						} catch (Exception e){
+							logger.debug("User not found in User table, creating account");
+						}
+						if(sid != null){
+
+							String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
+							String salt = UUID.randomUUID().toString().toUpperCase();
+
+							if(UserDAOImpl.setPassword(input.getSid(), password, salt,"Y")){
+								if(input.getExtension() == null){
+									input.setExtension("");
+								}
+								UserDAOImpl.setPhoneNumber(input.getPhone() + input.getExtension().trim(), input.getSid());
+
+								if(TTTAUsersDAO.getPassword(input.getSid()).size() > 0){
+									TTTAUsersDAO.setPassword(input.getSid(), password);
+								}
+								EmailProperties mailProperties = mailPropertiesRepo
+										.findByEmailNameAndProgramProgramId(IMIServicesConstants.MSER_NEW_ACCOUNT_CREATE_NEW, IMIServicesConstants.FCA_PROGRAM_MSER);
+								List<Object> parameters = new ArrayList<>();
+								parameters.add(sid.getUser().getName());
+								parameters.add(sid.getUserId());
+								parameters.add(password);
+
+								mailProperties.setParameters(parameters);
+								mailProperties.setEmailTo(sid.getEmail());
+								mailService.sendMailWithHeader(mailProperties);
+
+								//EmailHandler.sendMailConfirmation(sid, "enrollmentform", password);
+							}
+
+						}else{
+							//create new password send a password
+							String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
+							String salt = UUID.randomUUID().toString().toUpperCase();
+
+							if(UserInfoDAO.addUser(input.getSid(), input.getEmail(), password, salt)){
+								//send email to Parts Manager
+								if(TTTAUsersDAO.getPassword(input.getSid()).size() > 0){
+									TTTAUsersDAO.setPassword(input.getSid(), password);
+								}
+
+								try{
+								sid = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getSid());
+								} catch (Exception e){
+
+								}
+								if(sid != null){
+									UserDAOImpl.setPhoneNumber(input.getPhone(), input.getSid());
+									EmailProperties mailProperties = mailPropertiesRepo
+											.findByEmailNameAndProgramProgramId(IMIServicesConstants.MSER_NEW_ACCOUNT_CREATE_NEW, IMIServicesConstants.FCA_PROGRAM_MSER);
+									List<Object> parameters = new ArrayList<>();
+									parameters.add(sid.getUser().getName());
+									parameters.add(sid.getUserId());
+									parameters.add(password);
+
+									mailProperties.setParameters(parameters);
+									mailProperties.setEmailTo(sid.getEmail());
+									mailService.sendMailWithHeader(mailProperties);
+									//EmailHandler.sendMailConfirmation(sid, "enrollmentform", password);
+
+								}
+							}
+						}
+
+					}
+
+				}).start();
+
+			}
+
+
 			if(partsManager){
 				GroupSIDEnrollmentsDAO.enrollPartsManger(input.getDealerCode(), input.getManagerP());
-				
+
 				new Thread(new Runnable(){
 
 					@Override
 					public void run() {
-						UserDetailsImpl pManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerP());
-						
+						UserDetailsImpl pManager = null;
+						try{
+							pManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerP());
+						} catch (Exception e){
+
+						}
+
 						if(pManager != null){
-							
-							String password = RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(8,20));
+
+							String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
 							String salt = UUID.randomUUID().toString().toUpperCase();
-							
-							if(UserDAOImpl.setPassword(input.getManagerP(), password, salt)){
-								EmailHandler.sendMailConfirmation(pManager, "enrollmentform", password);
+
+							if(UserDAOImpl.setPassword(input.getManagerP(), password, salt,"Y")){
+
+								if(TTTAUsersDAO.getPassword(input.getSid()).size() > 0){
+									TTTAUsersDAO.setPassword(input.getSid(), password);
+								}
+
+								EmailProperties mailProperties = mailPropertiesRepo
+										.findByEmailNameAndProgramProgramId(IMIServicesConstants.MSER_MANAGER_ENROLLMENT, IMIServicesConstants.FCA_PROGRAM_MSER);
+								List<Object> parameters = new ArrayList<>();
+								parameters.add(pManager.getUser().getName());
+								parameters.add(pManager.getUserId());
+								parameters.add(password);
+
+								mailProperties.setParameters(parameters);
+								mailProperties.setEmailTo(pManager.getEmail());
+								mailService.sendMailWithHeader(mailProperties);
+								//EmailHandler.sendMailConfirmation(pManager, "enrollmentform", password);
 							}
-							
+
 						}else{
 							//create new password send a password
-							String password = RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(8,20));
+							String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
 							String salt = UUID.randomUUID().toString().toUpperCase();
-							
+
 							if(UserInfoDAO.addUser(input.getManagerP(), input.getManagerPEmail(), password, salt)){
 								//send email to Parts Manager
-								pManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerP());
+
+								if(TTTAUsersDAO.getPassword(input.getSid()).size() > 0){
+									TTTAUsersDAO.setPassword(input.getSid(), password);
+								}
+
+								try{
+									pManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerP());
+								} catch (Exception e){
+
+								}
 								if(pManager != null){
-									EmailHandler.sendMailConfirmation(pManager, "enrollmentform", password);
+									EmailProperties mailProperties = mailPropertiesRepo
+											.findByEmailNameAndProgramProgramId(IMIServicesConstants.MSER_MANAGER_ENROLLMENT, IMIServicesConstants.FCA_PROGRAM_MSER);
+									List<Object> parameters = new ArrayList<>();
+									parameters.add(pManager.getUser().getName());
+									parameters.add(pManager.getUserId());
+									parameters.add(password);
+
+									mailProperties.setParameters(parameters);
+									mailProperties.setEmailTo(pManager.getEmail());
+									mailService.sendMailWithHeader(mailProperties);
+									//EmailHandler.sendMailConfirmation(pManager, "enrollmentform", password);
 								}
 							}
 						}
-						
+
 					}
-					
+
 				}).start();
-				
+
 			}
-			
+
+
 			if(serviceManager){
 				GroupSIDEnrollmentsDAO.enrollServiceManger(input.getDealerCode(), input.getManagerS());
-				
+
 				new Thread(new Runnable(){
 
 					@Override
 					public void run() {
-						UserDetailsImpl sManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerS());
-						
+						UserDetailsImpl sManager = null;
+						try{
+							sManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerS());
+						} catch (Exception e){
+
+						}
+
 						if(sManager != null){
-							
-							String password = RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(8,20));
+
+							String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
 							String salt = UUID.randomUUID().toString().toUpperCase();
-							
-							if(UserDAOImpl.setPassword(input.getManagerS(), password, salt)){
-								EmailHandler.sendMailConfirmation(sManager, "enrollmentform", password);
+
+							if(UserDAOImpl.setPassword(input.getManagerS(), password, salt,"Y")){
+
+								if(TTTAUsersDAO.getPassword(input.getSid()).size() > 0){
+									TTTAUsersDAO.setPassword(input.getSid(), password);
+								}
+								EmailProperties mailProperties = mailPropertiesRepo
+										.findByEmailNameAndProgramProgramId(IMIServicesConstants.MSER_MANAGER_ENROLLMENT, IMIServicesConstants.FCA_PROGRAM_MSER);
+								List<Object> parameters = new ArrayList<>();
+								parameters.add(sManager.getUser().getName());
+								parameters.add(sManager.getUserId());
+								parameters.add(password);
+
+								mailProperties.setParameters(parameters);
+								mailProperties.setEmailTo(sManager.getEmail());
+								mailService.sendMailWithHeader(mailProperties);
+								//EmailHandler.sendMailConfirmation(sManager, "enrollmentform", password);
 							}
-							
+
 						}else{
 							//create new password send a password
-							String password = RandomStringUtils.randomAlphanumeric(RandomUtils.nextInt(8,20));
+							String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
 							String salt = UUID.randomUUID().toString().toUpperCase();
-							
+
 							if(UserInfoDAO.addUser(input.getManagerS(), input.getManagerSEmail(), password, salt)){
 								//send email to Parts Manager
+
+								if(TTTAUsersDAO.getPassword(input.getSid()).size() > 0){
+									TTTAUsersDAO.setPassword(input.getSid(), password);
+								}
+
 								sManager = (UserDetailsImpl) userDetailsService.loadUserByUsername(input.getManagerP());
 								if(sManager != null){
-									EmailHandler.sendMailConfirmation(sManager, "enrollmentform", password);
+									EmailProperties mailProperties = mailPropertiesRepo
+											.findByEmailNameAndProgramProgramId(IMIServicesConstants.MSER_MANAGER_ENROLLMENT, IMIServicesConstants.FCA_PROGRAM_MSER);
+									List<Object> parameters = new ArrayList<>();
+									parameters.add(sManager.getUser().getName());
+									parameters.add(sManager.getUserId());
+									parameters.add(password);
+
+									mailProperties.setParameters(parameters);
+									mailProperties.setEmailTo(sManager.getEmail());
+									mailService.sendMailWithHeader(mailProperties);
+									//EmailHandler.sendMailConfirmation(sManager, "enrollmentform", password);
 								}
 							}
 						}
-						
+
 					}
-					
+
 				}).start();
-				
-				
+
+
 			}
-			
+
 			return true;
-			
+
 		}else{
 			return check;
 		}
@@ -252,6 +431,10 @@ public class EnrollmentFormController {
 		//UserDetails user = null;
 		boolean registered = false;
 
+		if(!DealerInfoDAO.isValidDealer(dealerCode)){
+			return ResponseEntity.status(500).body("Thank you for your interest in the Mopar Service Excellence Rewards Program.  Please enter a valid dealer code and SID in order to proceed with enrollment.");
+		}
+
 		if(!dealerPersonnelPositions.isRegistrationEligiable(sid, dealerCode)){
 			return ResponseEntity.status(500).body("Thank you for your interest in the Mopar Service Excellence Rewards program.  However, your SID is not authorized to approve enrollment into MSER.  Please contact your dealer principal or authorized representative.");
 		}
@@ -263,7 +446,7 @@ public class EnrollmentFormController {
 		}
 
 		if(registered){
-			return ResponseEntity.status(500).body("Dealership is already registered");
+			return ResponseEntity.status(500).body("The dealer code you have entered is already enrolled in MSER.  You may access our site via DealerCONNECT or you may reach us at info@moparser.com to clarify any questions");
 		}
 
 
@@ -293,13 +476,71 @@ public class EnrollmentFormController {
 		response.put("ELValidated",elValidated);
 		response.put("mvpAuto",false);
 		response.put("size", dealerSize);
-		
+
 		//EmailHandler.sendMailConfirmation(object, "", other);
 
 		return response;
 	}
 
+	private void createParticipantAccount(final Set<String> users, final String dealerCode, final String sid){
 
+		final Thread mainLoop = new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				for(final String user: users){
+					try {
+						Thread.sleep(4000);
+					} catch (InterruptedException e) {
+						logger.error(e.getMessage());
+					}
+					new Thread(new Runnable(){
+
+						@Override
+						public void run() {
+
+							UserDetailsImpl sid = null;
+							try{
+								sid = (UserDetailsImpl) userDetailsService.loadUserByUsername(user);
+							} catch (Exception e){
+								logger.error("User not found, creating an account");
+							}
+
+							if(sid != null){
+
+								String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
+								String salt = UUID.randomUUID().toString().toUpperCase();
+
+								if(UserDAOImpl.setPassword(user, password, salt,"Y")){
+									/*if(TTTAUsersDAO.getPassword(user).size() > 0){
+										TTTAUsersDAO.setPassword(user, password);
+									}*/
+								}
+
+							}else{
+								//create new password send a password
+								String password = RandomStringUtils.randomAlphanumeric(IMIServicesConstants.MAX_RANDOM_PASSWORD_LENGTH);
+								String salt = UUID.randomUUID().toString().toUpperCase();
+
+								if(UserInfoDAO.addUser(user, "", password, salt)){
+									//send email to Parts Manager
+									/*if(TTTAUsersDAO.getPassword(user).size() > 0){
+										TTTAUsersDAO.setPassword(user, password);
+									}*/
+									sid = (UserDetailsImpl) userDetailsService.loadUserByUsername(user);
+								}
+							}
+
+						}
+
+					}).start();
+				}
+			}
+		});
+
+		mainLoop.start();
+
+	}
 
 
 

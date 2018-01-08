@@ -60,18 +60,47 @@ public class DealerInfoDAOImpl implements DealerInfoDAO {
 	public String getDealerSize(String dealerCode){
 		String result = "";
 		try {
-			final Query query = this.em.createNativeQuery("Select BillingSizeCode from DealerInfo where dealerCode = ?0 TerminatedDate is null  and LEN(BillingSizeCode) > 0");
+			final Query query = this.em.createNativeQuery("Select BillingSizeCode from DealerInfo where dealerCode = ?0 and TerminatedDate is null  and LEN(BillingSizeCode) > 0");
 			query.setParameter(0, dealerCode);
 			List<String> qresult = (List<String>) query.getResultList();
 			
 			if(qresult.size() > 0){
 				result = qresult.get(0);
 			}
-			
-		} catch (final NoResultException ex) {
-			logger.info("result in else " + result);
 		} catch (final Exception ex) {
 			logger.error("error occured in getDealerSize", ex);
+		}
+		return result;
+	}
+
+
+	@Override
+	public boolean isValidDealer(String dealerCode) {
+		boolean result = false;
+		try {
+			final Query query = this.em.createNativeQuery(GET_DEALERSHIP_NAME);
+			query.setParameter(0, dealerCode);
+			result = query.getResultList().size() > 0;
+		}catch (final Exception ex) {
+			logger.error("error occured in isValidDealer", ex);
+		}
+		return result;
+	}
+
+
+	@Override
+	public String getDealerDistrict(String dealerCode) {
+		String result = "";
+		try {
+			final Query query = this.em.createNativeQuery("Select Parent from Hierarchy where child = ?0 and Status = 'A' and ProgramId = 1");
+			query.setParameter(0, dealerCode);
+			List<String> qresult = (List<String>) query.getResultList();
+			
+			if(qresult.size() > 0){
+				result = qresult.get(0);
+			}
+		} catch (final Exception ex) {
+			logger.error("error occured in getDealerDistrict", ex);
 		}
 		return result;
 	}

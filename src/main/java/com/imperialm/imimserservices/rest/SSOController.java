@@ -115,21 +115,21 @@ public class SSOController {
 			List<UserPositionCodeRoleDTO> userCodes = new ArrayList<UserPositionCodeRoleDTO>();
 
 			if ((dealerCode != null && !dealerCode.isEmpty()) && (positionCode != null && !positionCode.isEmpty())) {
-				return new RedirectView("/?token=" + token + "&dc=" + dealerCode + "&pc=" + positionCode, true);
+				return new RedirectView("/#/?token=" + token + "&dc=" + dealerCode + "&pc=" + positionCode + "&origin=dealerconnect", true);
 			} else if ((dealerCode != null && !dealerCode.isEmpty()) && (positionCode == null || positionCode.isEmpty())) {
 				userCodes = userPositionCodeRoleDAO.getDealerCodePCRoleBySid(user.getUserId());
 
 				if(userCodes.size() > 0){
-					return new RedirectView("/?token=" + token + "&dc=" + dealerCode + "&pc=" + userCodes.get(0).getPositionCode() , true);
+					return new RedirectView("/#/?token=" + token + "&dc=" + dealerCode + "&pc=" + userCodes.get(0).getPositionCode() + "&origin=dealerconnect", true);
 				}else if(userCodes.size() == 0){
 					List<String> territoryCheck = this.userPositionCodeRoleDAO.getUserTerritoyById(user.getUserId());
 					if(territoryCheck.size() > 0){
 						if(territoryCheck.get(0).equalsIgnoreCase("nat")){
-							return new RedirectView("/?token=" + token + "&dc=" + dealerCode + "&pc=" + "90" , true);
+							return new RedirectView("/#/?token=" + token + "&dc=" + dealerCode + "&pc=" + "90" + "&origin=dealerconnect" , true);
 						}else if(territoryCheck.get(0).contains("-")){
-							return new RedirectView("/?token=" + token + "&dc=" + dealerCode + "&pc=" + "97" , true);
+							return new RedirectView("/#/?token=" + token + "&dc=" + dealerCode + "&pc=" + "97" + "&origin=dealerconnect", true);
 						}else if(territoryCheck.get(0).length() == 2){
-							return new RedirectView("/?token=" + token + "&dc=" + dealerCode + "&pc=" + "8D" , true);
+							return new RedirectView("/#/?token=" + token + "&dc=" + dealerCode + "&pc=" + "8D" + "&origin=dealerconnect", true);
 						}/*else{
                  			positionCode.add("01");
                  			dealerCode.add(user.getUserId());
@@ -143,20 +143,20 @@ public class SSOController {
 
 				userCodes = userPositionCodeRoleDAO.getDealerCodePCRoleBySid(user.getUserId());
 				if(userCodes.size() > 0){
-					return new RedirectView("/?token=" + token + "&dc=" + userCodes.get(0).getDealerCode() + "&pc=" + positionCode , true);
+					return new RedirectView("/#/?token=" + token + "&dc=" + userCodes.get(0).getDealerCode() + "&pc=" + positionCode + "&origin=dealerconnect", true);
 				}
 
-				return new RedirectView("/?token=" + token + "&dc=0" + "&pc=" + positionCode, true);
+				return new RedirectView("/#/?token=" + token + "&dc=0" + "&pc=" + positionCode + "&origin=dealerconnect", true);
 			} else {
 				userCodes = userPositionCodeRoleDAO.getDealerCodePCRoleBySid(user.getUserId());
 
 				if(userCodes.size() == 0){
 					List<TIDUsersDTO> tids = TIDUsersDAO.getTIDUsersByTID(user.getUserId());
 					if(tids.size() > 0){
-						return new RedirectView("/?token=" + token + "&dc=" + tids.get(0).getTerritory() + "&pc=" + tids.get(0).getPositionCode(), true);
+						return new RedirectView("/#/?token=" + token + "&dc=" + tids.get(0).getTerritory() + "&pc=" + tids.get(0).getPositionCode() + "&origin=dealerconnect", true);
 					}
 				}else if(userCodes.size() > 0){
-					return new RedirectView("/?token=" + token + "&dc=" + userCodes.get(0).getDealerCode() + "&pc=" + userCodes.get(0).getPositionCode() , true);
+					return new RedirectView("/#/?token=" + token + "&dc=" + userCodes.get(0).getDealerCode() + "&pc=" + userCodes.get(0).getPositionCode() + "&origin=dealerconnect", true);
 				}
 				return ResponseEntity.badRequest().body("Failed in getting position code or dealer code");
 			}

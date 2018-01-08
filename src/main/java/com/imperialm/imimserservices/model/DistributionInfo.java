@@ -11,6 +11,10 @@ import lombok.Setter;
 
 @Entity @Getter @Setter
 public class DistributionInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1434178997185870242L;
 	@Id private String InvoiceNumber;
 	@Id private Date InvoiceDate;
 	@Id private Double RewardAmount;

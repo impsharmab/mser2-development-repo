@@ -11,6 +11,10 @@ import lombok.Setter;
 @Entity @Getter @Setter
 public class DealerPersonnelPositionsDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8346137841964608957L;
 	@Id private String code;
 	@Id private String name;
 	@Id private String role;
@@ -18,4 +22,5 @@ public class DealerPersonnelPositionsDTO implements Serializable {
 	@Id private boolean isSecondary;
 	@Id private String delFlag;
 	@Id private String roleID;
+	@Id private String InternalPosition;
 }

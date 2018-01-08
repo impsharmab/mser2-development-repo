@@ -22,6 +22,8 @@ public interface MyfcaMSERTotalEarningsDAO {
 	public static String SELECT_BY_PARENT_TERRITORY_AND_TOGGLE_AND_PROGRAM_SUM = "SELECT [Parent] 'parent', [Parent] 'child', [Program] 'program', ?1 'toggle', SUM([Amount]) 'amount', '' as error FROM [MyfcaMSERTotalEarnings] where Parent LIKE ?0 AND toggle LIKE ?1 AND Program like ?2 GROUP BY [Parent], [Program] order by parent, child";
 	
 	public static String SELECT_NUMBER_OF_DEALERS_ENROLLED_BY_BC_DISTRICT_AND_TOGGLE = "SELECT [CHILD] FROM [MyfcaMSERTotalEarnings] INNER JOIN MyfcaMSERTotalEarningsDetails on Child = DealerCode where Parent like ?0 and toggle = ?1 and DealersEnrolled > 0 group by [Child]";
+	
+	
 	public List<MyfcaMSERTotalEarningsDTO> getBCEarnings(boolean filter);
 	public List<MyfcaMSERTotalEarningsDTO>  getAllDistricData(List<String> list);
 	

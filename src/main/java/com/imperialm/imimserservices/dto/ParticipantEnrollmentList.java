@@ -17,4 +17,5 @@ public class ParticipantEnrollmentList implements Serializable {
 	@Id private String SID;
 	@Id private String DealerCode;
 	@Id private String PositionCode;
+	private String OriginalPostionCode;
 }

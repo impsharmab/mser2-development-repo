@@ -26,7 +26,7 @@ public class UserProgramRolesDAOImpl implements UserProgramRolesDAO {
 	public List<String> getUserRoleById(String userId) {
 		List<String> result = new ArrayList<String>();
 		try {
-			final Query query = this.em.createNativeQuery("select RoleID from UserProgramRoles where UserId = 't0019pn' and ProgramID = 1 and DelFlag = 'N'");
+			final Query query = this.em.createNativeQuery("select RoleID from UserProgramRoles where UserId = ?0 and ProgramID = 1 and DelFlag = 'N'");
 			query.setParameter(0, userId);
 			List<String> rows = (List<String>) query.getResultList();
 			result = rows;
@@ -52,7 +52,7 @@ public class UserProgramRolesDAOImpl implements UserProgramRolesDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	@Cacheable("checkIfAdmin")
+	//@Cacheable("checkIfAdmin")
 	public boolean isAdmin(String userId) {
 		List<String> result = new ArrayList<String>();
 		try {
@@ -66,6 +66,30 @@ public class UserProgramRolesDAOImpl implements UserProgramRolesDAO {
 			logger.info("result in else " + result);
 		} catch (final Exception ex) {
 			logger.error("error occured in isAdmin", ex);
+		}
+		if(result.size() > 0){
+			return true;
+		}
+		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	//@Cacheable("checkIfAdmin")
+	public boolean isHalfAdmin(String userId) {
+		List<String> result = new ArrayList<String>();
+		try {
+			final Query query = this.em.createNativeQuery(CHECK_IF_ADMIN);
+			query.setParameter(0, userId);
+			query.setParameter(1, 1);
+			//change this to CS role ID
+			query.setParameter(2, 20);
+			List<String> rows = (List<String>) query.getResultList();
+			result = rows;
+		} catch (final NoResultException ex) {
+			logger.info("result in else " + result);
+		} catch (final Exception ex) {
+			logger.error("error occured in isHalfAdmin", ex);
 		}
 		if(result.size() > 0){
 			return true;

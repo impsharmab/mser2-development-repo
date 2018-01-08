@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -43,8 +44,12 @@ public class DealerPersonnelDTO implements Serializable {
 
 		if (object != null && object instanceof DealerPersonnelDTO)
 		{
-			if(this.SID == ((DealerPersonnelDTO) object).SID  
+			/*if(this.SID == ((DealerPersonnelDTO) object).SID  
 					&& this.PositionCode == ((DealerPersonnelDTO) object).PositionCode 
+					&& this.DealerCode == ((DealerPersonnelDTO) object).DealerCode){
+				sameSame = true;
+			}*/
+			if(this.SID == ((DealerPersonnelDTO) object).SID  
 					&& this.DealerCode == ((DealerPersonnelDTO) object).DealerCode){
 				sameSame = true;
 			}

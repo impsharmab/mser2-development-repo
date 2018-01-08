@@ -10,6 +10,10 @@ import lombok.Setter;
 
 @Entity @Setter @Getter
 public class TwoStringItems implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -695995716918121675L;
 	public TwoStringItems(){
 		
 	}

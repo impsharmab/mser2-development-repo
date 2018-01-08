@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.imperialm.imimserservices.dto.ProgramGroupEnrollmentsDTO;
+import com.imperialm.imimserservices.dto.UserDetailsImpl;
+import java.util.Date;
 
 @Repository
 public class ProgramGroupEnrollmentsDAOImpl implements ProgramGroupEnrollmentsDAO  {
@@ -28,7 +30,7 @@ public class ProgramGroupEnrollmentsDAOImpl implements ProgramGroupEnrollmentsDA
 	public List<ProgramGroupEnrollmentsDTO> getProgramGroupEnrollmentsByDealerCode(String dealerCode) {
 		List<ProgramGroupEnrollmentsDTO> result = new ArrayList<ProgramGroupEnrollmentsDTO>();
 		try {
-			final Query query = this.em.createNativeQuery(GET_ENROLLMENT_BY_SID, ProgramGroupEnrollmentsDTO.class);
+			final Query query = this.em.createNativeQuery(GET_ENROLLMENT_BY_CODE_BASEPROGRAM, ProgramGroupEnrollmentsDTO.class);
 			query.setParameter(0, dealerCode);
 			result = query.getResultList();
 		} catch (final Exception ex) {
@@ -40,23 +42,22 @@ public class ProgramGroupEnrollmentsDAOImpl implements ProgramGroupEnrollmentsDA
 	
 	@Override
 	@Transactional
-	public boolean enrollDealership(String dealerCode, int programId){
+	public boolean enrollDealership(String dealerCode, int programId, String user){
 		boolean result = false;
 		try {
 			final Query query = this.em.createNativeQuery(
-					//"IF EXISTS (SELECT * FROM [ProgramGroupEnrollments] WHERE [DealerCode] = ?0 and [ProgramGroupID] = (?1) )"
-					"update ProgramGroupEnrollments set Status = 'E' , DelFlag = 'N', UpdateDate = GetDate(), UpdatedBy = 'SYSTEM' where ProgramGroupID = (?1) and DealerCode = ?0"
-					//+ " ELSE"
-					//+ " INSERT INTO [ProgramGroupEnrollments] ([ProgramGroupID],[DealerCode],[Status],[defaultApproval],[CreatedDate],[CreatedBy],[UpdateDate],[UpdatedBy],[DelFlag]) values (?0, ?1, 'E', 'SYSTEM', GetDate(), 'N', 'SYSTEM', GetDate())"
+					"IF EXISTS (SELECT * FROM [ProgramGroupEnrollments] WHERE [DealerCode] = ?0 and [ProgramGroupID] = (?1) )"
+					+ " update ProgramGroupEnrollments set Status = 'E' , DelFlag = 'N', UpdateDate = GetDate(), UpdatedBy = ?2 where ProgramGroupID = (?1) and DealerCode = ?0"
+					+ " ELSE"
+					+ " INSERT INTO [ProgramGroupEnrollments] ([ProgramGroupID],[DealerCode],[Status],[defaultApproval],[CreatedDate],[CreatedBy],[UpdateDate],[UpdatedBy],[DelFlag]) values ((?1), ?0, 'E','N', GetDate(), ?2 , GetDate(), ?2 , 'N')"
 					);
 			query.setParameter(0, dealerCode);
 			query.setParameter(1, programId);
+			query.setParameter(2, user);
 
 			if(query.executeUpdate() > 0){
 				result = true;
 			}
-		} catch (final NoResultException ex) {
-			logger.info("result in else " + result);
 		} catch (Exception ex) {
 				logger.error("error occured in enrollDealership", ex);
 		}
@@ -105,16 +106,18 @@ public class ProgramGroupEnrollmentsDAOImpl implements ProgramGroupEnrollmentsDA
 	
 	@Override
 	@Transactional
-	public boolean setAutoApprovalMVP(String dealerCode, boolean enroll){
+	public boolean setAutoApprovalMVP(String dealerCode, boolean enroll, String user){
 		boolean result = false;
 		try{
-			final Query query = this.em.createNativeQuery("update ProgramGroupEnrollments set defaultApproval = ?0 , DelFlag = 'N' where ProgramGroupID = 5 and DealerCode = ?1");
+			final Query query = this.em.createNativeQuery("update ProgramGroupEnrollments set defaultApproval = ?0 , UpdatedBy = ?2, UpdateDate = GetDate() , DelFlag = 'N' where ProgramGroupID = 5 and DealerCode = ?1");
 			if(enroll){
 				query.setParameter(0, "Y");
 			}else{
 				query.setParameter(0, "N");
 			}
 			query.setParameter(1, dealerCode);
+			query.setParameter(2, user);
+			
 			if(query.executeUpdate() > 0){
 				result = true;
 			}
@@ -124,5 +127,44 @@ public class ProgramGroupEnrollmentsDAOImpl implements ProgramGroupEnrollmentsDA
 		return result;
 	}
 	
+        @Override
+        @Transactional
+        public boolean updateEnrollmentDate(ProgramGroupEnrollmentsDTO enrollment) {
+            boolean result = false;
+            try{
+                    final Query query = this.em.createNativeQuery("update ProgramGroupEnrollments set UpdateDate = ?0, UpdatedBy = ?1 where ProgramGroupID NOT IN (1, 6, 15) AND DealerCode = ?2");   // 1, 6 and 15 are not base programs
+                    query.setParameter(0, enrollment.getUpdateDate());
+                    query.setParameter(1, enrollment.getUpdatedBy());
+                    query.setParameter(2, enrollment.getDealerCode());
 
+                    if(query.executeUpdate() > 0){
+                        result = true;
+                    }
+            }catch (Exception e) {
+                    logger.error("error occured in updateEnrollmentDate", e);
+            }
+            return result;
+        }
+        
+        @Override
+        @Transactional       
+        public boolean disEnroll(String dealerCode, String updatedBy) {
+            boolean result = false;
+            try{
+                Date todayDate = new Date();
+                
+                final Query query = this.em.createNativeQuery("update ProgramGroupEnrollments set Status = ?0, UpdatedBy = ?1, UpdateDate = ?2 where DealerCode = ?3");   // 1, 6 and 15 are not base programs
+                    query.setParameter(0, "N");
+                    query.setParameter(1, updatedBy);
+                    query.setParameter(2, todayDate);
+                    query.setParameter(3, dealerCode);
+
+                if(query.executeUpdate() > 0){
+                    result = true;
+                }
+            }catch (Exception e) {
+                    logger.error("error occured in dis-Enroll", e);
+            }
+            return result;
+        }
 }

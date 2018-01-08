@@ -18,4 +18,5 @@ public class MSERRegistrationForm {
 	private boolean enrollUsedRecon;
 	private boolean enrollExpressLane;
 	private boolean mvpAuto;
+	private String extension;
 }
